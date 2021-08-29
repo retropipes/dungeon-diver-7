@@ -3,6 +3,20 @@
 	<name>DungeonDiver7</name>
 	<comment></comment>
 	<projects>
+		<project>AvatarConstructionKit</project>
+		<project>diane-game-engine</project>
+		<project>lib-audio-ogg</project>
+		<project>lib-audio-wav</project>
+		<project>lib-file-utils</project>
+		<project>lib-help</project>
+		<project>lib-images</project>
+		<project>lib-integration</project>
+		<project>lib-polynomial-table</project>
+		<project>lib-random-range</project>
+		<project>lib-storage</project>
+		<project>lib-xio</project>
+		<project>Updater</project>
+		<project>vorbis-support</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
