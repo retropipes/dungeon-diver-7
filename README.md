@@ -1,2 +1,2 @@
-# dungeon-diver-7
- Dungeon Diver 7
+# Dungeon Diver 7
+ 7th game in the Dungeon Diver series
