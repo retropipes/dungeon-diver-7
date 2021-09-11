@@ -10,6 +10,7 @@ module com.puttysoftware.dungeondiver7 {
 	requires com.puttysoftware.help;
 	requires com.puttysoftware.images;
 	requires com.puttysoftware.integration;
+	requires com.puttysoftware.picturepicker;
 	requires com.puttysoftware.polytable;
 	requires com.puttysoftware.randomrange;
 	requires com.puttysoftware.storage;
