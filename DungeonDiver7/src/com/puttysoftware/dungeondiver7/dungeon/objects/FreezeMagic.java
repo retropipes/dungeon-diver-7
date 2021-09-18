@@ -10,16 +10,16 @@ import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractSpell;
 import com.puttysoftware.dungeondiver7.loaders.SoundConstants;
 import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
 
-public class FreezeSpell extends AbstractSpell {
+public class FreezeMagic extends AbstractSpell {
 	// Constructors
-	public FreezeSpell() {
+	public FreezeMagic() {
 		super();
 	}
 
 	// Scriptability
 	@Override
 	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		SoundLoader.playSound(SoundConstants.SOUND_FREEZE_SPELL);
+		SoundLoader.playSound(SoundConstants.SOUND_FREEZE_MAGIC);
 		DungeonDiver7.getApplication().getDungeonManager().getDungeon().fullScanFreezeGround();
 		DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
 	}

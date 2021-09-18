@@ -10,16 +10,16 @@ import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractSpell;
 import com.puttysoftware.dungeondiver7.loaders.SoundConstants;
 import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
 
-public class KillSpell extends AbstractSpell {
+public class KillSkull extends AbstractSpell {
 	// Constructors
-	public KillSpell() {
+	public KillSkull() {
 		super();
 	}
 
 	// Scriptability
 	@Override
 	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		SoundLoader.playSound(SoundConstants.SOUND_KILL_SPELL);
+		SoundLoader.playSound(SoundConstants.SOUND_KILL_SKULL);
 		DungeonDiver7.getApplication().getDungeonManager().getDungeon().fullScanKillTanks();
 		DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
 	}

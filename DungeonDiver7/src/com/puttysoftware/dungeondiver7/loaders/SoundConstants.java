@@ -55,8 +55,8 @@ public class SoundConstants {
 	public static final int SOUND_DISCOVER = 45;
 	public static final int SOUND_POWERFUL = 46;
 	public static final int SOUND_POWER_LASER = 47;
-	public static final int SOUND_FREEZE_SPELL = 48;
-	public static final int SOUND_KILL_SPELL = 49;
+	public static final int SOUND_FREEZE_MAGIC = 48;
+	public static final int SOUND_KILL_SKULL = 49;
 	public static final int SOUND_CONTROL = 50;
 	public static final int SOUND_ERA_CHANGE = 51;
 	public static final int SOUND_ERAS_ENABLED = 52;

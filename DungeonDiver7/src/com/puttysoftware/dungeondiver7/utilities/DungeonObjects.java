@@ -47,7 +47,7 @@ public class DungeonObjects {
 			new WoodenTriggerButton(), new WoodenTriggerButtonDoor(), new BoxMover(), new JumpBox(),
 			new ReverseJumpBox(), new MirrorMover(), new HotCrystalBlock(), new IcyCrystalBlock(), new Cracked(),
 			new Crumbling(), new Damaged(), new Weakened(), new Cloak(), new Darkness(), new PowerBolt(),
-			new RollingBarrelHorizontal(), new RollingBarrelVertical(), new FreezeSpell(), new KillSpell(),
+			new RollingBarrelHorizontal(), new RollingBarrelVertical(), new FreezeMagic(), new KillSkull(),
 			new ArrowBelt() };
 
 	public String[] getAllDescriptions() {
