@@ -8,34 +8,34 @@ package com.puttysoftware.dungeondiver7.dungeon.abstractobjects;
 import com.puttysoftware.dungeondiver7.utilities.Direction;
 
 public abstract class AbstractReactionPassThroughObject extends AbstractPassThroughObject {
-	// Constructors
-	protected AbstractReactionPassThroughObject() {
-		super();
+    // Constructors
+    protected AbstractReactionPassThroughObject() {
+	super();
+    }
+
+    @Override
+    public final Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX,
+	    final int dirY, final int laserType, final int forceUnits) {
+	if (forceUnits >= this.getMinimumReactionForce()) {
+	    return this.laserEnteredActionHook(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
+	} else {
+	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
+    }
 
-	@Override
-	public final Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX,
-			final int dirY, final int laserType, final int forceUnits) {
-		if (forceUnits >= this.getMinimumReactionForce()) {
-			return this.laserEnteredActionHook(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-		} else {
-			return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-		}
+    @Override
+    public final boolean rangeAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+	    final int rangeType, final int forceUnits) {
+	if (forceUnits >= this.getMinimumReactionForce()) {
+	    return this.rangeActionHook(locX, locY, locZ, dirX, dirY, rangeType, forceUnits);
+	} else {
+	    return super.rangeAction(locX, locY, locZ, dirX, dirY, rangeType, forceUnits);
 	}
+    }
 
-	@Override
-	public final boolean rangeAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-			final int rangeType, final int forceUnits) {
-		if (forceUnits >= this.getMinimumReactionForce()) {
-			return this.rangeActionHook(locX, locY, locZ, dirX, dirY, rangeType, forceUnits);
-		} else {
-			return super.rangeAction(locX, locY, locZ, dirX, dirY, rangeType, forceUnits);
-		}
-	}
+    public abstract Direction laserEnteredActionHook(int locX, int locY, int locZ, int dirX, int dirY, int laserType,
+	    int forceUnits);
 
-	public abstract Direction laserEnteredActionHook(int locX, int locY, int locZ, int dirX, int dirY, int laserType,
-			int forceUnits);
-
-	public abstract boolean rangeActionHook(int locX, int locY, int locZ, int dirX, int dirY, int laserType,
-			int forceUnits);
+    public abstract boolean rangeActionHook(int locX, int locY, int locZ, int dirX, int dirY, int laserType,
+	    int forceUnits);
 }

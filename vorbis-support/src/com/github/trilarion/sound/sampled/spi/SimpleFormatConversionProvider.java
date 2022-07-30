@@ -42,16 +42,13 @@ import com.github.trilarion.sound.sampled.AudioFormats;
 // format lists
 // - consistent implementation of replacing NOT_SPECIFIED when not given in
 // conversion
-public abstract class SimpleFormatConversionProvider
-        extends TFormatConversionProvider {
-    private static final Logger LOG = Logger
-            .getLogger(SimpleFormatConversionProvider.class.getName());
+public abstract class SimpleFormatConversionProvider extends TFormatConversionProvider {
+    private static final Logger LOG = Logger.getLogger(SimpleFormatConversionProvider.class.getName());
 
-    private static void collectEncodings(Collection<AudioFormat> formats,
-            Collection<AudioFormat.Encoding> encodings) {
-        for (AudioFormat format : formats) {
-            encodings.add(format.getEncoding());
-        }
+    private static void collectEncodings(Collection<AudioFormat> formats, Collection<AudioFormat.Encoding> encodings) {
+	for (AudioFormat format : formats) {
+	    encodings.add(format.getEncoding());
+	}
     }
 
     private final Collection<AudioFormat.Encoding> m_sourceEncodings;
@@ -64,81 +61,77 @@ public abstract class SimpleFormatConversionProvider
      * @param sourceFormats
      * @param targetFormats
      */
-    protected SimpleFormatConversionProvider(
-            Collection<AudioFormat> sourceFormats,
-            Collection<AudioFormat> targetFormats) {
-        m_sourceEncodings = new ArrayList<>();
-        m_targetEncodings = new ArrayList<>();
-        if (sourceFormats == null) {
-            sourceFormats = new ArrayList<>();
-        }
-        if (targetFormats == null) {
-            targetFormats = new ArrayList<>();
-        }
-        m_sourceFormats = sourceFormats;
-        m_targetFormats = targetFormats;
-        collectEncodings(m_sourceFormats, m_sourceEncodings);
-        collectEncodings(m_targetFormats, m_targetEncodings);
+    protected SimpleFormatConversionProvider(Collection<AudioFormat> sourceFormats,
+	    Collection<AudioFormat> targetFormats) {
+	m_sourceEncodings = new ArrayList<>();
+	m_targetEncodings = new ArrayList<>();
+	if (sourceFormats == null) {
+	    sourceFormats = new ArrayList<>();
+	}
+	if (targetFormats == null) {
+	    targetFormats = new ArrayList<>();
+	}
+	m_sourceFormats = sourceFormats;
+	m_targetFormats = targetFormats;
+	collectEncodings(m_sourceFormats, m_sourceEncodings);
+	collectEncodings(m_targetFormats, m_targetEncodings);
     }
 
     @Override
     public AudioFormat.Encoding[] getSourceEncodings() {
-        return m_sourceEncodings.toArray(EMPTY_ENCODING_ARRAY);
+	return m_sourceEncodings.toArray(EMPTY_ENCODING_ARRAY);
     }
 
     @Override
     public AudioFormat.Encoding[] getTargetEncodings() {
-        return m_targetEncodings.toArray(EMPTY_ENCODING_ARRAY);
+	return m_targetEncodings.toArray(EMPTY_ENCODING_ARRAY);
     }
 
     // overwritten of FormatConversionProvider
     @Override
-    public boolean isSourceEncodingSupported(
-            AudioFormat.Encoding sourceEncoding) {
-        return m_sourceEncodings.contains(sourceEncoding);
+    public boolean isSourceEncodingSupported(AudioFormat.Encoding sourceEncoding) {
+	return m_sourceEncodings.contains(sourceEncoding);
     }
 
     // overwritten of FormatConversionProvider
     @Override
-    public boolean isTargetEncodingSupported(
-            AudioFormat.Encoding targetEncoding) {
-        return m_targetEncodings.contains(targetEncoding);
+    public boolean isTargetEncodingSupported(AudioFormat.Encoding targetEncoding) {
+	return m_targetEncodings.contains(targetEncoding);
     }
 
     /**
-     * This implementation assumes that the converter can convert from each of
-     * its source encodings to each of its target encodings. If this is not the
-     * case, the converter has to override this method.
+     * This implementation assumes that the converter can convert from each of its
+     * source encodings to each of its target encodings. If this is not the case,
+     * the converter has to override this method.
      *
      * @param sourceFormat
      * @return
      */
     @Override
     public AudioFormat.Encoding[] getTargetEncodings(AudioFormat sourceFormat) {
-        if (isAllowedSourceFormat(sourceFormat)) {
-            return getTargetEncodings();
-        } else {
-            return EMPTY_ENCODING_ARRAY;
-        }
+	if (isAllowedSourceFormat(sourceFormat)) {
+	    return getTargetEncodings();
+	} else {
+	    return EMPTY_ENCODING_ARRAY;
+	}
     }
 
     /**
-     * This implementation assumes that the converter can convert from each of
-     * its source formats to each of its target formats. If this is not the
-     * case, the converter has to override this method.
+     * This implementation assumes that the converter can convert from each of its
+     * source formats to each of its target formats. If this is not the case, the
+     * converter has to override this method.
      *
      * @param targetEncoding
      * @param sourceFormat
      * @return
      */
     @Override
-    public AudioFormat[] getTargetFormats(AudioFormat.Encoding targetEncoding,
-            AudioFormat sourceFormat) {
-        if (isConversionSupported(targetEncoding, sourceFormat)) {
-            return m_targetFormats.toArray(EMPTY_FORMAT_ARRAY);
-        } else {
-            return EMPTY_FORMAT_ARRAY;
-        }
+    public AudioFormat[] getTargetFormats(AudioFormat.Encoding targetEncoding, AudioFormat sourceFormat) {
+	if (isConversionSupported(targetEncoding, sourceFormat)) {
+	    return m_targetFormats.toArray(EMPTY_FORMAT_ARRAY);
+	} else {
+	    return EMPTY_FORMAT_ARRAY;
+	}
     }
 
     /**
@@ -147,11 +140,11 @@ public abstract class SimpleFormatConversionProvider
      * @return
      */
     protected boolean isAllowedSourceFormat(AudioFormat sourceFormat) {
-        for (AudioFormat format : m_sourceFormats) {
-            if (AudioFormats.matches(format, sourceFormat)) {
-                return true;
-            }
-        }
-        return false;
+	for (AudioFormat format : m_sourceFormats) {
+	    if (AudioFormats.matches(format, sourceFormat)) {
+		return true;
+	    }
+	}
+	return false;
     }
 }

@@ -8,15 +8,15 @@ package com.puttysoftware.dungeondiver7;
 import javax.swing.KeyStroke;
 
 public abstract class Accelerators {
-	public KeyStroke fileNewAccel, fileOpenAccel, fileCloseAccel, fileSaveAccel, fileSaveAsAccel, filePreferencesAccel,
-			filePrintAccel, fileExitAccel;
-	public KeyStroke playPlayDungeonAccel, playEditDungeonAccel;
-	public KeyStroke gameResetAccel, gameShowTableAccel;
-	public KeyStroke editorUndoAccel, editorRedoAccel, editorCutLevelAccel, editorCopyLevelAccel, editorPasteLevelAccel,
-			editorInsertLevelFromClipboardAccel, editorClearHistoryAccel, editorGoToLocationAccel,
-			editorUpOneLevelAccel, editorDownOneLevelAccel;
+    public KeyStroke fileNewAccel, fileOpenAccel, fileCloseAccel, fileSaveAccel, fileSaveAsAccel, filePreferencesAccel,
+	    filePrintAccel, fileExitAccel;
+    public KeyStroke playPlayDungeonAccel, playEditDungeonAccel;
+    public KeyStroke gameResetAccel, gameShowTableAccel;
+    public KeyStroke editorUndoAccel, editorRedoAccel, editorCutLevelAccel, editorCopyLevelAccel, editorPasteLevelAccel,
+	    editorInsertLevelFromClipboardAccel, editorClearHistoryAccel, editorGoToLocationAccel,
+	    editorUpOneLevelAccel, editorDownOneLevelAccel;
 
-	Accelerators() {
-		// Do nothing
-	}
+    Accelerators() {
+	// Do nothing
+    }
 }

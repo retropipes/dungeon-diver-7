@@ -9,14 +9,14 @@ import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractTriggerBu
 import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
 
 public class MagneticTriggerButtonDoor extends AbstractTriggerButtonDoor {
-	// Constructors
-	public MagneticTriggerButtonDoor() {
-		super();
-		this.setMaterial(MaterialConstants.MATERIAL_MAGNETIC);
-	}
+    // Constructors
+    public MagneticTriggerButtonDoor() {
+	super();
+	this.setMaterial(MaterialConstants.MATERIAL_MAGNETIC);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 91;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 91;
+    }
 }

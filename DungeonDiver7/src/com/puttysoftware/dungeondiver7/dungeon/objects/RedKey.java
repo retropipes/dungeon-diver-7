@@ -12,21 +12,21 @@ import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
 import com.puttysoftware.dungeondiver7.utilities.PartyInventory;
 
 public class RedKey extends AbstractKey {
-	// Constructors
-	public RedKey() {
-		super();
-	}
+    // Constructors
+    public RedKey() {
+	super();
+    }
 
-	// Scriptability
-	@Override
-	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		SoundLoader.playSound(SoundConstants.SOUND_GRAB);
-		PartyInventory.addOneRedKey();
-		DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-	}
+    // Scriptability
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	SoundLoader.playSound(SoundConstants.SOUND_GRAB);
+	PartyInventory.addOneRedKey();
+	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 29;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 29;
+    }
 }

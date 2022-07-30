@@ -8,17 +8,17 @@ package com.puttysoftware.dungeondiver7.dungeon.abstractobjects;
 import com.puttysoftware.dungeondiver7.utilities.DungeonConstants;
 
 public abstract class AbstractMover extends AbstractGround {
-	// Constructors
-	protected AbstractMover() {
-		super();
-	}
+    // Constructors
+    protected AbstractMover() {
+	super();
+    }
 
-	protected AbstractMover(final boolean hasFriction) {
-		super(hasFriction);
-	}
+    protected AbstractMover(final boolean hasFriction) {
+	super(hasFriction);
+    }
 
-	@Override
-	public int getLayer() {
-		return DungeonConstants.LAYER_UPPER_GROUND;
-	}
+    @Override
+    public int getLayer() {
+	return DungeonConstants.LAYER_UPPER_GROUND;
+    }
 }

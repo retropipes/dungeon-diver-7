@@ -9,14 +9,14 @@ import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractTriggerBu
 import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
 
 public class UniversalTriggerButton extends AbstractTriggerButton {
-	// Constructors
-	public UniversalTriggerButton() {
-		super(new UniversalTriggerButtonDoor(), true);
-		this.setMaterial(MaterialConstants.MATERIAL_DEFAULT);
-	}
+    // Constructors
+    public UniversalTriggerButton() {
+	super(new UniversalTriggerButtonDoor(), true);
+	this.setMaterial(MaterialConstants.MATERIAL_DEFAULT);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 114;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 114;
+    }
 }

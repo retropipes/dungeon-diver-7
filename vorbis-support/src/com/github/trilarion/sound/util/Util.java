@@ -31,12 +31,12 @@ public final class Util {
      * @return
      */
     public static int ilog(int v) {
-        int ret = 0;
-        while (v != 0) {
-            ret++;
-            v >>>= 1;
-        }
-        return ret;
+	int ret = 0;
+	while (v != 0) {
+	    ret++;
+	    v >>>= 1;
+	}
+	return ret;
     }
 
     /**
@@ -45,12 +45,12 @@ public final class Util {
      * @return
      */
     public static int ilog2(int v) {
-        int ret = 0;
-        while (v > 1) {
-            ret++;
-            v >>>= 1;
-        }
-        return ret;
+	int ret = 0;
+	while (v > 1) {
+	    ret++;
+	    v >>>= 1;
+	}
+	return ret;
     }
 
     /**
@@ -59,11 +59,11 @@ public final class Util {
      * @return
      */
     public static int icount(int v) {
-        int ret = 0;
-        while (v != 0) {
-            ret += (v & 1);
-            v >>>= 1;
-        }
-        return ret;
+	int ret = 0;
+	while (v != 0) {
+	    ret += (v & 1);
+	    v >>>= 1;
+	}
+	return ret;
     }
 }

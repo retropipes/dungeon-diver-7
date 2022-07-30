@@ -9,14 +9,14 @@ import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractAllButton
 import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
 
 public class WoodenAllButton extends AbstractAllButton {
-	// Constructors
-	public WoodenAllButton() {
-		super(new WoodenAllButtonDoor(), false);
-		this.setMaterial(MaterialConstants.MATERIAL_WOODEN);
-	}
+    // Constructors
+    public WoodenAllButton() {
+	super(new WoodenAllButtonDoor(), false);
+	this.setMaterial(MaterialConstants.MATERIAL_WOODEN);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 116;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 116;
+    }
 }

@@ -6,30 +6,30 @@
 package com.puttysoftware.dungeondiver7.editor;
 
 public class ExternalMusic {
-	// Fields
-	private String name;
-	private String path;
+    // Fields
+    private String name;
+    private String path;
 
-	// Constructor
-	public ExternalMusic() {
-		this.name = "";
-		this.path = "";
-	}
+    // Constructor
+    public ExternalMusic() {
+	this.name = "";
+	this.path = "";
+    }
 
-	// Methods
-	public String getName() {
-		return this.name;
-	}
+    // Methods
+    public String getName() {
+	return this.name;
+    }
 
-	public void setName(final String newName) {
-		this.name = newName;
-	}
+    public void setName(final String newName) {
+	this.name = newName;
+    }
 
-	public String getPath() {
-		return this.path;
-	}
+    public String getPath() {
+	return this.path;
+    }
 
-	public void setPath(final String newPath) {
-		this.path = newPath;
-	}
+    public void setPath(final String newPath) {
+	this.path = newPath;
+    }
 }

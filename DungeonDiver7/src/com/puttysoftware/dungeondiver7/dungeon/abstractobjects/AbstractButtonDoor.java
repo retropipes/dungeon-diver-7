@@ -11,43 +11,43 @@ import com.puttysoftware.dungeondiver7.utilities.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
 
 public abstract class AbstractButtonDoor extends AbstractDungeonObject {
-	// Constructors
-	protected AbstractButtonDoor() {
-		super(true);
-		this.type.set(TypeConstants.TYPE_BUTTON_DOOR);
-	}
+    // Constructors
+    protected AbstractButtonDoor() {
+	super(true);
+	this.type.set(TypeConstants.TYPE_BUTTON_DOOR);
+    }
 
-	@Override
-	public int getLayer() {
-		return DungeonConstants.LAYER_LOWER_OBJECTS;
-	}
+    @Override
+    public int getLayer() {
+	return DungeonConstants.LAYER_LOWER_OBJECTS;
+    }
 
-	@Override
-	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		// Do nothing
-	}
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	// Do nothing
+    }
 
-	@Override
-	public void editorPlaceHook(final int x, final int y, final int z) {
-		final Application app = DungeonDiver7.getApplication();
-		app.getDungeonManager().getDungeon().fullScanButtonBind(x, y, z, this);
-		app.getEditor().redrawEditor();
-	}
+    @Override
+    public void editorPlaceHook(final int x, final int y, final int z) {
+	final Application app = DungeonDiver7.getApplication();
+	app.getDungeonManager().getDungeon().fullScanButtonBind(x, y, z, this);
+	app.getEditor().redrawEditor();
+    }
 
-	@Override
-	public void editorRemoveHook(final int x, final int y, final int z) {
-		final Application app = DungeonDiver7.getApplication();
-		app.getDungeonManager().getDungeon().fullScanFindButtonLostDoor(z, this);
-		app.getEditor().redrawEditor();
-	}
+    @Override
+    public void editorRemoveHook(final int x, final int y, final int z) {
+	final Application app = DungeonDiver7.getApplication();
+	app.getDungeonManager().getDungeon().fullScanFindButtonLostDoor(z, this);
+	app.getEditor().redrawEditor();
+    }
 
-	@Override
-	public int getCustomProperty(final int propID) {
-		return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
-	}
+    @Override
+    public int getCustomProperty(final int propID) {
+	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+    }
 
-	@Override
-	public void setCustomProperty(final int propID, final int value) {
-		// Do nothing
-	}
+    @Override
+    public void setCustomProperty(final int propID, final int value) {
+	// Do nothing
+    }
 }

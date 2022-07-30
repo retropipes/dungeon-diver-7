@@ -13,34 +13,34 @@ import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
 import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
 
 public class Box extends AbstractMovableObject {
-	// Constructors
-	public Box() {
-		super(true);
-		this.type.set(TypeConstants.TYPE_BOX);
-		this.setMaterial(MaterialConstants.MATERIAL_STONE);
-	}
+    // Constructors
+    public Box() {
+	super(true);
+	this.type.set(TypeConstants.TYPE_BOX);
+	this.setMaterial(MaterialConstants.MATERIAL_STONE);
+    }
 
-	@Override
-	public void playSoundHook() {
-		SoundLoader.playSound(SoundConstants.SOUND_PUSH_BOX);
-	}
+    @Override
+    public void playSoundHook() {
+	SoundLoader.playSound(SoundConstants.SOUND_PUSH_BOX);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 7;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 7;
+    }
 
-	@Override
-	public AbstractDungeonObject changesToOnExposure(final int materialID) {
-		switch (materialID) {
-		case MaterialConstants.MATERIAL_ICE:
-			final IcyBox ib = new IcyBox();
-			ib.setPreviousState(this);
-			return ib;
-		case MaterialConstants.MATERIAL_FIRE:
-			return new HotBox();
-		default:
-			return this;
-		}
+    @Override
+    public AbstractDungeonObject changesToOnExposure(final int materialID) {
+	switch (materialID) {
+	case MaterialConstants.MATERIAL_ICE:
+	    final IcyBox ib = new IcyBox();
+	    ib.setPreviousState(this);
+	    return ib;
+	case MaterialConstants.MATERIAL_FIRE:
+	    return new HotBox();
+	default:
+	    return this;
 	}
+    }
 }

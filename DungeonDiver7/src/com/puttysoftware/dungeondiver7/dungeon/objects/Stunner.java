@@ -8,18 +8,18 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractTransientObject;
 
 public class Stunner extends AbstractTransientObject {
-	// Constructors
-	public Stunner() {
-		super();
-	}
+    // Constructors
+    public Stunner() {
+	super();
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 35;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 35;
+    }
 
-	@Override
-	public int getForceUnitsImbued() {
-		return 0;
-	}
+    @Override
+    public int getForceUnitsImbued() {
+	return 0;
+    }
 }

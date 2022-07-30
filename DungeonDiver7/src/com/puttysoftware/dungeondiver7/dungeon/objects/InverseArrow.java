@@ -8,18 +8,18 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractTransientObject;
 
 public class InverseArrow extends AbstractTransientObject {
-	// Constructors
-	public InverseArrow() {
-		super();
-	}
+    // Constructors
+    public InverseArrow() {
+	super();
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 6;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 6;
+    }
 
-	@Override
-	public int getForceUnitsImbued() {
-		return 1;
-	}
+    @Override
+    public int getForceUnitsImbued() {
+	return 1;
+    }
 }

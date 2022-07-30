@@ -8,13 +8,13 @@ package com.puttysoftware.dungeondiver7.dungeon.abstractobjects;
 import com.puttysoftware.dungeondiver7.utilities.ActionConstants;
 
 public abstract class AbstractDisruptedObject extends AbstractPassThroughObject {
-	// Constructors
-	protected AbstractDisruptedObject() {
-		super();
-	}
+    // Constructors
+    protected AbstractDisruptedObject() {
+	super();
+    }
 
-	@Override
-	public boolean acceptTick(final int actionType) {
-		return actionType == ActionConstants.ACTION_MOVE;
-	}
+    @Override
+    public boolean acceptTick(final int actionType) {
+	return actionType == ActionConstants.ACTION_MOVE;
+    }
 }

@@ -6,5 +6,6 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package com.puttysoftware.images.edges;
 
 public enum EdgeType {
-    LINE, CORNER;
+    LINE,
+    CORNER;
 }

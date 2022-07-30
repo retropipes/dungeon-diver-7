@@ -31,7 +31,7 @@ final class DialogView {
 
   // Methods
   void showDialog(final DialogModel model) {
-    this.theFrame.attachAndSave(thePane);
+    this.theFrame.attachAndSave(this.thePane);
     this.theFrame.setTitle(model.getTitle());
     this.theFrame.setSystemIcon(model.getSystemIcon());
     this.theFrame.pack();
@@ -49,7 +49,7 @@ final class DialogView {
     final JLabel miniLabel = new JLabel("", model.getMainImage(), SwingConstants.LEFT);
     miniLabel.setLabelFor(null);
     theOK.setDefaultCapable(true);
-    thePane.setLayout(new BorderLayout());
+    this.thePane.setLayout(new BorderLayout());
     logoPane.setLayout(new FlowLayout());
     logoPane.add(miniLabel);
     textPane.setLayout(new GridLayout(model.getMessageCount(), 1));
@@ -59,9 +59,9 @@ final class DialogView {
     }
     buttonPane.setLayout(new FlowLayout());
     buttonPane.add(theOK);
-    thePane.add(logoPane, BorderLayout.WEST);
-    thePane.add(textPane, BorderLayout.CENTER);
-    thePane.add(buttonPane, BorderLayout.SOUTH);
+    this.thePane.add(logoPane, BorderLayout.WEST);
+    this.thePane.add(textPane, BorderLayout.CENTER);
+    this.thePane.add(buttonPane, BorderLayout.SOUTH);
     theOK.addActionListener(controllerRef.get());
   }
 }

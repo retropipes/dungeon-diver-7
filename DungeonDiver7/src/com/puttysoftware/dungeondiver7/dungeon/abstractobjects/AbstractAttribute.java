@@ -9,14 +9,14 @@ import com.puttysoftware.dungeondiver7.utilities.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
 
 public abstract class AbstractAttribute extends AbstractPassThroughObject {
-	// Constructors
-	protected AbstractAttribute() {
-		super();
-		this.type.set(TypeConstants.TYPE_ATTRIBUTE);
-	}
+    // Constructors
+    protected AbstractAttribute() {
+	super();
+	this.type.set(TypeConstants.TYPE_ATTRIBUTE);
+    }
 
-	@Override
-	public int getLayer() {
-		return DungeonConstants.LAYER_UPPER_OBJECTS;
-	}
+    @Override
+    public int getLayer() {
+	return DungeonConstants.LAYER_UPPER_OBJECTS;
+    }
 }

@@ -4,11 +4,9 @@ package com.puttysoftware.randomrange;
  * Generates random long integers in a range.
  */
 public class RandomLongRange {
-
     /** The minimum. */
     // Fields
     private long minimum;
-
     /** The maximum. */
     private long maximum;
 
@@ -20,8 +18,8 @@ public class RandomLongRange {
      */
     // Constructor
     public RandomLongRange(final long min, final long max) {
-        this.minimum = min;
-        this.maximum = max;
+	this.minimum = min;
+	this.maximum = max;
     }
 
     /**
@@ -31,7 +29,7 @@ public class RandomLongRange {
      */
     // Methods
     public void setMinimum(final long newMin) {
-        this.minimum = newMin;
+	this.minimum = newMin;
     }
 
     /**
@@ -40,7 +38,7 @@ public class RandomLongRange {
      * @param newMax the new maximum
      */
     public void setMaximum(final long newMax) {
-        this.maximum = newMax;
+	this.maximum = newMax;
     }
 
     /**
@@ -49,12 +47,10 @@ public class RandomLongRange {
      * @return the long
      */
     public long generate() {
-        if (this.maximum - this.minimum + 1 == 0) {
-            return Math.abs(RandomnessSource.nextLong()) + this.minimum;
-        }
-        return Math.abs(
-                RandomnessSource.nextLong() % (this.maximum - this.minimum + 1))
-                + this.minimum;
+	if (this.maximum - this.minimum + 1 == 0) {
+	    return Math.abs(RandomnessSource.nextLong()) + this.minimum;
+	}
+	return Math.abs(RandomnessSource.nextLong() % (this.maximum - this.minimum + 1)) + this.minimum;
     }
 
     /**
@@ -63,6 +59,6 @@ public class RandomLongRange {
      * @return the long
      */
     public static long generateRaw() {
-        return RandomnessSource.nextLong();
+	return RandomnessSource.nextLong();
     }
 }

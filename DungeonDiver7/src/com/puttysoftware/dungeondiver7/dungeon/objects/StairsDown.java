@@ -12,26 +12,26 @@ import com.puttysoftware.dungeondiver7.loaders.SoundConstants;
 import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
 
 public class StairsDown extends AbstractTeleport {
-	// Constructors
-	public StairsDown() {
-		super();
-	}
+    // Constructors
+    public StairsDown() {
+	super();
+    }
 
-	@Override
-	public int getDestinationFloor() {
-		final Application app = DungeonDiver7.getApplication();
-		return app.getGameManager().getPlayerManager().getPlayerLocationZ() - 1;
-	}
+    @Override
+    public int getDestinationFloor() {
+	final Application app = DungeonDiver7.getApplication();
+	return app.getGameManager().getPlayerManager().getPlayerLocationZ() - 1;
+    }
 
-	@Override
-	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		final Application app = DungeonDiver7.getApplication();
-		app.getGameManager().updatePositionAbsoluteNoEvents(this.getDestinationFloor());
-		SoundLoader.playSound(SoundConstants.SOUND_DOWN);
-	}
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	final Application app = DungeonDiver7.getApplication();
+	app.getGameManager().updatePositionAbsoluteNoEvents(this.getDestinationFloor());
+	SoundLoader.playSound(SoundConstants.SOUND_DOWN);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 32;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 32;
+    }
 }

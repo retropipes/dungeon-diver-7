@@ -9,14 +9,14 @@ import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractPassThrou
 import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
 
 public class Empty extends AbstractPassThroughObject {
-	// Constructors
-	public Empty() {
-		super();
-		this.type.set(TypeConstants.TYPE_EMPTY_SPACE);
-	}
+    // Constructors
+    public Empty() {
+	super();
+	this.type.set(TypeConstants.TYPE_EMPTY_SPACE);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 130;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 130;
+    }
 }

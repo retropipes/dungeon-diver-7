@@ -12,26 +12,26 @@ import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
 import com.puttysoftware.dungeondiver7.utilities.PartyInventory;
 
 public class BlueDoor extends AbstractDoor {
-	// Constructors
-	public BlueDoor() {
-		super(new BlueKey());
-	}
+    // Constructors
+    public BlueDoor() {
+	super(new BlueKey());
+    }
 
-	// Scriptability
-	@Override
-	public boolean isConditionallySolid() {
-		return PartyInventory.getBlueKeysLeft() < 1;
-	}
+    // Scriptability
+    @Override
+    public boolean isConditionallySolid() {
+	return PartyInventory.getBlueKeysLeft() < 1;
+    }
 
-	@Override
-	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		SoundLoader.playSound(SoundConstants.SOUND_UNLOCK);
-		PartyInventory.useBlueKey();
-		DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-	}
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	SoundLoader.playSound(SoundConstants.SOUND_UNLOCK);
+	PartyInventory.useBlueKey();
+	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 4;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 4;
+    }
 }

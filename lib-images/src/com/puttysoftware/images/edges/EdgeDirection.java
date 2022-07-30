@@ -6,5 +6,10 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package com.puttysoftware.images.edges;
 
 public enum EdgeDirection {
-    HORIZONTAL, VERTICAL, NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST;
+    HORIZONTAL,
+    VERTICAL,
+    NORTHWEST,
+    NORTHEAST,
+    SOUTHWEST,
+    SOUTHEAST;
 }

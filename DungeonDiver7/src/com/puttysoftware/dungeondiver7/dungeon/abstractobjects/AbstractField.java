@@ -9,27 +9,27 @@ import com.puttysoftware.dungeondiver7.utilities.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
 
 public abstract class AbstractField extends AbstractDungeonObject {
-	// Constructors
-	protected AbstractField() {
-		super(false);
-		this.type.set(TypeConstants.TYPE_FIELD);
-	}
+    // Constructors
+    protected AbstractField() {
+	super(false);
+	this.type.set(TypeConstants.TYPE_FIELD);
+    }
 
-	@Override
-	public abstract void postMoveAction(final int dirX, final int dirY, int dirZ);
+    @Override
+    public abstract void postMoveAction(final int dirX, final int dirY, int dirZ);
 
-	@Override
-	public int getLayer() {
-		return DungeonConstants.LAYER_LOWER_OBJECTS;
-	}
+    @Override
+    public int getLayer() {
+	return DungeonConstants.LAYER_LOWER_OBJECTS;
+    }
 
-	@Override
-	public int getCustomProperty(final int propID) {
-		return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
-	}
+    @Override
+    public int getCustomProperty(final int propID) {
+	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+    }
 
-	@Override
-	public void setCustomProperty(final int propID, final int value) {
-		// Do nothing
-	}
+    @Override
+    public void setCustomProperty(final int propID, final int value) {
+	// Do nothing
+    }
 }

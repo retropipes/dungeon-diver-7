@@ -9,19 +9,19 @@ import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractTunnel;
 import com.puttysoftware.dungeondiver7.utilities.ColorConstants;
 
 public class Tunnel extends AbstractTunnel {
-	// Constructors
-	public Tunnel() {
-		super();
-		this.setColor(ColorConstants.COLOR_GRAY);
-	}
+    // Constructors
+    public Tunnel() {
+	super();
+	this.setColor(ColorConstants.COLOR_GRAY);
+    }
 
-	public Tunnel(final int color) {
-		super();
-		this.setColor(color);
-	}
+    public Tunnel(final int color) {
+	super();
+	this.setColor(color);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 44;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 44;
+    }
 }

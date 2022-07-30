@@ -11,16 +11,16 @@ import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.fileutils.DirectoryUtilities;
 
 public class CleanupTask {
-	private CleanupTask() {
-		// Do nothing
-	}
+    private CleanupTask() {
+	// Do nothing
+    }
 
-	public static void cleanUp() {
-		try {
-			final File dirToDelete = new File(AbstractDungeon.getDungeonTempFolder());
-			DirectoryUtilities.removeDirectory(dirToDelete);
-		} catch (final Throwable t) {
-			// Ignore
-		}
+    public static void cleanUp() {
+	try {
+	    final File dirToDelete = new File(AbstractDungeon.getDungeonTempFolder());
+	    DirectoryUtilities.removeDirectory(dirToDelete);
+	} catch (final Throwable t) {
+	    // Ignore
 	}
+    }
 }

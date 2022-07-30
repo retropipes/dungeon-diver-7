@@ -9,18 +9,18 @@ import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractCharacter
 import com.puttysoftware.dungeondiver7.utilities.Direction;
 
 public class FrozenParty extends AbstractCharacter {
-	// Constructors
-	public FrozenParty(final int number) {
-		super(number);
-	}
+    // Constructors
+    public FrozenParty(final int number) {
+	super(number);
+    }
 
-	public FrozenParty(final Direction dir, final int number) {
-		super(number);
-		this.setDirection(dir);
-	}
+    public FrozenParty(final Direction dir, final int number) {
+	super(number);
+	this.setDirection(dir);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 15;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 15;
+    }
 }

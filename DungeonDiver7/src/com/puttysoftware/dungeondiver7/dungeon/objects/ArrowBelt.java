@@ -11,21 +11,21 @@ import com.puttysoftware.dungeondiver7.loaders.SoundConstants;
 import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
 
 public class ArrowBelt extends AbstractSpell {
-	// Constructors
-	public ArrowBelt() {
-		super();
-	}
+    // Constructors
+    public ArrowBelt() {
+	super();
+    }
 
-	// Scriptability
-	@Override
-	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		SoundLoader.playSound(SoundConstants.SOUND_DISRUPTED);
-		DungeonDiver7.getApplication().getGameManager().setDisguisedTank();
-		DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-	}
+    // Scriptability
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	SoundLoader.playSound(SoundConstants.SOUND_DISRUPTED);
+	DungeonDiver7.getApplication().getGameManager().setDisguisedTank();
+	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 144;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 144;
+    }
 }

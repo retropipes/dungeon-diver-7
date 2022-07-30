@@ -15,49 +15,49 @@ import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
 import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
 
 public class Lava extends AbstractGround {
-	// Constructors
-	public Lava() {
-		super();
-		this.setMaterial(MaterialConstants.MATERIAL_FIRE);
-	}
+    // Constructors
+    public Lava() {
+	super();
+	this.setMaterial(MaterialConstants.MATERIAL_FIRE);
+    }
 
-	// Scriptability
-	@Override
-	public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-		final Application app = DungeonDiver7.getApplication();
-		if (pushed instanceof IcyBox) {
-			app.getGameManager().morph(new Ground(), x, y, z, this.getLayer());
-			SoundLoader.playSound(SoundConstants.SOUND_COOL_OFF);
-			return true;
-		} else {
-			app.getGameManager().morph(new Empty(), x, y, z, pushed.getLayer());
-			SoundLoader.playSound(SoundConstants.SOUND_MELT);
-			return false;
-		}
+    // Scriptability
+    @Override
+    public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
+	final Application app = DungeonDiver7.getApplication();
+	if (pushed instanceof IcyBox) {
+	    app.getGameManager().morph(new Ground(), x, y, z, this.getLayer());
+	    SoundLoader.playSound(SoundConstants.SOUND_COOL_OFF);
+	    return true;
+	} else {
+	    app.getGameManager().morph(new Empty(), x, y, z, pushed.getLayer());
+	    SoundLoader.playSound(SoundConstants.SOUND_MELT);
+	    return false;
 	}
+    }
 
-	@Override
-	public boolean killsOnMove() {
-		return true;
-	}
+    @Override
+    public boolean killsOnMove() {
+	return true;
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 62;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 62;
+    }
 
-	@Override
-	public AbstractDungeonObject changesToOnExposure(final int materialID) {
-		switch (materialID) {
-		case MaterialConstants.MATERIAL_ICE:
-			return new Ground();
-		default:
-			return this;
-		}
+    @Override
+    public AbstractDungeonObject changesToOnExposure(final int materialID) {
+	switch (materialID) {
+	case MaterialConstants.MATERIAL_ICE:
+	    return new Ground();
+	default:
+	    return this;
 	}
+    }
 
-	@Override
-	public int getBlockHeight() {
-		return -1;
-	}
+    @Override
+    public int getBlockHeight() {
+	return -1;
+    }
 }

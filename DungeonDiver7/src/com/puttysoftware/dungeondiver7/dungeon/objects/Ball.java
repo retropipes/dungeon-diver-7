@@ -11,20 +11,20 @@ import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
 import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
 
 public class Ball extends AbstractMovableObject {
-	// Constructors
-	public Ball() {
-		super(true);
-		this.type.set(TypeConstants.TYPE_BALL);
-		this.type.set(TypeConstants.TYPE_ICY);
-	}
+    // Constructors
+    public Ball() {
+	super(true);
+	this.type.set(TypeConstants.TYPE_BALL);
+	this.type.set(TypeConstants.TYPE_ICY);
+    }
 
-	@Override
-	public void playSoundHook() {
-		SoundLoader.playSound(SoundConstants.SOUND_BALL_ROLL);
-	}
+    @Override
+    public void playSoundHook() {
+	SoundLoader.playSound(SoundConstants.SOUND_BALL_ROLL);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 2;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 2;
+    }
 }

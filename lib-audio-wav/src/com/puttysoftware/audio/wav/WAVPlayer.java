@@ -8,7 +8,7 @@ public abstract class WAVPlayer {
 
     // Constructor
     protected WAVPlayer() {
-        super();
+	super();
     }
 
     // Methods
@@ -16,18 +16,18 @@ public abstract class WAVPlayer {
 
     // Factories
     public static WAVPlayer loadFile(final String file) {
-        return new WAVFile(file);
+	return new WAVFile(file);
     }
 
     public static WAVPlayer loadResource(final URL resource) {
-        return new WAVResource(resource);
+	return new WAVResource(resource);
     }
 
     public static void playFile(final String file) {
-        new WAVFile(file).play();
+	new WAVFile(file).play();
     }
 
     public static void playResource(final URL resource) {
-        new WAVResource(resource).play();
+	new WAVResource(resource).play();
     }
 }

@@ -10,19 +10,19 @@ import com.puttysoftware.dungeondiver7.utilities.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
 
 public class UpperObjectsEmpty extends AbstractPassThroughObject {
-	// Constructors
-	public UpperObjectsEmpty() {
-		super();
-		this.type.set(TypeConstants.TYPE_EMPTY_SPACE);
-	}
+    // Constructors
+    public UpperObjectsEmpty() {
+	super();
+	this.type.set(TypeConstants.TYPE_EMPTY_SPACE);
+    }
 
-	@Override
-	public int getLayer() {
-		return DungeonConstants.LAYER_UPPER_OBJECTS;
-	}
+    @Override
+    public int getLayer() {
+	return DungeonConstants.LAYER_UPPER_OBJECTS;
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 130;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 130;
+    }
 }

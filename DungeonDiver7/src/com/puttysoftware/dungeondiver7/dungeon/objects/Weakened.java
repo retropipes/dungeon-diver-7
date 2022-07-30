@@ -13,29 +13,29 @@ import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
 import com.puttysoftware.dungeondiver7.utilities.Direction;
 
 public class Weakened extends AbstractAttribute {
-	// Constructors
-	public Weakened() {
-		super();
-	}
+    // Constructors
+    public Weakened() {
+	super();
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 134;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 134;
+    }
 
-	@Override
-	public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-			final int laserType, final int forceUnits) {
-		final Application app = DungeonDiver7.getApplication();
-		app.getGameManager().morph(new Cracked(), locX, locY, locZ, this.getLayer());
-		SoundLoader.playSound(SoundConstants.SOUND_CRACK);
-		return Direction.NONE;
-	}
+    @Override
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+	    final int laserType, final int forceUnits) {
+	final Application app = DungeonDiver7.getApplication();
+	app.getGameManager().morph(new Cracked(), locX, locY, locZ, this.getLayer());
+	SoundLoader.playSound(SoundConstants.SOUND_CRACK);
+	return Direction.NONE;
+    }
 
-	@Override
-	public void moveFailedAction(final int locX, final int locY, final int locZ) {
-		final Application app = DungeonDiver7.getApplication();
-		app.getGameManager().morph(new Cracked(), locX, locY, locZ, this.getLayer());
-		SoundLoader.playSound(SoundConstants.SOUND_CRACK);
-	}
+    @Override
+    public void moveFailedAction(final int locX, final int locY, final int locZ) {
+	final Application app = DungeonDiver7.getApplication();
+	app.getGameManager().morph(new Cracked(), locX, locY, locZ, this.getLayer());
+	SoundLoader.playSound(SoundConstants.SOUND_CRACK);
+    }
 }

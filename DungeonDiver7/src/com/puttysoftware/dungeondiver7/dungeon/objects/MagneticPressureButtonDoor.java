@@ -9,14 +9,14 @@ import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractPressureB
 import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
 
 public class MagneticPressureButtonDoor extends AbstractPressureButtonDoor {
-	// Constructors
-	public MagneticPressureButtonDoor() {
-		super();
-		this.setMaterial(MaterialConstants.MATERIAL_MAGNETIC);
-	}
+    // Constructors
+    public MagneticPressureButtonDoor() {
+	super();
+	this.setMaterial(MaterialConstants.MATERIAL_MAGNETIC);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 89;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 89;
+    }
 }

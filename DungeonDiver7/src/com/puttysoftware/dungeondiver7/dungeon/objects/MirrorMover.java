@@ -10,16 +10,16 @@ import com.puttysoftware.dungeondiver7.utilities.Direction;
 import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
 
 public class MirrorMover extends AbstractMover {
-	// Constructors
-	public MirrorMover() {
-		super(true);
-		this.setDirection(Direction.NORTH);
-		this.setFrameNumber(1);
-		this.type.set(TypeConstants.TYPE_MIRROR_MOVER);
-	}
+    // Constructors
+    public MirrorMover() {
+	super(true);
+	this.setDirection(Direction.NORTH);
+	this.setFrameNumber(1);
+	this.type.set(TypeConstants.TYPE_MIRROR_MOVER);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 125;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 125;
+    }
 }

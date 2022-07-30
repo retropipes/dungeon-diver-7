@@ -27,8 +27,7 @@ import javax.sound.sampled.AudioFormat;
  * @author JavaZOOM
  */
 public class VorbisAudioFileFormat extends AudioFileFormat {
-    private static final Logger LOG = Logger
-            .getLogger(VorbisAudioFileFormat.class.getName());
+    private static final Logger LOG = Logger.getLogger(VorbisAudioFileFormat.class.getName());
 
     /**
      * Contructor.
@@ -39,11 +38,10 @@ public class VorbisAudioFileFormat extends AudioFileFormat {
      * @param nLengthInBytes
      * @param properties
      */
-    public VorbisAudioFileFormat(Type type, AudioFormat audioFormat,
-            int nLengthInFrames, int nLengthInBytes,
-            Map<String, Object> properties) {
-        super(type, nLengthInBytes, audioFormat, nLengthInFrames); // TODO set
-                                                                   // properties
-                                                                   // too
+    public VorbisAudioFileFormat(Type type, AudioFormat audioFormat, int nLengthInFrames, int nLengthInBytes,
+	    Map<String, Object> properties) {
+	super(type, nLengthInBytes, audioFormat, nLengthInFrames); // TODO set
+								   // properties
+								   // too
     }
 }

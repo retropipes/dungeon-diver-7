@@ -13,52 +13,52 @@ import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utilities.DungeonConstants;
 
 class AnimationTask extends Thread {
-	// Fields
-	private boolean stop = false;
+    // Fields
+    private boolean stop = false;
 
-	// Constructors
-	public AnimationTask() {
-		this.setName(
-				LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_ANIMATOR_NAME));
-		this.setPriority(Thread.MIN_PRIORITY);
-	}
+    // Constructors
+    public AnimationTask() {
+	this.setName(
+		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_ANIMATOR_NAME));
+	this.setPriority(Thread.MIN_PRIORITY);
+    }
 
-	@Override
-	public void run() {
-		try {
-			final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
-			while (!this.stop) {
-				final int pz = DungeonDiver7.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
-				final int maxX = a.getRows();
-				final int maxY = a.getColumns();
-				final int maxW = DungeonConstants.NUM_LAYERS;
-				for (int x = 0; x < maxX; x++) {
-					for (int y = 0; y < maxY; y++) {
-						for (int w = 0; w < maxW; w++) {
-							synchronized (CurrentDungeonData.LOCK_OBJECT) {
-								final int oldFN = a.getCell(x, y, pz, w).getFrameNumber();
-								a.getCell(x, y, pz, w).toggleFrameNumber();
-								final int newFN = a.getCell(x, y, pz, w).getFrameNumber();
-								if (oldFN != newFN) {
-									a.markAsDirty(x, y, pz);
-								}
-							}
-						}
-					}
+    @Override
+    public void run() {
+	try {
+	    final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	    while (!this.stop) {
+		final int pz = DungeonDiver7.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
+		final int maxX = a.getRows();
+		final int maxY = a.getColumns();
+		final int maxW = DungeonConstants.NUM_LAYERS;
+		for (int x = 0; x < maxX; x++) {
+		    for (int y = 0; y < maxY; y++) {
+			for (int w = 0; w < maxW; w++) {
+			    synchronized (CurrentDungeonData.LOCK_OBJECT) {
+				final int oldFN = a.getCell(x, y, pz, w).getFrameNumber();
+				a.getCell(x, y, pz, w).toggleFrameNumber();
+				final int newFN = a.getCell(x, y, pz, w).getFrameNumber();
+				if (oldFN != newFN) {
+				    a.markAsDirty(x, y, pz);
 				}
-				DungeonDiver7.getApplication().getGameManager().redrawDungeon();
-				try {
-					Thread.sleep(200);
-				} catch (final InterruptedException ie) {
-					// Ignore
-				}
+			    }
 			}
-		} catch (final Throwable t) {
-			DungeonDiver7.getErrorLogger().logError(t);
+		    }
 		}
+		DungeonDiver7.getApplication().getGameManager().redrawDungeon();
+		try {
+		    Thread.sleep(200);
+		} catch (final InterruptedException ie) {
+		    // Ignore
+		}
+	    }
+	} catch (final Throwable t) {
+	    DungeonDiver7.getErrorLogger().logError(t);
 	}
+    }
 
-	void stopAnimator() {
-		this.stop = true;
-	}
+    void stopAnimator() {
+	this.stop = true;
+    }
 }

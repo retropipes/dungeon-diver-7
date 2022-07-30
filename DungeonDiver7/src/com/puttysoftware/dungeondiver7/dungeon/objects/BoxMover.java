@@ -10,16 +10,16 @@ import com.puttysoftware.dungeondiver7.utilities.Direction;
 import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
 
 public class BoxMover extends AbstractMover {
-	// Constructors
-	public BoxMover() {
-		super(true);
-		this.setDirection(Direction.NORTH);
-		this.setFrameNumber(1);
-		this.type.set(TypeConstants.TYPE_BOX_MOVER);
-	}
+    // Constructors
+    public BoxMover() {
+	super(true);
+	this.setDirection(Direction.NORTH);
+	this.setFrameNumber(1);
+	this.type.set(TypeConstants.TYPE_BOX_MOVER);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 122;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 122;
+    }
 }

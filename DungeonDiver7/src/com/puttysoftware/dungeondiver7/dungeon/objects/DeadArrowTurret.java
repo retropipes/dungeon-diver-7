@@ -13,33 +13,34 @@ import com.puttysoftware.dungeondiver7.utilities.Direction;
 import com.puttysoftware.dungeondiver7.utilities.ArrowTypeConstants;
 
 public class DeadArrowTurret extends AbstractMovableObject {
-	// Constructors
-	public DeadArrowTurret() {
-		super(false);
-		this.setDirection(Direction.NORTH);
-	}
+    // Constructors
+    public DeadArrowTurret() {
+	super(false);
+	this.setDirection(Direction.NORTH);
+    }
 
-	@Override
-	public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-			final int laserType, final int forceUnits) {
-		DungeonDiver7.getApplication().getGameManager().haltMovingObjects();
-		if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
-			// Destroy
-			SoundLoader.playSound(SoundConstants.SOUND_BOOM);
-			DungeonDiver7.getApplication().getGameManager().morph(this.getSavedObject(), locX, locY, locZ, this.getLayer());
-		} else {
-			return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-		}
-		return Direction.NONE;
+    @Override
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+	    final int laserType, final int forceUnits) {
+	DungeonDiver7.getApplication().getGameManager().haltMovingObjects();
+	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
+	    // Destroy
+	    SoundLoader.playSound(SoundConstants.SOUND_BOOM);
+	    DungeonDiver7.getApplication().getGameManager().morph(this.getSavedObject(), locX, locY, locZ,
+		    this.getLayer());
+	} else {
+	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
+	return Direction.NONE;
+    }
 
-	@Override
-	public void playSoundHook() {
-		// Do nothing
-	}
+    @Override
+    public void playSoundHook() {
+	// Do nothing
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 11;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 11;
+    }
 }

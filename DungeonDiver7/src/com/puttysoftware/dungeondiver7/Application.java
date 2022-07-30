@@ -22,217 +22,217 @@ import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utilities.DungeonObjects;
 
 public final class Application {
-	// Fields
-	private AboutDialog about;
-	private GameManager gameMgr;
-	private DungeonManager dungeonMgr;
-	private MenuManager menuMgr;
-	private HelpManager helpMgr;
-	private DungeonEditor editor;
-	private GUIManager guiMgr;
-	private int mode, formerMode;
-	private final DungeonObjects objects;
-	private static final int VERSION_MAJOR = 17;
-	private static final int VERSION_MINOR = 0;
-	private static final int VERSION_BUGFIX = 0;
-	private static final int VERSION_BETA = 1;
-	public static final int STATUS_GUI = 0;
-	public static final int STATUS_GAME = 1;
-	public static final int STATUS_EDITOR = 2;
-	public static final int STATUS_PREFS = 3;
-	public static final int STATUS_HELP = 4;
-	private static final int STATUS_NULL = 5;
+    // Fields
+    private AboutDialog about;
+    private GameManager gameMgr;
+    private DungeonManager dungeonMgr;
+    private MenuManager menuMgr;
+    private HelpManager helpMgr;
+    private DungeonEditor editor;
+    private GUIManager guiMgr;
+    private int mode, formerMode;
+    private final DungeonObjects objects;
+    private static final int VERSION_MAJOR = 17;
+    private static final int VERSION_MINOR = 0;
+    private static final int VERSION_BUGFIX = 0;
+    private static final int VERSION_BETA = 1;
+    public static final int STATUS_GUI = 0;
+    public static final int STATUS_GAME = 1;
+    public static final int STATUS_EDITOR = 2;
+    public static final int STATUS_PREFS = 3;
+    public static final int STATUS_HELP = 4;
+    private static final int STATUS_NULL = 5;
 
-	// Constructors
-	public Application() {
-		this.objects = new DungeonObjects();
-		this.mode = Application.STATUS_NULL;
-		this.formerMode = Application.STATUS_NULL;
-	}
+    // Constructors
+    public Application() {
+	this.objects = new DungeonObjects();
+	this.mode = Application.STATUS_NULL;
+	this.formerMode = Application.STATUS_NULL;
+    }
 
-	// Methods
-	public void activeLanguageChanged() {
-		// Rebuild menus
-		this.menuMgr.unregisterAllModeManagers();
-		this.menuMgr.registerModeManager(this.guiMgr);
-		this.menuMgr.initMenus();
-		this.menuMgr.registerModeManager(this.gameMgr);
-		this.menuMgr.registerModeManager(this.editor);
-		this.menuMgr.registerModeManager(this.about);
-		// Fire hooks
-		this.getHelpManager().activeLanguageChanged();
-		this.getGameManager().activeLanguageChanged();
-		this.getEditor().activeLanguageChanged();
-	}
+    // Methods
+    public void activeLanguageChanged() {
+	// Rebuild menus
+	this.menuMgr.unregisterAllModeManagers();
+	this.menuMgr.registerModeManager(this.guiMgr);
+	this.menuMgr.initMenus();
+	this.menuMgr.registerModeManager(this.gameMgr);
+	this.menuMgr.registerModeManager(this.editor);
+	this.menuMgr.registerModeManager(this.about);
+	// Fire hooks
+	this.getHelpManager().activeLanguageChanged();
+	this.getGameManager().activeLanguageChanged();
+	this.getEditor().activeLanguageChanged();
+    }
 
-	void postConstruct() {
-		// Create Managers
-		this.menuMgr = new MenuManager();
-		this.about = new AboutDialog(Application.getVersionString());
-		this.guiMgr = new GUIManager();
-		this.helpMgr = new HelpManager();
-		this.gameMgr = new GameManager();
-		this.editor = new DungeonEditor();
-		// Cache Logo
-		this.guiMgr.updateLogo();
-	}
+    void postConstruct() {
+	// Create Managers
+	this.menuMgr = new MenuManager();
+	this.about = new AboutDialog(Application.getVersionString());
+	this.guiMgr = new GUIManager();
+	this.helpMgr = new HelpManager();
+	this.gameMgr = new GameManager();
+	this.editor = new DungeonEditor();
+	// Cache Logo
+	this.guiMgr.updateLogo();
+    }
 
-	void setInGUI() {
-		this.mode = Application.STATUS_GUI;
-		this.menuMgr.modeChanged(this.guiMgr);
-	}
+    void setInGUI() {
+	this.mode = Application.STATUS_GUI;
+	this.menuMgr.modeChanged(this.guiMgr);
+    }
 
-	public void setInPrefs() {
-		this.formerMode = this.mode;
-		this.mode = Application.STATUS_PREFS;
-		this.menuMgr.modeChanged(null);
-	}
+    public void setInPrefs() {
+	this.formerMode = this.mode;
+	this.mode = Application.STATUS_PREFS;
+	this.menuMgr.modeChanged(null);
+    }
 
-	public void setInGame() {
-		this.mode = Application.STATUS_GAME;
-		this.menuMgr.modeChanged(this.gameMgr);
-	}
+    public void setInGame() {
+	this.mode = Application.STATUS_GAME;
+	this.menuMgr.modeChanged(this.gameMgr);
+    }
 
-	public void setInEditor() {
-		this.mode = Application.STATUS_EDITOR;
-		this.menuMgr.modeChanged(this.editor);
-	}
+    public void setInEditor() {
+	this.mode = Application.STATUS_EDITOR;
+	this.menuMgr.modeChanged(this.editor);
+    }
 
-	public void setInHelp() {
-		this.formerMode = this.mode;
-		this.mode = Application.STATUS_HELP;
-		this.menuMgr.modeChanged(null);
-	}
+    public void setInHelp() {
+	this.formerMode = this.mode;
+	this.mode = Application.STATUS_HELP;
+	this.menuMgr.modeChanged(null);
+    }
 
-	public int getMode() {
-		return this.mode;
-	}
+    public int getMode() {
+	return this.mode;
+    }
 
-	public int getFormerMode() {
-		return this.formerMode;
-	}
+    public int getFormerMode() {
+	return this.formerMode;
+    }
 
-	void exitCurrentMode() {
-		if (this.mode == Application.STATUS_GUI) {
-			this.guiMgr.hideGUI();
-		} else if (this.mode == Application.STATUS_GAME) {
-			this.gameMgr.exitGame();
-		} else if (this.mode == Application.STATUS_EDITOR) {
-			this.editor.exitEditor();
-		}
+    void exitCurrentMode() {
+	if (this.mode == Application.STATUS_GUI) {
+	    this.guiMgr.hideGUI();
+	} else if (this.mode == Application.STATUS_GAME) {
+	    this.gameMgr.exitGame();
+	} else if (this.mode == Application.STATUS_EDITOR) {
+	    this.editor.exitEditor();
 	}
+    }
 
-	public void showMessage(final String msg) {
-		if (this.mode == Application.STATUS_EDITOR) {
-			this.getEditor().setStatusMessage(msg);
-		} else {
-			CommonDialogs.showDialog(msg);
-		}
+    public void showMessage(final String msg) {
+	if (this.mode == Application.STATUS_EDITOR) {
+	    this.getEditor().setStatusMessage(msg);
+	} else {
+	    CommonDialogs.showDialog(msg);
 	}
+    }
 
-	public MenuManager getMenuManager() {
-		return this.menuMgr;
-	}
+    public MenuManager getMenuManager() {
+	return this.menuMgr;
+    }
 
-	public GUIManager getGUIManager() {
-		return this.guiMgr;
-	}
+    public GUIManager getGUIManager() {
+	return this.guiMgr;
+    }
 
-	public GameManager getGameManager() {
-		return this.gameMgr;
-	}
+    public GameManager getGameManager() {
+	return this.gameMgr;
+    }
 
-	public DungeonManager getDungeonManager() {
-		if (this.dungeonMgr == null) {
-			this.dungeonMgr = new DungeonManager();
-		}
-		return this.dungeonMgr;
+    public DungeonManager getDungeonManager() {
+	if (this.dungeonMgr == null) {
+	    this.dungeonMgr = new DungeonManager();
 	}
+	return this.dungeonMgr;
+    }
 
-	HelpManager getHelpManager() {
-		return this.helpMgr;
-	}
+    HelpManager getHelpManager() {
+	return this.helpMgr;
+    }
 
-	public DungeonEditor getEditor() {
-		return this.editor;
-	}
+    public DungeonEditor getEditor() {
+	return this.editor;
+    }
 
-	AboutDialog getAboutDialog() {
-		return this.about;
-	}
+    AboutDialog getAboutDialog() {
+	return this.about;
+    }
 
-	private static String getVersionString() {
-		if (Application.isBetaModeEnabled()) {
-			return LocaleConstants.COMMON_STRING_EMPTY + Application.VERSION_MAJOR
-					+ LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_MINOR
-					+ LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_BUGFIX
-					+ LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE, LocaleConstants.MESSAGE_STRING_BETA)
-					+ Application.VERSION_BETA;
-		} else {
-			return LocaleConstants.COMMON_STRING_EMPTY + Application.VERSION_MAJOR
-					+ LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_MINOR
-					+ LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_BUGFIX;
-		}
+    private static String getVersionString() {
+	if (Application.isBetaModeEnabled()) {
+	    return LocaleConstants.COMMON_STRING_EMPTY + Application.VERSION_MAJOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_MINOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_BUGFIX
+		    + LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE, LocaleConstants.MESSAGE_STRING_BETA)
+		    + Application.VERSION_BETA;
+	} else {
+	    return LocaleConstants.COMMON_STRING_EMPTY + Application.VERSION_MAJOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_MINOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_BUGFIX;
 	}
+    }
 
-	public static String getLogoVersionString() {
-		if (Application.isBetaModeEnabled()) {
-			return LocaleConstants.COMMON_STRING_EMPTY + Application.VERSION_MAJOR
-					+ LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_MINOR
-					+ LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_BUGFIX
-					+ LocaleConstants.COMMON_STRING_BETA_SHORT + Application.VERSION_BETA;
-		} else {
-			return LocaleConstants.COMMON_STRING_EMPTY + Application.VERSION_MAJOR
-					+ LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_MINOR
-					+ LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_BUGFIX;
-		}
+    public static String getLogoVersionString() {
+	if (Application.isBetaModeEnabled()) {
+	    return LocaleConstants.COMMON_STRING_EMPTY + Application.VERSION_MAJOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_MINOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_BUGFIX
+		    + LocaleConstants.COMMON_STRING_BETA_SHORT + Application.VERSION_BETA;
+	} else {
+	    return LocaleConstants.COMMON_STRING_EMPTY + Application.VERSION_MAJOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_MINOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + Application.VERSION_BUGFIX;
 	}
+    }
 
-	public JFrame getOutputFrame() {
-		try {
-			if (this.getMode() == Application.STATUS_PREFS) {
-				return PrefsManager.getPrefFrame();
-			} else if (this.getMode() == Application.STATUS_GUI) {
-				return this.getGUIManager().getGUIFrame();
-			} else if (this.getMode() == Application.STATUS_GAME) {
-				return this.getGameManager().getOutputFrame();
-			} else if (this.getMode() == Application.STATUS_EDITOR) {
-				return this.getEditor().getOutputFrame();
-			} else {
-				return null;
-			}
-		} catch (final NullPointerException npe) {
-			return null;
-		}
+    public JFrame getOutputFrame() {
+	try {
+	    if (this.getMode() == Application.STATUS_PREFS) {
+		return PrefsManager.getPrefFrame();
+	    } else if (this.getMode() == Application.STATUS_GUI) {
+		return this.getGUIManager().getGUIFrame();
+	    } else if (this.getMode() == Application.STATUS_GAME) {
+		return this.getGameManager().getOutputFrame();
+	    } else if (this.getMode() == Application.STATUS_EDITOR) {
+		return this.getEditor().getOutputFrame();
+	    } else {
+		return null;
+	    }
+	} catch (final NullPointerException npe) {
+	    return null;
 	}
+    }
 
-	public DungeonObjects getObjects() {
-		return this.objects;
-	}
+    public DungeonObjects getObjects() {
+	return this.objects;
+    }
 
-	public String[] getLevelInfoList() {
-		return this.dungeonMgr.getDungeon().getLevelInfoList();
-	}
+    public String[] getLevelInfoList() {
+	return this.dungeonMgr.getDungeon().getLevelInfoList();
+    }
 
-	public void updateLevelInfoList() {
-		JFrame loadFrame;
-		JProgressBar loadBar;
-		loadFrame = new JFrame(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-				LocaleConstants.DIALOG_STRING_UPDATING_LEVEL_INFO));
-		loadFrame.setIconImage(LogoLoader.getIconLogo());
-		loadBar = new JProgressBar();
-		loadBar.setIndeterminate(true);
-		loadBar.setPreferredSize(new Dimension(600, 20));
-		loadFrame.getContentPane().add(loadBar);
-		loadFrame.setResizable(false);
-		loadFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		loadFrame.pack();
-		loadFrame.setVisible(true);
-		this.dungeonMgr.getDungeon().generateLevelInfoList();
-		loadFrame.setVisible(false);
-	}
+    public void updateLevelInfoList() {
+	JFrame loadFrame;
+	JProgressBar loadBar;
+	loadFrame = new JFrame(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
+		LocaleConstants.DIALOG_STRING_UPDATING_LEVEL_INFO));
+	loadFrame.setIconImage(LogoLoader.getIconLogo());
+	loadBar = new JProgressBar();
+	loadBar.setIndeterminate(true);
+	loadBar.setPreferredSize(new Dimension(600, 20));
+	loadFrame.getContentPane().add(loadBar);
+	loadFrame.setResizable(false);
+	loadFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	loadFrame.pack();
+	loadFrame.setVisible(true);
+	this.dungeonMgr.getDungeon().generateLevelInfoList();
+	loadFrame.setVisible(false);
+    }
 
-	private static boolean isBetaModeEnabled() {
-		return Application.VERSION_BETA > 0;
-	}
+    private static boolean isBetaModeEnabled() {
+	return Application.VERSION_BETA > 0;
+    }
 }

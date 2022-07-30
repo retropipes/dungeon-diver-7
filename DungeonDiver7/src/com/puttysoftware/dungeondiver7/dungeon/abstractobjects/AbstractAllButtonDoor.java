@@ -8,9 +8,9 @@ package com.puttysoftware.dungeondiver7.dungeon.abstractobjects;
 import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
 
 public abstract class AbstractAllButtonDoor extends AbstractButtonDoor {
-	// Constructors
-	protected AbstractAllButtonDoor() {
-		super();
-		this.type.set(TypeConstants.TYPE_ALL_BUTTON_DOOR);
-	}
+    // Constructors
+    protected AbstractAllButtonDoor() {
+	super();
+	this.type.set(TypeConstants.TYPE_ALL_BUTTON_DOOR);
+    }
 }

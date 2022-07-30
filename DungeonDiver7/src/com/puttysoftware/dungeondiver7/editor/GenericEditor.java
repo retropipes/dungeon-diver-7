@@ -23,172 +23,172 @@ import com.puttysoftware.dungeondiver7.loaders.ImageLoader;
 import com.puttysoftware.dungeondiver7.loaders.LogoLoader;
 
 public abstract class GenericEditor {
-	// Fields
-	private final String source;
-	private JFrame outputFrame;
-	private Container borderPane;
-	private Container outputPane;
-	private JLabel messageLabel;
-	private JScrollPane scrollPane;
-	private boolean objectChanged;
-	private boolean readOnly;
+    // Fields
+    private final String source;
+    private JFrame outputFrame;
+    private Container borderPane;
+    private Container outputPane;
+    private JLabel messageLabel;
+    private JScrollPane scrollPane;
+    private boolean objectChanged;
+    private boolean readOnly;
 
-	protected GenericEditor(final String newSource) {
-		this.source = newSource;
-		this.objectChanged = true;
+    protected GenericEditor(final String newSource) {
+	this.source = newSource;
+	this.objectChanged = true;
+    }
+
+    // Methods from EditorProperties
+    public final String getEditorSource() {
+	return this.source;
+    }
+
+    // Methods
+    public final void edit() {
+	final Application app = DungeonDiver7.getApplication();
+	app.getGUIManager().hideGUI();
+	// Create the managers
+	if (this.objectChanged) {
+	    this.loadObject();
+	    this.editObjectChanged();
+	    this.objectChanged = false;
 	}
+	this.setUpGUI();
+	// Make sure message area is attached to border pane
+	this.borderPane.removeAll();
+	this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
+	this.borderPane.add(this.outputPane, BorderLayout.CENTER);
+	this.borderPaneHook();
+	this.showOutput();
+	this.redrawEditor();
+    }
 
-	// Methods from EditorProperties
-	public final String getEditorSource() {
-		return this.source;
-	}
-
-	// Methods
-	public final void edit() {
-		final Application app = DungeonDiver7.getApplication();
-		app.getGUIManager().hideGUI();
-		// Create the managers
-		if (this.objectChanged) {
-			this.loadObject();
-			this.editObjectChanged();
-			this.objectChanged = false;
+    public final boolean create() {
+	if (this.usesImporter()) {
+	    this.newObjectOptions();
+	    return true;
+	} else {
+	    boolean success = true;
+	    if (this.newObjectOptions()) {
+		success = this.newObjectCreate();
+		if (success) {
+		    this.saveObject();
+		    this.objectChanged = true;
 		}
-		this.setUpGUI();
-		// Make sure message area is attached to border pane
-		this.borderPane.removeAll();
-		this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
-		this.borderPane.add(this.outputPane, BorderLayout.CENTER);
-		this.borderPaneHook();
-		this.showOutput();
-		this.redrawEditor();
+		return success;
+	    }
+	    return false;
 	}
+    }
 
-	public final boolean create() {
-		if (this.usesImporter()) {
-			this.newObjectOptions();
-			return true;
-		} else {
-			boolean success = true;
-			if (this.newObjectOptions()) {
-				success = this.newObjectCreate();
-				if (success) {
-					this.saveObject();
-					this.objectChanged = true;
-				}
-				return success;
-			}
-			return false;
-		}
+    public final void showOutput() {
+	final Application app = DungeonDiver7.getApplication();
+	this.outputFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
+	this.outputFrame.setVisible(true);
+	this.outputFrame.pack();
+    }
+
+    public final void hideOutput() {
+	if (this.outputFrame != null) {
+	    this.outputFrame.setVisible(false);
 	}
+    }
 
-	public final void showOutput() {
-		final Application app = DungeonDiver7.getApplication();
-		this.outputFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
-		this.outputFrame.setVisible(true);
-		this.outputFrame.pack();
+    public final JFrame getOutputFrame() {
+	if (this.outputFrame != null && this.outputFrame.isVisible()) {
+	    return this.outputFrame;
+	} else {
+	    return null;
 	}
+    }
 
-	public final void hideOutput() {
-		if (this.outputFrame != null) {
-			this.outputFrame.setVisible(false);
-		}
+    public final boolean isReadOnly() {
+	return this.readOnly;
+    }
+
+    public final void exitEditor() {
+	// Save changes
+	this.saveObject();
+	// Hide the editor
+	this.hideOutput();
+    }
+
+    public boolean usesImporter() {
+	return false;
+    }
+
+    public abstract JMenu createEditorCommandsMenu();
+
+    public abstract void enableEditorCommands();
+
+    public abstract void disableEditorCommands();
+
+    public abstract void handleCloseWindow();
+
+    protected abstract boolean doesObjectExist();
+
+    protected abstract boolean newObjectOptions();
+
+    protected abstract boolean newObjectCreate();
+
+    protected abstract void editObjectChanged();
+
+    protected abstract void borderPaneHook();
+
+    protected abstract void loadObject();
+
+    protected abstract void saveObject();
+
+    protected abstract void setUpGUIHook(Container output);
+
+    protected abstract void reSetUpGUIHook(Container output);
+
+    protected abstract WindowListener guiHookWindow();
+
+    public abstract void switchToSubEditor();
+
+    public abstract void switchFromSubEditor();
+
+    public abstract void redrawEditor();
+
+    protected void setUpGUI() {
+	// Destroy the old GUI, if one exists
+	if (this.outputFrame != null) {
+	    this.outputFrame.dispose();
 	}
-
-	public final JFrame getOutputFrame() {
-		if (this.outputFrame != null && this.outputFrame.isVisible()) {
-			return this.outputFrame;
-		} else {
-			return null;
-		}
+	this.messageLabel = new JLabel(" ");
+	this.outputFrame = new JFrame(this.getEditorSource());
+	final Image iconlogo = LogoLoader.getIconLogo();
+	this.outputFrame.setIconImage(iconlogo);
+	this.outputPane = new Container();
+	this.borderPane = new Container();
+	this.borderPane.setLayout(new BorderLayout());
+	this.outputFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.setUpGUIHook(this.outputPane);
+	this.scrollPane = new JScrollPane(this.borderPane);
+	this.borderPane.add(this.outputPane, BorderLayout.CENTER);
+	this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
+	this.outputFrame.setResizable(false);
+	final WindowListener wl = this.guiHookWindow();
+	if (wl != null) {
+	    this.outputFrame.addWindowListener(wl);
 	}
-
-	public final boolean isReadOnly() {
-		return this.readOnly;
+	this.outputFrame.setContentPane(this.scrollPane);
+	this.outputFrame.pack();
+	if (this.outputFrame.getWidth() > ImageLoader.MAX_WINDOW_SIZE
+		|| this.outputFrame.getHeight() > ImageLoader.MAX_WINDOW_SIZE) {
+	    int pw, ph;
+	    if (this.outputFrame.getWidth() > ImageLoader.MAX_WINDOW_SIZE) {
+		pw = ImageLoader.MAX_WINDOW_SIZE;
+	    } else {
+		pw = this.scrollPane.getWidth();
+	    }
+	    if (this.outputFrame.getHeight() > ImageLoader.MAX_WINDOW_SIZE) {
+		ph = ImageLoader.MAX_WINDOW_SIZE;
+	    } else {
+		ph = this.scrollPane.getHeight();
+	    }
+	    this.scrollPane.setPreferredSize(new Dimension(pw, ph));
 	}
-
-	public final void exitEditor() {
-		// Save changes
-		this.saveObject();
-		// Hide the editor
-		this.hideOutput();
-	}
-
-	public boolean usesImporter() {
-		return false;
-	}
-
-	public abstract JMenu createEditorCommandsMenu();
-
-	public abstract void enableEditorCommands();
-
-	public abstract void disableEditorCommands();
-
-	public abstract void handleCloseWindow();
-
-	protected abstract boolean doesObjectExist();
-
-	protected abstract boolean newObjectOptions();
-
-	protected abstract boolean newObjectCreate();
-
-	protected abstract void editObjectChanged();
-
-	protected abstract void borderPaneHook();
-
-	protected abstract void loadObject();
-
-	protected abstract void saveObject();
-
-	protected abstract void setUpGUIHook(Container output);
-
-	protected abstract void reSetUpGUIHook(Container output);
-
-	protected abstract WindowListener guiHookWindow();
-
-	public abstract void switchToSubEditor();
-
-	public abstract void switchFromSubEditor();
-
-	public abstract void redrawEditor();
-
-	protected void setUpGUI() {
-		// Destroy the old GUI, if one exists
-		if (this.outputFrame != null) {
-			this.outputFrame.dispose();
-		}
-		this.messageLabel = new JLabel(" ");
-		this.outputFrame = new JFrame(this.getEditorSource());
-		final Image iconlogo = LogoLoader.getIconLogo();
-		this.outputFrame.setIconImage(iconlogo);
-		this.outputPane = new Container();
-		this.borderPane = new Container();
-		this.borderPane.setLayout(new BorderLayout());
-		this.outputFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		this.setUpGUIHook(this.outputPane);
-		this.scrollPane = new JScrollPane(this.borderPane);
-		this.borderPane.add(this.outputPane, BorderLayout.CENTER);
-		this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
-		this.outputFrame.setResizable(false);
-		final WindowListener wl = this.guiHookWindow();
-		if (wl != null) {
-			this.outputFrame.addWindowListener(wl);
-		}
-		this.outputFrame.setContentPane(this.scrollPane);
-		this.outputFrame.pack();
-		if (this.outputFrame.getWidth() > ImageLoader.MAX_WINDOW_SIZE
-				|| this.outputFrame.getHeight() > ImageLoader.MAX_WINDOW_SIZE) {
-			int pw, ph;
-			if (this.outputFrame.getWidth() > ImageLoader.MAX_WINDOW_SIZE) {
-				pw = ImageLoader.MAX_WINDOW_SIZE;
-			} else {
-				pw = this.scrollPane.getWidth();
-			}
-			if (this.outputFrame.getHeight() > ImageLoader.MAX_WINDOW_SIZE) {
-				ph = ImageLoader.MAX_WINDOW_SIZE;
-			} else {
-				ph = this.scrollPane.getHeight();
-			}
-			this.scrollPane.setPreferredSize(new Dimension(pw, ph));
-		}
-	}
+    }
 }

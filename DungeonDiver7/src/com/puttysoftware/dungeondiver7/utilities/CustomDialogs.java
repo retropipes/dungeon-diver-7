@@ -14,25 +14,25 @@ import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
 
 public class CustomDialogs {
-	private CustomDialogs() {
-		// Do nothing
-	}
+    private CustomDialogs() {
+	// Do nothing
+    }
 
-	public static int showDeadDialog() {
-		final Application app = DungeonDiver7.getApplication();
-		return JOptionPane.showOptionDialog(app.getOutputFrame(),
-				LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-						LocaleConstants.DIALOG_STRING_DEAD_MESSAGE),
-				LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_DEAD_TITLE),
-				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, LogoLoader.getMicroLogo(),
-				new String[] {
-						LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-								LocaleConstants.DIALOG_STRING_UNDO_BUTTON),
-						LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-								LocaleConstants.DIALOG_STRING_RESTART_BUTTON),
-						LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-								LocaleConstants.DIALOG_STRING_END_BUTTON) },
-				LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-						LocaleConstants.DIALOG_STRING_UNDO_BUTTON));
-	}
+    public static int showDeadDialog() {
+	final Application app = DungeonDiver7.getApplication();
+	return JOptionPane.showOptionDialog(app.getOutputFrame(),
+		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
+			LocaleConstants.DIALOG_STRING_DEAD_MESSAGE),
+		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_DEAD_TITLE),
+		JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, LogoLoader.getMicroLogo(),
+		new String[] {
+			LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
+				LocaleConstants.DIALOG_STRING_UNDO_BUTTON),
+			LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
+				LocaleConstants.DIALOG_STRING_RESTART_BUTTON),
+			LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
+				LocaleConstants.DIALOG_STRING_END_BUTTON) },
+		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
+			LocaleConstants.DIALOG_STRING_UNDO_BUTTON));
+    }
 }

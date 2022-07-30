@@ -13,30 +13,30 @@ import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 
 public class SoundLoader {
-	private static final String DEFAULT_LOAD_PATH = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_SOUND_PATH);
-	private static String LOAD_PATH = SoundLoader.DEFAULT_LOAD_PATH;
-	private static Class<?> LOAD_CLASS = SoundLoader.class;
+    private static final String DEFAULT_LOAD_PATH = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
+	    LocaleConstants.NOTL_STRING_SOUND_PATH);
+    private static String LOAD_PATH = SoundLoader.DEFAULT_LOAD_PATH;
+    private static Class<?> LOAD_CLASS = SoundLoader.class;
 
-	private SoundLoader() {
-		// Do nothing
-	}
+    private SoundLoader() {
+	// Do nothing
+    }
 
-	private static WAVPlayer getSound(final int soundID) {
-		try {
-			final String filename = SoundConstants.SOUND_NAMES[soundID];
-			final URL url = SoundLoader.LOAD_CLASS
-					.getResource(SoundLoader.LOAD_PATH + filename.toLowerCase() + LocaleLoader.loadString(
-							LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_SOUND_EXTENSION));
-			return WAVPlayer.loadResource(url);
-		} catch (final NullPointerException np) {
-			return null;
-		}
+    private static WAVPlayer getSound(final int soundID) {
+	try {
+	    final String filename = SoundConstants.SOUND_NAMES[soundID];
+	    final URL url = SoundLoader.LOAD_CLASS
+		    .getResource(SoundLoader.LOAD_PATH + filename.toLowerCase() + LocaleLoader.loadString(
+			    LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_SOUND_EXTENSION));
+	    return WAVPlayer.loadResource(url);
+	} catch (final NullPointerException np) {
+	    return null;
 	}
+    }
 
-	public static void playSound(final int soundID) {
-		if (PrefsManager.getSoundsEnabled()) {
-			SoundLoader.getSound(soundID).play();
-		}
+    public static void playSound(final int soundID) {
+	if (PrefsManager.getSoundsEnabled()) {
+	    SoundLoader.getSound(soundID).play();
 	}
+    }
 }

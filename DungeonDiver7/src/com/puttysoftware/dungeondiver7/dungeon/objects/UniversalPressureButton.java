@@ -9,14 +9,14 @@ import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractPressureB
 import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
 
 public class UniversalPressureButton extends AbstractPressureButton {
-	// Constructors
-	public UniversalPressureButton() {
-		super(new UniversalPressureButtonDoor(), true);
-		this.setMaterial(MaterialConstants.MATERIAL_DEFAULT);
-	}
+    // Constructors
+    public UniversalPressureButton() {
+	super(new UniversalPressureButtonDoor(), true);
+	this.setMaterial(MaterialConstants.MATERIAL_DEFAULT);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 112;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 112;
+    }
 }

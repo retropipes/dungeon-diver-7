@@ -8,13 +8,13 @@ package com.puttysoftware.dungeondiver7.utilities;
 import com.puttysoftware.randomrange.RandomLongRange;
 
 public class IDGenerator {
-	// Constructor
-	private IDGenerator() {
-		// Do nothing
-	}
+    // Constructor
+    private IDGenerator() {
+	// Do nothing
+    }
 
-	// Methods
-	public static String generateRandomFilename() {
-		return Long.toString(RandomLongRange.generateRaw(), 36).toLowerCase();
-	}
+    // Methods
+    public static String generateRandomFilename() {
+	return Long.toString(RandomLongRange.generateRaw(), 36).toLowerCase();
+    }
 }

@@ -9,14 +9,14 @@ import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractTriggerBu
 import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
 
 public class IceTriggerButton extends AbstractTriggerButton {
-	// Constructors
-	public IceTriggerButton() {
-		super(new IceTriggerButtonDoor(), false);
-		this.setMaterial(MaterialConstants.MATERIAL_ICE);
-	}
+    // Constructors
+    public IceTriggerButton() {
+	super(new IceTriggerButtonDoor(), false);
+	this.setMaterial(MaterialConstants.MATERIAL_ICE);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 84;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 84;
+    }
 }

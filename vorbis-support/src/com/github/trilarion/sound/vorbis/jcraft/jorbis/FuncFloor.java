@@ -24,8 +24,7 @@ import com.github.trilarion.sound.vorbis.jcraft.jogg.Buffer;
  *
  */
 abstract class FuncFloor {
-    private static final Logger LOG = Logger
-            .getLogger(FuncFloor.class.getName());
+    private static final Logger LOG = Logger.getLogger(FuncFloor.class.getName());
     public static FuncFloor[] floor_P = { new Floor0(), new Floor1() };
 
     abstract void pack(Object i, Buffer opb);
@@ -40,8 +39,7 @@ abstract class FuncFloor {
 
     abstract void free_state(Object vs);
 
-    abstract int forward(Block vb, Object i, float[] in, float[] out,
-            Object vs);
+    abstract int forward(Block vb, Object i, float[] in, float[] out, Object vs);
 
     abstract Object inverse1(Block vb, Object i, Object memo);
 

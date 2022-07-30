@@ -8,13 +8,13 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractAttribute;
 
 public class Darkness extends AbstractAttribute {
-	// Constructors
-	public Darkness() {
-		super();
-	}
+    // Constructors
+    public Darkness() {
+	super();
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 136;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 136;
+    }
 }

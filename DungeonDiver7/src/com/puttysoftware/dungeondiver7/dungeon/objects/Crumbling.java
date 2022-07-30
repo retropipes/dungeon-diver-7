@@ -14,33 +14,33 @@ import com.puttysoftware.dungeondiver7.utilities.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utilities.Direction;
 
 public class Crumbling extends AbstractAttribute {
-	// Constructors
-	public Crumbling() {
-		super();
-	}
+    // Constructors
+    public Crumbling() {
+	super();
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 132;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 132;
+    }
 
-	@Override
-	public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-			final int laserType, final int forceUnits) {
-		final Application app = DungeonDiver7.getApplication();
-		app.getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
-		// Destroy whatever we were attached to
-		app.getGameManager().morph(new Empty(), locX, locY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS);
-		SoundLoader.playSound(SoundConstants.SOUND_CRACK);
-		return Direction.NONE;
-	}
+    @Override
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+	    final int laserType, final int forceUnits) {
+	final Application app = DungeonDiver7.getApplication();
+	app.getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
+	// Destroy whatever we were attached to
+	app.getGameManager().morph(new Empty(), locX, locY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS);
+	SoundLoader.playSound(SoundConstants.SOUND_CRACK);
+	return Direction.NONE;
+    }
 
-	@Override
-	public void moveFailedAction(final int locX, final int locY, final int locZ) {
-		final Application app = DungeonDiver7.getApplication();
-		app.getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
-		// Destroy whatever we were attached to
-		app.getGameManager().morph(new Empty(), locX, locY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS);
-		SoundLoader.playSound(SoundConstants.SOUND_CRACK);
-	}
+    @Override
+    public void moveFailedAction(final int locX, final int locY, final int locZ) {
+	final Application app = DungeonDiver7.getApplication();
+	app.getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
+	// Destroy whatever we were attached to
+	app.getGameManager().morph(new Empty(), locX, locY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS);
+	SoundLoader.playSound(SoundConstants.SOUND_CRACK);
+    }
 }

@@ -11,7 +11,7 @@ import com.puttysoftware.xio.XDataReader;
 import com.puttysoftware.xio.XDataWriter;
 
 public interface AbstractPrefixIO {
-	void writePrefix(XDataWriter writer) throws IOException;
+    void writePrefix(XDataWriter writer) throws IOException;
 
-	int readPrefix(XDataReader reader) throws IOException;
+    int readPrefix(XDataReader reader) throws IOException;
 }

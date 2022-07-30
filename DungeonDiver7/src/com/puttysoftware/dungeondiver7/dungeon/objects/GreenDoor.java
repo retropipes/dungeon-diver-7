@@ -12,26 +12,26 @@ import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
 import com.puttysoftware.dungeondiver7.utilities.PartyInventory;
 
 public class GreenDoor extends AbstractDoor {
-	// Constructors
-	public GreenDoor() {
-		super(new GreenKey());
-	}
+    // Constructors
+    public GreenDoor() {
+	super(new GreenKey());
+    }
 
-	// Scriptability
-	@Override
-	public boolean isConditionallySolid() {
-		return PartyInventory.getGreenKeysLeft() < 1;
-	}
+    // Scriptability
+    @Override
+    public boolean isConditionallySolid() {
+	return PartyInventory.getGreenKeysLeft() < 1;
+    }
 
-	@Override
-	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		SoundLoader.playSound(SoundConstants.SOUND_UNLOCK);
-		PartyInventory.useGreenKey();
-		DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-	}
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	SoundLoader.playSound(SoundConstants.SOUND_UNLOCK);
+	PartyInventory.useGreenKey();
+	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 16;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 16;
+    }
 }

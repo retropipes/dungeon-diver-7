@@ -8,13 +8,13 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractGround;
 
 public class Bridge extends AbstractGround {
-	// Constructors
-	public Bridge() {
-		super();
-	}
+    // Constructors
+    public Bridge() {
+	super();
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 9;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 9;
+    }
 }

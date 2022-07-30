@@ -8,18 +8,18 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractTransientObject;
 
 public class Missile extends AbstractTransientObject {
-	// Constructors
-	public Missile() {
-		super();
-	}
+    // Constructors
+    public Missile() {
+	super();
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 27;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 27;
+    }
 
-	@Override
-	public int getForceUnitsImbued() {
-		return 2;
-	}
+    @Override
+    public int getForceUnitsImbued() {
+	return 2;
+    }
 }

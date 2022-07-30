@@ -15,43 +15,43 @@ import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
 import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
 
 public class Ice extends AbstractGround {
-	public Ice() {
-		super(false);
-		this.setMaterial(MaterialConstants.MATERIAL_ICE);
-		this.type.set(TypeConstants.TYPE_ICY);
-	}
+    public Ice() {
+	super(false);
+	this.setMaterial(MaterialConstants.MATERIAL_ICE);
+	this.type.set(TypeConstants.TYPE_ICY);
+    }
 
-	@Override
-	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		SoundLoader.playSound(SoundConstants.SOUND_PUSH_MIRROR);
-	}
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	SoundLoader.playSound(SoundConstants.SOUND_PUSH_MIRROR);
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 20;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 20;
+    }
 
-	@Override
-	public AbstractDungeonObject changesToOnExposure(final int materialID) {
-		switch (materialID) {
-		case MaterialConstants.MATERIAL_FIRE:
-			if (this.hasPreviousState()) {
-				return this.getPreviousState();
-			} else {
-				return new Ground();
-			}
-		default:
-			return this;
-		}
+    @Override
+    public AbstractDungeonObject changesToOnExposure(final int materialID) {
+	switch (materialID) {
+	case MaterialConstants.MATERIAL_FIRE:
+	    if (this.hasPreviousState()) {
+		return this.getPreviousState();
+	    } else {
+		return new Ground();
+	    }
+	default:
+	    return this;
 	}
+    }
 
-	@Override
-	public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-		if (pushed instanceof HotBox) {
-			final Ground g = new Ground();
-			DungeonDiver7.getApplication().getGameManager().morph(g, x, y, z, g.getLayer());
-			SoundLoader.playSound(SoundConstants.SOUND_DEFROST);
-		}
-		return true;
+    @Override
+    public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
+	if (pushed instanceof HotBox) {
+	    final Ground g = new Ground();
+	    DungeonDiver7.getApplication().getGameManager().morph(g, x, y, z, g.getLayer());
+	    SoundLoader.playSound(SoundConstants.SOUND_DEFROST);
 	}
+	return true;
+    }
 }

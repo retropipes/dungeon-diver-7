@@ -13,31 +13,31 @@ import com.puttysoftware.dungeondiver7.utilities.ActionConstants;
 import com.puttysoftware.dungeondiver7.utilities.Direction;
 
 public class PowerfulParty extends AbstractCharacter {
-	// Constructors
-	public PowerfulParty(final int number) {
-		super(number);
-		this.activateTimer(50);
-	}
+    // Constructors
+    public PowerfulParty(final int number) {
+	super(number);
+	this.activateTimer(50);
+    }
 
-	public PowerfulParty(final Direction dir, final int number) {
-		super(number);
-		this.setDirection(dir);
-		this.activateTimer(50);
-	}
+    public PowerfulParty(final Direction dir, final int number) {
+	super(number);
+	this.setDirection(dir);
+	this.activateTimer(50);
+    }
 
-	@Override
-	public boolean acceptTick(final int actionType) {
-		return actionType == ActionConstants.ACTION_MOVE;
-	}
+    @Override
+    public boolean acceptTick(final int actionType) {
+	return actionType == ActionConstants.ACTION_MOVE;
+    }
 
-	@Override
-	public void timerExpiredAction(final int x, final int y) {
-		SoundLoader.playSound(SoundConstants.SOUND_DISRUPT_END);
-		DungeonDiver7.getApplication().getGameManager().setNormalTank();
-	}
+    @Override
+    public void timerExpiredAction(final int x, final int y) {
+	SoundLoader.playSound(SoundConstants.SOUND_DISRUPT_END);
+	DungeonDiver7.getApplication().getGameManager().setNormalTank();
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 138;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 138;
+    }
 }

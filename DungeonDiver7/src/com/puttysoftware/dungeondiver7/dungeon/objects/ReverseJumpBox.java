@@ -13,44 +13,44 @@ import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
 import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
 
 public class ReverseJumpBox extends AbstractJumpObject {
-	// Constructors
-	public ReverseJumpBox() {
-		super();
-		this.type.set(TypeConstants.TYPE_BOX);
-		this.setMaterial(MaterialConstants.MATERIAL_STONE);
-	}
+    // Constructors
+    public ReverseJumpBox() {
+	super();
+	this.type.set(TypeConstants.TYPE_BOX);
+	this.setMaterial(MaterialConstants.MATERIAL_STONE);
+    }
 
-	@Override
-	public int getActualJumpRows() {
-		return -super.getActualJumpRows();
-	}
+    @Override
+    public int getActualJumpRows() {
+	return -super.getActualJumpRows();
+    }
 
-	@Override
-	public int getActualJumpCols() {
-		return -super.getActualJumpCols();
-	}
+    @Override
+    public int getActualJumpCols() {
+	return -super.getActualJumpCols();
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 124;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 124;
+    }
 
-	@Override
-	public final Color getCustomTextColor() {
-		return Color.black;
-	}
+    @Override
+    public final Color getCustomTextColor() {
+	return Color.black;
+    }
 
-	@Override
-	public AbstractDungeonObject changesToOnExposure(final int materialID) {
-		switch (materialID) {
-		case MaterialConstants.MATERIAL_ICE:
-			final IcyBox ib = new IcyBox();
-			ib.setPreviousState(this);
-			return ib;
-		case MaterialConstants.MATERIAL_FIRE:
-			return new HotBox();
-		default:
-			return this;
-		}
+    @Override
+    public AbstractDungeonObject changesToOnExposure(final int materialID) {
+	switch (materialID) {
+	case MaterialConstants.MATERIAL_ICE:
+	    final IcyBox ib = new IcyBox();
+	    ib.setPreviousState(this);
+	    return ib;
+	case MaterialConstants.MATERIAL_FIRE:
+	    return new HotBox();
+	default:
+	    return this;
 	}
+    }
 }

@@ -12,21 +12,21 @@ import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
 import com.puttysoftware.dungeondiver7.utilities.PartyInventory;
 
 public class BlueKey extends AbstractKey {
-	// Constructors
-	public BlueKey() {
-		super();
-	}
+    // Constructors
+    public BlueKey() {
+	super();
+    }
 
-	// Scriptability
-	@Override
-	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		SoundLoader.playSound(SoundConstants.SOUND_GRAB);
-		PartyInventory.addOneBlueKey();
-		DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-	}
+    // Scriptability
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	SoundLoader.playSound(SoundConstants.SOUND_GRAB);
+	PartyInventory.addOneBlueKey();
+	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 5;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 5;
+    }
 }

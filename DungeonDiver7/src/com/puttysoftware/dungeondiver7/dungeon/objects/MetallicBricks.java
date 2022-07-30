@@ -15,36 +15,37 @@ import com.puttysoftware.dungeondiver7.utilities.ArrowTypeConstants;
 import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
 
 public class MetallicBricks extends AbstractReactionWall {
-	// Constructors
-	public MetallicBricks() {
-		super();
-		this.setMaterial(MaterialConstants.MATERIAL_METALLIC);
-	}
+    // Constructors
+    public MetallicBricks() {
+	super();
+	this.setMaterial(MaterialConstants.MATERIAL_METALLIC);
+    }
 
-	@Override
-	public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
-			final int dirY, final int laserType, final int forceUnits) {
-		SoundLoader.playSound(SoundConstants.SOUND_BREAK_BRICKS);
-		DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
-		if (laserType == ArrowTypeConstants.LASER_TYPE_POWER) {
-			// Laser keeps going
-			return DirectionResolver.resolveRelativeDirection(dirX, dirY);
-		} else {
-			// Laser stops
-			return Direction.NONE;
-		}
+    @Override
+    public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
+	    final int dirY, final int laserType, final int forceUnits) {
+	SoundLoader.playSound(SoundConstants.SOUND_BREAK_BRICKS);
+	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
+	if (laserType == ArrowTypeConstants.LASER_TYPE_POWER) {
+	    // Laser keeps going
+	    return DirectionResolver.resolveRelativeDirection(dirX, dirY);
+	} else {
+	    // Laser stops
+	    return Direction.NONE;
 	}
+    }
 
-	@Override
-	public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-			final int rangeType, final int forceUnits) {
-		SoundLoader.playSound(SoundConstants.SOUND_BREAK_BRICKS);
-		DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
-		return true;
-	}
+    @Override
+    public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+	    final int rangeType, final int forceUnits) {
+	SoundLoader.playSound(SoundConstants.SOUND_BREAK_BRICKS);
+	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX + dirX, locY + dirY, locZ,
+		this.getLayer());
+	return true;
+    }
 
-	@Override
-	public final int getStringBaseID() {
-		return 64;
-	}
+    @Override
+    public final int getStringBaseID() {
+	return 64;
+    }
 }

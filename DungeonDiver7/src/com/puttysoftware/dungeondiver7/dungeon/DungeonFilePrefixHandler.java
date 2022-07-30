@@ -14,37 +14,37 @@ import com.puttysoftware.xio.XDataReader;
 import com.puttysoftware.xio.XDataWriter;
 
 public class DungeonFilePrefixHandler implements AbstractPrefixIO {
-	private static final byte FORMAT_VERSION = (byte) FormatConstants.ARENA_FORMAT_LATEST;
+    private static final byte FORMAT_VERSION = (byte) FormatConstants.ARENA_FORMAT_LATEST;
 
-	@Override
-	public int readPrefix(final XDataReader reader) throws IOException {
-		final byte formatVer = DungeonFilePrefixHandler.readFormatVersion(reader);
-		final boolean res = DungeonFilePrefixHandler.checkFormatVersion(formatVer);
-		if (!res) {
-			throw new IOException(LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-					LocaleConstants.ERROR_STRING_UNKNOWN_ARENA_FORMAT));
-		}
-		return formatVer;
+    @Override
+    public int readPrefix(final XDataReader reader) throws IOException {
+	final byte formatVer = DungeonFilePrefixHandler.readFormatVersion(reader);
+	final boolean res = DungeonFilePrefixHandler.checkFormatVersion(formatVer);
+	if (!res) {
+	    throw new IOException(LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
+		    LocaleConstants.ERROR_STRING_UNKNOWN_ARENA_FORMAT));
 	}
+	return formatVer;
+    }
 
-	@Override
-	public void writePrefix(final XDataWriter writer) throws IOException {
-		DungeonFilePrefixHandler.writeFormatVersion(writer);
-	}
+    @Override
+    public void writePrefix(final XDataWriter writer) throws IOException {
+	DungeonFilePrefixHandler.writeFormatVersion(writer);
+    }
 
-	private static byte readFormatVersion(final XDataReader reader) throws IOException {
-		return reader.readByte();
-	}
+    private static byte readFormatVersion(final XDataReader reader) throws IOException {
+	return reader.readByte();
+    }
 
-	private static boolean checkFormatVersion(final byte version) {
-		if (version > DungeonFilePrefixHandler.FORMAT_VERSION) {
-			return false;
-		} else {
-			return true;
-		}
+    private static boolean checkFormatVersion(final byte version) {
+	if (version > DungeonFilePrefixHandler.FORMAT_VERSION) {
+	    return false;
+	} else {
+	    return true;
 	}
+    }
 
-	private static void writeFormatVersion(final XDataWriter writer) throws IOException {
-		writer.writeByte(DungeonFilePrefixHandler.FORMAT_VERSION);
-	}
+    private static void writeFormatVersion(final XDataWriter writer) throws IOException {
+	writer.writeByte(DungeonFilePrefixHandler.FORMAT_VERSION);
+    }
 }
