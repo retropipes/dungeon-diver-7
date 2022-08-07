@@ -15,6 +15,10 @@ public class DungeonDataStorage extends CloneableObjectStorage {
 	super(shape);
     }
 
+    public DungeonDataStorage(final DungeonDataStorage source) {
+	super(source);
+    }
+
     // Methods
     @Override
     public Object clone() throws CloneNotSupportedException {

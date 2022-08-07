@@ -8,6 +8,7 @@ package com.puttysoftware.dungeondiver7.integration1.dungeon;
 import java.io.IOException;
 import java.util.Arrays;
 
+import com.puttysoftware.dungeondiver7.dungeon.DungeonDataStorage;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.BossMonsterTile;
@@ -31,8 +32,8 @@ import com.puttysoftware.storage.FlagStorage;
 
 final class CurrentDungeonData implements Cloneable {
     // Properties
-    private CurrentDungeonStorage data;
-    private CurrentDungeonStorage savedTowerState;
+    private DungeonDataStorage data;
+    private DungeonDataStorage savedTowerState;
     private FlagStorage visionData;
     private final int[] playerStartData;
     private final int[] playerLocationData;
@@ -51,8 +52,8 @@ final class CurrentDungeonData implements Cloneable {
 
     // Constructors
     public CurrentDungeonData(final int rows, final int cols) {
-	this.data = new CurrentDungeonStorage(cols, rows, DungeonConstants.NUM_LAYERS);
-	this.savedTowerState = new CurrentDungeonStorage(cols, rows, DungeonConstants.NUM_LAYERS);
+	this.data = new DungeonDataStorage(cols, rows, DungeonConstants.NUM_LAYERS);
+	this.savedTowerState = new DungeonDataStorage(cols, rows, DungeonConstants.NUM_LAYERS);
 	this.visionData = new FlagStorage(cols, rows);
 	this.playerStartData = new int[2];
 	Arrays.fill(this.playerStartData, -1);
@@ -83,9 +84,9 @@ final class CurrentDungeonData implements Cloneable {
     @Override
     public CurrentDungeonData clone() {
 	final CurrentDungeonData copy = new CurrentDungeonData(this.getRows(), this.getColumns());
-	copy.data = this.data.clone();
+	copy.data = new DungeonDataStorage(this.data);
 	copy.visionData = new FlagStorage(this.visionData);
-	copy.savedTowerState = this.savedTowerState.clone();
+	copy.savedTowerState = new DungeonDataStorage(this.savedTowerState);
 	System.arraycopy(this.playerStartData, 0, copy.playerStartData, 0, this.playerStartData.length);
 	System.arraycopy(this.findResult, 0, copy.findResult, 0, this.findResult.length);
 	copy.horizontalWraparoundEnabled = this.horizontalWraparoundEnabled;
@@ -174,7 +175,7 @@ final class CurrentDungeonData implements Cloneable {
 	if (this.horizontalWraparoundEnabled) {
 	    fR = this.normalizeRow(fR);
 	}
-	return this.data.getCell(fC, fR, extra);
+	return this.data.getDungeonDataCell(fC, fR, extra);
     }
 
     public int getPlayerRow() {
@@ -524,7 +525,7 @@ final class CurrentDungeonData implements Cloneable {
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
-		    this.setCell(this.savedTowerState.getCell(x, y, e), y, x, e);
+		    this.setCell(this.savedTowerState.getDungeonDataCell(x, y, e), y, x, e);
 		}
 	    }
 	}
@@ -624,9 +625,8 @@ final class CurrentDungeonData implements Cloneable {
 	for (x = 0; x < lt.getColumns(); x++) {
 	    for (y = 0; y < lt.getRows(); y++) {
 		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
-		    lt.setCell(
-			    Integration1.getApplication().getObjects().readV7(reader, FormatConstants.MAZE_FORMAT_LATEST),
-			    y, x, e);
+		    lt.setCell(Integration1.getApplication().getObjects().readV7(reader,
+			    FormatConstants.MAZE_FORMAT_LATEST), y, x, e);
 		    if (lt.getCell(y, x, e) == null) {
 			return null;
 		    }
@@ -659,7 +659,7 @@ final class CurrentDungeonData implements Cloneable {
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
-		    this.savedTowerState.getCell(y, x, e).write(writer);
+		    this.savedTowerState.getDungeonDataCell(y, x, e).write(writer);
 		}
 	    }
 	}
@@ -669,12 +669,12 @@ final class CurrentDungeonData implements Cloneable {
 	int x, y, e, sizeX, sizeY;
 	sizeX = reader.readInt();
 	sizeY = reader.readInt();
-	this.savedTowerState = new CurrentDungeonStorage(sizeY, sizeX, DungeonConstants.NUM_LAYERS);
+	this.savedTowerState = new DungeonDataStorage(sizeY, sizeX, DungeonConstants.NUM_LAYERS);
 	for (x = 0; x < sizeY; x++) {
 	    for (y = 0; y < sizeX; y++) {
 		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
-		    this.savedTowerState.setCell(Integration1.getApplication().getObjects().readV7(reader, formatVersion),
-			    y, x, e);
+		    this.savedTowerState
+			    .setCell(Integration1.getApplication().getObjects().readV7(reader, formatVersion), y, x, e);
 		}
 	    }
 	}
