@@ -24,7 +24,7 @@ public abstract class AbstractWall extends AbstractDungeonObject {
     }
 
     @Override
-    public void moveFailedAction(final boolean ie, final int dirX, final int dirY) {
+    public void moveFailedAction(final int dirX, final int dirY, int dirZ) {
 	Integration1.getApplication().showMessage("Can't go that way");
 	// Play move failed sound, if it's enabled
 	SoundLoader.playSound(SoundConstants.FAILED);

@@ -163,7 +163,7 @@ final class MovementTask extends Thread {
 		    this.vwMgr.restoreViewingWindow();
 		    m.restorePlayerLocation();
 		    // Move failed - attempted to go outside the maze
-		    nextAbove.moveFailedAction(false, px, py);
+		    nextAbove.moveFailedAction(px, py, pz);
 		    app.showMessage("Can't go that way");
 		    nextAbove = new Empty();
 		    this.proceed = false;
@@ -171,7 +171,7 @@ final class MovementTask extends Thread {
 		this.fireStepActions();
 	    } else {
 		// Move failed - pre-move check failed
-		nextAbove.moveFailedAction(false, px + fX, py + fY);
+		nextAbove.moveFailedAction(px + fX, py + fY, pz);
 		this.fireStepActions();
 		this.proceed = false;
 	    }
@@ -206,17 +206,18 @@ final class MovementTask extends Thread {
 	final boolean belowSolid = below.isSolid();
 	final boolean nextBelowSolid = nextBelow.isSolid();
 	final boolean nextAboveSolid = nextAbove.isSolid();
+	int z = 0;
 	if (insideSolid) {
-	    inside.moveFailedAction(false, x, y);
+	    inside.moveFailedAction(x, y, z);
 	}
 	if (belowSolid) {
-	    below.moveFailedAction(false, x, y);
+	    below.moveFailedAction(x, y, z);
 	}
 	if (nextBelowSolid) {
-	    nextBelow.moveFailedAction(false, x, y);
+	    nextBelow.moveFailedAction(x, y, z);
 	}
 	if (nextAboveSolid) {
-	    nextAbove.moveFailedAction(false, x, y);
+	    nextAbove.moveFailedAction(x, y, z);
 	}
     }
 

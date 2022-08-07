@@ -202,7 +202,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      * @param dirY
      * @param inv
      */
-    public void moveFailedAction(final boolean ie, final int dirX, final int dirY) {
+    public void moveFailedAction(final int dirX, final int dirY, int dirZ) {
 	SoundLoader.playSound(SoundConstants.FAILED);
 	Integration1.getApplication().showMessage("Can't go that way");
     }
