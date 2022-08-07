@@ -16,7 +16,7 @@ public class WoodenTriggerButton extends AbstractTriggerButton {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 120;
     }
 }

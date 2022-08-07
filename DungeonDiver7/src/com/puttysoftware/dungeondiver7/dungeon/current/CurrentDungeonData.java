@@ -748,7 +748,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    final int dy = source.getDoorY();
 	    if (!(this.getCell(dungeon, dx, dy, zFix, source.getLayer()) instanceof Ground)) {
 		this.setCell(dungeon, new Ground(), dx, dy, zFix, source.getLayer());
-		SoundLoader.playSound(SoundConstants.SOUND_DOOR_OPENS);
+		SoundLoader.playSound(SoundConstants.DOOR_OPENS);
 	    }
 	}
     }
@@ -787,7 +787,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    if (!this.getCell(dungeon, dx, dy, zFix, source.getLayer()).getClass()
 		    .equals(source.getButtonDoor().getClass())) {
 		this.setCell(dungeon, source.getButtonDoor(), dx, dy, zFix, source.getLayer());
-		SoundLoader.playSound(SoundConstants.SOUND_DOOR_CLOSES);
+		SoundLoader.playSound(SoundConstants.DOOR_CLOSES);
 	    }
 	}
     }
@@ -1144,7 +1144,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			this.getCell(dungeon, y, x, z, w).writeDungeonObject(writer);
+			this.getCell(dungeon, y, x, z, w).write(writer);
 		    }
 		}
 	    }
@@ -1189,7 +1189,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
 		    final AbstractDungeonObject obj = DungeonDiver7.getApplication().getObjects()
-			    .readDungeonObjectG2(reader, ver);
+			    .readV2(reader, ver);
 		    lt.setCell(dungeon, obj, y, x, z, obj.getLayer());
 		}
 	    }
@@ -1233,7 +1233,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
 		    final AbstractDungeonObject obj = DungeonDiver7.getApplication().getObjects()
-			    .readDungeonObjectG2(reader, ver);
+			    .readV2(reader, ver);
 		    lt.setCell(dungeon, obj, y, x, z, obj.getLayer());
 		}
 	    }
@@ -1282,7 +1282,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
 		    final AbstractDungeonObject obj = DungeonDiver7.getApplication().getObjects()
-			    .readDungeonObjectG3(reader, ver);
+			    .readV3(reader, ver);
 		    lt.setCell(dungeon, obj, y, x, z, obj.getLayer());
 		}
 	    }
@@ -1331,7 +1331,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
 		    final AbstractDungeonObject obj = DungeonDiver7.getApplication().getObjects()
-			    .readDungeonObjectG4(reader, ver);
+			    .readV4(reader, ver);
 		    lt.setCell(dungeon, obj, y, x, z, obj.getLayer());
 		}
 	    }
@@ -1381,7 +1381,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		for (z = 0; z < dungeonSizeZ; z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 			lt.setCell(dungeon,
-				DungeonDiver7.getApplication().getObjects().readDungeonObjectG5(reader, ver), y, x, z,
+				DungeonDiver7.getApplication().getObjects().readV5(reader, ver), y, x, z,
 				w);
 		    }
 		}
@@ -1432,7 +1432,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		for (z = 0; z < dungeonSizeZ; z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 			lt.setCell(dungeon,
-				DungeonDiver7.getApplication().getObjects().readDungeonObjectG6(reader, ver), y, x, z,
+				DungeonDiver7.getApplication().getObjects().readV6(reader, ver), y, x, z,
 				w);
 		    }
 		}
@@ -1454,7 +1454,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			((AbstractDungeonObject) this.savedState.getCell(y, x, z, w)).writeDungeonObject(writer);
+			((AbstractDungeonObject) this.savedState.getCell(y, x, z, w)).write(writer);
 		    }
 		}
 	    }
@@ -1491,7 +1491,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < saveSizeY; y++) {
 		for (z = 0; z < saveSizeZ; z++) {
 		    this.savedState.setCell(
-			    DungeonDiver7.getApplication().getObjects().readDungeonObjectG2(reader, formatVersion), y,
+			    DungeonDiver7.getApplication().getObjects().readV2(reader, formatVersion), y,
 			    x, z, DungeonConstants.LAYER_LOWER_GROUND);
 		}
 	    }
@@ -1511,7 +1511,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < saveSizeY; y++) {
 		for (z = 0; z < saveSizeZ; z++) {
 		    this.savedState.setCell(
-			    DungeonDiver7.getApplication().getObjects().readDungeonObjectG3(reader, formatVersion), y,
+			    DungeonDiver7.getApplication().getObjects().readV3(reader, formatVersion), y,
 			    x, z, DungeonConstants.LAYER_LOWER_GROUND);
 		}
 	    }
@@ -1531,7 +1531,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < saveSizeY; y++) {
 		for (z = 0; z < saveSizeZ; z++) {
 		    this.savedState.setCell(
-			    DungeonDiver7.getApplication().getObjects().readDungeonObjectG4(reader, formatVersion), y,
+			    DungeonDiver7.getApplication().getObjects().readV4(reader, formatVersion), y,
 			    x, z, DungeonConstants.LAYER_LOWER_GROUND);
 		}
 	    }
@@ -1552,7 +1552,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		for (z = 0; z < saveSizeZ; z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 			this.savedState.setCell(
-				DungeonDiver7.getApplication().getObjects().readDungeonObjectG5(reader, formatVersion),
+				DungeonDiver7.getApplication().getObjects().readV5(reader, formatVersion),
 				y, x, z, w);
 		    }
 		}
@@ -1574,7 +1574,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		for (z = 0; z < saveSizeZ; z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 			this.savedState.setCell(
-				DungeonDiver7.getApplication().getObjects().readDungeonObjectG6(reader, formatVersion),
+				DungeonDiver7.getApplication().getObjects().readV6(reader, formatVersion),
 				y, x, z, w);
 		    }
 		}

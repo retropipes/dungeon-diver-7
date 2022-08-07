@@ -19,13 +19,13 @@ public class FreezeMagic extends AbstractSpell {
     // Scriptability
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(SoundConstants.SOUND_FREEZE_MAGIC);
+	SoundLoader.playSound(SoundConstants.FREEZE_MAGIC);
 	DungeonDiver7.getApplication().getDungeonManager().getDungeon().fullScanFreezeGround();
 	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 142;
     }
 }

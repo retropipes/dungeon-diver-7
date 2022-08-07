@@ -22,7 +22,7 @@ public class UpperGroundEmpty extends AbstractPassThroughObject {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 130;
     }
 }

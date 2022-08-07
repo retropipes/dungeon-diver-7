@@ -28,18 +28,18 @@ public class Wall extends AbstractWall {
 	    final int laserType, final int forceUnits) {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 	    // Disrupt wall
-	    SoundLoader.playSound(SoundConstants.SOUND_DISRUPTED);
+	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    DungeonDiver7.getApplication().getGameManager().morph(new DisruptedWall(), locX, locY, locZ,
 		    this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Heat up wall
-	    SoundLoader.playSound(SoundConstants.SOUND_MELT);
+	    SoundLoader.playSound(SoundConstants.MELT);
 	    DungeonDiver7.getApplication().getGameManager().morph(new HotWall(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
 	    // Freeze wall
-	    SoundLoader.playSound(SoundConstants.SOUND_FROZEN);
+	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    final IcyWall iw = new IcyWall();
 	    iw.setPreviousState(this);
 	    DungeonDiver7.getApplication().getGameManager().morph(iw, locX, locY, locZ, this.getLayer());
@@ -51,7 +51,7 @@ public class Wall extends AbstractWall {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 45;
     }
 

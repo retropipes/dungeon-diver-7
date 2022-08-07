@@ -36,7 +36,7 @@ public class Water extends AbstractGround {
 		app.getGameManager().morph(new Bridge(), x, y, z, this.getLayer());
 	    }
 	}
-	SoundLoader.playSound(SoundConstants.SOUND_SINK);
+	SoundLoader.playSound(SoundConstants.SINK);
 	return false;
     }
 
@@ -46,7 +46,7 @@ public class Water extends AbstractGround {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 46;
     }
 

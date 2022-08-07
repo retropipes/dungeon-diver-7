@@ -8,10 +8,10 @@ package com.puttysoftware.dungeondiver7.creature.party;
 import java.io.IOException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BattleCharacter;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.names.ZoneNames;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
@@ -57,7 +57,7 @@ public class Party {
     }
 
     public void offsetZone(final int offset) {
-	if (this.zone + offset > Dungeon.getMaxLevels() || this.zone + offset < 0) {
+	if (this.zone + offset > CurrentDungeon.getMaxLevels() || this.zone + offset < 0) {
 	    return;
 	}
 	this.zone += offset;

@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
@@ -109,7 +109,7 @@ public final class GUIManager implements QuitHandler {
 	    PrefsManager.writePrefs();
 	    // Run cleanup task
 	    try {
-		final File dirToDelete = new File(Dungeon.getDungeonTempFolder());
+		final File dirToDelete = new File(CurrentDungeon.getDungeonTempFolder());
 		DirectoryUtilities.removeDirectory(dirToDelete);
 	    } catch (final Throwable t) {
 		// Ignore

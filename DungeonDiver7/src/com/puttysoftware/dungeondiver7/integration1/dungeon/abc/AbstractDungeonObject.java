@@ -12,36 +12,36 @@ import com.puttysoftware.dungeondiver7.dungeon.utility.ImageColorConstants;
 import com.puttysoftware.dungeondiver7.dungeon.utility.RandomGenerationRule;
 import com.puttysoftware.dungeondiver7.dungeon.utility.TypeConstants;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.loader.BattleImageManager;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.FormatConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 import com.puttysoftware.images.BufferedImageIcon;
 import com.puttysoftware.randomrange.RandomRange;
 import com.puttysoftware.storage.CloneableObject;
 
-public abstract class AbstractGameObject extends CloneableObject implements RandomGenerationRule {
+public abstract class AbstractDungeonObject extends CloneableObject implements RandomGenerationRule {
     // Properties
     private boolean solid;
     private boolean friction;
-    private final boolean blocksLOS;
-    private static int templateColor = ImageColorConstants.COLOR_NONE;
     private int timerValue;
     private int initialTimerValue;
     private boolean timerActive;
     protected BitSet type;
-    private AbstractGameObject saved;
+    private final boolean blocksLOS;
+    private static int templateColor = ImageColorConstants.COLOR_NONE;
+    private AbstractDungeonObject saved;
     public static final int DEFAULT_CUSTOM_VALUE = 0;
     protected static final int CUSTOM_FORMAT_MANUAL_OVERRIDE = -1;
 
     // Constructors
-    public AbstractGameObject(final boolean isSolid, final boolean sightBlock) {
+    public AbstractDungeonObject(final boolean isSolid, final boolean sightBlock) {
 	this.solid = isSolid;
 	this.friction = true;
 	this.blocksLOS = sightBlock;
@@ -52,7 +52,7 @@ public abstract class AbstractGameObject extends CloneableObject implements Rand
 	this.setTypes();
     }
 
-    public AbstractGameObject(final boolean isSolid, final boolean hasFriction, final boolean sightBlock) {
+    public AbstractDungeonObject(final boolean isSolid, final boolean hasFriction, final boolean sightBlock) {
 	this.solid = isSolid;
 	this.friction = hasFriction;
 	this.blocksLOS = sightBlock;
@@ -63,7 +63,7 @@ public abstract class AbstractGameObject extends CloneableObject implements Rand
 	this.setTypes();
     }
 
-    public AbstractGameObject() {
+    public AbstractDungeonObject() {
 	this.solid = false;
 	this.friction = true;
 	this.blocksLOS = false;
@@ -76,8 +76,8 @@ public abstract class AbstractGameObject extends CloneableObject implements Rand
 
     // Methods
     @Override
-    public AbstractGameObject clone() {
-	final AbstractGameObject copy = (AbstractGameObject) super.clone();
+    public AbstractDungeonObject clone() {
+	final AbstractDungeonObject copy = (AbstractDungeonObject) super.clone();
 	copy.solid = this.solid;
 	copy.friction = this.friction;
 	copy.type = (BitSet) this.type.clone();
@@ -108,10 +108,10 @@ public abstract class AbstractGameObject extends CloneableObject implements Rand
 	if (obj == null) {
 	    return false;
 	}
-	if (!(obj instanceof AbstractGameObject)) {
+	if (!(obj instanceof AbstractDungeonObject)) {
 	    return false;
 	}
-	final AbstractGameObject other = (AbstractGameObject) obj;
+	final AbstractDungeonObject other = (AbstractDungeonObject) obj;
 	if (this.friction != other.friction) {
 	    return false;
 	}
@@ -137,14 +137,14 @@ public abstract class AbstractGameObject extends CloneableObject implements Rand
 	return true;
     }
 
-    public AbstractGameObject getSavedObject() {
+    public AbstractDungeonObject getSavedObject() {
 	if (this.saved == null) {
 	    throw new NullPointerException("Saved object == NULL!");
 	}
 	return this.saved;
     }
 
-    public void setSavedObject(final AbstractGameObject newSaved) {
+    public void setSavedObject(final AbstractDungeonObject newSaved) {
 	if (newSaved == null) {
 	    throw new IllegalArgumentException("New saved object == NULL!");
 	}
@@ -178,11 +178,11 @@ public abstract class AbstractGameObject extends CloneableObject implements Rand
     }
 
     public static int getTemplateColor() {
-	return AbstractGameObject.templateColor;
+	return AbstractDungeonObject.templateColor;
     }
 
     public static void setTemplateColor(final int newTC) {
-	AbstractGameObject.templateColor = newTC;
+	AbstractDungeonObject.templateColor = newTC;
     }
 
     // Scripting
@@ -329,9 +329,9 @@ public abstract class AbstractGameObject extends CloneableObject implements Rand
     }
 
     @Override
-    public boolean shouldGenerateObject(final Dungeon dungeon, final int row, final int col, final int level,
+    public boolean shouldGenerateObject(final CurrentDungeon dungeon, final int row, final int col, final int level,
 	    final int layer) {
-	if (layer == DungeonConstants.LAYER_OBJECT) {
+	if (layer == DungeonConstants.LAYER_LOWER_OBJECTS) {
 	    // Handle object layer
 	    if (!this.isOfType(TypeConstants.TYPE_PASS_THROUGH)) {
 		// Limit generation of other objects to 20%, unless required
@@ -367,30 +367,30 @@ public abstract class AbstractGameObject extends CloneableObject implements Rand
     }
 
     @Override
-    public int getMinimumRequiredQuantity(final Dungeon dungeon) {
+    public int getMinimumRequiredQuantity(final CurrentDungeon dungeon) {
 	return RandomGenerationRule.NO_LIMIT;
     }
 
     @Override
-    public int getMaximumRequiredQuantity(final Dungeon dungeon) {
+    public int getMaximumRequiredQuantity(final CurrentDungeon dungeon) {
 	return RandomGenerationRule.NO_LIMIT;
     }
 
     @Override
-    public boolean isRequired(final Dungeon dungeon) {
+    public boolean isRequired(final CurrentDungeon dungeon) {
 	return false;
     }
 
-    public final void writeGameObject(final FileIOWriter writer) throws IOException {
+    public final void write(final FileIOWriter writer) throws IOException {
 	writer.writeString(this.getIdentifier());
 	if (this.saved == null) {
 	    writer.writeString("NULL");
 	} else {
-	    this.saved.writeGameObject(writer);
+	    this.saved.write(writer);
 	}
 	final int cc = this.getCustomFormat();
-	if (cc == AbstractGameObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    this.writeGameObjectHook(writer);
+	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+	    this.writeHook(writer);
 	} else {
 	    for (int x = 0; x < cc; x++) {
 		final int cx = this.getCustomProperty(x + 1);
@@ -399,7 +399,7 @@ public abstract class AbstractGameObject extends CloneableObject implements Rand
 	}
     }
 
-    public final AbstractGameObject readGameObjectV1(final FileIOReader reader, final String ident) throws IOException {
+    public final AbstractDungeonObject readV7(final FileIOReader reader, final String ident) throws IOException {
 	if (ident.equals(this.getIdentifier())) {
 	    final String savedIdent = reader.readString();
 	    if (!savedIdent.equals("NULL")) {
@@ -407,8 +407,8 @@ public abstract class AbstractGameObject extends CloneableObject implements Rand
 			FormatConstants.MAZE_FORMAT_LATEST);
 	    }
 	    final int cc = this.getCustomFormat();
-	    if (cc == AbstractGameObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-		return this.readGameObjectHook(reader, FormatConstants.MAZE_FORMAT_LATEST);
+	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+		return this.readHookV7(reader, FormatConstants.MAZE_FORMAT_LATEST);
 	    } else {
 		for (int x = 0; x < cc; x++) {
 		    final int cx = reader.readInt();
@@ -426,7 +426,7 @@ public abstract class AbstractGameObject extends CloneableObject implements Rand
      * @param writer
      * @throws IOException
      */
-    protected void writeGameObjectHook(final FileIOWriter writer) throws IOException {
+    protected void writeHook(final FileIOWriter writer) throws IOException {
 	// Do nothing - but let subclasses override
     }
 
@@ -437,7 +437,7 @@ public abstract class AbstractGameObject extends CloneableObject implements Rand
      * @return
      * @throws IOException
      */
-    protected AbstractGameObject readGameObjectHook(final FileIOReader reader, final int formatVersion)
+    protected AbstractDungeonObject readHookV7(final FileIOReader reader, final int formatVersion)
 	    throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;

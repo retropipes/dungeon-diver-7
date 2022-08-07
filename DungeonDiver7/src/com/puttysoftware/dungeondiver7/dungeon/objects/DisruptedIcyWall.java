@@ -42,7 +42,7 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
 	    final int laserType, final int forceUnits) {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Defrost icy wall
-	    SoundLoader.playSound(SoundConstants.SOUND_DEFROST);
+	    SoundLoader.playSound(SoundConstants.DEFROST);
 	    final DisruptedWall dw = new DisruptedWall();
 	    if (this.hasPreviousState()) {
 		dw.setPreviousState(this.getPreviousState());
@@ -59,7 +59,7 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
     public void timerExpiredAction(final int locX, final int locY) {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
-	    SoundLoader.playSound(SoundConstants.SOUND_DISRUPT_END);
+	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
 	    final int z = DungeonDiver7.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
 	    final IcyWall iw = new IcyWall();
 	    if (this.hasPreviousState()) {
@@ -72,7 +72,7 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 59;
     }
 

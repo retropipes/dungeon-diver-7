@@ -41,7 +41,7 @@ public class MetallicMirror extends AbstractMovableObject {
     public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType) {
 	// Finish reflecting laser
-	SoundLoader.playSound(SoundConstants.SOUND_REFLECT);
+	SoundLoader.playSound(SoundConstants.REFLECT);
 	final Direction oldlaser = DirectionResolver.resolveRelativeDirectionInvert(locX, locY);
 	final Direction currdir = this.getDirection();
 	if (oldlaser == Direction.NORTH) {
@@ -74,7 +74,7 @@ public class MetallicMirror extends AbstractMovableObject {
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(SoundConstants.SOUND_PUSH_MIRROR);
+	SoundLoader.playSound(SoundConstants.PUSH_MIRROR);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class MetallicMirror extends AbstractMovableObject {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 65;
     }
 }

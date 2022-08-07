@@ -33,7 +33,7 @@ public class DisruptedMirrorCrystalBlock extends AbstractReactionDisruptedObject
 	    final int dirY, final int laserType, final int forceUnits) {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy disrupted mirror crystal block
-	    SoundLoader.playSound(SoundConstants.SOUND_BOOM);
+	    SoundLoader.playSound(SoundConstants.BOOM);
 	    DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE) {
@@ -49,7 +49,7 @@ public class DisruptedMirrorCrystalBlock extends AbstractReactionDisruptedObject
     public void timerExpiredAction(final int locX, final int locY) {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
-	    SoundLoader.playSound(SoundConstants.SOUND_DISRUPT_END);
+	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
 	    final int z = DungeonDiver7.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
 	    DungeonDiver7.getApplication().getGameManager().morph(new MirrorCrystalBlock(), locX, locY, z,
 		    this.getLayer());
@@ -85,7 +85,7 @@ public class DisruptedMirrorCrystalBlock extends AbstractReactionDisruptedObject
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 51;
     }
 }

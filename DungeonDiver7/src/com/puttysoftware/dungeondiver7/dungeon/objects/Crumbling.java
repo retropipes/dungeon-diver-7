@@ -20,7 +20,7 @@ public class Crumbling extends AbstractAttribute {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 132;
     }
 
@@ -31,7 +31,7 @@ public class Crumbling extends AbstractAttribute {
 	app.getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
 	// Destroy whatever we were attached to
 	app.getGameManager().morph(new Empty(), locX, locY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS);
-	SoundLoader.playSound(SoundConstants.SOUND_CRACK);
+	SoundLoader.playSound(SoundConstants.CRACK);
 	return Direction.NONE;
     }
 
@@ -41,6 +41,6 @@ public class Crumbling extends AbstractAttribute {
 	app.getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
 	// Destroy whatever we were attached to
 	app.getGameManager().morph(new Empty(), locX, locY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS);
-	SoundLoader.playSound(SoundConstants.SOUND_CRACK);
+	SoundLoader.playSound(SoundConstants.CRACK);
     }
 }

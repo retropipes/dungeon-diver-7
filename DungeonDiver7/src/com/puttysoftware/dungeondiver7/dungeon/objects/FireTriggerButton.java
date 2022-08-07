@@ -16,7 +16,7 @@ public class FireTriggerButton extends AbstractTriggerButton {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 78;
     }
 }

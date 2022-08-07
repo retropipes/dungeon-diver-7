@@ -19,7 +19,7 @@ public class ArrowTurretMover extends AbstractMover {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 1;
     }
 }

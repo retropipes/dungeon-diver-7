@@ -9,7 +9,7 @@ import com.puttysoftware.dungeondiver7.battle.BattleTarget;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
 import com.puttysoftware.dungeondiver7.creature.caste.CasteConstants;
 import com.puttysoftware.dungeondiver7.effect.Effect;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.spell.Spell;
 import com.puttysoftware.dungeondiver7.spell.SpellBook;
 

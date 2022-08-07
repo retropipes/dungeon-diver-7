@@ -14,7 +14,7 @@ public class Bridge extends AbstractGround {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 9;
     }
 }

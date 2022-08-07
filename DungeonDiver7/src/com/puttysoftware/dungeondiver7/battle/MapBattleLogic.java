@@ -23,19 +23,19 @@ import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 import com.puttysoftware.dungeondiver7.effect.Effect;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractBattleCharacter;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BattleCharacter;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.spell.Spell;
 import com.puttysoftware.dungeondiver7.spell.SpellCaster;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.randomrange.RandomRange;
 
 public class MapBattleLogic extends AbstractBattle {
@@ -121,7 +121,7 @@ public class MapBattleLogic extends AbstractBattle {
 
     private void doBattleInternal() {
 	// Initialize Battle
-	final Dungeon bMap = Dungeon.getTemporaryBattleCopy();
+	final CurrentDungeon bMap = CurrentDungeon.getTemporaryBattleCopy();
 	Integration1.getApplication().getGameLogic().hideOutput();
 	Integration1.getApplication().setMode(Application.STATUS_BATTLE);
 	this.bd = new MapBattleDefinitions();
@@ -396,15 +396,15 @@ public class MapBattleLogic extends AbstractBattle {
 			&& this.bd.getBattlers()[x].getTemplate().getY() == -1) {
 		    rx = randX.generate();
 		    ry = randY.generate();
-		    AbstractGameObject obj = this.bd.getBattleDungeon().getCell(rx, ry, DungeonConstants.LAYER_OBJECT);
+		    AbstractDungeonObject obj = this.bd.getBattleDungeon().getCell(rx, ry, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    while (obj.isSolidInBattle()) {
 			rx = randX.generate();
 			ry = randY.generate();
-			obj = this.bd.getBattleDungeon().getCell(rx, ry, DungeonConstants.LAYER_OBJECT);
+			obj = this.bd.getBattleDungeon().getCell(rx, ry, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    }
 		    this.bd.getBattlers()[x].setX(rx);
 		    this.bd.getBattlers()[x].setY(ry);
-		    this.bd.getBattleDungeon().setCell(this.bd.getBattlers()[x], rx, ry, DungeonConstants.LAYER_OBJECT);
+		    this.bd.getBattleDungeon().setCell(this.bd.getBattlers()[x], rx, ry, DungeonConstants.LAYER_LOWER_OBJECTS);
 		}
 	    }
 	}
@@ -569,16 +569,16 @@ public class MapBattleLogic extends AbstractBattle {
 	this.updateAllAIContexts();
 	int px = activeBC.getX();
 	int py = activeBC.getY();
-	final Dungeon m = this.bd.getBattleDungeon();
-	AbstractGameObject next = null;
-	AbstractGameObject nextGround = null;
-	AbstractGameObject currGround = null;
+	final CurrentDungeon m = this.bd.getBattleDungeon();
+	AbstractDungeonObject next = null;
+	AbstractDungeonObject nextGround = null;
+	AbstractDungeonObject currGround = null;
 	activeBC.saveLocation();
 	this.battleGUI.getViewManager().saveViewingWindow();
 	try {
-	    next = m.getCell(px + x, py + y, DungeonConstants.LAYER_OBJECT);
-	    nextGround = m.getCell(px + x, py + y, DungeonConstants.LAYER_GROUND);
-	    currGround = m.getCell(px, py, DungeonConstants.LAYER_GROUND);
+	    next = m.getCell(px + x, py + y, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    nextGround = m.getCell(px + x, py + y, DungeonConstants.LAYER_LOWER_GROUND);
+	    currGround = m.getCell(px, py, DungeonConstants.LAYER_LOWER_GROUND);
 	} catch (final ArrayIndexOutOfBoundsException aioob) {
 	    // Ignore
 	}
@@ -586,51 +586,51 @@ public class MapBattleLogic extends AbstractBattle {
 	    if (!next.isSolidInBattle()) {
 		if (useAP && this.getActiveActionCounter() >= MapAIContext.getAPCost() || !useAP) {
 		    // Move
-		    AbstractGameObject obj1 = null;
-		    AbstractGameObject obj2 = null;
-		    AbstractGameObject obj3 = null;
-		    AbstractGameObject obj4 = null;
-		    AbstractGameObject obj6 = null;
-		    AbstractGameObject obj7 = null;
-		    AbstractGameObject obj8 = null;
-		    AbstractGameObject obj9 = null;
+		    AbstractDungeonObject obj1 = null;
+		    AbstractDungeonObject obj2 = null;
+		    AbstractDungeonObject obj3 = null;
+		    AbstractDungeonObject obj4 = null;
+		    AbstractDungeonObject obj6 = null;
+		    AbstractDungeonObject obj7 = null;
+		    AbstractDungeonObject obj8 = null;
+		    AbstractDungeonObject obj9 = null;
 		    try {
-			obj1 = m.getCell(px - 1, py - 1, DungeonConstants.LAYER_OBJECT);
+			obj1 = m.getCell(px - 1, py - 1, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
 		    try {
-			obj2 = m.getCell(px, py - 1, DungeonConstants.LAYER_OBJECT);
+			obj2 = m.getCell(px, py - 1, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
 		    try {
-			obj3 = m.getCell(px + 1, py - 1, DungeonConstants.LAYER_OBJECT);
+			obj3 = m.getCell(px + 1, py - 1, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
 		    try {
-			obj4 = m.getCell(px - 1, py, DungeonConstants.LAYER_OBJECT);
+			obj4 = m.getCell(px - 1, py, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
 		    try {
-			obj6 = m.getCell(px + 1, py - 1, DungeonConstants.LAYER_OBJECT);
+			obj6 = m.getCell(px + 1, py - 1, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
 		    try {
-			obj7 = m.getCell(px - 1, py + 1, DungeonConstants.LAYER_OBJECT);
+			obj7 = m.getCell(px - 1, py + 1, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
 		    try {
-			obj8 = m.getCell(px, py + 1, DungeonConstants.LAYER_OBJECT);
+			obj8 = m.getCell(px, py + 1, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
 		    try {
-			obj9 = m.getCell(px + 1, py + 1, DungeonConstants.LAYER_OBJECT);
+			obj9 = m.getCell(px + 1, py + 1, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
@@ -715,15 +715,15 @@ public class MapBattleLogic extends AbstractBattle {
 			    }
 			}
 		    }
-		    m.setCell(activeBC.getSavedObject(), px, py, DungeonConstants.LAYER_OBJECT);
+		    m.setCell(activeBC.getSavedObject(), px, py, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    activeBC.offsetX(x);
 		    activeBC.offsetY(y);
 		    px += x;
 		    py += y;
 		    this.battleGUI.getViewManager().offsetViewingWindowLocationX(y);
 		    this.battleGUI.getViewManager().offsetViewingWindowLocationY(x);
-		    activeBC.setSavedObject(m.getCell(px, py, DungeonConstants.LAYER_OBJECT));
-		    m.setCell(activeBC, px, py, DungeonConstants.LAYER_OBJECT);
+		    activeBC.setSavedObject(m.getCell(px, py, DungeonConstants.LAYER_LOWER_OBJECTS));
+		    m.setCell(activeBC, px, py, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    this.decrementActiveActionCounterBy(MapAIContext.getAPCost());
 		    SoundLoader.playSound(SoundConstants.WALK);
 		} else {
@@ -805,7 +805,7 @@ public class MapBattleLogic extends AbstractBattle {
 	    // Set fled character to inactive
 	    activeBC.deactivate();
 	    // Remove character from battle
-	    m.setCell(new Empty(), activeBC.getX(), activeBC.getY(), DungeonConstants.LAYER_OBJECT);
+	    m.setCell(new Empty(), activeBC.getX(), activeBC.getY(), DungeonConstants.LAYER_LOWER_OBJECTS);
 	    // End Turn
 	    this.endTurn();
 	    this.updateStatsAndEffects();
@@ -841,15 +841,15 @@ public class MapBattleLogic extends AbstractBattle {
     private BattleCharacter getEnemyBC() {
 	final int px = this.bd.getActiveCharacter().getX();
 	final int py = this.bd.getActiveCharacter().getY();
-	final Dungeon m = this.bd.getBattleDungeon();
-	AbstractGameObject next = null;
+	final CurrentDungeon m = this.bd.getBattleDungeon();
+	AbstractDungeonObject next = null;
 	for (int x = -1; x <= 1; x++) {
 	    for (int y = -1; y <= 1; y++) {
 		if (x == 0 && y == 0) {
 		    continue;
 		}
 		try {
-		    next = m.getCell(px + x, py + y, DungeonConstants.LAYER_OBJECT);
+		    next = m.getCell(px + x, py + y, DungeonConstants.LAYER_LOWER_OBJECTS);
 		} catch (final ArrayIndexOutOfBoundsException aioob) {
 		    // Ignore
 		}
@@ -1158,7 +1158,7 @@ public class MapBattleLogic extends AbstractBattle {
 	active.stripAllEffects();
 	// Remove character from battle
 	this.bd.getBattleDungeon().setCell(new Empty(), activeBC.getX(), activeBC.getY(),
-		DungeonConstants.LAYER_OBJECT);
+		DungeonConstants.LAYER_LOWER_OBJECTS);
 	if (this.bd.getActiveCharacter().getName().equals(activeBC.getName())) {
 	    // Active character died, end turn
 	    this.endTurn();

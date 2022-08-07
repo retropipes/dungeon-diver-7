@@ -7,10 +7,10 @@ package com.puttysoftware.dungeondiver7.ai;
 
 import java.awt.Point;
 
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BattleCharacter;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
 public class MapAIContext {
     private final BattleCharacter aiContext;
@@ -24,7 +24,7 @@ public class MapAIContext {
     private static final int AP_COST = 1;
 
     // Constructor
-    public MapAIContext(final BattleCharacter context, final Dungeon arena) {
+    public MapAIContext(final BattleCharacter context, final CurrentDungeon arena) {
 	this.aiContext = context;
 	this.myTeam = context.getTeamID();
 	this.apCosts = new int[arena.getRows()][arena.getColumns()];
@@ -37,10 +37,10 @@ public class MapAIContext {
     }
 
     // Methods
-    public void updateContext(final Dungeon arena) {
+    public void updateContext(final CurrentDungeon arena) {
 	for (int x = 0; x < this.apCosts.length; x++) {
 	    for (int y = 0; y < this.apCosts[x].length; y++) {
-		final AbstractGameObject obj = arena.getCell(x, y, DungeonConstants.LAYER_OBJECT);
+		final AbstractDungeonObject obj = arena.getCell(x, y, DungeonConstants.LAYER_LOWER_OBJECTS);
 		if (obj.isSolid()) {
 		    this.apCosts[x][y] = MapAIContext.CANNOT_MOVE_THERE;
 		} else {
@@ -50,7 +50,7 @@ public class MapAIContext {
 	}
 	for (int x = 0; x < this.creatureLocations.length; x++) {
 	    for (int y = 0; y < this.creatureLocations[x].length; y++) {
-		final AbstractGameObject obj = arena.getCell(x, y, DungeonConstants.LAYER_OBJECT);
+		final AbstractDungeonObject obj = arena.getCell(x, y, DungeonConstants.LAYER_LOWER_OBJECTS);
 		if (obj instanceof BattleCharacter) {
 		    final BattleCharacter bc = (BattleCharacter) obj;
 		    this.creatureLocations[x][y] = bc.getTeamID();

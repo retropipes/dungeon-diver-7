@@ -16,7 +16,7 @@ public class MetallicTriggerButton extends AbstractTriggerButton {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 96;
     }
 }

@@ -19,7 +19,7 @@ public class Damaged extends AbstractAttribute {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 133;
     }
 
@@ -28,7 +28,7 @@ public class Damaged extends AbstractAttribute {
 	    final int laserType, final int forceUnits) {
 	final Application app = DungeonDiver7.getApplication();
 	app.getGameManager().morph(new Crumbling(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(SoundConstants.SOUND_CRACK);
+	SoundLoader.playSound(SoundConstants.CRACK);
 	return Direction.NONE;
     }
 
@@ -36,6 +36,6 @@ public class Damaged extends AbstractAttribute {
     public void moveFailedAction(final int locX, final int locY, final int locZ) {
 	final Application app = DungeonDiver7.getApplication();
 	app.getGameManager().morph(new Crumbling(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(SoundConstants.SOUND_CRACK);
+	SoundLoader.playSound(SoundConstants.CRACK);
     }
 }

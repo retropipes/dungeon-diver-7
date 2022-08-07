@@ -12,22 +12,23 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.integration1.VersionException;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Tile;
 import com.puttysoftware.dungeondiver7.manager.dungeon.FormatConstants;
 import com.puttysoftware.dungeondiver7.manager.dungeon.PrefixIO;
 import com.puttysoftware.dungeondiver7.manager.dungeon.SuffixIO;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 import com.puttysoftware.fileio.XDataReader;
 import com.puttysoftware.fileio.XDataWriter;
 import com.puttysoftware.randomrange.RandomLongRange;
 
-public class Dungeon {
+public class CurrentDungeon {
     // Properties
-    private LayeredTower mazeData;
+    private CurrentDungeonData mazeData;
     private int startW;
     private int locW;
     private int saveW;
@@ -41,7 +42,7 @@ public class Dungeon {
     private static final int MAX_LEVELS = 13;
 
     // Constructors
-    public Dungeon() {
+    public CurrentDungeon() {
 	this.mazeData = null;
 	this.levelCount = 0;
 	this.startW = 0;
@@ -66,24 +67,24 @@ public class Dungeon {
     }
 
     public static int getMinLevels() {
-	return Dungeon.MIN_LEVELS;
+	return CurrentDungeon.MIN_LEVELS;
     }
 
     public static int getMaxLevels() {
-	return Dungeon.MAX_LEVELS;
+	return CurrentDungeon.MAX_LEVELS;
     }
 
     public static int getMaxColumns() {
-	return LayeredTower.getMaxColumns();
+	return CurrentDungeonData.getMaxColumns();
     }
 
     public static int getMaxRows() {
-	return LayeredTower.getMaxRows();
+	return CurrentDungeonData.getMaxRows();
     }
 
     // Methods
-    public static Dungeon getTemporaryBattleCopy() {
-	final Dungeon temp = new Dungeon();
+    public static CurrentDungeon getTemporaryBattleCopy() {
+	final CurrentDungeon temp = new CurrentDungeon();
 	temp.addLevel(DungeonDiver7.getBattleDungeonSize(), DungeonDiver7.getBattleDungeonSize());
 	temp.fill(new Tile(), new Empty());
 	return temp;
@@ -102,43 +103,43 @@ public class Dungeon {
 	if (relY != 0) {
 	    moveY = relY / Math.abs(relY);
 	}
-	boolean canMove = !this.getCell(locX + moveX, locY + moveY, DungeonConstants.LAYER_OBJECT).isSolid();
+	boolean canMove = !this.getCell(locX + moveX, locY + moveY, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid();
 	if (canMove) {
 	    return DirectionResolver.resolveRelativeDirection(moveX, moveY);
 	}
 	int moveX1L = DirectionResolver.rotate45LeftX(moveX, moveY);
 	int moveY1L = DirectionResolver.rotate45LeftY(moveX, moveY);
-	boolean canMove1L = !this.getCell(locX + moveX1L, locY + moveY1L, DungeonConstants.LAYER_OBJECT).isSolid();
+	boolean canMove1L = !this.getCell(locX + moveX1L, locY + moveY1L, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid();
 	if (canMove1L) {
 	    return DirectionResolver.resolveRelativeDirection(moveX1L, moveY1L);
 	}
 	int moveX1R = DirectionResolver.rotate45RightX(moveX, moveY);
 	int moveY1R = DirectionResolver.rotate45RightY(moveX, moveY);
-	boolean canMove1R = !this.getCell(locX + moveX1R, locY + moveY1R, DungeonConstants.LAYER_OBJECT).isSolid();
+	boolean canMove1R = !this.getCell(locX + moveX1R, locY + moveY1R, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid();
 	if (canMove1R) {
 	    return DirectionResolver.resolveRelativeDirection(moveX1R, moveY1R);
 	}
 	int moveX2L = DirectionResolver.rotate45LeftX(moveX1L, moveY1L);
 	int moveY2L = DirectionResolver.rotate45LeftY(moveX1L, moveY1L);
-	boolean canMove2L = !this.getCell(locX + moveX2L, locY + moveY2L, DungeonConstants.LAYER_OBJECT).isSolid();
+	boolean canMove2L = !this.getCell(locX + moveX2L, locY + moveY2L, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid();
 	if (canMove2L) {
 	    return DirectionResolver.resolveRelativeDirection(moveX2L, moveY2L);
 	}
 	int moveX2R = DirectionResolver.rotate45RightX(moveX1R, moveY1R);
 	int moveY2R = DirectionResolver.rotate45RightY(moveX1R, moveY1R);
-	boolean canMove2R = !this.getCell(locX + moveX2R, locY + moveY2R, DungeonConstants.LAYER_OBJECT).isSolid();
+	boolean canMove2R = !this.getCell(locX + moveX2R, locY + moveY2R, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid();
 	if (canMove2R) {
 	    return DirectionResolver.resolveRelativeDirection(moveX2R, moveY2R);
 	}
 	int moveX3L = DirectionResolver.rotate45LeftX(moveX2L, moveY2L);
 	int moveY3L = DirectionResolver.rotate45LeftY(moveX2L, moveY2L);
-	boolean canMove3L = !this.getCell(locX + moveX3L, locY + moveY3L, DungeonConstants.LAYER_OBJECT).isSolid();
+	boolean canMove3L = !this.getCell(locX + moveX3L, locY + moveY3L, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid();
 	if (canMove3L) {
 	    return DirectionResolver.resolveRelativeDirection(moveX3L, moveY3L);
 	}
 	int moveX3R = DirectionResolver.rotate45RightX(moveX2R, moveY2R);
 	int moveY3R = DirectionResolver.rotate45RightY(moveX2R, moveY2R);
-	boolean canMove3R = !this.getCell(locX + moveX3R, locY + moveY3R, DungeonConstants.LAYER_OBJECT).isSolid();
+	boolean canMove3R = !this.getCell(locX + moveX3R, locY + moveY3R, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid();
 	if (canMove3R) {
 	    return DirectionResolver.resolveRelativeDirection(moveX3R, moveY3R);
 	}
@@ -203,13 +204,13 @@ public class Dungeon {
     }
 
     public boolean addLevel(final int rows, final int cols) {
-	this.mazeData = new LayeredTower(rows, cols);
+	this.mazeData = new CurrentDungeonData(rows, cols);
 	this.levelCount++;
 	this.activeLevel = this.levelCount - 1;
 	return true;
     }
 
-    public AbstractGameObject getCell(final int row, final int col, final int extra) {
+    public AbstractDungeonObject getCell(final int row, final int col, final int extra) {
 	return this.mazeData.getCell(row, col, extra);
     }
 
@@ -241,7 +242,7 @@ public class Dungeon {
 	return this.mazeData.isSquareVisible(x1, y1, x2, y2);
     }
 
-    public void setCell(final AbstractGameObject mo, final int row, final int col, final int extra) {
+    public void setCell(final AbstractDungeonObject mo, final int row, final int col, final int extra) {
 	this.mazeData.setCell(mo, row, col, extra);
     }
 
@@ -299,12 +300,12 @@ public class Dungeon {
 	this.mazeData.restore();
     }
 
-    private void fill(final AbstractGameObject bottom, final AbstractGameObject top) {
+    private void fill(final AbstractDungeonObject bottom, final AbstractDungeonObject top) {
 	this.mazeData.fill(bottom, top);
     }
 
-    public Dungeon readDungeon() throws IOException {
-	final Dungeon m = new Dungeon();
+    public CurrentDungeon readDungeon() throws IOException {
+	final CurrentDungeon m = new CurrentDungeon();
 	// Attach handlers
 	m.setPrefixHandler(this.prefixHandler);
 	m.setSuffixHandler(this.suffixHandler);
@@ -353,7 +354,7 @@ public class Dungeon {
 
     private void readDungeonLevel(final FileIOReader reader, final int formatVersion) throws IOException {
 	if (formatVersion == FormatConstants.MAZE_FORMAT_LATEST) {
-	    this.mazeData = LayeredTower.readLayeredTowerV1(reader);
+	    this.mazeData = CurrentDungeonData.readLayeredTowerV1(reader);
 	    this.mazeData.readSavedTowerState(reader, formatVersion);
 	} else {
 	    throw new VersionException("Unknown maze format version: " + formatVersion + "!");

@@ -28,18 +28,18 @@ public class WoodenWall extends AbstractWall {
 	    final int laserType, final int forceUnits) {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 	    // Disrupt wooden wall
-	    SoundLoader.playSound(SoundConstants.SOUND_DISRUPTED);
+	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    DungeonDiver7.getApplication().getGameManager().morph(new DisruptedWoodenWall(), locX, locY, locZ,
 		    this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy wooden wall
-	    SoundLoader.playSound(SoundConstants.SOUND_BOOM);
+	    SoundLoader.playSound(SoundConstants.BOOM);
 	    DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
 	    // Freeze wooden wall
-	    SoundLoader.playSound(SoundConstants.SOUND_FROZEN);
+	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    final IcyWall iw = new IcyWall();
 	    iw.setPreviousState(this);
 	    DungeonDiver7.getApplication().getGameManager().morph(iw, locX, locY, locZ, this.getLayer());
@@ -51,7 +51,7 @@ public class WoodenWall extends AbstractWall {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 56;
     }
 

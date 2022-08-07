@@ -66,7 +66,7 @@ public class ArrowTurret extends AbstractMovableObject {
 	    dat.setSavedObject(this.getSavedObject());
 	    dat.setDirection(baseDir);
 	    gm.morph(dat, locX, locY, locZ, this.getLayer());
-	    SoundLoader.playSound(SoundConstants.SOUND_ANTI_DIE);
+	    SoundLoader.playSound(SoundConstants.ANTI_DIE);
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
 	    // Stun
@@ -75,7 +75,7 @@ public class ArrowTurret extends AbstractMovableObject {
 	    sat.setSavedObject(this.getSavedObject());
 	    sat.setDirection(baseDir);
 	    gm.morph(sat, locX, locY, locZ, this.getLayer());
-	    SoundLoader.playSound(SoundConstants.SOUND_STUN);
+	    SoundLoader.playSound(SoundConstants.STUN);
 	    return Direction.NONE;
 	} else {
 	    final Direction sourceDir = DirectionResolver.resolveRelativeDirectionInvert(dirX, dirY);
@@ -86,7 +86,7 @@ public class ArrowTurret extends AbstractMovableObject {
 		dat.setSavedObject(this.getSavedObject());
 		dat.setDirection(baseDir);
 		gm.morph(dat, locX, locY, locZ, this.getLayer());
-		SoundLoader.playSound(SoundConstants.SOUND_ANTI_DIE);
+		SoundLoader.playSound(SoundConstants.ANTI_DIE);
 		return Direction.NONE;
 	    } else {
 		return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
@@ -113,12 +113,12 @@ public class ArrowTurret extends AbstractMovableObject {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 0;
     }
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(SoundConstants.SOUND_PUSH_ANTI_TANK);
+	SoundLoader.playSound(SoundConstants.PUSH_ANTI_TANK);
     }
 }

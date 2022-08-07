@@ -16,7 +16,7 @@ public class UniversalPressureButton extends AbstractPressureButton {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 112;
     }
 }

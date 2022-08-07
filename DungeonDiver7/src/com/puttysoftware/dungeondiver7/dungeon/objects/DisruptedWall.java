@@ -42,13 +42,13 @@ public class DisruptedWall extends AbstractDisruptedObject {
 	    final int laserType, final int forceUnits) {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Heat up wall
-	    SoundLoader.playSound(SoundConstants.SOUND_MELT);
+	    SoundLoader.playSound(SoundConstants.MELT);
 	    DungeonDiver7.getApplication().getGameManager().morph(new DisruptedHotWall(this.disruptionLeft), locX, locY,
 		    locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
 	    // Freeze wall
-	    SoundLoader.playSound(SoundConstants.SOUND_FROZEN);
+	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getApplication().getGameManager().morph(new DisruptedIcyWall(this.disruptionLeft), locX, locY,
 		    locZ, this.getLayer());
 	    return Direction.NONE;
@@ -62,7 +62,7 @@ public class DisruptedWall extends AbstractDisruptedObject {
     public void timerExpiredAction(final int locX, final int locY) {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
-	    SoundLoader.playSound(SoundConstants.SOUND_DISRUPT_END);
+	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
 	    final int z = DungeonDiver7.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
 	    DungeonDiver7.getApplication().getGameManager().morph(new Wall(), locX, locY, z, this.getLayer());
 	} else {
@@ -71,7 +71,7 @@ public class DisruptedWall extends AbstractDisruptedObject {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 52;
     }
 

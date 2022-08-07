@@ -7,5 +7,6 @@ package com.puttysoftware.dungeondiver7.locale;
 
 public enum GlobalFile {
     ARMOR_TYPES,
-    WEAPON_TYPES;
+    WEAPON_TYPES,
+    SOUND;
 }

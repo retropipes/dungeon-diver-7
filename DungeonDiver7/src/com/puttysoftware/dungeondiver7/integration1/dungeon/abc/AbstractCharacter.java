@@ -9,14 +9,14 @@ import java.io.IOException;
 
 import com.puttysoftware.dungeondiver7.dungeon.utility.TypeConstants;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 
-public abstract class AbstractCharacter extends AbstractGameObject {
+public abstract class AbstractCharacter extends AbstractDungeonObject {
     // Fields
-    private AbstractGameObject savedObject;
+    private AbstractDungeonObject savedObject;
 
     // Constructors
     protected AbstractCharacter() {
@@ -32,7 +32,7 @@ public abstract class AbstractCharacter extends AbstractGameObject {
 
     @Override
     public int getLayer() {
-	return DungeonConstants.VIRTUAL_LAYER_CHARACTER;
+	return DungeonConstants.LAYER_VIRTUAL_CHARACTER;
     }
 
     @Override
@@ -42,12 +42,12 @@ public abstract class AbstractCharacter extends AbstractGameObject {
 
     @Override
     public int getCustomFormat() {
-	return AbstractGameObject.CUSTOM_FORMAT_MANUAL_OVERRIDE;
+	return AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE;
     }
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractGameObject.DEFAULT_CUSTOM_VALUE;
+	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
@@ -56,14 +56,14 @@ public abstract class AbstractCharacter extends AbstractGameObject {
     }
 
     @Override
-    protected void writeGameObjectHook(final FileIOWriter writer) throws IOException {
-	this.savedObject.writeGameObject(writer);
+    protected void writeHook(final FileIOWriter writer) throws IOException {
+	this.savedObject.write(writer);
     }
 
     @Override
-    protected AbstractGameObject readGameObjectHook(final FileIOReader reader, final int formatVersion)
+    protected AbstractDungeonObject readHookV7(final FileIOReader reader, final int formatVersion)
 	    throws IOException {
-	this.savedObject = Integration1.getApplication().getObjects().readGameObject(reader, formatVersion);
+	this.savedObject = Integration1.getApplication().getObjects().read(reader, formatVersion);
 	return this;
     }
 }

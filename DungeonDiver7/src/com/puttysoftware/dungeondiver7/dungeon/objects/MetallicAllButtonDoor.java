@@ -16,7 +16,7 @@ public class MetallicAllButtonDoor extends AbstractAllButtonDoor {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 93;
     }
 }

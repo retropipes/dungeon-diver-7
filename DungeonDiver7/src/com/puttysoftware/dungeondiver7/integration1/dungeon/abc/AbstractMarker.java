@@ -5,11 +5,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.integration1.dungeon.abc;
 
-import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractMarker extends AbstractGameObject {
+public abstract class AbstractMarker extends AbstractDungeonObject {
     // Constructors
     protected AbstractMarker() {
 	super(false, false);
@@ -22,7 +22,7 @@ public abstract class AbstractMarker extends AbstractGameObject {
 
     @Override
     public int getLayer() {
-	return DungeonConstants.VIRTUAL_LAYER_CHARACTER;
+	return DungeonConstants.LAYER_VIRTUAL_CHARACTER;
     }
 
     @Override
@@ -32,7 +32,7 @@ public abstract class AbstractMarker extends AbstractGameObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractGameObject.DEFAULT_CUSTOM_VALUE;
+	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override

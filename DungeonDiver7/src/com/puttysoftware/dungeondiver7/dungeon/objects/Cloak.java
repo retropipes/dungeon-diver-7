@@ -22,7 +22,7 @@ public class Cloak extends AbstractAttribute {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 135;
     }
 
@@ -36,7 +36,7 @@ public class Cloak extends AbstractAttribute {
 	    final int laserType, final int forceUnits) {
 	final Application app = DungeonDiver7.getApplication();
 	app.getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(SoundConstants.SOUND_DISCOVER);
+	SoundLoader.playSound(SoundConstants.DISCOVER);
 	return Direction.NONE;
     }
 
@@ -44,13 +44,13 @@ public class Cloak extends AbstractAttribute {
     public void postMoveAction(final int locX, final int locY, final int locZ) {
 	final Application app = DungeonDiver7.getApplication();
 	app.getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(SoundConstants.SOUND_DISCOVER);
+	SoundLoader.playSound(SoundConstants.DISCOVER);
     }
 
     @Override
     public void moveFailedAction(final int locX, final int locY, final int locZ) {
 	final Application app = DungeonDiver7.getApplication();
 	app.getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(SoundConstants.SOUND_DISCOVER);
+	SoundLoader.playSound(SoundConstants.DISCOVER);
     }
 }

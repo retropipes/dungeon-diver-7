@@ -23,9 +23,8 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Darkness;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Player;
@@ -36,6 +35,7 @@ import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.images.BufferedImageIcon;
 
 class GameGUI {
@@ -96,7 +96,7 @@ class GameGUI {
 	    MusicLoader.stopMusic();
 	}
 	int zoneID = PartyManager.getParty().getZone();
-	if (zoneID == Dungeon.getMaxLevels() - 1) {
+	if (zoneID == CurrentDungeon.getMaxLevels() - 1) {
 	    MusicLoader.playMusic(MusicConstants.MUSIC_LAIR);
 	} else {
 	    MusicLoader.playMusic(MusicConstants.MUSIC_DUNGEON);
@@ -143,13 +143,13 @@ class GameGUI {
 	// Draw the maze, if it is visible
 	if (this.outputFrame.isVisible()) {
 	    final Application app = Integration1.getApplication();
-	    final Dungeon m = app.getDungeonManager().getDungeon();
+	    final CurrentDungeon m = app.getDungeonManager().getDungeon();
 	    int x, y, u, v;
 	    int xFix, yFix;
 	    boolean visible;
 	    u = m.getPlayerLocationX();
 	    v = m.getPlayerLocationY();
-	    final AbstractGameObject wall = new Wall();
+	    final AbstractDungeonObject wall = new Wall();
 	    for (x = this.vwMgr.getViewingWindowLocationX(); x <= this.vwMgr
 		    .getLowerRightViewingWindowLocationX(); x++) {
 		for (y = this.vwMgr.getViewingWindowLocationY(); y <= this.vwMgr
@@ -159,12 +159,12 @@ class GameGUI {
 		    visible = app.getDungeonManager().getDungeon().isSquareVisible(u, v, y, x);
 		    try {
 			if (visible) {
-			    final AbstractGameObject obj1 = m.getCell(y, x, DungeonConstants.LAYER_GROUND);
-			    final AbstractGameObject obj2 = m.getCell(y, x, DungeonConstants.LAYER_OBJECT);
+			    final AbstractDungeonObject obj1 = m.getCell(y, x, DungeonConstants.LAYER_LOWER_GROUND);
+			    final AbstractDungeonObject obj2 = m.getCell(y, x, DungeonConstants.LAYER_LOWER_OBJECTS);
 			    final BufferedImageIcon img1 = obj1.gameRenderHook(y, x);
 			    final BufferedImageIcon img2 = obj2.gameRenderHook(y, x);
 			    if (u == y && v == x) {
-				final AbstractGameObject obj3 = new Player();
+				final AbstractDungeonObject obj3 = new Player();
 				final BufferedImageIcon img3 = obj3.gameRenderHook(y, x);
 				this.drawGrid.setImageCell(ImageCompositor.getVirtualCompositeImage(img1, img2, img3,
 					ImageCompositor.getGraphicSize()), xFix, yFix);
@@ -290,12 +290,12 @@ class GameGUI {
 		    break;
 		case KeyEvent.VK_SPACE:
 		    final Application app = Integration1.getApplication();
-		    final Dungeon m = app.getDungeonManager().getDungeon();
+		    final CurrentDungeon m = app.getDungeonManager().getDungeon();
 		    int px = m.getPlayerLocationX();
 		    int py = m.getPlayerLocationY();
-		    AbstractGameObject there = new Empty();
+		    AbstractDungeonObject there = new Empty();
 		    try {
-			there = m.getCell(px, py, DungeonConstants.LAYER_OBJECT);
+			there = m.getCell(px, py, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException ae) {
 			// Ignore
 		    }

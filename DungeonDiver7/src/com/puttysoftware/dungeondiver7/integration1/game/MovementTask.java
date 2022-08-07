@@ -11,19 +11,19 @@ import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.utility.TypeConstants;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Wall;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
 final class MovementTask extends Thread {
     // Fields
     private final GameViewingWindowManager vwMgr;
     private final GameGUI gui;
-    private AbstractGameObject saved;
+    private AbstractDungeonObject saved;
     private boolean proceed;
     private boolean relative;
     private int moveX, moveY;
@@ -81,7 +81,7 @@ final class MovementTask extends Thread {
     }
 
     void fireStepActions() {
-	final Dungeon m = Integration1.getApplication().getDungeonManager().getDungeon();
+	final CurrentDungeon m = Integration1.getApplication().getDungeonManager().getDungeon();
 	final int px = m.getPlayerLocationX();
 	final int py = m.getPlayerLocationY();
 	m.updateVisibleSquares(px, py);
@@ -92,28 +92,28 @@ final class MovementTask extends Thread {
 
     private void updatePositionRelative(final int dirX, final int dirY) {
 	final Application app = Integration1.getApplication();
-	final Dungeon m = app.getDungeonManager().getDungeon();
+	final CurrentDungeon m = app.getDungeonManager().getDungeon();
 	int px = m.getPlayerLocationX();
 	int py = m.getPlayerLocationY();
 	final int fX = dirX;
 	final int fY = dirY;
 	this.proceed = false;
-	AbstractGameObject below = null;
-	AbstractGameObject nextBelow = null;
-	AbstractGameObject nextAbove = new Wall();
+	AbstractDungeonObject below = null;
+	AbstractDungeonObject nextBelow = null;
+	AbstractDungeonObject nextAbove = new Wall();
 	do {
 	    try {
-		below = m.getCell(px, py, DungeonConstants.LAYER_GROUND);
+		below = m.getCell(px, py, DungeonConstants.LAYER_LOWER_GROUND);
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
 		below = new Empty();
 	    }
 	    try {
-		nextBelow = m.getCell(px + fX, py + fY, DungeonConstants.LAYER_GROUND);
+		nextBelow = m.getCell(px + fX, py + fY, DungeonConstants.LAYER_LOWER_GROUND);
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
 		nextBelow = new Empty();
 	    }
 	    try {
-		nextAbove = m.getCell(px + fX, py + fY, DungeonConstants.LAYER_OBJECT);
+		nextAbove = m.getCell(px + fX, py + fY, DungeonConstants.LAYER_LOWER_OBJECTS);
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
 		nextAbove = new Wall();
 	    }
@@ -127,7 +127,7 @@ final class MovementTask extends Thread {
 		this.vwMgr.saveViewingWindow();
 		try {
 		    if (MovementTask.checkSolid(this.saved, below, nextBelow, nextAbove)) {
-			AbstractGameObject groundInto;
+			AbstractDungeonObject groundInto;
 			m.offsetPlayerLocationX(fX);
 			m.offsetPlayerLocationY(fY);
 			px += fX;
@@ -142,8 +142,8 @@ final class MovementTask extends Thread {
 			    this.proceed = false;
 			}
 			if (this.proceed) {
-			    this.saved = m.getCell(px, py, DungeonConstants.LAYER_OBJECT);
-			    groundInto = m.getCell(px, py, DungeonConstants.LAYER_GROUND);
+			    this.saved = m.getCell(px, py, DungeonConstants.LAYER_LOWER_OBJECTS);
+			    groundInto = m.getCell(px, py, DungeonConstants.LAYER_LOWER_GROUND);
 			    if (groundInto.overridesDefaultPostMove()) {
 				groundInto.postMoveAction(false, px, py);
 				if (!this.saved.isOfType(TypeConstants.TYPE_PASS_THROUGH)) {
@@ -179,14 +179,14 @@ final class MovementTask extends Thread {
 	} while (this.checkLoopCondition(below, nextBelow, nextAbove));
     }
 
-    private boolean checkLoopCondition(final AbstractGameObject below, final AbstractGameObject nextBelow,
-	    final AbstractGameObject nextAbove) {
+    private boolean checkLoopCondition(final AbstractDungeonObject below, final AbstractDungeonObject nextBelow,
+	    final AbstractDungeonObject nextAbove) {
 	return this.proceed && !nextBelow.hasFriction()
 		&& MovementTask.checkSolid(this.saved, below, nextBelow, nextAbove);
     }
 
-    private static boolean checkSolid(final AbstractGameObject inside, final AbstractGameObject below,
-	    final AbstractGameObject nextBelow, final AbstractGameObject nextAbove) {
+    private static boolean checkSolid(final AbstractDungeonObject inside, final AbstractDungeonObject below,
+	    final AbstractDungeonObject nextBelow, final AbstractDungeonObject nextAbove) {
 	final boolean insideSolid = inside.isSolid();
 	final boolean belowSolid = below.isSolid();
 	final boolean nextBelowSolid = nextBelow.isSolid();
@@ -198,8 +198,8 @@ final class MovementTask extends Thread {
 	}
     }
 
-    private static void fireMoveFailedActions(final int x, final int y, final AbstractGameObject inside,
-	    final AbstractGameObject below, final AbstractGameObject nextBelow, final AbstractGameObject nextAbove) {
+    private static void fireMoveFailedActions(final int x, final int y, final AbstractDungeonObject inside,
+	    final AbstractDungeonObject below, final AbstractDungeonObject nextBelow, final AbstractDungeonObject nextAbove) {
 	final boolean insideSolid = inside.isSolid();
 	final boolean belowSolid = below.isSolid();
 	final boolean nextBelowSolid = nextBelow.isSolid();
@@ -220,23 +220,23 @@ final class MovementTask extends Thread {
 
     private void updatePositionAbsolute(final int x, final int y) {
 	final Application app = Integration1.getApplication();
-	final Dungeon m = app.getDungeonManager().getDungeon();
+	final CurrentDungeon m = app.getDungeonManager().getDungeon();
 	try {
-	    m.getCell(x, y, DungeonConstants.LAYER_OBJECT).preMoveAction(true, x, y);
+	    m.getCell(x, y, DungeonConstants.LAYER_LOWER_OBJECTS).preMoveAction(true, x, y);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    // Ignore
 	}
 	m.savePlayerLocation();
 	this.vwMgr.saveViewingWindow();
 	try {
-	    if (!m.getCell(x, y, DungeonConstants.LAYER_OBJECT).isSolid()) {
+	    if (!m.getCell(x, y, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid()) {
 		m.setPlayerLocationX(x);
 		m.setPlayerLocationY(y);
 		this.vwMgr.setViewingWindowLocationX(
 			m.getPlayerLocationY() - GameViewingWindowManager.getOffsetFactorX());
 		this.vwMgr.setViewingWindowLocationY(
 			m.getPlayerLocationX() - GameViewingWindowManager.getOffsetFactorY());
-		this.saved = m.getCell(m.getPlayerLocationX(), m.getPlayerLocationY(), DungeonConstants.LAYER_OBJECT);
+		this.saved = m.getCell(m.getPlayerLocationX(), m.getPlayerLocationY(), DungeonConstants.LAYER_LOWER_OBJECTS);
 		app.getDungeonManager().setDirty(true);
 		this.saved.postMoveAction(false, x, y);
 		final int px = m.getPlayerLocationX();

@@ -28,13 +28,13 @@ public class HotWall extends AbstractWall {
 	    final int laserType, final int forceUnits) {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 	    // Disrupt hot wall
-	    SoundLoader.playSound(SoundConstants.SOUND_DISRUPTED);
+	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    DungeonDiver7.getApplication().getGameManager().morph(new DisruptedHotWall(), locX, locY, locZ,
 		    this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
 	    // Cool off hot wall
-	    SoundLoader.playSound(SoundConstants.SOUND_COOL_OFF);
+	    SoundLoader.playSound(SoundConstants.COOL_OFF);
 	    DungeonDiver7.getApplication().getGameManager().morph(new Wall(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
@@ -54,7 +54,7 @@ public class HotWall extends AbstractWall {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 60;
     }
 }

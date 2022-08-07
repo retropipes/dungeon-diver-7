@@ -20,7 +20,7 @@ public abstract class AbstractAllButton extends AbstractButton {
     @Override
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
 	if (this.isUniversal() || pushed.getMaterial() == this.getMaterial()) {
-	    SoundLoader.playSound(SoundConstants.SOUND_BUTTON);
+	    SoundLoader.playSound(SoundConstants.BUTTON);
 	    if (!this.isTriggered()) {
 		// Check to open door at location
 		this.setTriggered(true);

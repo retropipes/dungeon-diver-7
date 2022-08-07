@@ -14,7 +14,7 @@ public class Disruptor extends AbstractTransientObject {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 47;
     }
 

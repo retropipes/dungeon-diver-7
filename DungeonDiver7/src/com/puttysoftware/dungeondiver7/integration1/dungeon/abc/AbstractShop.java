@@ -7,13 +7,13 @@ package com.puttysoftware.dungeondiver7.integration1.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.dungeon.utility.TypeConstants;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.shop.Shop;
 import com.puttysoftware.dungeondiver7.shop.ShopType;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractShop extends AbstractGameObject {
+public abstract class AbstractShop extends AbstractDungeonObject {
     // Fields
     private final ShopType shopType;
 
@@ -44,12 +44,12 @@ public abstract class AbstractShop extends AbstractGameObject {
 
     @Override
     public int getLayer() {
-	return DungeonConstants.LAYER_OBJECT;
+	return DungeonConstants.LAYER_LOWER_OBJECTS;
     }
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractGameObject.DEFAULT_CUSTOM_VALUE;
+	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override

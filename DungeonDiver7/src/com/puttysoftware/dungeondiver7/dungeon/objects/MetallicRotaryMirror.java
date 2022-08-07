@@ -33,7 +33,7 @@ public class MetallicRotaryMirror extends AbstractReactionWall {
 	} else {
 	    // Rotate mirror
 	    this.toggleDirection();
-	    SoundLoader.playSound(SoundConstants.SOUND_ROTATE);
+	    SoundLoader.playSound(SoundConstants.ROTATE);
 	    return Direction.NONE;
 	}
     }
@@ -42,7 +42,7 @@ public class MetallicRotaryMirror extends AbstractReactionWall {
     public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType) {
 	// Finish reflecting laser
-	SoundLoader.playSound(SoundConstants.SOUND_REFLECT);
+	SoundLoader.playSound(SoundConstants.REFLECT);
 	final Direction oldlaser = DirectionResolver.resolveRelativeDirectionInvert(locX, locY);
 	final Direction currdir = this.getDirection();
 	if (oldlaser == Direction.NORTH) {
@@ -78,7 +78,7 @@ public class MetallicRotaryMirror extends AbstractReactionWall {
 	    final int rangeType, final int forceUnits) {
 	// Rotate mirror
 	this.toggleDirection();
-	SoundLoader.playSound(SoundConstants.SOUND_ROTATE);
+	SoundLoader.playSound(SoundConstants.ROTATE);
 	DungeonDiver7.getApplication().getDungeonManager().getDungeon().markAsDirty(locX + dirX, locY + dirY, locZ);
 	return true;
     }
@@ -89,7 +89,7 @@ public class MetallicRotaryMirror extends AbstractReactionWall {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 66;
     }
 }

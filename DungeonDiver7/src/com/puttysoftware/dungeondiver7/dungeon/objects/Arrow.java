@@ -14,7 +14,7 @@ public class Arrow extends AbstractTransientObject {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 18;
     }
 

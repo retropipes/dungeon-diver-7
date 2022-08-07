@@ -22,7 +22,7 @@ public class ThinIce extends AbstractGround {
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(SoundConstants.SOUND_PUSH_MIRROR);
+	SoundLoader.playSound(SoundConstants.PUSH_MIRROR);
 	DungeonDiver7.getApplication().getGameManager().remoteDelayedDecayTo(new Water());
     }
 
@@ -33,7 +33,7 @@ public class ThinIce extends AbstractGround {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 43;
     }
 

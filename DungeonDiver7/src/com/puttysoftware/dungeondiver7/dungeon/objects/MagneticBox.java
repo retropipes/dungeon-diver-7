@@ -40,7 +40,7 @@ public class MagneticBox extends AbstractMovableObject {
 	    this.playSoundHook();
 	} else {
 	    if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
-		SoundLoader.playSound(SoundConstants.SOUND_BOOM);
+		SoundLoader.playSound(SoundConstants.BOOM);
 	    } else {
 		return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	    }
@@ -50,11 +50,11 @@ public class MagneticBox extends AbstractMovableObject {
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(SoundConstants.SOUND_PUSH_BOX);
+	SoundLoader.playSound(SoundConstants.PUSH_BOX);
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 22;
     }
 }

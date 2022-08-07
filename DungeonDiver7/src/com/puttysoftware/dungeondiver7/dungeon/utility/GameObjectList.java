@@ -8,8 +8,8 @@ package com.puttysoftware.dungeondiver7.dungeon.utility;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.ArmorShop;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BossMonsterTile;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.ClosedDoor;
@@ -29,27 +29,27 @@ import com.puttysoftware.fileio.FileIOReader;
 
 public class GameObjectList {
     // Fields
-    private final ArrayList<AbstractGameObject> allObjectList;
+    private final ArrayList<AbstractDungeonObject> allObjectList;
 
     // Constructor
     public GameObjectList() {
-	final AbstractGameObject[] allObjects = { new ArmorShop(), new ClosedDoor(), new Empty(), new HealShop(),
+	final AbstractDungeonObject[] allObjects = { new ArmorShop(), new ClosedDoor(), new Empty(), new HealShop(),
 		new Ice(), new MonsterTile(), new BossMonsterTile(), new FinalBossMonsterTile(), new OpenDoor(),
 		new Regenerator(), new SpellShop(), new Tile(), new Wall(), new WeaponsShop() };
 	this.allObjectList = new ArrayList<>();
 	// Add all predefined objects to the list
-	for (final AbstractGameObject allObject : allObjects) {
+	for (final AbstractDungeonObject allObject : allObjects) {
 	    this.allObjectList.add(allObject);
 	}
     }
 
     // Methods
-    public AbstractGameObject[] getAllObjects() {
-	return this.allObjectList.toArray(new AbstractGameObject[this.allObjectList.size()]);
+    public AbstractDungeonObject[] getAllObjects() {
+	return this.allObjectList.toArray(new AbstractDungeonObject[this.allObjectList.size()]);
     }
 
     public String[] getAllDescriptions() {
-	final AbstractGameObject[] objects = this.getAllObjects();
+	final AbstractDungeonObject[] objects = this.getAllObjects();
 	final String[] allDescriptions = new String[objects.length];
 	for (int x = 0; x < objects.length; x++) {
 	    allDescriptions[x] = objects[x].getDescription();
@@ -57,9 +57,9 @@ public class GameObjectList {
 	return allDescriptions;
     }
 
-    public final AbstractGameObject[] getAllRequired(final Dungeon dungeon, final int layer) {
-	final AbstractGameObject[] objects = this.getAllObjects();
-	final AbstractGameObject[] tempAllRequired = new AbstractGameObject[objects.length];
+    public final AbstractDungeonObject[] getAllRequired(final CurrentDungeon dungeon, final int layer) {
+	final AbstractDungeonObject[] objects = this.getAllObjects();
+	final AbstractDungeonObject[] tempAllRequired = new AbstractDungeonObject[objects.length];
 	int x;
 	int count = 0;
 	for (x = 0; x < objects.length; x++) {
@@ -71,7 +71,7 @@ public class GameObjectList {
 	if (count == 0) {
 	    return null;
 	} else {
-	    final AbstractGameObject[] allRequired = new AbstractGameObject[count];
+	    final AbstractDungeonObject[] allRequired = new AbstractDungeonObject[count];
 	    for (x = 0; x < count; x++) {
 		allRequired[x] = tempAllRequired[x];
 	    }
@@ -79,9 +79,9 @@ public class GameObjectList {
 	}
     }
 
-    public final AbstractGameObject[] getAllWithoutPrerequisiteAndNotRequired(final Dungeon dungeon, final int layer) {
-	final AbstractGameObject[] objects = this.getAllObjects();
-	final AbstractGameObject[] tempAllWithoutPrereq = new AbstractGameObject[objects.length];
+    public final AbstractDungeonObject[] getAllWithoutPrerequisiteAndNotRequired(final CurrentDungeon dungeon, final int layer) {
+	final AbstractDungeonObject[] objects = this.getAllObjects();
+	final AbstractDungeonObject[] tempAllWithoutPrereq = new AbstractDungeonObject[objects.length];
 	int x;
 	int count = 0;
 	for (x = 0; x < objects.length; x++) {
@@ -93,7 +93,7 @@ public class GameObjectList {
 	if (count == 0) {
 	    return null;
 	} else {
-	    final AbstractGameObject[] allWithoutPrereq = new AbstractGameObject[count];
+	    final AbstractDungeonObject[] allWithoutPrereq = new AbstractDungeonObject[count];
 	    for (x = 0; x < count; x++) {
 		allWithoutPrereq[x] = tempAllWithoutPrereq[x];
 	    }
@@ -101,9 +101,9 @@ public class GameObjectList {
 	}
     }
 
-    public final AbstractGameObject getNewInstanceByName(final String name) {
-	final AbstractGameObject[] objects = this.getAllObjects();
-	AbstractGameObject instance = null;
+    public final AbstractDungeonObject getNewInstanceByName(final String name) {
+	final AbstractDungeonObject[] objects = this.getAllObjects();
+	AbstractDungeonObject instance = null;
 	int x;
 	for (x = 0; x < objects.length; x++) {
 	    if (objects[x].getName().equals(name)) {
@@ -118,18 +118,18 @@ public class GameObjectList {
 	}
     }
 
-    public AbstractGameObject readGameObject(final FileIOReader reader, final int formatVersion) throws IOException {
-	final AbstractGameObject[] objects = this.getAllObjects();
-	AbstractGameObject o = null;
+    public AbstractDungeonObject read(final FileIOReader reader, final int formatVersion) throws IOException {
+	final AbstractDungeonObject[] objects = this.getAllObjects();
+	AbstractDungeonObject o = null;
 	String UID = "";
 	if (formatVersion == FormatConstants.MAZE_FORMAT_LATEST) {
 	    UID = reader.readString();
 	}
-	for (final AbstractGameObject object : objects) {
-	    AbstractGameObject instance;
+	for (final AbstractDungeonObject object : objects) {
+	    AbstractDungeonObject instance;
 	    instance = object.clone();
 	    if (formatVersion == FormatConstants.MAZE_FORMAT_LATEST) {
-		o = instance.readGameObjectV1(reader, UID);
+		o = instance.readV7(reader, UID);
 		if (o != null) {
 		    return o;
 		}
@@ -138,15 +138,15 @@ public class GameObjectList {
 	return null;
     }
 
-    public AbstractGameObject readSavedGameObject(final FileIOReader reader, final String UID, final int formatVersion)
+    public AbstractDungeonObject readSavedGameObject(final FileIOReader reader, final String UID, final int formatVersion)
 	    throws IOException {
-	final AbstractGameObject[] objects = this.getAllObjects();
-	AbstractGameObject o = null;
-	for (final AbstractGameObject object : objects) {
-	    AbstractGameObject instance;
+	final AbstractDungeonObject[] objects = this.getAllObjects();
+	AbstractDungeonObject o = null;
+	for (final AbstractDungeonObject object : objects) {
+	    AbstractDungeonObject instance;
 	    instance = object.clone();
 	    if (formatVersion == FormatConstants.MAZE_FORMAT_LATEST) {
-		o = instance.readGameObjectV1(reader, UID);
+		o = instance.readV7(reader, UID);
 		if (o != null) {
 		    return o;
 		}

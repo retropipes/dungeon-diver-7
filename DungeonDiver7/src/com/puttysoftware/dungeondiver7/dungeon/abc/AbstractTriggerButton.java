@@ -23,16 +23,16 @@ public abstract class AbstractTriggerButton extends AbstractButton {
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
 	final Application app = DungeonDiver7.getApplication();
 	if (this.isUniversal() || pushed.getMaterial() == this.getMaterial()) {
-	    SoundLoader.playSound(SoundConstants.SOUND_BUTTON);
+	    SoundLoader.playSound(SoundConstants.BUTTON);
 	    if (this.isTriggered()) {
 		// Close door at location
 		app.getGameManager().morph(this.getButtonDoor(), this.getDoorX(), this.getDoorY(), z, this.getLayer());
-		SoundLoader.playSound(SoundConstants.SOUND_DOOR_CLOSES);
+		SoundLoader.playSound(SoundConstants.DOOR_CLOSES);
 		this.setTriggered(false);
 	    } else {
 		// Open door at location
 		app.getGameManager().morph(new Empty(), this.getDoorX(), this.getDoorY(), z, this.getLayer());
-		SoundLoader.playSound(SoundConstants.SOUND_DOOR_OPENS);
+		SoundLoader.playSound(SoundConstants.DOOR_OPENS);
 		this.setTriggered(true);
 	    }
 	}

@@ -23,11 +23,11 @@ public class Ice extends AbstractGround {
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(SoundConstants.SOUND_PUSH_MIRROR);
+	SoundLoader.playSound(SoundConstants.PUSH_MIRROR);
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 20;
     }
 
@@ -50,7 +50,7 @@ public class Ice extends AbstractGround {
 	if (pushed instanceof HotBox) {
 	    final Ground g = new Ground();
 	    DungeonDiver7.getApplication().getGameManager().morph(g, x, y, z, g.getLayer());
-	    SoundLoader.playSound(SoundConstants.SOUND_DEFROST);
+	    SoundLoader.playSound(SoundConstants.DEFROST);
 	}
 	return true;
     }

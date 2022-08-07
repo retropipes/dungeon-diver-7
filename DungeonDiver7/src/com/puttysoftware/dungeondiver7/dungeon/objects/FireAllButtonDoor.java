@@ -16,7 +16,7 @@ public class FireAllButtonDoor extends AbstractAllButtonDoor {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 75;
     }
 }

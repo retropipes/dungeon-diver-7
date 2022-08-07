@@ -27,16 +27,16 @@ import com.puttysoftware.diane.gui.DrawGrid;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.ai.AbstractMapAIRoutine;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Darkness;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Wall;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.loader.BattleImageManager;
 import com.puttysoftware.dungeondiver7.loader.ImageCompositor;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.images.BufferedImageIcon;
 
 class MapBattleGUI {
@@ -109,9 +109,9 @@ class MapBattleGUI {
 		    yFix = y - yView;
 		    try {
 			final BufferedImageIcon icon1 = bd.getBattleDungeon()
-				.getCell(y, x, DungeonConstants.LAYER_GROUND).battleRenderHook();
+				.getCell(y, x, DungeonConstants.LAYER_LOWER_GROUND).battleRenderHook();
 			final BufferedImageIcon icon2 = bd.getBattleDungeon()
-				.getCell(y, x, DungeonConstants.LAYER_OBJECT).battleRenderHook();
+				.getCell(y, x, DungeonConstants.LAYER_LOWER_OBJECTS).battleRenderHook();
 			this.drawGrid.setImageCell(
 				ImageCompositor.getCompositeImage(icon1, icon2, BattleImageManager.getGraphicSize()),
 				xFix, yFix);
@@ -126,7 +126,7 @@ class MapBattleGUI {
 	}
     }
 
-    void redrawOneBattleSquare(final MapBattleDefinitions bd, final int x, final int y, final AbstractGameObject obj3) {
+    void redrawOneBattleSquare(final MapBattleDefinitions bd, final int x, final int y, final AbstractDungeonObject obj3) {
 	// Draw the battle, if it is visible
 	if (this.battleFrame.isVisible()) {
 	    try {
@@ -135,9 +135,9 @@ class MapBattleGUI {
 		final int yView = this.vwMgr.getViewingWindowLocationY();
 		xFix = y - xView;
 		yFix = x - yView;
-		final BufferedImageIcon icon1 = bd.getBattleDungeon().getCell(x, y, DungeonConstants.LAYER_GROUND)
+		final BufferedImageIcon icon1 = bd.getBattleDungeon().getCell(x, y, DungeonConstants.LAYER_LOWER_GROUND)
 			.battleRenderHook();
-		final BufferedImageIcon icon2 = bd.getBattleDungeon().getCell(x, y, DungeonConstants.LAYER_OBJECT)
+		final BufferedImageIcon icon2 = bd.getBattleDungeon().getCell(x, y, DungeonConstants.LAYER_LOWER_OBJECTS)
 			.battleRenderHook();
 		final BufferedImageIcon icon3 = obj3.battleRenderHook();
 		this.drawGrid.setImageCell(ImageCompositor.getVirtualCompositeImage(icon1, icon2, icon3,
@@ -205,7 +205,7 @@ class MapBattleGUI {
 	this.drawGrid = new DrawGrid(MapBattleViewingWindowManager.getViewingWindowSize());
 	for (int x = 0; x < MapBattleViewingWindowManager.getViewingWindowSize(); x++) {
 	    for (int y = 0; y < MapBattleViewingWindowManager.getViewingWindowSize(); y++) {
-		final AbstractGameObject dark = new Darkness();
+		final AbstractDungeonObject dark = new Darkness();
 		this.drawGrid.setImageCell(dark.battleRenderHook(), x, y);
 	    }
 	}

@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.item;
 
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.locale.LocalizedFile;
 import com.puttysoftware.dungeondiver7.names.ZoneNames;

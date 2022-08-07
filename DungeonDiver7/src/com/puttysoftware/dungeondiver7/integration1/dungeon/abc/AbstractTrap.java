@@ -6,11 +6,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.integration1.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.dungeon.utility.TypeConstants;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.randomrange.RandomRange;
 
-public abstract class AbstractTrap extends AbstractGameObject {
+public abstract class AbstractTrap extends AbstractDungeonObject {
     // Fields
     private final int base;
 
@@ -31,7 +31,7 @@ public abstract class AbstractTrap extends AbstractGameObject {
 
     @Override
     public int getLayer() {
-	return DungeonConstants.LAYER_OBJECT;
+	return DungeonConstants.LAYER_LOWER_OBJECTS;
     }
 
     @Override
@@ -41,7 +41,7 @@ public abstract class AbstractTrap extends AbstractGameObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractGameObject.DEFAULT_CUSTOM_VALUE;
+	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
@@ -50,7 +50,7 @@ public abstract class AbstractTrap extends AbstractGameObject {
     }
 
     @Override
-    public boolean shouldGenerateObject(final Dungeon maze, final int row, final int col, final int level,
+    public boolean shouldGenerateObject(final CurrentDungeon maze, final int row, final int col, final int level,
 	    final int layer) {
 	// Generate all traps at 25% rate
 	final RandomRange reject = new RandomRange(1, 100);

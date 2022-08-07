@@ -29,18 +29,18 @@ public class HotCrystalBlock extends AbstractReactionWall {
 	    final int dirY, final int laserType, final int forceUnits) {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy hot crystal block
-	    SoundLoader.playSound(SoundConstants.SOUND_BOOM);
+	    SoundLoader.playSound(SoundConstants.BOOM);
 	    DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 	    // Disrupt hot crystal block
-	    SoundLoader.playSound(SoundConstants.SOUND_DISRUPTED);
+	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    DungeonDiver7.getApplication().getGameManager().morph(new DisruptedHotCrystalBlock(), locX, locY, locZ,
 		    this.getLayer());
 	    return Direction.NONE;
 	} else {
 	    // Stop laser
-	    SoundLoader.playSound(SoundConstants.SOUND_LASER_DIE);
+	    SoundLoader.playSound(SoundConstants.LASER_DIE);
 	    return Direction.NONE;
 	}
     }
@@ -58,7 +58,7 @@ public class HotCrystalBlock extends AbstractReactionWall {
 	    return true;
 	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_ICE) {
 	    // Freeze crystal block
-	    SoundLoader.playSound(SoundConstants.SOUND_FROZEN);
+	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getApplication().getGameManager().morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
@@ -70,7 +70,7 @@ public class HotCrystalBlock extends AbstractReactionWall {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 126;
     }
 

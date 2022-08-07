@@ -20,11 +20,11 @@ public class Ball extends AbstractMovableObject {
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(SoundConstants.SOUND_BALL_ROLL);
+	SoundLoader.playSound(SoundConstants.BALL_ROLL);
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 2;
     }
 }

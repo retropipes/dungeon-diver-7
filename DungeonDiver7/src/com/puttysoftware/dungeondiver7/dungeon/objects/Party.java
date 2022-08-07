@@ -29,7 +29,7 @@ public class Party extends AbstractCharacter {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 36;
     }
 }

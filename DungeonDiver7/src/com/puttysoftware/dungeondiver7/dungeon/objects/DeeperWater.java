@@ -38,7 +38,7 @@ public class DeeperWater extends AbstractGround {
 	} else {
 	    app.getGameManager().morph(new Empty(), x, y, z, pushed.getLayer());
 	}
-	SoundLoader.playSound(SoundConstants.SOUND_SINK);
+	SoundLoader.playSound(SoundConstants.SINK);
 	return false;
     }
 
@@ -48,7 +48,7 @@ public class DeeperWater extends AbstractGround {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 68;
     }
 

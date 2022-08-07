@@ -27,11 +27,11 @@ public class Lava extends AbstractGround {
 	final Application app = DungeonDiver7.getApplication();
 	if (pushed instanceof IcyBox) {
 	    app.getGameManager().morph(new Ground(), x, y, z, this.getLayer());
-	    SoundLoader.playSound(SoundConstants.SOUND_COOL_OFF);
+	    SoundLoader.playSound(SoundConstants.COOL_OFF);
 	    return true;
 	} else {
 	    app.getGameManager().morph(new Empty(), x, y, z, pushed.getLayer());
-	    SoundLoader.playSound(SoundConstants.SOUND_MELT);
+	    SoundLoader.playSound(SoundConstants.MELT);
 	    return false;
 	}
     }
@@ -42,7 +42,7 @@ public class Lava extends AbstractGround {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 62;
     }
 

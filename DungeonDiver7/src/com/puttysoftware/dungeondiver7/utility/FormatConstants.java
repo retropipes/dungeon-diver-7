@@ -17,7 +17,8 @@ public class FormatConstants {
     private static final int ARENA_FORMAT_15 = 15;
     private static final int ARENA_FORMAT_16 = 16;
     private static final int ARENA_FORMAT_17 = 17;
-    public static final int ARENA_FORMAT_LATEST = 17;
+    private static final int ARENA_FORMAT_18 = 18;
+    public static final int ARENA_FORMAT_LATEST = 18;
 
     private FormatConstants() {
 	// Do nothing
@@ -31,6 +32,10 @@ public class FormatConstants {
 	return ver >= FormatConstants.ARENA_FORMAT_17;
     }
 
+    public static final boolean isFormatVersionValidGeneration7(final int ver) {
+	return ver == FormatConstants.ARENA_FORMAT_18;
+    }
+    
     public static final boolean isFormatVersionValidGeneration6(final int ver) {
 	return ver == FormatConstants.ARENA_FORMAT_17;
     }

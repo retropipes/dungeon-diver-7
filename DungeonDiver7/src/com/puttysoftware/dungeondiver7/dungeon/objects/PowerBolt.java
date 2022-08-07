@@ -18,13 +18,13 @@ public class PowerBolt extends AbstractField {
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(SoundConstants.SOUND_POWERFUL);
+	SoundLoader.playSound(SoundConstants.POWERFUL);
 	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
 	DungeonDiver7.getApplication().getGameManager().setPowerfulTank();
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 139;
     }
 }

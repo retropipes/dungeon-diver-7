@@ -16,7 +16,7 @@ public class MagneticTriggerButtonDoor extends AbstractTriggerButtonDoor {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 91;
     }
 }

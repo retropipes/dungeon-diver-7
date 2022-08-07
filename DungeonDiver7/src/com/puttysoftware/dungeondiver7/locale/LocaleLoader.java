@@ -49,6 +49,23 @@ public class LocaleLoader {
 	return retVal;
     }
 
+    public static String[] loadAllGlobalStrings(final GlobalFile file, final int max) {
+	final String[] retVal = new String[max];
+	try (InputStream stream = LocaleLoader.class.getResourceAsStream(FilePaths.BASE + FilePaths.LANG_DEFAULT
+		+ GlobalFileList.LIST[file.ordinal()] + Extension.getStringExtensionWithPeriod())) {
+	    LocaleLoader.GLOBAL.load(stream);
+	    for (int k = 0; k < max; k++) {
+		final String key = Integer.toString(k);
+		retVal[k] = LocaleLoader.GLOBAL.getProperty(key);
+	    }
+	} catch (final IOException ioe) {
+	    for (int k = 0; k < max; k++) {
+		retVal[k] = LocaleLoader.ERROR;
+	    }
+	}
+	return retVal;
+    }
+
     public static String loadString(final LocalizedFile file, final String key) {
 	try (InputStream stream = LocaleLoader.class.getResourceAsStream(FilePaths.BASE + FilePaths.LANG_DEFAULT
 		+ LocalizedFileList.LIST[file.ordinal()] + Extension.getStringExtensionWithPeriod())) {

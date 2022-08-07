@@ -28,7 +28,7 @@ public class IcyWall extends AbstractWall {
 	    final int laserType, final int forceUnits) {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 	    // Disrupt icy wall
-	    SoundLoader.playSound(SoundConstants.SOUND_DISRUPTED);
+	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    final DisruptedIcyWall diw = new DisruptedIcyWall();
 	    if (this.hasPreviousState()) {
 		diw.setPreviousState(this.getPreviousState());
@@ -37,7 +37,7 @@ public class IcyWall extends AbstractWall {
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Defrost icy wall
-	    SoundLoader.playSound(SoundConstants.SOUND_DEFROST);
+	    SoundLoader.playSound(SoundConstants.DEFROST);
 	    AbstractDungeonObject ao;
 	    if (this.hasPreviousState()) {
 		ao = this.getPreviousState();
@@ -67,7 +67,7 @@ public class IcyWall extends AbstractWall {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 58;
     }
 }

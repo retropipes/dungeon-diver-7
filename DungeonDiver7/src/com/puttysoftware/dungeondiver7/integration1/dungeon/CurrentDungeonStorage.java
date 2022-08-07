@@ -5,16 +5,16 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.integration1.dungeon;
 
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 
-class LowLevelGameObjectDataStore implements Cloneable {
+class CurrentDungeonStorage implements Cloneable {
     // Fields
-    private final AbstractGameObject[] dataStore;
+    private final AbstractDungeonObject[] dataStore;
     private final int[] dataShape;
     private final int[] interProd;
 
     // Constructor
-    public LowLevelGameObjectDataStore(final int... shape) {
+    public CurrentDungeonStorage(final int... shape) {
 	this.dataShape = shape;
 	this.interProd = new int[shape.length];
 	int product = 1;
@@ -22,7 +22,7 @@ class LowLevelGameObjectDataStore implements Cloneable {
 	    this.interProd[x] = product;
 	    product *= shape[x];
 	}
-	this.dataStore = new AbstractGameObject[product];
+	this.dataStore = new AbstractDungeonObject[product];
     }
 
     // Methods
@@ -43,8 +43,8 @@ class LowLevelGameObjectDataStore implements Cloneable {
     }
 
     @Override
-    public LowLevelGameObjectDataStore clone() {
-	final LowLevelGameObjectDataStore copy = new LowLevelGameObjectDataStore(this.dataShape);
+    public CurrentDungeonStorage clone() {
+	final CurrentDungeonStorage copy = new CurrentDungeonStorage(this.dataShape);
 	for (int x = 0; x < this.dataStore.length; x++) {
 	    copy.dataStore[x] = this.dataStore[x].clone();
 	}
@@ -55,12 +55,12 @@ class LowLevelGameObjectDataStore implements Cloneable {
 	return this.dataShape;
     }
 
-    public AbstractGameObject getCell(final int... loc) {
+    public AbstractDungeonObject getCell(final int... loc) {
 	final int aloc = this.ravelLocation(loc);
 	return this.dataStore[aloc];
     }
 
-    public void setCell(final AbstractGameObject obj, final int... loc) {
+    public void setCell(final AbstractDungeonObject obj, final int... loc) {
 	final int aloc = this.ravelLocation(loc);
 	this.dataStore[aloc] = obj;
     }

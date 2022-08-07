@@ -32,7 +32,7 @@ public class MagneticMirror extends AbstractMovableObject {
 	    final int laserType, final int forceUnits) {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy mirror
-	    SoundLoader.playSound(SoundConstants.SOUND_BOOM);
+	    SoundLoader.playSound(SoundConstants.BOOM);
 	    DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
@@ -54,7 +54,7 @@ public class MagneticMirror extends AbstractMovableObject {
 		    this.playSoundHook();
 		} else {
 		    if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
-			SoundLoader.playSound(SoundConstants.SOUND_BOOM);
+			SoundLoader.playSound(SoundConstants.BOOM);
 		    } else {
 			return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 		    }
@@ -68,7 +68,7 @@ public class MagneticMirror extends AbstractMovableObject {
     public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType) {
 	// Finish reflecting laser
-	SoundLoader.playSound(SoundConstants.SOUND_REFLECT);
+	SoundLoader.playSound(SoundConstants.REFLECT);
 	final Direction oldlaser = DirectionResolver.resolveRelativeDirectionInvert(locX, locY);
 	final Direction currdir = this.getDirection();
 	if (oldlaser == Direction.NORTH) {
@@ -101,7 +101,7 @@ public class MagneticMirror extends AbstractMovableObject {
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(SoundConstants.SOUND_PUSH_MIRROR);
+	SoundLoader.playSound(SoundConstants.PUSH_MIRROR);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class MagneticMirror extends AbstractMovableObject {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 23;
     }
 }

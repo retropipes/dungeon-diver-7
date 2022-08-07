@@ -8,12 +8,12 @@ package com.puttysoftware.dungeondiver7.integration1.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.images.BufferedImageIcon;
 
-public abstract class AbstractBattleCharacter extends AbstractGameObject {
+public abstract class AbstractBattleCharacter extends AbstractDungeonObject {
     // Fields
     private final AbstractCreature template;
     private int actionCounter;
@@ -178,7 +178,7 @@ public abstract class AbstractBattleCharacter extends AbstractGameObject {
 
     @Override
     public int getLayer() {
-	return DungeonConstants.LAYER_OBJECT;
+	return DungeonConstants.LAYER_LOWER_OBJECTS;
     }
 
     @Override
@@ -194,7 +194,7 @@ public abstract class AbstractBattleCharacter extends AbstractGameObject {
 	case 1:
 	    return this.getY();
 	default:
-	    return AbstractGameObject.DEFAULT_CUSTOM_VALUE;
+	    return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
 	}
     }
 

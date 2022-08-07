@@ -11,11 +11,11 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.GenerateTask;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.GenerateDungeonTask;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
 public final class GameLogic {
     // Fields
@@ -102,7 +102,7 @@ public final class GameLogic {
 
     public void resetViewingWindow() {
 	final Application app = Integration1.getApplication();
-	final Dungeon m = app.getDungeonManager().getDungeon();
+	final CurrentDungeon m = app.getDungeonManager().getDungeon();
 	if (m != null && this.vwMgr != null) {
 	    this.vwMgr.setViewingWindowLocationX(m.getPlayerLocationY() - GameViewingWindowManager.getOffsetFactorX());
 	    this.vwMgr.setViewingWindowLocationY(m.getPlayerLocationX() - GameViewingWindowManager.getOffsetFactorY());
@@ -115,7 +115,7 @@ public final class GameLogic {
 
     public static void resetPlayerLocation(final int level) {
 	final Application app = Integration1.getApplication();
-	final Dungeon m = app.getDungeonManager().getDungeon();
+	final CurrentDungeon m = app.getDungeonManager().getDungeon();
 	if (m != null) {
 	    m.switchLevel(level);
 	    m.setPlayerToStart();
@@ -124,20 +124,20 @@ public final class GameLogic {
 
     public void goToLevelOffset(final int level) {
 	final Application app = Integration1.getApplication();
-	final Dungeon m = app.getDungeonManager().getDungeon();
+	final CurrentDungeon m = app.getDungeonManager().getDungeon();
 	final boolean levelExists = m.doesLevelExistOffset(level);
 	this.stopMovement();
 	if (levelExists) {
 	    new LevelLoadTask(level).start();
 	} else {
-	    new GenerateTask(false).start();
+	    new GenerateDungeonTask(false).start();
 	}
     }
 
     public void exitGame() {
 	this.stateChanged = true;
 	final Application app = Integration1.getApplication();
-	final Dungeon m = app.getDungeonManager().getDungeon();
+	final CurrentDungeon m = app.getDungeonManager().getDungeon();
 	// Restore the maze
 	m.restore();
 	m.resetVisibleSquares();
@@ -161,13 +161,13 @@ public final class GameLogic {
 
     public static void decay() {
 	final Application app = Integration1.getApplication();
-	final Dungeon m = app.getDungeonManager().getDungeon();
-	m.setCell(new Empty(), m.getPlayerLocationX(), m.getPlayerLocationY(), DungeonConstants.LAYER_OBJECT);
+	final CurrentDungeon m = app.getDungeonManager().getDungeon();
+	m.setCell(new Empty(), m.getPlayerLocationX(), m.getPlayerLocationY(), DungeonConstants.LAYER_LOWER_OBJECTS);
     }
 
-    public static void morph(final AbstractGameObject morphInto) {
+    public static void morph(final AbstractDungeonObject morphInto) {
 	final Application app = Integration1.getApplication();
-	final Dungeon m = app.getDungeonManager().getDungeon();
+	final CurrentDungeon m = app.getDungeonManager().getDungeon();
 	m.setCell(morphInto, m.getPlayerLocationX(), m.getPlayerLocationY(), morphInto.getLayer());
     }
 
@@ -177,7 +177,7 @@ public final class GameLogic {
 
     public void playDungeon() {
 	final Application app = Integration1.getApplication();
-	final Dungeon m = app.getDungeonManager().getDungeon();
+	final CurrentDungeon m = app.getDungeonManager().getDungeon();
 	if (app.getDungeonManager().getLoaded()) {
 	    this.gui.initViewManager();
 	    app.getGUIManager().hideGUI();

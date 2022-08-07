@@ -16,7 +16,7 @@ public class WoodenPressureButtonDoor extends AbstractPressureButtonDoor {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 119;
     }
 }

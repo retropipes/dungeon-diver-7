@@ -15,7 +15,8 @@ public class DungeonConstants {
     public static final int LAYER_UPPER_OBJECTS = 3;
     public static final int NUM_LAYERS = 4;
     public static final int LAYER_VIRTUAL = 0;
-    public static final int NUM_VIRTUAL_LAYERS = 1;
+    public static final int LAYER_VIRTUAL_CHARACTER = 1;
+    public static final int NUM_VIRTUAL_LAYERS = 2;
     private static String[] LAYER_LIST = null;
     public static final int ERA_DISTANT_PAST = 0;
     public static final int ERA_PAST = 1;

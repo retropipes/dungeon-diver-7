@@ -13,7 +13,7 @@ import com.puttysoftware.dungeondiver7.creature.caste.Caste;
 import com.puttysoftware.dungeondiver7.creature.caste.CasteManager;
 import com.puttysoftware.dungeondiver7.creature.gender.Gender;
 import com.puttysoftware.dungeondiver7.integration1.VersionException;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.GenerateTask;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.GenerateDungeonTask;
 import com.puttysoftware.dungeondiver7.item.ItemInventory;
 import com.puttysoftware.dungeondiver7.loader.AvatarImageManager;
 import com.puttysoftware.dungeondiver7.manager.dungeon.FormatConstants;
@@ -163,7 +163,7 @@ public class PartyMember extends AbstractCreature {
 	this.setToNextLevel(nextLevelEquation);
 	this.setSpellBook(CasteManager.getSpellBookByID(this.caste.getCasteID()));
 	PartyManager.getParty().resetZone();
-	new GenerateTask(true).start();
+	new GenerateDungeonTask(true).start();
     }
 
     @Override

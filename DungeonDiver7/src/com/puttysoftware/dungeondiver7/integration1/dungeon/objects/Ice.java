@@ -5,11 +5,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.integration1.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGround;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.randomrange.RandomRange;
 
 public class Ice extends AbstractGround {
@@ -48,7 +48,7 @@ public class Ice extends AbstractGround {
     }
 
     @Override
-    public boolean shouldGenerateObject(final Dungeon maze, final int row, final int col, final int level,
+    public boolean shouldGenerateObject(final CurrentDungeon maze, final int row, final int col, final int level,
 	    final int layer) {
 	// Generate Ice at 40% rate
 	final RandomRange reject = new RandomRange(1, 100);

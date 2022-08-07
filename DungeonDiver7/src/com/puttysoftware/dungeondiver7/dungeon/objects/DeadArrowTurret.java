@@ -25,7 +25,7 @@ public class DeadArrowTurret extends AbstractMovableObject {
 	DungeonDiver7.getApplication().getGameManager().haltMovingObjects();
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy
-	    SoundLoader.playSound(SoundConstants.SOUND_BOOM);
+	    SoundLoader.playSound(SoundConstants.BOOM);
 	    DungeonDiver7.getApplication().getGameManager().morph(this.getSavedObject(), locX, locY, locZ,
 		    this.getLayer());
 	} else {
@@ -40,7 +40,7 @@ public class DeadArrowTurret extends AbstractMovableObject {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 11;
     }
 }

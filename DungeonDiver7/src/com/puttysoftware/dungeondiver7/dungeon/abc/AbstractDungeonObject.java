@@ -12,6 +12,13 @@ import java.util.BitSet;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
+import com.puttysoftware.dungeondiver7.dungeon.utility.ImageColorConstants;
+import com.puttysoftware.dungeondiver7.dungeon.utility.RandomGenerationRule;
+import com.puttysoftware.dungeondiver7.integration1.Integration1;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.loader.BattleImageManager;
+import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
+import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
@@ -25,11 +32,13 @@ import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
 import com.puttysoftware.dungeondiver7.utility.RangeTypeConstants;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
-import com.puttysoftware.fileio.XDataReader;
-import com.puttysoftware.fileio.XDataWriter;
+import com.puttysoftware.fileio.FileIOReader;
+import com.puttysoftware.fileio.FileIOWriter;
+import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.randomrange.RandomRange;
 import com.puttysoftware.storage.CloneableObject;
 
-public abstract class AbstractDungeonObject extends CloneableObject {
+public abstract class AbstractDungeonObject extends CloneableObject implements RandomGenerationRule {
     // Properties
     private boolean solid;
     private boolean pushable;
@@ -44,17 +53,20 @@ public abstract class AbstractDungeonObject extends CloneableObject {
     private int color;
     private int material;
     private boolean imageEnabled;
+    private final boolean blocksLOS;
+    private static int templateColor = ImageColorConstants.COLOR_NONE;
     static final int DEFAULT_CUSTOM_VALUE = 0;
     protected static final int CUSTOM_FORMAT_MANUAL_OVERRIDE = -1;
     private static final int PLASTIC_MINIMUM_REACTION_FORCE = 0;
     private static final int DEFAULT_MINIMUM_REACTION_FORCE = 1;
     private static final int METAL_MINIMUM_REACTION_FORCE = 2;
-    private AbstractDungeonObject savedObject;
+    private AbstractDungeonObject saved;
     private AbstractDungeonObject previousState;
 
     // Constructors
     AbstractDungeonObject(final boolean isSolid) {
 	this.solid = isSolid;
+	this.blocksLOS = isSolid;
 	this.pushable = false;
 	this.friction = true;
 	this.type = new BitSet(TypeConstants.TYPES_COUNT);
@@ -69,8 +81,30 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 	this.imageEnabled = true;
     }
 
-    AbstractDungeonObject(final boolean isSolid, final boolean isPushable, final boolean hasFriction) {
+    public AbstractDungeonObject(final boolean isSolid, final boolean sightBlock) {
 	this.solid = isSolid;
+	this.friction = true;
+	this.blocksLOS = sightBlock;
+	this.type = new BitSet(TypeConstants.TYPES_COUNT);
+	this.timerValue = 0;
+	this.initialTimerValue = 0;
+	this.timerActive = false;
+    }
+
+    public AbstractDungeonObject(final boolean isSolid, final boolean hasFriction, final boolean sightBlock) {
+	this.solid = isSolid;
+	this.friction = hasFriction;
+	this.blocksLOS = sightBlock;
+	this.type = new BitSet(TypeConstants.TYPES_COUNT);
+	this.timerValue = 0;
+	this.initialTimerValue = 0;
+	this.timerActive = false;
+    }
+
+    AbstractDungeonObject(final boolean isSolid, final boolean isPushable, final boolean hasFriction,
+	    final boolean sightBlock) {
+	this.solid = isSolid;
+	this.blocksLOS = sightBlock;
 	this.pushable = isPushable;
 	this.friction = hasFriction;
 	this.type = new BitSet(TypeConstants.TYPES_COUNT);
@@ -86,6 +120,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 
     public AbstractDungeonObject() {
 	this.solid = false;
+	this.blocksLOS = false;
 	this.pushable = false;
 	this.friction = true;
 	this.type = new BitSet(TypeConstants.TYPES_COUNT);
@@ -137,6 +172,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 	result = prime * result + (this.type == null ? 0 : this.type.hashCode());
 	result = prime * result + this.direction.hashCode();
 	result = prime * result + this.color;
+	result = prime * result + (this.blocksLOS ? 1231 : 1237);
 	return prime * result + this.material;
     }
 
@@ -180,7 +216,14 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 	if (this.material != other.material) {
 	    return false;
 	}
+	if (this.blocksLOS != other.blocksLOS) {
+	    return false;
+	}
 	return true;
+    }
+
+    public String getName() {
+	return LocaleConstants.COMMON_STRING_EMPTY;
     }
 
     public boolean isEnabled() {
@@ -192,11 +235,11 @@ public abstract class AbstractDungeonObject extends CloneableObject {
     }
 
     public final AbstractDungeonObject getSavedObject() {
-	return this.savedObject;
+	return this.saved;
     }
 
     public final void setSavedObject(final AbstractDungeonObject obj) {
-	this.savedObject = obj;
+	this.saved = obj;
     }
 
     public final boolean hasPreviousState() {
@@ -309,6 +352,18 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 	return this.solid;
     }
 
+    public boolean isSolidInBattle() {
+	if (this.enabledInBattle()) {
+	    return this.isSolid();
+	} else {
+	    return false;
+	}
+    }
+
+    public boolean isSightBlocking() {
+	return this.blocksLOS;
+    }
+
     public final boolean isOfType(final int testType) {
 	return this.type.get(testType);
     }
@@ -317,7 +372,27 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 	return this.friction;
     }
 
+    public static int getTemplateColor() {
+	return AbstractDungeonObject.templateColor;
+    }
+
+    public static void setTemplateColor(final int newTC) {
+	AbstractDungeonObject.templateColor = newTC;
+    }
+
     // Scripting
+    /**
+     *
+     * @param ie
+     * @param dirX
+     * @param dirY
+     * @param inv
+     * @return
+     */
+    public boolean preMoveAction(final boolean ie, final int dirX, final int dirY) {
+	return true;
+    }
+
     public abstract void postMoveAction(final int dirX, final int dirY, int dirZ);
 
     /**
@@ -327,7 +402,20 @@ public abstract class AbstractDungeonObject extends CloneableObject {
      * @param locZ
      */
     public void moveFailedAction(final int locX, final int locY, final int locZ) {
-	SoundLoader.playSound(SoundConstants.SOUND_BUMP_HEAD);
+	SoundLoader.playSound(SoundConstants.FAILED);
+	Integration1.getApplication().showMessage("Can't go that way");
+    }
+
+    /**
+     *
+     * @param ie
+     * @param dirX
+     * @param dirY
+     * @param inv
+     */
+    public void interactAction() {
+	SoundLoader.playSound(SoundConstants.FAILED);
+	Integration1.getApplication().showMessage("Can't interact with that");
     }
 
     public AbstractDungeonObject attributeGameRenderHook() {
@@ -368,6 +456,33 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 
     /**
      *
+     * @param x
+     * @param y
+     */
+    public void editorGenerateHook(final int x, final int y) {
+	// Do nothing
+    }
+
+    public boolean arrowHitBattleCheck() {
+	return !this.isSolid();
+    }
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @return
+     */
+    public BufferedImageIcon gameRenderHook(final int x, final int y) {
+	return ObjectImageManager.getImage(this.getName(), this.getBaseID());
+    }
+
+    public BufferedImageIcon battleRenderHook() {
+	return BattleImageManager.getImage(this.getName(), this.getBattleBaseID());
+    }
+
+    /**
+     *
      * @param pushed
      * @param x
      * @param y
@@ -392,7 +507,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 
     protected void pushCrushAction(final int x, final int y, final int z) {
 	// Object crushed
-	SoundLoader.playSound(SoundConstants.SOUND_CRUSH);
+	SoundLoader.playSound(SoundConstants.CRUSH);
 	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), x, y, z, this.getLayer());
     }
 
@@ -461,7 +576,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 		&& this.getMaterial() == MaterialConstants.MATERIAL_WOODEN
 		&& this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE) != null) {
 	    // Burn wooden object
-	    SoundLoader.playSound(SoundConstants.SOUND_WOOD_BURN);
+	    SoundLoader.playSound(SoundConstants.WOOD_BURN);
 	    DungeonDiver7.getApplication().getGameManager().morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
@@ -472,7 +587,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 			|| this.getMaterial() == MaterialConstants.MATERIAL_PLASTIC)
 		&& this.changesToOnExposure(MaterialConstants.MATERIAL_ICE) != null) {
 	    // Freeze metal, wooden, or plastic object
-	    SoundLoader.playSound(SoundConstants.SOUND_FROZEN);
+	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getApplication().getGameManager().morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
@@ -481,7 +596,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 		&& this.getMaterial() == MaterialConstants.MATERIAL_ICE
 		&& this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE) != null) {
 	    // Melt icy object
-	    SoundLoader.playSound(SoundConstants.SOUND_DEFROST);
+	    SoundLoader.playSound(SoundConstants.DEFROST);
 	    DungeonDiver7.getApplication().getGameManager().morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
@@ -490,7 +605,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 		&& this.getMaterial() == MaterialConstants.MATERIAL_FIRE
 		&& this.changesToOnExposure(MaterialConstants.MATERIAL_ICE) != null) {
 	    // Cool hot object
-	    SoundLoader.playSound(SoundConstants.SOUND_COOL_OFF);
+	    SoundLoader.playSound(SoundConstants.COOL_OFF);
 	    DungeonDiver7.getApplication().getGameManager().morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
@@ -499,7 +614,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 		&& this.getMaterial() == MaterialConstants.MATERIAL_METALLIC
 		&& this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE) != null) {
 	    // Melt metal object
-	    SoundLoader.playSound(SoundConstants.SOUND_MELT);
+	    SoundLoader.playSound(SoundConstants.MELT);
 	    DungeonDiver7.getApplication().getGameManager().morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
@@ -550,7 +665,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 			.getCell(locX - dirX, locY - dirY, locZ, this.getLayer());
 		if (adj != null && !adj.rangeAction(locX - 2 * dirX, locY - 2 * dirY, locZ, dirX, dirY,
 			ArrowTypeConstants.getRangeTypeForLaserType(laserType), 1)) {
-		    SoundLoader.playSound(SoundConstants.SOUND_LASER_DIE);
+		    SoundLoader.playSound(SoundConstants.LASER_DIE);
 		}
 	    }
 	    return Direction.NONE;
@@ -582,6 +697,10 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 	return false;
     }
 
+    public boolean overridesDefaultPostMove() {
+	return false;
+    }
+
     /**
      *
      * @param x
@@ -597,7 +716,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
     }
 
     public final String getBaseImageName() {
-	return LocaleLoader.loadString(LocaleConstants.IMAGE_STRINGS_FILE, this.getStringBaseID());
+	return LocaleLoader.loadString(LocaleConstants.IMAGE_STRINGS_FILE, this.getBaseID());
     }
 
     private final String getColorPrefix() {
@@ -677,23 +796,39 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 	return this.getBaseImageName();
     }
 
-    abstract public int getStringBaseID();
+    public int getBattleBaseID() {
+	if (this.enabledInBattle()) {
+	    return this.getBaseID();
+	} else {
+	    return ObjectImageConstants.NONE;
+	}
+    }
+
+    public boolean enabledInBattle() {
+	return true;
+    }
+
+    public boolean isMoving() {
+	return false;
+    }
+
+    abstract public int getBaseID();
 
     public int getBlockHeight() {
 	return 1;
     }
 
     public final String getBaseName() {
-	return LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getStringBaseID() * 3 + 0);
+	return LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getBaseID() * 3 + 0);
     }
 
     public final String getIdentityName() {
 	return this.getLocalColorPrefix()
-		+ LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getStringBaseID() * 3 + 0);
+		+ LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getBaseID() * 3 + 0);
     }
 
     public final String getDescription() {
-	return LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getStringBaseID() * 3 + 2);
+	return LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getBaseID() * 3 + 2);
     }
 
     abstract public int getLayer();
@@ -714,13 +849,66 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 	return null;
     }
 
-    public final void writeDungeonObject(final XDataWriter writer) throws IOException {
+    @Override
+    public boolean shouldGenerateObject(final CurrentDungeon dungeon, final int row, final int col, final int level,
+	    final int layer) {
+	if (layer == DungeonConstants.LAYER_LOWER_OBJECTS) {
+	    // Handle object layer
+	    if (!this.isOfType(TypeConstants.TYPE_PASS_THROUGH)) {
+		// Limit generation of other objects to 20%, unless required
+		if (this.isRequired(dungeon)) {
+		    return true;
+		} else {
+		    final RandomRange r = new RandomRange(1, 100);
+		    if (r.generate() <= 20) {
+			return true;
+		    } else {
+			return false;
+		    }
+		}
+	    } else {
+		// Generate pass-through objects at 100%
+		return true;
+	    }
+	} else {
+	    // Handle ground layer
+	    if (this.isOfType(TypeConstants.TYPE_FIELD)) {
+		// Limit generation of fields to 20%
+		final RandomRange r = new RandomRange(1, 100);
+		if (r.generate() <= 20) {
+		    return true;
+		} else {
+		    return false;
+		}
+	    } else {
+		// Generate other ground at 100%
+		return true;
+	    }
+	}
+    }
+
+    @Override
+    public int getMinimumRequiredQuantity(final CurrentDungeon dungeon) {
+	return RandomGenerationRule.NO_LIMIT;
+    }
+
+    @Override
+    public int getMaximumRequiredQuantity(final CurrentDungeon dungeon) {
+	return RandomGenerationRule.NO_LIMIT;
+    }
+
+    @Override
+    public boolean isRequired(final CurrentDungeon dungeon) {
+	return false;
+    }
+
+    public final void write(final FileIOWriter writer) throws IOException {
 	writer.writeString(this.getIdentifier());
 	final int cc = this.getCustomFormat();
 	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 	    writer.writeInt(this.direction.ordinal());
 	    writer.writeInt(this.color);
-	    this.writeDungeonObjectHook(writer);
+	    this.writeHook(writer);
 	} else {
 	    writer.writeInt(this.direction.ordinal());
 	    writer.writeInt(this.color);
@@ -731,7 +919,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 	}
     }
 
-    public final AbstractDungeonObject readDungeonObjectG2(final XDataReader reader, final String ident, final int ver)
+    public final AbstractDungeonObject readV2(final FileIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (ident.equals(this.getIdentifier())) {
 	    final int cc = this.getCustomFormat();
@@ -739,7 +927,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 		this.direction = Direction.values()[reader.readInt()];
 		reader.readInt();
 		this.color = reader.readInt();
-		return this.readDungeonObjectHookG2(reader, ver);
+		return this.readHookV2(reader, ver);
 	    } else {
 		this.direction = Direction.values()[reader.readInt()];
 		this.color = reader.readInt();
@@ -754,7 +942,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 	}
     }
 
-    public final AbstractDungeonObject readDungeonObjectG3(final XDataReader reader, final String ident, final int ver)
+    public final AbstractDungeonObject readV3(final FileIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (ident.equals(this.getIdentifier())) {
 	    final int cc = this.getCustomFormat();
@@ -763,7 +951,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 		this.color = reader.readInt();
 		// Discard material
 		reader.readInt();
-		return this.readDungeonObjectHookG3(reader, ver);
+		return this.readHookV3(reader, ver);
 	    } else {
 		this.direction = Direction.values()[reader.readInt()];
 		this.color = reader.readInt();
@@ -780,14 +968,14 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 	}
     }
 
-    public final AbstractDungeonObject readDungeonObjectG4(final XDataReader reader, final String ident, final int ver)
+    public final AbstractDungeonObject readV4(final FileIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (ident.equals(this.getIdentifier())) {
 	    final int cc = this.getCustomFormat();
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 		this.direction = Direction.values()[reader.readInt()];
 		this.color = reader.readInt();
-		return this.readDungeonObjectHookG4(reader, ver);
+		return this.readHookV4(reader, ver);
 	    } else {
 		this.direction = Direction.values()[reader.readInt()];
 		this.color = reader.readInt();
@@ -802,14 +990,14 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 	}
     }
 
-    public final AbstractDungeonObject readDungeonObjectG5(final XDataReader reader, final String ident, final int ver)
+    public final AbstractDungeonObject readV5(final FileIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (ident.equals(this.getIdentifier())) {
 	    final int cc = this.getCustomFormat();
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 		this.direction = Direction.values()[reader.readInt()];
 		this.color = reader.readInt();
-		return this.readDungeonObjectHookG5(reader, ver);
+		return this.readHookV5(reader, ver);
 	    } else {
 		this.direction = Direction.values()[reader.readInt()];
 		this.color = reader.readInt();
@@ -824,14 +1012,36 @@ public abstract class AbstractDungeonObject extends CloneableObject {
 	}
     }
 
-    public final AbstractDungeonObject readDungeonObjectG6(final XDataReader reader, final String ident, final int ver)
+    public final AbstractDungeonObject readV6(final FileIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (ident.equals(this.getIdentifier())) {
 	    final int cc = this.getCustomFormat();
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 		this.direction = Direction.values()[reader.readInt()];
 		this.color = reader.readInt();
-		return this.readDungeonObjectHookG6(reader, ver);
+		return this.readHookV6(reader, ver);
+	    } else {
+		this.direction = Direction.values()[reader.readInt()];
+		this.color = reader.readInt();
+		for (int x = 0; x < cc; x++) {
+		    final int cx = reader.readInt();
+		    this.setCustomProperty(x + 1, cx);
+		}
+	    }
+	    return this;
+	} else {
+	    return null;
+	}
+    }
+
+    public final AbstractDungeonObject readV7(final FileIOReader reader, final String ident, final int ver)
+	    throws IOException {
+	if (ident.equals(this.getIdentifier())) {
+	    final int cc = this.getCustomFormat();
+	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+		this.direction = Direction.values()[reader.readInt()];
+		this.color = reader.readInt();
+		return this.readHookV7(reader, ver);
 	    } else {
 		this.direction = Direction.values()[reader.readInt()];
 		this.color = reader.readInt();
@@ -851,7 +1061,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
      * @param writer
      * @throws IOException
      */
-    protected void writeDungeonObjectHook(final XDataWriter writer) throws IOException {
+    protected void writeHook(final FileIOWriter writer) throws IOException {
 	// Do nothing - but let subclasses override
     }
 
@@ -862,8 +1072,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readDungeonObjectHookG2(final XDataReader reader, final int formatVersion)
-	    throws IOException {
+    protected AbstractDungeonObject readHookV2(final FileIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
@@ -875,8 +1084,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readDungeonObjectHookG3(final XDataReader reader, final int formatVersion)
-	    throws IOException {
+    protected AbstractDungeonObject readHookV3(final FileIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
@@ -888,8 +1096,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readDungeonObjectHookG4(final XDataReader reader, final int formatVersion)
-	    throws IOException {
+    protected AbstractDungeonObject readHookV4(final FileIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
@@ -901,8 +1108,7 @@ public abstract class AbstractDungeonObject extends CloneableObject {
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readDungeonObjectHookG5(final XDataReader reader, final int formatVersion)
-	    throws IOException {
+    protected AbstractDungeonObject readHookV5(final FileIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
@@ -914,8 +1120,19 @@ public abstract class AbstractDungeonObject extends CloneableObject {
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readDungeonObjectHookG6(final XDataReader reader, final int formatVersion)
-	    throws IOException {
+    protected AbstractDungeonObject readHookV6(final FileIOReader reader, final int formatVersion) throws IOException {
+	// Dummy implementation, subclasses can override
+	return this;
+    }
+
+    /**
+     *
+     * @param reader
+     * @param formatVersion
+     * @return
+     * @throws IOException
+     */
+    protected AbstractDungeonObject readHookV7(final FileIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }

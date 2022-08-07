@@ -25,11 +25,11 @@ public class RollingBarrelVertical extends AbstractMovableObject {
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(SoundConstants.SOUND_BALL_ROLL);
+	SoundLoader.playSound(SoundConstants.BALL_ROLL);
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 141;
     }
 
@@ -44,7 +44,7 @@ public class RollingBarrelVertical extends AbstractMovableObject {
 	    // Break up
 	    final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
 	    // Boom!
-	    SoundLoader.playSound(SoundConstants.SOUND_BARREL);
+	    SoundLoader.playSound(SoundConstants.BARREL);
 	    // Destroy barrel
 	    DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    // Check for tank in range of explosion
@@ -68,7 +68,7 @@ public class RollingBarrelVertical extends AbstractMovableObject {
 	// Break up
 	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
 	// Boom!
-	SoundLoader.playSound(SoundConstants.SOUND_BARREL);
+	SoundLoader.playSound(SoundConstants.BARREL);
 	// Destroy barrel
 	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), x, y, z, this.getLayer());
 	// Check for tank in range of explosion

@@ -16,7 +16,7 @@ public class IcePressureButtonDoor extends AbstractPressureButtonDoor {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 83;
     }
 }

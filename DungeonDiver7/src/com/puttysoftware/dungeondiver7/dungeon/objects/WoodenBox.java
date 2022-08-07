@@ -26,11 +26,11 @@ public class WoodenBox extends AbstractMovableObject {
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(SoundConstants.SOUND_PUSH_BOX);
+	SoundLoader.playSound(SoundConstants.PUSH_BOX);
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 70;
     }
 
@@ -59,7 +59,7 @@ public class WoodenBox extends AbstractMovableObject {
 		    locZ, this.getLayer());
 	    if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 		// Destroy wooden box
-		SoundLoader.playSound(SoundConstants.SOUND_BARREL);
+		SoundLoader.playSound(SoundConstants.BARREL);
 		app.getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    } else if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE && mor != null
 		    && (mor.isOfType(TypeConstants.TYPE_CHARACTER) || !mor.isSolid())) {

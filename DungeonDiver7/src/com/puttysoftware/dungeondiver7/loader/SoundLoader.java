@@ -24,7 +24,7 @@ public class SoundLoader {
 
     private static WAVPlayer getSound(final int soundID) {
 	try {
-	    final String filename = SoundConstants.SOUND_NAMES[soundID];
+	    final String filename = SoundConstants.getSoundName(soundID);
 	    final URL url = SoundLoader.LOAD_CLASS
 		    .getResource(SoundLoader.LOAD_PATH + filename.toLowerCase() + LocaleLoader.loadString(
 			    LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_SOUND_EXTENSION));

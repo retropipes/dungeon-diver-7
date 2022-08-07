@@ -16,7 +16,7 @@ public class FireAllButton extends AbstractAllButton {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 74;
     }
 }

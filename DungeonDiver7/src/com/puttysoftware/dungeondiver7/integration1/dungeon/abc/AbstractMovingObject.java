@@ -6,9 +6,9 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.integration1.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.dungeon.utility.TypeConstants;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractMovingObject extends AbstractGameObject {
+public abstract class AbstractMovingObject extends AbstractDungeonObject {
     // Constructors
     public AbstractMovingObject(final boolean solid) {
 	super(solid, false);
@@ -31,7 +31,7 @@ public abstract class AbstractMovingObject extends AbstractGameObject {
 
     @Override
     public int getLayer() {
-	return DungeonConstants.LAYER_OBJECT;
+	return DungeonConstants.LAYER_LOWER_OBJECTS;
     }
 
     @Override
@@ -41,7 +41,7 @@ public abstract class AbstractMovingObject extends AbstractGameObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractGameObject.DEFAULT_CUSTOM_VALUE;
+	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override

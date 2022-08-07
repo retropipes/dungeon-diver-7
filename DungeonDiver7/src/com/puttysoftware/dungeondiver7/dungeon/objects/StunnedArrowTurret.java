@@ -36,7 +36,7 @@ public class StunnedArrowTurret extends AbstractMovableObject {
     public void timerExpiredAction(final int locX, final int locY) {
 	this.stunnedLeft--;
 	if (this.stunnedLeft == 1) {
-	    SoundLoader.playSound(SoundConstants.SOUND_STUN_OFF);
+	    SoundLoader.playSound(SoundConstants.STUN_OFF);
 	    this.activateTimer(1);
 	} else if (this.stunnedLeft == 0) {
 	    final int z = DungeonDiver7.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
@@ -45,18 +45,18 @@ public class StunnedArrowTurret extends AbstractMovableObject {
 	    at.setDirection(this.getDirection());
 	    DungeonDiver7.getApplication().getGameManager().morph(at, locX, locY, z, this.getLayer());
 	} else {
-	    SoundLoader.playSound(SoundConstants.SOUND_STUNNED);
+	    SoundLoader.playSound(SoundConstants.STUNNED);
 	    this.activateTimer(1);
 	}
     }
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(SoundConstants.SOUND_PUSH_ANTI_TANK);
+	SoundLoader.playSound(SoundConstants.PUSH_ANTI_TANK);
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 34;
     }
 }

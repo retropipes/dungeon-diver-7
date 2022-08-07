@@ -20,8 +20,8 @@ import com.puttysoftware.dungeondiver7.dungeon.utility.ImageColorConstants;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.VersionException;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.PrefixHandler;
 import com.puttysoftware.dungeondiver7.manager.dungeon.SuffixHandler;
@@ -56,8 +56,8 @@ public class GameLoadTask extends Thread {
 	    final Application app = Integration1.getApplication();
 	    int startW;
 	    app.getGameLogic().setSavedGameFlag(false);
-	    final File tempLock = new File(Dungeon.getDungeonTempFolder() + "lock.tmp");
-	    Dungeon gameDungeon = new Dungeon();
+	    final File tempLock = new File(CurrentDungeon.getDungeonTempFolder() + "lock.tmp");
+	    CurrentDungeon gameDungeon = new CurrentDungeon();
 	    // Unlock the file
 	    GameFileManager.load(mazeFile, tempLock);
 	    ZipUtilities.unzipDirectory(tempLock, new File(gameDungeon.getBasePath()));
@@ -84,7 +84,7 @@ public class GameLoadTask extends Thread {
 	    gameDungeon.save();
 	    // Final cleanup
 	    app.getGameLogic().stateChanged();
-	    AbstractGameObject
+	    AbstractDungeonObject
 		    .setTemplateColor(ImageColorConstants.getColorForLevel(PartyManager.getParty().getZone()));
 	    app.getDungeonManager().setLoaded(true);
 	    CommonDialogs.showDialog(sg + " loaded.");

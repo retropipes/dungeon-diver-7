@@ -33,7 +33,7 @@ public class ExplodingBarrel extends AbstractReactionWall {
     public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
 	    final int dirY, final int laserType, final int forceUnits) {
 	// Boom!
-	SoundLoader.playSound(SoundConstants.SOUND_BOOM);
+	SoundLoader.playSound(SoundConstants.BOOM);
 	// Did tank die?
 	final boolean dead = this.laserEnteredActionInnerP1(locX, locY, locZ, false);
 	if (dead) {
@@ -55,7 +55,7 @@ public class ExplodingBarrel extends AbstractReactionWall {
     public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
 	// Boom!
-	SoundLoader.playSound(SoundConstants.SOUND_BOOM);
+	SoundLoader.playSound(SoundConstants.BOOM);
 	// Did tank die?
 	final boolean dead = this.laserEnteredActionInnerP1(locX + dirX, locY + dirY, locZ, false);
 	if (dead) {
@@ -157,7 +157,7 @@ public class ExplodingBarrel extends AbstractReactionWall {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 12;
     }
 }

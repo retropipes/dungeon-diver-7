@@ -742,7 +742,7 @@ public class GameManager implements MenuSection {
 
     void fireRange() {
 	// Boom!
-	SoundLoader.playSound(SoundConstants.SOUND_BOOM);
+	SoundLoader.playSound(SoundConstants.BOOM);
 	this.updateScore(0, 0, 1);
 	if (this.otherRangeMode == GameManager.OTHER_RANGE_MODE_BOMBS) {
 	    GameManager.updateUndo(false, false, false, false, false, false, false, true, false, false);
@@ -1172,7 +1172,7 @@ public class GameManager implements MenuSection {
 
     public void solvedLevel(final boolean playSound) {
 	if (playSound) {
-	    SoundLoader.playSound(SoundConstants.SOUND_END_LEVEL);
+	    SoundLoader.playSound(SoundConstants.END_LEVEL);
 	}
 	final Application app = DungeonDiver7.getApplication();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
@@ -1319,7 +1319,7 @@ public class GameManager implements MenuSection {
 	    }
 	}
 	this.mlot = null;
-	SoundLoader.playSound(SoundConstants.SOUND_DEAD);
+	SoundLoader.playSound(SoundConstants.DEAD);
 	final int choice = CustomDialogs.showDeadDialog();
 	if (choice == JOptionPane.CANCEL_OPTION) {
 	    // End
@@ -1512,7 +1512,7 @@ public class GameManager implements MenuSection {
 		final Direction newDir = DirectionResolver.resolveRelativeDirection(x, y);
 		if (currDir != newDir) {
 		    this.tank.setDirection(newDir);
-		    SoundLoader.playSound(SoundConstants.SOUND_TURN);
+		    SoundLoader.playSound(SoundConstants.TURN);
 		    this.redrawDungeon();
 		} else {
 		    this.updatePositionRelative(x, y);
@@ -2192,7 +2192,7 @@ public class GameManager implements MenuSection {
 		    break;
 		}
 		if (fired) {
-		    SoundLoader.playSound(SoundConstants.SOUND_TURN);
+		    SoundLoader.playSound(SoundConstants.TURN);
 		    gm.markTankAsDirty();
 		    gm.redrawDungeon();
 		}
@@ -2546,7 +2546,7 @@ public class GameManager implements MenuSection {
 		} else if (cmd.equals(
 			LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_DISTANT_PAST))) {
 		    // Time Travel: Distant Past
-		    SoundLoader.playSound(SoundConstants.SOUND_ERA_CHANGE);
+		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_PAST);
 		    game.gameEraDistantPast.setSelected(true);
 		    game.gameEraPast.setSelected(false);
@@ -2556,7 +2556,7 @@ public class GameManager implements MenuSection {
 		} else if (cmd
 			.equals(LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_PAST))) {
 		    // Time Travel: Past
-		    SoundLoader.playSound(SoundConstants.SOUND_ERA_CHANGE);
+		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PAST);
 		    game.gameEraDistantPast.setSelected(false);
 		    game.gameEraPast.setSelected(true);
@@ -2566,7 +2566,7 @@ public class GameManager implements MenuSection {
 		} else if (cmd.equals(
 			LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_PRESENT))) {
 		    // Time Travel: Present
-		    SoundLoader.playSound(SoundConstants.SOUND_ERA_CHANGE);
+		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PRESENT);
 		    game.gameEraDistantPast.setSelected(false);
 		    game.gameEraPast.setSelected(false);
@@ -2576,7 +2576,7 @@ public class GameManager implements MenuSection {
 		} else if (cmd.equals(
 			LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_FUTURE))) {
 		    // Time Travel: Future
-		    SoundLoader.playSound(SoundConstants.SOUND_ERA_CHANGE);
+		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_FUTURE);
 		    game.gameEraDistantPast.setSelected(false);
 		    game.gameEraPast.setSelected(false);
@@ -2586,7 +2586,7 @@ public class GameManager implements MenuSection {
 		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE,
 			DungeonConstants.ERA_DISTANT_FUTURE))) {
 		    // Time Travel: Distant Future
-		    SoundLoader.playSound(SoundConstants.SOUND_ERA_CHANGE);
+		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_FUTURE);
 		    game.gameEraDistantPast.setSelected(false);
 		    game.gameEraPast.setSelected(false);

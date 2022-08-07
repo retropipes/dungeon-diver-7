@@ -95,7 +95,7 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 		this.dir2X = (int) Math.signum(px - locX);
 		this.dir2Y = (int) Math.signum(py - locY);
 		if (this.dir1X != 0 && this.dir2X != 0 || this.dir1Y != 0 && this.dir2Y != 0) {
-		    SoundLoader.playSound(SoundConstants.SOUND_LASER_DIE);
+		    SoundLoader.playSound(SoundConstants.LASER_DIE);
 		    return Direction.NONE;
 		} else {
 		    if (this.dir1X == 0 && this.dir2X == 1 && this.dir1Y == -1 && this.dir2Y == 0
@@ -112,7 +112,7 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 		this.jumpShot = true;
 		this.dir1X = (int) Math.signum(px - locX);
 		this.dir1Y = (int) Math.signum(py - locY);
-		SoundLoader.playSound(SoundConstants.SOUND_PREPARE);
+		SoundLoader.playSound(SoundConstants.PREPARE);
 		return Direction.NONE;
 	    }
 	}
@@ -169,12 +169,12 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
     public final void jumpSound(final boolean success) {
 	if (success) {
 	    if (this.jumpRows == 0 && this.jumpCols == 0) {
-		SoundLoader.playSound(SoundConstants.SOUND_LASER_DIE);
+		SoundLoader.playSound(SoundConstants.LASER_DIE);
 	    } else {
-		SoundLoader.playSound(SoundConstants.SOUND_JUMPING);
+		SoundLoader.playSound(SoundConstants.JUMPING);
 	    }
 	} else {
-	    SoundLoader.playSound(SoundConstants.SOUND_LASER_DIE);
+	    SoundLoader.playSound(SoundConstants.LASER_DIE);
 	}
     }
 

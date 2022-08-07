@@ -6,9 +6,9 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.integration1.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.dungeon.utility.TypeConstants;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractTeleport extends AbstractGameObject {
+public abstract class AbstractTeleport extends AbstractDungeonObject {
     // Constructors
     protected AbstractTeleport() {
 	super(false, true, false);
@@ -16,7 +16,7 @@ public abstract class AbstractTeleport extends AbstractGameObject {
 
     @Override
     public int getLayer() {
-	return DungeonConstants.LAYER_OBJECT;
+	return DungeonConstants.LAYER_LOWER_OBJECTS;
     }
 
     @Override

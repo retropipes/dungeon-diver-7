@@ -14,17 +14,18 @@ import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.utility.ImageColorConstants;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.randomrange.RandomRange;
 
-public class GenerateTask extends Thread {
+public class GenerateDungeonTask extends Thread {
     // Fields
     private final JFrame generateFrame;
     private final boolean scratch;
 
     // Constructors
-    public GenerateTask(final boolean startFromScratch) {
+    public GenerateDungeonTask(final boolean startFromScratch) {
 	this.scratch = startFromScratch;
 	this.setName("Level Generator");
 	this.generateFrame = new JFrame("Generating...");
@@ -45,11 +46,11 @@ public class GenerateTask extends Thread {
 	    final Application app = Integration1.getApplication();
 	    int zoneID = PartyManager.getParty().getZone();
 	    int dungeonSize = DungeonDiver7.getDungeonLevelSize(zoneID);
-	    Dungeon gameDungeon = app.getDungeonManager().getDungeon();
+	    CurrentDungeon gameDungeon = app.getDungeonManager().getDungeon();
 	    if (!this.scratch) {
 		app.getGameLogic().disableEvents();
 	    } else {
-		gameDungeon = new Dungeon();
+		gameDungeon = new CurrentDungeon();
 		app.getDungeonManager().setDungeon(gameDungeon);
 	    }
 	    gameDungeon.addLevel(dungeonSize, dungeonSize);
@@ -61,7 +62,7 @@ public class GenerateTask extends Thread {
 		do {
 		    startR = rR.generate();
 		    startC = rC.generate();
-		} while (gameDungeon.getCell(startR, startC, DungeonConstants.LAYER_OBJECT).isSolid());
+		} while (gameDungeon.getCell(startR, startC, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid());
 		gameDungeon.setStartRow(startR);
 		gameDungeon.setStartColumn(startC);
 		app.getDungeonManager().setLoaded(true);
@@ -75,14 +76,14 @@ public class GenerateTask extends Thread {
 		do {
 		    startR = rR.generate();
 		    startC = rC.generate();
-		} while (gameDungeon.getCell(startR, startC, DungeonConstants.LAYER_OBJECT).isSolid());
+		} while (gameDungeon.getCell(startR, startC, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid());
 		gameDungeon.setPlayerLocationX(startR);
 		gameDungeon.setPlayerLocationY(startC);
 		PartyManager.getParty().offsetZone(1);
 	    }
 	    gameDungeon.save();
 	    // Final cleanup
-	    AbstractGameObject.setTemplateColor(ImageColorConstants.getColorForLevel(zoneID));
+	    AbstractDungeonObject.setTemplateColor(ImageColorConstants.getColorForLevel(zoneID));
 	    if (this.scratch) {
 		app.getGameLogic().stateChanged();
 		app.getGameLogic().playDungeon();

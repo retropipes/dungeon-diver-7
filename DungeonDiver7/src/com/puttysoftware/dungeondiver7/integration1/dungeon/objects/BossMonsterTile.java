@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.integration1.dungeon.objects;
 import com.puttysoftware.dungeondiver7.dungeon.utility.RandomGenerationRule;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 
@@ -47,9 +47,9 @@ public class BossMonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public boolean shouldGenerateObject(final Dungeon dungeon, final int row, final int col, final int level,
+    public boolean shouldGenerateObject(final CurrentDungeon dungeon, final int row, final int col, final int level,
 	    final int layer) {
-	if (dungeon.getActiveLevel() == Dungeon.getMaxLevels() - 1) {
+	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
 	    return false;
 	} else {
 	    return super.shouldGenerateObject(dungeon, row, col, level, layer);
@@ -57,8 +57,8 @@ public class BossMonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public int getMinimumRequiredQuantity(final Dungeon dungeon) {
-	if (dungeon.getActiveLevel() == Dungeon.getMaxLevels() - 1) {
+    public int getMinimumRequiredQuantity(final CurrentDungeon dungeon) {
+	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
 	} else {
 	    return 1;
@@ -66,8 +66,8 @@ public class BossMonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public int getMaximumRequiredQuantity(final Dungeon dungeon) {
-	if (dungeon.getActiveLevel() == Dungeon.getMaxLevels() - 1) {
+    public int getMaximumRequiredQuantity(final CurrentDungeon dungeon) {
+	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
 	} else {
 	    return 1;
@@ -75,8 +75,8 @@ public class BossMonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public boolean isRequired(final Dungeon dungeon) {
-	if (dungeon.getActiveLevel() == Dungeon.getMaxLevels() - 1) {
+    public boolean isRequired(final CurrentDungeon dungeon) {
+	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
 	    return false;
 	} else {
 	    return true;

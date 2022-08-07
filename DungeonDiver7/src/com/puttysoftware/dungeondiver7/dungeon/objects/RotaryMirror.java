@@ -27,7 +27,7 @@ public class RotaryMirror extends AbstractReactionWall {
 	    final int dirY, final int laserType, final int forceUnits) {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy mirror
-	    SoundLoader.playSound(SoundConstants.SOUND_BOOM);
+	    SoundLoader.playSound(SoundConstants.BOOM);
 	    DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
@@ -38,7 +38,7 @@ public class RotaryMirror extends AbstractReactionWall {
 	    } else {
 		// Rotate mirror
 		this.toggleDirection();
-		SoundLoader.playSound(SoundConstants.SOUND_ROTATE);
+		SoundLoader.playSound(SoundConstants.ROTATE);
 		return Direction.NONE;
 	    }
 	}
@@ -48,7 +48,7 @@ public class RotaryMirror extends AbstractReactionWall {
     public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType) {
 	// Finish reflecting laser
-	SoundLoader.playSound(SoundConstants.SOUND_REFLECT);
+	SoundLoader.playSound(SoundConstants.REFLECT);
 	final Direction oldlaser = DirectionResolver.resolveRelativeDirectionInvert(locX, locY);
 	final Direction currdir = this.getDirection();
 	if (oldlaser == Direction.NORTH) {
@@ -84,7 +84,7 @@ public class RotaryMirror extends AbstractReactionWall {
 	    final int rangeType, final int forceUnits) {
 	// Rotate mirror
 	this.toggleDirection();
-	SoundLoader.playSound(SoundConstants.SOUND_ROTATE);
+	SoundLoader.playSound(SoundConstants.ROTATE);
 	DungeonDiver7.getApplication().getDungeonManager().getDungeon().markAsDirty(locX + dirX, locY + dirY, locZ);
 	return true;
     }
@@ -95,7 +95,7 @@ public class RotaryMirror extends AbstractReactionWall {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 31;
     }
 }

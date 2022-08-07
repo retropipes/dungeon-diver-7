@@ -23,11 +23,11 @@ public class IcyBox extends AbstractMovableObject {
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(SoundConstants.SOUND_PUSH_BOX);
+	SoundLoader.playSound(SoundConstants.PUSH_BOX);
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 21;
     }
 

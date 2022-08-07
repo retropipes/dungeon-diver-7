@@ -30,7 +30,7 @@ public class DisruptedMagneticWall extends AbstractDisruptedObject {
     public void timerExpiredAction(final int locX, final int locY) {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
-	    SoundLoader.playSound(SoundConstants.SOUND_DISRUPT_END);
+	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
 	    final int z = DungeonDiver7.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
 	    DungeonDiver7.getApplication().getGameManager().morph(new MagneticWall(), locX, locY, z, this.getLayer());
 	} else {
@@ -39,7 +39,7 @@ public class DisruptedMagneticWall extends AbstractDisruptedObject {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 50;
     }
 }

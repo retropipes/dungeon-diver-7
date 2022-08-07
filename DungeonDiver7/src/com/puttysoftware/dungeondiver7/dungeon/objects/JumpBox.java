@@ -21,7 +21,7 @@ public class JumpBox extends AbstractJumpObject {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 123;
     }
 

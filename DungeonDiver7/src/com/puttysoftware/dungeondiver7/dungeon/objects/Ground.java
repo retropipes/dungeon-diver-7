@@ -17,7 +17,7 @@ public class Ground extends AbstractGround {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 19;
     }
 

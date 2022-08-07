@@ -30,7 +30,7 @@ public class Barrel extends AbstractReactionWall {
 	    final int dirY, final int laserType, final int forceUnits) {
 	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
 	// Boom!
-	SoundLoader.playSound(SoundConstants.SOUND_BARREL);
+	SoundLoader.playSound(SoundConstants.BARREL);
 	// Destroy barrel
 	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
 	// Check for tank in range of explosion
@@ -53,7 +53,7 @@ public class Barrel extends AbstractReactionWall {
 	    final int rangeType, final int forceUnits) {
 	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
 	// Boom!
-	SoundLoader.playSound(SoundConstants.SOUND_BARREL);
+	SoundLoader.playSound(SoundConstants.BARREL);
 	// Check for tank in range of explosion
 	final boolean target = a.circularScanTank(locX + dirX, locY + dirY, locZ, 1);
 	if (target) {
@@ -76,7 +76,7 @@ public class Barrel extends AbstractReactionWall {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 3;
     }
 }

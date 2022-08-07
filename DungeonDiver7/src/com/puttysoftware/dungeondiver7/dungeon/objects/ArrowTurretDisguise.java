@@ -35,7 +35,7 @@ public class ArrowTurretDisguise extends AbstractCharacter {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 0;
     }
 
@@ -48,7 +48,7 @@ public class ArrowTurretDisguise extends AbstractCharacter {
     public void timerExpiredAction(final int locX, final int locY) {
 	this.disguiseLeft--;
 	if (this.disguiseLeft == 0) {
-	    SoundLoader.playSound(SoundConstants.SOUND_DISRUPT_END);
+	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
 	    DungeonDiver7.getApplication().getGameManager().setNormalTank();
 	} else {
 	    this.activateTimer(1);

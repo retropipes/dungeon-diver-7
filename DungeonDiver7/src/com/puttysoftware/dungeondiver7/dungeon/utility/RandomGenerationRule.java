@@ -5,16 +5,16 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.utility;
 
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 
 public interface RandomGenerationRule {
     public static final int NO_LIMIT = 0;
 
-    public boolean shouldGenerateObject(Dungeon dungeon, int row, int col, int level, int layer);
+    public boolean shouldGenerateObject(CurrentDungeon dungeon, int row, int col, int level, int layer);
 
-    public int getMinimumRequiredQuantity(Dungeon dungeon);
+    public int getMinimumRequiredQuantity(CurrentDungeon dungeon);
 
-    public int getMaximumRequiredQuantity(Dungeon dungeon);
+    public int getMaximumRequiredQuantity(CurrentDungeon dungeon);
 
-    public boolean isRequired(Dungeon dungeon);
+    public boolean isRequired(CurrentDungeon dungeon);
 }

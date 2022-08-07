@@ -11,9 +11,7 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.ListWithImageDialog;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.item.ArmorConstants;
 import com.puttysoftware.dungeondiver7.item.Equipment;
 import com.puttysoftware.dungeondiver7.item.EquipmentFactory;
@@ -21,6 +19,8 @@ import com.puttysoftware.dungeondiver7.item.WeaponConstants;
 import com.puttysoftware.dungeondiver7.loader.ArmorImageManager;
 import com.puttysoftware.dungeondiver7.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.loader.WeaponImageManager;
 import com.puttysoftware.images.BufferedImageIcon;
 
@@ -99,7 +99,7 @@ public class Shop {
 	}
 	MusicLoader.stopMusic();
 	int zoneID = PartyManager.getParty().getZone();
-	if (zoneID == Dungeon.getMaxLevels() - 1) {
+	if (zoneID == CurrentDungeon.getMaxLevels() - 1) {
 	    MusicLoader.playMusic(MusicConstants.MUSIC_LAIR);
 	} else {
 	    MusicLoader.playMusic(MusicConstants.MUSIC_DUNGEON);

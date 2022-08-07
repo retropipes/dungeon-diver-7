@@ -6,7 +6,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.battle;
 
 import com.puttysoftware.dungeondiver7.ai.MapAIContext;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BattleCharacter;
 
 public class MapBattleDefinitions {
@@ -14,7 +14,7 @@ public class MapBattleDefinitions {
     private BattleCharacter activeCharacter;
     private final BattleCharacter[] battlers;
     private final MapAIContext[] aiContexts;
-    private Dungeon battleMap;
+    private CurrentDungeon battleMap;
     private int battlerCount;
     private static final int MAX_BATTLERS = 100;
 
@@ -78,11 +78,11 @@ public class MapBattleDefinitions {
 	this.activeCharacter = bc;
     }
 
-    public Dungeon getBattleDungeon() {
+    public CurrentDungeon getBattleDungeon() {
 	return this.battleMap;
     }
 
-    public void setBattleDungeon(final Dungeon bMap) {
+    public void setBattleDungeon(final CurrentDungeon bMap) {
 	this.battleMap = bMap;
     }
 

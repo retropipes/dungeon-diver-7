@@ -13,7 +13,7 @@ import com.puttysoftware.dungeondiver7.dungeon.utility.GameObjectList;
 import com.puttysoftware.dungeondiver7.dungeon.utility.RandomGenerationRule;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BossMonsterTile;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
@@ -21,15 +21,17 @@ import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.FinalBossMon
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.MonsterTile;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Tile;
 import com.puttysoftware.dungeondiver7.manager.dungeon.FormatConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
+import com.puttysoftware.dungeondiver7.utility.VisionModeConstants;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 import com.puttysoftware.randomrange.RandomRange;
 import com.puttysoftware.storage.FlagStorage;
 
-final class LayeredTower implements Cloneable {
+final class CurrentDungeonData implements Cloneable {
     // Properties
-    private LowLevelGameObjectDataStore data;
-    private LowLevelGameObjectDataStore savedTowerState;
+    private CurrentDungeonStorage data;
+    private CurrentDungeonStorage savedTowerState;
     private FlagStorage visionData;
     private final int[] playerStartData;
     private final int[] playerLocationData;
@@ -47,9 +49,9 @@ final class LayeredTower implements Cloneable {
     private static final int MAX_ROWS = 250;
 
     // Constructors
-    public LayeredTower(final int rows, final int cols) {
-	this.data = new LowLevelGameObjectDataStore(cols, rows, DungeonConstants.LAYER_COUNT);
-	this.savedTowerState = new LowLevelGameObjectDataStore(cols, rows, DungeonConstants.LAYER_COUNT);
+    public CurrentDungeonData(final int rows, final int cols) {
+	this.data = new CurrentDungeonStorage(cols, rows, DungeonConstants.NUM_LAYERS);
+	this.savedTowerState = new CurrentDungeonStorage(cols, rows, DungeonConstants.NUM_LAYERS);
 	this.visionData = new FlagStorage(cols, rows);
 	this.playerStartData = new int[2];
 	Arrays.fill(this.playerStartData, -1);
@@ -61,25 +63,25 @@ final class LayeredTower implements Cloneable {
 	Arrays.fill(this.findResult, -1);
 	this.horizontalWraparoundEnabled = false;
 	this.verticalWraparoundEnabled = false;
-	this.visionMode = DungeonConstants.VISION_MODE_EXPLORE_AND_LOS;
+	this.visionMode = VisionModeConstants.VISION_MODE_EXPLORE_AND_LOS;
 	this.visionModeExploreRadius = 2;
-	this.visionRadius = LayeredTower.MAX_VISION_RADIUS;
+	this.visionRadius = CurrentDungeonData.MAX_VISION_RADIUS;
 	this.regionSize = 8;
     }
 
     // Static methods
     public static int getMaxColumns() {
-	return LayeredTower.MAX_COLUMNS;
+	return CurrentDungeonData.MAX_COLUMNS;
     }
 
     public static int getMaxRows() {
-	return LayeredTower.MAX_ROWS;
+	return CurrentDungeonData.MAX_ROWS;
     }
 
     // Methods
     @Override
-    public LayeredTower clone() {
-	final LayeredTower copy = new LayeredTower(this.getRows(), this.getColumns());
+    public CurrentDungeonData clone() {
+	final CurrentDungeonData copy = new CurrentDungeonData(this.getRows(), this.getColumns());
 	copy.data = this.data.clone();
 	copy.visionData = new FlagStorage(this.visionData);
 	copy.savedTowerState = this.savedTowerState.clone();
@@ -97,12 +99,12 @@ final class LayeredTower implements Cloneable {
 	final int pLocX = this.getPlayerRow();
 	final int pLocY = this.getPlayerColumn();
 	try {
-	    final AbstractGameObject there = this.getCell(xLoc + dirMove[0], yLoc + dirMove[1],
-		    DungeonConstants.LAYER_OBJECT);
-	    final AbstractGameObject ground = this.getCell(xLoc + dirMove[0], yLoc + dirMove[1],
-		    DungeonConstants.LAYER_GROUND);
+	    final AbstractDungeonObject there = this.getCell(xLoc + dirMove[0], yLoc + dirMove[1],
+		    DungeonConstants.LAYER_LOWER_OBJECTS);
+	    final AbstractDungeonObject ground = this.getCell(xLoc + dirMove[0], yLoc + dirMove[1],
+		    DungeonConstants.LAYER_LOWER_GROUND);
 	    if (!there.isSolid() && !(there instanceof AbstractMovingObject)) {
-		if (LayeredTower.radialScan(xLoc, yLoc, 0, pLocX, pLocY)) {
+		if (CurrentDungeonData.radialScan(xLoc, yLoc, 0, pLocX, pLocY)) {
 		    if (app.getMode() != Application.STATUS_BATTLE) {
 			app.getGameLogic().stopMovement();
 			if (monster instanceof FinalBossMonsterTile) {
@@ -116,9 +118,9 @@ final class LayeredTower implements Cloneable {
 		    }
 		} else {
 		    // Move the monster
-		    this.setCell(monster.getSavedObject(), xLoc, yLoc, DungeonConstants.LAYER_OBJECT);
+		    this.setCell(monster.getSavedObject(), xLoc, yLoc, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    monster.setSavedObject(there);
-		    this.setCell(monster, xLoc + dirMove[0], yLoc + dirMove[1], DungeonConstants.LAYER_OBJECT);
+		    this.setCell(monster, xLoc + dirMove[0], yLoc + dirMove[1], DungeonConstants.LAYER_LOWER_OBJECTS);
 		    // Does the ground have friction?
 		    if (!ground.hasFriction()) {
 			// No - move the monster again
@@ -132,9 +134,9 @@ final class LayeredTower implements Cloneable {
     }
 
     public void postBattle(final AbstractMovingObject m, final int xLoc, final int yLoc, final boolean player) {
-	final AbstractGameObject saved = m.getSavedObject();
+	final AbstractDungeonObject saved = m.getSavedObject();
 	if (!player) {
-	    this.setCell(saved, xLoc, yLoc, DungeonConstants.LAYER_OBJECT);
+	    this.setCell(saved, xLoc, yLoc, DungeonConstants.LAYER_LOWER_OBJECTS);
 	}
 	this.generateOneMonster();
     }
@@ -145,24 +147,24 @@ final class LayeredTower implements Cloneable {
 	int randomRow, randomColumn;
 	randomRow = row.generate();
 	randomColumn = column.generate();
-	AbstractGameObject currObj = this.getCell(randomRow, randomColumn, DungeonConstants.LAYER_OBJECT);
+	AbstractDungeonObject currObj = this.getCell(randomRow, randomColumn, DungeonConstants.LAYER_LOWER_OBJECTS);
 	if (!currObj.isSolid()) {
 	    final AbstractMovingObject m = new MonsterTile();
 	    m.setSavedObject(currObj);
-	    this.setCell(m, randomRow, randomColumn, DungeonConstants.LAYER_OBJECT);
+	    this.setCell(m, randomRow, randomColumn, DungeonConstants.LAYER_LOWER_OBJECTS);
 	} else {
 	    while (currObj.isSolid()) {
 		randomRow = row.generate();
 		randomColumn = column.generate();
-		currObj = this.getCell(randomRow, randomColumn, DungeonConstants.LAYER_OBJECT);
+		currObj = this.getCell(randomRow, randomColumn, DungeonConstants.LAYER_LOWER_OBJECTS);
 	    }
 	    final AbstractMovingObject m = new MonsterTile();
 	    m.setSavedObject(currObj);
-	    this.setCell(m, randomRow, randomColumn, DungeonConstants.LAYER_OBJECT);
+	    this.setCell(m, randomRow, randomColumn, DungeonConstants.LAYER_LOWER_OBJECTS);
 	}
     }
 
-    public AbstractGameObject getCell(final int row, final int col, final int extra) {
+    public AbstractDungeonObject getCell(final int row, final int col, final int extra) {
 	int fR = row;
 	int fC = col;
 	if (this.verticalWraparoundEnabled) {
@@ -207,7 +209,7 @@ final class LayeredTower implements Cloneable {
     }
 
     public void updateVisibleSquares(final int xp, final int yp) {
-	if ((this.visionMode | DungeonConstants.VISION_MODE_EXPLORE) == this.visionMode) {
+	if ((this.visionMode | VisionModeConstants.VISION_MODE_EXPLORE) == this.visionMode) {
 	    for (int x = xp - this.visionModeExploreRadius; x <= xp + this.visionModeExploreRadius; x++) {
 		for (int y = yp - this.visionModeExploreRadius; y <= yp + this.visionModeExploreRadius; y++) {
 		    int fx, fy;
@@ -228,7 +230,7 @@ final class LayeredTower implements Cloneable {
 			// Ignore
 		    }
 		    if (!alreadyVisible) {
-			if ((this.visionMode | DungeonConstants.VISION_MODE_LOS) == this.visionMode) {
+			if ((this.visionMode | VisionModeConstants.VISION_MODE_LOS) == this.visionMode) {
 			    if (this.isSquareVisibleLOS(x, y, xp, yp)) {
 				try {
 				    this.visionData.setCell(true, fx, fy);
@@ -250,13 +252,13 @@ final class LayeredTower implements Cloneable {
     }
 
     public boolean isSquareVisible(final int x1, final int y1, final int x2, final int y2) {
-	if (this.visionMode == DungeonConstants.VISION_MODE_NONE) {
+	if (this.visionMode == VisionModeConstants.VISION_MODE_NONE) {
 	    return true;
 	} else {
 	    boolean result = false;
-	    if ((this.visionMode | DungeonConstants.VISION_MODE_EXPLORE) == this.visionMode) {
+	    if ((this.visionMode | VisionModeConstants.VISION_MODE_EXPLORE) == this.visionMode) {
 		result = result || this.isSquareVisibleExplore(x2, y2);
-		if (result && (this.visionMode | DungeonConstants.VISION_MODE_LOS) == this.visionMode) {
+		if (result && (this.visionMode | VisionModeConstants.VISION_MODE_LOS) == this.visionMode) {
 		    if (this.areCoordsInBounds(x1, y1, x2, y2)) {
 			// In bounds
 			result = result || this.isSquareVisibleLOS(x1, y1, x2, y2);
@@ -344,7 +346,7 @@ final class LayeredTower implements Cloneable {
 	    }
 	    // Does object block LOS?
 	    try {
-		final AbstractGameObject obj = this.getCell(fx1, fy1, DungeonConstants.LAYER_OBJECT);
+		final AbstractDungeonObject obj = this.getCell(fx1, fy1, DungeonConstants.LAYER_LOWER_OBJECTS);
 		if (obj.isSightBlocking()) {
 		    // This object blocks LOS
 		    if (fx1 != x1 || fy1 != y1) {
@@ -369,7 +371,7 @@ final class LayeredTower implements Cloneable {
 	return true;
     }
 
-    public void setCell(final AbstractGameObject mo, final int row, final int col, final int extra) {
+    public void setCell(final AbstractDungeonObject mo, final int row, final int col, final int extra) {
 	int fR = row;
 	int fC = col;
 	if (this.verticalWraparoundEnabled) {
@@ -417,12 +419,12 @@ final class LayeredTower implements Cloneable {
 	this.playerLocationData[0] += newPlayerColumn;
     }
 
-    public void fill(final AbstractGameObject bottom, final AbstractGameObject top) {
+    public void fill(final AbstractDungeonObject bottom, final AbstractDungeonObject top) {
 	int x, y, e;
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
-		for (e = 0; e < DungeonConstants.LAYER_COUNT; e++) {
-		    if (e == DungeonConstants.LAYER_GROUND) {
+		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
+		    if (e == DungeonConstants.LAYER_LOWER_GROUND) {
 			this.setCell(bottom, y, x, e);
 		    } else {
 			this.setCell(top, y, x, e);
@@ -432,11 +434,11 @@ final class LayeredTower implements Cloneable {
 	}
     }
 
-    public void fillRandomly(final Dungeon dungeon, final int w) {
+    public void fillRandomly(final CurrentDungeon dungeon, final int w) {
 	// Pre-Pass
 	final GameObjectList objects = Integration1.getApplication().getObjects();
-	final AbstractGameObject pass1FillBottom = new Tile();
-	final AbstractGameObject pass1FillTop = new Empty();
+	final AbstractDungeonObject pass1FillBottom = new Tile();
+	final AbstractDungeonObject pass1FillTop = new Empty();
 	RandomRange r = null;
 	int x, y, e;
 	// Pass 1
@@ -444,14 +446,14 @@ final class LayeredTower implements Cloneable {
 	// Pass 2
 	final int columns = this.getColumns();
 	final int rows = this.getRows();
-	for (e = 0; e < DungeonConstants.LAYER_COUNT; e++) {
-	    final AbstractGameObject[] objectsWithoutPrerequisites = objects
+	for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
+	    final AbstractDungeonObject[] objectsWithoutPrerequisites = objects
 		    .getAllWithoutPrerequisiteAndNotRequired(dungeon, e);
 	    if (objectsWithoutPrerequisites != null) {
 		r = new RandomRange(0, objectsWithoutPrerequisites.length - 1);
 		for (x = 0; x < columns; x++) {
 		    for (y = 0; y < rows; y++) {
-			final AbstractGameObject placeObj = objectsWithoutPrerequisites[r.generate()];
+			final AbstractDungeonObject placeObj = objectsWithoutPrerequisites[r.generate()];
 			final boolean okay = placeObj.shouldGenerateObject(dungeon, x, y, w, e);
 			if (okay) {
 			    this.setCell(objects.getNewInstanceByName(placeObj.getName()), y, x, e);
@@ -462,14 +464,14 @@ final class LayeredTower implements Cloneable {
 	    }
 	}
 	// Pass 3
-	for (int layer = 0; layer < DungeonConstants.LAYER_COUNT; layer++) {
-	    final AbstractGameObject[] requiredObjects = objects.getAllRequired(dungeon, layer);
+	for (int layer = 0; layer < DungeonConstants.NUM_LAYERS; layer++) {
+	    final AbstractDungeonObject[] requiredObjects = objects.getAllRequired(dungeon, layer);
 	    if (requiredObjects != null) {
 		final RandomRange row = new RandomRange(0, this.getRows() - 1);
 		final RandomRange column = new RandomRange(0, this.getColumns() - 1);
 		int randomColumn, randomRow;
 		for (x = 0; x < requiredObjects.length; x++) {
-		    final AbstractGameObject currObj = requiredObjects[x];
+		    final AbstractDungeonObject currObj = requiredObjects[x];
 		    final int min = currObj.getMinimumRequiredQuantity(dungeon);
 		    int max = currObj.getMaximumRequiredQuantity(dungeon);
 		    if (max == RandomGenerationRule.NO_LIMIT) {
@@ -509,7 +511,7 @@ final class LayeredTower implements Cloneable {
 	int y, x, e;
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
-		for (e = 0; e < DungeonConstants.LAYER_COUNT; e++) {
+		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
 		    this.savedTowerState.setCell(this.getCell(y, x, e), x, y, e);
 		}
 	    }
@@ -520,7 +522,7 @@ final class LayeredTower implements Cloneable {
 	int y, x, e;
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
-		for (e = 0; e < DungeonConstants.LAYER_COUNT; e++) {
+		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
 		    this.setCell(this.savedTowerState.getCell(x, y, e), y, x, e);
 		}
 	    }
@@ -572,7 +574,7 @@ final class LayeredTower implements Cloneable {
 	// Tick all GameObject timers
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
-		final AbstractGameObject mo = this.getCell(y, x, DungeonConstants.LAYER_OBJECT);
+		final AbstractDungeonObject mo = this.getCell(y, x, DungeonConstants.LAYER_LOWER_OBJECTS);
 		if (mo != null) {
 		    mo.tickTimer(y, x);
 		}
@@ -590,8 +592,8 @@ final class LayeredTower implements Cloneable {
 	writer.writeInt(this.getRows());
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
-		for (e = 0; e < DungeonConstants.LAYER_COUNT; e++) {
-		    this.getCell(y, x, e).writeGameObject(writer);
+		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
+		    this.getCell(y, x, e).write(writer);
 		}
 		writer.writeBoolean(this.visionData.getCell(y, x));
 	    }
@@ -613,15 +615,15 @@ final class LayeredTower implements Cloneable {
 	writer.writeInt(this.regionSize);
     }
 
-    public static LayeredTower readLayeredTowerV1(final FileIOReader reader) throws IOException {
+    public static CurrentDungeonData readLayeredTowerV1(final FileIOReader reader) throws IOException {
 	int y, x, e, dungeonSizeX, dungeonSizeY;
 	dungeonSizeX = reader.readInt();
 	dungeonSizeY = reader.readInt();
-	final LayeredTower lt = new LayeredTower(dungeonSizeX, dungeonSizeY);
+	final CurrentDungeonData lt = new CurrentDungeonData(dungeonSizeX, dungeonSizeY);
 	for (x = 0; x < lt.getColumns(); x++) {
 	    for (y = 0; y < lt.getRows(); y++) {
-		for (e = 0; e < DungeonConstants.LAYER_COUNT; e++) {
-		    lt.setCell(Integration1.getApplication().getObjects().readGameObject(reader,
+		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
+		    lt.setCell(Integration1.getApplication().getObjects().read(reader,
 			    FormatConstants.MAZE_FORMAT_LATEST), y, x, e);
 		    if (lt.getCell(y, x, e) == null) {
 			return null;
@@ -654,8 +656,8 @@ final class LayeredTower implements Cloneable {
 	writer.writeInt(this.getRows());
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
-		for (e = 0; e < DungeonConstants.LAYER_COUNT; e++) {
-		    this.savedTowerState.getCell(y, x, e).writeGameObject(writer);
+		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
+		    this.savedTowerState.getCell(y, x, e).write(writer);
 		}
 	    }
 	}
@@ -665,12 +667,12 @@ final class LayeredTower implements Cloneable {
 	int x, y, e, sizeX, sizeY;
 	sizeX = reader.readInt();
 	sizeY = reader.readInt();
-	this.savedTowerState = new LowLevelGameObjectDataStore(sizeY, sizeX, DungeonConstants.LAYER_COUNT);
+	this.savedTowerState = new CurrentDungeonStorage(sizeY, sizeX, DungeonConstants.NUM_LAYERS);
 	for (x = 0; x < sizeY; x++) {
 	    for (y = 0; y < sizeX; y++) {
-		for (e = 0; e < DungeonConstants.LAYER_COUNT; e++) {
+		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
 		    this.savedTowerState.setCell(
-			    Integration1.getApplication().getObjects().readGameObject(reader, formatVersion), y, x, e);
+			    Integration1.getApplication().getObjects().read(reader, formatVersion), y, x, e);
 		}
 	    }
 	}

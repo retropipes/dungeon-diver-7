@@ -16,7 +16,7 @@ public class IcePressureButton extends AbstractPressureButton {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 82;
     }
 }

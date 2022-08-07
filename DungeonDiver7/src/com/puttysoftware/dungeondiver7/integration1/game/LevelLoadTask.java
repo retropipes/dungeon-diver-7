@@ -14,8 +14,8 @@ import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.utility.ImageColorConstants;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 
 public class LevelLoadTask extends Thread {
@@ -43,12 +43,12 @@ public class LevelLoadTask extends Thread {
 	try {
 	    this.loadFrame.setVisible(true);
 	    final Application app = Integration1.getApplication();
-	    final Dungeon gameDungeon = app.getDungeonManager().getDungeon();
+	    final CurrentDungeon gameDungeon = app.getDungeonManager().getDungeon();
 	    app.getGameLogic().disableEvents();
 	    gameDungeon.switchLevelOffset(this.level);
 	    gameDungeon.offsetPlayerLocationW(this.level);
 	    PartyManager.getParty().offsetZone(this.level);
-	    AbstractGameObject
+	    AbstractDungeonObject
 		    .setTemplateColor(ImageColorConstants.getColorForLevel(PartyManager.getParty().getZone()));
 	    app.getGameLogic().resetViewingWindow();
 	    app.getGameLogic().enableEvents();

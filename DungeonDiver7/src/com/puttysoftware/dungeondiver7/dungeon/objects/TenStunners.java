@@ -29,7 +29,7 @@ public class TenStunners extends AbstractInventoryModifier {
     }
 
     @Override
-    public final int getStringBaseID() {
+    public final int getBaseID() {
 	return 42;
     }
 }

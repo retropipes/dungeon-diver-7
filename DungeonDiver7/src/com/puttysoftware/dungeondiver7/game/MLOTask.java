@@ -81,7 +81,7 @@ final class MLOTask extends Thread {
 	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
 	if (zx == 2 || zy == 2 || zx == -2 || zy == -2) {
 	    // Boosting
-	    SoundLoader.playSound(SoundConstants.SOUND_BOOST);
+	    SoundLoader.playSound(SoundConstants.BOOST);
 	    gm.updateScore(0, 0, 1);
 	    this.sx = zx;
 	    this.sy = zy;
@@ -111,15 +111,15 @@ final class MLOTask extends Thread {
 	    this.magnet = true;
 	    if (this.sx == 0 && this.sy == 0) {
 		// Failure
-		SoundLoader.playSound(SoundConstants.SOUND_BUMP_HEAD);
+		SoundLoader.playSound(SoundConstants.BUMP_HEAD);
 	    } else {
 		// Success
-		SoundLoader.playSound(SoundConstants.SOUND_MAGNET);
+		SoundLoader.playSound(SoundConstants.MAGNET);
 	    }
 	    GameManager.updateUndo(false, false, false, false, true, false, false, false, false, false);
 	} else {
 	    // Moving normally
-	    SoundLoader.playSound(SoundConstants.SOUND_MOVE);
+	    SoundLoader.playSound(SoundConstants.MOVE);
 	    gm.updateScore(1, 0, 0);
 	    this.sx = zx;
 	    this.sy = zy;
@@ -532,7 +532,7 @@ final class MLOTask extends Thread {
 	    t.setSavedObject(tank.getSavedObject());
 	    gm.morph(t, px, py, pz, t.getLayer());
 	    gm.updateTank();
-	    SoundLoader.playSound(SoundConstants.SOUND_DEFROST);
+	    SoundLoader.playSound(SoundConstants.DEFROST);
 	}
     }
 

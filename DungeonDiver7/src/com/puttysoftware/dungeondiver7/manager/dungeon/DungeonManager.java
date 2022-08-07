@@ -15,7 +15,7 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.manager.file.Extension;
 import com.puttysoftware.dungeondiver7.manager.file.GameFinder;
 import com.puttysoftware.dungeondiver7.manager.file.GameLoadTask;
@@ -24,7 +24,7 @@ import com.puttysoftware.fileutils.FilenameChecker;
 
 public final class DungeonManager {
     // Fields
-    private Dungeon gameDungeon;
+    private CurrentDungeon gameDungeon;
     private boolean loaded, isDirty;
     private static final String MAC_PREFIX = "HOME";
     private static final String WIN_PREFIX = "APPDATA";
@@ -41,11 +41,11 @@ public final class DungeonManager {
     }
 
     // Methods
-    public Dungeon getDungeon() {
+    public CurrentDungeon getDungeon() {
 	return this.gameDungeon;
     }
 
-    public void setDungeon(final Dungeon newDungeon) {
+    public void setDungeon(final CurrentDungeon newDungeon) {
 	this.gameDungeon = newDungeon;
     }
 
