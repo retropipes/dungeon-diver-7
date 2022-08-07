@@ -7,10 +7,10 @@ package com.puttysoftware.dungeondiver7.integration1.dungeon.abc;
 
 import java.io.IOException;
 
+import com.puttysoftware.dungeondiver7.dungeon.utility.TypeConstants;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.utility.TypeConstants;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 

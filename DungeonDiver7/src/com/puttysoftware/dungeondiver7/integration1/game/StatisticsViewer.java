@@ -16,9 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.integration1.creature.StatConstants;
-import com.puttysoftware.dungeondiver7.integration1.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.integration1.creature.party.PartyMember;
+import com.puttysoftware.dungeondiver7.creature.StatConstants;
+import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
+import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 import com.puttysoftware.dungeondiver7.integration1.loader.LogoManager;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.locale.LocalizedFile;

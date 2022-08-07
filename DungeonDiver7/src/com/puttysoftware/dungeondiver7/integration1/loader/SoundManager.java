@@ -8,8 +8,8 @@ package com.puttysoftware.dungeondiver7.integration1.loader;
 import java.net.URL;
 
 import com.puttysoftware.audio.wav.WAVPlayer;
-import com.puttysoftware.dungeondiver7.integration1.manager.file.Extension;
 import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
+import com.puttysoftware.dungeondiver7.manager.file.Extension;
 
 public class SoundManager {
     private static final String DEFAULT_LOAD_PATH = "/assets/sounds/";

@@ -6,8 +6,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.integration1.dungeon.abc;
 
-import com.puttysoftware.dungeondiver7.integration1.creature.AbstractCreature;
-import com.puttysoftware.dungeondiver7.integration1.creature.StatConstants;
+import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
+import com.puttysoftware.dungeondiver7.creature.StatConstants;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.integration1.loader.ObjectImageConstants;

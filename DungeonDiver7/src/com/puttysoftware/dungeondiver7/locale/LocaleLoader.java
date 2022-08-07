@@ -8,9 +8,9 @@ import java.util.Properties;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.integration1.manager.file.Extension;
-import com.puttysoftware.dungeondiver7.integration1.names.ZoneNames;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
+import com.puttysoftware.dungeondiver7.manager.file.Extension;
+import com.puttysoftware.dungeondiver7.names.ZoneNames;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DifficultyConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;

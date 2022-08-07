@@ -10,15 +10,15 @@ import java.awt.Image;
 import javax.swing.JFrame;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.integration1.battle.AbstractBattle;
-import com.puttysoftware.dungeondiver7.integration1.battle.MapBattleLogic;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.utility.GameObjectList;
+import com.puttysoftware.dungeondiver7.battle.AbstractBattle;
+import com.puttysoftware.dungeondiver7.battle.MapBattleLogic;
+import com.puttysoftware.dungeondiver7.dungeon.utility.GameObjectList;
 import com.puttysoftware.dungeondiver7.integration1.game.GameLogic;
 import com.puttysoftware.dungeondiver7.integration1.loader.LogoManager;
-import com.puttysoftware.dungeondiver7.integration1.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
-import com.puttysoftware.dungeondiver7.integration1.shop.Shop;
-import com.puttysoftware.dungeondiver7.integration1.shop.ShopType;
+import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
+import com.puttysoftware.dungeondiver7.shop.Shop;
+import com.puttysoftware.dungeondiver7.shop.ShopType;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public final class Application {

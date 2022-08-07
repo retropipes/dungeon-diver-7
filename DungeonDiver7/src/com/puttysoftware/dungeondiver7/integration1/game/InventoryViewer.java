@@ -6,8 +6,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.integration1.game;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.integration1.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.integration1.creature.party.PartyMember;
+import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
+import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 
 public final class InventoryViewer {
     private InventoryViewer() {

@@ -10,7 +10,7 @@ import java.nio.BufferUnderflowException;
 
 import com.puttysoftware.audio.ogg.OggPlayer;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.integration1.manager.file.Extension;
+import com.puttysoftware.dungeondiver7.manager.file.Extension;
 
 public class MusicManager {
     private static final String DEFAULT_LOAD_PATH = "/assets/music/";

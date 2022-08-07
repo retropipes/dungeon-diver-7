@@ -10,12 +10,12 @@ import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
+import com.puttysoftware.dungeondiver7.dungeon.utility.ImageColorConstants;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.utility.ImageColorConstants;
 import com.puttysoftware.dungeondiver7.integration1.loader.LogoManager;
 
 public class LevelLoadTask extends Thread {

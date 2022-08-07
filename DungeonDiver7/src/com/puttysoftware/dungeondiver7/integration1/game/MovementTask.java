@@ -7,15 +7,15 @@ package com.puttysoftware.dungeondiver7.integration1.game;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
+import com.puttysoftware.dungeondiver7.dungeon.utility.TypeConstants;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Wall;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.utility.TypeConstants;
 import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.integration1.loader.SoundManager;
 

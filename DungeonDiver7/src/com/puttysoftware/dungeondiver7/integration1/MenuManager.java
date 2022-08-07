@@ -18,12 +18,12 @@ import javax.swing.KeyStroke;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.integration1.creature.characterfiles.CharacterRegistration;
+import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterRegistration;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.GenerateTask;
 import com.puttysoftware.dungeondiver7.integration1.game.InventoryViewer;
 import com.puttysoftware.dungeondiver7.integration1.game.StatisticsViewer;
-import com.puttysoftware.dungeondiver7.integration1.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
+import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 
 public class MenuManager {
     // Fields

@@ -9,8 +9,8 @@ package com.puttysoftware.dungeondiver7.integration1.loader;
 import java.io.IOException;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.integration1.creature.caste.CasteConstants;
-import com.puttysoftware.dungeondiver7.integration1.manager.file.Extension;
+import com.puttysoftware.dungeondiver7.creature.caste.CasteConstants;
+import com.puttysoftware.dungeondiver7.manager.file.Extension;
 import com.puttysoftware.fileutils.ResourceStreamReader;
 
 public class CasteDescriptionManager {

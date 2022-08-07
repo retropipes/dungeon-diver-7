@@ -20,9 +20,9 @@ import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.DrawGrid;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
@@ -34,8 +34,8 @@ import com.puttysoftware.dungeondiver7.integration1.loader.ImageCompositor;
 import com.puttysoftware.dungeondiver7.integration1.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.integration1.loader.MusicManager;
 import com.puttysoftware.dungeondiver7.integration1.loader.ObjectImageManager;
-import com.puttysoftware.dungeondiver7.integration1.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
+import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.images.BufferedImageIcon;
 
 class GameGUI {

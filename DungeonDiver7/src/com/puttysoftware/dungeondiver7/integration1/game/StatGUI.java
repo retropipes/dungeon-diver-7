@@ -11,9 +11,9 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import com.puttysoftware.dungeondiver7.integration1.creature.party.Party;
-import com.puttysoftware.dungeondiver7.integration1.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.integration1.creature.party.PartyMember;
+import com.puttysoftware.dungeondiver7.creature.party.Party;
+import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
+import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 import com.puttysoftware.dungeondiver7.integration1.loader.StatImageConstants;
 import com.puttysoftware.dungeondiver7.integration1.loader.StatImageManager;
 import com.puttysoftware.images.BufferedImageIcon;

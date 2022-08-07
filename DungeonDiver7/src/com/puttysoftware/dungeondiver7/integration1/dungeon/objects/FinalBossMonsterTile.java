@@ -5,11 +5,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.integration1.dungeon.objects;
 
+import com.puttysoftware.dungeondiver7.dungeon.utility.RandomGenerationRule;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractMovingObject;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.utility.RandomGenerationRule;
 import com.puttysoftware.dungeondiver7.integration1.loader.ObjectImageConstants;
 
 public class FinalBossMonsterTile extends AbstractMovingObject {

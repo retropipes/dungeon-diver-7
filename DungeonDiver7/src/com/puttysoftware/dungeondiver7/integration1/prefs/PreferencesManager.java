@@ -13,7 +13,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
-import com.puttysoftware.dungeondiver7.integration1.manager.file.Extension;
+import com.puttysoftware.dungeondiver7.manager.file.Extension;
 
 public class PreferencesManager {
     // Fields

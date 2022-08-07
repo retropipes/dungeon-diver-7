@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.integration1.game;
 
 import java.io.IOException;
 
-import com.puttysoftware.dungeondiver7.integration1.creature.party.PartyManager;
+import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 

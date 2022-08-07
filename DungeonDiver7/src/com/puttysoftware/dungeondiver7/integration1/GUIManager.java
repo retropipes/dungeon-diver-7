@@ -24,8 +24,8 @@ import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
 import com.puttysoftware.dungeondiver7.integration1.loader.LogoManager;
 import com.puttysoftware.dungeondiver7.integration1.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.integration1.loader.MusicManager;
-import com.puttysoftware.dungeondiver7.integration1.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
+import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.fileutils.DirectoryUtilities;
 import com.puttysoftware.images.BufferedImageIcon;
 

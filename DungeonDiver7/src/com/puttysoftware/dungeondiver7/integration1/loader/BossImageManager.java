@@ -11,7 +11,7 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import com.puttysoftware.dungeondiver7.integration1.names.MonsterNames;
+import com.puttysoftware.dungeondiver7.names.MonsterNames;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class BossImageManager {
