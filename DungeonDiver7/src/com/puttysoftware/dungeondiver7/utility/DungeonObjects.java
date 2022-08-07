@@ -11,6 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.*;
+import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.fileio.FileIOReader;
@@ -48,7 +49,13 @@ public class DungeonObjects {
 	    new JumpBox(), new ReverseJumpBox(), new MirrorMover(), new HotCrystalBlock(), new IcyCrystalBlock(),
 	    new Cracked(), new Crumbling(), new Damaged(), new Weakened(), new Cloak(), new Darkness(), new PowerBolt(),
 	    new RollingBarrelHorizontal(), new RollingBarrelVertical(), new FreezeMagic(), new KillSkull(),
-	    new ArrowBelt() };
+	    new ArrowBelt(), new ArmorShop(), new ClosedDoor(), new HealShop(), new MonsterTile(),
+	    new BossMonsterTile(), new FinalBossMonsterTile(), new OpenDoor(), new Regenerator(), new SpellShop(),
+	    new Tile(), new WeaponsShop() };
+
+    public AbstractDungeonObject[] getAllObjects() {
+	return this.allObjects;
+    }
 
     public String[] getAllDescriptions() {
 	final String[] allDescriptions = new String[this.allObjects.length];
@@ -180,8 +187,69 @@ public class DungeonObjects {
 	}
     }
 
-    public AbstractDungeonObject readV2(final FileIOReader reader, final int formatVersion)
-	    throws IOException {
+    public final AbstractDungeonObject[] getAllRequired(final CurrentDungeon dungeon, final int layer) {
+	final AbstractDungeonObject[] objects = this.getAllObjects();
+	final AbstractDungeonObject[] tempAllRequired = new AbstractDungeonObject[objects.length];
+	int x;
+	int count = 0;
+	for (x = 0; x < objects.length; x++) {
+	    if (objects[x].getLayer() == layer && objects[x].isRequired(dungeon)) {
+		tempAllRequired[count] = objects[x];
+		count++;
+	    }
+	}
+	if (count == 0) {
+	    return null;
+	} else {
+	    final AbstractDungeonObject[] allRequired = new AbstractDungeonObject[count];
+	    for (x = 0; x < count; x++) {
+		allRequired[x] = tempAllRequired[x];
+	    }
+	    return allRequired;
+	}
+    }
+
+    public final AbstractDungeonObject[] getAllWithoutPrerequisiteAndNotRequired(final CurrentDungeon dungeon,
+	    final int layer) {
+	final AbstractDungeonObject[] objects = this.getAllObjects();
+	final AbstractDungeonObject[] tempAllWithoutPrereq = new AbstractDungeonObject[objects.length];
+	int x;
+	int count = 0;
+	for (x = 0; x < objects.length; x++) {
+	    if (objects[x].getLayer() == layer && !objects[x].isRequired(dungeon)) {
+		tempAllWithoutPrereq[count] = objects[x];
+		count++;
+	    }
+	}
+	if (count == 0) {
+	    return null;
+	} else {
+	    final AbstractDungeonObject[] allWithoutPrereq = new AbstractDungeonObject[count];
+	    for (x = 0; x < count; x++) {
+		allWithoutPrereq[x] = tempAllWithoutPrereq[x];
+	    }
+	    return allWithoutPrereq;
+	}
+    }
+
+    public final AbstractDungeonObject getNewInstanceByName(final String name) {
+	final AbstractDungeonObject[] objects = this.getAllObjects();
+	AbstractDungeonObject instance = null;
+	int x;
+	for (x = 0; x < objects.length; x++) {
+	    if (objects[x].getName().equals(name)) {
+		instance = objects[x];
+		break;
+	    }
+	}
+	if (instance == null) {
+	    return null;
+	} else {
+	    return instance.clone();
+	}
+    }
+
+    public AbstractDungeonObject readV2(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	String UID = LocaleConstants.COMMON_STRING_SPACE;
 	if (FormatConstants.isFormatVersionValidGeneration1(formatVersion)
@@ -210,8 +278,7 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV3(final FileIOReader reader, final int formatVersion)
-	    throws IOException {
+    public AbstractDungeonObject readV3(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	String UID = LocaleConstants.COMMON_STRING_SPACE;
 	if (FormatConstants.isFormatVersionValidGeneration3(formatVersion)) {
@@ -238,8 +305,7 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV4(final FileIOReader reader, final int formatVersion)
-	    throws IOException {
+    public AbstractDungeonObject readV4(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	String UID = LocaleConstants.COMMON_STRING_SPACE;
 	if (FormatConstants.isFormatVersionValidGeneration4(formatVersion)) {
@@ -266,8 +332,7 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV5(final FileIOReader reader, final int formatVersion)
-	    throws IOException {
+    public AbstractDungeonObject readV5(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	String UID = LocaleConstants.COMMON_STRING_SPACE;
 	if (FormatConstants.isFormatVersionValidGeneration5(formatVersion)) {
@@ -294,8 +359,7 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV6(final FileIOReader reader, final int formatVersion)
-	    throws IOException {
+    public AbstractDungeonObject readV6(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	String UID = LocaleConstants.COMMON_STRING_SPACE;
 	if (FormatConstants.isFormatVersionValidGeneration6(formatVersion)) {
@@ -322,8 +386,7 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV7(final FileIOReader reader, final int formatVersion)
-	    throws IOException {
+    public AbstractDungeonObject readV7(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	String UID = LocaleConstants.COMMON_STRING_SPACE;
 	if (FormatConstants.isFormatVersionValidGeneration7(formatVersion)) {

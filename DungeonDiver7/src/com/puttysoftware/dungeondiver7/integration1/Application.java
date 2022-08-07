@@ -12,13 +12,13 @@ import javax.swing.JFrame;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.battle.AbstractBattle;
 import com.puttysoftware.dungeondiver7.battle.MapBattleLogic;
-import com.puttysoftware.dungeondiver7.dungeon.utility.GameObjectList;
 import com.puttysoftware.dungeondiver7.integration1.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.shop.Shop;
 import com.puttysoftware.dungeondiver7.shop.ShopType;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjects;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public final class Application {
@@ -27,7 +27,7 @@ public final class Application {
     private DungeonManager mazeMgr;
     private MenuManager menuMgr;
     private GUIManager guiMgr;
-    private final GameObjectList objects;
+    private final DungeonObjects objects;
     private Shop weapons, armor, healer, regenerator, spells;
     private MapBattleLogic battle;
     private int currentMode;
@@ -40,7 +40,7 @@ public final class Application {
 
     // Constructors
     public Application() {
-	this.objects = new GameObjectList();
+	this.objects = new DungeonObjects();
 	this.currentMode = Application.STATUS_NULL;
 	this.formerMode = Application.STATUS_NULL;
     }
@@ -139,7 +139,7 @@ public final class Application {
 	}
     }
 
-    public GameObjectList getObjects() {
+    public DungeonObjects getObjects() {
 	return this.objects;
     }
 

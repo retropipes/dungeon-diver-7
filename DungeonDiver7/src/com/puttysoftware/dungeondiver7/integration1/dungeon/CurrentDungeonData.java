@@ -15,7 +15,6 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.dungeon.objects.FinalBossMonsterTile;
 import com.puttysoftware.dungeondiver7.dungeon.objects.MonsterTile;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Tile;
-import com.puttysoftware.dungeondiver7.dungeon.utility.GameObjectList;
 import com.puttysoftware.dungeondiver7.dungeon.utility.RandomGenerationRule;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
@@ -23,6 +22,7 @@ import com.puttysoftware.dungeondiver7.manager.dungeon.FormatConstants;
 import com.puttysoftware.dungeondiver7.utility.Direction;
 import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjects;
 import com.puttysoftware.dungeondiver7.utility.VisionModeConstants;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
@@ -437,7 +437,7 @@ final class CurrentDungeonData implements Cloneable {
 
     public void fillRandomly(final CurrentDungeon dungeon, final int w) {
 	// Pre-Pass
-	final GameObjectList objects = Integration1.getApplication().getObjects();
+	final DungeonObjects objects = Integration1.getApplication().getObjects();
 	final AbstractDungeonObject pass1FillBottom = new Tile();
 	final AbstractDungeonObject pass1FillTop = new Empty();
 	RandomRange r = null;
@@ -625,7 +625,7 @@ final class CurrentDungeonData implements Cloneable {
 	    for (y = 0; y < lt.getRows(); y++) {
 		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
 		    lt.setCell(
-			    Integration1.getApplication().getObjects().read(reader, FormatConstants.MAZE_FORMAT_LATEST),
+			    Integration1.getApplication().getObjects().readV7(reader, FormatConstants.MAZE_FORMAT_LATEST),
 			    y, x, e);
 		    if (lt.getCell(y, x, e) == null) {
 			return null;
@@ -673,7 +673,7 @@ final class CurrentDungeonData implements Cloneable {
 	for (x = 0; x < sizeY; x++) {
 	    for (y = 0; y < sizeX; y++) {
 		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
-		    this.savedTowerState.setCell(Integration1.getApplication().getObjects().read(reader, formatVersion),
+		    this.savedTowerState.setCell(Integration1.getApplication().getObjects().readV7(reader, formatVersion),
 			    y, x, e);
 		}
 	    }
