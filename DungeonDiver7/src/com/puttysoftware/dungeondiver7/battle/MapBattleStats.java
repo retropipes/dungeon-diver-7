@@ -13,8 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BattleCharacter;
-import com.puttysoftware.dungeondiver7.integration1.loader.StatImageConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.StatImageManager;
+import com.puttysoftware.dungeondiver7.loader.StatImageConstants;
+import com.puttysoftware.dungeondiver7.loader.StatImageManager;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class MapBattleStats {

@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package com.puttysoftware.dungeondiver7.integration1.loader;
+package com.puttysoftware.dungeondiver7.loader;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,10 +13,10 @@ import javax.imageio.ImageIO;
 
 import com.puttysoftware.images.BufferedImageIcon;
 
-public class ObjectImageManager {
+public class BattleImageManager {
     private static final String DEFAULT_LOAD_PATH = "/assets/images/objects/";
-    private static String LOAD_PATH = ObjectImageManager.DEFAULT_LOAD_PATH;
-    private static Class<?> LOAD_CLASS = ObjectImageManager.class;
+    private static String LOAD_PATH = BattleImageManager.DEFAULT_LOAD_PATH;
+    private static Class<?> LOAD_CLASS = BattleImageManager.class;
 
     /**
      *
@@ -28,16 +28,20 @@ public class ObjectImageManager {
     public static BufferedImageIcon getImage(final String name, final int baseID) {
 	// Get it from the cache
 	final String baseName = ObjectImageConstants.getObjectImageName(baseID);
-	return ObjectImageCache.getCachedImage(name, baseName);
+	return BattleImageCache.getCachedImage(name, baseName);
     }
 
     static BufferedImageIcon getUncachedImage(final String name) {
 	try {
-	    final URL url = ObjectImageManager.LOAD_CLASS.getResource(ObjectImageManager.LOAD_PATH + name + ".png");
+	    final URL url = BattleImageManager.LOAD_CLASS.getResource(BattleImageManager.LOAD_PATH + name + ".png");
 	    final BufferedImage image = ImageIO.read(url);
 	    return new BufferedImageIcon(image);
 	} catch (final IOException ie) {
 	    return null;
 	}
+    }
+
+    public static int getGraphicSize() {
+	return 64;
     }
 }

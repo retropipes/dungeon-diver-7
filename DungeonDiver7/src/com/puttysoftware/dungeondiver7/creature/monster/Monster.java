@@ -7,8 +7,8 @@ package com.puttysoftware.dungeondiver7.creature.monster;
 
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
-import com.puttysoftware.dungeondiver7.integration1.loader.MonsterImageManager;
 import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
+import com.puttysoftware.dungeondiver7.loader.MonsterImageManager;
 import com.puttysoftware.dungeondiver7.shop.Shop;
 import com.puttysoftware.images.BufferedImageIcon;
 import com.puttysoftware.randomrange.RandomLongRange;

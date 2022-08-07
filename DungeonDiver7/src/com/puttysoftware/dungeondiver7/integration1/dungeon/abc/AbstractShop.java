@@ -9,7 +9,7 @@ import com.puttysoftware.dungeondiver7.dungeon.utility.TypeConstants;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
 import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundManager;
+import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.shop.Shop;
 import com.puttysoftware.dungeondiver7.shop.ShopType;
 
@@ -31,7 +31,7 @@ public abstract class AbstractShop extends AbstractGameObject {
 
     @Override
     public void postMoveAction(final boolean ie, final int dirX, final int dirY) {
-	SoundManager.playSound(SoundConstants.WALK);
+	SoundLoader.playSound(SoundConstants.WALK);
     }
 
     @Override

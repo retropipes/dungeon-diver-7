@@ -11,8 +11,8 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import com.puttysoftware.diane.gui.DrawGrid;
-import com.puttysoftware.dungeondiver7.integration1.loader.ImageCompositor;
 import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
+import com.puttysoftware.dungeondiver7.loader.ImageCompositor;
 
 class GameDraw extends JPanel {
     private static final long serialVersionUID = 35935343464625L;

@@ -4,7 +4,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package com.puttysoftware.dungeondiver7.integration1.loader;
+package com.puttysoftware.dungeondiver7.loader;
 
 import java.io.IOException;
 

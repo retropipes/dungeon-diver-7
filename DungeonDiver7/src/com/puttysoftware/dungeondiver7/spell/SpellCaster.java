@@ -11,7 +11,7 @@ import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.effect.Effect;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundManager;
+import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
 
 public class SpellCaster {
     // Fields
@@ -46,7 +46,7 @@ public class SpellCaster {
 		final Effect b = cast.getEffect();
 		// Play spell's associated sound effect, if it has one
 		final int snd = cast.getSound();
-		SoundManager.playSound(snd);
+		SoundLoader.playSound(snd);
 		b.resetEffect();
 		final AbstractCreature target = SpellCaster.resolveTarget(cast, caster.getTeamID());
 		if (target.isEffectActive(b)) {

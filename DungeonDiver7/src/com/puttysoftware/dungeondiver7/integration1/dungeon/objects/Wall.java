@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.integration1.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.utility.TypeConstants;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractWall;
-import com.puttysoftware.dungeondiver7.integration1.loader.ObjectImageConstants;
+import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 
 public class Wall extends AbstractWall {
     // Constructors

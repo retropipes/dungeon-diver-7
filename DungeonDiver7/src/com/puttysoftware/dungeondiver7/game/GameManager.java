@@ -1267,7 +1267,7 @@ public class GameManager implements MenuSection {
 
     public void exitGame() {
 	// Stop music
-	MusicLoader.stopMusic();
+	MusicLoader.stopExternalMusic();
 	// Halt the animator
 	if (this.animator != null) {
 	    this.animator.stopAnimator();
@@ -1760,7 +1760,7 @@ public class GameManager implements MenuSection {
 		this.showOutput();
 		// Start music
 		if (PrefsManager.getMusicEnabled()) {
-		    MusicLoader.playMusic();
+		    MusicLoader.playExternalMusic();
 		}
 		app.getDungeonManager().getDungeon().setDirtyFlags(this.plMgr.getPlayerLocationZ());
 		this.redrawDungeon();

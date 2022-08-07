@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundManager;
+import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 
@@ -38,7 +38,7 @@ public class ItemInventory {
 	// Equip it
 	this.equipment[ei.getSlotUsed()] = ei;
 	if (playSound) {
-	    SoundManager.playSound(SoundConstants.EQUIP);
+	    SoundLoader.playSound(SoundConstants.EQUIP);
 	}
     }
 

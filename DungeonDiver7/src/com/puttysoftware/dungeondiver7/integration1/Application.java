@@ -14,8 +14,8 @@ import com.puttysoftware.dungeondiver7.battle.AbstractBattle;
 import com.puttysoftware.dungeondiver7.battle.MapBattleLogic;
 import com.puttysoftware.dungeondiver7.dungeon.utility.GameObjectList;
 import com.puttysoftware.dungeondiver7.integration1.game.GameLogic;
-import com.puttysoftware.dungeondiver7.integration1.loader.LogoManager;
 import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
+import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.shop.Shop;
 import com.puttysoftware.dungeondiver7.shop.ShopType;
@@ -118,11 +118,11 @@ public final class Application {
     }
 
     public static BufferedImageIcon getMicroLogo() {
-	return LogoManager.getMicroLogo();
+	return LogoLoader.getMicroLogo();
     }
 
     public static Image getIconLogo() {
-	return LogoManager.getIconLogo();
+	return LogoLoader.getIconLogo();
     }
 
     public JFrame getOutputFrame() {

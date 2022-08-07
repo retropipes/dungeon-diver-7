@@ -10,7 +10,7 @@ import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
-import com.puttysoftware.dungeondiver7.integration1.loader.ObjectImageConstants;
+import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public abstract class AbstractBattleCharacter extends AbstractGameObject {

@@ -31,12 +31,12 @@ import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Darkness;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Wall;
-import com.puttysoftware.dungeondiver7.integration1.loader.BattleImageManager;
-import com.puttysoftware.dungeondiver7.integration1.loader.ImageCompositor;
-import com.puttysoftware.dungeondiver7.integration1.loader.LogoManager;
 import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundManager;
+import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
+import com.puttysoftware.dungeondiver7.loader.BattleImageManager;
+import com.puttysoftware.dungeondiver7.loader.ImageCompositor;
+import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.images.BufferedImageIcon;
 
 class MapBattleGUI {
@@ -199,7 +199,7 @@ class MapBattleGUI {
 	this.end.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_E, modKey),
 		"End Turn");
 	this.end.getActionMap().put("End Turn", handler);
-	this.battleFrame.setIconImage(LogoManager.getIconLogo());
+	this.battleFrame.setIconImage(LogoLoader.getIconLogo());
 	this.battleFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.battleFrame.setResizable(false);
 	this.drawGrid = new DrawGrid(MapBattleViewingWindowManager.getViewingWindowSize());
@@ -249,7 +249,7 @@ class MapBattleGUI {
 	public void actionPerformed(final ActionEvent e) {
 	    try {
 		if (e.getSource() instanceof JButton) {
-		    SoundManager.playSound(SoundConstants.CLICK);
+		    SoundLoader.playSound(SoundConstants.CLICK);
 		}
 		final String cmd = e.getActionCommand();
 		final AbstractBattle b = Integration1.getApplication().getBattle();

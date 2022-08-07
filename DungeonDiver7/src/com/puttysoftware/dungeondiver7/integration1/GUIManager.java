@@ -21,10 +21,10 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
-import com.puttysoftware.dungeondiver7.integration1.loader.LogoManager;
-import com.puttysoftware.dungeondiver7.integration1.loader.MusicConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.MusicManager;
 import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
+import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.loader.MusicConstants;
+import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.fileutils.DirectoryUtilities;
 import com.puttysoftware.images.BufferedImageIcon;
@@ -37,7 +37,7 @@ public final class GUIManager implements QuitHandler {
     // Constructors
     public GUIManager() {
 	this.guiFrame = new JFrame("Chrystalz");
-	final Image iconlogo = LogoManager.getIconLogo();
+	final Image iconlogo = LogoLoader.getIconLogo();
 	this.guiFrame.setIconImage(iconlogo);
 	final Container guiPane = this.guiFrame.getContentPane();
 	this.guiFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -58,10 +58,10 @@ public final class GUIManager implements QuitHandler {
     }
 
     public void showGUI() {
-	if (MusicManager.isMusicPlaying()) {
-	    MusicManager.stopMusic();
+	if (MusicLoader.isMusicPlaying()) {
+	    MusicLoader.stopMusic();
 	}
-	MusicManager.playMusic(MusicConstants.MUSIC_TITLE);
+	MusicLoader.playMusic(MusicConstants.MUSIC_TITLE);
 	this.showGUICommon();
     }
 
@@ -83,7 +83,7 @@ public final class GUIManager implements QuitHandler {
     }
 
     public void updateLogo() {
-	final BufferedImageIcon logo = LogoManager.getLogo();
+	final BufferedImageIcon logo = LogoLoader.getLogo();
 	this.logoLabel.setIcon(logo);
 	final Image iconlogo = Application.getIconLogo();
 	this.guiFrame.setIconImage(iconlogo);

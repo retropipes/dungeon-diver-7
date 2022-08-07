@@ -18,8 +18,8 @@ import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterLoader;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterRegistration;
 import com.puttysoftware.dungeondiver7.creature.gender.Gender;
 import com.puttysoftware.dungeondiver7.creature.gender.GenderManager;
-import com.puttysoftware.dungeondiver7.integration1.loader.MusicConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.MusicManager;
+import com.puttysoftware.dungeondiver7.loader.MusicConstants;
+import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 
@@ -37,10 +37,10 @@ public class PartyManager {
 
     // Methods
     public static boolean createParty(final JFrame owner) {
-	if (MusicManager.isMusicPlaying()) {
-	    MusicManager.stopMusic();
+	if (MusicLoader.isMusicPlaying()) {
+	    MusicLoader.stopMusic();
 	}
-	MusicManager.playMusic(MusicConstants.MUSIC_CREATE);
+	MusicLoader.playMusic(MusicConstants.MUSIC_CREATE);
 	PartyManager.party = new Party();
 	int mem = 0;
 	final PartyMember[] pickMembers = CharacterLoader.loadAllRegisteredCharacters();

@@ -8,9 +8,9 @@ package com.puttysoftware.dungeondiver7.integration1.dungeon.objects;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractPassThroughObject;
 import com.puttysoftware.dungeondiver7.integration1.game.GameLogic;
-import com.puttysoftware.dungeondiver7.integration1.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundManager;
+import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 
 public class ClosedDoor extends AbstractPassThroughObject {
     // Constructors
@@ -41,7 +41,7 @@ public class ClosedDoor extends AbstractPassThroughObject {
 
     @Override
     public void interactAction() {
-	SoundManager.playSound(SoundConstants.DOOR_OPENS);
+	SoundLoader.playSound(SoundConstants.DOOR_OPENS);
 	final GameLogic glm = Integration1.getApplication().getGameLogic();
 	GameLogic.morph(new OpenDoor());
 	glm.redrawDungeon();

@@ -11,14 +11,14 @@ import com.puttysoftware.audio.wav.WAVPlayer;
 import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
 import com.puttysoftware.dungeondiver7.manager.file.Extension;
 
-public class SoundManager {
+public class SoundLoader {
     private static final String DEFAULT_LOAD_PATH = "/assets/sounds/";
-    private static String LOAD_PATH = SoundManager.DEFAULT_LOAD_PATH;
-    private static Class<?> LOAD_CLASS = SoundManager.class;
+    private static String LOAD_PATH = SoundLoader.DEFAULT_LOAD_PATH;
+    private static Class<?> LOAD_CLASS = SoundLoader.class;
 
     private static WAVPlayer getSound(final String filename) {
-	final URL url = SoundManager.LOAD_CLASS
-		.getResource(SoundManager.LOAD_PATH + filename.toLowerCase() + Extension.getSoundExtensionWithPeriod());
+	final URL url = SoundLoader.LOAD_CLASS
+		.getResource(SoundLoader.LOAD_PATH + filename.toLowerCase() + Extension.getSoundExtensionWithPeriod());
 	return WAVPlayer.loadResource(url);
     }
 
@@ -26,7 +26,7 @@ public class SoundManager {
 	try {
 	    if (PreferencesManager.getSoundsEnabled()) {
 		final String soundName = SoundConstants.getSoundName(soundID);
-		final WAVPlayer snd = SoundManager.getSound(soundName);
+		final WAVPlayer snd = SoundLoader.getSound(soundName);
 		snd.play();
 	    }
 	} catch (final ArrayIndexOutOfBoundsException aioob) {

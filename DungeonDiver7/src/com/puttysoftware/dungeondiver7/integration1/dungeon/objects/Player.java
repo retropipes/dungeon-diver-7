@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.integration1.dungeon.objects;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractCharacter;
-import com.puttysoftware.dungeondiver7.integration1.loader.ObjectImageConstants;
+import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class Player extends AbstractCharacter {

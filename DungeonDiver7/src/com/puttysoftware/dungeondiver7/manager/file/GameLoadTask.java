@@ -22,7 +22,7 @@ import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.VersionException;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
-import com.puttysoftware.dungeondiver7.integration1.loader.LogoManager;
+import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.PrefixHandler;
 import com.puttysoftware.dungeondiver7.manager.dungeon.SuffixHandler;
 import com.puttysoftware.fileutils.ZipUtilities;
@@ -37,7 +37,7 @@ public class GameLoadTask extends Thread {
 	this.filename = file;
 	this.setName("Game Loader");
 	this.loadFrame = new JFrame("Loading...");
-	this.loadFrame.setIconImage(LogoManager.getIconLogo());
+	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
 	final JProgressBar loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	this.loadFrame.getContentPane().add(loadBar);

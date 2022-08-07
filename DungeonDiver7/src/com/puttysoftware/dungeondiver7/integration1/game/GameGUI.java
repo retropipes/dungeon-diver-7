@@ -30,11 +30,11 @@ import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Darkness;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Player;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Wall;
-import com.puttysoftware.dungeondiver7.integration1.loader.ImageCompositor;
-import com.puttysoftware.dungeondiver7.integration1.loader.MusicConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.MusicManager;
-import com.puttysoftware.dungeondiver7.integration1.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
+import com.puttysoftware.dungeondiver7.loader.ImageCompositor;
+import com.puttysoftware.dungeondiver7.loader.MusicConstants;
+import com.puttysoftware.dungeondiver7.loader.MusicLoader;
+import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.images.BufferedImageIcon;
 
@@ -92,14 +92,14 @@ class GameGUI {
     }
 
     public void showOutput() {
-	if (MusicManager.isMusicPlaying()) {
-	    MusicManager.stopMusic();
+	if (MusicLoader.isMusicPlaying()) {
+	    MusicLoader.stopMusic();
 	}
 	int zoneID = PartyManager.getParty().getZone();
 	if (zoneID == Dungeon.getMaxLevels() - 1) {
-	    MusicManager.playMusic(MusicConstants.MUSIC_LAIR);
+	    MusicLoader.playMusic(MusicConstants.MUSIC_LAIR);
 	} else {
-	    MusicManager.playMusic(MusicConstants.MUSIC_DUNGEON);
+	    MusicLoader.playMusic(MusicConstants.MUSIC_DUNGEON);
 	}
 	this.showOutputCommon();
     }

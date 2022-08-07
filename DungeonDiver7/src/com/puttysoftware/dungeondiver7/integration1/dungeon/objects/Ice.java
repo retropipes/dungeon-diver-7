@@ -7,9 +7,9 @@ package com.puttysoftware.dungeondiver7.integration1.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGround;
-import com.puttysoftware.dungeondiver7.integration1.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundManager;
+import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.randomrange.RandomRange;
 
 public class Ice extends AbstractGround {
@@ -39,7 +39,7 @@ public class Ice extends AbstractGround {
 
     @Override
     public void postMoveAction(final boolean ie, final int dirX, final int dirY) {
-	SoundManager.playSound(SoundConstants.WALK_ICE);
+	SoundLoader.playSound(SoundConstants.WALK_ICE);
     }
 
     @Override

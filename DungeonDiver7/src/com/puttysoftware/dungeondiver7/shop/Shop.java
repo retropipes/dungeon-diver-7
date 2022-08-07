@@ -12,16 +12,16 @@ import com.puttysoftware.diane.gui.ListWithImageDialog;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
-import com.puttysoftware.dungeondiver7.integration1.loader.ArmorImageManager;
-import com.puttysoftware.dungeondiver7.integration1.loader.MusicConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.MusicManager;
 import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundManager;
-import com.puttysoftware.dungeondiver7.integration1.loader.WeaponImageManager;
+import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.item.ArmorConstants;
 import com.puttysoftware.dungeondiver7.item.Equipment;
 import com.puttysoftware.dungeondiver7.item.EquipmentFactory;
 import com.puttysoftware.dungeondiver7.item.WeaponConstants;
+import com.puttysoftware.dungeondiver7.loader.ArmorImageManager;
+import com.puttysoftware.dungeondiver7.loader.MusicConstants;
+import com.puttysoftware.dungeondiver7.loader.MusicLoader;
+import com.puttysoftware.dungeondiver7.loader.WeaponImageManager;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class Shop {
@@ -87,22 +87,22 @@ public class Shop {
     }
 
     public void showShop() {
-	if (MusicManager.isMusicPlaying()) {
-	    MusicManager.stopMusic();
+	if (MusicLoader.isMusicPlaying()) {
+	    MusicLoader.stopMusic();
 	}
 	if (this.type == ShopType.ARMOR || this.type == ShopType.WEAPONS) {
-	    MusicManager.playMusic(MusicConstants.MUSIC_FORGE);
+	    MusicLoader.playMusic(MusicConstants.MUSIC_FORGE);
 	    this.imageUI.showShop();
 	} else {
-	    MusicManager.playMusic(MusicConstants.MUSIC_SHOP);
+	    MusicLoader.playMusic(MusicConstants.MUSIC_SHOP);
 	    this.defaultUI.showShop();
 	}
-	MusicManager.stopMusic();
+	MusicLoader.stopMusic();
 	int zoneID = PartyManager.getParty().getZone();
 	if (zoneID == Dungeon.getMaxLevels() - 1) {
-	    MusicManager.playMusic(MusicConstants.MUSIC_LAIR);
+	    MusicLoader.playMusic(MusicConstants.MUSIC_LAIR);
 	} else {
-	    MusicManager.playMusic(MusicConstants.MUSIC_DUNGEON);
+	    MusicLoader.playMusic(MusicConstants.MUSIC_DUNGEON);
 	}
     }
 
@@ -135,7 +135,7 @@ public class Shop {
 	private boolean shopStage1() {
 	    // Stage 1
 	    // Play enter shop sound
-	    SoundManager.playSound(SoundConstants.SHOP);
+	    SoundLoader.playSound(SoundConstants.SHOP);
 	    final PartyMember playerCharacter = PartyManager.getParty().getLeader();
 	    if (Shop.this.type == ShopType.HEALER || Shop.this.type == ShopType.REGENERATOR) {
 		Shop.this.choices = new String[10];
@@ -230,7 +230,7 @@ public class Shop {
 	    // Stage 5
 	    final PartyMember playerCharacter = PartyManager.getParty().getLeader();
 	    // Play transact sound
-	    SoundManager.playSound(SoundConstants.TRANSACT);
+	    SoundLoader.playSound(SoundConstants.TRANSACT);
 	    if (Shop.this.type == ShopType.HEALER) {
 		playerCharacter.offsetGold(-Shop.this.cost);
 		playerCharacter.healPercentage((Shop.this.index + 1) * 10);
@@ -275,7 +275,7 @@ public class Shop {
 	private boolean shopStage1() {
 	    // Stage 1
 	    // Play enter shop sound
-	    SoundManager.playSound(SoundConstants.SHOP);
+	    SoundLoader.playSound(SoundConstants.SHOP);
 	    final int zoneID = PartyManager.getParty().getZone();
 	    if (Shop.this.type == ShopType.WEAPONS) {
 		Shop.this.imageChoices = new BufferedImageIcon[WeaponConstants.TYPE_COUNT];
@@ -352,7 +352,7 @@ public class Shop {
 	    // Stage 5
 	    final PartyMember playerCharacter = PartyManager.getParty().getLeader();
 	    // Play transact sound
-	    SoundManager.playSound(SoundConstants.TRANSACT);
+	    SoundLoader.playSound(SoundConstants.TRANSACT);
 	    if (Shop.this.type == ShopType.WEAPONS) {
 		playerCharacter.offsetGold(-Shop.this.cost);
 		final Equipment bought = EquipmentFactory.createWeapon(Shop.this.index, Shop.this.typeIndex);

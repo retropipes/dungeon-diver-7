@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.creature.caste;
 
-import com.puttysoftware.dungeondiver7.integration1.loader.CasteDescriptionManager;
+import com.puttysoftware.dungeondiver7.loader.CasteDescriptionManager;
 
 public class Caste {
     private final int casteID;

@@ -16,7 +16,7 @@ import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
-import com.puttysoftware.dungeondiver7.integration1.loader.LogoManager;
+import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 
 public class LevelLoadTask extends Thread {
     // Fields
@@ -28,7 +28,7 @@ public class LevelLoadTask extends Thread {
 	this.level = offset;
 	this.setName("Level Loader");
 	this.loadFrame = new JFrame("Loading...");
-	this.loadFrame.setIconImage(LogoManager.getIconLogo());
+	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
 	final JProgressBar loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	this.loadFrame.getContentPane().add(loadBar);

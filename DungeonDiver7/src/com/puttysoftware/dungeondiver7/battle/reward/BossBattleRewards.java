@@ -10,7 +10,7 @@ import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundManager;
+import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
 
 class BossBattleRewards {
     // Fields
@@ -32,7 +32,7 @@ class BossBattleRewards {
 	    player.offsetExperiencePercentage(-20);
 	    player.offsetGoldPercentage(-100);
 	} else if (br == BattleResult.WON || br == BattleResult.PERFECT) {
-	    SoundManager.playSound(SoundConstants.BOSS_DIE);
+	    SoundLoader.playSound(SoundConstants.BOSS_DIE);
 	    // Send player to next zone
 	    Integration1.getApplication().getGameLogic().goToLevelOffset(1);
 	}

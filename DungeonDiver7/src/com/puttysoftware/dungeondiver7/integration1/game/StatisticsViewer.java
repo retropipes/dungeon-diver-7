@@ -19,7 +19,7 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
-import com.puttysoftware.dungeondiver7.integration1.loader.LogoManager;
+import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.locale.LocalizedFile;
 
@@ -64,7 +64,7 @@ public class StatisticsViewer {
     private static void setUpGUI() {
 	if (!StatisticsViewer.inited) {
 	    StatisticsViewer.statisticsFrame = new JFrame("Statistics");
-	    final Image iconlogo = LogoManager.getIconLogo();
+	    final Image iconlogo = LogoLoader.getIconLogo();
 	    StatisticsViewer.statisticsFrame.setIconImage(iconlogo);
 	    StatisticsViewer.statisticsPane = new JPanel();
 	    StatisticsViewer.statisticsPane.setLayout(new BorderLayout());

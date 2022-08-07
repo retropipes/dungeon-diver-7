@@ -6,7 +6,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.integration1.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractShop;
-import com.puttysoftware.dungeondiver7.integration1.loader.ObjectImageConstants;
+import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.shop.ShopType;
 
 public class WeaponsShop extends AbstractShop {

@@ -26,7 +26,7 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.loader.LogoManager;
+import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 
 class PreferencesGUIManager {
     // Fields
@@ -111,7 +111,7 @@ class PreferencesGUIManager {
     private void setUpGUI() {
 	final EventHandler handler = new EventHandler();
 	this.prefFrame = new JFrame("Preferences");
-	final Image iconlogo = LogoManager.getIconLogo();
+	final Image iconlogo = LogoLoader.getIconLogo();
 	this.prefFrame.setIconImage(iconlogo);
 	final Container mainPrefPane = new Container();
 	final Container innerPrefPane = new Container();

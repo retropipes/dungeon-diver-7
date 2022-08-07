@@ -11,7 +11,7 @@ import com.puttysoftware.dungeondiver7.battle.BattleResult;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundManager;
+import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
 
 class FinalBossBattleRewards {
     // Fields
@@ -26,7 +26,7 @@ class FinalBossBattleRewards {
     public static void doRewards(final BattleResult br) {
 	final PartyMember player = PartyManager.getParty().getLeader();
 	if (br == BattleResult.WON || br == BattleResult.PERFECT) {
-	    SoundManager.playSound(SoundConstants.WIN_GAME);
+	    SoundLoader.playSound(SoundConstants.WIN_GAME);
 	    String dialogResult = null;
 	    while (dialogResult == null) {
 		dialogResult = (String) JOptionPane.showInputDialog(null,

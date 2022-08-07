@@ -6,18 +6,25 @@
 package com.puttysoftware.dungeondiver7.loader;
 
 import java.io.File;
+import java.net.URL;
+import java.nio.BufferUnderflowException;
 
 import com.puttysoftware.audio.ogg.OggPlayer;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.editor.ExternalMusic;
+import com.puttysoftware.dungeondiver7.manager.file.Extension;
 
 public class MusicLoader {
     // Fields
     private static String EXTERNAL_LOAD_PATH = null;
+    private static OggPlayer CURRENT_MUSIC;
     private static OggPlayer CURRENT_EXTERNAL_MUSIC;
     private static ExternalMusic gameExternalMusic;
+    private static final String DEFAULT_LOAD_PATH = "/asset/music/";
+    private static String LOAD_PATH = MusicLoader.DEFAULT_LOAD_PATH;
+    private static Class<?> LOAD_CLASS = MusicLoader.class;
 
     // Constructors
     private MusicLoader() {
@@ -25,6 +32,40 @@ public class MusicLoader {
     }
 
     private static OggPlayer getMusic(final String filename) {
+	final URL modFile = MusicLoader.LOAD_CLASS
+		.getResource(MusicLoader.LOAD_PATH + filename + Extension.getMusicExtensionWithPeriod());
+	return OggPlayer.loadLoopedResource(modFile);
+    }
+
+    public static void playMusic(final int musicID) {
+	MusicLoader.CURRENT_MUSIC = MusicLoader.getMusic(MusicConstants.getMusicName(musicID));
+	if (MusicLoader.CURRENT_MUSIC != null) {
+	    // Play the music
+	    MusicLoader.CURRENT_MUSIC.play();
+	}
+    }
+
+    public static void stopMusic() {
+	if (MusicLoader.CURRENT_MUSIC != null) {
+	    // Stop the music
+	    try {
+		OggPlayer.stopPlaying();
+	    } catch (final BufferUnderflowException bue) {
+		// Ignore
+	    } catch (final Throwable t) {
+		DungeonDiver7.getErrorLogger().logError(t);
+	    }
+	}
+    }
+
+    public static boolean isMusicPlaying() {
+	if (MusicLoader.CURRENT_MUSIC != null) {
+	    return MusicLoader.CURRENT_MUSIC.isAlive();
+	}
+	return false;
+    }
+
+    private static OggPlayer getExternalMusic(final String filename) {
 	try {
 	    if (MusicLoader.EXTERNAL_LOAD_PATH == null) {
 		MusicLoader.EXTERNAL_LOAD_PATH = DungeonDiver7.getApplication().getDungeonManager().getDungeon()
@@ -38,7 +79,7 @@ public class MusicLoader {
 	}
     }
 
-    public static boolean isMusicPlaying() {
+    public static boolean isExternalMusicPlaying() {
 	if (MusicLoader.CURRENT_EXTERNAL_MUSIC != null) {
 	    if (MusicLoader.CURRENT_EXTERNAL_MUSIC.isPlaying()) {
 		return true;
@@ -47,24 +88,24 @@ public class MusicLoader {
 	return false;
     }
 
-    public static void playMusic() {
+    public static void playExternalMusic() {
 	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
-	final OggPlayer mmod = MusicLoader.getMusic(a.getMusicFilename());
+	final OggPlayer mmod = MusicLoader.getExternalMusic(a.getMusicFilename());
 	if (mmod != null) {
 	    mmod.play();
 	}
     }
 
-    public static void loadPlayMusic(final String filename) {
-	final OggPlayer mmod = MusicLoader.getMusic(filename);
+    public static void loadPlayExternalMusic(final String filename) {
+	final OggPlayer mmod = MusicLoader.getExternalMusic(filename);
 	if (mmod != null) {
 	    MusicLoader.CURRENT_EXTERNAL_MUSIC = mmod;
 	    mmod.play();
 	}
     }
 
-    public static void stopMusic() {
-	if (MusicLoader.isMusicPlaying()) {
+    public static void stopExternalMusic() {
+	if (MusicLoader.isExternalMusicPlaying()) {
 	    OggPlayer.stopPlaying();
 	}
     }

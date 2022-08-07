@@ -17,7 +17,7 @@ import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObje
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundManager;
+import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
 
 final class MovementTask extends Thread {
     // Fields
@@ -253,7 +253,7 @@ final class MovementTask extends Thread {
 
     private static void checkGameOver() {
 	if (!PartyManager.getParty().isAlive()) {
-	    SoundManager.playSound(SoundConstants.DEFEATED);
+	    SoundLoader.playSound(SoundConstants.DEFEATED);
 	    CommonDialogs.showDialog(
 		    "You have died! You lose 10% of your experience and all your Gold, but you are healed fully.");
 	    PartyManager.getParty().getLeader().onDeath(-10);

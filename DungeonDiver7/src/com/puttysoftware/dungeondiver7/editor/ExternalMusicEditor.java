@@ -103,11 +103,11 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 		this.loadObject();
 	    }
 	    if (this.cachedExternalMusic != null) {
-		MusicLoader.loadPlayMusic(this.cachedExternalMusic.getName());
+		MusicLoader.loadPlayExternalMusic(this.cachedExternalMusic.getName());
 	    }
 	} else if (cmd.equals("st")) {
 	    // Stop the music
-	    MusicLoader.stopMusic();
+	    MusicLoader.stopExternalMusic();
 	} else if (cmd.equals("md")) {
 	    // Set new music
 	    this.create();
@@ -215,7 +215,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 
 	@Override
 	public void windowClosed(final WindowEvent we) {
-	    MusicLoader.stopMusic();
+	    MusicLoader.stopExternalMusic();
 	}
 
 	@Override

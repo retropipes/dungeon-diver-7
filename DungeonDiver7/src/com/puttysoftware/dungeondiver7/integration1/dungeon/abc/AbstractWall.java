@@ -9,7 +9,7 @@ import com.puttysoftware.dungeondiver7.dungeon.utility.TypeConstants;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.DungeonConstants;
 import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
-import com.puttysoftware.dungeondiver7.integration1.loader.SoundManager;
+import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
 
 public abstract class AbstractWall extends AbstractGameObject {
     // Constructors
@@ -26,7 +26,7 @@ public abstract class AbstractWall extends AbstractGameObject {
     public void moveFailedAction(final boolean ie, final int dirX, final int dirY) {
 	Integration1.getApplication().showMessage("Can't go that way");
 	// Play move failed sound, if it's enabled
-	SoundManager.playSound(SoundConstants.FAILED);
+	SoundLoader.playSound(SoundConstants.FAILED);
     }
 
     @Override

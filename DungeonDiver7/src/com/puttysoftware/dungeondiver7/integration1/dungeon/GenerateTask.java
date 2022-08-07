@@ -15,7 +15,7 @@ import com.puttysoftware.dungeondiver7.dungeon.utility.ImageColorConstants;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractGameObject;
-import com.puttysoftware.dungeondiver7.integration1.loader.LogoManager;
+import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.randomrange.RandomRange;
 
 public class GenerateTask extends Thread {
@@ -28,7 +28,7 @@ public class GenerateTask extends Thread {
 	this.scratch = startFromScratch;
 	this.setName("Level Generator");
 	this.generateFrame = new JFrame("Generating...");
-	this.generateFrame.setIconImage(LogoManager.getIconLogo());
+	this.generateFrame.setIconImage(LogoLoader.getIconLogo());
 	final JProgressBar loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	this.generateFrame.getContentPane().add(loadBar);
