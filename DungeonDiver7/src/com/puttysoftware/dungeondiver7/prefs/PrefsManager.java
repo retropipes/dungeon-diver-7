@@ -14,12 +14,12 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Ground;
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utilities.EditorLayoutConstants;
-import com.puttysoftware.dungeondiver7.utilities.Extension;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.utility.EditorLayoutConstants;
+import com.puttysoftware.dungeondiver7.utility.Extension;
 
 public class PrefsManager {
     // Fields

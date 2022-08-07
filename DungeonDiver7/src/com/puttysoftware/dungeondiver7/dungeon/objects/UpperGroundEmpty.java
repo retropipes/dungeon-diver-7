@@ -5,9 +5,9 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractPassThroughObject;
-import com.puttysoftware.dungeondiver7.utilities.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractPassThroughObject;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
+import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 
 public class UpperGroundEmpty extends AbstractPassThroughObject {
     // Constructors

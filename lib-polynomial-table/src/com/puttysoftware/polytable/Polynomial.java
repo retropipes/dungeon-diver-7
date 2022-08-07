@@ -8,8 +8,8 @@ package com.puttysoftware.polytable;
 import java.io.IOException;
 import java.util.Arrays;
 
-import com.puttysoftware.xio.XDataReader;
-import com.puttysoftware.xio.XDataWriter;
+import com.puttysoftware.fileio.XDataReader;
+import com.puttysoftware.fileio.XDataWriter;
 
 public class Polynomial {
     // Fields

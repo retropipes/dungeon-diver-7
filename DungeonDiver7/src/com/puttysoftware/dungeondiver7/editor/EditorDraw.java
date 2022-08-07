@@ -5,8 +5,8 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import com.puttysoftware.dungeondiver7.loaders.ImageLoader;
-import com.puttysoftware.dungeondiver7.utilities.DrawGrid;
+import com.puttysoftware.diane.gui.DrawGrid;
+import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 
 class EditorDraw extends JPanel {
     private static final long serialVersionUID = 35935343464625L;

@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.editor;
 
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 
 class EditorUndoRedoEngine {
     // Fields

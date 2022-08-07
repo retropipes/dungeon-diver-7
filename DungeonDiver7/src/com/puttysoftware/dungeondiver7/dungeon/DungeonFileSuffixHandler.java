@@ -8,9 +8,9 @@ package com.puttysoftware.dungeondiver7.dungeon;
 import java.io.IOException;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.utilities.FormatConstants;
-import com.puttysoftware.xio.XDataReader;
-import com.puttysoftware.xio.XDataWriter;
+import com.puttysoftware.dungeondiver7.utility.FormatConstants;
+import com.puttysoftware.fileio.XDataReader;
+import com.puttysoftware.fileio.XDataWriter;
 
 public class DungeonFileSuffixHandler implements AbstractSuffixIO {
     @Override

@@ -8,14 +8,14 @@ package com.puttysoftware.dungeondiver7.dungeon;
 import java.io.File;
 import java.io.IOException;
 
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractButton;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractButtonDoor;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractCharacter;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractTunnel;
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utilities.Direction;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButton;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButtonDoor;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.utility.Direction;
 
 public abstract class AbstractDungeon {
     // Constants

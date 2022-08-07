@@ -7,12 +7,12 @@ package com.puttysoftware.dungeondiver7.dungeon.current;
 
 import java.io.IOException;
 
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utilities.DungeonConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
+import com.puttysoftware.fileio.XDataReader;
+import com.puttysoftware.fileio.XDataWriter;
 import com.puttysoftware.storage.NumberStorage;
-import com.puttysoftware.xio.XDataReader;
-import com.puttysoftware.xio.XDataWriter;
 
 public final class DungeonLevelInfo {
     // Properties

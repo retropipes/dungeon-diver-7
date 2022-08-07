@@ -5,8 +5,8 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractAllButtonDoor;
-import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractAllButtonDoor;
+import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
 
 public class MetallicAllButtonDoor extends AbstractAllButtonDoor {
     // Constructors

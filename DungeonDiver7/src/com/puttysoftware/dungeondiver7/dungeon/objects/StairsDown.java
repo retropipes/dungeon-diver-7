@@ -7,9 +7,9 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.Application;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractTeleport;
-import com.puttysoftware.dungeondiver7.loaders.SoundConstants;
-import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTeleport;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 
 public class StairsDown extends AbstractTeleport {
     // Constructors

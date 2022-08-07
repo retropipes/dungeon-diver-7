@@ -19,8 +19,8 @@ import javax.swing.WindowConstants;
 
 import com.puttysoftware.dungeondiver7.Application;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.loaders.ImageLoader;
-import com.puttysoftware.dungeondiver7.loaders.LogoLoader;
+import com.puttysoftware.dungeondiver7.loader.ImageLoader;
+import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 
 public abstract class GenericEditor {
     // Fields

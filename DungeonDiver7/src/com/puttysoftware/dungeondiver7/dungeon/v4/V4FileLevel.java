@@ -11,7 +11,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeonData;
 import com.puttysoftware.dungeondiver7.dungeon.objects.ArrowTurret;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Box;
@@ -22,17 +22,17 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Flag;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Ground;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Ice;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Mirror;
-import com.puttysoftware.dungeondiver7.dungeon.objects.RotaryMirror;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Party;
 import com.puttysoftware.dungeondiver7.dungeon.objects.PartyMover;
+import com.puttysoftware.dungeondiver7.dungeon.objects.RotaryMirror;
 import com.puttysoftware.dungeondiver7.dungeon.objects.ThinIce;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Tunnel;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Water;
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utilities.ColorConstants;
-import com.puttysoftware.dungeondiver7.utilities.Direction;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.utility.ColorConstants;
+import com.puttysoftware.dungeondiver7.utility.Direction;
 
 class V4FileLevel {
     // Fields

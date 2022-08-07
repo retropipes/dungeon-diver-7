@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractAttribute;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractAttribute;
 
 public class Darkness extends AbstractAttribute {
     // Constructors

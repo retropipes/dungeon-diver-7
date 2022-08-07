@@ -6,9 +6,9 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractSpell;
-import com.puttysoftware.dungeondiver7.loaders.SoundConstants;
-import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractSpell;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 
 public class KillSkull extends AbstractSpell {
     // Constructors

@@ -11,9 +11,9 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.scores.SavedScoreManager;
 import com.puttysoftware.diane.scores.ScoreManager;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utilities.Extension;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.utility.Extension;
 
 class ScoreTracker {
     // Fields

@@ -25,12 +25,12 @@ import javax.swing.border.EmptyBorder;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.dungeon.DungeonManager;
-import com.puttysoftware.dungeondiver7.loaders.LogoLoader;
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
+import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.utilities.ScreenPrinter;
-import com.puttysoftware.dungeondiver7.utilities.CleanupTask;
+import com.puttysoftware.dungeondiver7.utility.CleanupTask;
+import com.puttysoftware.dungeondiver7.utility.ScreenPrinter;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class GUIManager implements MenuSection {

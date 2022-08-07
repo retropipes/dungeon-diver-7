@@ -5,10 +5,10 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractMovableObject;
-import com.puttysoftware.dungeondiver7.loaders.SoundConstants;
-import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
-import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 
 public class Ball extends AbstractMovableObject {
     // Constructors

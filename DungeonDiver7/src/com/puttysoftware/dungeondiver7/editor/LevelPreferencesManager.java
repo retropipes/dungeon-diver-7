@@ -26,10 +26,10 @@ import javax.swing.WindowConstants;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
-import com.puttysoftware.dungeondiver7.loaders.LogoLoader;
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utilities.DifficultyConstants;
+import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.utility.DifficultyConstants;
 
 class LevelPreferencesManager {
     // Fields

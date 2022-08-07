@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Comparator;
 
-import com.puttysoftware.xio.XDataReader;
-import com.puttysoftware.xio.XDataWriter;
+import com.puttysoftware.fileio.XDataReader;
+import com.puttysoftware.fileio.XDataWriter;
 
 public final class Score {
   // Fields

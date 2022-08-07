@@ -5,8 +5,8 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractTriggerButtonDoor;
-import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTriggerButtonDoor;
+import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
 
 public class FireTriggerButtonDoor extends AbstractTriggerButtonDoor {
     // Constructors

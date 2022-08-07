@@ -6,13 +6,13 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractReactionWall;
-import com.puttysoftware.dungeondiver7.loaders.SoundConstants;
-import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
-import com.puttysoftware.dungeondiver7.utilities.Direction;
-import com.puttysoftware.dungeondiver7.utilities.DirectionResolver;
-import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.utility.Direction;
+import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
+import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
 
 public class MetallicRotaryMirror extends AbstractReactionWall {
     // Constructors

@@ -7,11 +7,11 @@ package com.puttysoftware.dungeondiver7.dungeon;
 
 import java.io.IOException;
 
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utilities.FormatConstants;
-import com.puttysoftware.xio.XDataReader;
-import com.puttysoftware.xio.XDataWriter;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.utility.FormatConstants;
+import com.puttysoftware.fileio.XDataReader;
+import com.puttysoftware.fileio.XDataWriter;
 
 public class DungeonFilePrefixHandler implements AbstractPrefixIO {
     private static final byte FORMAT_VERSION = (byte) FormatConstants.ARENA_FORMAT_LATEST;

@@ -5,9 +5,9 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractGround;
-import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractGround;
+import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
 
 public class Ground extends AbstractGround {
     // Constructors

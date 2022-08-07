@@ -7,9 +7,10 @@ package com.puttysoftware.dungeondiver7;
 
 import com.puttysoftware.diane.ErrorLogger;
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.loaders.LogoLoader;
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
+import com.puttysoftware.dungeondiver7.integration1.creature.AbstractCreature;
+import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 
 public class DungeonDiver7 {
@@ -23,6 +24,9 @@ public class DungeonDiver7 {
     private static String ERROR_MESSAGE = null;
     private static String ERROR_TITLE = null;
     private static ErrorLogger errorLogger;
+    private static final int BATTLE_MAP_SIZE = 10;
+    private static final int DUNGEON_BASE_SIZE = 24;
+    private static final int DUNGEON_SIZE_INCREMENT = 2;
 
     // Methods
     public static Application getApplication() {
@@ -38,13 +42,21 @@ public class DungeonDiver7 {
 	return DungeonDiver7.errorLogger;
     }
 
+    public static int getDungeonLevelSize(final int zoneID) {
+	return DungeonDiver7.DUNGEON_BASE_SIZE + (zoneID * DungeonDiver7.DUNGEON_SIZE_INCREMENT);
+    }
+
+    public static int getBattleDungeonSize() {
+	return DungeonDiver7.BATTLE_MAP_SIZE;
+    }
+
     public static void main(final String[] args) {
 	try {
 	    // Integrate with host platform
 	    // Platform.hookLAF(DungeonDiver7.PROGRAM_NAME);
 	    try {
 		// Initialize strings
-		DungeonDiver7.initStrings();
+		DungeonDiver7.preInit();
 		// Initialize error logger
 		DungeonDiver7.errorLogger = new ErrorLogger(DungeonDiver7.PROGRAM_NAME);
 	    } catch (final RuntimeException re) {
@@ -80,11 +92,12 @@ public class DungeonDiver7 {
 	}
     }
 
-    private static void initStrings() {
+    private static void preInit() {
 	LocaleLoader.setDefaultLanguage();
 	DungeonDiver7.ERROR_TITLE = LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
 		LocaleConstants.ERROR_STRING_ERROR_TITLE);
 	DungeonDiver7.ERROR_MESSAGE = LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
 		LocaleConstants.ERROR_STRING_ERROR_MESSAGE);
+	AbstractCreature.computeActionCap(DungeonDiver7.BATTLE_MAP_SIZE, DungeonDiver7.BATTLE_MAP_SIZE);
     }
 }

@@ -6,9 +6,9 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractCharacter;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 import com.puttysoftware.dungeondiver7.editor.DungeonEditor;
-import com.puttysoftware.dungeondiver7.utilities.Direction;
+import com.puttysoftware.dungeondiver7.utility.Direction;
 
 public class Party extends AbstractCharacter {
     // Constructors

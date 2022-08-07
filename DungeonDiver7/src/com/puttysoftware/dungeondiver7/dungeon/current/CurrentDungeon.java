@@ -15,22 +15,22 @@ import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeonData;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractPrefixIO;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractSuffixIO;
 import com.puttysoftware.dungeondiver7.dungeon.HistoryStatus;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractButton;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractButtonDoor;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractCharacter;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractTunnel;
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButton;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButtonDoor;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.utilities.DifficultyConstants;
-import com.puttysoftware.dungeondiver7.utilities.Direction;
-import com.puttysoftware.dungeondiver7.utilities.Extension;
-import com.puttysoftware.dungeondiver7.utilities.FormatConstants;
+import com.puttysoftware.dungeondiver7.utility.DifficultyConstants;
+import com.puttysoftware.dungeondiver7.utility.Direction;
+import com.puttysoftware.dungeondiver7.utility.Extension;
+import com.puttysoftware.dungeondiver7.utility.FormatConstants;
+import com.puttysoftware.fileio.XDataReader;
+import com.puttysoftware.fileio.XDataWriter;
 import com.puttysoftware.fileutils.FileUtilities;
 import com.puttysoftware.randomrange.RandomLongRange;
-import com.puttysoftware.xio.XDataReader;
-import com.puttysoftware.xio.XDataWriter;
 
 public class CurrentDungeon extends AbstractDungeon {
     // Properties

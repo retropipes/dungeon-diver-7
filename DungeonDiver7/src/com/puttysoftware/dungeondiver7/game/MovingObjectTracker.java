@@ -8,13 +8,13 @@ package com.puttysoftware.dungeondiver7.game;
 import com.puttysoftware.dungeondiver7.Application;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractJumpObject;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractMovableObject;
-import com.puttysoftware.dungeondiver7.utilities.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utilities.Direction;
-import com.puttysoftware.dungeondiver7.utilities.DirectionResolver;
-import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractJumpObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
+import com.puttysoftware.dungeondiver7.utility.Direction;
+import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
+import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 
 final class MovingObjectTracker {
     // Fields

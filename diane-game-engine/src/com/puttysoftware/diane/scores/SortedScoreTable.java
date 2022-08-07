@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import com.puttysoftware.xio.XDataReader;
-import com.puttysoftware.xio.XDataWriter;
+import com.puttysoftware.fileio.XDataReader;
+import com.puttysoftware.fileio.XDataWriter;
 
 public class SortedScoreTable extends ScoreTable {
   // Fields

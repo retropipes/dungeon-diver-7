@@ -8,8 +8,8 @@ package com.puttysoftware.diane.scores;
 
 import java.io.IOException;
 
-import com.puttysoftware.xio.XDataReader;
-import com.puttysoftware.xio.XDataWriter;
+import com.puttysoftware.fileio.XDataReader;
+import com.puttysoftware.fileio.XDataWriter;
 
 public class SavedScoreManager extends ScoreManager {
   // Fields

@@ -5,8 +5,8 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractTunnel;
-import com.puttysoftware.dungeondiver7.utilities.ColorConstants;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
+import com.puttysoftware.dungeondiver7.utility.ColorConstants;
 
 public class Tunnel extends AbstractTunnel {
     // Constructors

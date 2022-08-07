@@ -20,8 +20,8 @@ import javax.swing.JPasswordField;
 
 import com.puttysoftware.diane.utilties.Hash;
 import com.puttysoftware.diane.utilties.HexBytes;
-import com.puttysoftware.xio.XDataReader;
-import com.puttysoftware.xio.XDataWriter;
+import com.puttysoftware.fileio.XDataReader;
+import com.puttysoftware.fileio.XDataWriter;
 
 public class PasswordProtector {
   // Fields

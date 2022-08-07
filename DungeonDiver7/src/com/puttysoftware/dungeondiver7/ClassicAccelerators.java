@@ -10,8 +10,8 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.KeyStroke;
 
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 
 class ClassicAccelerators extends Accelerators {
     ClassicAccelerators() {

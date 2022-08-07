@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.game;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
-import com.puttysoftware.dungeondiver7.utilities.DungeonConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.storage.NumberStorage;
 
 public final class PlayerLocationManager {

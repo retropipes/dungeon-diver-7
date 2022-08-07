@@ -6,10 +6,10 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractDoor;
-import com.puttysoftware.dungeondiver7.loaders.SoundConstants;
-import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
-import com.puttysoftware.dungeondiver7.utilities.PartyInventory;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDoor;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 
 public class BlueDoor extends AbstractDoor {
     // Constructors

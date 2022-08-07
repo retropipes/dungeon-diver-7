@@ -15,11 +15,11 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.editor.DungeonEditor;
 import com.puttysoftware.dungeondiver7.game.GameManager;
-import com.puttysoftware.dungeondiver7.loaders.LogoLoader;
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
+import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.utilities.DungeonObjects;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjects;
 
 public final class Application {
     // Fields

@@ -7,13 +7,13 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.Application;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractGround;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractMovableObject;
-import com.puttysoftware.dungeondiver7.loaders.SoundConstants;
-import com.puttysoftware.dungeondiver7.loaders.SoundLoader;
-import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractGround;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
+import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 
 public class Water extends AbstractGround {
     // Constructors

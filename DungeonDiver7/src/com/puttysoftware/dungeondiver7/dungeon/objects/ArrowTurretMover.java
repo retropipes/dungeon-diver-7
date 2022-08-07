@@ -5,9 +5,9 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractMover;
-import com.puttysoftware.dungeondiver7.utilities.Direction;
-import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMover;
+import com.puttysoftware.dungeondiver7.utility.Direction;
+import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 
 public class ArrowTurretMover extends AbstractMover {
     // Constructors

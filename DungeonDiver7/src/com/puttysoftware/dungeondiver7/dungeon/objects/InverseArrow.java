@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractTransientObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTransientObject;
 
 public class InverseArrow extends AbstractTransientObject {
     // Constructors

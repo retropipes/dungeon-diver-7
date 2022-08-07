@@ -17,11 +17,11 @@ import javax.swing.WindowConstants;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.Application;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.loaders.LogoLoader;
-import com.puttysoftware.dungeondiver7.loaders.MusicLoader;
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utilities.InvalidDungeonException;
+import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.loader.MusicLoader;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.utility.InvalidDungeonException;
 import com.puttysoftware.fileutils.ZipUtilities;
 
 public class DungeonLoadTask extends Thread {

@@ -9,7 +9,7 @@ module com.puttysoftware.diane {
   requires transitive com.puttysoftware.images;
   requires transitive com.puttysoftware.polytable;
   requires transitive com.puttysoftware.storage;
-  requires transitive com.puttysoftware.xio;
+  requires transitive com.puttysoftware.fileio;
 
   exports com.puttysoftware.diane;
   exports com.puttysoftware.diane.assets;

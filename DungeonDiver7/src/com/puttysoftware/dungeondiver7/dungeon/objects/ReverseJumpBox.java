@@ -7,10 +7,10 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import java.awt.Color;
 
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractJumpObject;
-import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractJumpObject;
+import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 
 public class ReverseJumpBox extends AbstractJumpObject {
     // Constructors

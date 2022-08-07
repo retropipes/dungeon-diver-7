@@ -18,12 +18,12 @@ import com.puttysoftware.dungeondiver7.Application;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.v4.V4LevelLoadTask;
-import com.puttysoftware.dungeondiver7.loaders.MusicLoader;
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
+import com.puttysoftware.dungeondiver7.loader.MusicLoader;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.utilities.CleanupTask;
-import com.puttysoftware.dungeondiver7.utilities.Extension;
+import com.puttysoftware.dungeondiver7.utility.CleanupTask;
+import com.puttysoftware.dungeondiver7.utility.Extension;
 import com.puttysoftware.fileutils.FilenameChecker;
 
 public class DungeonManager {

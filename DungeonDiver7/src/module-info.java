@@ -5,6 +5,7 @@ module com.puttysoftware.dungeondiver7 {
     requires com.puttysoftware.audio.wav;
     requires com.puttysoftware.avatarpicker;
     requires com.puttysoftware.diane;
+    requires com.puttysoftware.fileio;
     requires com.puttysoftware.fileutils;
     requires com.puttysoftware.help;
     requires com.puttysoftware.images;
@@ -14,7 +15,6 @@ module com.puttysoftware.dungeondiver7 {
     requires com.puttysoftware.randomrange;
     requires com.puttysoftware.storage;
     requires com.puttysoftware.updater;
-    requires com.puttysoftware.xio;
 
     uses javax.sound.sampled.spi.AudioFileReader;
     uses javax.sound.sampled.spi.FormatConversionProvider;

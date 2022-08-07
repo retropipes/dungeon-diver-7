@@ -5,8 +5,8 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractPressureButton;
-import com.puttysoftware.dungeondiver7.utilities.MaterialConstants;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractPressureButton;
+import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
 
 public class FirePressureButton extends AbstractPressureButton {
     // Constructors

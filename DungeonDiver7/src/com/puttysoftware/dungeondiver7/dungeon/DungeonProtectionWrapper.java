@@ -6,8 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.locales.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locales.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 
 public class DungeonProtectionWrapper {
     // Constants

@@ -6,9 +6,9 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractInventoryModifier;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractInventoryModifier;
 import com.puttysoftware.dungeondiver7.game.GameManager;
-import com.puttysoftware.dungeondiver7.utilities.PartyInventory;
+import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 
 public class TenHeatBombs extends AbstractInventoryModifier {
     // Constructors

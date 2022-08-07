@@ -5,8 +5,8 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.dungeon.abstractobjects.AbstractPassThroughObject;
-import com.puttysoftware.dungeondiver7.utilities.TypeConstants;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractPassThroughObject;
+import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 
 public class Empty extends AbstractPassThroughObject {
     // Constructors
