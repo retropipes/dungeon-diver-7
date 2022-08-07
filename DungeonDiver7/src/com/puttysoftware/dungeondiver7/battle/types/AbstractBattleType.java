@@ -1,6 +1,6 @@
 package com.puttysoftware.dungeondiver7.battle.types;
 
-import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BattleCharacter;
+import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
 
 public abstract class AbstractBattleType {
     protected boolean boss = false;

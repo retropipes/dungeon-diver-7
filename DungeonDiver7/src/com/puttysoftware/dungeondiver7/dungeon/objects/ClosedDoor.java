@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package com.puttysoftware.dungeondiver7.integration1.dungeon.objects;
+package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractPassThroughObject;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
@@ -12,38 +12,38 @@ import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 
-public class OpenDoor extends AbstractPassThroughObject {
+public class ClosedDoor extends AbstractPassThroughObject {
     // Constructors
-    public OpenDoor() {
+    public ClosedDoor() {
 	super();
     }
 
     @Override
     public int getBaseID() {
-	return ObjectImageConstants.OPEN_DOOR;
+	return ObjectImageConstants.CLOSED_DOOR;
     }
 
     // Scriptability
     @Override
     public String getName() {
-	return "Open Door";
+	return "Closed Door";
     }
 
     @Override
     public String getPluralName() {
-	return "Open Doors";
+	return "Closed Doors";
     }
 
     @Override
     public String getDescription() {
-	return "Open Doors can be closed by interacting with them.";
+	return "Closed Doors open when stepped on.";
     }
 
     @Override
     public void interactAction() {
-	SoundLoader.playSound(SoundConstants.DOOR_CLOSES);
+	SoundLoader.playSound(SoundConstants.DOOR_OPENS);
 	final GameLogic glm = Integration1.getApplication().getGameLogic();
-	GameLogic.morph(new ClosedDoor());
+	GameLogic.morph(new OpenDoor());
 	glm.redrawDungeon();
     }
 }

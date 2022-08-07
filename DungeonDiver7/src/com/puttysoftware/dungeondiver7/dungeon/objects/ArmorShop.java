@@ -1,37 +1,38 @@
 /*  Chrystalz: A dungeon-crawling, roguelike game
 Licensed under MIT. See the LICENSE file for details.
 
+
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package com.puttysoftware.dungeondiver7.integration1.dungeon.objects;
+package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractShop;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.shop.ShopType;
 
-public class WeaponsShop extends AbstractShop {
+public class ArmorShop extends AbstractShop {
     // Constructors
-    public WeaponsShop() {
-	super(ShopType.WEAPONS);
+    public ArmorShop() {
+	super(ShopType.ARMOR);
     }
 
     @Override
     public int getBaseID() {
-	return ObjectImageConstants.WEAPONS_SHOP;
+	return ObjectImageConstants.ARMOR_SHOP;
     }
 
     @Override
     public String getName() {
-	return "Weapons Shop";
+	return "Armor Shop";
     }
 
     @Override
     public String getPluralName() {
-	return "Weapons Shops";
+	return "Armor Shops";
     }
 
     @Override
     public String getDescription() {
-	return "Weapons Shops sell weapons used to fight monsters.";
+	return "Armor Shops sell protective armor.";
     }
 }

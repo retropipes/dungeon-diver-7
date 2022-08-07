@@ -6,7 +6,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.battle.types;
 
 import com.puttysoftware.dungeondiver7.creature.monster.MonsterFactory;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BattleCharacter;
+import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
 
 class RegularBattle extends AbstractBattleType {
     // Fields

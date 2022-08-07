@@ -3,35 +3,34 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package com.puttysoftware.dungeondiver7.integration1.dungeon.objects;
+package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractShop;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractGround;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
-import com.puttysoftware.dungeondiver7.shop.ShopType;
 
-public class HealShop extends AbstractShop {
+public class Tile extends AbstractGround {
     // Constructors
-    public HealShop() {
-	super(ShopType.HEALER);
+    public Tile() {
+	super();
     }
 
     @Override
-    public int getBaseID() {
-	return ObjectImageConstants.HEAL_SHOP;
+    public final int getBaseID() {
+	return ObjectImageConstants.TILE;
     }
 
     @Override
     public String getName() {
-	return "Heal Shop";
+	return "Tile";
     }
 
     @Override
     public String getPluralName() {
-	return "Heal Shops";
+	return "Tiles";
     }
 
     @Override
     public String getDescription() {
-	return "Heal Shops restore health, for a fee.";
+	return "Tile is one of the many types of ground - unlike other types of ground, objects can be pushed and pulled over Tiles.";
     }
 }

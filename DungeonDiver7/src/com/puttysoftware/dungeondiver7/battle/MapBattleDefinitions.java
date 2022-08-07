@@ -6,8 +6,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.battle;
 
 import com.puttysoftware.dungeondiver7.ai.MapAIContext;
+import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BattleCharacter;
 
 public class MapBattleDefinitions {
     // Fields

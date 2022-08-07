@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package com.puttysoftware.dungeondiver7.integration1.dungeon.objects;
+package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.utility.RandomGenerationRule;
@@ -11,56 +11,45 @@ import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
-import com.puttysoftware.dungeondiver7.utility.Direction;
 
-public class FinalBossMonsterTile extends AbstractMovingObject {
+public class BossMonsterTile extends AbstractMovingObject {
     // Constructors
-    public FinalBossMonsterTile() {
+    public BossMonsterTile() {
 	super(false);
 	this.setSavedObject(new Empty());
-	this.activateTimer(1);
     }
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, int dirZ) {
 	if (Integration1.getApplication().getMode() != Application.STATUS_BATTLE) {
-	    Integration1.getApplication().getBattle().doFinalBossBattle();
+	    Integration1.getApplication().getBattle().doBossBattle();
 	}
     }
 
     @Override
-    public void timerExpiredAction(final int locX, final int locY) {
-	// Move the monster
-	CurrentDungeon dungeon = Integration1.getApplication().getDungeonManager().getDungeon();
-	final Direction move = dungeon.computeFinalBossMoveDirection(locX, locY);
-	dungeon.updateMonsterPosition(move, locX, locY, this);
-	this.activateTimer(1);
-    }
-
-    @Override
     public int getBaseID() {
-	return ObjectImageConstants.FINAL_BOSS;
+	return ObjectImageConstants.BOSS;
     }
 
     @Override
     public String getName() {
-	return "Final Boss Monster";
+	return "Boss Monster";
     }
 
     @Override
     public String getPluralName() {
-	return "Final Boss Monsters";
+	return "Boss Monsters";
     }
 
     @Override
     public String getDescription() {
-	return "Final Boss Monsters are extremely dangerous. Encountering one starts a final boss battle.";
+	return "Boss Monsters are very dangerous. Encountering one starts a boss battle.";
     }
 
     @Override
     public boolean shouldGenerateObject(final CurrentDungeon dungeon, final int row, final int col, final int level,
 	    final int layer) {
-	if (dungeon.getActiveLevel() != CurrentDungeon.getMaxLevels() - 1) {
+	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
 	    return false;
 	} else {
 	    return super.shouldGenerateObject(dungeon, row, col, level, layer);
@@ -69,7 +58,7 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
 
     @Override
     public int getMinimumRequiredQuantity(final CurrentDungeon dungeon) {
-	if (dungeon.getActiveLevel() != CurrentDungeon.getMaxLevels() - 1) {
+	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
 	} else {
 	    return 1;
@@ -78,7 +67,7 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
 
     @Override
     public int getMaximumRequiredQuantity(final CurrentDungeon dungeon) {
-	if (dungeon.getActiveLevel() != CurrentDungeon.getMaxLevels() - 1) {
+	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
 	} else {
 	    return 1;
@@ -87,7 +76,7 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
 
     @Override
     public boolean isRequired(final CurrentDungeon dungeon) {
-	if (dungeon.getActiveLevel() != CurrentDungeon.getMaxLevels() - 1) {
+	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
 	    return false;
 	} else {
 	    return true;

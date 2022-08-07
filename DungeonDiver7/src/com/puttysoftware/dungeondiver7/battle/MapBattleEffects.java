@@ -11,7 +11,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 
-import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BattleCharacter;
+import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
 
 public class MapBattleEffects {
     // Fields

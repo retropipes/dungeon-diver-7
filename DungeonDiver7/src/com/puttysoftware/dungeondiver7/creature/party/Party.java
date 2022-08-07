@@ -8,8 +8,8 @@ package com.puttysoftware.dungeondiver7.creature.party;
 import java.io.IOException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BattleCharacter;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.names.ZoneNames;
