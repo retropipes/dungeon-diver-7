@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.integration1.dungeon;
 
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 
 class CurrentDungeonStorage implements Cloneable {
     // Fields

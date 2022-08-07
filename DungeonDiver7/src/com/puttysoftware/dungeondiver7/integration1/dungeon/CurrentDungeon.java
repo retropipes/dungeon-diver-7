@@ -10,9 +10,9 @@ import java.io.IOException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.integration1.VersionException;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Tile;
 import com.puttysoftware.dungeondiver7.manager.dungeon.FormatConstants;

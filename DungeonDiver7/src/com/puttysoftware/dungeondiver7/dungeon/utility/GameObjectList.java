@@ -8,8 +8,8 @@ package com.puttysoftware.dungeondiver7.dungeon.utility;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.ArmorShop;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BossMonsterTile;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.ClosedDoor;
@@ -129,7 +129,7 @@ public class GameObjectList {
 	    AbstractDungeonObject instance;
 	    instance = object.clone();
 	    if (formatVersion == FormatConstants.MAZE_FORMAT_LATEST) {
-		o = instance.readV7(reader, UID);
+		o = instance.readV7(reader, UID, formatVersion);
 		if (o != null) {
 		    return o;
 		}
@@ -146,7 +146,7 @@ public class GameObjectList {
 	    AbstractDungeonObject instance;
 	    instance = object.clone();
 	    if (formatVersion == FormatConstants.MAZE_FORMAT_LATEST) {
-		o = instance.readV7(reader, UID);
+		o = instance.readV7(reader, UID, formatVersion);
 		if (o != null) {
 		    return o;
 		}

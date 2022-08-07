@@ -8,12 +8,12 @@ package com.puttysoftware.dungeondiver7.integration1.dungeon;
 import java.io.IOException;
 import java.util.Arrays;
 
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.utility.GameObjectList;
 import com.puttysoftware.dungeondiver7.dungeon.utility.RandomGenerationRule;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BossMonsterTile;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.FinalBossMonsterTile;
@@ -577,7 +577,7 @@ final class CurrentDungeonData implements Cloneable {
 	    for (y = 0; y < this.getRows(); y++) {
 		final AbstractDungeonObject mo = this.getCell(y, x, DungeonConstants.LAYER_LOWER_OBJECTS);
 		if (mo != null) {
-		    mo.tickTimer(y, x);
+		    mo.tickTimer(y, x, 0);
 		}
 	    }
 	}
@@ -624,8 +624,9 @@ final class CurrentDungeonData implements Cloneable {
 	for (x = 0; x < lt.getColumns(); x++) {
 	    for (y = 0; y < lt.getRows(); y++) {
 		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
-		    lt.setCell(Integration1.getApplication().getObjects().read(reader,
-			    FormatConstants.MAZE_FORMAT_LATEST), y, x, e);
+		    lt.setCell(
+			    Integration1.getApplication().getObjects().read(reader, FormatConstants.MAZE_FORMAT_LATEST),
+			    y, x, e);
 		    if (lt.getCell(y, x, e) == null) {
 			return null;
 		    }
@@ -672,8 +673,8 @@ final class CurrentDungeonData implements Cloneable {
 	for (x = 0; x < sizeY; x++) {
 	    for (y = 0; y < sizeX; y++) {
 		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
-		    this.savedTowerState.setCell(
-			    Integration1.getApplication().getObjects().read(reader, formatVersion), y, x, e);
+		    this.savedTowerState.setCell(Integration1.getApplication().getObjects().read(reader, formatVersion),
+			    y, x, e);
 		}
 	    }
 	}

@@ -7,8 +7,8 @@ package com.puttysoftware.dungeondiver7.ai;
 
 import java.awt.Point;
 
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.BattleCharacter;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 

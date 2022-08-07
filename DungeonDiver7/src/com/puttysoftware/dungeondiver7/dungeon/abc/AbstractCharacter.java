@@ -20,6 +20,14 @@ public abstract class AbstractCharacter extends AbstractDungeonObject {
     private final int characterNumber;
 
     // Constructors
+    protected AbstractCharacter() {
+	super(true);
+	this.setSavedObject(new Empty());
+	this.activateTimer(1);
+	this.type.set(TypeConstants.TYPE_CHARACTER);
+	this.characterNumber = 1;
+    }
+    
     protected AbstractCharacter(final int number) {
 	super(true);
 	this.setSavedObject(new Empty());
