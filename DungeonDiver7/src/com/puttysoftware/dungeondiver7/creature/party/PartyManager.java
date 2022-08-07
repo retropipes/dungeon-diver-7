@@ -11,13 +11,13 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.ListWithDescDialog;
 import com.puttysoftware.dungeondiver7.creature.caste.Caste;
 import com.puttysoftware.dungeondiver7.creature.caste.CasteManager;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterLoader;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterRegistration;
 import com.puttysoftware.dungeondiver7.creature.gender.Gender;
 import com.puttysoftware.dungeondiver7.creature.gender.GenderManager;
-import com.puttysoftware.dungeondiver7.integration1.dialog.ListWithDescDialog;
 import com.puttysoftware.dungeondiver7.integration1.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.integration1.loader.MusicManager;
 import com.puttysoftware.fileio.FileIOReader;
@@ -147,7 +147,7 @@ public class PartyManager {
 
     public static String showCreationDialog(final JFrame owner, final String labelText, final String title,
 	    final String[] input, final String[] descriptions) {
-	return ListWithDescDialog.showDialog(owner, null, labelText, title, input, input[0], descriptions[0],
+	return ListWithDescDialog.showDialog(owner, labelText, title, input, input[0], descriptions[0],
 		descriptions);
     }
 

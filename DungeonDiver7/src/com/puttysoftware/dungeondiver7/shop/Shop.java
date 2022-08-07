@@ -8,9 +8,9 @@ package com.puttysoftware.dungeondiver7.shop;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.ListWithImageDialog;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
-import com.puttysoftware.dungeondiver7.integration1.dialog.ListWithImageDialog;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
 import com.puttysoftware.dungeondiver7.integration1.loader.ArmorImageManager;
 import com.puttysoftware.dungeondiver7.integration1.loader.MusicConstants;
