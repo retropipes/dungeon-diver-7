@@ -27,7 +27,7 @@ public abstract class AbstractCharacter extends AbstractDungeonObject {
 
     // Methods
     @Override
-    public void postMoveAction(final boolean ie, final int dirX, final int dirY) {
+    public void postMoveAction(final int dirX, final int dirY, int dirZ) {
 	// Do nothing
     }
 

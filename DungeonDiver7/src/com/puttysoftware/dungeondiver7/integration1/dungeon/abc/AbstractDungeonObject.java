@@ -193,7 +193,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	return true;
     }
 
-    public abstract void postMoveAction(final boolean ie, final int dirX, final int dirY);
+    public abstract void postMoveAction(final int dirX, final int dirY, int dirZ);
 
     /**
      *

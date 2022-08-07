@@ -23,7 +23,7 @@ public abstract class AbstractTrap extends AbstractDungeonObject {
 
     // Scriptability
     @Override
-    public abstract void postMoveAction(final boolean ie, final int dirX, final int dirY);
+    public abstract void postMoveAction(final int dirX, final int dirY, int dirZ);
 
     @Override
     public int getBaseID() {

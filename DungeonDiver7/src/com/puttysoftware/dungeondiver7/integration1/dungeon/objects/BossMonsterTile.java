@@ -20,7 +20,7 @@ public class BossMonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public void postMoveAction(final boolean ie, final int dirX, final int dirY) {
+    public void postMoveAction(final int dirX, final int dirY, int dirZ) {
 	if (Integration1.getApplication().getMode() != Application.STATUS_BATTLE) {
 	    Integration1.getApplication().getBattle().doBossBattle();
 	}

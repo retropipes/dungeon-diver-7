@@ -95,6 +95,7 @@ final class MovementTask extends Thread {
 	final CurrentDungeon m = app.getDungeonManager().getDungeon();
 	int px = m.getPlayerLocationX();
 	int py = m.getPlayerLocationY();
+	int pz = 0;
 	final int fX = dirX;
 	final int fY = dirY;
 	this.proceed = false;
@@ -145,12 +146,12 @@ final class MovementTask extends Thread {
 			    this.saved = m.getCell(px, py, DungeonConstants.LAYER_LOWER_OBJECTS);
 			    groundInto = m.getCell(px, py, DungeonConstants.LAYER_LOWER_GROUND);
 			    if (groundInto.overridesDefaultPostMove()) {
-				groundInto.postMoveAction(false, px, py);
+				groundInto.postMoveAction(px, py, pz);
 				if (!this.saved.isOfType(TypeConstants.TYPE_PASS_THROUGH)) {
-				    this.saved.postMoveAction(false, px, py);
+				    this.saved.postMoveAction(px, py, pz);
 				}
 			    } else {
-				this.saved.postMoveAction(false, px, py);
+				this.saved.postMoveAction(px, py, pz);
 			    }
 			}
 		    } else {
@@ -199,7 +200,8 @@ final class MovementTask extends Thread {
     }
 
     private static void fireMoveFailedActions(final int x, final int y, final AbstractDungeonObject inside,
-	    final AbstractDungeonObject below, final AbstractDungeonObject nextBelow, final AbstractDungeonObject nextAbove) {
+	    final AbstractDungeonObject below, final AbstractDungeonObject nextBelow,
+	    final AbstractDungeonObject nextAbove) {
 	final boolean insideSolid = inside.isSolid();
 	final boolean belowSolid = below.isSolid();
 	final boolean nextBelowSolid = nextBelow.isSolid();
@@ -236,9 +238,10 @@ final class MovementTask extends Thread {
 			m.getPlayerLocationY() - GameViewingWindowManager.getOffsetFactorX());
 		this.vwMgr.setViewingWindowLocationY(
 			m.getPlayerLocationX() - GameViewingWindowManager.getOffsetFactorY());
-		this.saved = m.getCell(m.getPlayerLocationX(), m.getPlayerLocationY(), DungeonConstants.LAYER_LOWER_OBJECTS);
+		this.saved = m.getCell(m.getPlayerLocationX(), m.getPlayerLocationY(),
+			DungeonConstants.LAYER_LOWER_OBJECTS);
 		app.getDungeonManager().setDirty(true);
-		this.saved.postMoveAction(false, x, y);
+		this.saved.postMoveAction(x, y, 0);
 		final int px = m.getPlayerLocationX();
 		final int py = m.getPlayerLocationY();
 		m.updateVisibleSquares(px, py);
