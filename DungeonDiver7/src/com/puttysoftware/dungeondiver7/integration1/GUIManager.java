@@ -21,11 +21,11 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.puttysoftware.dungeondiver7.integration1.dungeon.Dungeon;
-import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
+import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.fileutils.DirectoryUtilities;
 import com.puttysoftware.images.BufferedImageIcon;
 
@@ -106,7 +106,7 @@ public final class GUIManager implements QuitHandler {
 	    }
 	}
 	if (saved) {
-	    PreferencesManager.writePrefs();
+	    PrefsManager.writePrefs();
 	    // Run cleanup task
 	    try {
 		final File dirToDelete = new File(Dungeon.getDungeonTempFolder());

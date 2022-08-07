@@ -27,6 +27,14 @@ public class PrefsManager {
     private final static PrefsGUIManager guiMgr = new PrefsGUIManager();
     private final static int FALLBACK_LANGUAGE_ID = 0;
     private final static int DEFAULT_EDITOR_LAYOUT_ID = EditorLayoutConstants.EDITOR_LAYOUT_MODERN_V12;
+    private static final int BATTLE_SPEED = 1000;
+    private static final int VIEWING_WINDOW_SIZE = 11;
+    public static final int DIFFICULTY_VERY_EASY = 0;
+    public static final int DIFFICULTY_EASY = 1;
+    public static final int DIFFICULTY_NORMAL = 2;
+    public static final int DIFFICULTY_HARD = 3;
+    public static final int DIFFICULTY_VERY_HARD = 4;
+    private static final int DEFAULT_DIFFICULTY = PrefsManager.DIFFICULTY_NORMAL;
 
     // Private constructor
     private PrefsManager() {
@@ -34,6 +42,24 @@ public class PrefsManager {
     }
 
     // Methods
+    public static int getBattleSpeed() {
+	return PrefsManager.BATTLE_SPEED;
+    }
+
+    public static int getViewingWindowSize() {
+	return PrefsManager.VIEWING_WINDOW_SIZE;
+    }
+
+    public static int getGameDifficulty() {
+	return PrefsManager.storeMgr.getInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
+		LocaleConstants.NOTL_STRING_PREFS_KEY_DIFFICULTY), PrefsManager.DEFAULT_DIFFICULTY);
+    }
+
+    static void setGameDifficulty(final int value) {
+	PrefsManager.storeMgr.setInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
+		LocaleConstants.NOTL_STRING_PREFS_KEY_DIFFICULTY), value);
+    }
+
     public static void activeLanguageChanged() {
 	PrefsManager.guiMgr.activeLanguageChanged();
     }

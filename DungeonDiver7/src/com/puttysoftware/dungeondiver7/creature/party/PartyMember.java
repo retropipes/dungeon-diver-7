@@ -14,10 +14,10 @@ import com.puttysoftware.dungeondiver7.creature.caste.CasteManager;
 import com.puttysoftware.dungeondiver7.creature.gender.Gender;
 import com.puttysoftware.dungeondiver7.integration1.VersionException;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.GenerateTask;
-import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
 import com.puttysoftware.dungeondiver7.item.ItemInventory;
 import com.puttysoftware.dungeondiver7.loader.AvatarImageManager;
 import com.puttysoftware.dungeondiver7.manager.dungeon.FormatConstants;
+import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.spell.SpellBook;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
@@ -122,17 +122,17 @@ public class PartyMember extends AbstractCreature {
 
     @Override
     public int getSpeed() {
-	final int difficulty = PreferencesManager.getGameDifficulty();
+	final int difficulty = PrefsManager.getGameDifficulty();
 	final int base = this.getBaseSpeed();
-	if (difficulty == PreferencesManager.DIFFICULTY_VERY_EASY) {
+	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_FASTEST);
-	} else if (difficulty == PreferencesManager.DIFFICULTY_EASY) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_EASY) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_FAST);
-	} else if (difficulty == PreferencesManager.DIFFICULTY_NORMAL) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
-	} else if (difficulty == PreferencesManager.DIFFICULTY_HARD) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_HARD) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOW);
-	} else if (difficulty == PreferencesManager.DIFFICULTY_VERY_HARD) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOWEST);
 	} else {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);

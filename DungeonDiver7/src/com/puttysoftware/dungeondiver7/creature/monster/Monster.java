@@ -7,8 +7,8 @@ package com.puttysoftware.dungeondiver7.creature.monster;
 
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
-import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
 import com.puttysoftware.dungeondiver7.loader.MonsterImageManager;
+import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.shop.Shop;
 import com.puttysoftware.images.BufferedImageIcon;
 import com.puttysoftware.randomrange.RandomLongRange;
@@ -120,16 +120,16 @@ class Monster extends AbstractMonster {
     }
 
     private static int getStatMultiplierForDifficulty() {
-	final int difficulty = PreferencesManager.getGameDifficulty();
-	if (difficulty == PreferencesManager.DIFFICULTY_VERY_EASY) {
+	final int difficulty = PrefsManager.getGameDifficulty();
+	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
 	    return Monster.STAT_MULT_VERY_EASY;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_EASY) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_EASY) {
 	    return Monster.STAT_MULT_EASY;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_NORMAL) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
 	    return Monster.STAT_MULT_NORMAL;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_HARD) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_HARD) {
 	    return Monster.STAT_MULT_HARD;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_VERY_HARD) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
 	    return Monster.STAT_MULT_VERY_HARD;
 	} else {
 	    return Monster.STAT_MULT_NORMAL;
@@ -137,16 +137,16 @@ class Monster extends AbstractMonster {
     }
 
     private static double getGoldMultiplierForDifficulty() {
-	final int difficulty = PreferencesManager.getGameDifficulty();
-	if (difficulty == PreferencesManager.DIFFICULTY_VERY_EASY) {
+	final int difficulty = PrefsManager.getGameDifficulty();
+	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
 	    return Monster.GOLD_MULT_VERY_EASY;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_EASY) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_EASY) {
 	    return Monster.GOLD_MULT_EASY;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_NORMAL) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
 	    return Monster.GOLD_MULT_NORMAL;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_HARD) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_HARD) {
 	    return Monster.GOLD_MULT_HARD;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_VERY_HARD) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
 	    return Monster.GOLD_MULT_VERY_HARD;
 	} else {
 	    return Monster.GOLD_MULT_NORMAL;
@@ -154,16 +154,16 @@ class Monster extends AbstractMonster {
     }
 
     private static double getExpMultiplierForDifficulty() {
-	final int difficulty = PreferencesManager.getGameDifficulty();
-	if (difficulty == PreferencesManager.DIFFICULTY_VERY_EASY) {
+	final int difficulty = PrefsManager.getGameDifficulty();
+	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
 	    return Monster.EXP_MULT_VERY_EASY;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_EASY) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_EASY) {
 	    return Monster.EXP_MULT_EASY;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_NORMAL) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
 	    return Monster.EXP_MULT_NORMAL;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_HARD) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_HARD) {
 	    return Monster.EXP_MULT_HARD;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_VERY_HARD) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
 	    return Monster.EXP_MULT_VERY_HARD;
 	} else {
 	    return Monster.EXP_MULT_NORMAL;

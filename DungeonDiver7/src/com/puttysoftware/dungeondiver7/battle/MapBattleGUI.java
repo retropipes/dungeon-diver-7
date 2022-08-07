@@ -33,10 +33,10 @@ import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Darkness;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.integration1.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.integration1.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
 import com.puttysoftware.dungeondiver7.loader.BattleImageManager;
 import com.puttysoftware.dungeondiver7.loader.ImageCompositor;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.images.BufferedImageIcon;
 
 class MapBattleGUI {
@@ -274,14 +274,14 @@ class MapBattleGUI {
 
 	@Override
 	public void keyPressed(final KeyEvent e) {
-	    if (!PreferencesManager.oneMove()) {
+	    if (!PrefsManager.oneMove()) {
 		this.handleMovement(e);
 	    }
 	}
 
 	@Override
 	public void keyReleased(final KeyEvent e) {
-	    if (PreferencesManager.oneMove()) {
+	    if (PrefsManager.oneMove()) {
 		this.handleMovement(e);
 	    }
 	}

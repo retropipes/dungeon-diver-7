@@ -41,7 +41,10 @@ class PrefsGUIManager {
     private JComboBox<String> languageList;
     private JComboBox<String> editorLayoutList;
     private JCheckBox editorShowAllObjects;
-    private static final int GRID_LENGTH = 12;
+    private JComboBox<String> difficultyPicker;
+    private static final String[] DIFFICULTY_NAMES = new String[] { "Very Easy", "Easy", "Normal", "Hard",
+	    "Very Hard" };
+    private static final int GRID_LENGTH = 14;
 
     // Constructors
     PrefsGUIManager() {
@@ -106,6 +109,7 @@ class PrefsGUIManager {
 	this.languageList.setSelectedIndex(PrefsManager.getLanguageID());
 	this.editorLayoutList.setSelectedIndex(PrefsManager.getEditorLayoutID());
 	this.editorShowAllObjects.setSelected(PrefsManager.getEditorShowAllObjects());
+	this.difficultyPicker.setSelectedIndex(PrefsManager.getGameDifficulty());
     }
 
     void setPrefs() {
@@ -118,6 +122,7 @@ class PrefsGUIManager {
 	PrefsManager.setLanguageID(this.languageList.getSelectedIndex());
 	PrefsManager.setEditorLayoutID(this.editorLayoutList.getSelectedIndex());
 	PrefsManager.setEditorShowAllObjects(this.editorShowAllObjects.isSelected());
+	PrefsManager.setGameDifficulty(this.difficultyPicker.getSelectedIndex());
 	this.hidePrefs();
     }
 
@@ -163,6 +168,7 @@ class PrefsGUIManager {
 	this.editorLayoutList = new JComboBox<>(EditorLayoutConstants.getEditorLayoutList());
 	this.editorShowAllObjects = new JCheckBox(LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE,
 		LocaleConstants.PREFS_STRING_SHOW_ALL_OBJECTS), true);
+	this.difficultyPicker = new JComboBox<>(PrefsGUIManager.DIFFICULTY_NAMES);
 	this.prefFrame.setContentPane(mainPrefPane);
 	this.prefFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.prefFrame.addWindowListener(handler);
@@ -184,6 +190,8 @@ class PrefsGUIManager {
 		LocaleConstants.PREFS_STRING_EDITOR_LAYOUT_LABEL)));
 	settingsPane.add(this.editorLayoutList);
 	settingsPane.add(this.editorShowAllObjects);
+	settingsPane.add(new JLabel("Game Difficulty"));
+	settingsPane.add(this.difficultyPicker);
 	buttonPane.setLayout(new FlowLayout());
 	buttonPane.add(prefsOK);
 	buttonPane.add(prefsCancel);

@@ -2,7 +2,7 @@
 Licensed under MIT. See the LICENSE file for details.
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package com.puttysoftware.dungeondiver7.integration1.prefs;
+package com.puttysoftware.dungeondiver7.prefs;
 
 import java.awt.desktop.PreferencesEvent;
 import java.awt.desktop.PreferencesHandler;
@@ -14,6 +14,6 @@ public class PrefsRequestHandler implements PreferencesHandler {
 
     @Override
     public void handlePreferences(final PreferencesEvent pe) {
-	PreferencesManager.showPrefs();
+	PrefsManager.showPrefs();
     }
 }

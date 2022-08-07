@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.ai;
 
-import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
+import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 
 public final class MapAIRoutinePicker {
     // Constructors
@@ -15,16 +15,16 @@ public final class MapAIRoutinePicker {
 
     // Methods
     public static AbstractMapAIRoutine getNextRoutine() {
-	final int difficulty = PreferencesManager.getGameDifficulty();
-	if (difficulty == PreferencesManager.DIFFICULTY_VERY_EASY) {
+	final int difficulty = PrefsManager.getGameDifficulty();
+	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
 	    return new VeryEasyMapAIRoutine();
-	} else if (difficulty == PreferencesManager.DIFFICULTY_EASY) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_EASY) {
 	    return new EasyMapAIRoutine();
-	} else if (difficulty == PreferencesManager.DIFFICULTY_NORMAL) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
 	    return new NormalMapAIRoutine();
-	} else if (difficulty == PreferencesManager.DIFFICULTY_HARD) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_HARD) {
 	    return new HardMapAIRoutine();
-	} else if (difficulty == PreferencesManager.DIFFICULTY_VERY_HARD) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
 	    return new VeryHardMapAIRoutine();
 	} else {
 	    return new NormalMapAIRoutine();

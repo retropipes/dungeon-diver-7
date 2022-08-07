@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.integration1.game;
 
-import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
+import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 
 public final class GameViewingWindowManager {
     // Fields
@@ -29,11 +29,11 @@ public final class GameViewingWindowManager {
     }
 
     public int getLowerRightViewingWindowLocationX() {
-	return this.locX + PreferencesManager.getViewingWindowSize() - 1;
+	return this.locX + PrefsManager.getViewingWindowSize() - 1;
     }
 
     public int getLowerRightViewingWindowLocationY() {
-	return this.locY + PreferencesManager.getViewingWindowSize() - 1;
+	return this.locY + PrefsManager.getViewingWindowSize() - 1;
     }
 
     public void setViewingWindowLocationX(final int val) {
@@ -63,10 +63,10 @@ public final class GameViewingWindowManager {
     }
 
     public static int getOffsetFactorX() {
-	return PreferencesManager.getViewingWindowSize() / 2;
+	return PrefsManager.getViewingWindowSize() / 2;
     }
 
     public static int getOffsetFactorY() {
-	return PreferencesManager.getViewingWindowSize() / 2;
+	return PrefsManager.getViewingWindowSize() / 2;
     }
 }

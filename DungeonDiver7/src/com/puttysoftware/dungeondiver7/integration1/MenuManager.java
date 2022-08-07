@@ -22,8 +22,8 @@ import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterRegistra
 import com.puttysoftware.dungeondiver7.integration1.dungeon.GenerateTask;
 import com.puttysoftware.dungeondiver7.integration1.game.InventoryViewer;
 import com.puttysoftware.dungeondiver7.integration1.game.StatisticsViewer;
-import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
+import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 
 public class MenuManager {
     // Fields
@@ -252,7 +252,7 @@ public class MenuManager {
 		    System.exit(0);
 		} else if (cmd.equals("Preferences...")) {
 		    // Show preferences dialog
-		    PreferencesManager.showPrefs();
+		    PrefsManager.showPrefs();
 		} else if (cmd.equals("New Game")) {
 		    // Start a new game
 		    final boolean proceed = app.getGameLogic().newGame();

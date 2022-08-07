@@ -6,9 +6,9 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.creature.monster;
 
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
 import com.puttysoftware.dungeondiver7.loader.BossImageManager;
 import com.puttysoftware.dungeondiver7.names.BossNames;
+import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.images.BufferedImageIcon;
 import com.puttysoftware.randomrange.RandomLongRange;
 import com.puttysoftware.randomrange.RandomRange;
@@ -109,16 +109,16 @@ class BossMonster extends AbstractMonster {
     }
 
     private static int getStatMultiplierForDifficulty() {
-	final int difficulty = PreferencesManager.getGameDifficulty();
-	if (difficulty == PreferencesManager.DIFFICULTY_VERY_EASY) {
+	final int difficulty = PrefsManager.getGameDifficulty();
+	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
 	    return BossMonster.STAT_MULT_VERY_EASY;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_EASY) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_EASY) {
 	    return BossMonster.STAT_MULT_EASY;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_NORMAL) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
 	    return BossMonster.STAT_MULT_NORMAL;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_HARD) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_HARD) {
 	    return BossMonster.STAT_MULT_HARD;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_VERY_HARD) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
 	    return BossMonster.STAT_MULT_VERY_HARD;
 	} else {
 	    return BossMonster.STAT_MULT_NORMAL;
@@ -126,16 +126,16 @@ class BossMonster extends AbstractMonster {
     }
 
     private static double getExpMultiplierForDifficulty() {
-	final int difficulty = PreferencesManager.getGameDifficulty();
-	if (difficulty == PreferencesManager.DIFFICULTY_VERY_EASY) {
+	final int difficulty = PrefsManager.getGameDifficulty();
+	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
 	    return BossMonster.EXP_MULT_VERY_EASY;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_EASY) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_EASY) {
 	    return BossMonster.EXP_MULT_EASY;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_NORMAL) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
 	    return BossMonster.EXP_MULT_NORMAL;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_HARD) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_HARD) {
 	    return BossMonster.EXP_MULT_HARD;
-	} else if (difficulty == PreferencesManager.DIFFICULTY_VERY_HARD) {
+	} else if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
 	    return BossMonster.EXP_MULT_VERY_HARD;
 	} else {
 	    return BossMonster.EXP_MULT_NORMAL;

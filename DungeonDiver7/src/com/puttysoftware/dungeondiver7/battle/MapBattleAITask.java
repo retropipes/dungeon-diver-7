@@ -6,7 +6,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.battle;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
+import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 
 public class MapBattleAITask extends Thread {
     // Fields
@@ -27,7 +27,7 @@ public class MapBattleAITask extends Thread {
 		if (this.b.getLastAIActionResult()) {
 		    // Delay, for animation purposes
 		    try {
-			final int battleSpeed = PreferencesManager.getBattleSpeed();
+			final int battleSpeed = PrefsManager.getBattleSpeed();
 			Thread.sleep(battleSpeed);
 		    } catch (final InterruptedException i) {
 			// Ignore

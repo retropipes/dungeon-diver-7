@@ -56,7 +56,7 @@ public class LocaleConstants {
     public static final int NOTL_STRING_PREFS_KEY_LAST_DIR_OPEN = 7;
     public static final int NOTL_STRING_PREFS_KEY_LAST_DIR_SAVE = 8;
     public static final int NOTL_STRING_PREFS_KEY_UPDATES_STARTUP = 9;
-    // public static final int NOTL_STRING_PREFS_KEY_BETA_UPDATES_STARTUP = 10;
+    public static final int NOTL_STRING_PREFS_KEY_DIFFICULTY = 10;
     public static final int NOTL_STRING_PREFS_KEY_ACTION_DELAY = 11;
     public static final int NOTL_STRING_PREFS_KEY_ONE_MOVE = 12;
     public static final int NOTL_STRING_PREFS_KEY_ENABLE_ANIMATION = 13;

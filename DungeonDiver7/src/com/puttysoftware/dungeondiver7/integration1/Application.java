@@ -14,9 +14,9 @@ import com.puttysoftware.dungeondiver7.battle.AbstractBattle;
 import com.puttysoftware.dungeondiver7.battle.MapBattleLogic;
 import com.puttysoftware.dungeondiver7.dungeon.utility.GameObjectList;
 import com.puttysoftware.dungeondiver7.integration1.game.GameLogic;
-import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
+import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.shop.Shop;
 import com.puttysoftware.dungeondiver7.shop.ShopType;
 import com.puttysoftware.images.BufferedImageIcon;
@@ -127,7 +127,7 @@ public final class Application {
 
     public JFrame getOutputFrame() {
 	if (this.getMode() == Application.STATUS_PREFS) {
-	    return PreferencesManager.getPrefFrame();
+	    return PrefsManager.getPrefFrame();
 	} else if (this.getMode() == Application.STATUS_GUI) {
 	    return this.getGUIManager().getGUIFrame();
 	} else if (this.getMode() == Application.STATUS_GAME) {

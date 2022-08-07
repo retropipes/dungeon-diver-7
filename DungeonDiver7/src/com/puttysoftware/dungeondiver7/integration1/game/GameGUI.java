@@ -30,12 +30,12 @@ import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Darkness;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Player;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Wall;
-import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
 import com.puttysoftware.dungeondiver7.loader.ImageCompositor;
 import com.puttysoftware.dungeondiver7.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
+import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.images.BufferedImageIcon;
 
 class GameGUI {
@@ -213,7 +213,7 @@ class GameGUI {
 	this.outputFrame = new JFrame("Chrystalz");
 	final Image iconlogo = Application.getIconLogo();
 	this.outputFrame.setIconImage(iconlogo);
-	this.drawGrid = new DrawGrid(PreferencesManager.getViewingWindowSize());
+	this.drawGrid = new DrawGrid(PrefsManager.getViewingWindowSize());
 	this.outputPane = new GameDraw(this.drawGrid);
 	this.outputFrame.setContentPane(this.borderPane);
 	this.outputFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -230,7 +230,7 @@ class GameGUI {
 	@Override
 	public void keyPressed(final KeyEvent e) {
 	    if (GameGUI.this.eventFlag) {
-		if (!PreferencesManager.oneMove()) {
+		if (!PrefsManager.oneMove()) {
 		    this.handleMovement(e);
 		}
 	    }
@@ -239,7 +239,7 @@ class GameGUI {
 	@Override
 	public void keyReleased(final KeyEvent e) {
 	    if (GameGUI.this.eventFlag) {
-		if (PreferencesManager.oneMove()) {
+		if (PrefsManager.oneMove()) {
 		    this.handleMovement(e);
 		}
 	    }

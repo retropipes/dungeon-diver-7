@@ -11,8 +11,8 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import com.puttysoftware.diane.gui.DrawGrid;
-import com.puttysoftware.dungeondiver7.integration1.prefs.PreferencesManager;
 import com.puttysoftware.dungeondiver7.loader.ImageCompositor;
+import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 
 class GameDraw extends JPanel {
     private static final long serialVersionUID = 35935343464625L;
@@ -21,7 +21,7 @@ class GameDraw extends JPanel {
     public GameDraw(final DrawGrid grid) {
 	super();
 	this.drawGrid = grid;
-	final int vSize = PreferencesManager.getViewingWindowSize();
+	final int vSize = PrefsManager.getViewingWindowSize();
 	final int gSize = ImageCompositor.getGraphicSize();
 	this.setPreferredSize(new Dimension(vSize * gSize, vSize * gSize));
     }
@@ -31,7 +31,7 @@ class GameDraw extends JPanel {
 	super.paintComponent(g);
 	if (this.drawGrid != null) {
 	    final int gSize = ImageCompositor.getGraphicSize();
-	    final int vSize = PreferencesManager.getViewingWindowSize();
+	    final int vSize = PrefsManager.getViewingWindowSize();
 	    for (int x = 0; x < vSize; x++) {
 		for (int y = 0; y < vSize; y++) {
 		    g.drawImage(this.drawGrid.getImageCell(y, x), x * gSize, y * gSize, gSize, gSize, null);
