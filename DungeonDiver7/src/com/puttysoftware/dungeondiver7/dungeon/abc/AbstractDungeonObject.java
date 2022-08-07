@@ -222,10 +222,6 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	return true;
     }
 
-    public String getName() {
-	return LocaleConstants.COMMON_STRING_EMPTY;
-    }
-
     public boolean isEnabled() {
 	return this.imageEnabled;
     }
@@ -826,8 +822,16 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	return this.getLocalColorPrefix()
 		+ LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getBaseID() * 3 + 0);
     }
+    
+    public String getName() {
+	return LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getBaseID() * 3 + 0);
+    }
 
-    public final String getDescription() {
+    public String getPluralName() {
+	return LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getBaseID() * 3 + 1);
+    }
+
+    public String getDescription() {
 	return LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getBaseID() * 3 + 2);
     }
 
