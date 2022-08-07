@@ -12,6 +12,7 @@ public abstract class AbstractMovingObject extends AbstractDungeonObject {
     // Constructors
     public AbstractMovingObject(final boolean solid) {
 	super(solid, false);
+	this.type.set(TypeConstants.TYPE_DUNGEON);
     }
 
     // Methods
@@ -32,11 +33,6 @@ public abstract class AbstractMovingObject extends AbstractDungeonObject {
     @Override
     public int getLayer() {
 	return DungeonConstants.LAYER_LOWER_OBJECTS;
-    }
-
-    @Override
-    protected void setTypes() {
-	this.type.set(TypeConstants.TYPE_DUNGEON);
     }
 
     @Override

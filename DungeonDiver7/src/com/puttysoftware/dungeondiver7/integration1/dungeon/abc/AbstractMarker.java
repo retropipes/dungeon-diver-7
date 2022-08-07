@@ -26,11 +26,6 @@ public abstract class AbstractMarker extends AbstractDungeonObject {
     }
 
     @Override
-    protected void setTypes() {
-	// Do nothing
-    }
-
-    @Override
     public int getCustomProperty(final int propID) {
 	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
     }

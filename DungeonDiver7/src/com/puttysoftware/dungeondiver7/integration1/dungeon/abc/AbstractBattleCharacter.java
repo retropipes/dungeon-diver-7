@@ -37,11 +37,6 @@ public abstract class AbstractBattleCharacter extends AbstractDungeonObject {
 	// Do nothing
     }
 
-    @Override
-    protected void setTypes() {
-	// Do nothing
-    }
-
     public final int getX() {
 	return this.template.getX();
     }

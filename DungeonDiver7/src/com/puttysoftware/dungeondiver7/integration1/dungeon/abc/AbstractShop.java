@@ -21,14 +21,10 @@ public abstract class AbstractShop extends AbstractDungeonObject {
     public AbstractShop(final ShopType newShopType) {
 	super(false, false);
 	this.shopType = newShopType;
-    }
-
-    // Methods
-    @Override
-    protected void setTypes() {
 	this.type.set(TypeConstants.TYPE_SHOP);
     }
 
+    // Methods
     @Override
     public void postMoveAction(final boolean ie, final int dirX, final int dirY) {
 	SoundLoader.playSound(SoundConstants.WALK);

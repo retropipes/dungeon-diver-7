@@ -12,15 +12,11 @@ public abstract class AbstractTeleport extends AbstractDungeonObject {
     // Constructors
     protected AbstractTeleport() {
 	super(false, true, false);
+	this.type.set(TypeConstants.TYPE_TELEPORT);
     }
 
     @Override
     public int getLayer() {
 	return DungeonConstants.LAYER_LOWER_OBJECTS;
-    }
-
-    @Override
-    protected void setTypes() {
-	this.type.set(TypeConstants.TYPE_TELEPORT);
     }
 }

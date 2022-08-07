@@ -12,16 +12,12 @@ public abstract class AbstractTrigger extends AbstractDungeonObject {
     // Constructors
     protected AbstractTrigger() {
 	super(false, true, false);
+	this.type.set(TypeConstants.TYPE_TRIGGER);
     }
 
     @Override
     public int getLayer() {
 	return DungeonConstants.LAYER_LOWER_OBJECTS;
-    }
-
-    @Override
-    protected void setTypes() {
-	this.type.set(TypeConstants.TYPE_TRIGGER);
     }
 
     @Override

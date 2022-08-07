@@ -12,10 +12,6 @@ public abstract class AbstractMPModifier extends AbstractDungeonObject {
     // Constructors
     protected AbstractMPModifier() {
 	super(false, false);
-    }
-
-    @Override
-    protected void setTypes() {
 	this.type.set(TypeConstants.TYPE_MP_MODIFIER);
     }
 

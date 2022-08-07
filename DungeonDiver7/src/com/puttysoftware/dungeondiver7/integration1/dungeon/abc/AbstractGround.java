@@ -12,6 +12,7 @@ public abstract class AbstractGround extends AbstractDungeonObject {
     // Constructors
     protected AbstractGround() {
 	super(false, true, false);
+	this.type.set(TypeConstants.TYPE_GROUND);
     }
 
     protected AbstractGround(final boolean hasFriction) {
@@ -21,11 +22,6 @@ public abstract class AbstractGround extends AbstractDungeonObject {
     @Override
     public int getLayer() {
 	return DungeonConstants.LAYER_LOWER_GROUND;
-    }
-
-    @Override
-    protected void setTypes() {
-	this.type.set(TypeConstants.TYPE_GROUND);
     }
 
     @Override

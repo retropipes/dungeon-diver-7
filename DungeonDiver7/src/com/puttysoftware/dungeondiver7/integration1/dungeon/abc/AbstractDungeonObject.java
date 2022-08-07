@@ -49,7 +49,6 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.timerValue = 0;
 	this.initialTimerValue = 0;
 	this.timerActive = false;
-	this.setTypes();
     }
 
     public AbstractDungeonObject(final boolean isSolid, final boolean hasFriction, final boolean sightBlock) {
@@ -60,7 +59,6 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.timerValue = 0;
 	this.initialTimerValue = 0;
 	this.timerActive = false;
-	this.setTypes();
     }
 
     public AbstractDungeonObject() {
@@ -71,7 +69,6 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.timerValue = 0;
 	this.initialTimerValue = 0;
 	this.timerActive = false;
-	this.setTypes();
     }
 
     // Methods
@@ -170,8 +167,6 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     public boolean isOfType(final int testType) {
 	return this.type.get(testType);
     }
-
-    protected abstract void setTypes();
 
     public boolean hasFriction() {
 	return this.friction;

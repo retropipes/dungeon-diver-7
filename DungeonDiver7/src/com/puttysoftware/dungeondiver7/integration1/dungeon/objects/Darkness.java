@@ -13,6 +13,8 @@ public class Darkness extends AbstractPassThroughObject {
     // Constructors
     public Darkness() {
 	super();
+	this.type.set(TypeConstants.TYPE_PASS_THROUGH);
+	this.type.set(TypeConstants.TYPE_EMPTY_SPACE);
     }
 
     @Override
@@ -33,11 +35,5 @@ public class Darkness extends AbstractPassThroughObject {
     @Override
     public String getDescription() {
 	return "Squares of Darkness are what fills areas that cannot be seen.";
-    }
-
-    @Override
-    protected void setTypes() {
-	this.type.set(TypeConstants.TYPE_PASS_THROUGH);
-	this.type.set(TypeConstants.TYPE_EMPTY_SPACE);
     }
 }

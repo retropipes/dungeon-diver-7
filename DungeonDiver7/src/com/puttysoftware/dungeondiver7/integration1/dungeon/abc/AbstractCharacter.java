@@ -22,6 +22,7 @@ public abstract class AbstractCharacter extends AbstractDungeonObject {
     protected AbstractCharacter() {
 	super(false, false);
 	this.savedObject = new Empty();
+	this.type.set(TypeConstants.TYPE_CHARACTER);
     }
 
     // Methods
@@ -33,11 +34,6 @@ public abstract class AbstractCharacter extends AbstractDungeonObject {
     @Override
     public int getLayer() {
 	return DungeonConstants.LAYER_VIRTUAL_CHARACTER;
-    }
-
-    @Override
-    protected void setTypes() {
-	this.type.set(TypeConstants.TYPE_CHARACTER);
     }
 
     @Override

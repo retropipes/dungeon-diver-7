@@ -13,6 +13,8 @@ public class Wall extends AbstractWall {
     // Constructors
     public Wall() {
 	super();
+	this.type.set(TypeConstants.TYPE_PLAIN_WALL);
+	this.type.set(TypeConstants.TYPE_WALL);
     }
 
     @Override
@@ -33,11 +35,5 @@ public class Wall extends AbstractWall {
     @Override
     public int getBaseID() {
 	return ObjectImageConstants.WALL;
-    }
-
-    @Override
-    protected void setTypes() {
-	this.type.set(TypeConstants.TYPE_PLAIN_WALL);
-	this.type.set(TypeConstants.TYPE_WALL);
     }
 }

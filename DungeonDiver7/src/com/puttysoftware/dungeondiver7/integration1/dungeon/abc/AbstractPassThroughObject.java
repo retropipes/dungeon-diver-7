@@ -14,6 +14,7 @@ public abstract class AbstractPassThroughObject extends AbstractDungeonObject {
     // Constructors
     protected AbstractPassThroughObject() {
 	super(false, true, false);
+	this.type.set(TypeConstants.TYPE_PASS_THROUGH);
     }
 
     @Override
@@ -24,11 +25,6 @@ public abstract class AbstractPassThroughObject extends AbstractDungeonObject {
     @Override
     public int getLayer() {
 	return DungeonConstants.LAYER_LOWER_OBJECTS;
-    }
-
-    @Override
-    protected void setTypes() {
-	this.type.set(TypeConstants.TYPE_PASS_THROUGH);
     }
 
     @Override

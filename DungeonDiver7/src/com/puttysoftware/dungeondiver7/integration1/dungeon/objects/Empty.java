@@ -13,6 +13,8 @@ public class Empty extends AbstractPassThroughObject {
     // Constructors
     public Empty() {
 	super();
+	this.type.set(TypeConstants.TYPE_PASS_THROUGH);
+	this.type.set(TypeConstants.TYPE_EMPTY_SPACE);
     }
 
     @Override
@@ -33,11 +35,5 @@ public class Empty extends AbstractPassThroughObject {
     @Override
     public String getDescription() {
 	return "Squares of Emptiness are what fills areas that aren't occupied by other objects.";
-    }
-
-    @Override
-    protected void setTypes() {
-	this.type.set(TypeConstants.TYPE_PASS_THROUGH);
-	this.type.set(TypeConstants.TYPE_EMPTY_SPACE);
     }
 }

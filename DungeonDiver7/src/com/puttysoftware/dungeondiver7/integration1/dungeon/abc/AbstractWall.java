@@ -15,6 +15,7 @@ public abstract class AbstractWall extends AbstractDungeonObject {
     // Constructors
     protected AbstractWall() {
 	super(true, true);
+	this.type.set(TypeConstants.TYPE_WALL);
     }
 
     @Override
@@ -32,11 +33,6 @@ public abstract class AbstractWall extends AbstractDungeonObject {
     @Override
     public int getLayer() {
 	return DungeonConstants.LAYER_LOWER_OBJECTS;
-    }
-
-    @Override
-    protected void setTypes() {
-	this.type.set(TypeConstants.TYPE_WALL);
     }
 
     @Override

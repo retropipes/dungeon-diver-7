@@ -18,6 +18,7 @@ public abstract class AbstractTrap extends AbstractDungeonObject {
     protected AbstractTrap(final int baseName) {
 	super(false, false);
 	this.base = baseName;
+	this.type.set(TypeConstants.TYPE_TRAP);
     }
 
     // Scriptability
@@ -32,11 +33,6 @@ public abstract class AbstractTrap extends AbstractDungeonObject {
     @Override
     public int getLayer() {
 	return DungeonConstants.LAYER_LOWER_OBJECTS;
-    }
-
-    @Override
-    protected void setTypes() {
-	this.type.set(TypeConstants.TYPE_TRAP);
     }
 
     @Override
