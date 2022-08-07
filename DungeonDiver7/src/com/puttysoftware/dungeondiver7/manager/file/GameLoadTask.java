@@ -17,7 +17,6 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.dungeon.utility.ImageColorConstants;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.VersionException;
@@ -25,6 +24,7 @@ import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.PrefixHandler;
 import com.puttysoftware.dungeondiver7.manager.dungeon.SuffixHandler;
+import com.puttysoftware.dungeondiver7.utility.ImageColorConstants;
 import com.puttysoftware.fileutils.ZipUtilities;
 
 public class GameLoadTask extends Thread {

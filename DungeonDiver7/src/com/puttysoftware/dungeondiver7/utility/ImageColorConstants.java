@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package com.puttysoftware.dungeondiver7.dungeon.utility;
+package com.puttysoftware.dungeondiver7.utility;
 
 import java.awt.Color;
 
