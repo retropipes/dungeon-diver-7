@@ -13,6 +13,118 @@ public class DirectionResolver {
 	// Do nothing
     }
 
+    public static final int rotate45LeftX(final int dirX, final int dirY) {
+	if (dirX > 0) {
+	    if (dirY > 0) {
+		return 1;
+	    } else if (dirY < 0) {
+		return 0;
+	    } else {
+		return 1;
+	    }
+	} else if (dirX < 0) {
+	    if (dirY > 0) {
+		return 0;
+	    } else if (dirY < 0) {
+		return -1;
+	    } else {
+		return -1;
+	    }
+	} else {
+	    if (dirY > 0) {
+		return -1;
+	    } else if (dirY < 0) {
+		return 1;
+	    } else {
+		return 0;
+	    }
+	}
+    }
+
+    public static final int rotate45LeftY(final int dirX, final int dirY) {
+	if (dirX > 0) {
+	    if (dirY > 0) {
+		return 0;
+	    } else if (dirY < 0) {
+		return -1;
+	    } else {
+		return -1;
+	    }
+	} else if (dirX < 0) {
+	    if (dirY > 0) {
+		return 1;
+	    } else if (dirY < 0) {
+		return 0;
+	    } else {
+		return 1;
+	    }
+	} else {
+	    if (dirY > 0) {
+		return 1;
+	    } else if (dirY < 0) {
+		return -1;
+	    } else {
+		return 0;
+	    }
+	}
+    }
+
+    public static final int rotate45RightX(final int dirX, final int dirY) {
+	if (dirX > 0) {
+	    if (dirY > 0) {
+		return 0;
+	    } else if (dirY < 0) {
+		return 1;
+	    } else {
+		return 1;
+	    }
+	} else if (dirX < 0) {
+	    if (dirY > 0) {
+		return -1;
+	    } else if (dirY < 0) {
+		return 0;
+	    } else {
+		return -1;
+	    }
+	} else {
+	    if (dirY > 0) {
+		return 1;
+	    } else if (dirY < 0) {
+		return -1;
+	    } else {
+		return 0;
+	    }
+	}
+    }
+
+    public static final int rotate45RightY(final int dirX, final int dirY) {
+	if (dirX > 0) {
+	    if (dirY > 0) {
+		return 1;
+	    } else if (dirY < 0) {
+		return 0;
+	    } else {
+		return 1;
+	    }
+	} else if (dirX < 0) {
+	    if (dirY > 0) {
+		return 0;
+	    } else if (dirY < 0) {
+		return -1;
+	    } else {
+		return -1;
+	    }
+	} else {
+	    if (dirY > 0) {
+		return 1;
+	    } else if (dirY < 0) {
+		return -1;
+	    } else {
+		return 0;
+	    }
+	}
+    }
+
     public static Direction resolveRelativeDirection(final int dX, final int dY) {
 	final int dirX = (int) Math.signum(dX);
 	final int dirY = (int) Math.signum(dY);
@@ -124,6 +236,37 @@ public class DirectionResolver {
 	    res = null;
 	}
 	return res;
+    }
+    
+    public static final String resolveDirectionConstantToName(final Direction d) {
+	switch (d) {
+	case EAST:
+	    return DirectionName.EAST;
+	case HORIZONTAL:
+	    return DirectionName.HORIZONTAL;
+	case INVALID:
+	    return DirectionName.INVALID;
+	case NONE:
+	    return DirectionName.NONE;
+	case NORTH:
+	    return DirectionName.NORTH;
+	case NORTHEAST:
+	    return DirectionName.NORTHEAST;
+	case NORTHWEST:
+	    return DirectionName.NORTHWEST;
+	case SOUTH:
+	    return DirectionName.SOUTH;
+	case SOUTHEAST:
+	    return DirectionName.SOUTHEAST;
+	case SOUTHWEST:
+	    return DirectionName.SOUTHWEST;
+	case VERTICAL:
+	    return DirectionName.VERTICAL;
+	case WEST:
+	    return DirectionName.WEST;
+	default:
+	    return DirectionName.INVALID;
+	}
     }
 
     public static String resolveDirectionConstantToImageName(final Direction dir) {

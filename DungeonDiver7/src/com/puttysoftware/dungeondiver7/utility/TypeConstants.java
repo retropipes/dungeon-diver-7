@@ -41,7 +41,12 @@ public class TypeConstants {
     public static final int TYPE_ATTRIBUTE = 32;
     public static final int TYPE_CLOAK = 33;
     public static final int TYPE_SPELL = 34;
-    public static final int TYPES_COUNT = 35;
+    public static final int TYPE_SHOP = 35;
+    public static final int TYPE_TRAP = 36;
+    public static final int TYPE_DUNGEON = 37;
+    public static final int TYPE_MP_MODIFIER = 38;
+    public static final int TYPE_TRIGGER = 39;
+    public static final int TYPES_COUNT = 40;
 
     private TypeConstants() {
 	// Do nothing

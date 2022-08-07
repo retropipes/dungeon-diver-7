@@ -11,6 +11,7 @@ import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
+import com.puttysoftware.dungeondiver7.utility.Direction;
 import com.puttysoftware.randomrange.RandomRange;
 
 public class MonsterTile extends AbstractMovingObject {
@@ -33,7 +34,7 @@ public class MonsterTile extends AbstractMovingObject {
     public void timerExpiredAction(final int dirX, final int dirY) {
 	// Move the monster
 	final RandomRange r = new RandomRange(0, 7);
-	final int move = r.generate();
+	final Direction move = Direction.fromInternalValue(r.generate());
 	Integration1.getApplication().getDungeonManager().getDungeon().updateMonsterPosition(move, dirX, dirY, this);
 	this.activateTimer(1);
     }

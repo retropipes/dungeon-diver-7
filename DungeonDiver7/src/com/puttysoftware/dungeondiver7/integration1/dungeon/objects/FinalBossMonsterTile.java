@@ -11,6 +11,7 @@ import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
+import com.puttysoftware.dungeondiver7.utility.Direction;
 
 public class FinalBossMonsterTile extends AbstractMovingObject {
     // Constructors
@@ -31,7 +32,7 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
     public void timerExpiredAction(final int locX, final int locY) {
 	// Move the monster
 	CurrentDungeon dungeon = Integration1.getApplication().getDungeonManager().getDungeon();
-	final int move = dungeon.computeFinalBossMoveDirection(locX, locY);
+	final Direction move = dungeon.computeFinalBossMoveDirection(locX, locY);
 	dungeon.updateMonsterPosition(move, locX, locY, this);
 	this.activateTimer(1);
     }

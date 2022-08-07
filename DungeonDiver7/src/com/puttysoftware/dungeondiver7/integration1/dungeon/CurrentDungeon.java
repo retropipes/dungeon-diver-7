@@ -10,7 +10,6 @@ import java.io.IOException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.integration1.VersionException;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.abc.AbstractMovingObject;
@@ -19,6 +18,8 @@ import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Tile;
 import com.puttysoftware.dungeondiver7.manager.dungeon.FormatConstants;
 import com.puttysoftware.dungeondiver7.manager.dungeon.PrefixIO;
 import com.puttysoftware.dungeondiver7.manager.dungeon.SuffixIO;
+import com.puttysoftware.dungeondiver7.utility.Direction;
+import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
@@ -90,7 +91,7 @@ public class CurrentDungeon {
 	return temp;
     }
 
-    public int computeFinalBossMoveDirection(final int locX, final int locY) {
+    public Direction computeFinalBossMoveDirection(final int locX, final int locY) {
 	int px = this.getPlayerLocationX();
 	int py = this.getPlayerLocationY();
 	int relX = px - locX;
@@ -109,37 +110,43 @@ public class CurrentDungeon {
 	}
 	int moveX1L = DirectionResolver.rotate45LeftX(moveX, moveY);
 	int moveY1L = DirectionResolver.rotate45LeftY(moveX, moveY);
-	boolean canMove1L = !this.getCell(locX + moveX1L, locY + moveY1L, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid();
+	boolean canMove1L = !this.getCell(locX + moveX1L, locY + moveY1L, DungeonConstants.LAYER_LOWER_OBJECTS)
+		.isSolid();
 	if (canMove1L) {
 	    return DirectionResolver.resolveRelativeDirection(moveX1L, moveY1L);
 	}
 	int moveX1R = DirectionResolver.rotate45RightX(moveX, moveY);
 	int moveY1R = DirectionResolver.rotate45RightY(moveX, moveY);
-	boolean canMove1R = !this.getCell(locX + moveX1R, locY + moveY1R, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid();
+	boolean canMove1R = !this.getCell(locX + moveX1R, locY + moveY1R, DungeonConstants.LAYER_LOWER_OBJECTS)
+		.isSolid();
 	if (canMove1R) {
 	    return DirectionResolver.resolveRelativeDirection(moveX1R, moveY1R);
 	}
 	int moveX2L = DirectionResolver.rotate45LeftX(moveX1L, moveY1L);
 	int moveY2L = DirectionResolver.rotate45LeftY(moveX1L, moveY1L);
-	boolean canMove2L = !this.getCell(locX + moveX2L, locY + moveY2L, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid();
+	boolean canMove2L = !this.getCell(locX + moveX2L, locY + moveY2L, DungeonConstants.LAYER_LOWER_OBJECTS)
+		.isSolid();
 	if (canMove2L) {
 	    return DirectionResolver.resolveRelativeDirection(moveX2L, moveY2L);
 	}
 	int moveX2R = DirectionResolver.rotate45RightX(moveX1R, moveY1R);
 	int moveY2R = DirectionResolver.rotate45RightY(moveX1R, moveY1R);
-	boolean canMove2R = !this.getCell(locX + moveX2R, locY + moveY2R, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid();
+	boolean canMove2R = !this.getCell(locX + moveX2R, locY + moveY2R, DungeonConstants.LAYER_LOWER_OBJECTS)
+		.isSolid();
 	if (canMove2R) {
 	    return DirectionResolver.resolveRelativeDirection(moveX2R, moveY2R);
 	}
 	int moveX3L = DirectionResolver.rotate45LeftX(moveX2L, moveY2L);
 	int moveY3L = DirectionResolver.rotate45LeftY(moveX2L, moveY2L);
-	boolean canMove3L = !this.getCell(locX + moveX3L, locY + moveY3L, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid();
+	boolean canMove3L = !this.getCell(locX + moveX3L, locY + moveY3L, DungeonConstants.LAYER_LOWER_OBJECTS)
+		.isSolid();
 	if (canMove3L) {
 	    return DirectionResolver.resolveRelativeDirection(moveX3L, moveY3L);
 	}
 	int moveX3R = DirectionResolver.rotate45RightX(moveX2R, moveY2R);
 	int moveY3R = DirectionResolver.rotate45RightY(moveX2R, moveY2R);
-	boolean canMove3R = !this.getCell(locX + moveX3R, locY + moveY3R, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid();
+	boolean canMove3R = !this.getCell(locX + moveX3R, locY + moveY3R, DungeonConstants.LAYER_LOWER_OBJECTS)
+		.isSolid();
 	if (canMove3R) {
 	    return DirectionResolver.resolveRelativeDirection(moveX3R, moveY3R);
 	}
@@ -148,7 +155,7 @@ public class CurrentDungeon {
 	return DirectionResolver.resolveRelativeDirection(moveX4, moveY4);
     }
 
-    public void updateMonsterPosition(final int move, final int xLoc, final int yLoc,
+    public void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
 	    final AbstractMovingObject monster) {
 	this.mazeData.updateMonsterPosition(move, xLoc, yLoc, monster);
     }

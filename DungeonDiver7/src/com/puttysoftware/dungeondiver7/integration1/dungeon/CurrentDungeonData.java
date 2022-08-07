@@ -8,7 +8,6 @@ package com.puttysoftware.dungeondiver7.integration1.dungeon;
 import java.io.IOException;
 import java.util.Arrays;
 
-import com.puttysoftware.dungeondiver7.dungeon.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.dungeon.utility.GameObjectList;
 import com.puttysoftware.dungeondiver7.dungeon.utility.RandomGenerationRule;
 import com.puttysoftware.dungeondiver7.integration1.Application;
@@ -21,6 +20,8 @@ import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.FinalBossMon
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.MonsterTile;
 import com.puttysoftware.dungeondiver7.integration1.dungeon.objects.Tile;
 import com.puttysoftware.dungeondiver7.manager.dungeon.FormatConstants;
+import com.puttysoftware.dungeondiver7.utility.Direction;
+import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.VisionModeConstants;
 import com.puttysoftware.fileio.FileIOReader;
@@ -92,7 +93,7 @@ final class CurrentDungeonData implements Cloneable {
 	return copy;
     }
 
-    public void updateMonsterPosition(final int move, final int xLoc, final int yLoc,
+    public void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
 	    final AbstractMovingObject monster) {
 	final Application app = Integration1.getApplication();
 	final int[] dirMove = DirectionResolver.unresolveRelativeDirection(move);

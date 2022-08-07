@@ -25,7 +25,38 @@ public enum Direction {
 	this.internalValue = v;
     }
 
-    int getInternalValue() {
+    public int getInternalValue() {
 	return this.internalValue;
+    }
+
+    public static Direction fromInternalValue(final int iv) {
+	switch (iv) {
+	case -2:
+	    return Direction.INVALID;
+	case -1:
+	    return Direction.NONE;
+	case 0:
+	    return Direction.NORTHWEST;
+	case 1:
+	    return Direction.NORTH;
+	case 2:
+	    return Direction.NORTHEAST;
+	case 3:
+	    return Direction.EAST;
+	case 4:
+	    return Direction.SOUTHEAST;
+	case 5:
+	    return Direction.SOUTH;
+	case 6:
+	    return Direction.SOUTHWEST;
+	case 7:
+	    return Direction.WEST;
+	case 8:
+	    return Direction.HORIZONTAL;
+	case 9:
+	    return Direction.VERTICAL;
+	default:
+	    return Direction.INVALID;
+	}
     }
 }
