@@ -33,7 +33,7 @@ public class PowerfulParty extends AbstractCharacter {
     @Override
     public void timerExpiredAction(final int x, final int y) {
 	SoundLoader.playSound(SoundConstants.DISRUPT_END);
-	DungeonDiver7.getApplication().getGameManager().setNormalTank();
+	DungeonDiver7.getApplication().getGameManager().setNormalPlayer();
     }
 
     @Override

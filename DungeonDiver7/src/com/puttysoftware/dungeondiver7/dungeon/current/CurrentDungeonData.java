@@ -317,7 +317,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     public void checkForEnemies(final AbstractDungeon dungeon, final int floorIn, final int enemyLocXIn,
 	    final int enemyLocYIn, final AbstractCharacter enemy) {
 	if (enemy instanceof ArrowTurretDisguise) {
-	    // Anti Tanks are fooled by disguises
+	    // Anti Players are fooled by disguises
 	    return;
 	}
 	final ArrowTurret template = new ArrowTurret();
@@ -408,7 +408,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	}
 	int u, w;
 	if (d == Direction.NORTH) {
-	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameManager().getTank();
+	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameManager().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    } else {
@@ -437,7 +437,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    }
 	    return false;
 	} else if (d == Direction.SOUTH) {
-	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameManager().getTank();
+	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameManager().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    } else {
@@ -466,7 +466,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    }
 	    return false;
 	} else if (d == Direction.WEST) {
-	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameManager().getTank();
+	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameManager().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    } else {
@@ -495,7 +495,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    }
 	    return false;
 	} else if (d == Direction.EAST) {
-	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameManager().getTank();
+	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameManager().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    } else {
@@ -760,8 +760,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public boolean circularScanTank(final AbstractDungeon dungeon, final int x, final int y, final int z, final int r) {
-	final int[] tankLoc = DungeonDiver7.getApplication().getGameManager().getTankLocation();
+    public boolean circularScanPlayer(final AbstractDungeon dungeon, final int x, final int y, final int z, final int r) {
+	final int[] tankLoc = DungeonDiver7.getApplication().getGameManager().getPlayerLocation();
 	int fX = x;
 	int fY = y;
 	int fZ = z;
@@ -781,7 +781,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void fullScanKillTanks(final AbstractDungeon dungeon) {
+    public void fullScanKillPlayers(final AbstractDungeon dungeon) {
 	// Perform the scan
 	for (int x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
 	    for (int y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {

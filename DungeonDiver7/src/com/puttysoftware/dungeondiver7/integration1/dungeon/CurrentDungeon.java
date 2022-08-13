@@ -80,7 +80,7 @@ public class CurrentDungeon {
     // Methods
     public static CurrentDungeon getTemporaryBattleCopy() {
 	final CurrentDungeon temp = new CurrentDungeon();
-	temp.addLevel(DungeonDiver7.getBattleDungeonSize(), DungeonDiver7.getBattleDungeonSize());
+	temp.addFixedSizeLevel(DungeonDiver7.getBattleDungeonSize(), DungeonDiver7.getBattleDungeonSize());
 	temp.fill(new Tile(), new Empty());
 	return temp;
     }
@@ -205,7 +205,7 @@ public class CurrentDungeon {
 	return this.activeLevel;
     }
 
-    public boolean addLevel(final int rows, final int cols) {
+    public boolean addFixedSizeLevel(final int rows, final int cols) {
 	this.dungeonData = new CurrentDungeonData(rows, cols);
 	this.levelCount++;
 	this.activeLevel = this.levelCount - 1;
@@ -213,7 +213,7 @@ public class CurrentDungeon {
     }
 
     public AbstractDungeonObject getCell(final int row, final int col, int floor, final int extra) {
-	return this.dungeonData.getCell(row, col, 0, extra);
+	return this.dungeonData.getCell(row, col, floor, extra);
     }
 
     public int getPlayerLocationX() {
@@ -245,7 +245,7 @@ public class CurrentDungeon {
     }
 
     public void setCell(final AbstractDungeonObject mo, final int row, final int col, int floor, final int extra) {
-	this.dungeonData.setCell(mo, row, col, 0, extra);
+	this.dungeonData.setCell(mo, row, col, floor, extra);
     }
 
     public void setStartRow(final int newStartRow) {

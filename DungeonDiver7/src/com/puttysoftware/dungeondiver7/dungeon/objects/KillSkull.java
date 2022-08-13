@@ -20,7 +20,7 @@ public class KillSkull extends AbstractSpell {
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	SoundLoader.playSound(SoundConstants.KILL_SKULL);
-	DungeonDiver7.getApplication().getDungeonManager().getDungeon().fullScanKillTanks();
+	DungeonDiver7.getApplication().getDungeonManager().getDungeon().fullScanKillPlayers();
 	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 

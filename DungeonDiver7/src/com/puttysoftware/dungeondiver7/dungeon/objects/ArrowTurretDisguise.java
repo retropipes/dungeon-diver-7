@@ -49,7 +49,7 @@ public class ArrowTurretDisguise extends AbstractCharacter {
 	this.disguiseLeft--;
 	if (this.disguiseLeft == 0) {
 	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
-	    DungeonDiver7.getApplication().getGameManager().setNormalTank();
+	    DungeonDiver7.getApplication().getGameManager().setNormalPlayer();
 	} else {
 	    this.activateTimer(1);
 	}

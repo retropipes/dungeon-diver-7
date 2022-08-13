@@ -53,7 +53,7 @@ public class GenerateDungeonTask extends Thread {
 		gameDungeon = new CurrentDungeon();
 		app.getDungeonManager().setDungeon(gameDungeon);
 	    }
-	    gameDungeon.addLevel(dungeonSize, dungeonSize);
+	    gameDungeon.addFixedSizeLevel(dungeonSize, dungeonSize);
 	    gameDungeon.fillRandomly();
 	    final RandomRange rR = new RandomRange(0, dungeonSize - 1);
 	    final RandomRange rC = new RandomRange(0, dungeonSize - 1);

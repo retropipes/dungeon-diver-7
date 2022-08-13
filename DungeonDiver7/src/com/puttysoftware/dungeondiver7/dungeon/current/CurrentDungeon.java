@@ -646,13 +646,13 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     @Override
-    public boolean circularScanTank(final int x, final int y, final int z, final int maxR) {
-	return this.dungeonData.circularScanTank(this, x, y, z, maxR);
+    public boolean circularScanPlayer(final int x, final int y, final int z, final int maxR) {
+	return this.dungeonData.circularScanPlayer(this, x, y, z, maxR);
     }
 
     @Override
-    public void fullScanKillTanks() {
-	this.dungeonData.fullScanKillTanks(this);
+    public void fullScanKillPlayers() {
+	this.dungeonData.fullScanKillPlayers(this);
     }
 
     @Override

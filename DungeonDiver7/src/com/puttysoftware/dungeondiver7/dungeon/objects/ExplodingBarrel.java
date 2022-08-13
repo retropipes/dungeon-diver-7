@@ -77,7 +77,7 @@ public class ExplodingBarrel extends AbstractReactionWall {
 	}
 	// Check for tank in range of explosion
 	if (!dead) {
-	    dead = a.circularScanTank(locX, locY, locZ, 1);
+	    dead = a.circularScanPlayer(locX, locY, locZ, 1);
 	}
 	// Set destroyed status
 	this.destroyed = true;

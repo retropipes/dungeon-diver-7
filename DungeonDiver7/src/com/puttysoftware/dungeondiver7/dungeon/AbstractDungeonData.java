@@ -86,10 +86,10 @@ public abstract class AbstractDungeonData implements Cloneable {
     public abstract void circularScanRange(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
 	    final int r, final int rangeType, final int forceUnits);
 
-    public abstract boolean circularScanTank(final AbstractDungeon dungeon, final int x, final int y, final int z,
+    public abstract boolean circularScanPlayer(final AbstractDungeon dungeon, final int x, final int y, final int z,
 	    final int r);
 
-    public abstract void fullScanKillTanks(final AbstractDungeon dungeon);
+    public abstract void fullScanKillPlayers(final AbstractDungeon dungeon);
 
     public abstract void fullScanFreezeGround(final AbstractDungeon dungeon);
 

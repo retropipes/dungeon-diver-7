@@ -293,9 +293,9 @@ public abstract class AbstractDungeon {
 
     public abstract int[] findObject(int z, String targetName);
 
-    public abstract boolean circularScanTank(final int x, final int y, final int z, final int maxR);
+    public abstract boolean circularScanPlayer(final int x, final int y, final int z, final int maxR);
 
-    public abstract void fullScanKillTanks();
+    public abstract void fullScanKillPlayers();
 
     public abstract void fullScanFreezeGround();
 

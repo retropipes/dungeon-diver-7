@@ -147,8 +147,8 @@ final class MovingLaserTracker {
 	int sy = nsy;
 	boolean mover = nMover;
 	if (!this.res && this.laser) {
-	    if (gm.getTank().getSavedObject().isOfType(TypeConstants.TYPE_MOVER)) {
-		final Direction dir = gm.getTank().getSavedObject().getDirection();
+	    if (gm.getPlayer().getSavedObject().isOfType(TypeConstants.TYPE_MOVER)) {
+		final Direction dir = gm.getPlayer().getSavedObject().getDirection();
 		final int[] unres = DirectionResolver.unresolveRelativeDirection(dir);
 		sx = unres[0];
 		sy = unres[1];

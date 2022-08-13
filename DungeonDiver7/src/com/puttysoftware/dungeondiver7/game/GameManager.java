@@ -388,33 +388,33 @@ public class GameManager implements MenuSection {
 	return this.replaying;
     }
 
-    public AbstractCharacter getTank() {
+    public AbstractCharacter getPlayer() {
 	return this.tank;
     }
 
-    public void setNormalTank() {
-	final AbstractCharacter saveTank = this.tank;
-	this.tank = new Party(saveTank.getDirection(), saveTank.getNumber());
-	this.resetTank();
+    public void setNormalPlayer() {
+	final AbstractCharacter savePlayer = this.tank;
+	this.tank = new Party(savePlayer.getDirection(), savePlayer.getNumber());
+	this.resetPlayer();
     }
 
-    public void setPowerfulTank() {
-	final AbstractCharacter saveTank = this.tank;
-	this.tank = new PowerfulParty(saveTank.getDirection(), saveTank.getNumber());
-	this.resetTank();
+    public void setPowerfulPlayer() {
+	final AbstractCharacter savePlayer = this.tank;
+	this.tank = new PowerfulParty(savePlayer.getDirection(), savePlayer.getNumber());
+	this.resetPlayer();
     }
 
-    public void setDisguisedTank() {
-	final AbstractCharacter saveTank = this.tank;
-	this.tank = new ArrowTurretDisguise(saveTank.getDirection(), saveTank.getNumber());
-	this.resetTank();
+    public void setDisguisedPlayer() {
+	final AbstractCharacter savePlayer = this.tank;
+	this.tank = new ArrowTurretDisguise(savePlayer.getDirection(), savePlayer.getNumber());
+	this.resetPlayer();
     }
 
-    private void resetTank() {
+    private void resetPlayer() {
 	DungeonDiver7.getApplication().getDungeonManager().getDungeon().setCell(this.tank,
 		this.plMgr.getPlayerLocationX(), this.plMgr.getPlayerLocationY(), this.plMgr.getPlayerLocationZ(),
 		this.tank.getLayer());
-	this.markTankAsDirty();
+	this.markPlayerAsDirty();
     }
 
     private void updateScore() {
@@ -634,12 +634,12 @@ public class GameManager implements MenuSection {
 	this.gre.updateRedoHistory(laser, x, y);
     }
 
-    public int[] getTankLocation() {
+    public int[] getPlayerLocation() {
 	return new int[] { this.plMgr.getPlayerLocationX(), this.plMgr.getPlayerLocationY(),
 		this.plMgr.getPlayerLocationZ() };
     }
 
-    void updateTank() {
+    void updatePlayer() {
 	final Party template = new Party(this.plMgr.getActivePlayerNumber() + 1);
 	this.tank = (AbstractCharacter) DungeonDiver7.getApplication().getDungeonManager().getDungeon().getCell(
 		this.plMgr.getPlayerLocationX(), this.plMgr.getPlayerLocationY(), this.plMgr.getPlayerLocationZ(),
@@ -654,7 +654,7 @@ public class GameManager implements MenuSection {
 		this.mlot = new MLOTask();
 	    }
 	}
-	final Direction dir = this.getTank().getDirection();
+	final Direction dir = this.getPlayer().getDirection();
 	final int[] unres = DirectionResolver.unresolveRelativeDirection(dir);
 	final int x = unres[0];
 	final int y = unres[1];
@@ -674,7 +674,7 @@ public class GameManager implements MenuSection {
 	}
     }
 
-    void markTankAsDirty() {
+    void markPlayerAsDirty() {
 	DungeonDiver7.getApplication().getDungeonManager().getDungeon().markAsDirty(this.plMgr.getPlayerLocationX(),
 		this.plMgr.getPlayerLocationY(), this.plMgr.getPlayerLocationZ());
     }
@@ -1065,7 +1065,7 @@ public class GameManager implements MenuSection {
 	if (playerExists) {
 	    this.st.resetScore(app.getDungeonManager().getScoresFileName());
 	    this.resetPlayerLocation();
-	    this.updateTank();
+	    this.updatePlayer();
 	    m.clearVirtualGrid();
 	    this.updateScore();
 	    this.decay();
@@ -1087,7 +1087,7 @@ public class GameManager implements MenuSection {
 	    this.exitGame();
 	    return;
 	}
-	this.updateTank();
+	this.updatePlayer();
 	this.st.resetScore(app.getDungeonManager().getScoresFileName());
 	PartyInventory.resetInventory();
 	this.scoreMoves
@@ -1426,7 +1426,7 @@ public class GameManager implements MenuSection {
 		this.exitGame();
 		return;
 	    }
-	    this.updateTank();
+	    this.updatePlayer();
 	    GameManager.updateRedo(laser, missile, stunner, boost, magnet, blue, disrupt, bomb, heatBomb, iceBomb);
 	}
 	GameManager.checkMenus();
@@ -1490,7 +1490,7 @@ public class GameManager implements MenuSection {
 		this.exitGame();
 		return;
 	    }
-	    this.updateTank();
+	    this.updatePlayer();
 	    GameManager.updateUndo(laser, missile, stunner, boost, magnet, blue, disrupt, bomb, heatBomb, iceBomb);
 	}
 	GameManager.checkMenus();
@@ -1748,7 +1748,7 @@ public class GameManager implements MenuSection {
 		    this.exitGame();
 		    return;
 		}
-		this.updateTank();
+		this.updatePlayer();
 		this.tank.setSavedObject(new Empty());
 		this.st.setScoreFile(app.getDungeonManager().getScoresFileName());
 		if (!this.savedGameFlag) {
@@ -2195,7 +2195,7 @@ public class GameManager implements MenuSection {
 		}
 		if (fired) {
 		    SoundLoader.playSound(SoundConstants.TURN);
-		    gm.markTankAsDirty();
+		    gm.markPlayerAsDirty();
 		    gm.redrawDungeon();
 		}
 	    } catch (final Exception ex) {

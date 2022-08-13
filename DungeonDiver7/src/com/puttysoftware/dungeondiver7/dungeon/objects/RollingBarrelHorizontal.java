@@ -48,7 +48,7 @@ public class RollingBarrelHorizontal extends AbstractMovableObject {
 	    // Destroy barrel
 	    DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    // Check for tank in range of explosion
-	    final boolean target = a.circularScanTank(locX, locY, locZ, 1);
+	    final boolean target = a.circularScanPlayer(locX, locY, locZ, 1);
 	    if (target) {
 		// Kill tank
 		DungeonDiver7.getApplication().getGameManager().gameOver();
@@ -72,7 +72,7 @@ public class RollingBarrelHorizontal extends AbstractMovableObject {
 	// Destroy barrel
 	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), x, y, z, this.getLayer());
 	// Check for tank in range of explosion
-	final boolean target = a.circularScanTank(x, y, z, 1);
+	final boolean target = a.circularScanPlayer(x, y, z, 1);
 	if (target) {
 	    // Kill tank
 	    DungeonDiver7.getApplication().getGameManager().gameOver();

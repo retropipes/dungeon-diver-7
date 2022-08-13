@@ -20,7 +20,7 @@ public class PowerBolt extends AbstractField {
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	SoundLoader.playSound(SoundConstants.POWERFUL);
 	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-	DungeonDiver7.getApplication().getGameManager().setPowerfulTank();
+	DungeonDiver7.getApplication().getGameManager().setPowerfulPlayer();
     }
 
     @Override

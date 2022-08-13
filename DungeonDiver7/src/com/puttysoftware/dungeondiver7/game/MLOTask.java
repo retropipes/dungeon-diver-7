@@ -137,7 +137,7 @@ final class MLOTask extends Thread {
 	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
 	// Moving under the influence of a Frost Field
 	this.frozen = true;
-	MLOTask.freezeTank();
+	MLOTask.freezePlayer();
 	gm.updateScore(1, 0, 0);
 	this.sx = zx;
 	this.sy = zy;
@@ -241,7 +241,7 @@ final class MLOTask extends Thread {
 			    this.abort = true;
 			    if (this.move) {
 				DungeonDiver7.getApplication().getDungeonManager().setDirty(true);
-				this.defrostTank();
+				this.defrostPlayer();
 				gm.moveLoopDone();
 				this.move = false;
 			    }
@@ -258,7 +258,7 @@ final class MLOTask extends Thread {
 		    }
 		    if (this.move && !this.loopCheck) {
 			DungeonDiver7.getApplication().getDungeonManager().setDirty(true);
-			this.defrostTank();
+			this.defrostPlayer();
 			gm.moveLoopDone();
 			this.move = false;
 		    }
@@ -277,7 +277,7 @@ final class MLOTask extends Thread {
 		    final int px = plMgr.getPlayerLocationX();
 		    final int py = plMgr.getPlayerLocationY();
 		    DungeonDiver7.getApplication().getDungeonManager().getDungeon().checkForEnemies(pz, px, py,
-			    DungeonDiver7.getApplication().getGameManager().getTank());
+			    DungeonDiver7.getApplication().getGameManager().getPlayer());
 		    // Delay
 		    try {
 			Thread.sleep(PrefsManager.getActionSpeed());
@@ -382,15 +382,15 @@ final class MLOTask extends Thread {
 		    }
 		    // Preserve other objects
 		    if (m.getCell(px, py, pz, pw) instanceof AbstractMovableObject) {
-			gm.getTank().setSavedObject(m.getCell(px, py, pz, pw));
+			gm.getPlayer().setSavedObject(m.getCell(px, py, pz, pw));
 		    }
-		    m.setCell(gm.getTank().getSavedObject(), px, py, pz, pw);
+		    m.setCell(gm.getPlayer().getSavedObject(), px, py, pz, pw);
 		    plMgr.offsetPlayerLocationX(this.sx);
 		    plMgr.offsetPlayerLocationY(this.sy);
 		    px = MLOTask.normalizeColumn(px + this.sx, AbstractDungeon.getMinColumns());
 		    py = MLOTask.normalizeRow(py + this.sy, AbstractDungeon.getMinRows());
-		    gm.getTank().setSavedObject(m.getCell(px, py, pz, pw));
-		    m.setCell(gm.getTank(), px, py, pz, pw);
+		    gm.getPlayer().setSavedObject(m.getCell(px, py, pz, pw));
+		    m.setCell(gm.getPlayer(), px, py, pz, pw);
 		    lgo.postMoveAction(px, py, pz);
 		    ugo.postMoveAction(px, py, pz);
 		    loo.postMoveAction(px, py, pz);
@@ -429,8 +429,8 @@ final class MLOTask extends Thread {
 		    }
 		    uoo.moveFailedAction(plMgr.getPlayerLocationX() + this.sx, plMgr.getPlayerLocationY() + this.sy,
 			    plMgr.getPlayerLocationZ());
-		    if (gm.getTank().getSavedObject().isOfType(TypeConstants.TYPE_MOVER)) {
-			final Direction dir = gm.getTank().getSavedObject().getDirection();
+		    if (gm.getPlayer().getSavedObject().isOfType(TypeConstants.TYPE_MOVER)) {
+			final Direction dir = gm.getPlayer().getSavedObject().getDirection();
 			final int[] unres = DirectionResolver.unresolveRelativeDirection(dir);
 			this.sx = unres[0];
 			this.sy = unres[1];
@@ -442,7 +442,7 @@ final class MLOTask extends Thread {
 		}
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
 		plMgr.restorePlayerLocation();
-		m.setCell(gm.getTank(), plMgr.getPlayerLocationX(), plMgr.getPlayerLocationY(),
+		m.setCell(gm.getPlayer(), plMgr.getPlayerLocationX(), plMgr.getPlayerLocationY(),
 			plMgr.getPlayerLocationZ(), pw);
 		// Move failed - attempted to go outside the dungeon
 		if (lgo == null) {
@@ -506,9 +506,9 @@ final class MLOTask extends Thread {
 		&& this.canMoveThere();
     }
 
-    private static void freezeTank() {
+    private static void freezePlayer() {
 	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
-	final AbstractCharacter tank = gm.getTank();
+	final AbstractCharacter tank = gm.getPlayer();
 	final Direction dir = tank.getDirection();
 	final int px = gm.getPlayerManager().getPlayerLocationX();
 	final int py = gm.getPlayerManager().getPlayerLocationY();
@@ -516,14 +516,14 @@ final class MLOTask extends Thread {
 	final FrozenParty ft = new FrozenParty(dir, tank.getNumber());
 	ft.setSavedObject(tank.getSavedObject());
 	gm.morph(ft, px, py, pz, ft.getLayer());
-	gm.updateTank();
+	gm.updatePlayer();
     }
 
-    private void defrostTank() {
+    private void defrostPlayer() {
 	if (this.frozen) {
 	    this.frozen = false;
 	    final GameManager gm = DungeonDiver7.getApplication().getGameManager();
-	    final AbstractCharacter tank = gm.getTank();
+	    final AbstractCharacter tank = gm.getPlayer();
 	    final Direction dir = tank.getDirection();
 	    final int px = gm.getPlayerManager().getPlayerLocationX();
 	    final int py = gm.getPlayerManager().getPlayerLocationY();
@@ -531,7 +531,7 @@ final class MLOTask extends Thread {
 	    final Party t = new Party(dir, tank.getNumber());
 	    t.setSavedObject(tank.getSavedObject());
 	    gm.morph(t, px, py, pz, t.getLayer());
-	    gm.updateTank();
+	    gm.updatePlayer();
 	    SoundLoader.playSound(SoundConstants.DEFROST);
 	}
     }

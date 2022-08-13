@@ -20,7 +20,7 @@ public class ArrowBelt extends AbstractSpell {
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	SoundLoader.playSound(SoundConstants.DISRUPTED);
-	DungeonDiver7.getApplication().getGameManager().setDisguisedTank();
+	DungeonDiver7.getApplication().getGameManager().setDisguisedPlayer();
 	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 

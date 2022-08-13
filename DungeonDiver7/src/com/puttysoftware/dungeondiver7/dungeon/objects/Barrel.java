@@ -34,7 +34,7 @@ public class Barrel extends AbstractReactionWall {
 	// Destroy barrel
 	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
 	// Check for tank in range of explosion
-	final boolean target = a.circularScanTank(locX, locY, locZ, 1);
+	final boolean target = a.circularScanPlayer(locX, locY, locZ, 1);
 	if (target) {
 	    // Kill tank
 	    DungeonDiver7.getApplication().getGameManager().gameOver();
@@ -55,7 +55,7 @@ public class Barrel extends AbstractReactionWall {
 	// Boom!
 	SoundLoader.playSound(SoundConstants.BARREL);
 	// Check for tank in range of explosion
-	final boolean target = a.circularScanTank(locX + dirX, locY + dirY, locZ, 1);
+	final boolean target = a.circularScanPlayer(locX + dirX, locY + dirY, locZ, 1);
 	if (target) {
 	    // Kill tank
 	    DungeonDiver7.getApplication().getGameManager().gameOver();
