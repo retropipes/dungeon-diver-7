@@ -98,12 +98,12 @@ final class CurrentDungeonData implements Cloneable {
 	    final AbstractMovingObject monster) {
 	final Application app = Integration1.getApplication();
 	final int[] dirMove = DirectionResolver.unresolveRelativeDirection(move);
-	final int pLocX = this.getPlayerRow();
-	final int pLocY = this.getPlayerColumn();
+	final int pLocX = this.getPlayerLocationX();
+	final int pLocY = this.getPlayerLocationY();
 	try {
-	    final AbstractDungeonObject there = this.getCell(xLoc + dirMove[0], yLoc + dirMove[1],
+	    final AbstractDungeonObject there = this.getCell(xLoc + dirMove[0], yLoc + dirMove[1], 0,
 		    DungeonConstants.LAYER_LOWER_OBJECTS);
-	    final AbstractDungeonObject ground = this.getCell(xLoc + dirMove[0], yLoc + dirMove[1],
+	    final AbstractDungeonObject ground = this.getCell(xLoc + dirMove[0], yLoc + dirMove[1], 0,
 		    DungeonConstants.LAYER_LOWER_GROUND);
 	    if (!there.isSolid() && !(there instanceof AbstractMovingObject)) {
 		if (CurrentDungeonData.radialScan(xLoc, yLoc, 0, pLocX, pLocY)) {
@@ -120,9 +120,10 @@ final class CurrentDungeonData implements Cloneable {
 		    }
 		} else {
 		    // Move the monster
-		    this.setCell(monster.getSavedObject(), xLoc, yLoc, DungeonConstants.LAYER_LOWER_OBJECTS);
+		    this.setCell(monster.getSavedObject(), xLoc, yLoc, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    monster.setSavedObject(there);
-		    this.setCell(monster, xLoc + dirMove[0], yLoc + dirMove[1], DungeonConstants.LAYER_LOWER_OBJECTS);
+		    this.setCell(monster, xLoc + dirMove[0], yLoc + dirMove[1], 0,
+			    DungeonConstants.LAYER_LOWER_OBJECTS);
 		    // Does the ground have friction?
 		    if (!ground.hasFriction()) {
 			// No - move the monster again
@@ -138,7 +139,7 @@ final class CurrentDungeonData implements Cloneable {
     public void postBattle(final AbstractMovingObject m, final int xLoc, final int yLoc, final boolean player) {
 	final AbstractDungeonObject saved = m.getSavedObject();
 	if (!player) {
-	    this.setCell(saved, xLoc, yLoc, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    this.setCell(saved, xLoc, yLoc, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	}
 	this.generateOneMonster();
     }
@@ -149,24 +150,24 @@ final class CurrentDungeonData implements Cloneable {
 	int randomRow, randomColumn;
 	randomRow = row.generate();
 	randomColumn = column.generate();
-	AbstractDungeonObject currObj = this.getCell(randomRow, randomColumn, DungeonConstants.LAYER_LOWER_OBJECTS);
+	AbstractDungeonObject currObj = this.getCell(randomRow, randomColumn, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	if (!currObj.isSolid()) {
 	    final AbstractMovingObject m = new MonsterTile();
 	    m.setSavedObject(currObj);
-	    this.setCell(m, randomRow, randomColumn, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    this.setCell(m, randomRow, randomColumn, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	} else {
 	    while (currObj.isSolid()) {
 		randomRow = row.generate();
 		randomColumn = column.generate();
-		currObj = this.getCell(randomRow, randomColumn, DungeonConstants.LAYER_LOWER_OBJECTS);
+		currObj = this.getCell(randomRow, randomColumn, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	    }
 	    final AbstractMovingObject m = new MonsterTile();
 	    m.setSavedObject(currObj);
-	    this.setCell(m, randomRow, randomColumn, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    this.setCell(m, randomRow, randomColumn, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	}
     }
 
-    public AbstractDungeonObject getCell(final int row, final int col, final int extra) {
+    public AbstractDungeonObject getCell(final int row, final int col, int floor, final int extra) {
 	int fR = row;
 	int fC = col;
 	if (this.verticalWraparoundEnabled) {
@@ -178,11 +179,11 @@ final class CurrentDungeonData implements Cloneable {
 	return this.data.getDungeonDataCell(fC, fR, extra);
     }
 
-    public int getPlayerRow() {
+    public int getPlayerLocationX() {
 	return this.playerLocationData[1];
     }
 
-    public int getPlayerColumn() {
+    public int getPlayerLocationY() {
 	return this.playerLocationData[0];
     }
 
@@ -348,7 +349,7 @@ final class CurrentDungeonData implements Cloneable {
 	    }
 	    // Does object block LOS?
 	    try {
-		final AbstractDungeonObject obj = this.getCell(fx1, fy1, DungeonConstants.LAYER_LOWER_OBJECTS);
+		final AbstractDungeonObject obj = this.getCell(fx1, fy1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		if (obj.isSightBlocking()) {
 		    // This object blocks LOS
 		    if (fx1 != x1 || fy1 != y1) {
@@ -373,7 +374,7 @@ final class CurrentDungeonData implements Cloneable {
 	return true;
     }
 
-    public void setCell(final AbstractDungeonObject mo, final int row, final int col, final int extra) {
+    public void setCell(final AbstractDungeonObject mo, final int row, final int col, int floor, final int extra) {
 	int fR = row;
 	int fC = col;
 	if (this.verticalWraparoundEnabled) {
@@ -427,9 +428,9 @@ final class CurrentDungeonData implements Cloneable {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
 		    if (e == DungeonConstants.LAYER_LOWER_GROUND) {
-			this.setCell(bottom, y, x, e);
+			this.setCell(bottom, y, x, 0, e);
 		    } else {
-			this.setCell(top, y, x, e);
+			this.setCell(top, y, x, 0, e);
 		    }
 		}
 	    }
@@ -458,7 +459,7 @@ final class CurrentDungeonData implements Cloneable {
 			final AbstractDungeonObject placeObj = objectsWithoutPrerequisites[r.generate()];
 			final boolean okay = placeObj.shouldGenerateObject(dungeon, x, y, w, e);
 			if (okay) {
-			    this.setCell(objects.getNewInstanceByName(placeObj.getName()), y, x, e);
+			    this.setCell(objects.getNewInstanceByName(placeObj.getName()), y, x, 0, e);
 			    placeObj.editorGenerateHook(y, x);
 			}
 		    }
@@ -491,7 +492,7 @@ final class CurrentDungeonData implements Cloneable {
 			randomRow = row.generate();
 			randomColumn = column.generate();
 			if (currObj.shouldGenerateObject(dungeon, randomRow, randomColumn, w, layer)) {
-			    this.setCell(objects.getNewInstanceByName(currObj.getName()), randomColumn, randomRow,
+			    this.setCell(objects.getNewInstanceByName(currObj.getName()), randomColumn, randomRow, 0,
 				    layer);
 			    currObj.editorGenerateHook(y, x);
 			} else {
@@ -499,7 +500,7 @@ final class CurrentDungeonData implements Cloneable {
 				randomRow = row.generate();
 				randomColumn = column.generate();
 			    }
-			    this.setCell(objects.getNewInstanceByName(currObj.getName()), randomColumn, randomRow,
+			    this.setCell(objects.getNewInstanceByName(currObj.getName()), randomColumn, randomRow, 0,
 				    layer);
 			    currObj.editorGenerateHook(y, x);
 			}
@@ -514,7 +515,7 @@ final class CurrentDungeonData implements Cloneable {
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
-		    this.savedTowerState.setCell(this.getCell(y, x, e), x, y, e);
+		    this.savedTowerState.setCell(this.getCell(y, x, 0, e), x, y, e);
 		}
 	    }
 	}
@@ -525,7 +526,7 @@ final class CurrentDungeonData implements Cloneable {
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
-		    this.setCell(this.savedTowerState.getDungeonDataCell(x, y, e), y, x, e);
+		    this.setCell(this.savedTowerState.getDungeonDataCell(x, y, e), y, x, 0, e);
 		}
 	    }
 	}
@@ -576,7 +577,7 @@ final class CurrentDungeonData implements Cloneable {
 	// Tick all GameObject timers
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
-		final AbstractDungeonObject mo = this.getCell(y, x, DungeonConstants.LAYER_LOWER_OBJECTS);
+		final AbstractDungeonObject mo = this.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		if (mo != null) {
 		    mo.tickTimer(y, x, 0);
 		}
@@ -595,7 +596,7 @@ final class CurrentDungeonData implements Cloneable {
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
-		    this.getCell(y, x, e).write(writer);
+		    this.getCell(y, x, 0, e).write(writer);
 		}
 		writer.writeBoolean(this.visionData.getCell(y, x));
 	    }
@@ -626,8 +627,8 @@ final class CurrentDungeonData implements Cloneable {
 	    for (y = 0; y < lt.getRows(); y++) {
 		for (e = 0; e < DungeonConstants.NUM_LAYERS; e++) {
 		    lt.setCell(Integration1.getApplication().getObjects().readV7(reader,
-			    FormatConstants.MAZE_FORMAT_LATEST), y, x, e);
-		    if (lt.getCell(y, x, e) == null) {
+			    FormatConstants.MAZE_FORMAT_LATEST), y, x, 0, e);
+		    if (lt.getCell(y, x, 0, e) == null) {
 			return null;
 		    }
 		}

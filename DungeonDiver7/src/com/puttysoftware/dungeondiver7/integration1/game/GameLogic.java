@@ -162,13 +162,13 @@ public final class GameLogic {
     public static void decay() {
 	final Application app = Integration1.getApplication();
 	final CurrentDungeon m = app.getDungeonManager().getDungeon();
-	m.setCell(new Empty(), m.getPlayerLocationX(), m.getPlayerLocationY(), DungeonConstants.LAYER_LOWER_OBJECTS);
+	m.setCell(new Empty(), m.getPlayerLocationX(), m.getPlayerLocationY(), 0, DungeonConstants.LAYER_LOWER_OBJECTS);
     }
 
     public static void morph(final AbstractDungeonObject morphInto) {
 	final Application app = Integration1.getApplication();
 	final CurrentDungeon m = app.getDungeonManager().getDungeon();
-	m.setCell(morphInto, m.getPlayerLocationX(), m.getPlayerLocationY(), morphInto.getLayer());
+	m.setCell(morphInto, m.getPlayerLocationX(), m.getPlayerLocationY(), 0, morphInto.getLayer());
     }
 
     public void keepNextMessage() {

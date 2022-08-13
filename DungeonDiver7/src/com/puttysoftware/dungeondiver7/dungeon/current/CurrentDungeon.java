@@ -19,12 +19,15 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButton;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButtonDoor;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DifficultyConstants;
 import com.puttysoftware.dungeondiver7.utility.Direction;
+import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
+import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.Extension;
 import com.puttysoftware.dungeondiver7.utility.FormatConstants;
 import com.puttysoftware.fileio.XDataReader;
@@ -36,8 +39,9 @@ public class CurrentDungeon extends AbstractDungeon {
     // Properties
     private CurrentDungeonData dungeonData;
     private CurrentDungeonData clipboard;
-    private DungeonLevelInfo infoClipboard;
+    private DungeonLevelInfo activeLevelInfo;
     private int levelCount;
+    private int startLevel;
     private int activeLevel;
     private int activeEra;
     private String basePath;
@@ -85,6 +89,80 @@ public class CurrentDungeon extends AbstractDungeon {
 	return this.basePath + File.separator
 		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_MUSIC_FOLDER)
 		+ File.separator;
+    }
+
+    public Direction computeFinalBossMoveDirection(final int locX, final int locY, final int locZ, final int pi) {
+	int px = this.getPlayerLocationX(pi);
+	int py = this.getPlayerLocationY(pi);
+	int relX = px - locX;
+	int relY = py - locY;
+	int moveX = 0;
+	int moveY = 0;
+	if (relX != 0) {
+	    moveX = relX / Math.abs(relX);
+	}
+	if (relY != 0) {
+	    moveY = relY / Math.abs(relY);
+	}
+	boolean canMove = !this.getCell(locX + moveX, locY + moveY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+		.isSolid();
+	if (canMove) {
+	    return DirectionResolver.resolveRelativeDirection(moveX, moveY);
+	}
+	int moveX1L = DirectionResolver.rotate45LeftX(moveX, moveY);
+	int moveY1L = DirectionResolver.rotate45LeftY(moveX, moveY);
+	boolean canMove1L = !this.getCell(locX + moveX1L, locY + moveY1L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+		.isSolid();
+	if (canMove1L) {
+	    return DirectionResolver.resolveRelativeDirection(moveX1L, moveY1L);
+	}
+	int moveX1R = DirectionResolver.rotate45RightX(moveX, moveY);
+	int moveY1R = DirectionResolver.rotate45RightY(moveX, moveY);
+	boolean canMove1R = !this.getCell(locX + moveX1R, locY + moveY1R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+		.isSolid();
+	if (canMove1R) {
+	    return DirectionResolver.resolveRelativeDirection(moveX1R, moveY1R);
+	}
+	int moveX2L = DirectionResolver.rotate45LeftX(moveX1L, moveY1L);
+	int moveY2L = DirectionResolver.rotate45LeftY(moveX1L, moveY1L);
+	boolean canMove2L = !this.getCell(locX + moveX2L, locY + moveY2L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+		.isSolid();
+	if (canMove2L) {
+	    return DirectionResolver.resolveRelativeDirection(moveX2L, moveY2L);
+	}
+	int moveX2R = DirectionResolver.rotate45RightX(moveX1R, moveY1R);
+	int moveY2R = DirectionResolver.rotate45RightY(moveX1R, moveY1R);
+	boolean canMove2R = !this.getCell(locX + moveX2R, locY + moveY2R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+		.isSolid();
+	if (canMove2R) {
+	    return DirectionResolver.resolveRelativeDirection(moveX2R, moveY2R);
+	}
+	int moveX3L = DirectionResolver.rotate45LeftX(moveX2L, moveY2L);
+	int moveY3L = DirectionResolver.rotate45LeftY(moveX2L, moveY2L);
+	boolean canMove3L = !this.getCell(locX + moveX3L, locY + moveY3L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+		.isSolid();
+	if (canMove3L) {
+	    return DirectionResolver.resolveRelativeDirection(moveX3L, moveY3L);
+	}
+	int moveX3R = DirectionResolver.rotate45RightX(moveX2R, moveY2R);
+	int moveY3R = DirectionResolver.rotate45RightY(moveX2R, moveY2R);
+	boolean canMove3R = !this.getCell(locX + moveX3R, locY + moveY3R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+		.isSolid();
+	if (canMove3R) {
+	    return DirectionResolver.resolveRelativeDirection(moveX3R, moveY3R);
+	}
+	int moveX4 = DirectionResolver.rotate45LeftX(moveX3L, moveY3L);
+	int moveY4 = DirectionResolver.rotate45LeftY(moveX3L, moveY3L);
+	return DirectionResolver.resolveRelativeDirection(moveX4, moveY4);
+    }
+
+    public void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
+	    final AbstractMovingObject monster, final int pi) {
+	this.dungeonData.updateMonsterPosition(this, move, xLoc, yLoc, monster, pi);
+    }
+
+    public void postBattle(final AbstractMovingObject m, final int xLoc, final int yLoc, final boolean player) {
+	this.dungeonData.postBattle(this, m, xLoc, yLoc, player);
     }
 
     @Override
@@ -178,6 +256,26 @@ public class CurrentDungeon extends AbstractDungeon {
     @Override
     public void setSuffixHandler(final AbstractSuffixIO xsh) {
 	this.suffixHandler = xsh;
+    }
+
+    @Override
+    public void tickTimers() {
+	this.dungeonData.tickTimers(this);
+    }
+
+    @Override
+    public void resetVisibleSquares(final int floor) {
+	this.dungeonData.resetVisibleSquares(floor);
+    }
+
+    @Override
+    public void updateVisibleSquares(final int xp, final int yp, final int zp) {
+	this.dungeonData.updateVisibleSquares(this, xp, yp, zp);
+    }
+
+    @Override
+    public boolean isSquareVisible(final int x1, final int y1, final int x2, final int y2, final int zp) {
+	return this.dungeonData.isSquareVisible(this, x1, y1, x2, y2, zp);
     }
 
     @Override
@@ -289,7 +387,7 @@ public class CurrentDungeon extends AbstractDungeon {
     public void cutLevel() {
 	if (this.levelCount > 1) {
 	    this.clipboard = this.dungeonData;
-	    this.infoClipboard = this.levelInfoData.get(this.activeLevel);
+	    this.activeLevelInfo = this.levelInfoData.get(this.activeLevel);
 	    this.removeActiveLevel();
 	}
     }
@@ -297,14 +395,14 @@ public class CurrentDungeon extends AbstractDungeon {
     @Override
     public void copyLevel() {
 	this.clipboard = this.dungeonData.clone();
-	this.infoClipboard = this.levelInfoData.get(this.activeLevel).clone();
+	this.activeLevelInfo = new DungeonLevelInfo(this.levelInfoData.get(this.activeLevel));
     }
 
     @Override
     public void pasteLevel() {
 	if (this.clipboard != null) {
 	    this.dungeonData = this.clipboard.clone();
-	    this.levelInfoData.set(this.activeLevel, this.infoClipboard.clone());
+	    this.levelInfoData.set(this.activeLevel, new DungeonLevelInfo(this.activeLevelInfo));
 	    this.levelInfoList.set(this.activeLevel, this.generateCurrentLevelInfo());
 	    DungeonDiver7.getApplication().getDungeonManager().setDirty(true);
 	}
@@ -346,6 +444,37 @@ public class CurrentDungeon extends AbstractDungeon {
 	    // Add all eras for the new level
 	    final int saveEra = this.activeEra;
 	    this.dungeonData = new CurrentDungeonData();
+	    for (int e = 0; e < AbstractDungeon.ERA_COUNT; e++) {
+		this.switchEra(e);
+		this.dungeonData = new CurrentDungeonData();
+	    }
+	    this.switchEra(saveEra);
+	    // Clean up
+	    this.levelCount++;
+	    this.activeLevel = this.levelCount - 1;
+	    this.levelInfoData.add(new DungeonLevelInfo());
+	    this.levelInfoList.add(this.generateCurrentLevelInfo());
+	    return true;
+	} else {
+	    return false;
+	}
+    }
+
+    @Override
+    public boolean addFixedSizeLevel(final int rows, final int cols, final int floors) {
+	if (this.levelCount < AbstractDungeon.MAX_LEVELS) {
+	    if (this.dungeonData != null) {
+		try (XDataWriter writer = this.getLevelWriter()) {
+		    // Save old level
+		    this.writeDungeonLevel(writer);
+		    writer.close();
+		} catch (final IOException io) {
+		    // Ignore
+		}
+	    }
+	    // Add all eras for the new level
+	    final int saveEra = this.activeEra;
+	    this.dungeonData = new CurrentDungeonData(rows, cols, floors);
 	    for (int e = 0; e < AbstractDungeon.ERA_COUNT; e++) {
 		this.switchEra(e);
 		this.dungeonData = new CurrentDungeonData();
@@ -428,8 +557,24 @@ public class CurrentDungeon extends AbstractDungeon {
 	return this.levelInfoData.get(this.activeLevel).getStartFloor(pi);
     }
 
-    public static int getStartLevel() {
-	return 0;
+    @Override
+    public int getPlayerLocationX(final int pi) {
+	return this.levelInfoData.get(this.activeLevel).getPlayerLocationX(pi);
+    }
+
+    @Override
+    public int getPlayerLocationY(final int pi) {
+	return this.levelInfoData.get(this.activeLevel).getPlayerLocationY(pi);
+    }
+
+    @Override
+    public int getPlayerLocationZ(final int pi) {
+	return this.levelInfoData.get(this.activeLevel).getPlayerLocationZ(pi);
+    }
+
+    @Override
+    public int getStartLevel(final int pi) {
+	return this.startLevel;
     }
 
     @Override
@@ -454,7 +599,7 @@ public class CurrentDungeon extends AbstractDungeon {
 
     @Override
     public boolean doesPlayerExist(final int pi) {
-	return this.levelInfoData.get(this.activeLevel).doesPlayerExist(pi);
+	return this.levelInfoData.get(this.activeLevel).doesPlayerStartExist(pi);
     }
 
     @Override
@@ -585,6 +730,51 @@ public class CurrentDungeon extends AbstractDungeon {
     @Override
     public void setStartFloor(final int pi, final int newStartFloor) {
 	this.levelInfoData.get(this.activeLevel).setStartFloor(pi, newStartFloor);
+    }
+
+    @Override
+    public void offsetPlayerLocationX(final int pi, final int newPlayerLocationX) {
+	this.levelInfoData.get(this.activeLevel).offsetPlayerLocationX(pi, newPlayerLocationX);
+    }
+
+    @Override
+    public void offsetPlayerLocationY(final int pi, final int newPlayerLocationY) {
+	this.levelInfoData.get(this.activeLevel).offsetPlayerLocationX(pi, newPlayerLocationY);
+    }
+
+    @Override
+    public void offsetPlayerLocationZ(final int pi, final int newPlayerLocationZ) {
+	this.levelInfoData.get(this.activeLevel).offsetPlayerLocationX(pi, newPlayerLocationZ);
+    }
+
+    @Override
+    public void setPlayerLocationX(final int pi, final int newPlayerLocationX) {
+	this.levelInfoData.get(this.activeLevel).setPlayerLocationX(pi, newPlayerLocationX);
+    }
+
+    @Override
+    public void setPlayerLocationY(final int pi, final int newPlayerLocationY) {
+	this.levelInfoData.get(this.activeLevel).setPlayerLocationX(pi, newPlayerLocationY);
+    }
+
+    @Override
+    public void setPlayerLocationZ(final int pi, final int newPlayerLocationZ) {
+	this.levelInfoData.get(this.activeLevel).setPlayerLocationX(pi, newPlayerLocationZ);
+    }
+
+    @Override
+    public void savePlayerLocation() {
+	this.levelInfoData.get(this.activeLevel).savePlayerLocation();
+    }
+
+    @Override
+    public void restorePlayerLocation() {
+	this.levelInfoData.get(this.activeLevel).restorePlayerLocation();
+    }
+
+    @Override
+    public void setPlayerToStart() {
+	this.levelInfoData.get(this.activeLevel).setPlayerToStart();
     }
 
     @Override

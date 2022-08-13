@@ -6,6 +6,7 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButton;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButtonDoor;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
 import com.puttysoftware.dungeondiver7.utility.Direction;
 import com.puttysoftware.fileio.XDataReader;
@@ -37,6 +38,12 @@ public abstract class AbstractDungeonData implements Cloneable {
 
     @Override
     public abstract AbstractDungeonData clone();
+
+    public abstract void updateMonsterPosition(final AbstractDungeon dungeon, final Direction move, final int xLoc,
+	    final int yLoc, final AbstractMovingObject monster, final int pi);
+
+    public abstract void postBattle(final AbstractDungeon dungeon, final AbstractMovingObject m, final int xLoc,
+	    final int yLoc, final boolean player);
 
     public abstract boolean isCellDirty(final AbstractDungeon dungeon, final int row, final int col, final int floor);
 
@@ -117,6 +124,13 @@ public abstract class AbstractDungeonData implements Cloneable {
 
     public abstract void clearVirtualGrid(final AbstractDungeon dungeon);
 
+    public abstract void resetVisibleSquares(final int floor);
+
+    public abstract void updateVisibleSquares(final AbstractDungeon dungeon, final int xp, final int yp, final int zp);
+
+    public abstract boolean isSquareVisible(final AbstractDungeon dungeon, final int x1, final int y1, final int x2,
+	    final int y2, final int zp);
+
     public abstract void fill(final AbstractDungeon dungeon, final AbstractDungeonObject fillWith);
 
     public abstract void fillVirtual();
@@ -133,6 +147,8 @@ public abstract class AbstractDungeonData implements Cloneable {
 	    final AbstractDungeonObject fill2, final boolean was16);
 
     public abstract void fillSTSNulls(final AbstractDungeonObject fillWith);
+
+    public abstract void tickTimers(final AbstractDungeon dungeon);
 
     protected final int normalizeRow(final int row) {
 	int fR = row;

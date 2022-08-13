@@ -109,9 +109,9 @@ class MapBattleGUI {
 		    yFix = y - yView;
 		    try {
 			final BufferedImageIcon icon1 = bd.getBattleDungeon()
-				.getCell(y, x, DungeonConstants.LAYER_LOWER_GROUND).battleRenderHook();
+				.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND).battleRenderHook();
 			final BufferedImageIcon icon2 = bd.getBattleDungeon()
-				.getCell(y, x, DungeonConstants.LAYER_LOWER_OBJECTS).battleRenderHook();
+				.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS).battleRenderHook();
 			this.drawGrid.setImageCell(
 				ImageCompositor.getCompositeImage(icon1, icon2, BattleImageManager.getGraphicSize()),
 				xFix, yFix);
@@ -126,7 +126,8 @@ class MapBattleGUI {
 	}
     }
 
-    void redrawOneBattleSquare(final MapBattleDefinitions bd, final int x, final int y, final AbstractDungeonObject obj3) {
+    void redrawOneBattleSquare(final MapBattleDefinitions bd, final int x, final int y,
+	    final AbstractDungeonObject obj3) {
 	// Draw the battle, if it is visible
 	if (this.battleFrame.isVisible()) {
 	    try {
@@ -135,10 +136,10 @@ class MapBattleGUI {
 		final int yView = this.vwMgr.getViewingWindowLocationY();
 		xFix = y - xView;
 		yFix = x - yView;
-		final BufferedImageIcon icon1 = bd.getBattleDungeon().getCell(x, y, DungeonConstants.LAYER_LOWER_GROUND)
-			.battleRenderHook();
-		final BufferedImageIcon icon2 = bd.getBattleDungeon().getCell(x, y, DungeonConstants.LAYER_LOWER_OBJECTS)
-			.battleRenderHook();
+		final BufferedImageIcon icon1 = bd.getBattleDungeon()
+			.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_GROUND).battleRenderHook();
+		final BufferedImageIcon icon2 = bd.getBattleDungeon()
+			.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS).battleRenderHook();
 		final BufferedImageIcon icon3 = obj3.battleRenderHook();
 		this.drawGrid.setImageCell(ImageCompositor.getVirtualCompositeImage(icon1, icon2, icon3,
 			BattleImageManager.getGraphicSize()), xFix, yFix);

@@ -7,10 +7,11 @@ package com.puttysoftware.dungeondiver7.manager.dungeon;
 
 import java.io.IOException;
 
+import com.puttysoftware.dungeondiver7.dungeon.AbstractPrefixIO;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 
-public class PrefixHandler implements PrefixIO {
+public class PrefixHandler implements AbstractPrefixIO {
     private static final byte FORMAT_VERSION = (byte) FormatConstants.MAZE_FORMAT_LATEST;
 
     @Override

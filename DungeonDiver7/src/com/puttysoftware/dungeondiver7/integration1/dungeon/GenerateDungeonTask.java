@@ -54,7 +54,7 @@ public class GenerateDungeonTask extends Thread {
 		app.getDungeonManager().setDungeon(gameDungeon);
 	    }
 	    gameDungeon.addLevel(dungeonSize, dungeonSize);
-	    gameDungeon.fillLevelRandomly();
+	    gameDungeon.fillRandomly();
 	    final RandomRange rR = new RandomRange(0, dungeonSize - 1);
 	    final RandomRange rC = new RandomRange(0, dungeonSize - 1);
 	    if (this.scratch) {
@@ -62,7 +62,7 @@ public class GenerateDungeonTask extends Thread {
 		do {
 		    startR = rR.generate();
 		    startC = rC.generate();
-		} while (gameDungeon.getCell(startR, startC, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid());
+		} while (gameDungeon.getCell(startR, startC, 0, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid());
 		gameDungeon.setStartRow(startR);
 		gameDungeon.setStartColumn(startC);
 		app.getDungeonManager().setLoaded(true);
@@ -76,7 +76,7 @@ public class GenerateDungeonTask extends Thread {
 		do {
 		    startR = rR.generate();
 		    startC = rC.generate();
-		} while (gameDungeon.getCell(startR, startC, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid());
+		} while (gameDungeon.getCell(startR, startC, 0, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid());
 		gameDungeon.setPlayerLocationX(startR);
 		gameDungeon.setPlayerLocationY(startC);
 		PartyManager.getParty().offsetZone(1);

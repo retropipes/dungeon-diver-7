@@ -396,15 +396,17 @@ public class MapBattleLogic extends AbstractBattle {
 			&& this.bd.getBattlers()[x].getTemplate().getY() == -1) {
 		    rx = randX.generate();
 		    ry = randY.generate();
-		    AbstractDungeonObject obj = this.bd.getBattleDungeon().getCell(rx, ry, DungeonConstants.LAYER_LOWER_OBJECTS);
+		    AbstractDungeonObject obj = this.bd.getBattleDungeon().getCell(rx, ry, 0,
+			    DungeonConstants.LAYER_LOWER_OBJECTS);
 		    while (obj.isSolidInBattle()) {
 			rx = randX.generate();
 			ry = randY.generate();
-			obj = this.bd.getBattleDungeon().getCell(rx, ry, DungeonConstants.LAYER_LOWER_OBJECTS);
+			obj = this.bd.getBattleDungeon().getCell(rx, ry, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    }
 		    this.bd.getBattlers()[x].setX(rx);
 		    this.bd.getBattlers()[x].setY(ry);
-		    this.bd.getBattleDungeon().setCell(this.bd.getBattlers()[x], rx, ry, DungeonConstants.LAYER_LOWER_OBJECTS);
+		    this.bd.getBattleDungeon().setCell(this.bd.getBattlers()[x], rx, ry, 0,
+			    DungeonConstants.LAYER_LOWER_OBJECTS);
 		}
 	    }
 	}
@@ -576,9 +578,9 @@ public class MapBattleLogic extends AbstractBattle {
 	activeBC.saveLocation();
 	this.battleGUI.getViewManager().saveViewingWindow();
 	try {
-	    next = m.getCell(px + x, py + y, DungeonConstants.LAYER_LOWER_OBJECTS);
-	    nextGround = m.getCell(px + x, py + y, DungeonConstants.LAYER_LOWER_GROUND);
-	    currGround = m.getCell(px, py, DungeonConstants.LAYER_LOWER_GROUND);
+	    next = m.getCell(px + x, py + y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    nextGround = m.getCell(px + x, py + y, 0, DungeonConstants.LAYER_LOWER_GROUND);
+	    currGround = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_GROUND);
 	} catch (final ArrayIndexOutOfBoundsException aioob) {
 	    // Ignore
 	}
@@ -595,42 +597,42 @@ public class MapBattleLogic extends AbstractBattle {
 		    AbstractDungeonObject obj8 = null;
 		    AbstractDungeonObject obj9 = null;
 		    try {
-			obj1 = m.getCell(px - 1, py - 1, DungeonConstants.LAYER_LOWER_OBJECTS);
+			obj1 = m.getCell(px - 1, py - 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
 		    try {
-			obj2 = m.getCell(px, py - 1, DungeonConstants.LAYER_LOWER_OBJECTS);
+			obj2 = m.getCell(px, py - 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
 		    try {
-			obj3 = m.getCell(px + 1, py - 1, DungeonConstants.LAYER_LOWER_OBJECTS);
+			obj3 = m.getCell(px + 1, py - 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
 		    try {
-			obj4 = m.getCell(px - 1, py, DungeonConstants.LAYER_LOWER_OBJECTS);
+			obj4 = m.getCell(px - 1, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
 		    try {
-			obj6 = m.getCell(px + 1, py - 1, DungeonConstants.LAYER_LOWER_OBJECTS);
+			obj6 = m.getCell(px + 1, py - 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
 		    try {
-			obj7 = m.getCell(px - 1, py + 1, DungeonConstants.LAYER_LOWER_OBJECTS);
+			obj7 = m.getCell(px - 1, py + 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
 		    try {
-			obj8 = m.getCell(px, py + 1, DungeonConstants.LAYER_LOWER_OBJECTS);
+			obj8 = m.getCell(px, py + 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
 		    try {
-			obj9 = m.getCell(px + 1, py + 1, DungeonConstants.LAYER_LOWER_OBJECTS);
+			obj9 = m.getCell(px + 1, py + 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException aioob) {
 			// Ignore
 		    }
@@ -715,15 +717,15 @@ public class MapBattleLogic extends AbstractBattle {
 			    }
 			}
 		    }
-		    m.setCell(activeBC.getSavedObject(), px, py, DungeonConstants.LAYER_LOWER_OBJECTS);
+		    m.setCell(activeBC.getSavedObject(), px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    activeBC.offsetX(x);
 		    activeBC.offsetY(y);
 		    px += x;
 		    py += y;
 		    this.battleGUI.getViewManager().offsetViewingWindowLocationX(y);
 		    this.battleGUI.getViewManager().offsetViewingWindowLocationY(x);
-		    activeBC.setSavedObject(m.getCell(px, py, DungeonConstants.LAYER_LOWER_OBJECTS));
-		    m.setCell(activeBC, px, py, DungeonConstants.LAYER_LOWER_OBJECTS);
+		    activeBC.setSavedObject(m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS));
+		    m.setCell(activeBC, px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    this.decrementActiveActionCounterBy(MapAIContext.getAPCost());
 		    SoundLoader.playSound(SoundConstants.WALK);
 		} else {
@@ -805,7 +807,7 @@ public class MapBattleLogic extends AbstractBattle {
 	    // Set fled character to inactive
 	    activeBC.deactivate();
 	    // Remove character from battle
-	    m.setCell(new Empty(), activeBC.getX(), activeBC.getY(), DungeonConstants.LAYER_LOWER_OBJECTS);
+	    m.setCell(new Empty(), activeBC.getX(), activeBC.getY(), 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	    // End Turn
 	    this.endTurn();
 	    this.updateStatsAndEffects();
@@ -849,7 +851,7 @@ public class MapBattleLogic extends AbstractBattle {
 		    continue;
 		}
 		try {
-		    next = m.getCell(px + x, py + y, DungeonConstants.LAYER_LOWER_OBJECTS);
+		    next = m.getCell(px + x, py + y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		} catch (final ArrayIndexOutOfBoundsException aioob) {
 		    // Ignore
 		}
@@ -1157,7 +1159,7 @@ public class MapBattleLogic extends AbstractBattle {
 	// Remove effects from dead character
 	active.stripAllEffects();
 	// Remove character from battle
-	this.bd.getBattleDungeon().setCell(new Empty(), activeBC.getX(), activeBC.getY(),
+	this.bd.getBattleDungeon().setCell(new Empty(), activeBC.getX(), activeBC.getY(), 0,
 		DungeonConstants.LAYER_LOWER_OBJECTS);
 	if (this.bd.getActiveCharacter().getName().equals(activeBC.getName())) {
 	    // Active character died, end turn

@@ -32,7 +32,7 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
     public void timerExpiredAction(final int locX, final int locY) {
 	// Move the monster
 	CurrentDungeon dungeon = Integration1.getApplication().getDungeonManager().getDungeon();
-	final Direction move = dungeon.computeFinalBossMoveDirection(locX, locY);
+	final Direction move = dungeon.computeFinalBossMoveDirection(locX, locY, 0);
 	dungeon.updateMonsterPosition(move, locX, locY, this);
 	this.activateTimer(1);
     }

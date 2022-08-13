@@ -192,6 +192,17 @@ public class ShortStorage {
     }
 
     /**
+     * Change stored data at a given location relative to the current value.
+     *
+     * @param obj the new data value
+     * @param loc the location to modify
+     */
+    public final void offsetCell(final int obj, final int... loc) {
+	final int aloc = this.ravelLocation(loc);
+	this.dataStore[aloc] += obj;
+    }
+
+    /**
      * Change stored data directly in the underlying array. To convert a simulated
      * index to a raw index, use ravelLocation().
      *

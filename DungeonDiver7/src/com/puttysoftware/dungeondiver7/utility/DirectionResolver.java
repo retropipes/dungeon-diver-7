@@ -237,7 +237,7 @@ public class DirectionResolver {
 	}
 	return res;
     }
-    
+
     public static final String resolveDirectionConstantToName(final Direction d) {
 	switch (d) {
 	case EAST:

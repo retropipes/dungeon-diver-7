@@ -7,8 +7,8 @@ package com.puttysoftware.dungeondiver7.utility;
 
 import java.io.IOException;
 
-import com.puttysoftware.fileio.XDataReader;
-import com.puttysoftware.fileio.XDataWriter;
+import com.puttysoftware.fileio.FileIOReader;
+import com.puttysoftware.fileio.FileIOWriter;
 
 public class PartyInventory {
     // Fields
@@ -45,7 +45,7 @@ public class PartyInventory {
 	PartyInventory.iceBombsLeft = 0;
     }
 
-    public static void readInventory(final XDataReader reader) throws IOException {
+    public static void readInventory(final FileIOReader reader) throws IOException {
 	PartyInventory.missilesLeft = reader.readInt();
 	PartyInventory.stunnersLeft = reader.readInt();
 	PartyInventory.boostsLeft = reader.readInt();
@@ -60,7 +60,7 @@ public class PartyInventory {
 	PartyInventory.iceBombsLeft = reader.readInt();
     }
 
-    public static void writeInventory(final XDataWriter writer) throws IOException {
+    public static void writeInventory(final FileIOWriter writer) throws IOException {
 	writer.writeInt(PartyInventory.missilesLeft);
 	writer.writeInt(PartyInventory.stunnersLeft);
 	writer.writeInt(PartyInventory.boostsLeft);

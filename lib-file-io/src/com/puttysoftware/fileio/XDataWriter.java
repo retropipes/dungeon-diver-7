@@ -151,7 +151,7 @@ public class XDataWriter implements FileIOWriter {
 	    throw new FileIOException(e);
 	}
     }
-    
+
     protected void writeRawString(final String s) throws FileIOException {
 	try {
 	    this.fileIO.write(s);

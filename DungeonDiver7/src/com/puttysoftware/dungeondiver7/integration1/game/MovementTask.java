@@ -104,17 +104,17 @@ final class MovementTask extends Thread {
 	AbstractDungeonObject nextAbove = new Wall();
 	do {
 	    try {
-		below = m.getCell(px, py, DungeonConstants.LAYER_LOWER_GROUND);
+		below = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_GROUND);
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
 		below = new Empty();
 	    }
 	    try {
-		nextBelow = m.getCell(px + fX, py + fY, DungeonConstants.LAYER_LOWER_GROUND);
+		nextBelow = m.getCell(px + fX, py + fY, 0, DungeonConstants.LAYER_LOWER_GROUND);
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
 		nextBelow = new Empty();
 	    }
 	    try {
-		nextAbove = m.getCell(px + fX, py + fY, DungeonConstants.LAYER_LOWER_OBJECTS);
+		nextAbove = m.getCell(px + fX, py + fY, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
 		nextAbove = new Wall();
 	    }
@@ -143,8 +143,8 @@ final class MovementTask extends Thread {
 			    this.proceed = false;
 			}
 			if (this.proceed) {
-			    this.saved = m.getCell(px, py, DungeonConstants.LAYER_LOWER_OBJECTS);
-			    groundInto = m.getCell(px, py, DungeonConstants.LAYER_LOWER_GROUND);
+			    this.saved = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+			    groundInto = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_GROUND);
 			    if (groundInto.overridesDefaultPostMove()) {
 				groundInto.postMoveAction(px, py, pz);
 				if (!this.saved.isOfType(TypeConstants.TYPE_PASS_THROUGH)) {
@@ -225,21 +225,21 @@ final class MovementTask extends Thread {
 	final Application app = Integration1.getApplication();
 	final CurrentDungeon m = app.getDungeonManager().getDungeon();
 	try {
-	    m.getCell(x, y, DungeonConstants.LAYER_LOWER_OBJECTS).preMoveAction(true, x, y);
+	    m.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS).preMoveAction(true, x, y);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    // Ignore
 	}
 	m.savePlayerLocation();
 	this.vwMgr.saveViewingWindow();
 	try {
-	    if (!m.getCell(x, y, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid()) {
+	    if (!m.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid()) {
 		m.setPlayerLocationX(x);
 		m.setPlayerLocationY(y);
 		this.vwMgr.setViewingWindowLocationX(
 			m.getPlayerLocationY() - GameViewingWindowManager.getOffsetFactorX());
 		this.vwMgr.setViewingWindowLocationY(
 			m.getPlayerLocationX() - GameViewingWindowManager.getOffsetFactorY());
-		this.saved = m.getCell(m.getPlayerLocationX(), m.getPlayerLocationY(),
+		this.saved = m.getCell(m.getPlayerLocationX(), m.getPlayerLocationY(), 0,
 			DungeonConstants.LAYER_LOWER_OBJECTS);
 		app.getDungeonManager().setDirty(true);
 		this.saved.postMoveAction(x, y, 0);

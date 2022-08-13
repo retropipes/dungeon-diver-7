@@ -8,11 +8,13 @@ package com.puttysoftware.dungeondiver7.dungeon;
 import java.io.File;
 import java.io.IOException;
 
+import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButton;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButtonDoor;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
+import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.Direction;
@@ -22,10 +24,12 @@ public abstract class AbstractDungeon {
     private static final int MIN_LEVELS = 1;
     protected static final int MAX_LEVELS = Integer.MAX_VALUE;
     protected static final int ERA_COUNT = 5;
+    private static final int MAX_COLUMNS = 250;
+    private static final int MAX_ROWS = 250;
 
     // Constructors
     /**
-     * @throws IOException  
+     * @throws IOException
      */
     public AbstractDungeon() throws IOException {
 	// Do nothing
@@ -56,12 +60,27 @@ public abstract class AbstractDungeon {
 	return AbstractDungeonData.getMinFloors();
     }
 
+    public static int getMaxRows() {
+	return AbstractDungeon.MAX_ROWS;
+    }
+
     public static int getMinRows() {
 	return AbstractDungeonData.getMinRows();
     }
 
+    public static int getMaxColumns() {
+	return AbstractDungeon.MAX_ROWS;
+    }
+
     public static int getMinColumns() {
-	return AbstractDungeonData.getMinColumns();
+	return AbstractDungeon.MAX_COLUMNS;
+    }
+
+    public static AbstractDungeon getTemporaryBattleCopy() throws IOException {
+	final CurrentDungeon temp = new CurrentDungeon();
+	temp.addFixedSizeLevel(DungeonDiver7.getBattleDungeonSize(), DungeonDiver7.getBattleDungeonSize(), 1);
+	temp.fillDefault();
+	return temp;
     }
 
     // Methods
@@ -102,6 +121,14 @@ public abstract class AbstractDungeon {
     public abstract void setPrefixHandler(AbstractPrefixIO xph);
 
     public abstract void setSuffixHandler(AbstractSuffixIO xsh);
+
+    public abstract void tickTimers();
+
+    public abstract void resetVisibleSquares(final int floor);
+
+    public abstract void updateVisibleSquares(final int xp, final int yp, final int zp);
+
+    public abstract boolean isSquareVisible(final int x1, final int y1, final int x2, final int y2, final int zp);
 
     public abstract int getActiveLevelNumber();
 
@@ -181,6 +208,8 @@ public abstract class AbstractDungeon {
 
     public abstract boolean addLevel();
 
+    public abstract boolean addFixedSizeLevel(final int rows, final int cols, final int floors);
+
     public final boolean removeLevel(final int num) {
 	final int saveLevel = this.getActiveLevelNumber();
 	this.switchLevel(num);
@@ -223,9 +252,13 @@ public abstract class AbstractDungeon {
 
     public abstract int getStartFloor(final int pi);
 
-    public static int getStartLevel() {
-	return 0;
-    }
+    public abstract int getStartLevel(final int pi);
+
+    public abstract int getPlayerLocationX(final int pi);
+
+    public abstract int getPlayerLocationY(final int pi);
+
+    public abstract int getPlayerLocationZ(final int pi);
 
     public abstract int getRows();
 
@@ -240,6 +273,10 @@ public abstract class AbstractDungeon {
     public abstract int[] findPlayer(final int number);
 
     public abstract void tickTimers(final int floor, final int actionType);
+
+    public static boolean radialScan(final int cx, final int cy, final int r, final int tx, final int ty) {
+	return Math.abs(tx - cx) <= r && Math.abs(ty - cy) <= r;
+    }
 
     public abstract void checkForEnemies(final int floor, final int ex, final int ey, final AbstractCharacter e);
 
@@ -291,6 +328,24 @@ public abstract class AbstractDungeon {
     public abstract void setStartColumn(final int pi, final int newStartColumn);
 
     public abstract void setStartFloor(final int pi, final int newStartFloor);
+
+    public abstract void offsetPlayerLocationX(final int pi, final int newPlayerLocationX);
+
+    public abstract void offsetPlayerLocationY(final int pi, final int newPlayerLocationY);
+
+    public abstract void offsetPlayerLocationZ(final int pi, final int newPlayerLocationZ);
+
+    public abstract void setPlayerLocationX(final int pi, final int newPlayerLocationX);
+
+    public abstract void setPlayerLocationY(final int pi, final int newPlayerLocationY);
+
+    public abstract void setPlayerLocationZ(final int pi, final int newPlayerLocationZ);
+
+    public abstract void savePlayerLocation();
+
+    public abstract void restorePlayerLocation();
+
+    public abstract void setPlayerToStart();
 
     public abstract void fillDefault();
 

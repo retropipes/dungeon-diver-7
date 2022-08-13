@@ -47,11 +47,11 @@ public class StatisticsViewer {
 		final long value = leader.getStat(x);
 		if (x == StatConstants.STAT_HIT || x == StatConstants.STAT_EVADE) {
 		    final double fmtVal = value / 100.0;
-		    StatisticsViewer.statisticsValues[x].setText(
-			    " " + LocaleLoader.loadString(LocalizedFile.STATS, x) + ": " + fmtVal + "%  ");
+		    StatisticsViewer.statisticsValues[x]
+			    .setText(" " + LocaleLoader.loadString(LocalizedFile.STATS, x) + ": " + fmtVal + "%  ");
 		} else {
-		    StatisticsViewer.statisticsValues[x].setText(
-			    " " + LocaleLoader.loadString(LocalizedFile.STATS, x) + ": " + value + "  ");
+		    StatisticsViewer.statisticsValues[x]
+			    .setText(" " + LocaleLoader.loadString(LocalizedFile.STATS, x) + ": " + value + "  ");
 		}
 	    }
 	    StatisticsViewer.statisticsFrame.pack();

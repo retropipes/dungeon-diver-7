@@ -27,7 +27,7 @@ public abstract class AbstractCharacter extends AbstractDungeonObject {
 	this.type.set(TypeConstants.TYPE_CHARACTER);
 	this.characterNumber = 1;
     }
-    
+
     protected AbstractCharacter(final int number) {
 	super(true);
 	this.setSavedObject(new Empty());
@@ -126,43 +126,37 @@ public abstract class AbstractCharacter extends AbstractDungeonObject {
     }
 
     @Override
-    protected AbstractDungeonObject readHookV2(final FileIOReader reader, final int formatVersion)
-	    throws IOException {
+    protected AbstractDungeonObject readHookV2(final FileIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getApplication().getObjects().readV2(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV3(final FileIOReader reader, final int formatVersion)
-	    throws IOException {
+    protected AbstractDungeonObject readHookV3(final FileIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getApplication().getObjects().readV3(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV4(final FileIOReader reader, final int formatVersion)
-	    throws IOException {
+    protected AbstractDungeonObject readHookV4(final FileIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getApplication().getObjects().readV4(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV5(final FileIOReader reader, final int formatVersion)
-	    throws IOException {
+    protected AbstractDungeonObject readHookV5(final FileIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getApplication().getObjects().readV5(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV6(final FileIOReader reader, final int formatVersion)
-	    throws IOException {
+    protected AbstractDungeonObject readHookV6(final FileIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getApplication().getObjects().readV6(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV7(final FileIOReader reader, final int formatVersion)
-	    throws IOException {
+    protected AbstractDungeonObject readHookV7(final FileIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getApplication().getObjects().readV7(reader, formatVersion));
 	return this;
     }

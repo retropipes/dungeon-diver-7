@@ -7,11 +7,11 @@ package com.puttysoftware.dungeondiver7.dungeon;
 
 import java.io.IOException;
 
-import com.puttysoftware.fileio.XDataReader;
-import com.puttysoftware.fileio.XDataWriter;
+import com.puttysoftware.fileio.FileIOReader;
+import com.puttysoftware.fileio.FileIOWriter;
 
 public interface AbstractSuffixIO {
-    void writeSuffix(XDataWriter writer) throws IOException;
+    void writeSuffix(FileIOWriter writer) throws IOException;
 
-    void readSuffix(XDataReader reader, int formatVersion) throws IOException;
+    void readSuffix(FileIOReader reader, int formatVersion) throws IOException;
 }

@@ -73,6 +73,8 @@ import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 import com.puttysoftware.dungeondiver7.utility.RCLGenerator;
 import com.puttysoftware.dungeondiver7.utility.RangeTypeConstants;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.fileio.FileIOReader;
+import com.puttysoftware.fileio.FileIOWriter;
 import com.puttysoftware.fileio.XDataReader;
 import com.puttysoftware.fileio.XDataWriter;
 
@@ -1576,7 +1578,7 @@ public class GameManager implements MenuSection {
 	CommonDialogs.showTitledDialog(desc, gameName);
     }
 
-    public void loadGameHookG1(final XDataReader dungeonFile) throws IOException {
+    public void loadGameHookG1(final FileIOReader dungeonFile) throws IOException {
 	final Application app = DungeonDiver7.getApplication();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
@@ -1584,7 +1586,7 @@ public class GameManager implements MenuSection {
 	this.st.setOthers(dungeonFile.readLong());
     }
 
-    public void loadGameHookG2(final XDataReader dungeonFile) throws IOException {
+    public void loadGameHookG2(final FileIOReader dungeonFile) throws IOException {
 	final Application app = DungeonDiver7.getApplication();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
@@ -1595,7 +1597,7 @@ public class GameManager implements MenuSection {
 	PartyInventory.setBlueKeysLeft(dungeonFile.readInt());
     }
 
-    public void loadGameHookG3(final XDataReader dungeonFile) throws IOException {
+    public void loadGameHookG3(final FileIOReader dungeonFile) throws IOException {
 	final Application app = DungeonDiver7.getApplication();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
@@ -1604,7 +1606,7 @@ public class GameManager implements MenuSection {
 	PartyInventory.readInventory(dungeonFile);
     }
 
-    public void loadGameHookG4(final XDataReader dungeonFile) throws IOException {
+    public void loadGameHookG4(final FileIOReader dungeonFile) throws IOException {
 	final Application app = DungeonDiver7.getApplication();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
@@ -1613,7 +1615,7 @@ public class GameManager implements MenuSection {
 	PartyInventory.readInventory(dungeonFile);
     }
 
-    public void loadGameHookG5(final XDataReader dungeonFile) throws IOException {
+    public void loadGameHookG5(final FileIOReader dungeonFile) throws IOException {
 	final Application app = DungeonDiver7.getApplication();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
@@ -1622,7 +1624,7 @@ public class GameManager implements MenuSection {
 	PartyInventory.readInventory(dungeonFile);
     }
 
-    public void loadGameHookG6(final XDataReader dungeonFile) throws IOException {
+    public void loadGameHookG6(final FileIOReader dungeonFile) throws IOException {
 	final Application app = DungeonDiver7.getApplication();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
@@ -1631,7 +1633,7 @@ public class GameManager implements MenuSection {
 	PartyInventory.readInventory(dungeonFile);
     }
 
-    public void saveGameHook(final XDataWriter dungeonFile) throws IOException {
+    public void saveGameHook(final FileIOWriter dungeonFile) throws IOException {
 	final Application app = DungeonDiver7.getApplication();
 	dungeonFile.writeString(app.getDungeonManager().getScoresFileName());
 	dungeonFile.writeLong(this.st.getMoves());

@@ -10,14 +10,14 @@ import java.io.IOException;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.FormatConstants;
-import com.puttysoftware.fileio.XDataReader;
-import com.puttysoftware.fileio.XDataWriter;
+import com.puttysoftware.fileio.FileIOReader;
+import com.puttysoftware.fileio.FileIOWriter;
 
 public class DungeonFilePrefixHandler implements AbstractPrefixIO {
     private static final byte FORMAT_VERSION = (byte) FormatConstants.ARENA_FORMAT_LATEST;
 
     @Override
-    public int readPrefix(final XDataReader reader) throws IOException {
+    public int readPrefix(final FileIOReader reader) throws IOException {
 	final byte formatVer = DungeonFilePrefixHandler.readFormatVersion(reader);
 	final boolean res = DungeonFilePrefixHandler.checkFormatVersion(formatVer);
 	if (!res) {
@@ -28,11 +28,11 @@ public class DungeonFilePrefixHandler implements AbstractPrefixIO {
     }
 
     @Override
-    public void writePrefix(final XDataWriter writer) throws IOException {
+    public void writePrefix(final FileIOWriter writer) throws IOException {
 	DungeonFilePrefixHandler.writeFormatVersion(writer);
     }
 
-    private static byte readFormatVersion(final XDataReader reader) throws IOException {
+    private static byte readFormatVersion(final FileIOReader reader) throws IOException {
 	return reader.readByte();
     }
 
@@ -44,7 +44,7 @@ public class DungeonFilePrefixHandler implements AbstractPrefixIO {
 	}
     }
 
-    private static void writeFormatVersion(final XDataWriter writer) throws IOException {
+    private static void writeFormatVersion(final FileIOWriter writer) throws IOException {
 	writer.writeByte(DungeonFilePrefixHandler.FORMAT_VERSION);
     }
 }

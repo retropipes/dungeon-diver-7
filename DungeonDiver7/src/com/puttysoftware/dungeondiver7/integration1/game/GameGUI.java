@@ -159,8 +159,8 @@ class GameGUI {
 		    visible = app.getDungeonManager().getDungeon().isSquareVisible(u, v, y, x);
 		    try {
 			if (visible) {
-			    final AbstractDungeonObject obj1 = m.getCell(y, x, DungeonConstants.LAYER_LOWER_GROUND);
-			    final AbstractDungeonObject obj2 = m.getCell(y, x, DungeonConstants.LAYER_LOWER_OBJECTS);
+			    final AbstractDungeonObject obj1 = m.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND);
+			    final AbstractDungeonObject obj2 = m.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 			    final BufferedImageIcon img1 = obj1.gameRenderHook(y, x);
 			    final BufferedImageIcon img2 = obj2.gameRenderHook(y, x);
 			    if (u == y && v == x) {
@@ -295,7 +295,7 @@ class GameGUI {
 		    int py = m.getPlayerLocationY();
 		    AbstractDungeonObject there = new Empty();
 		    try {
-			there = m.getCell(px, py, DungeonConstants.LAYER_LOWER_OBJECTS);
+			there = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException ae) {
 			// Ignore
 		    }

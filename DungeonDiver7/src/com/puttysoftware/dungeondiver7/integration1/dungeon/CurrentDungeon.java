@@ -10,14 +10,14 @@ import java.io.IOException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractPrefixIO;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractSuffixIO;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Tile;
 import com.puttysoftware.dungeondiver7.integration1.VersionException;
 import com.puttysoftware.dungeondiver7.manager.dungeon.FormatConstants;
-import com.puttysoftware.dungeondiver7.manager.dungeon.PrefixIO;
-import com.puttysoftware.dungeondiver7.manager.dungeon.SuffixIO;
 import com.puttysoftware.dungeondiver7.utility.Direction;
 import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -29,28 +29,22 @@ import com.puttysoftware.randomrange.RandomLongRange;
 
 public class CurrentDungeon {
     // Properties
-    private CurrentDungeonData mazeData;
-    private int startW;
-    private int locW;
-    private int saveW;
+    private CurrentDungeonData dungeonData;
+    private int startLevel;
     private int levelCount;
     private int activeLevel;
     private String basePath;
-    private PrefixIO prefixHandler;
-    private SuffixIO suffixHandler;
-    private final int[] savedStart;
+    private AbstractPrefixIO prefixHandler;
+    private AbstractSuffixIO suffixHandler;
     private static final int MIN_LEVELS = 1;
     private static final int MAX_LEVELS = 13;
 
     // Constructors
     public CurrentDungeon() {
-	this.mazeData = null;
+	this.dungeonData = null;
 	this.levelCount = 0;
-	this.startW = 0;
-	this.locW = 0;
-	this.saveW = 0;
+	this.startLevel = 0;
 	this.activeLevel = 0;
-	this.savedStart = new int[4];
 	final long random = new RandomLongRange(0, Long.MAX_VALUE).generate();
 	final String randomID = Long.toHexString(random);
 	this.basePath = System.getProperty("java.io.tmpdir") + File.separator + "Chrystalz" + File.separator + randomID
@@ -91,7 +85,7 @@ public class CurrentDungeon {
 	return temp;
     }
 
-    public Direction computeFinalBossMoveDirection(final int locX, final int locY) {
+    public Direction computeFinalBossMoveDirection(final int locX, final int locY, final int locZ) {
 	int px = this.getPlayerLocationX();
 	int py = this.getPlayerLocationY();
 	int relX = px - locX;
@@ -104,48 +98,49 @@ public class CurrentDungeon {
 	if (relY != 0) {
 	    moveY = relY / Math.abs(relY);
 	}
-	boolean canMove = !this.getCell(locX + moveX, locY + moveY, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid();
+	boolean canMove = !this.getCell(locX + moveX, locY + moveY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+		.isSolid();
 	if (canMove) {
 	    return DirectionResolver.resolveRelativeDirection(moveX, moveY);
 	}
 	int moveX1L = DirectionResolver.rotate45LeftX(moveX, moveY);
 	int moveY1L = DirectionResolver.rotate45LeftY(moveX, moveY);
-	boolean canMove1L = !this.getCell(locX + moveX1L, locY + moveY1L, DungeonConstants.LAYER_LOWER_OBJECTS)
+	boolean canMove1L = !this.getCell(locX + moveX1L, locY + moveY1L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove1L) {
 	    return DirectionResolver.resolveRelativeDirection(moveX1L, moveY1L);
 	}
 	int moveX1R = DirectionResolver.rotate45RightX(moveX, moveY);
 	int moveY1R = DirectionResolver.rotate45RightY(moveX, moveY);
-	boolean canMove1R = !this.getCell(locX + moveX1R, locY + moveY1R, DungeonConstants.LAYER_LOWER_OBJECTS)
+	boolean canMove1R = !this.getCell(locX + moveX1R, locY + moveY1R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove1R) {
 	    return DirectionResolver.resolveRelativeDirection(moveX1R, moveY1R);
 	}
 	int moveX2L = DirectionResolver.rotate45LeftX(moveX1L, moveY1L);
 	int moveY2L = DirectionResolver.rotate45LeftY(moveX1L, moveY1L);
-	boolean canMove2L = !this.getCell(locX + moveX2L, locY + moveY2L, DungeonConstants.LAYER_LOWER_OBJECTS)
+	boolean canMove2L = !this.getCell(locX + moveX2L, locY + moveY2L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove2L) {
 	    return DirectionResolver.resolveRelativeDirection(moveX2L, moveY2L);
 	}
 	int moveX2R = DirectionResolver.rotate45RightX(moveX1R, moveY1R);
 	int moveY2R = DirectionResolver.rotate45RightY(moveX1R, moveY1R);
-	boolean canMove2R = !this.getCell(locX + moveX2R, locY + moveY2R, DungeonConstants.LAYER_LOWER_OBJECTS)
+	boolean canMove2R = !this.getCell(locX + moveX2R, locY + moveY2R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove2R) {
 	    return DirectionResolver.resolveRelativeDirection(moveX2R, moveY2R);
 	}
 	int moveX3L = DirectionResolver.rotate45LeftX(moveX2L, moveY2L);
 	int moveY3L = DirectionResolver.rotate45LeftY(moveX2L, moveY2L);
-	boolean canMove3L = !this.getCell(locX + moveX3L, locY + moveY3L, DungeonConstants.LAYER_LOWER_OBJECTS)
+	boolean canMove3L = !this.getCell(locX + moveX3L, locY + moveY3L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove3L) {
 	    return DirectionResolver.resolveRelativeDirection(moveX3L, moveY3L);
 	}
 	int moveX3R = DirectionResolver.rotate45RightX(moveX2R, moveY2R);
 	int moveY3R = DirectionResolver.rotate45RightY(moveX2R, moveY2R);
-	boolean canMove3R = !this.getCell(locX + moveX3R, locY + moveY3R, DungeonConstants.LAYER_LOWER_OBJECTS)
+	boolean canMove3R = !this.getCell(locX + moveX3R, locY + moveY3R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove3R) {
 	    return DirectionResolver.resolveRelativeDirection(moveX3R, moveY3R);
@@ -157,35 +152,35 @@ public class CurrentDungeon {
 
     public void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
 	    final AbstractMovingObject monster) {
-	this.mazeData.updateMonsterPosition(move, xLoc, yLoc, monster);
+	this.dungeonData.updateMonsterPosition(move, xLoc, yLoc, monster);
     }
 
     public void postBattle(final AbstractMovingObject m, final int xLoc, final int yLoc, final boolean player) {
-	this.mazeData.postBattle(m, xLoc, yLoc, player);
+	this.dungeonData.postBattle(m, xLoc, yLoc, player);
     }
 
     public String getBasePath() {
 	return this.basePath;
     }
 
-    public void setPrefixHandler(final PrefixIO xph) {
+    public void setPrefixHandler(final AbstractPrefixIO xph) {
 	this.prefixHandler = xph;
     }
 
-    public void setSuffixHandler(final SuffixIO xsh) {
+    public void setSuffixHandler(final AbstractSuffixIO xsh) {
 	this.suffixHandler = xsh;
     }
 
     public void tickTimers() {
-	this.mazeData.tickTimers();
+	this.dungeonData.tickTimers();
     }
 
     public void resetVisibleSquares() {
-	this.mazeData.resetVisibleSquares();
+	this.dungeonData.resetVisibleSquares();
     }
 
     public void updateVisibleSquares(final int xp, final int yp) {
-	this.mazeData.updateVisibleSquares(xp, yp);
+	this.dungeonData.updateVisibleSquares(xp, yp);
     }
 
     public void switchLevel(final int level) {
@@ -211,104 +206,98 @@ public class CurrentDungeon {
     }
 
     public boolean addLevel(final int rows, final int cols) {
-	this.mazeData = new CurrentDungeonData(rows, cols);
+	this.dungeonData = new CurrentDungeonData(rows, cols);
 	this.levelCount++;
 	this.activeLevel = this.levelCount - 1;
 	return true;
     }
 
-    public AbstractDungeonObject getCell(final int row, final int col, final int extra) {
-	return this.mazeData.getCell(row, col, extra);
+    public AbstractDungeonObject getCell(final int row, final int col, int floor, final int extra) {
+	return this.dungeonData.getCell(row, col, 0, extra);
     }
 
     public int getPlayerLocationX() {
-	return this.mazeData.getPlayerRow();
+	return this.dungeonData.getPlayerLocationX();
     }
 
     public int getPlayerLocationY() {
-	return this.mazeData.getPlayerColumn();
+	return this.dungeonData.getPlayerLocationY();
     }
 
     public int getStartLevel() {
-	return this.startW;
+	return this.startLevel;
     }
 
     public int getRows() {
-	return this.mazeData.getRows();
+	return this.dungeonData.getRows();
     }
 
     public int getColumns() {
-	return this.mazeData.getColumns();
+	return this.dungeonData.getColumns();
     }
 
     public boolean doesPlayerExist() {
-	return this.mazeData.doesPlayerExist();
+	return this.dungeonData.doesPlayerExist();
     }
 
     public boolean isSquareVisible(final int x1, final int y1, final int x2, final int y2) {
-	return this.mazeData.isSquareVisible(x1, y1, x2, y2);
+	return this.dungeonData.isSquareVisible(x1, y1, x2, y2);
     }
 
-    public void setCell(final AbstractDungeonObject mo, final int row, final int col, final int extra) {
-	this.mazeData.setCell(mo, row, col, extra);
+    public void setCell(final AbstractDungeonObject mo, final int row, final int col, int floor, final int extra) {
+	this.dungeonData.setCell(mo, row, col, 0, extra);
     }
 
     public void setStartRow(final int newStartRow) {
-	this.mazeData.setStartRow(newStartRow);
+	this.dungeonData.setStartRow(newStartRow);
     }
 
     public void setStartColumn(final int newStartColumn) {
-	this.mazeData.setStartColumn(newStartColumn);
+	this.dungeonData.setStartColumn(newStartColumn);
     }
 
     public void savePlayerLocation() {
-	this.saveW = this.locW;
-	this.mazeData.savePlayerLocation();
+	this.dungeonData.savePlayerLocation();
     }
 
     public void restorePlayerLocation() {
-	this.locW = this.saveW;
-	this.mazeData.restorePlayerLocation();
+	this.dungeonData.restorePlayerLocation();
     }
 
     public void setPlayerToStart() {
-	this.mazeData.setPlayerToStart();
+	this.dungeonData.setPlayerToStart();
     }
 
     public void setPlayerLocationX(final int newPlayerRow) {
-	this.mazeData.setPlayerRow(newPlayerRow);
+	this.dungeonData.setPlayerRow(newPlayerRow);
     }
 
     public void setPlayerLocationY(final int newPlayerColumn) {
-	this.mazeData.setPlayerColumn(newPlayerColumn);
+	this.dungeonData.setPlayerColumn(newPlayerColumn);
     }
 
     public void offsetPlayerLocationX(final int newPlayerRow) {
-	this.mazeData.offsetPlayerRow(newPlayerRow);
+	this.dungeonData.offsetPlayerRow(newPlayerRow);
     }
 
     public void offsetPlayerLocationY(final int newPlayerColumn) {
-	this.mazeData.offsetPlayerColumn(newPlayerColumn);
+	this.dungeonData.offsetPlayerColumn(newPlayerColumn);
     }
 
-    public void offsetPlayerLocationW(final int newPlayerLevel) {
-	this.locW += newPlayerLevel;
-    }
-
-    public void fillLevelRandomly() {
-	this.mazeData.fillRandomly(this, this.activeLevel);
+    public void fillRandomly() {
+	this.dungeonData.fillRandomly(this, this.activeLevel);
     }
 
     public void save() {
-	this.mazeData.save();
+	this.dungeonData.save();
     }
 
     public void restore() {
-	this.mazeData.restore();
+	this.dungeonData.restore();
     }
 
     private void fill(final AbstractDungeonObject bottom, final AbstractDungeonObject top) {
-	this.mazeData.fill(bottom, top);
+	this.dungeonData.fill(bottom, top);
     }
 
     public CurrentDungeon readDungeon() throws IOException {
@@ -346,13 +335,8 @@ public class CurrentDungeon {
 	    ver = this.prefixHandler.readPrefix(reader);
 	}
 	this.levelCount = reader.readInt();
-	this.startW = reader.readInt();
-	this.locW = reader.readInt();
-	this.saveW = reader.readInt();
+	this.startLevel = reader.readInt();
 	this.activeLevel = reader.readInt();
-	for (int y = 0; y < 4; y++) {
-	    this.savedStart[y] = reader.readInt();
-	}
 	if (this.suffixHandler != null) {
 	    this.suffixHandler.readSuffix(reader, ver);
 	}
@@ -361,8 +345,8 @@ public class CurrentDungeon {
 
     private void readDungeonLevel(final FileIOReader reader, final int formatVersion) throws IOException {
 	if (formatVersion == FormatConstants.MAZE_FORMAT_LATEST) {
-	    this.mazeData = CurrentDungeonData.readLayeredTowerV1(reader);
-	    this.mazeData.readSavedTowerState(reader, formatVersion);
+	    this.dungeonData = CurrentDungeonData.readLayeredTowerV1(reader);
+	    this.dungeonData.readSavedTowerState(reader, formatVersion);
 	} else {
 	    throw new VersionException("Unknown maze format version: " + formatVersion + "!");
 	}
@@ -394,13 +378,8 @@ public class CurrentDungeon {
 	    this.prefixHandler.writePrefix(writer);
 	}
 	writer.writeInt(this.levelCount);
-	writer.writeInt(this.startW);
-	writer.writeInt(this.locW);
-	writer.writeInt(this.saveW);
+	writer.writeInt(this.startLevel);
 	writer.writeInt(this.activeLevel);
-	for (int y = 0; y < 4; y++) {
-	    writer.writeInt(this.savedStart[y]);
-	}
 	if (this.suffixHandler != null) {
 	    this.suffixHandler.writeSuffix(writer);
 	}
@@ -408,7 +387,7 @@ public class CurrentDungeon {
 
     private void writeDungeonLevel(final FileIOWriter writer) throws IOException {
 	// Write the level
-	this.mazeData.writeLayeredTower(writer);
-	this.mazeData.writeSavedTowerState(writer);
+	this.dungeonData.writeLayeredTower(writer);
+	this.dungeonData.writeSavedTowerState(writer);
     }
 }

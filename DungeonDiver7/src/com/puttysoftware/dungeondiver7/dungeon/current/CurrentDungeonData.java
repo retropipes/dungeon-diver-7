@@ -18,15 +18,21 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButtonDoor;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
 import com.puttysoftware.dungeondiver7.dungeon.objects.ArrowTurret;
 import com.puttysoftware.dungeondiver7.dungeon.objects.ArrowTurretDisguise;
+import com.puttysoftware.dungeondiver7.dungeon.objects.BossMonsterTile;
 import com.puttysoftware.dungeondiver7.dungeon.objects.DeadArrowTurret;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
+import com.puttysoftware.dungeondiver7.dungeon.objects.FinalBossMonsterTile;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Ground;
+import com.puttysoftware.dungeondiver7.dungeon.objects.MonsterTile;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Party;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.game.GameManager;
+import com.puttysoftware.dungeondiver7.integration1.Application;
+import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
@@ -37,18 +43,23 @@ import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.FormatConstants;
 import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.VisionModeConstants;
 import com.puttysoftware.fileio.XDataReader;
 import com.puttysoftware.fileio.XDataWriter;
+import com.puttysoftware.randomrange.RandomRange;
 import com.puttysoftware.storage.FlagStorage;
 
 public final class CurrentDungeonData extends AbstractDungeonData {
     // Properties
     private DungeonDataStorage data;
     private DungeonDataStorage virtualData;
+    private FlagStorage visionData;
     private FlagStorage dirtyData;
     private DungeonDataStorage savedState;
     private int foundX, foundY;
     private ImageUndoEngine iue;
+    private int visionMode;
+    private int visionModeExploreRadius;
     public static final CurrentDungeonLock LOCK_OBJECT = new CurrentDungeonLock();
 
     // Constructors
@@ -60,8 +71,24 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	this.fillVirtual();
 	this.dirtyData = new FlagStorage(AbstractDungeonData.MIN_COLUMNS, AbstractDungeonData.MIN_ROWS,
 		AbstractDungeonData.MIN_FLOORS);
+	this.visionData = new FlagStorage(AbstractDungeonData.MIN_COLUMNS, AbstractDungeonData.MIN_ROWS,
+		AbstractDungeonData.MIN_FLOORS);
 	this.savedState = new DungeonDataStorage(AbstractDungeonData.MIN_ROWS, AbstractDungeonData.MIN_COLUMNS,
 		AbstractDungeonData.MIN_FLOORS, DungeonConstants.NUM_LAYERS);
+	this.foundX = -1;
+	this.foundY = -1;
+	this.iue = new ImageUndoEngine();
+	this.visionMode = VisionModeConstants.VISION_MODE_EXPLORE_AND_LOS;
+	this.visionModeExploreRadius = 2;
+    }
+
+    public CurrentDungeonData(final int rows, final int cols, final int floors) {
+	this.data = new DungeonDataStorage(cols, rows, floors, DungeonConstants.NUM_LAYERS);
+	this.virtualData = new DungeonDataStorage(cols, rows, floors, DungeonConstants.NUM_VIRTUAL_LAYERS);
+	this.fillVirtual();
+	this.dirtyData = new FlagStorage(cols, rows, floors);
+	this.visionData = new FlagStorage(cols, rows, floors);
+	this.savedState = new DungeonDataStorage(cols, rows, floors, DungeonConstants.NUM_LAYERS);
 	this.foundX = -1;
 	this.foundY = -1;
 	this.iue = new ImageUndoEngine();
@@ -78,6 +105,84 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	} catch (final CloneNotSupportedException cnse) {
 	    DungeonDiver7.getErrorLogger().logError(cnse);
 	    return null;
+	}
+    }
+
+    @Override
+    public void updateMonsterPosition(final AbstractDungeon dungeon, final Direction move, final int xLoc,
+	    final int yLoc, final AbstractMovingObject monster, final int pi) {
+	final Application app = Integration1.getApplication();
+	final int[] dirMove = DirectionResolver.unresolveRelativeDirection(move);
+	final int pLocX = dungeon.getPlayerLocationX(pi);
+	final int pLocY = dungeon.getPlayerLocationY(pi);
+	try {
+	    final AbstractDungeonObject there = this.getCell(dungeon, xLoc + dirMove[0], yLoc + dirMove[1], 0,
+		    DungeonConstants.LAYER_LOWER_OBJECTS);
+	    final AbstractDungeonObject ground = this.getCell(dungeon, xLoc + dirMove[0], yLoc + dirMove[1], 0,
+		    DungeonConstants.LAYER_LOWER_GROUND);
+	    if (!there.isSolid() && !(there instanceof AbstractMovingObject)) {
+		if (AbstractDungeon.radialScan(xLoc, yLoc, 0, pLocX, pLocY)) {
+		    if (app.getMode() != Application.STATUS_BATTLE) {
+			app.getGameLogic().stopMovement();
+			if (monster instanceof FinalBossMonsterTile) {
+			    app.getBattle().doFinalBossBattle();
+			} else if (monster instanceof BossMonsterTile) {
+			    app.getBattle().doBossBattle();
+			} else {
+			    app.getBattle().doBattle();
+			    this.postBattle(dungeon, monster, xLoc, yLoc, false);
+			}
+		    }
+		} else {
+		    // Move the monster
+		    this.setCell(dungeon, monster.getSavedObject(), xLoc, yLoc, 0,
+			    DungeonConstants.LAYER_LOWER_OBJECTS);
+		    monster.setSavedObject(there);
+		    this.setCell(dungeon, monster, xLoc + dirMove[0], yLoc + dirMove[1], 0,
+			    DungeonConstants.LAYER_LOWER_OBJECTS);
+		    // Does the ground have friction?
+		    if (!ground.hasFriction()) {
+			// No - move the monster again
+			this.updateMonsterPosition(dungeon, move, xLoc + dirMove[0], yLoc + dirMove[1], monster, pi);
+		    }
+		}
+	    }
+	} catch (final ArrayIndexOutOfBoundsException aioob) {
+	    // Do nothing
+	}
+    }
+
+    @Override
+    public void postBattle(final AbstractDungeon dungeon, final AbstractMovingObject m, final int xLoc, final int yLoc,
+	    final boolean player) {
+	final AbstractDungeonObject saved = m.getSavedObject();
+	if (!player) {
+	    this.setCell(dungeon, saved, xLoc, yLoc, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	}
+	this.generateOneMonster(dungeon);
+    }
+
+    private void generateOneMonster(final AbstractDungeon dungeon) {
+	final RandomRange row = new RandomRange(0, this.getRows() - 1);
+	final RandomRange column = new RandomRange(0, this.getColumns() - 1);
+	int randomRow, randomColumn;
+	randomRow = row.generate();
+	randomColumn = column.generate();
+	AbstractDungeonObject currObj = this.getCell(dungeon, randomRow, randomColumn, 0,
+		DungeonConstants.LAYER_LOWER_OBJECTS);
+	if (!currObj.isSolid()) {
+	    final AbstractMovingObject m = new MonsterTile();
+	    m.setSavedObject(currObj);
+	    this.setCell(dungeon, m, randomRow, randomColumn, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	} else {
+	    while (currObj.isSolid()) {
+		randomRow = row.generate();
+		randomColumn = column.generate();
+		currObj = this.getCell(dungeon, randomRow, randomColumn, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    }
+	    final AbstractMovingObject m = new MonsterTile();
+	    m.setSavedObject(currObj);
+	    this.setCell(dungeon, m, randomRow, randomColumn, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	}
     }
 
@@ -965,6 +1070,184 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
+    public void resetVisibleSquares(final int floor) {
+	for (int row = 0; row < this.getRows(); row++) {
+	    for (int col = 0; col < this.getColumns(); col++) {
+		this.visionData.setCell(false, row, col, floor);
+	    }
+	}
+    }
+
+    @Override
+    public void updateVisibleSquares(final AbstractDungeon dungeon, final int xp, final int yp, final int zp) {
+	if ((this.visionMode | VisionModeConstants.VISION_MODE_EXPLORE) == this.visionMode) {
+	    for (int x = xp - this.visionModeExploreRadius; x <= xp + this.visionModeExploreRadius; x++) {
+		for (int y = yp - this.visionModeExploreRadius; y <= yp + this.visionModeExploreRadius; y++) {
+		    int fx, fy;
+		    if (dungeon.isHorizontalWraparoundEnabled()) {
+			fx = this.normalizeColumn(x);
+		    } else {
+			fx = x;
+		    }
+		    if (dungeon.isVerticalWraparoundEnabled()) {
+			fy = this.normalizeRow(y);
+		    } else {
+			fy = y;
+		    }
+		    boolean alreadyVisible = false;
+		    try {
+			alreadyVisible = this.visionData.getCell(fx, fy);
+		    } catch (final ArrayIndexOutOfBoundsException aioobe) {
+			// Ignore
+		    }
+		    if (!alreadyVisible) {
+			if ((this.visionMode | VisionModeConstants.VISION_MODE_LOS) == this.visionMode) {
+			    if (this.isSquareVisibleLOS(dungeon, x, y, xp, yp, zp)) {
+				try {
+				    this.visionData.setCell(true, fx, fy);
+				} catch (final ArrayIndexOutOfBoundsException aioobe) {
+				    // Ignore
+				}
+			    }
+			} else {
+			    try {
+				this.visionData.setCell(true, fx, fy);
+			    } catch (final ArrayIndexOutOfBoundsException aioobe) {
+				// Ignore
+			    }
+			}
+		    }
+		}
+	    }
+	}
+    }
+
+    @Override
+    public boolean isSquareVisible(final AbstractDungeon dungeon, final int x1, final int y1, final int x2,
+	    final int y2, final int zp) {
+	if (this.visionMode == VisionModeConstants.VISION_MODE_NONE) {
+	    return true;
+	} else {
+	    boolean result = false;
+	    if ((this.visionMode | VisionModeConstants.VISION_MODE_EXPLORE) == this.visionMode) {
+		result = result || this.isSquareVisibleExplore(dungeon, x2, y2);
+		if (result && (this.visionMode | VisionModeConstants.VISION_MODE_LOS) == this.visionMode) {
+		    if (this.areCoordsInBounds(dungeon, x1, y1, x2, y2)) {
+			// In bounds
+			result = result || this.isSquareVisibleLOS(dungeon, x1, y1, x2, y2, zp);
+		    } else {
+			// Out of bounds
+			result = result && this.isSquareVisibleLOS(dungeon, x1, y1, x2, y2, zp);
+		    }
+		}
+	    } else {
+		if (this.areCoordsInBounds(dungeon, x1, y1, x2, y2)) {
+		    // In bounds
+		    result = result || this.isSquareVisibleLOS(dungeon, x1, y1, x2, y2, zp);
+		} else {
+		    // Out of bounds
+		    result = result && this.isSquareVisibleLOS(dungeon, x1, y1, x2, y2, zp);
+		}
+	    }
+	    return result;
+	}
+    }
+
+    private boolean areCoordsInBounds(final AbstractDungeon dungeon, final int x1, final int y1, final int x2,
+	    final int y2) {
+	int fx1, fx2, fy1, fy2;
+	if (dungeon.isHorizontalWraparoundEnabled()) {
+	    fx1 = this.normalizeColumn(x1);
+	    fx2 = this.normalizeColumn(x2);
+	} else {
+	    fx1 = x1;
+	    fx2 = x2;
+	}
+	if (dungeon.isVerticalWraparoundEnabled()) {
+	    fy1 = this.normalizeRow(y1);
+	    fy2 = this.normalizeRow(y2);
+	} else {
+	    fy1 = y1;
+	    fy2 = y2;
+	}
+	return fx1 >= 0 && fx1 <= this.getRows() && fx2 >= 0 && fx2 <= this.getRows() && fy1 >= 0
+		&& fy1 <= this.getColumns() && fy2 >= 0 && fy2 <= this.getColumns();
+    }
+
+    private boolean isSquareVisibleExplore(final AbstractDungeon dungeon, final int x2, final int y2) {
+	int fx2, fy2;
+	if (dungeon.isHorizontalWraparoundEnabled()) {
+	    fx2 = this.normalizeColumn(x2);
+	} else {
+	    fx2 = x2;
+	}
+	if (dungeon.isVerticalWraparoundEnabled()) {
+	    fy2 = this.normalizeRow(y2);
+	} else {
+	    fy2 = y2;
+	}
+	try {
+	    return this.visionData.getCell(fx2, fy2);
+	} catch (final ArrayIndexOutOfBoundsException aioobe) {
+	    return true;
+	}
+    }
+
+    private boolean isSquareVisibleLOS(final AbstractDungeon dungeon, final int x1, final int y1, final int x2,
+	    final int y2, final int zp) {
+	int fx1, fx2, fy1, fy2;
+	fx1 = x1;
+	fx2 = x2;
+	fy1 = y1;
+	fy2 = y2;
+	final int dx = Math.abs(fx2 - fx1);
+	final int dy = Math.abs(fy2 - fy1);
+	int sx, sy;
+	if (fx1 < fx2) {
+	    sx = 1;
+	} else {
+	    sx = -1;
+	}
+	if (fy1 < fy2) {
+	    sy = 1;
+	} else {
+	    sy = -1;
+	}
+	int err = dx - dy;
+	int e2;
+	do {
+	    if (fx1 == fx2 && fy1 == fy2) {
+		break;
+	    }
+	    // Does object block LOS?
+	    try {
+		final AbstractDungeonObject obj = this.getCell(dungeon, fx1, fy1, zp,
+			DungeonConstants.LAYER_LOWER_OBJECTS);
+		if (obj.isSightBlocking()) {
+		    // This object blocks LOS
+		    if (fx1 != x1 || fy1 != y1) {
+			return false;
+		    }
+		}
+	    } catch (final ArrayIndexOutOfBoundsException aioobe) {
+		// Void blocks LOS
+		return false;
+	    }
+	    e2 = 2 * err;
+	    if (e2 > -dy) {
+		err = err - dy;
+		fx1 = fx1 + sx;
+	    }
+	    if (e2 < dx) {
+		err = err + dx;
+		fy1 = fy1 + sy;
+	    }
+	} while (true);
+	// No objects block LOS
+	return true;
+    }
+
+    @Override
     public void fill(final AbstractDungeon dungeon, final AbstractDungeonObject fill) {
 	int y, x, z, w;
 	for (x = 0; x < this.getColumns(); x++) {
@@ -1135,6 +1418,25 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
+    public void tickTimers(final AbstractDungeon dungeon) {
+	// Tick all object timers
+	int y, x, z, w;
+	for (x = 0; x < this.getColumns(); x++) {
+	    for (y = 0; y < this.getRows(); y++) {
+		for (z = 0; z < this.getFloors(); z++) {
+		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+			final AbstractDungeonObject mo = this.getCell(dungeon, y, x, 0,
+				DungeonConstants.LAYER_LOWER_OBJECTS);
+			if (mo != null) {
+			    mo.tickTimer(y, x, 0);
+			}
+		    }
+		}
+	    }
+	}
+    }
+
+    @Override
     public void writeData(final AbstractDungeon dungeon, final XDataWriter writer) throws IOException {
 	int y, x, z, w;
 	writer.writeInt(this.getColumns());
@@ -1188,8 +1490,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	for (x = 0; x < dungeonSizeX; x++) {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
-		    final AbstractDungeonObject obj = DungeonDiver7.getApplication().getObjects()
-			    .readV2(reader, ver);
+		    final AbstractDungeonObject obj = DungeonDiver7.getApplication().getObjects().readV2(reader, ver);
 		    lt.setCell(dungeon, obj, y, x, z, obj.getLayer());
 		}
 	    }
@@ -1232,8 +1533,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	for (x = 0; x < dungeonSizeX; x++) {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
-		    final AbstractDungeonObject obj = DungeonDiver7.getApplication().getObjects()
-			    .readV2(reader, ver);
+		    final AbstractDungeonObject obj = DungeonDiver7.getApplication().getObjects().readV2(reader, ver);
 		    lt.setCell(dungeon, obj, y, x, z, obj.getLayer());
 		}
 	    }
@@ -1281,8 +1581,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	for (x = 0; x < dungeonSizeX; x++) {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
-		    final AbstractDungeonObject obj = DungeonDiver7.getApplication().getObjects()
-			    .readV3(reader, ver);
+		    final AbstractDungeonObject obj = DungeonDiver7.getApplication().getObjects().readV3(reader, ver);
 		    lt.setCell(dungeon, obj, y, x, z, obj.getLayer());
 		}
 	    }
@@ -1330,8 +1629,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	for (x = 0; x < dungeonSizeX; x++) {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
-		    final AbstractDungeonObject obj = DungeonDiver7.getApplication().getObjects()
-			    .readV4(reader, ver);
+		    final AbstractDungeonObject obj = DungeonDiver7.getApplication().getObjects().readV4(reader, ver);
 		    lt.setCell(dungeon, obj, y, x, z, obj.getLayer());
 		}
 	    }
@@ -1380,8 +1678,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			lt.setCell(dungeon,
-				DungeonDiver7.getApplication().getObjects().readV5(reader, ver), y, x, z,
+			lt.setCell(dungeon, DungeonDiver7.getApplication().getObjects().readV5(reader, ver), y, x, z,
 				w);
 		    }
 		}
@@ -1431,8 +1728,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			lt.setCell(dungeon,
-				DungeonDiver7.getApplication().getObjects().readV6(reader, ver), y, x, z,
+			lt.setCell(dungeon, DungeonDiver7.getApplication().getObjects().readV6(reader, ver), y, x, z,
 				w);
 		    }
 		}
@@ -1490,9 +1786,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	for (x = 0; x < saveSizeX; x++) {
 	    for (y = 0; y < saveSizeY; y++) {
 		for (z = 0; z < saveSizeZ; z++) {
-		    this.savedState.setCell(
-			    DungeonDiver7.getApplication().getObjects().readV2(reader, formatVersion), y,
-			    x, z, DungeonConstants.LAYER_LOWER_GROUND);
+		    this.savedState.setCell(DungeonDiver7.getApplication().getObjects().readV2(reader, formatVersion),
+			    y, x, z, DungeonConstants.LAYER_LOWER_GROUND);
 		}
 	    }
 	}
@@ -1510,9 +1805,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	for (x = 0; x < saveSizeX; x++) {
 	    for (y = 0; y < saveSizeY; y++) {
 		for (z = 0; z < saveSizeZ; z++) {
-		    this.savedState.setCell(
-			    DungeonDiver7.getApplication().getObjects().readV3(reader, formatVersion), y,
-			    x, z, DungeonConstants.LAYER_LOWER_GROUND);
+		    this.savedState.setCell(DungeonDiver7.getApplication().getObjects().readV3(reader, formatVersion),
+			    y, x, z, DungeonConstants.LAYER_LOWER_GROUND);
 		}
 	    }
 	}
@@ -1530,9 +1824,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	for (x = 0; x < saveSizeX; x++) {
 	    for (y = 0; y < saveSizeY; y++) {
 		for (z = 0; z < saveSizeZ; z++) {
-		    this.savedState.setCell(
-			    DungeonDiver7.getApplication().getObjects().readV4(reader, formatVersion), y,
-			    x, z, DungeonConstants.LAYER_LOWER_GROUND);
+		    this.savedState.setCell(DungeonDiver7.getApplication().getObjects().readV4(reader, formatVersion),
+			    y, x, z, DungeonConstants.LAYER_LOWER_GROUND);
 		}
 	    }
 	}
@@ -1552,8 +1845,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		for (z = 0; z < saveSizeZ; z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 			this.savedState.setCell(
-				DungeonDiver7.getApplication().getObjects().readV5(reader, formatVersion),
-				y, x, z, w);
+				DungeonDiver7.getApplication().getObjects().readV5(reader, formatVersion), y, x, z, w);
 		    }
 		}
 	    }
@@ -1574,8 +1866,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		for (z = 0; z < saveSizeZ; z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 			this.savedState.setCell(
-				DungeonDiver7.getApplication().getObjects().readV6(reader, formatVersion),
-				y, x, z, w);
+				DungeonDiver7.getApplication().getObjects().readV6(reader, formatVersion), y, x, z, w);
 		    }
 		}
 	    }

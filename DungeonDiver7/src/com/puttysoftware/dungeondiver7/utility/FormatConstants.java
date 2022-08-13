@@ -35,7 +35,7 @@ public class FormatConstants {
     public static final boolean isFormatVersionValidGeneration7(final int ver) {
 	return ver == FormatConstants.ARENA_FORMAT_18;
     }
-    
+
     public static final boolean isFormatVersionValidGeneration6(final int ver) {
 	return ver == FormatConstants.ARENA_FORMAT_17;
     }

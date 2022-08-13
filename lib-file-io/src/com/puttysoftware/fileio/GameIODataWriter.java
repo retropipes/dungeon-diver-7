@@ -14,7 +14,7 @@ public class GameIODataWriter implements FileIOWriter {
 	this.raf = new RandomAccessFile(filename, "rwd");
 	this.file = new File(filename);
     }
-    
+
     public GameIODataWriter(final File theFile) throws IOException {
 	this.raf = new RandomAccessFile(theFile, "rwd");
 	this.file = theFile;

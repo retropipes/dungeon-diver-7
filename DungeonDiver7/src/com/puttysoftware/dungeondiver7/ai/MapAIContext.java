@@ -40,7 +40,7 @@ public class MapAIContext {
     public void updateContext(final CurrentDungeon arena) {
 	for (int x = 0; x < this.apCosts.length; x++) {
 	    for (int y = 0; y < this.apCosts[x].length; y++) {
-		final AbstractDungeonObject obj = arena.getCell(x, y, DungeonConstants.LAYER_LOWER_OBJECTS);
+		final AbstractDungeonObject obj = arena.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		if (obj.isSolid()) {
 		    this.apCosts[x][y] = MapAIContext.CANNOT_MOVE_THERE;
 		} else {
@@ -50,7 +50,7 @@ public class MapAIContext {
 	}
 	for (int x = 0; x < this.creatureLocations.length; x++) {
 	    for (int y = 0; y < this.creatureLocations[x].length; y++) {
-		final AbstractDungeonObject obj = arena.getCell(x, y, DungeonConstants.LAYER_LOWER_OBJECTS);
+		final AbstractDungeonObject obj = arena.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		if (obj instanceof BattleCharacter) {
 		    final BattleCharacter bc = (BattleCharacter) obj;
 		    this.creatureLocations[x][y] = bc.getTeamID();

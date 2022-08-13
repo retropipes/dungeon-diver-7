@@ -7,11 +7,11 @@ package com.puttysoftware.dungeondiver7.dungeon;
 
 import java.io.IOException;
 
-import com.puttysoftware.fileio.XDataReader;
-import com.puttysoftware.fileio.XDataWriter;
+import com.puttysoftware.fileio.FileIOReader;
+import com.puttysoftware.fileio.FileIOWriter;
 
 public interface AbstractPrefixIO {
-    void writePrefix(XDataWriter writer) throws IOException;
+    void writePrefix(FileIOWriter writer) throws IOException;
 
-    int readPrefix(XDataReader reader) throws IOException;
+    int readPrefix(FileIOReader reader) throws IOException;
 }

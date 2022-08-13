@@ -822,7 +822,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	return this.getLocalColorPrefix()
 		+ LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getBaseID() * 3 + 0);
     }
-    
+
     public String getName() {
 	return LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getBaseID() * 3 + 0);
     }

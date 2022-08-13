@@ -16,7 +16,9 @@ import com.puttysoftware.storage.NumberStorage;
 
 public final class DungeonLevelInfo {
     // Properties
-    private NumberStorage playerData;
+    private NumberStorage playerStartData;
+    private NumberStorage playerLocationData;
+    private NumberStorage savedPlayerLocationData;
     private boolean horizontalWraparoundEnabled;
     private boolean verticalWraparoundEnabled;
     private boolean thirdDimensionWraparoundEnabled;
@@ -28,34 +30,37 @@ public final class DungeonLevelInfo {
 
     // Constructors
     public DungeonLevelInfo() {
-	this.playerData = new NumberStorage(DungeonConstants.PLAYER_DIMS, DungeonConstants.NUM_PLAYERS);
-	this.playerData.fill(-1);
+	this.playerStartData = new NumberStorage(DungeonConstants.PLAYER_DIMS, DungeonConstants.NUM_PLAYERS);
+	this.playerStartData.fill(-1);
+	this.playerLocationData = new NumberStorage(DungeonConstants.PLAYER_DIMS, DungeonConstants.NUM_PLAYERS);
+	this.playerLocationData.fill(-1);
+	this.savedPlayerLocationData = new NumberStorage(DungeonConstants.PLAYER_DIMS, DungeonConstants.NUM_PLAYERS);
+	this.savedPlayerLocationData.fill(-1);
 	this.horizontalWraparoundEnabled = false;
 	this.verticalWraparoundEnabled = false;
+	this.thirdDimensionWraparoundEnabled = false;
 	this.name = LocaleLoader.loadString(LocaleConstants.GENERIC_STRINGS_FILE,
 		LocaleConstants.GENERIC_STRING_UN_NAMED_LEVEL);
+	this.hint = LocaleConstants.COMMON_STRING_EMPTY;
 	this.author = LocaleLoader.loadString(LocaleConstants.GENERIC_STRINGS_FILE,
 		LocaleConstants.GENERIC_STRING_UNKNOWN_AUTHOR);
-	this.hint = LocaleConstants.COMMON_STRING_EMPTY;
 	this.difficulty = 1;
 	this.moveShootAllowed = false;
     }
 
-    // Methods
-    @Override
-    public DungeonLevelInfo clone() {
-	final DungeonLevelInfo copy = new DungeonLevelInfo();
-	copy.playerData = new NumberStorage(this.playerData);
-	copy.horizontalWraparoundEnabled = this.horizontalWraparoundEnabled;
-	copy.verticalWraparoundEnabled = this.verticalWraparoundEnabled;
-	copy.author = this.author;
-	copy.name = this.name;
-	copy.hint = this.hint;
-	copy.difficulty = this.difficulty;
-	copy.moveShootAllowed = this.moveShootAllowed;
-	return copy;
+    public DungeonLevelInfo(DungeonLevelInfo source) {
+	this.playerStartData = new NumberStorage(source.playerStartData);
+	this.horizontalWraparoundEnabled = source.horizontalWraparoundEnabled;
+	this.verticalWraparoundEnabled = source.verticalWraparoundEnabled;
+	this.thirdDimensionWraparoundEnabled = source.thirdDimensionWraparoundEnabled;
+	this.name = source.name;
+	this.hint = source.hint;
+	this.author = source.author;
+	this.difficulty = source.difficulty;
+	this.moveShootAllowed = source.moveShootAllowed;
     }
 
+    // Methods
     public boolean isMoveShootAllowed() {
 	return this.moveShootAllowed;
     }
@@ -97,36 +102,93 @@ public final class DungeonLevelInfo {
     }
 
     public int getStartRow(final int pi) {
-	return this.playerData.getCell(1, pi);
+	return this.playerStartData.getCell(1, pi);
     }
 
     public int getStartColumn(final int pi) {
-	return this.playerData.getCell(0, pi);
+	return this.playerStartData.getCell(0, pi);
     }
 
     public int getStartFloor(final int pi) {
-	return this.playerData.getCell(2, pi);
+	return this.playerStartData.getCell(2, pi);
     }
 
     public void setStartRow(final int pi, final int value) {
-	this.playerData.setCell(value, 1, pi);
+	this.playerStartData.setCell(value, 1, pi);
     }
 
     public void setStartColumn(final int pi, final int value) {
-	this.playerData.setCell(value, 0, pi);
+	this.playerStartData.setCell(value, 0, pi);
     }
 
     public void setStartFloor(final int pi, final int value) {
-	this.playerData.setCell(value, 2, pi);
+	this.playerStartData.setCell(value, 2, pi);
     }
 
-    public boolean doesPlayerExist(final int pi) {
+    public boolean doesPlayerStartExist(final int pi) {
 	for (int y = 0; y < DungeonConstants.PLAYER_DIMS; y++) {
-	    if (this.playerData.getCell(y, pi) == -1) {
+	    if (this.playerStartData.getCell(y, pi) == -1) {
 		return false;
 	    }
 	}
 	return true;
+    }
+
+    public int getPlayerLocationX(final int pi) {
+	return this.playerLocationData.getCell(1, pi);
+    }
+
+    public int getPlayerLocationY(final int pi) {
+	return this.playerLocationData.getCell(0, pi);
+    }
+
+    public int getPlayerLocationZ(final int pi) {
+	return this.playerLocationData.getCell(2, pi);
+    }
+
+    public void offsetPlayerLocationX(final int pi, final int value) {
+	this.playerLocationData.offsetCell(value, 1, pi);
+    }
+
+    public void offsetPlayerLocationY(final int pi, final int value) {
+	this.playerLocationData.offsetCell(value, 0, pi);
+    }
+
+    public void offsetPlayerLocationZ(final int pi, final int value) {
+	this.playerLocationData.offsetCell(value, 2, pi);
+    }
+
+    public void setPlayerLocationX(final int pi, final int value) {
+	this.playerLocationData.setCell(value, 1, pi);
+    }
+
+    public void setPlayerLocationY(final int pi, final int value) {
+	this.playerLocationData.setCell(value, 0, pi);
+    }
+
+    public void setPlayerLocationZ(final int pi, final int value) {
+	this.playerLocationData.setCell(value, 2, pi);
+    }
+
+    public boolean doesPlayerLocationExist(final int pi) {
+	for (int y = 0; y < DungeonConstants.PLAYER_DIMS; y++) {
+	    if (this.playerLocationData.getCell(y, pi) == -1) {
+		return false;
+	    }
+	}
+	return true;
+    }
+
+    public void savePlayerLocation() {
+	this.savedPlayerLocationData = new NumberStorage(this.playerLocationData);
+    }
+
+    public void restorePlayerLocation() {
+	this.playerLocationData = new NumberStorage(this.savedPlayerLocationData);
+    }
+
+    public void setPlayerToStart() {
+	this.playerLocationData = new NumberStorage(this.playerStartData);
     }
 
     public void enableHorizontalWraparound() {
@@ -169,7 +231,7 @@ public final class DungeonLevelInfo {
 	int x, y;
 	for (y = 0; y < DungeonConstants.PLAYER_DIMS; y++) {
 	    for (x = 0; x < DungeonConstants.NUM_PLAYERS; x++) {
-		writer.writeInt(this.playerData.getCell(y, x));
+		writer.writeInt(this.playerStartData.getCell(y, x));
 	    }
 	}
 	writer.writeBoolean(this.horizontalWraparoundEnabled);
@@ -187,7 +249,7 @@ public final class DungeonLevelInfo {
 	int x, y;
 	for (y = 0; y < 3; y++) {
 	    for (x = 0; x < DungeonConstants.NUM_PLAYERS; x++) {
-		li.playerData.setCell(reader.readInt(), y, x);
+		li.playerStartData.setCell(reader.readInt(), y, x);
 	    }
 	}
 	li.horizontalWraparoundEnabled = reader.readBoolean();

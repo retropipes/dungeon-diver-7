@@ -147,8 +147,7 @@ public class PartyManager {
 
     public static String showCreationDialog(final JFrame owner, final String labelText, final String title,
 	    final String[] input, final String[] descriptions) {
-	return ListWithDescDialog.showDialog(owner, labelText, title, input, input[0], descriptions[0],
-		descriptions);
+	return ListWithDescDialog.showDialog(owner, labelText, title, input, input[0], descriptions[0], descriptions);
     }
 
     private static String[] buildNameList(final PartyMember[] members) {
