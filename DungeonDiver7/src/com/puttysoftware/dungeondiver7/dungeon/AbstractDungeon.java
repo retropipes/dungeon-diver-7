@@ -130,9 +130,9 @@ public abstract class AbstractDungeon {
 
     public abstract boolean isSquareVisible(final int x1, final int y1, final int x2, final int y2, final int zp);
 
-    public abstract int getActiveLevelNumber();
+    public abstract int getActiveLevel();
 
-    public abstract int getActiveEraNumber();
+    public abstract int getActiveEra();
 
     public final boolean switchToNextLevelWithDifficulty(final int[] difficulty) {
 	boolean keepGoing = true;
@@ -211,7 +211,7 @@ public abstract class AbstractDungeon {
     public abstract boolean addFixedSizeLevel(final int rows, final int cols, final int floors);
 
     public final boolean removeLevel(final int num) {
-	final int saveLevel = this.getActiveLevelNumber();
+	final int saveLevel = this.getActiveLevel();
 	this.switchLevel(num);
 	final boolean success = this.removeActiveLevel();
 	if (success) {

@@ -437,11 +437,11 @@ public class GameManager implements MenuSection {
 	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
 	this.levelInfo
 		.setText(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE, LocaleConstants.GAME_STRING_LEVEL)
-			+ LocaleConstants.COMMON_STRING_SPACE + (a.getActiveLevelNumber() + 1)
+			+ LocaleConstants.COMMON_STRING_SPACE + (a.getActiveLevel() + 1)
 			+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE + a.getName().trim()
 			+ LocaleConstants.COMMON_STRING_SPACE
 			+ LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-				LocaleConstants.DIALOG_STRING_ARENA_LEVEL_BY)
+				LocaleConstants.DIALOG_STRING_DUNGEON_LEVEL_BY)
 			+ LocaleConstants.COMMON_STRING_SPACE + a.getAuthor().trim());
     }
 
@@ -1243,7 +1243,7 @@ public class GameManager implements MenuSection {
 		LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 			LocaleConstants.GAME_STRING_LOAD_LEVEL_PROMPT),
 		LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE, LocaleConstants.GAME_STRING_LOAD_LEVEL),
-		choices, choices[m.getActiveLevelNumber()]);
+		choices, choices[m.getActiveLevel()]);
 	int number = -1;
 	for (number = 0; number < m.getLevels(); number++) {
 	    if (choices[number].equals(res)) {
@@ -1698,7 +1698,7 @@ public class GameManager implements MenuSection {
     private boolean readSolution() {
 	try {
 	    final int activeLevel = DungeonDiver7.getApplication().getDungeonManager().getDungeon()
-		    .getActiveLevelNumber();
+		    .getActiveLevel();
 	    final String levelFile = DungeonDiver7.getApplication().getDungeonManager().getLastUsedDungeon();
 	    final String filename = levelFile + LocaleConstants.COMMON_STRING_UNDERSCORE + activeLevel
 		    + Extension.getSolutionExtensionWithPeriod();
@@ -1715,7 +1715,7 @@ public class GameManager implements MenuSection {
     private void writeSolution() {
 	try {
 	    final int activeLevel = DungeonDiver7.getApplication().getDungeonManager().getDungeon()
-		    .getActiveLevelNumber();
+		    .getActiveLevel();
 	    final String levelFile = DungeonDiver7.getApplication().getDungeonManager().getLastUsedDungeon();
 	    final String filename = levelFile + LocaleConstants.COMMON_STRING_UNDERSCORE + activeLevel
 		    + Extension.getSolutionExtensionWithPeriod();
@@ -1781,7 +1781,7 @@ public class GameManager implements MenuSection {
 	    }
 	} else {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		    LocaleConstants.MENU_STRING_ERROR_NO_ARENA_OPENED));
+		    LocaleConstants.MENU_STRING_ERROR_NO_DUNGEON_OPENED));
 	}
     }
 

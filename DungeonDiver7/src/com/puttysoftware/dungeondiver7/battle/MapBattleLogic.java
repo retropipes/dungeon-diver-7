@@ -5,10 +5,13 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.battle;
 
+import java.io.IOException;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.ai.AbstractMapAIRoutine;
 import com.puttysoftware.dungeondiver7.ai.AutoMapAI;
 import com.puttysoftware.dungeondiver7.ai.MapAIContext;
@@ -20,6 +23,7 @@ import com.puttysoftware.dungeondiver7.creature.StatConstants;
 import com.puttysoftware.dungeondiver7.creature.monster.MonsterFactory;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractBattleCharacter;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
@@ -27,7 +31,6 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.effect.Effect;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
@@ -121,7 +124,12 @@ public class MapBattleLogic extends AbstractBattle {
 
     private void doBattleInternal() {
 	// Initialize Battle
-	final CurrentDungeon bMap = CurrentDungeon.getTemporaryBattleCopy();
+	AbstractDungeon bMap = null;
+	try {
+	    bMap = AbstractDungeon.getTemporaryBattleCopy();
+	} catch (IOException e) {
+	    DungeonDiver7.getErrorLogger().logError(e);
+	}
 	Integration1.getApplication().getGameLogic().hideOutput();
 	Integration1.getApplication().setMode(Application.STATUS_BATTLE);
 	this.bd = new MapBattleDefinitions();
@@ -571,7 +579,7 @@ public class MapBattleLogic extends AbstractBattle {
 	this.updateAllAIContexts();
 	int px = activeBC.getX();
 	int py = activeBC.getY();
-	final CurrentDungeon m = this.bd.getBattleDungeon();
+	final AbstractDungeon m = this.bd.getBattleDungeon();
 	AbstractDungeonObject next = null;
 	AbstractDungeonObject nextGround = null;
 	AbstractDungeonObject currGround = null;
@@ -843,7 +851,7 @@ public class MapBattleLogic extends AbstractBattle {
     private BattleCharacter getEnemyBC() {
 	final int px = this.bd.getActiveCharacter().getX();
 	final int py = this.bd.getActiveCharacter().getY();
-	final CurrentDungeon m = this.bd.getBattleDungeon();
+	final AbstractDungeon m = this.bd.getBattleDungeon();
 	AbstractDungeonObject next = null;
 	for (int x = -1; x <= 1; x++) {
 	    for (int y = -1; y <= 1; y++) {

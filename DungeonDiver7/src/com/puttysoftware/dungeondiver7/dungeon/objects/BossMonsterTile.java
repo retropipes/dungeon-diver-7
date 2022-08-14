@@ -5,10 +5,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
+import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.utility.RandomGenerationRule;
 
@@ -49,7 +50,7 @@ public class BossMonsterTile extends AbstractMovingObject {
     @Override
     public boolean shouldGenerateObject(final CurrentDungeon dungeon, final int row, final int col, final int level,
 	    final int layer) {
-	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
+	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return false;
 	} else {
 	    return super.shouldGenerateObject(dungeon, row, col, level, layer);
@@ -58,7 +59,7 @@ public class BossMonsterTile extends AbstractMovingObject {
 
     @Override
     public int getMinimumRequiredQuantity(final CurrentDungeon dungeon) {
-	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
+	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
 	} else {
 	    return 1;
@@ -67,7 +68,7 @@ public class BossMonsterTile extends AbstractMovingObject {
 
     @Override
     public int getMaximumRequiredQuantity(final CurrentDungeon dungeon) {
-	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
+	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
 	} else {
 	    return 1;
@@ -76,7 +77,7 @@ public class BossMonsterTile extends AbstractMovingObject {
 
     @Override
     public boolean isRequired(final CurrentDungeon dungeon) {
-	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
+	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return false;
 	} else {
 	    return true;

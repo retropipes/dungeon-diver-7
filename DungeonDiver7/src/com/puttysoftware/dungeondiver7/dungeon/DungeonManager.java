@@ -208,7 +208,7 @@ public class DungeonManager {
 		    ollt.start();
 		} else {
 		    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			    LocaleConstants.DIALOG_STRING_NON_ARENA_FILE));
+			    LocaleConstants.DIALOG_STRING_NON_DUNGEON_FILE));
 		}
 	    } else {
 		// User cancelled

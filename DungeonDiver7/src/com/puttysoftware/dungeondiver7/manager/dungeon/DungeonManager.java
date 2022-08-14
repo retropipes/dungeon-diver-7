@@ -13,9 +13,9 @@ import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.manager.file.Extension;
 import com.puttysoftware.dungeondiver7.manager.file.GameFinder;
 import com.puttysoftware.dungeondiver7.manager.file.GameLoadTask;

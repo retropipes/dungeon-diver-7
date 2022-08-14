@@ -14,7 +14,7 @@ import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 
 public class DungeonFilePrefixHandler implements AbstractPrefixIO {
-    private static final byte FORMAT_VERSION = (byte) FormatConstants.ARENA_FORMAT_LATEST;
+    private static final byte FORMAT_VERSION = (byte) FormatConstants.DUNGEON_FORMAT_LATEST;
 
     @Override
     public int readPrefix(final FileIOReader reader) throws IOException {
@@ -22,7 +22,7 @@ public class DungeonFilePrefixHandler implements AbstractPrefixIO {
 	final boolean res = DungeonFilePrefixHandler.checkFormatVersion(formatVer);
 	if (!res) {
 	    throw new IOException(LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-		    LocaleConstants.ERROR_STRING_UNKNOWN_ARENA_FORMAT));
+		    LocaleConstants.ERROR_STRING_UNKNOWN_DUNGEON_FORMAT));
 	}
 	return formatVer;
     }

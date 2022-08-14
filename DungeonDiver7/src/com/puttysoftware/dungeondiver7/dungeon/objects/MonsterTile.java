@@ -5,10 +5,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
+import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.utility.Direction;
 import com.puttysoftware.dungeondiver7.utility.RandomGenerationRule;
@@ -35,7 +36,7 @@ public class MonsterTile extends AbstractMovingObject {
 	// Move the monster
 	final RandomRange r = new RandomRange(0, 7);
 	final Direction move = Direction.fromInternalValue(r.generate());
-	Integration1.getApplication().getDungeonManager().getDungeon().updateMonsterPosition(move, dirX, dirY, this);
+	Integration1.getApplication().getDungeonManager().getDungeon().updateMonsterPosition(move, dirX, dirY, this, 0);
 	this.activateTimer(1);
     }
 
@@ -62,7 +63,7 @@ public class MonsterTile extends AbstractMovingObject {
     @Override
     public boolean shouldGenerateObject(final CurrentDungeon dungeon, final int row, final int col, final int level,
 	    final int layer) {
-	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
+	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return false;
 	} else {
 	    return super.shouldGenerateObject(dungeon, row, col, level, layer);
@@ -71,7 +72,7 @@ public class MonsterTile extends AbstractMovingObject {
 
     @Override
     public int getMinimumRequiredQuantity(final CurrentDungeon dungeon) {
-	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
+	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
 	} else {
 	    return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(), 1.0 / 2.2);
@@ -80,7 +81,7 @@ public class MonsterTile extends AbstractMovingObject {
 
     @Override
     public int getMaximumRequiredQuantity(final CurrentDungeon dungeon) {
-	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
+	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
 	} else {
 	    return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(), 1.0 / 1.8);
@@ -89,7 +90,7 @@ public class MonsterTile extends AbstractMovingObject {
 
     @Override
     public boolean isRequired(final CurrentDungeon dungeon) {
-	if (dungeon.getActiveLevel() == CurrentDungeon.getMaxLevels() - 1) {
+	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return false;
 	} else {
 	    return true;

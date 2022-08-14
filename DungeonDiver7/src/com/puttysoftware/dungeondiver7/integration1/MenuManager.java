@@ -19,7 +19,7 @@ import javax.swing.KeyStroke;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterRegistration;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.GenerateDungeonTask;
+import com.puttysoftware.dungeondiver7.dungeon.current.GenerateDungeonTask;
 import com.puttysoftware.dungeondiver7.integration1.game.InventoryViewer;
 import com.puttysoftware.dungeondiver7.integration1.game.StatisticsViewer;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;

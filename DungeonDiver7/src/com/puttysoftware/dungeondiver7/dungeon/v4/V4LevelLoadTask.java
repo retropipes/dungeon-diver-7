@@ -69,11 +69,11 @@ public class V4LevelLoadTask extends Thread {
 	    app.getEditor().dungeonChanged();
 	    MusicLoader.dungeonChanged();
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		    LocaleConstants.DIALOG_STRING_ARENA_LOADING_SUCCESS));
+		    LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_SUCCESS));
 	    app.getDungeonManager().handleDeferredSuccess(true);
 	} catch (final FileNotFoundException fnfe) {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		    LocaleConstants.DIALOG_STRING_ARENA_LOADING_FAILED));
+		    LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_FAILED));
 	    app.getDungeonManager().handleDeferredSuccess(false);
 	} catch (final IOException ie) {
 	    CommonDialogs.showDialog(ie.getMessage());

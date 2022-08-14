@@ -229,7 +229,7 @@ public class GUIManager implements MenuSection {
 			app.getDungeonManager().saveDungeon(app.getDungeonManager().isDungeonProtected());
 		    } else {
 			CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-				LocaleConstants.MENU_STRING_ERROR_NO_ARENA_OPENED));
+				LocaleConstants.MENU_STRING_ERROR_NO_DUNGEON_OPENED));
 		    }
 		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 			LocaleConstants.MENU_STRING_ITEM_SAVE_AS))) {
@@ -237,7 +237,7 @@ public class GUIManager implements MenuSection {
 			app.getDungeonManager().saveDungeonAs(false);
 		    } else {
 			CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-				LocaleConstants.MENU_STRING_ERROR_NO_ARENA_OPENED));
+				LocaleConstants.MENU_STRING_ERROR_NO_DUNGEON_OPENED));
 		    }
 		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 			LocaleConstants.MENU_STRING_ITEM_SAVE_AS_PROTECTED))) {
@@ -245,7 +245,7 @@ public class GUIManager implements MenuSection {
 			app.getDungeonManager().saveDungeonAs(true);
 		    } else {
 			CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-				LocaleConstants.MENU_STRING_ERROR_NO_ARENA_OPENED));
+				LocaleConstants.MENU_STRING_ERROR_NO_DUNGEON_OPENED));
 		    }
 		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 			LocaleConstants.MENU_STRING_ITEM_PREFERENCES))) {

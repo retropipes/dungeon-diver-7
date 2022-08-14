@@ -7,9 +7,9 @@ package com.puttysoftware.dungeondiver7.ai;
 
 import java.awt.Point;
 
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
 public class MapAIContext {
@@ -24,7 +24,7 @@ public class MapAIContext {
     private static final int AP_COST = 1;
 
     // Constructor
-    public MapAIContext(final BattleCharacter context, final CurrentDungeon arena) {
+    public MapAIContext(final BattleCharacter context, final AbstractDungeon arena) {
 	this.aiContext = context;
 	this.myTeam = context.getTeamID();
 	this.apCosts = new int[arena.getRows()][arena.getColumns()];
@@ -37,7 +37,7 @@ public class MapAIContext {
     }
 
     // Methods
-    public void updateContext(final CurrentDungeon arena) {
+    public void updateContext(final AbstractDungeon arena) {
 	for (int x = 0; x < this.apCosts.length; x++) {
 	    for (int y = 0; y < this.apCosts[x].length; y++) {
 		final AbstractDungeonObject obj = arena.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);

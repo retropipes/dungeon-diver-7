@@ -80,9 +80,9 @@ public class LocaleConstants {
     public static final int NOTL_STRING_PROGRAM_NAME = 31;
     public static final int NOTL_STRING_PREFS_KEY_LANGUAGE_ID = 32;
     public static final int NOTL_STRING_IMAGE_FORMAT_PNG = 33;
-    public static final int NOTL_STRING_ARENA_FORMAT_METAFILE = 34;
-    public static final int NOTL_STRING_ARENA_FORMAT_ARENA = 35;
-    public static final int NOTL_STRING_ARENA_FORMAT_LEVEL = 36;
+    public static final int NOTL_STRING_DUNGEON_FORMAT_METAFILE = 34;
+    public static final int NOTL_STRING_DUNGEON_FORMAT_ARENA = 35;
+    public static final int NOTL_STRING_DUNGEON_FORMAT_LEVEL = 36;
     public static final int NOTL_STRING_EXTENSION_PREFS = 37;
     public static final int NOTL_STRING_EXTENSION_OLD_LEVEL = 38;
     // public static final int NOTL_STRING_EXTENSION_GRAPHICS = 39;
@@ -90,12 +90,12 @@ public class LocaleConstants {
     public static final int NOTL_STRING_PREFS_KEY_EDITOR_SHOW_ALL = 41;
     // public static final int NOTL_STRING_EXTENSION_REGISTRY = 42;
     public static final int NOTL_STRING_EXTENSION_ARENA = 43;
-    public static final int NOTL_STRING_EXTENSION_ARENA_DATA = 44;
+    public static final int NOTL_STRING_EXTENSION_DUNGEON_DATA = 44;
     public static final int NOTL_STRING_EXTENSION_SAVED_GAME = 45;
     public static final int NOTL_STRING_EXTENSION_SCORES = 46;
     public static final int NOTL_STRING_EXTENSION_SOLUTION = 47;
     public static final int NOTL_STRING_EXTENSION_PROTECTED_ARENA = 48;
-    public static final int NOTL_STRING_ARENA_FORMAT_FOLDER = 49;
+    public static final int NOTL_STRING_DUNGEON_FORMAT_FOLDER = 49;
     public static final int NOTL_STRING_WINDOW_MODIFIED = 50;
     public static final int NOTL_STRING_NEW_AG_LOADER_NAME = 51;
     public static final int NOTL_STRING_OLD_AG_LOADER_NAME = 52;
@@ -204,7 +204,7 @@ public class LocaleConstants {
     public static final int NOTL_STRING_MUSIC_FOLDER = 155;
     public static final int NOTL_STRING_PREFS_KEY_ENABLE_MUSIC = 156;
     public static final int NOTL_STRING_PREFS_KEY_EDITOR_LAYOUT_ID = 157;
-    public static final int NOTL_STRING_ARENA_FORMAT_ERA = 158;
+    public static final int NOTL_STRING_DUNGEON_FORMAT_ERA = 158;
     // Difficulty String Constants
     public static final int DIFFICULTY_STRING_KIDS = 0;
     public static final int DIFFICULTY_STRING_EASY = 1;
@@ -222,7 +222,7 @@ public class LocaleConstants {
     public static final int ERROR_STRING_NO_SOLUTION_FILE = 7;
     // public static final int ERROR_STRING_LTG_LOAD_FAILURE = 8;
     public static final int ERROR_STRING_PRINTING_FAILURE = 9;
-    public static final int ERROR_STRING_UNKNOWN_ARENA_FORMAT = 10;
+    public static final int ERROR_STRING_UNKNOWN_DUNGEON_FORMAT = 10;
     public static final int ERROR_STRING_UNKNOWN_OBJECT = 11;
     public static final int ERROR_STRING_BAD_PROTECTION_KEY = 12;
     public static final int ERROR_STRING_PROTECTION = 13;
@@ -326,7 +326,7 @@ public class LocaleConstants {
     // public static final int MENU_STRING_ITEM_CHECK_FOR_BETA_UPDATES = 54;
     public static final int MENU_STRING_ITEM_ABOUT_LASERTANK = 55;
     public static final int MENU_STRING_ITEM_LASERTANK_HELP = 56;
-    public static final int MENU_STRING_ERROR_NO_ARENA_OPENED = 57;
+    public static final int MENU_STRING_ERROR_NO_DUNGEON_OPENED = 57;
     public static final int MENU_STRING_CONFIRM_CLEAR_HISTORY = 58;
     public static final int MENU_STRING_CONFIRM_RESET_CURRENT_LEVEL = 59;
     public static final int MENU_STRING_ITEM_CHANGE_OTHER_RANGE = 60;
@@ -347,17 +347,17 @@ public class LocaleConstants {
     // public static final int DIALOG_STRING_GRAPHICS_FILE_BUTTON = 7;
     // public static final int DIALOG_STRING_OVERRIDE_BUTTON = 8;
     public static final int DIALOG_STRING_LOADING = 9;
-    public static final int DIALOG_STRING_ARENA_LOADING_SUCCESS = 10;
-    public static final int DIALOG_STRING_ARENA_LOADING_FAILED = 11;
-    public static final int DIALOG_STRING_ARENA_LEVEL = 12;
-    public static final int DIALOG_STRING_ARENA_LEVEL_BY = 13;
+    public static final int DIALOG_STRING_DUNGEON_LOADING_SUCCESS = 10;
+    public static final int DIALOG_STRING_DUNGEON_LOADING_FAILED = 11;
+    public static final int DIALOG_STRING_DUNGEON_LEVEL = 12;
+    public static final int DIALOG_STRING_DUNGEON_LEVEL_BY = 13;
     public static final int DIALOG_STRING_GAME_LOADING_SUCCESS = 14;
     public static final int DIALOG_STRING_GAME_LOADING_FAILED = 15;
-    public static final int DIALOG_STRING_NON_ARENA_FILE = 16;
+    public static final int DIALOG_STRING_NON_DUNGEON_FILE = 16;
     public static final int DIALOG_STRING_ILLEGAL_CHARACTERS = 17;
     public static final int DIALOG_STRING_PROMPT_SAVE_ARENA = 18;
     public static final int DIALOG_STRING_PROMPT_SAVE_GAME = 19;
-    public static final int DIALOG_STRING_ARENA_SAVING_FAILED = 20;
+    public static final int DIALOG_STRING_DUNGEON_SAVING_FAILED = 20;
     public static final int DIALOG_STRING_GAME_SAVING_FAILED = 21;
     public static final int DIALOG_STRING_LOAD = 22;
     public static final int DIALOG_STRING_SAVE = 23;
@@ -381,7 +381,7 @@ public class LocaleConstants {
     // Message String Constants
     public static final int MESSAGE_STRING_SAVING_ARENA = 0;
     public static final int MESSAGE_STRING_SAVING_GAME = 1;
-    public static final int MESSAGE_STRING_ARENA_SAVED = 2;
+    public static final int MESSAGE_STRING_DUNGEON_SAVED = 2;
     public static final int MESSAGE_STRING_GAME_SAVED = 3;
     public static final int MESSAGE_STRING_BETA = 4;
     // Editor String Constants
@@ -391,8 +391,8 @@ public class LocaleConstants {
     public static final int EDITOR_STRING_SET_START_POINT = 3;
     public static final int EDITOR_STRING_START_POINT_SET = 4;
     public static final int EDITOR_STRING_AIM_WITHIN_THE_ARENA = 5;
-    public static final int EDITOR_STRING_ARENA_CREATED = 6;
-    public static final int EDITOR_STRING_ARENA_CREATION_FAILED = 7;
+    public static final int EDITOR_STRING_DUNGEON_CREATED = 6;
+    public static final int EDITOR_STRING_DUNGEON_CREATION_FAILED = 7;
     public static final int EDITOR_STRING_CONFIRM_CANNOT_BE_UNDONE = 8;
     public static final int EDITOR_STRING_EDITOR = 9;
     public static final int EDITOR_STRING_LEVEL_FILLED = 10;

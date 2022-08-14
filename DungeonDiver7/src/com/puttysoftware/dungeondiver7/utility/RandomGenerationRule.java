@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.utility;
 
-import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 
 public interface RandomGenerationRule {
     public static final int NO_LIMIT = 0;

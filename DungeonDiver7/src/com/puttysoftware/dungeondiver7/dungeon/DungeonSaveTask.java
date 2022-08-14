@@ -72,7 +72,7 @@ public class DungeonSaveTask extends Thread {
 			LocaleConstants.DIALOG_STRING_GAME_SAVING_FAILED));
 	    } else {
 		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_ARENA_SAVING_FAILED));
+			LocaleConstants.DIALOG_STRING_DUNGEON_SAVING_FAILED));
 	    }
 	    success = false;
 	} catch (final ProtectionCancelException pce) {
@@ -85,7 +85,7 @@ public class DungeonSaveTask extends Thread {
 		    LocaleConstants.MESSAGE_STRING_GAME_SAVED));
 	} else {
 	    DungeonDiver7.getApplication().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
-		    LocaleConstants.MESSAGE_STRING_ARENA_SAVED));
+		    LocaleConstants.MESSAGE_STRING_DUNGEON_SAVED));
 	}
 	app.getDungeonManager().handleDeferredSuccess(success);
     }

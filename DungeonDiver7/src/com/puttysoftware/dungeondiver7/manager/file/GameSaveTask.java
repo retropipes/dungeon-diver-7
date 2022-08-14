@@ -11,9 +11,9 @@ import java.io.IOException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.manager.dungeon.PrefixHandler;
 import com.puttysoftware.dungeondiver7.manager.dungeon.SuffixHandler;
 import com.puttysoftware.fileutils.ZipUtilities;
@@ -40,7 +40,7 @@ public class GameSaveTask extends Thread {
 		this.filename += Extension.getGameExtensionWithPeriod();
 	    }
 	    final File mazeFile = new File(this.filename);
-	    final File tempLock = new File(CurrentDungeon.getDungeonTempFolder() + "lock.tmp");
+	    final File tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
 	    // Set prefix handler
 	    app.getDungeonManager().getDungeon().setPrefixHandler(new PrefixHandler());
 	    // Set suffix handler

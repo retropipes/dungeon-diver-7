@@ -122,7 +122,7 @@ public class DungeonLoadTask extends Thread {
 			LocaleConstants.DIALOG_STRING_GAME_LOADING_SUCCESS));
 	    } else {
 		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_ARENA_LOADING_SUCCESS));
+			LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_SUCCESS));
 	    }
 	    app.getDungeonManager().handleDeferredSuccess(true);
 	} catch (final FileNotFoundException fnfe) {
@@ -131,7 +131,7 @@ public class DungeonLoadTask extends Thread {
 			LocaleConstants.DIALOG_STRING_GAME_LOADING_FAILED));
 	    } else {
 		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_ARENA_LOADING_FAILED));
+			LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_FAILED));
 	    }
 	    app.getDungeonManager().handleDeferredSuccess(false);
 	} catch (final ProtectionCancelException pce) {
@@ -142,7 +142,7 @@ public class DungeonLoadTask extends Thread {
 			LocaleConstants.DIALOG_STRING_GAME_LOADING_FAILED));
 	    } else {
 		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_ARENA_LOADING_FAILED));
+			LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_FAILED));
 	    }
 	    DungeonDiver7.getErrorLoggerDirectly().logWarning(ie);
 	    app.getDungeonManager().handleDeferredSuccess(false);

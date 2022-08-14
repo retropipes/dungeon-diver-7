@@ -30,6 +30,8 @@ import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.Extension;
 import com.puttysoftware.dungeondiver7.utility.FormatConstants;
+import com.puttysoftware.fileio.FileIOReader;
+import com.puttysoftware.fileio.FileIOWriter;
 import com.puttysoftware.fileio.XDataReader;
 import com.puttysoftware.fileio.XDataWriter;
 import com.puttysoftware.fileutils.FileUtilities;
@@ -44,6 +46,7 @@ public class CurrentDungeon extends AbstractDungeon {
     private int startLevel;
     private int activeLevel;
     private int activeEra;
+    private int startEra;
     private String basePath;
     private AbstractPrefixIO prefixHandler;
     private AbstractSuffixIO suffixHandler;
@@ -74,7 +77,7 @@ public class CurrentDungeon extends AbstractDungeon {
 		+ File.separator
 		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_PROGRAM_NAME)
 		+ File.separator + randomID + LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_ARENA_FORMAT_FOLDER);
+			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_FOLDER);
 	final File base = new File(this.basePath);
 	final boolean res = base.mkdirs();
 	if (!res) {
@@ -279,12 +282,12 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     @Override
-    public int getActiveLevelNumber() {
+    public int getActiveLevel() {
 	return this.activeLevel;
     }
 
     @Override
-    public int getActiveEraNumber() {
+    public int getActiveEra() {
 	return this.activeEra;
     }
 
@@ -295,7 +298,7 @@ public class CurrentDungeon extends AbstractDungeon {
 
     @Override
     public void generateLevelInfoList() {
-	final int saveLevel = this.getActiveLevelNumber();
+	final int saveLevel = this.getActiveLevel();
 	final ArrayList<String> tempStorage = new ArrayList<>();
 	for (int x = 0; x < this.levelCount; x++) {
 	    this.switchLevel(x);
@@ -308,14 +311,14 @@ public class CurrentDungeon extends AbstractDungeon {
     private String generateCurrentLevelInfo() {
 	final StringBuilder sb = new StringBuilder();
 	sb.append(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		LocaleConstants.DIALOG_STRING_ARENA_LEVEL));
+		LocaleConstants.DIALOG_STRING_DUNGEON_LEVEL));
 	sb.append(LocaleConstants.COMMON_STRING_SPACE);
-	sb.append(this.getActiveLevelNumber() + 1);
+	sb.append(this.getActiveLevel() + 1);
 	sb.append(LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE);
 	sb.append(this.getName().trim());
 	sb.append(LocaleConstants.COMMON_STRING_SPACE);
 	sb.append(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		LocaleConstants.DIALOG_STRING_ARENA_LEVEL_BY));
+		LocaleConstants.DIALOG_STRING_DUNGEON_LEVEL_BY));
 	sb.append(LocaleConstants.COMMON_STRING_SPACE);
 	sb.append(this.getAuthor().trim());
 	sb.append(LocaleConstants.COMMON_STRING_SPACE);
@@ -353,7 +356,7 @@ public class CurrentDungeon extends AbstractDungeon {
     protected void switchInternal(final int level, final int era) {
 	if (this.activeLevel != level || this.activeEra != era || this.dungeonData == null) {
 	    if (this.dungeonData != null) {
-		try (XDataWriter writer = this.getLevelWriter()) {
+		try (FileIOWriter writer = this.getLevelWriter()) {
 		    // Save old level
 		    this.writeDungeonLevel(writer);
 		    writer.close();
@@ -363,7 +366,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	    }
 	    this.activeLevel = level;
 	    this.activeEra = era;
-	    try (XDataReader reader = this.getLevelReaderG6()) {
+	    try (FileIOReader reader = this.getLevelReaderG6()) {
 		// Load new level
 		this.readDungeonLevel(reader);
 		reader.close();
@@ -433,7 +436,7 @@ public class CurrentDungeon extends AbstractDungeon {
     public boolean addLevel() {
 	if (this.levelCount < AbstractDungeon.MAX_LEVELS) {
 	    if (this.dungeonData != null) {
-		try (XDataWriter writer = this.getLevelWriter()) {
+		try (FileIOWriter writer = this.getLevelWriter()) {
 		    // Save old level
 		    this.writeDungeonLevel(writer);
 		    writer.close();
@@ -464,7 +467,7 @@ public class CurrentDungeon extends AbstractDungeon {
     public boolean addFixedSizeLevel(final int rows, final int cols, final int floors) {
 	if (this.levelCount < AbstractDungeon.MAX_LEVELS) {
 	    if (this.dungeonData != null) {
-		try (XDataWriter writer = this.getLevelWriter()) {
+		try (FileIOWriter writer = this.getLevelWriter()) {
 		    // Save old level
 		    this.writeDungeonLevel(writer);
 		    writer.close();
@@ -861,16 +864,18 @@ public class CurrentDungeon extends AbstractDungeon {
 	m.basePath = this.basePath;
 	int version = -1;
 	// Create metafile reader
-	try (XDataReader metaReader = new XDataReader(
+	try (FileIOReader metaReader = new XDataReader(
 		m.basePath + File.separator
 			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-				LocaleConstants.NOTL_STRING_ARENA_FORMAT_METAFILE)
+				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_METAFILE)
 			+ Extension.getDungeonLevelExtensionWithPeriod(),
 		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_ARENA_FORMAT_ARENA))) {
+			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ARENA))) {
 	    // Read metafile
 	    version = m.readDungeonMetafileVersion(metaReader);
-	    if (FormatConstants.isFormatVersionValidGeneration6(version)) {
+	    if (FormatConstants.isFormatVersionValidGeneration7(version)) {
+		m.readDungeonMetafileG7(metaReader, version);
+	    } else if (FormatConstants.isFormatVersionValidGeneration6(version)) {
 		m.readDungeonMetafileG6(metaReader, version);
 	    } else if (FormatConstants.isFormatVersionValidGeneration4(version)
 		    || FormatConstants.isFormatVersionValidGeneration5(version)) {
@@ -883,7 +888,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
 	if (!FormatConstants.isLevelListStored(version)) {
 	    // Create data reader
-	    try (XDataReader dataReader = m.getLevelReaderG5()) {
+	    try (FileIOReader dataReader = m.getLevelReaderG5()) {
 		// Read data
 		m.readDungeonLevel(dataReader, version);
 	    } catch (final IOException ioe) {
@@ -893,7 +898,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	    m.generateLevelInfoList();
 	} else {
 	    // Create data reader
-	    try (XDataReader dataReader = m.getLevelReaderG6()) {
+	    try (FileIOReader dataReader = m.getLevelReaderG6()) {
 		// Read data
 		m.readDungeonLevel(dataReader, version);
 	    } catch (final IOException ioe) {
@@ -903,31 +908,31 @@ public class CurrentDungeon extends AbstractDungeon {
 	return m;
     }
 
-    private XDataReader getLevelReaderG5() throws IOException {
+    private FileIOReader getLevelReaderG5() throws IOException {
 	return new XDataReader(
 		this.basePath + File.separator
 			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-				LocaleConstants.NOTL_STRING_ARENA_FORMAT_LEVEL)
+				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL)
 			+ this.activeLevel + Extension.getDungeonLevelExtensionWithPeriod(),
 		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_ARENA_FORMAT_LEVEL));
+			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL));
     }
 
-    private XDataReader getLevelReaderG6() throws IOException {
+    private FileIOReader getLevelReaderG6() throws IOException {
 	return new XDataReader(
 		this.basePath + File.separator
 			+ LocaleLoader.loadString(
-				LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_ARENA_FORMAT_LEVEL)
+				LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL)
 			+ this.activeLevel
 			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-				LocaleConstants.NOTL_STRING_ARENA_FORMAT_ERA)
+				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ERA)
 			+ this.activeEra + Extension.getDungeonLevelExtensionWithPeriod(),
 		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_ARENA_FORMAT_LEVEL));
+			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL));
     }
 
-    private int readDungeonMetafileVersion(final XDataReader reader) throws IOException {
-	int ver = FormatConstants.ARENA_FORMAT_LATEST;
+    private int readDungeonMetafileVersion(final FileIOReader reader) throws IOException {
+	int ver = FormatConstants.DUNGEON_FORMAT_LATEST;
 	if (this.prefixHandler != null) {
 	    ver = this.prefixHandler.readPrefix(reader);
 	}
@@ -935,7 +940,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	return ver;
     }
 
-    private void readDungeonMetafileG3(final XDataReader reader, final int ver) throws IOException {
+    private void readDungeonMetafileG3(final FileIOReader reader, final int ver) throws IOException {
 	this.levelCount = reader.readInt();
 	this.musicFilename = "null";
 	if (this.suffixHandler != null) {
@@ -943,7 +948,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
     }
 
-    private void readDungeonMetafileG4(final XDataReader reader, final int ver) throws IOException {
+    private void readDungeonMetafileG4(final FileIOReader reader, final int ver) throws IOException {
 	this.levelCount = reader.readInt();
 	this.musicFilename = reader.readString();
 	if (this.suffixHandler != null) {
@@ -951,7 +956,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
     }
 
-    private void readDungeonMetafileG6(final XDataReader reader, final int ver) throws IOException {
+    private void readDungeonMetafileG6(final FileIOReader reader, final int ver) throws IOException {
 	this.levelCount = reader.readInt();
 	this.musicFilename = reader.readString();
 	this.moveShootAllowed = reader.readBoolean();
@@ -964,11 +969,26 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
     }
 
-    private void readDungeonLevel(final XDataReader reader) throws IOException {
-	this.readDungeonLevel(reader, FormatConstants.ARENA_FORMAT_LATEST);
+    private void readDungeonMetafileG7(final FileIOReader reader, final int ver) throws IOException {
+	this.levelCount = reader.readInt();
+	this.startLevel = reader.readInt();
+	this.startEra = reader.readInt();
+	this.musicFilename = reader.readString();
+	this.moveShootAllowed = reader.readBoolean();
+	for (int l = 0; l < this.levelCount; l++) {
+	    this.levelInfoData.add(DungeonLevelInfo.readLevelInfo(reader));
+	    this.levelInfoList.add(reader.readString());
+	}
+	if (this.suffixHandler != null) {
+	    this.suffixHandler.readSuffix(reader, ver);
+	}
     }
 
-    private void readDungeonLevel(final XDataReader reader, final int formatVersion) throws IOException {
+    private void readDungeonLevel(final FileIOReader reader) throws IOException {
+	this.readDungeonLevel(reader, FormatConstants.DUNGEON_FORMAT_LATEST);
+    }
+
+    private void readDungeonLevel(final FileIOReader reader, final int formatVersion) throws IOException {
 	this.dungeonData = (CurrentDungeonData) new CurrentDungeonData().readData(this, reader, formatVersion);
 	this.dungeonData.readSavedState(reader, formatVersion);
     }
@@ -976,30 +996,30 @@ public class CurrentDungeon extends AbstractDungeon {
     private File getLevelFile(final int level, final int era) {
 	return new File(this.basePath + File.separator
 		+ LocaleLoader
-			.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_ARENA_FORMAT_LEVEL)
+			.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL)
 		+ level
 		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_ARENA_FORMAT_ERA)
+			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ERA)
 		+ era + Extension.getDungeonLevelExtensionWithPeriod());
     }
 
     @Override
     public void writeDungeon() throws IOException {
 	// Create metafile writer
-	try (XDataWriter metaWriter = new XDataWriter(
+	try (FileIOWriter metaWriter = new XDataWriter(
 		this.basePath + File.separator
 			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-				LocaleConstants.NOTL_STRING_ARENA_FORMAT_METAFILE)
+				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_METAFILE)
 			+ Extension.getDungeonLevelExtensionWithPeriod(),
 		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_ARENA_FORMAT_ARENA))) {
+			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ARENA))) {
 	    // Write metafile
 	    this.writeDungeonMetafile(metaWriter);
 	} catch (final IOException ioe) {
 	    throw ioe;
 	}
 	// Create data writer
-	try (XDataWriter dataWriter = this.getLevelWriter()) {
+	try (FileIOWriter dataWriter = this.getLevelWriter()) {
 	    // Write data
 	    this.writeDungeonLevel(dataWriter);
 	} catch (final IOException ioe) {
@@ -1007,24 +1027,26 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
     }
 
-    private XDataWriter getLevelWriter() throws IOException {
+    private FileIOWriter getLevelWriter() throws IOException {
 	return new XDataWriter(
 		this.basePath + File.separator
 			+ LocaleLoader.loadString(
-				LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_ARENA_FORMAT_LEVEL)
+				LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL)
 			+ this.activeLevel
 			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-				LocaleConstants.NOTL_STRING_ARENA_FORMAT_ERA)
+				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ERA)
 			+ this.activeEra + Extension.getDungeonLevelExtensionWithPeriod(),
 		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_ARENA_FORMAT_LEVEL));
+			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL));
     }
 
-    private void writeDungeonMetafile(final XDataWriter writer) throws IOException {
+    private void writeDungeonMetafile(final FileIOWriter writer) throws IOException {
 	if (this.prefixHandler != null) {
 	    this.prefixHandler.writePrefix(writer);
 	}
 	writer.writeInt(this.levelCount);
+	writer.writeInt(this.startLevel);
+	writer.writeInt(this.startEra);
 	writer.writeString(this.musicFilename);
 	writer.writeBoolean(this.moveShootAllowed);
 	for (int l = 0; l < this.levelCount; l++) {
@@ -1036,7 +1058,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
     }
 
-    private void writeDungeonLevel(final XDataWriter writer) throws IOException {
+    private void writeDungeonLevel(final FileIOWriter writer) throws IOException {
 	// Write the level
 	this.dungeonData.writeData(this, writer);
 	this.dungeonData.writeSavedState(writer);

@@ -10,11 +10,11 @@ import javax.swing.JFrame;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.dungeon.current.GenerateDungeonTask;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.GenerateDungeonTask;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
 public final class GameLogic {
@@ -104,8 +104,8 @@ public final class GameLogic {
 	final Application app = Integration1.getApplication();
 	final CurrentDungeon m = app.getDungeonManager().getDungeon();
 	if (m != null && this.vwMgr != null) {
-	    this.vwMgr.setViewingWindowLocationX(m.getPlayerLocationY() - GameViewingWindowManager.getOffsetFactorX());
-	    this.vwMgr.setViewingWindowLocationY(m.getPlayerLocationX() - GameViewingWindowManager.getOffsetFactorY());
+	    this.vwMgr.setViewingWindowLocationX(m.getPlayerLocationY(0) - GameViewingWindowManager.getOffsetFactorX());
+	    this.vwMgr.setViewingWindowLocationY(m.getPlayerLocationX(0) - GameViewingWindowManager.getOffsetFactorY());
 	}
     }
 
@@ -140,8 +140,8 @@ public final class GameLogic {
 	final CurrentDungeon m = app.getDungeonManager().getDungeon();
 	// Restore the maze
 	m.restore();
-	m.resetVisibleSquares();
-	final boolean playerExists = m.doesPlayerExist();
+	m.resetVisibleSquares(0);
+	final boolean playerExists = m.doesPlayerExist(0);
 	if (playerExists) {
 	    this.resetViewingWindowAndPlayerLocation();
 	} else {
@@ -162,13 +162,13 @@ public final class GameLogic {
     public static void decay() {
 	final Application app = Integration1.getApplication();
 	final CurrentDungeon m = app.getDungeonManager().getDungeon();
-	m.setCell(new Empty(), m.getPlayerLocationX(), m.getPlayerLocationY(), 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	m.setCell(new Empty(), m.getPlayerLocationX(0), m.getPlayerLocationY(0), 0, DungeonConstants.LAYER_LOWER_OBJECTS);
     }
 
     public static void morph(final AbstractDungeonObject morphInto) {
 	final Application app = Integration1.getApplication();
 	final CurrentDungeon m = app.getDungeonManager().getDungeon();
-	m.setCell(morphInto, m.getPlayerLocationX(), m.getPlayerLocationY(), 0, morphInto.getLayer());
+	m.setCell(morphInto, m.getPlayerLocationX(0), m.getPlayerLocationY(0), 0, morphInto.getLayer());
     }
 
     public void keepNextMessage() {
@@ -183,15 +183,15 @@ public final class GameLogic {
 	    app.getGUIManager().hideGUI();
 	    if (this.stateChanged) {
 		// Initialize only if the maze state has changed
-		app.getDungeonManager().getDungeon().switchLevel(app.getDungeonManager().getDungeon().getStartLevel());
+		app.getDungeonManager().getDungeon().switchLevel(app.getDungeonManager().getDungeon().getStartLevel(0));
 		this.stateChanged = false;
 	    }
 	    // Make sure message area is attached to the border pane
 	    this.gui.updateGameGUI();
 	    // Make sure initial area player is in is visible
-	    final int px = m.getPlayerLocationX();
-	    final int py = m.getPlayerLocationY();
-	    m.updateVisibleSquares(px, py);
+	    final int px = m.getPlayerLocationX(0);
+	    final int py = m.getPlayerLocationY(0);
+	    m.updateVisibleSquares(px, py, 0);
 	    this.showOutput();
 	    this.redrawDungeon();
 	} else {

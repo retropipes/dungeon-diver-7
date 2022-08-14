@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package com.puttysoftware.dungeondiver7.integration1.dungeon;
+package com.puttysoftware.dungeondiver7.dungeon.current;
 
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
@@ -53,8 +53,8 @@ public class GenerateDungeonTask extends Thread {
 		gameDungeon = new CurrentDungeon();
 		app.getDungeonManager().setDungeon(gameDungeon);
 	    }
-	    gameDungeon.addFixedSizeLevel(dungeonSize, dungeonSize);
-	    gameDungeon.fillRandomly();
+	    gameDungeon.addFixedSizeLevel(dungeonSize, dungeonSize, 1);
+	    DungeonGenerator.fillRandomly(gameDungeon);
 	    final RandomRange rR = new RandomRange(0, dungeonSize - 1);
 	    final RandomRange rC = new RandomRange(0, dungeonSize - 1);
 	    if (this.scratch) {
@@ -63,10 +63,10 @@ public class GenerateDungeonTask extends Thread {
 		    startR = rR.generate();
 		    startC = rC.generate();
 		} while (gameDungeon.getCell(startR, startC, 0, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid());
-		gameDungeon.setStartRow(startR);
-		gameDungeon.setStartColumn(startC);
+		gameDungeon.setStartRow(startR, 0);
+		gameDungeon.setStartColumn(startC, 0);
 		app.getDungeonManager().setLoaded(true);
-		final boolean playerExists = gameDungeon.doesPlayerExist();
+		final boolean playerExists = gameDungeon.doesPlayerExist(0);
 		if (playerExists) {
 		    gameDungeon.setPlayerToStart();
 		    app.getGameLogic().resetViewingWindow();
@@ -77,8 +77,8 @@ public class GenerateDungeonTask extends Thread {
 		    startR = rR.generate();
 		    startC = rC.generate();
 		} while (gameDungeon.getCell(startR, startC, 0, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid());
-		gameDungeon.setPlayerLocationX(startR);
-		gameDungeon.setPlayerLocationY(startC);
+		gameDungeon.setPlayerLocationX(startR, 0);
+		gameDungeon.setPlayerLocationY(startC, 0);
 		PartyManager.getParty().offsetZone(1);
 	    }
 	    gameDungeon.save();

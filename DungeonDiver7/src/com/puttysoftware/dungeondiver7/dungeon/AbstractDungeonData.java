@@ -9,8 +9,8 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
 import com.puttysoftware.dungeondiver7.utility.Direction;
-import com.puttysoftware.fileio.XDataReader;
-import com.puttysoftware.fileio.XDataWriter;
+import com.puttysoftware.fileio.FileIOReader;
+import com.puttysoftware.fileio.FileIOWriter;
 
 public abstract class AbstractDungeonData implements Cloneable {
     // Constants
@@ -198,14 +198,14 @@ public abstract class AbstractDungeonData implements Cloneable {
 	return fF;
     }
 
-    public abstract void writeData(final AbstractDungeon dungeon, final XDataWriter writer) throws IOException;
+    public abstract void writeData(final AbstractDungeon dungeon, final FileIOWriter writer) throws IOException;
 
-    public abstract AbstractDungeonData readData(final AbstractDungeon dungeon, final XDataReader reader, final int ver)
+    public abstract AbstractDungeonData readData(final AbstractDungeon dungeon, final FileIOReader reader, final int ver)
 	    throws IOException;
 
-    public abstract void writeSavedState(final XDataWriter writer) throws IOException;
+    public abstract void writeSavedState(final FileIOWriter writer) throws IOException;
 
-    public abstract void readSavedState(final XDataReader reader, final int formatVersion) throws IOException;
+    public abstract void readSavedState(final FileIOReader reader, final int formatVersion) throws IOException;
 
     public abstract void undo(final AbstractDungeon dungeon);
 

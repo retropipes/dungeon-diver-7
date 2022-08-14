@@ -11,7 +11,7 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.ListWithImageDialog;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.item.ArmorConstants;
 import com.puttysoftware.dungeondiver7.item.Equipment;
 import com.puttysoftware.dungeondiver7.item.EquipmentFactory;
@@ -99,7 +99,7 @@ public class Shop {
 	}
 	MusicLoader.stopMusic();
 	int zoneID = PartyManager.getParty().getZone();
-	if (zoneID == CurrentDungeon.getMaxLevels() - 1) {
+	if (zoneID == AbstractDungeon.getMaxLevels() - 1) {
 	    MusicLoader.playMusic(MusicConstants.MUSIC_LAIR);
 	} else {
 	    MusicLoader.playMusic(MusicConstants.MUSIC_DUNGEON);

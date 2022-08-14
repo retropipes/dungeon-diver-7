@@ -16,11 +16,12 @@ import javax.swing.WindowConstants;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.integration1.Application;
 import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.integration1.VersionException;
-import com.puttysoftware.dungeondiver7.integration1.dungeon.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.PrefixHandler;
 import com.puttysoftware.dungeondiver7.manager.dungeon.SuffixHandler;
@@ -56,7 +57,7 @@ public class GameLoadTask extends Thread {
 	    final Application app = Integration1.getApplication();
 	    int startW;
 	    app.getGameLogic().setSavedGameFlag(false);
-	    final File tempLock = new File(CurrentDungeon.getDungeonTempFolder() + "lock.tmp");
+	    final File tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
 	    CurrentDungeon gameDungeon = new CurrentDungeon();
 	    // Unlock the file
 	    GameFileManager.load(mazeFile, tempLock);
@@ -74,9 +75,9 @@ public class GameLoadTask extends Thread {
 		throw new IOException("Unknown object encountered.");
 	    }
 	    app.getDungeonManager().setDungeon(gameDungeon);
-	    startW = gameDungeon.getStartLevel();
+	    startW = gameDungeon.getStartLevel(0);
 	    gameDungeon.switchLevel(startW);
-	    final boolean playerExists = gameDungeon.doesPlayerExist();
+	    final boolean playerExists = gameDungeon.doesPlayerExist(0);
 	    if (playerExists) {
 		app.getDungeonManager().getDungeon().setPlayerToStart();
 		app.getGameLogic().resetViewingWindow();

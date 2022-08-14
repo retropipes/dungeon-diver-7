@@ -44,8 +44,8 @@ import com.puttysoftware.dungeondiver7.utility.FormatConstants;
 import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 import com.puttysoftware.dungeondiver7.utility.VisionModeConstants;
-import com.puttysoftware.fileio.XDataReader;
-import com.puttysoftware.fileio.XDataWriter;
+import com.puttysoftware.fileio.FileIOReader;
+import com.puttysoftware.fileio.FileIOWriter;
 import com.puttysoftware.randomrange.RandomRange;
 import com.puttysoftware.storage.FlagStorage;
 
@@ -1437,7 +1437,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void writeData(final AbstractDungeon dungeon, final XDataWriter writer) throws IOException {
+    public void writeData(final AbstractDungeon dungeon, final FileIOWriter writer) throws IOException {
 	int y, x, z, w;
 	writer.writeInt(this.getColumns());
 	writer.writeInt(this.getRows());
@@ -1454,7 +1454,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public AbstractDungeonData readData(final AbstractDungeon dungeon, final XDataReader reader,
+    public AbstractDungeonData readData(final AbstractDungeon dungeon, final FileIOReader reader,
 	    final int formatVersion) throws IOException {
 	if (FormatConstants.isFormatVersionValidGeneration1(formatVersion)) {
 	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG1(dungeon, reader, formatVersion);
@@ -1476,11 +1476,11 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    return tempData;
 	} else {
 	    throw new IOException(LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-		    LocaleConstants.ERROR_STRING_UNKNOWN_ARENA_FORMAT));
+		    LocaleConstants.ERROR_STRING_UNKNOWN_DUNGEON_FORMAT));
 	}
     }
 
-    private static CurrentDungeonData readDataG1(final AbstractDungeon dungeon, final XDataReader reader, final int ver)
+    private static CurrentDungeonData readDataG1(final AbstractDungeon dungeon, final FileIOReader reader, final int ver)
 	    throws IOException {
 	int y, x, z, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
@@ -1522,7 +1522,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG2(final AbstractDungeon dungeon, final XDataReader reader, final int ver)
+    private static CurrentDungeonData readDataG2(final AbstractDungeon dungeon, final FileIOReader reader, final int ver)
 	    throws IOException {
 	int y, x, z, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
@@ -1570,7 +1570,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG3(final AbstractDungeon dungeon, final XDataReader reader, final int ver)
+    private static CurrentDungeonData readDataG3(final AbstractDungeon dungeon, final FileIOReader reader, final int ver)
 	    throws IOException {
 	int y, x, z, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
@@ -1618,7 +1618,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG4(final AbstractDungeon dungeon, final XDataReader reader, final int ver)
+    private static CurrentDungeonData readDataG4(final AbstractDungeon dungeon, final FileIOReader reader, final int ver)
 	    throws IOException {
 	int y, x, z, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
@@ -1666,7 +1666,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG5(final AbstractDungeon dungeon, final XDataReader reader, final int ver)
+    private static CurrentDungeonData readDataG5(final AbstractDungeon dungeon, final FileIOReader reader, final int ver)
 	    throws IOException {
 	int y, x, z, w, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
@@ -1716,7 +1716,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG6(final AbstractDungeon dungeon, final XDataReader reader, final int ver)
+    private static CurrentDungeonData readDataG6(final AbstractDungeon dungeon, final FileIOReader reader, final int ver)
 	    throws IOException {
 	int y, x, z, w, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
@@ -1741,7 +1741,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void writeSavedState(final XDataWriter writer) throws IOException {
+    public void writeSavedState(final FileIOWriter writer) throws IOException {
 	int y, x, z, w;
 	writer.writeInt(this.getColumns());
 	writer.writeInt(this.getRows());
@@ -1758,7 +1758,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void readSavedState(final XDataReader reader, final int formatVersion) throws IOException {
+    public void readSavedState(final FileIOReader reader, final int formatVersion) throws IOException {
 	if (FormatConstants.isFormatVersionValidGeneration1(formatVersion)) {
 	    this.readSavedStateG2(reader, formatVersion);
 	} else if (FormatConstants.isFormatVersionValidGeneration2(formatVersion)) {
@@ -1773,11 +1773,11 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    this.readSavedStateG6(reader, formatVersion);
 	} else {
 	    throw new IOException(LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-		    LocaleConstants.ERROR_STRING_UNKNOWN_ARENA_FORMAT));
+		    LocaleConstants.ERROR_STRING_UNKNOWN_DUNGEON_FORMAT));
 	}
     }
 
-    private void readSavedStateG2(final XDataReader reader, final int formatVersion) throws IOException {
+    private void readSavedStateG2(final FileIOReader reader, final int formatVersion) throws IOException {
 	int y, x, z, saveSizeX, saveSizeY, saveSizeZ;
 	saveSizeX = reader.readInt();
 	saveSizeY = reader.readInt();
@@ -1796,7 +1796,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	}
     }
 
-    private void readSavedStateG3(final XDataReader reader, final int formatVersion) throws IOException {
+    private void readSavedStateG3(final FileIOReader reader, final int formatVersion) throws IOException {
 	int y, x, z, saveSizeX, saveSizeY, saveSizeZ;
 	saveSizeX = reader.readInt();
 	saveSizeY = reader.readInt();
@@ -1815,7 +1815,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	}
     }
 
-    private void readSavedStateG4(final XDataReader reader, final int formatVersion) throws IOException {
+    private void readSavedStateG4(final FileIOReader reader, final int formatVersion) throws IOException {
 	int y, x, z, saveSizeX, saveSizeY, saveSizeZ;
 	saveSizeX = reader.readInt();
 	saveSizeY = reader.readInt();
@@ -1834,7 +1834,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	}
     }
 
-    private void readSavedStateG5(final XDataReader reader, final int formatVersion) throws IOException {
+    private void readSavedStateG5(final FileIOReader reader, final int formatVersion) throws IOException {
 	int y, x, z, w, saveSizeX, saveSizeY, saveSizeZ;
 	saveSizeX = reader.readInt();
 	saveSizeY = reader.readInt();
@@ -1855,7 +1855,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	}
     }
 
-    private void readSavedStateG6(final XDataReader reader, final int formatVersion) throws IOException {
+    private void readSavedStateG6(final FileIOReader reader, final int formatVersion) throws IOException {
 	int y, x, z, w, saveSizeX, saveSizeY, saveSizeZ;
 	saveSizeX = reader.readInt();
 	saveSizeY = reader.readInt();

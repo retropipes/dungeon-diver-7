@@ -294,7 +294,7 @@ public class DungeonEditor implements MenuSection {
 	final int z = this.elMgr.getEditorLocationZ();
 	final int w = this.elMgr.getEditorLocationW();
 	final int u = this.elMgr.getEditorLocationU();
-	final int e = DungeonDiver7.getApplication().getDungeonManager().getDungeon().getActiveEraNumber();
+	final int e = DungeonDiver7.getApplication().getDungeonManager().getDungeon().getActiveEra();
 	if (w == DungeonConstants.LAYER_LOWER_GROUND) {
 	    this.redrawEditorBottomGround();
 	} else if (w == DungeonConstants.LAYER_UPPER_GROUND) {
@@ -625,7 +625,7 @@ public class DungeonEditor implements MenuSection {
 	    this.checkMenus();
 	} else {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		    LocaleConstants.MENU_STRING_ERROR_NO_ARENA_OPENED));
+		    LocaleConstants.MENU_STRING_ERROR_NO_DUNGEON_OPENED));
 	}
     }
 
@@ -666,10 +666,10 @@ public class DungeonEditor implements MenuSection {
 	if (success) {
 	    this.dungeonChanged = true;
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		    LocaleConstants.EDITOR_STRING_ARENA_CREATED));
+		    LocaleConstants.EDITOR_STRING_DUNGEON_CREATED));
 	} else {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		    LocaleConstants.EDITOR_STRING_ARENA_CREATION_FAILED));
+		    LocaleConstants.EDITOR_STRING_DUNGEON_CREATION_FAILED));
 	}
 	return success;
     }
@@ -719,7 +719,7 @@ public class DungeonEditor implements MenuSection {
     private boolean addLevelInternal() {
 	final Application app = DungeonDiver7.getApplication();
 	boolean success = true;
-	final int saveLevel = app.getDungeonManager().getDungeon().getActiveLevelNumber();
+	final int saveLevel = app.getDungeonManager().getDungeon().getActiveLevel();
 	success = app.getDungeonManager().getDungeon().addLevel();
 	if (success) {
 	    this.fixLimits();

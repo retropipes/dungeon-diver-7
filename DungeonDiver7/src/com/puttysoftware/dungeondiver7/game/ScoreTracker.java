@@ -212,7 +212,7 @@ class ScoreTracker {
 	b.append(ScoreTracker.getScoreDirectory());
 	b.append(filename);
 	b.append(LocaleConstants.COMMON_STRING_UNDERSCORE);
-	b.append(DungeonDiver7.getApplication().getDungeonManager().getDungeon().getActiveLevelNumber() + 1);
+	b.append(DungeonDiver7.getApplication().getDungeonManager().getDungeon().getActiveLevel() + 1);
 	b.append(Extension.getScoresExtensionWithPeriod());
 	return new File(b.toString());
     }

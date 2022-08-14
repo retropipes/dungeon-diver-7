@@ -20,12 +20,12 @@ public class Extension {
 	    LocaleConstants.NOTL_STRING_EXTENSION_OLD_LEVEL);
     private static final String OLD_PLAYBACK_EXTENSION = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 	    LocaleConstants.NOTL_STRING_EXTENSION_OLD_PLAYBACK);
-    private static final String ARENA_EXTENSION = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
+    private static final String DUNGEON_EXTENSION = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 	    LocaleConstants.NOTL_STRING_EXTENSION_ARENA);
-    private static final String PROTECTED_ARENA_EXTENSION = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
+    private static final String PROTECTED_DUNGEON_EXTENSION = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 	    LocaleConstants.NOTL_STRING_EXTENSION_PROTECTED_ARENA);
-    private static final String ARENA_LEVEL_EXTENSION = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-	    LocaleConstants.NOTL_STRING_EXTENSION_ARENA_DATA);
+    private static final String DUNGEON_LEVEL_EXTENSION = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
+	    LocaleConstants.NOTL_STRING_EXTENSION_DUNGEON_DATA);
     private static final String SAVED_GAME_EXTENSION = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 	    LocaleConstants.NOTL_STRING_EXTENSION_SAVED_GAME);
     private static final String SCORES_EXTENSION = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
@@ -47,23 +47,23 @@ public class Extension {
     }
 
     public static String getDungeonExtension() {
-	return Extension.ARENA_EXTENSION;
+	return Extension.DUNGEON_EXTENSION;
     }
 
     public static String getDungeonExtensionWithPeriod() {
-	return LocaleConstants.COMMON_STRING_NOTL_PERIOD + Extension.ARENA_EXTENSION;
+	return LocaleConstants.COMMON_STRING_NOTL_PERIOD + Extension.DUNGEON_EXTENSION;
     }
 
     public static String getProtectedDungeonExtension() {
-	return Extension.PROTECTED_ARENA_EXTENSION;
+	return Extension.PROTECTED_DUNGEON_EXTENSION;
     }
 
     public static String getProtectedDungeonExtensionWithPeriod() {
-	return LocaleConstants.COMMON_STRING_NOTL_PERIOD + Extension.PROTECTED_ARENA_EXTENSION;
+	return LocaleConstants.COMMON_STRING_NOTL_PERIOD + Extension.PROTECTED_DUNGEON_EXTENSION;
     }
 
     public static String getDungeonLevelExtensionWithPeriod() {
-	return LocaleConstants.COMMON_STRING_NOTL_PERIOD + Extension.ARENA_LEVEL_EXTENSION;
+	return LocaleConstants.COMMON_STRING_NOTL_PERIOD + Extension.DUNGEON_LEVEL_EXTENSION;
     }
 
     public static String getGameExtension() {
