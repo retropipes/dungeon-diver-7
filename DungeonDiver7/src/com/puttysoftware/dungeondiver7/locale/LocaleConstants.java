@@ -20,15 +20,15 @@ public class LocaleConstants {
     public static final int COLOR_STRINGS_FILE = -3;
     public static final int STRINGS_FILE = -4;
     private static final String DIFFICULTY_STRINGS_FILE_NAME = "difficulty";
-    private static final String ERROR_STRINGS_FILE_NAME = "errors";
+    private static final String ERROR_STRINGS_FILE_NAME = "error";
     private static final String PREFS_STRINGS_FILE_NAME = "prefs";
     private static final String GENERIC_STRINGS_FILE_NAME = "generic";
-    private static final String OBJECT_STRINGS_FILE_NAME = "objects";
-    private static final String MENU_STRINGS_FILE_NAME = "menus";
-    private static final String DIALOG_STRINGS_FILE_NAME = "dialogs";
-    private static final String MESSAGE_STRINGS_FILE_NAME = "messages";
+    private static final String OBJECT_STRINGS_FILE_NAME = "object";
+    private static final String MENU_STRINGS_FILE_NAME = "menu";
+    private static final String DIALOG_STRINGS_FILE_NAME = "dialog";
+    private static final String MESSAGE_STRINGS_FILE_NAME = "message";
     private static final String EDITOR_STRINGS_FILE_NAME = "editor";
-    private static final String GAME_STRINGS_FILE_NAME = "game";
+    private static final String GAME_STRINGS_FILE_NAME = "gam";
     private static final String ERA_STRINGS_FILE_NAME = "eras";
     static final String[] STRINGS_FILES = new String[] { LocaleConstants.DIFFICULTY_STRINGS_FILE_NAME,
 	    LocaleConstants.ERROR_STRINGS_FILE_NAME, LocaleConstants.PREFS_STRINGS_FILE_NAME,
@@ -36,11 +36,11 @@ public class LocaleConstants {
 	    LocaleConstants.MENU_STRINGS_FILE_NAME, LocaleConstants.DIALOG_STRINGS_FILE_NAME,
 	    LocaleConstants.MESSAGE_STRINGS_FILE_NAME, LocaleConstants.EDITOR_STRINGS_FILE_NAME,
 	    LocaleConstants.GAME_STRINGS_FILE_NAME, LocaleConstants.ERA_STRINGS_FILE_NAME };
-    private static final String LANGUAGE_STRINGS_FILE_NAME = "languages";
+    private static final String LANGUAGE_STRINGS_FILE_NAME = "language";
     private static final String NOTL_STRINGS_FILE_NAME = "notranslate";
-    private static final String IMAGE_STRINGS_FILE_NAME = "images";
-    private static final String COLOR_STRINGS_FILE_NAME = "colors";
-    private static final String STRINGS_FILE_NAME = "directions";
+    private static final String IMAGE_STRINGS_FILE_NAME = "image";
+    private static final String COLOR_STRINGS_FILE_NAME = "color";
+    private static final String STRINGS_FILE_NAME = "direction";
     static final String[] LANGUAGE_STRINGS_FILES = new String[] { LocaleConstants.LANGUAGE_STRINGS_FILE_NAME,
 	    LocaleConstants.NOTL_STRINGS_FILE_NAME, LocaleConstants.IMAGE_STRINGS_FILE_NAME,
 	    LocaleConstants.COLOR_STRINGS_FILE_NAME, LocaleConstants.STRINGS_FILE_NAME };
