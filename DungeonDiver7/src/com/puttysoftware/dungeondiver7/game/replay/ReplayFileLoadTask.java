@@ -47,7 +47,7 @@ class ReplayFileLoadTask extends Thread {
     public void run() {
 	this.loadFrame.setVisible(true);
 	final BagOStuff app = DungeonDiver7.getApplication();
-	app.getGameManager().setSavedGameFlag(false);
+	app.getGameLogic().setSavedGameFlag(false);
 	try (FileInputStream dungeonFile = new FileInputStream(this.filename)) {
 	    ReplayFile.loadLPB(dungeonFile);
 	    dungeonFile.close();

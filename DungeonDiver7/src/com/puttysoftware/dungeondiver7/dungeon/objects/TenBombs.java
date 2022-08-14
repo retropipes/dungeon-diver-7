@@ -5,9 +5,8 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractInventoryModifier;
-import com.puttysoftware.dungeondiver7.game.GameManager;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 
 public class TenBombs extends AbstractInventoryModifier {
@@ -18,9 +17,8 @@ public class TenBombs extends AbstractInventoryModifier {
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
 	PartyInventory.addTenBombs();
-	gm.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 
     @Override

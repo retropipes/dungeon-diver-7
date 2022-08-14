@@ -55,7 +55,7 @@ final class MovingLaserTracker {
 
     void activateLasers(final int zx, final int zy, final int zox, final int zoy, final int zlt,
 	    final AbstractDungeonObject zshooter) {
-	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	this.shooter = zshooter;
 	this.ox = zox;
 	this.oy = zoy;
@@ -75,7 +75,7 @@ final class MovingLaserTracker {
 		SoundLoader.playSound(SoundConstants.FIRE_LASER);
 	    }
 	    DungeonDiver7.getApplication().getDungeonManager().setDirty(true);
-	    GameManager.updateUndo(true, false, false, false, false, false, false, false, false, false);
+	    GameLogic.updateUndo(true, false, false, false, false, false, false, false, false, false);
 	    gm.updateScore(0, 1, 0);
 	    if (!gm.isReplaying()) {
 		gm.updateReplay(true, 0, 0);
@@ -83,14 +83,14 @@ final class MovingLaserTracker {
 	    this.laser = true;
 	    this.res = true;
 	} else if (this.lt == ArrowTypeConstants.LASER_TYPE_RED) {
-	    if (!gm.getCheatStatus(GameManager.CHEAT_INVINCIBLE)) {
+	    if (!gm.getCheatStatus(GameLogic.CHEAT_INVINCIBLE)) {
 		SoundLoader.playSound(SoundConstants.ANTI_FIRE);
 		this.laser = true;
 		this.res = true;
 	    }
 	} else if (this.lt == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    DungeonDiver7.getApplication().getDungeonManager().setDirty(true);
-	    GameManager.updateUndo(false, true, false, false, false, false, false, false, false, false);
+	    GameLogic.updateUndo(false, true, false, false, false, false, false, false, false, false);
 	    PartyInventory.fireMissile();
 	    SoundLoader.playSound(SoundConstants.MISSILE);
 	    gm.updateScore(0, 0, 1);
@@ -101,7 +101,7 @@ final class MovingLaserTracker {
 	    this.res = true;
 	} else if (this.lt == ArrowTypeConstants.LASER_TYPE_STUNNER) {
 	    DungeonDiver7.getApplication().getDungeonManager().setDirty(true);
-	    GameManager.updateUndo(false, false, true, false, false, false, false, false, false, false);
+	    GameLogic.updateUndo(false, false, true, false, false, false, false, false, false, false);
 	    PartyInventory.fireStunner();
 	    SoundLoader.playSound(SoundConstants.STUNNER);
 	    gm.updateScore(0, 0, 1);
@@ -112,7 +112,7 @@ final class MovingLaserTracker {
 	    this.res = true;
 	} else if (this.lt == ArrowTypeConstants.LASER_TYPE_BLUE) {
 	    DungeonDiver7.getApplication().getDungeonManager().setDirty(true);
-	    GameManager.updateUndo(false, false, false, false, false, true, false, false, false, false);
+	    GameLogic.updateUndo(false, false, false, false, false, true, false, false, false, false);
 	    PartyInventory.fireBlueLaser();
 	    SoundLoader.playSound(SoundConstants.FIRE_LASER);
 	    gm.updateScore(0, 0, 1);
@@ -123,7 +123,7 @@ final class MovingLaserTracker {
 	    this.res = true;
 	} else if (this.lt == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 	    DungeonDiver7.getApplication().getDungeonManager().setDirty(true);
-	    GameManager.updateUndo(false, false, false, false, false, false, true, false, false, false);
+	    GameLogic.updateUndo(false, false, false, false, false, false, true, false, false, false);
 	    PartyInventory.fireDisruptor();
 	    SoundLoader.playSound(SoundConstants.DISRUPTOR);
 	    gm.updateScore(0, 0, 1);
@@ -142,7 +142,7 @@ final class MovingLaserTracker {
     }
 
     boolean trackPart2(final int nsx, final int nsy, final boolean nMover) {
-	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	int sx = nsx;
 	int sy = nsy;
 	boolean mover = nMover;
@@ -163,7 +163,7 @@ final class MovingLaserTracker {
     }
 
     void clearLastLaser() {
-	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	final PlayerLocationManager plMgr = gm.getPlayerManager();
 	final int pz = plMgr.getPlayerLocationZ();
 	if (this.laser) {
@@ -186,8 +186,8 @@ final class MovingLaserTracker {
     private void doLasersOnce(final boolean tracking) {
 	final Ground g = new Ground();
 	final BagOStuff app = DungeonDiver7.getApplication();
-	final GameManager gm = app.getGameManager();
-	final PlayerLocationManager plMgr = app.getGameManager().getPlayerManager();
+	final GameLogic gm = app.getGameLogic();
+	final PlayerLocationManager plMgr = app.getGameLogic().getPlayerManager();
 	final int px = plMgr.getPlayerLocationX();
 	final int py = plMgr.getPlayerLocationY();
 	final int pz = plMgr.getPlayerLocationZ();
@@ -370,7 +370,7 @@ final class MovingLaserTracker {
     }
 
     private static boolean canMoveThere(final int sx, final int sy) {
-	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	final PlayerLocationManager plMgr = gm.getPlayerManager();
 	final int px = plMgr.getPlayerLocationX();
 	final int py = plMgr.getPlayerLocationY();
@@ -402,9 +402,9 @@ final class MovingLaserTracker {
     }
 
     private static boolean checkSolid(final AbstractDungeonObject next) {
-	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	// Check cheats
-	if (gm.getCheatStatus(GameManager.CHEAT_GHOSTLY)) {
+	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
 	    return true;
 	} else {
 	    final boolean nextSolid = next.isConditionallySolid();

@@ -8,6 +8,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractWall;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -29,13 +30,15 @@ public class HotWall extends AbstractWall {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 	    // Disrupt hot wall
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
-	    DungeonDiver7.getApplication().getGameManager().morph(new DisruptedHotWall(), locX, locY, locZ,
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(new DisruptedHotWall(), locX, locY, locZ,
 		    this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
 	    // Cool off hot wall
 	    SoundLoader.playSound(SoundConstants.COOL_OFF);
-	    DungeonDiver7.getApplication().getGameManager().morph(new Wall(), locX, locY, locZ, this.getLayer());
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(new Wall(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
 	    // Stop laser

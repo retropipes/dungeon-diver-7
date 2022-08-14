@@ -17,7 +17,6 @@ import com.puttysoftware.dungeondiver7.battle.AbstractBattle;
 import com.puttysoftware.dungeondiver7.battle.MapBattleLogic;
 import com.puttysoftware.dungeondiver7.editor.DungeonEditor;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.game.GameManager;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
@@ -31,7 +30,6 @@ import com.puttysoftware.images.BufferedImageIcon;
 public final class BagOStuff {
     // Fields
     private AboutDialog about;
-    private GameManager gameMgr;
     private GameLogic gameLogic;
     private DungeonManager dungeonMgr;
     private MenuManager menuMgr;
@@ -62,7 +60,6 @@ public final class BagOStuff {
 	// Create Managers
 	this.about = new AboutDialog(BagOStuff.getVersionString());
 	this.helpMgr = new HelpManager();
-	this.gameMgr = new GameManager();
 	this.editor = new DungeonEditor();
 	this.guiMgr = new GUIManager();
 	this.menuMgr = new MenuManager();
@@ -82,12 +79,12 @@ public final class BagOStuff {
 	this.menuMgr.unregisterAllModeManagers();
 	this.menuMgr.registerModeManager(this.guiMgr);
 	this.menuMgr.initMenus();
-	this.menuMgr.registerModeManager(this.gameMgr);
+	this.menuMgr.registerModeManager(this.gameLogic);
 	this.menuMgr.registerModeManager(this.editor);
 	this.menuMgr.registerModeManager(this.about);
 	// Fire hooks
 	this.getHelpManager().activeLanguageChanged();
-	this.getGameManager().activeLanguageChanged();
+	this.getGameLogic().activeLanguageChanged();
 	this.getEditor().activeLanguageChanged();
     }
 
@@ -104,7 +101,7 @@ public final class BagOStuff {
 
     public void setInGame() {
 	this.mode = BagOStuff.STATUS_GAME;
-	this.menuMgr.modeChanged(this.gameMgr);
+	this.menuMgr.modeChanged(this.gameLogic);
     }
 
     public void setInEditor() {
@@ -135,7 +132,7 @@ public final class BagOStuff {
 	if (this.mode == BagOStuff.STATUS_GUI) {
 	    this.guiMgr.hideGUI();
 	} else if (this.mode == BagOStuff.STATUS_GAME) {
-	    this.gameMgr.exitGame();
+	    this.gameLogic.exitGame();
 	} else if (this.mode == BagOStuff.STATUS_EDITOR) {
 	    this.editor.exitEditor();
 	}
@@ -171,14 +168,7 @@ public final class BagOStuff {
 	return this.guiMgr;
     }
 
-    public GameManager getGameManager() {
-	return this.gameMgr;
-    }
-
     public GameLogic getGameLogic() {
-	if (this.gameLogic == null) {
-	    this.gameLogic = new GameLogic();
-	}
 	return this.gameLogic;
     }
 
@@ -235,7 +225,7 @@ public final class BagOStuff {
 	    } else if (this.getMode() == BagOStuff.STATUS_GUI) {
 		return this.getGUIManager().getGUIFrame();
 	    } else if (this.getMode() == BagOStuff.STATUS_GAME) {
-		return this.getGameManager().getOutputFrame();
+		return this.getGameLogic().getOutputFrame();
 	    } else if (this.getMode() == BagOStuff.STATUS_EDITOR) {
 		return this.getEditor().getOutputFrame();
 	    } else if (this.getMode() == BagOStuff.STATUS_BATTLE) {

@@ -7,6 +7,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractWall;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -28,7 +29,8 @@ public class MagneticWall extends AbstractWall {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 	    // Disrupt magnetic wall
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
-	    DungeonDiver7.getApplication().getGameManager().morph(new DisruptedMagneticWall(), locX, locY, locZ,
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(new DisruptedMagneticWall(), locX, locY, locZ,
 		    this.getLayer());
 	    return Direction.NONE;
 	} else {

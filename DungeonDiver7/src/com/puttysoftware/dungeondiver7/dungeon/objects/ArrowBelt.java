@@ -7,6 +7,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractSpell;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 
@@ -20,8 +21,9 @@ public class ArrowBelt extends AbstractSpell {
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	SoundLoader.playSound(SoundConstants.DISRUPTED);
-	DungeonDiver7.getApplication().getGameManager().setDisguisedPlayer();
-	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+	DungeonDiver7.getApplication().getGameLogic().setDisguisedPlayer();
+	DungeonDiver7.getApplication().getGameLogic();
+	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 
     @Override

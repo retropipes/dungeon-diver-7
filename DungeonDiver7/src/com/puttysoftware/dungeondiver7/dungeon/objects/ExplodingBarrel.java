@@ -9,6 +9,7 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -38,7 +39,7 @@ public class ExplodingBarrel extends AbstractReactionWall {
 	final boolean dead = this.laserEnteredActionInnerP1(locX, locY, locZ, false);
 	if (dead) {
 	    // Kill tank
-	    DungeonDiver7.getApplication().getGameManager().gameOver();
+	    DungeonDiver7.getApplication().getGameLogic().gameOver();
 	    return Direction.NONE;
 	}
 	ExplodingBarrel.laserEnteredActionInnerP2(locX, locY, locZ, this.getLayer());
@@ -60,7 +61,7 @@ public class ExplodingBarrel extends AbstractReactionWall {
 	final boolean dead = this.laserEnteredActionInnerP1(locX + dirX, locY + dirY, locZ, false);
 	if (dead) {
 	    // Kill tank
-	    DungeonDiver7.getApplication().getGameManager().gameOver();
+	    DungeonDiver7.getApplication().getGameLogic().gameOver();
 	    return true;
 	}
 	// Destroy barrel
@@ -107,8 +108,9 @@ public class ExplodingBarrel extends AbstractReactionWall {
     }
 
     private static void laserEnteredActionInnerP2(final int locX, final int locY, final int locZ, final int locW) {
+	DungeonDiver7.getApplication().getGameLogic();
 	// Destroy barrel
-	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, locW);
+	GameLogic.morph(new Empty(), locX, locY, locZ, locW);
 	// Check for nearby exploding barrels and blow them up too
 	try {
 	    final boolean boom2 = DungeonDiver7.getApplication().getDungeonManager().getDungeon()

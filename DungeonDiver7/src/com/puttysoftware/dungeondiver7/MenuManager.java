@@ -118,10 +118,10 @@ public class MenuManager implements MenuSection {
 		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 			LocaleConstants.MENU_STRING_ITEM_PLAY))) {
 		    // Play the current dungeon
-		    final boolean proceed = app.getGameManager().newGame();
+		    final boolean proceed = app.getGameLogic().newGame();
 		    if (proceed) {
 			app.exitCurrentMode();
-			app.getGameManager().playDungeon();
+			app.getGameLogic().playDungeon();
 		    }
 		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 			LocaleConstants.MENU_STRING_ITEM_EDIT))) {

@@ -7,6 +7,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -22,11 +23,12 @@ public class DeadArrowTurret extends AbstractMovableObject {
     @Override
     public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	DungeonDiver7.getApplication().getGameManager().haltMovingObjects();
+	DungeonDiver7.getApplication().getGameLogic().haltMovingObjects();
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy
 	    SoundLoader.playSound(SoundConstants.BOOM);
-	    DungeonDiver7.getApplication().getGameManager().morph(this.getSavedObject(), locX, locY, locZ,
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(this.getSavedObject(), locX, locY, locZ,
 		    this.getLayer());
 	} else {
 	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);

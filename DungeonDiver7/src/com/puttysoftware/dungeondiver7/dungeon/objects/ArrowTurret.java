@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
-import com.puttysoftware.dungeondiver7.game.GameManager;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.ActionConstants;
@@ -34,8 +34,8 @@ public class ArrowTurret extends AbstractMovableObject {
 
     public void kill(final int locX, final int locY) {
 	if (this.canShoot) {
-	    DungeonDiver7.getApplication().getGameManager().setLaserType(ArrowTypeConstants.LASER_TYPE_RED);
-	    DungeonDiver7.getApplication().getGameManager().fireLaser(locX, locY, this);
+	    DungeonDiver7.getApplication().getGameLogic().setLaserType(ArrowTypeConstants.LASER_TYPE_RED);
+	    DungeonDiver7.getApplication().getGameLogic().fireLaser(locX, locY, this);
 	    this.canShoot = false;
 	}
     }
@@ -60,32 +60,26 @@ public class ArrowTurret extends AbstractMovableObject {
 	    final int laserType, final int forceUnits) {
 	final Direction baseDir = this.getDirection();
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE || laserType == ArrowTypeConstants.LASER_TYPE_POWER) {
-	    // Kill
-	    final GameManager gm = DungeonDiver7.getApplication().getGameManager();
 	    final DeadArrowTurret dat = new DeadArrowTurret();
 	    dat.setSavedObject(this.getSavedObject());
 	    dat.setDirection(baseDir);
-	    gm.morph(dat, locX, locY, locZ, this.getLayer());
+	    GameLogic.morph(dat, locX, locY, locZ, this.getLayer());
 	    SoundLoader.playSound(SoundConstants.ANTI_DIE);
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
-	    // Stun
-	    final GameManager gm = DungeonDiver7.getApplication().getGameManager();
 	    final StunnedArrowTurret sat = new StunnedArrowTurret();
 	    sat.setSavedObject(this.getSavedObject());
 	    sat.setDirection(baseDir);
-	    gm.morph(sat, locX, locY, locZ, this.getLayer());
+	    GameLogic.morph(sat, locX, locY, locZ, this.getLayer());
 	    SoundLoader.playSound(SoundConstants.STUN);
 	    return Direction.NONE;
 	} else {
 	    final Direction sourceDir = DirectionResolver.resolveRelativeDirectionInvert(dirX, dirY);
 	    if (sourceDir == baseDir) {
-		// Kill
-		final GameManager gm = DungeonDiver7.getApplication().getGameManager();
 		final DeadArrowTurret dat = new DeadArrowTurret();
 		dat.setSavedObject(this.getSavedObject());
 		dat.setDirection(baseDir);
-		gm.morph(dat, locX, locY, locZ, this.getLayer());
+		GameLogic.morph(dat, locX, locY, locZ, this.getLayer());
 		SoundLoader.playSound(SoundConstants.ANTI_DIE);
 		return Direction.NONE;
 	    } else {
@@ -99,10 +93,10 @@ public class ArrowTurret extends AbstractMovableObject {
 	if (this.getSavedObject().isOfType(TypeConstants.TYPE_ANTI_MOVER)) {
 	    final Direction moveDir = this.getSavedObject().getDirection();
 	    final int[] unres = DirectionResolver.unresolveRelativeDirection(moveDir);
-	    if (GameManager.canObjectMove(locX, locY, unres[0], unres[1])) {
+	    if (GameLogic.canObjectMove(locX, locY, unres[0], unres[1])) {
 		if (this.autoMove) {
 		    this.autoMove = false;
-		    DungeonDiver7.getApplication().getGameManager().updatePushedPosition(locX, locY, locX + unres[0],
+		    DungeonDiver7.getApplication().getGameLogic().updatePushedPosition(locX, locY, locX + unres[0],
 			    locY + unres[1], this);
 		}
 	    } else {

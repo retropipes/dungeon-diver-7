@@ -16,22 +16,22 @@ public class DungeonFileSuffixHandler implements AbstractSuffixIO {
     @Override
     public void readSuffix(final FileIOReader reader, final int formatVersion) throws IOException {
 	if (FormatConstants.isFormatVersionValidGeneration1(formatVersion)) {
-	    DungeonDiver7.getApplication().getGameManager().loadGameHookG1(reader);
+	    DungeonDiver7.getApplication().getGameLogic().loadGameHookG1(reader);
 	} else if (FormatConstants.isFormatVersionValidGeneration2(formatVersion)) {
-	    DungeonDiver7.getApplication().getGameManager().loadGameHookG2(reader);
+	    DungeonDiver7.getApplication().getGameLogic().loadGameHookG2(reader);
 	} else if (FormatConstants.isFormatVersionValidGeneration3(formatVersion)) {
-	    DungeonDiver7.getApplication().getGameManager().loadGameHookG3(reader);
+	    DungeonDiver7.getApplication().getGameLogic().loadGameHookG3(reader);
 	} else if (FormatConstants.isFormatVersionValidGeneration4(formatVersion)) {
-	    DungeonDiver7.getApplication().getGameManager().loadGameHookG4(reader);
+	    DungeonDiver7.getApplication().getGameLogic().loadGameHookG4(reader);
 	} else if (FormatConstants.isFormatVersionValidGeneration5(formatVersion)) {
-	    DungeonDiver7.getApplication().getGameManager().loadGameHookG5(reader);
+	    DungeonDiver7.getApplication().getGameLogic().loadGameHookG5(reader);
 	} else if (FormatConstants.isFormatVersionValidGeneration6(formatVersion)) {
-	    DungeonDiver7.getApplication().getGameManager().loadGameHookG6(reader);
+	    DungeonDiver7.getApplication().getGameLogic().loadGameHookG6(reader);
 	}
     }
 
     @Override
     public void writeSuffix(final FileIOWriter writer) throws IOException {
-	DungeonDiver7.getApplication().getGameManager().saveGameHook(writer);
+	DungeonDiver7.getApplication().getGameLogic().saveGameHook(writer);
     }
 }

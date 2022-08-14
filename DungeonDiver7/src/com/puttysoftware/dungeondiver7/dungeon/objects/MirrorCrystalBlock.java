@@ -8,6 +8,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -30,7 +31,8 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy mirror crystal block
 	    SoundLoader.playSound(SoundConstants.BOOM);
-	    DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE) {
 	    // Pass laser through
@@ -38,7 +40,8 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 	    // Disrupt mirror crystal block
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
-	    DungeonDiver7.getApplication().getGameManager().morph(new DisruptedMirrorCrystalBlock(), locX, locY, locZ,
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(new DisruptedMirrorCrystalBlock(), locX, locY, locZ,
 		    this.getLayer());
 	    return Direction.NONE;
 	} else {
@@ -58,21 +61,24 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
 	    final int rangeType, final int forceUnits) {
 	if (rangeType == RangeTypeConstants.RANGE_TYPE_BOMB
 		|| RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_METALLIC) {
+	    DungeonDiver7.getApplication().getGameLogic();
 	    // Destroy mirror crystal block
-	    DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
 	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_FIRE) {
 	    // Heat up mirror crystal block
 	    SoundLoader.playSound(SoundConstants.MELT);
-	    DungeonDiver7.getApplication().getGameManager().morph(
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
 	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_ICE) {
 	    // Freeze mirror crystal block
 	    SoundLoader.playSound(SoundConstants.FROZEN);
-	    DungeonDiver7.getApplication().getGameManager().morph(
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;

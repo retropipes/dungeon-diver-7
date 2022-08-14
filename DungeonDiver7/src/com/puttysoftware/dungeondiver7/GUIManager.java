@@ -219,7 +219,7 @@ public class GUIManager implements MenuSection {
 			    }
 			}
 			if (saved) {
-			    app.getGameManager().exitGame();
+			    app.getGameLogic().exitGame();
 			}
 		    }
 		    app.getGUIManager().showGUI();

@@ -9,6 +9,7 @@ import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -60,13 +61,14 @@ public class WoodenBox extends AbstractMovableObject {
 	    if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 		// Destroy wooden box
 		SoundLoader.playSound(SoundConstants.BARREL);
-		app.getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
+		app.getGameLogic();
+		GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    } else if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE && mor != null
 		    && (mor.isOfType(TypeConstants.TYPE_CHARACTER) || !mor.isSolid())) {
-		app.getGameManager().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
+		app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
 		this.playSoundHook();
 	    } else if (mof != null && (mof.isOfType(TypeConstants.TYPE_CHARACTER) || !mof.isSolid())) {
-		app.getGameManager().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
+		app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
 		this.playSoundHook();
 	    } else {
 		// Object doesn't react to this type of laser

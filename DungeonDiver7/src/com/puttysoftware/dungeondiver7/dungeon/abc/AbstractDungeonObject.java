@@ -13,6 +13,7 @@ import java.util.BitSet;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.BattleImageManager;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
@@ -503,7 +504,8 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     protected void pushCrushAction(final int x, final int y, final int z) {
 	// Object crushed
 	SoundLoader.playSound(SoundConstants.CRUSH);
-	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), x, y, z, this.getLayer());
+	DungeonDiver7.getApplication().getGameLogic();
+	GameLogic.morph(new Empty(), x, y, z, this.getLayer());
     }
 
     /**
@@ -572,7 +574,8 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 		&& this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE) != null) {
 	    // Burn wooden object
 	    SoundLoader.playSound(SoundConstants.WOOD_BURN);
-	    DungeonDiver7.getApplication().getGameManager().morph(
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
@@ -583,7 +586,8 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 		&& this.changesToOnExposure(MaterialConstants.MATERIAL_ICE) != null) {
 	    // Freeze metal, wooden, or plastic object
 	    SoundLoader.playSound(SoundConstants.FROZEN);
-	    DungeonDiver7.getApplication().getGameManager().morph(
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
@@ -592,7 +596,8 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 		&& this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE) != null) {
 	    // Melt icy object
 	    SoundLoader.playSound(SoundConstants.DEFROST);
-	    DungeonDiver7.getApplication().getGameManager().morph(
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
@@ -601,7 +606,8 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 		&& this.changesToOnExposure(MaterialConstants.MATERIAL_ICE) != null) {
 	    // Cool hot object
 	    SoundLoader.playSound(SoundConstants.COOL_OFF);
-	    DungeonDiver7.getApplication().getGameManager().morph(
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
@@ -610,7 +616,8 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 		&& this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE) != null) {
 	    // Melt metal object
 	    SoundLoader.playSound(SoundConstants.MELT);
-	    DungeonDiver7.getApplication().getGameManager().morph(
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
@@ -644,7 +651,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 			// Move BOTH this object and the one in front of it
 			final AbstractMovableObject gmo = (AbstractMovableObject) this;
 			final AbstractMovableObject gmo2 = (AbstractMovableObject) nextObj;
-			DungeonDiver7.getApplication().getGameManager().updatePushedPositionLater(locX, locY, dirX,
+			DungeonDiver7.getApplication().getGameLogic().updatePushedPositionLater(locX, locY, dirX,
 				dirY, gmo, locX + dirX, locY + dirY, gmo2, laserType,
 				forceUnits - Math.max(1, this.getMinimumReactionForce()));
 		    } else {

@@ -9,6 +9,7 @@ import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -33,7 +34,8 @@ public class MagneticMirror extends AbstractMovableObject {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy mirror
 	    SoundLoader.playSound(SoundConstants.BOOM);
-	    DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
 	    final Direction dir = DirectionResolver.resolveRelativeDirectionInvert(dirX, dirY);
@@ -47,10 +49,10 @@ public class MagneticMirror extends AbstractMovableObject {
 			locZ, this.getLayer());
 		if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE && mo != null
 			&& (mo.isOfType(TypeConstants.TYPE_CHARACTER) || !mo.isSolid())) {
-		    app.getGameManager().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
+		    app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
 		    this.playSoundHook();
 		} else if (mo != null && (mo.isOfType(TypeConstants.TYPE_CHARACTER) || !mo.isSolid())) {
-		    app.getGameManager().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
+		    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
 		    this.playSoundHook();
 		} else {
 		    if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {

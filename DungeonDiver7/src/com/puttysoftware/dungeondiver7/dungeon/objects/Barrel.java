@@ -9,6 +9,7 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -31,13 +32,14 @@ public class Barrel extends AbstractReactionWall {
 	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
 	// Boom!
 	SoundLoader.playSound(SoundConstants.BARREL);
+	DungeonDiver7.getApplication().getGameLogic();
 	// Destroy barrel
-	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
+	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	// Check for tank in range of explosion
 	final boolean target = a.circularScanPlayer(locX, locY, locZ, 1);
 	if (target) {
 	    // Kill tank
-	    DungeonDiver7.getApplication().getGameManager().gameOver();
+	    DungeonDiver7.getApplication().getGameLogic().gameOver();
 	}
 	if (laserType == ArrowTypeConstants.LASER_TYPE_POWER) {
 	    // Laser keeps going
@@ -58,11 +60,12 @@ public class Barrel extends AbstractReactionWall {
 	final boolean target = a.circularScanPlayer(locX + dirX, locY + dirY, locZ, 1);
 	if (target) {
 	    // Kill tank
-	    DungeonDiver7.getApplication().getGameManager().gameOver();
+	    DungeonDiver7.getApplication().getGameLogic().gameOver();
 	    return true;
 	}
+	DungeonDiver7.getApplication().getGameLogic();
 	// Destroy barrel
-	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX + dirX, locY + dirY, locZ,
+	GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ,
 		this.getLayer());
 	return true;
     }

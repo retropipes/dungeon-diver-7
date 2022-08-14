@@ -31,7 +31,7 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Ground;
 import com.puttysoftware.dungeondiver7.dungeon.objects.MonsterTile;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Party;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
-import com.puttysoftware.dungeondiver7.game.GameManager;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
@@ -407,7 +407,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	}
 	int u, w;
 	if (d == Direction.NORTH) {
-	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameManager().getPlayer();
+	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    } else {
@@ -436,7 +436,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    }
 	    return false;
 	} else if (d == Direction.SOUTH) {
-	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameManager().getPlayer();
+	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    } else {
@@ -465,7 +465,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    }
 	    return false;
 	} else if (d == Direction.WEST) {
-	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameManager().getPlayer();
+	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    } else {
@@ -494,7 +494,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    }
 	    return false;
 	} else if (d == Direction.EAST) {
-	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameManager().getPlayer();
+	    final AbstractDungeonObject tank = DungeonDiver7.getApplication().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    } else {
@@ -760,7 +760,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public boolean circularScanPlayer(final AbstractDungeon dungeon, final int x, final int y, final int z, final int r) {
-	final int[] tankLoc = DungeonDiver7.getApplication().getGameManager().getPlayerLocation();
+	final int[] tankLoc = DungeonDiver7.getApplication().getGameLogic().getPlayerLocation();
 	int fX = x;
 	int fY = y;
 	int fZ = z;
@@ -788,12 +788,10 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    final AbstractDungeonObject obj = this.getCell(dungeon, y, x, z,
 			    DungeonConstants.LAYER_LOWER_OBJECTS);
 		    if (obj instanceof ArrowTurret) {
-			// Kill the tank
-			final GameManager gm = DungeonDiver7.getApplication().getGameManager();
 			final DeadArrowTurret dat = new DeadArrowTurret();
 			dat.setSavedObject(obj.getSavedObject());
 			dat.setDirection(obj.getDirection());
-			gm.morph(dat, y, x, z, DungeonConstants.LAYER_LOWER_OBJECTS);
+			GameLogic.morph(dat, y, x, z, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    }
 		}
 	    }
@@ -809,8 +807,9 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    final AbstractDungeonObject obj = this.getCell(dungeon, y, x, z,
 			    DungeonConstants.LAYER_LOWER_GROUND);
 		    if (!(obj instanceof Ground)) {
+			DungeonDiver7.getApplication().getGameLogic();
 			// Freeze the ground
-			DungeonDiver7.getApplication().getGameManager().morph(
+			GameLogic.morph(
 				obj.changesToOnExposure(MaterialConstants.MATERIAL_ICE), y, x, z,
 				DungeonConstants.LAYER_LOWER_GROUND);
 		    }

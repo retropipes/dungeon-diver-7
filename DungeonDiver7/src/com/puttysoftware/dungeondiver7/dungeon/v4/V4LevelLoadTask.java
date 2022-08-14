@@ -50,7 +50,7 @@ public class V4LevelLoadTask extends Thread {
     public void run() {
 	this.loadFrame.setVisible(true);
 	final BagOStuff app = DungeonDiver7.getApplication();
-	app.getGameManager().setSavedGameFlag(false);
+	app.getGameLogic().setSavedGameFlag(false);
 	try (FileInputStream dungeonFile = new FileInputStream(this.filename)) {
 	    final AbstractDungeon gameDungeon = DungeonManager.createDungeon();
 	    V4File.loadOldFile(gameDungeon, dungeonFile);
@@ -58,7 +58,7 @@ public class V4LevelLoadTask extends Thread {
 	    app.getDungeonManager().setDungeon(gameDungeon);
 	    final boolean playerExists = gameDungeon.doesPlayerExist(0);
 	    if (playerExists) {
-		app.getGameManager().getPlayerManager().resetPlayerLocation();
+		app.getGameLogic().getPlayerManager().resetPlayerLocation();
 	    }
 	    gameDungeon.save();
 	    // Final cleanup

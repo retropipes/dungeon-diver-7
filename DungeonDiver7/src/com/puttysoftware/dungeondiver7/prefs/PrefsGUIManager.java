@@ -79,7 +79,7 @@ class PrefsGUIManager {
 	if (formerMode == BagOStuff.STATUS_GUI) {
 	    app.getGUIManager().hideGUI();
 	} else if (formerMode == BagOStuff.STATUS_GAME) {
-	    app.getGameManager().hideOutput();
+	    app.getGameLogic().hideOutput();
 	} else if (formerMode == BagOStuff.STATUS_EDITOR) {
 	    app.getEditor().hideOutput();
 	}
@@ -93,7 +93,7 @@ class PrefsGUIManager {
 	if (formerMode == BagOStuff.STATUS_GUI) {
 	    app.getGUIManager().showGUI();
 	} else if (formerMode == BagOStuff.STATUS_GAME) {
-	    app.getGameManager().showOutput();
+	    app.getGameLogic().showOutput();
 	} else if (formerMode == BagOStuff.STATUS_EDITOR) {
 	    app.getEditor().showOutput();
 	}

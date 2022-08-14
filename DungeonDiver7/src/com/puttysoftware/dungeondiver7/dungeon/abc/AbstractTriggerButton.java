@@ -8,6 +8,7 @@ package com.puttysoftware.dungeondiver7.dungeon.abc;
 import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
@@ -25,13 +26,15 @@ public abstract class AbstractTriggerButton extends AbstractButton {
 	if (this.isUniversal() || pushed.getMaterial() == this.getMaterial()) {
 	    SoundLoader.playSound(SoundConstants.BUTTON);
 	    if (this.isTriggered()) {
+		app.getGameLogic();
 		// Close door at location
-		app.getGameManager().morph(this.getButtonDoor(), this.getDoorX(), this.getDoorY(), z, this.getLayer());
+		GameLogic.morph(this.getButtonDoor(), this.getDoorX(), this.getDoorY(), z, this.getLayer());
 		SoundLoader.playSound(SoundConstants.DOOR_CLOSES);
 		this.setTriggered(false);
 	    } else {
+		app.getGameLogic();
 		// Open door at location
-		app.getGameManager().morph(new Empty(), this.getDoorX(), this.getDoorY(), z, this.getLayer());
+		GameLogic.morph(new Empty(), this.getDoorX(), this.getDoorY(), z, this.getLayer());
 		SoundLoader.playSound(SoundConstants.DOOR_OPENS);
 		this.setTriggered(true);
 	    }

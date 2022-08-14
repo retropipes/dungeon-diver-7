@@ -8,6 +8,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractWall;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -33,7 +34,8 @@ public class IcyWall extends AbstractWall {
 	    if (this.hasPreviousState()) {
 		diw.setPreviousState(this.getPreviousState());
 	    }
-	    DungeonDiver7.getApplication().getGameManager().morph(diw, locX, locY, locZ, this.getLayer());
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(diw, locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Defrost icy wall
@@ -44,7 +46,8 @@ public class IcyWall extends AbstractWall {
 	    } else {
 		ao = new Wall();
 	    }
-	    DungeonDiver7.getApplication().getGameManager().morph(ao, locX, locY, locZ, this.getLayer());
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(ao, locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
 	    // Stop laser

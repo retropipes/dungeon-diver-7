@@ -10,6 +10,7 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractGround;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
@@ -28,15 +29,19 @@ public class DeeperWater extends AbstractGround {
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
 	final BagOStuff app = DungeonDiver7.getApplication();
 	if (pushed.isOfType(TypeConstants.TYPE_BOX)) {
+	    app.getGameLogic();
 	    // Get rid of pushed object
-	    app.getGameManager().morph(new Empty(), x, y, z, pushed.getLayer());
+	    GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
 	    if (pushed.getMaterial() == MaterialConstants.MATERIAL_WOODEN) {
-		app.getGameManager().morph(new Bridge(), x, y, z, this.getLayer());
+		app.getGameLogic();
+		GameLogic.morph(new Bridge(), x, y, z, this.getLayer());
 	    } else {
-		app.getGameManager().morph(new DeepWater(), x, y, z, this.getLayer());
+		app.getGameLogic();
+		GameLogic.morph(new DeepWater(), x, y, z, this.getLayer());
 	    }
 	} else {
-	    app.getGameManager().morph(new Empty(), x, y, z, pushed.getLayer());
+	    app.getGameLogic();
+	    GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
 	}
 	SoundLoader.playSound(SoundConstants.SINK);
 	return false;

@@ -8,6 +8,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractWall;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -29,20 +30,23 @@ public class WoodenWall extends AbstractWall {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 	    // Disrupt wooden wall
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
-	    DungeonDiver7.getApplication().getGameManager().morph(new DisruptedWoodenWall(), locX, locY, locZ,
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(new DisruptedWoodenWall(), locX, locY, locZ,
 		    this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy wooden wall
 	    SoundLoader.playSound(SoundConstants.BOOM);
-	    DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
 	    // Freeze wooden wall
 	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    final IcyWall iw = new IcyWall();
 	    iw.setPreviousState(this);
-	    DungeonDiver7.getApplication().getGameManager().morph(iw, locX, locY, locZ, this.getLayer());
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(iw, locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
 	    // Stop laser

@@ -8,6 +8,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDisruptedObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -47,7 +48,8 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
 	    if (this.hasPreviousState()) {
 		dw.setPreviousState(this.getPreviousState());
 	    }
-	    DungeonDiver7.getApplication().getGameManager().morph(dw, locX, locY, locZ, this.getLayer());
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(dw, locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
 	    // Stop laser
@@ -60,12 +62,13 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
 	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
-	    final int z = DungeonDiver7.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
+	    final int z = DungeonDiver7.getApplication().getGameLogic().getPlayerManager().getPlayerLocationZ();
 	    final IcyWall iw = new IcyWall();
 	    if (this.hasPreviousState()) {
 		iw.setPreviousState(this.getPreviousState());
 	    }
-	    DungeonDiver7.getApplication().getGameManager().morph(iw, locX, locY, z, this.getLayer());
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(iw, locX, locY, z, this.getLayer());
 	} else {
 	    this.activateTimer(1);
 	}

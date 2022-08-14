@@ -36,8 +36,8 @@ public abstract class AbstractTunnel extends AbstractDungeonObject {
 
     private static void checkTunnelsOfColor(final int color) {
 	final BagOStuff app = DungeonDiver7.getApplication();
-	final int tx = app.getGameManager().getPlayerManager().getPlayerLocationX();
-	final int ty = app.getGameManager().getPlayerManager().getPlayerLocationY();
+	final int tx = app.getGameLogic().getPlayerManager().getPlayerLocationX();
+	final int ty = app.getGameLogic().getPlayerManager().getPlayerLocationY();
 	final int[] pgrmdest = app.getDungeonManager().getDungeon().circularScanTunnel(0, 0, 0,
 		AbstractTunnel.SCAN_RADIUS, tx, ty, AbstractTunnel.getTunnelOfColor(color), false);
 	if (pgrmdest != null) {
@@ -51,26 +51,26 @@ public abstract class AbstractTunnel extends AbstractDungeonObject {
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	final BagOStuff app = DungeonDiver7.getApplication();
-	final int tx = app.getGameManager().getPlayerManager().getPlayerLocationX();
-	final int ty = app.getGameManager().getPlayerManager().getPlayerLocationY();
+	final int tx = app.getGameLogic().getPlayerManager().getPlayerLocationX();
+	final int ty = app.getGameLogic().getPlayerManager().getPlayerLocationY();
 	final int[] pgrmdest = app.getDungeonManager().getDungeon().circularScanTunnel(dirX, dirY, dirZ,
 		AbstractTunnel.SCAN_RADIUS, tx, ty, AbstractTunnel.getTunnelOfColor(this.getColor()), true);
 	if (pgrmdest != null) {
-	    app.getGameManager().updatePositionAbsoluteNoEvents(pgrmdest[0], pgrmdest[1], pgrmdest[2]);
+	    app.getGameLogic().updatePositionAbsoluteNoEvents(pgrmdest[0], pgrmdest[1], pgrmdest[2]);
 	}
     }
 
     @Override
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
 	final BagOStuff app = DungeonDiver7.getApplication();
-	final int tx = app.getGameManager().getPlayerManager().getPlayerLocationX();
-	final int ty = app.getGameManager().getPlayerManager().getPlayerLocationY();
+	final int tx = app.getGameLogic().getPlayerManager().getPlayerLocationX();
+	final int ty = app.getGameLogic().getPlayerManager().getPlayerLocationY();
 	final int color = this.getColor();
 	final int[] pgrmdest = app.getDungeonManager().getDungeon().circularScanTunnel(x, y, z,
 		AbstractTunnel.SCAN_RADIUS, tx, ty, AbstractTunnel.getTunnelOfColor(this.getColor()), false);
 	if (pgrmdest != null) {
 	    AbstractTunnel.tunnelsFull[color] = false;
-	    app.getGameManager().updatePushedIntoPositionAbsolute(pgrmdest[0], pgrmdest[1], pgrmdest[2], x, y, z,
+	    app.getGameLogic().updatePushedIntoPositionAbsolute(pgrmdest[0], pgrmdest[1], pgrmdest[2], x, y, z,
 		    pushed, this);
 	} else {
 	    AbstractTunnel.tunnelsFull[color] = true;

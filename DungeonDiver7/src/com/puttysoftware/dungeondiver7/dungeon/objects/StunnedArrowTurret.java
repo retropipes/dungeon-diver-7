@@ -8,6 +8,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
@@ -39,11 +40,12 @@ public class StunnedArrowTurret extends AbstractMovableObject {
 	    SoundLoader.playSound(SoundConstants.STUN_OFF);
 	    this.activateTimer(1);
 	} else if (this.stunnedLeft == 0) {
-	    final int z = DungeonDiver7.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
+	    final int z = DungeonDiver7.getApplication().getGameLogic().getPlayerManager().getPlayerLocationZ();
 	    final ArrowTurret at = new ArrowTurret();
 	    at.setSavedObject(this.getSavedObject());
 	    at.setDirection(this.getDirection());
-	    DungeonDiver7.getApplication().getGameManager().morph(at, locX, locY, z, this.getLayer());
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(at, locX, locY, z, this.getLayer());
 	} else {
 	    SoundLoader.playSound(SoundConstants.STUNNED);
 	    this.activateTimer(1);

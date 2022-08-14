@@ -7,6 +7,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionDisruptedObject;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -34,7 +35,8 @@ public class DisruptedHotCrystalBlock extends AbstractReactionDisruptedObject {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy disrupted hot crystal block
 	    SoundLoader.playSound(SoundConstants.BOOM);
-	    DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE) {
 	    // Reflect laser
@@ -50,8 +52,9 @@ public class DisruptedHotCrystalBlock extends AbstractReactionDisruptedObject {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
 	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
-	    final int z = DungeonDiver7.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
-	    DungeonDiver7.getApplication().getGameManager().morph(new HotCrystalBlock(), locX, locY, z,
+	    final int z = DungeonDiver7.getApplication().getGameLogic().getPlayerManager().getPlayerLocationZ();
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(new HotCrystalBlock(), locX, locY, z,
 		    this.getLayer());
 	} else {
 	    this.activateTimer(1);
@@ -68,8 +71,9 @@ public class DisruptedHotCrystalBlock extends AbstractReactionDisruptedObject {
     public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
 	if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_METALLIC) {
+	    DungeonDiver7.getApplication().getGameLogic();
 	    // Destroy disrupted hot crystal block
-	    DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
 	} else {

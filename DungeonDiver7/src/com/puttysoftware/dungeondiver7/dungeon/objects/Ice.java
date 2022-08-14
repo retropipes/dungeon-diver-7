@@ -9,6 +9,7 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractGround;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
@@ -49,7 +50,8 @@ public class Ice extends AbstractGround {
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
 	if (pushed instanceof HotBox) {
 	    final Ground g = new Ground();
-	    DungeonDiver7.getApplication().getGameManager().morph(g, x, y, z, g.getLayer());
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(g, x, y, z, g.getLayer());
 	    SoundLoader.playSound(SoundConstants.DEFROST);
 	}
 	return true;

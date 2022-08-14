@@ -43,7 +43,7 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractJumpObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Ground;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Party;
-import com.puttysoftware.dungeondiver7.game.GameManager;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
@@ -53,7 +53,6 @@ import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjects;
 import com.puttysoftware.dungeondiver7.utility.EditorLayoutConstants;
-import com.puttysoftware.dungeondiver7.utility.InvalidDungeonException;
 import com.puttysoftware.dungeondiver7.utility.RCLGenerator;
 import com.puttysoftware.images.BufferedImageIcon;
 import com.puttysoftware.picturepicker.PicturePicker;
@@ -609,7 +608,7 @@ public class DungeonEditor implements MenuSection {
 	    app.getGUIManager().hideGUI();
 	    app.setInEditor();
 	    // Reset game state
-	    app.getGameManager().resetGameState();
+	    app.getGameLogic().resetGameState();
 	    // Create the managers
 	    if (this.dungeonChanged) {
 		this.elMgr = new EditorLocationManager();
@@ -645,7 +644,7 @@ public class DungeonEditor implements MenuSection {
 	    }
 	}
 	if (saved) {
-	    app.getGameManager().getPlayerManager().resetPlayerLocation();
+	    app.getGameLogic().getPlayerManager().resetPlayerLocation();
 	    AbstractDungeon a = null;
 	    try {
 		a = DungeonManager.createDungeon();
@@ -872,15 +871,10 @@ public class DungeonEditor implements MenuSection {
 	// Hide the editor
 	this.hideOutput();
 	final DungeonManager mm = app.getDungeonManager();
-	final GameManager gm = app.getGameManager();
 	// Save the entire level
 	mm.getDungeon().save();
 	// Reset the player location
-	try {
-	    gm.resetPlayerLocation();
-	} catch (final InvalidDungeonException iae) {
-	    // Harmless error, ignore it
-	}
+	GameLogic.resetPlayerLocation(0);
     }
 
     private void setUpGUI() {
@@ -1410,8 +1404,8 @@ public class DungeonEditor implements MenuSection {
 		    if (app.getMode() == BagOStuff.STATUS_EDITOR) {
 			editor.undo();
 		    } else if (app.getMode() == BagOStuff.STATUS_GAME) {
-			app.getGameManager().abortAndWaitForMLOLoop();
-			app.getGameManager().undoLastMove();
+			app.getGameLogic().abortAndWaitForMLOLoop();
+			app.getGameLogic().undoLastMove();
 		    }
 		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 			LocaleConstants.MENU_STRING_ITEM_REDO))) {
@@ -1419,8 +1413,8 @@ public class DungeonEditor implements MenuSection {
 		    if (app.getMode() == BagOStuff.STATUS_EDITOR) {
 			editor.redo();
 		    } else if (app.getMode() == BagOStuff.STATUS_GAME) {
-			app.getGameManager().abortAndWaitForMLOLoop();
-			app.getGameManager().redoLastMove();
+			app.getGameLogic().abortAndWaitForMLOLoop();
+			app.getGameLogic().redoLastMove();
 		    }
 		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 			LocaleConstants.MENU_STRING_ITEM_CUT_LEVEL))) {

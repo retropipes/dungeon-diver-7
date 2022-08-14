@@ -28,7 +28,7 @@ class AnimationTask extends Thread {
 	try {
 	    final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
 	    while (!this.stop) {
-		final int pz = DungeonDiver7.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
+		final int pz = DungeonDiver7.getApplication().getGameLogic().getPlayerManager().getPlayerLocationZ();
 		final int maxX = a.getRows();
 		final int maxY = a.getColumns();
 		final int maxW = DungeonConstants.NUM_LAYERS;
@@ -46,7 +46,7 @@ class AnimationTask extends Thread {
 			}
 		    }
 		}
-		DungeonDiver7.getApplication().getGameManager().redrawDungeon();
+		DungeonDiver7.getApplication().getGameLogic().redrawDungeon();
 		try {
 		    Thread.sleep(200);
 		} catch (final InterruptedException ie) {

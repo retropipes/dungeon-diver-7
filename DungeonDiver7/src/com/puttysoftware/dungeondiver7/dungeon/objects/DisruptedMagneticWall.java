@@ -7,6 +7,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDisruptedObject;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
@@ -31,8 +32,9 @@ public class DisruptedMagneticWall extends AbstractDisruptedObject {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
 	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
-	    final int z = DungeonDiver7.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
-	    DungeonDiver7.getApplication().getGameManager().morph(new MagneticWall(), locX, locY, z, this.getLayer());
+	    final int z = DungeonDiver7.getApplication().getGameLogic().getPlayerManager().getPlayerLocationZ();
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(new MagneticWall(), locX, locY, z, this.getLayer());
 	} else {
 	    this.activateTimer(1);
 	}

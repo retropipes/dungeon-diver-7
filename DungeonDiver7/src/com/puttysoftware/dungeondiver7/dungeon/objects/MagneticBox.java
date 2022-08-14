@@ -33,10 +33,10 @@ public class MagneticBox extends AbstractMovableObject {
 		this.getLayer());
 	if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE && mo != null
 		&& (mo.isOfType(TypeConstants.TYPE_CHARACTER) || !mo.isSolid())) {
-	    app.getGameManager().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
+	    app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
 	    this.playSoundHook();
 	} else if (mo != null && (mo.isOfType(TypeConstants.TYPE_CHARACTER) || !mo.isSolid())) {
-	    app.getGameManager().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
+	    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
 	    this.playSoundHook();
 	} else {
 	    if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {

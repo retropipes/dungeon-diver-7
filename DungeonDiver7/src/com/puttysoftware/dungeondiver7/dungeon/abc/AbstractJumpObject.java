@@ -84,8 +84,8 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
     public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	final BagOStuff app = DungeonDiver7.getApplication();
-	final int px = app.getGameManager().getPlayerManager().getPlayerLocationX();
-	final int py = app.getGameManager().getPlayerManager().getPlayerLocationY();
+	final int px = app.getGameLogic().getPlayerManager().getPlayerLocationX();
+	final int py = app.getGameLogic().getPlayerManager().getPlayerLocationY();
 	if (forceUnits > this.getMinimumReactionForce() && this.jumpRows == 0 && this.jumpCols == 0) {
 	    this.pushCrushAction(locX, locY, locZ);
 	    return Direction.NONE;

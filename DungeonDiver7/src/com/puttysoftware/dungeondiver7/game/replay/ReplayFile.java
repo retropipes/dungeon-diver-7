@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.game.GameManager;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 
@@ -28,7 +28,7 @@ class ReplayFile {
 		    LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 			    LocaleConstants.GAME_STRING_LOAD_PLAYBACK));
 	} else {
-	    final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	    final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	    gm.clearReplay();
 	    final byte[] data = ReplayFileLoader.getData();
 	    for (int x = data.length - 1; x >= 0; x--) {
@@ -43,7 +43,7 @@ class ReplayFile {
     }
 
     private static void decodeData(final byte d) {
-	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	switch (d) {
 	case 0x20:
 	    gm.loadReplay(true, 0, 0);

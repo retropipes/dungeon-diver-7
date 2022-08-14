@@ -7,6 +7,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDoor;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
@@ -27,7 +28,8 @@ public class RedDoor extends AbstractDoor {
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	SoundLoader.playSound(SoundConstants.UNLOCK);
 	PartyInventory.useRedKey();
-	DungeonDiver7.getApplication().getGameManager().morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+	DungeonDiver7.getApplication().getGameLogic();
+	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 
     @Override

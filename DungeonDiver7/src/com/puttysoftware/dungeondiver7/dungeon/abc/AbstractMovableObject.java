@@ -73,10 +73,10 @@ public abstract class AbstractMovableObject extends AbstractDungeonObject {
 		    if (this.getMaterial() == MaterialConstants.MATERIAL_MAGNETIC) {
 			if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE && mof != null
 				&& (mof.isOfType(TypeConstants.TYPE_CHARACTER) || !mof.isSolid())) {
-			    app.getGameManager().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
+			    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
 			    this.playSoundHook();
 			} else if (mor != null && (mor.isOfType(TypeConstants.TYPE_CHARACTER) || !mor.isSolid())) {
-			    app.getGameManager().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
+			    app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
 			    this.playSoundHook();
 			} else {
 			    // Object doesn't react to this type of laser
@@ -85,10 +85,10 @@ public abstract class AbstractMovableObject extends AbstractDungeonObject {
 		    } else {
 			if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE && mor != null
 				&& (mor.isOfType(TypeConstants.TYPE_CHARACTER) || !mor.isSolid())) {
-			    app.getGameManager().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
+			    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
 			    this.playSoundHook();
 			} else if (mof != null && (mof.isOfType(TypeConstants.TYPE_CHARACTER) || !mof.isSolid())) {
-			    app.getGameManager().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
+			    app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
 			    this.playSoundHook();
 			} else {
 			    // Object doesn't react to this type of laser

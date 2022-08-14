@@ -58,7 +58,7 @@ final class MLOTask extends Thread {
     @Override
     public void run() {
 	try {
-	    final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	    final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	    gm.clearDead();
 	    this.doMovementLasersObjects();
 	    // Check auto-move flag
@@ -78,7 +78,7 @@ final class MLOTask extends Thread {
     }
 
     void activateMovement(final int zx, final int zy) {
-	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	if (zx == 2 || zy == 2 || zx == -2 || zy == -2) {
 	    // Boosting
 	    SoundLoader.playSound(SoundConstants.BOOST);
@@ -86,7 +86,7 @@ final class MLOTask extends Thread {
 	    this.sx = zx;
 	    this.sy = zy;
 	    this.magnet = false;
-	    GameManager.updateUndo(false, false, false, true, false, false, false, false, false, false);
+	    GameLogic.updateUndo(false, false, false, true, false, false, false, false, false, false);
 	} else if (zx == 3 || zy == 3 || zx == -3 || zy == -3) {
 	    // Using a Magnet
 	    gm.updateScore(0, 0, 1);
@@ -116,7 +116,7 @@ final class MLOTask extends Thread {
 		// Success
 		SoundLoader.playSound(SoundConstants.MAGNET);
 	    }
-	    GameManager.updateUndo(false, false, false, false, true, false, false, false, false, false);
+	    GameLogic.updateUndo(false, false, false, false, true, false, false, false, false, false);
 	} else {
 	    // Moving normally
 	    SoundLoader.playSound(SoundConstants.MOVE);
@@ -124,7 +124,7 @@ final class MLOTask extends Thread {
 	    this.sx = zx;
 	    this.sy = zy;
 	    this.magnet = false;
-	    GameManager.updateUndo(false, false, false, false, false, false, false, false, false, false);
+	    GameLogic.updateUndo(false, false, false, false, false, false, false, false, false, false);
 	}
 	this.move = true;
 	this.loopCheck = true;
@@ -134,14 +134,14 @@ final class MLOTask extends Thread {
     }
 
     void activateFrozenMovement(final int zx, final int zy) {
-	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	// Moving under the influence of a Frost Field
 	this.frozen = true;
 	MLOTask.freezePlayer();
 	gm.updateScore(1, 0, 0);
 	this.sx = zx;
 	this.sy = zy;
-	GameManager.updateUndo(false, false, false, false, false, false, false, false, false, false);
+	GameLogic.updateUndo(false, false, false, false, false, false, false, false, false, false);
 	this.move = true;
 	if (!gm.isReplaying()) {
 	    gm.updateReplay(false, zx, zy);
@@ -149,7 +149,7 @@ final class MLOTask extends Thread {
     }
 
     static void activateAutomaticMovement() {
-	DungeonDiver7.getApplication().getGameManager().scheduleAutoMove();
+	DungeonDiver7.getApplication().getGameLogic().scheduleAutoMove();
     }
 
     void activateObjects(final int zx, final int zy, final int pushX, final int pushY,
@@ -176,7 +176,7 @@ final class MLOTask extends Thread {
 
     private void doMovementLasersObjects() {
 	synchronized (CurrentDungeonData.LOCK_OBJECT) {
-	    final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	    final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	    final PlayerLocationManager plMgr = gm.getPlayerManager();
 	    final int pz = plMgr.getPlayerLocationZ();
 	    this.loopCheck = true;
@@ -277,7 +277,7 @@ final class MLOTask extends Thread {
 		    final int px = plMgr.getPlayerLocationX();
 		    final int py = plMgr.getPlayerLocationY();
 		    DungeonDiver7.getApplication().getDungeonManager().getDungeon().checkForEnemies(pz, px, py,
-			    DungeonDiver7.getApplication().getGameManager().getPlayer());
+			    DungeonDiver7.getApplication().getGameLogic().getPlayer());
 		    // Delay
 		    try {
 			Thread.sleep(PrefsManager.getActionSpeed());
@@ -297,7 +297,7 @@ final class MLOTask extends Thread {
 		    && (this.loopCheck || this.areLaserTrackersChecking() || this.areObjectTrackersChecking()));
 	    if (objs[DungeonConstants.LAYER_LOWER_GROUND].killsOnMove()) {
 		// Check cheats
-		if (!gm.getCheatStatus(GameManager.CHEAT_SWIMMING)) {
+		if (!gm.getCheatStatus(GameLogic.CHEAT_SWIMMING)) {
 		    gm.gameOver();
 		}
 	    }
@@ -306,7 +306,7 @@ final class MLOTask extends Thread {
 
     private boolean canMoveThere() {
 	final BagOStuff app = DungeonDiver7.getApplication();
-	final GameManager gm = app.getGameManager();
+	final GameLogic gm = app.getGameLogic();
 	final PlayerLocationManager plMgr = gm.getPlayerManager();
 	final int px = plMgr.getPlayerLocationX();
 	final int py = plMgr.getPlayerLocationY();
@@ -340,7 +340,7 @@ final class MLOTask extends Thread {
     }
 
     private AbstractDungeonObject[] doMovementOnce() {
-	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	final PlayerLocationManager plMgr = gm.getPlayerManager();
 	int px = plMgr.getPlayerLocationX();
 	int py = plMgr.getPlayerLocationY();
@@ -481,7 +481,7 @@ final class MLOTask extends Thread {
 
     private boolean checkLoopCondition(final boolean zproceed) {
 	final BagOStuff app = DungeonDiver7.getApplication();
-	final GameManager gm = app.getGameManager();
+	final GameLogic gm = app.getGameLogic();
 	final PlayerLocationManager plMgr = gm.getPlayerManager();
 	final int px = plMgr.getPlayerLocationX();
 	final int py = plMgr.getPlayerLocationY();
@@ -507,7 +507,7 @@ final class MLOTask extends Thread {
     }
 
     private static void freezePlayer() {
-	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	final AbstractCharacter tank = gm.getPlayer();
 	final Direction dir = tank.getDirection();
 	final int px = gm.getPlayerManager().getPlayerLocationX();
@@ -515,14 +515,14 @@ final class MLOTask extends Thread {
 	final int pz = gm.getPlayerManager().getPlayerLocationZ();
 	final FrozenParty ft = new FrozenParty(dir, tank.getNumber());
 	ft.setSavedObject(tank.getSavedObject());
-	gm.morph(ft, px, py, pz, ft.getLayer());
+	GameLogic.morph(ft, px, py, pz, ft.getLayer());
 	gm.updatePlayer();
     }
 
     private void defrostPlayer() {
 	if (this.frozen) {
 	    this.frozen = false;
-	    final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	    final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	    final AbstractCharacter tank = gm.getPlayer();
 	    final Direction dir = tank.getDirection();
 	    final int px = gm.getPlayerManager().getPlayerLocationX();
@@ -530,16 +530,16 @@ final class MLOTask extends Thread {
 	    final int pz = gm.getPlayerManager().getPlayerLocationZ();
 	    final Party t = new Party(dir, tank.getNumber());
 	    t.setSavedObject(tank.getSavedObject());
-	    gm.morph(t, px, py, pz, t.getLayer());
+	    GameLogic.morph(t, px, py, pz, t.getLayer());
 	    gm.updatePlayer();
 	    SoundLoader.playSound(SoundConstants.DEFROST);
 	}
     }
 
     private static boolean checkSolid(final AbstractDungeonObject next) {
-	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	// Check cheats
-	if (gm.getCheatStatus(GameManager.CHEAT_GHOSTLY)) {
+	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
 	    return true;
 	} else {
 	    return !next.isConditionallySolid();
@@ -547,11 +547,11 @@ final class MLOTask extends Thread {
     }
 
     static boolean checkSolid(final int zx, final int zy) {
-	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	final AbstractDungeonObject next = DungeonDiver7.getApplication().getDungeonManager().getDungeon().getCell(zx,
 		zy, gm.getPlayerManager().getPlayerLocationZ(), DungeonConstants.LAYER_LOWER_OBJECTS);
 	// Check cheats
-	if (gm.getCheatStatus(GameManager.CHEAT_GHOSTLY)) {
+	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
 	    return true;
 	} else {
 	    return !next.isConditionallySolid();

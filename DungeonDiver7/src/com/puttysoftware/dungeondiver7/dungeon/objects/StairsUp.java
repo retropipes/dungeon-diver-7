@@ -20,13 +20,13 @@ public class StairsUp extends AbstractTeleport {
     @Override
     public int getDestinationFloor() {
 	final BagOStuff app = DungeonDiver7.getApplication();
-	return app.getGameManager().getPlayerManager().getPlayerLocationZ() + 1;
+	return app.getGameLogic().getPlayerManager().getPlayerLocationZ() + 1;
     }
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	final BagOStuff app = DungeonDiver7.getApplication();
-	app.getGameManager().updatePositionAbsoluteNoEvents(this.getDestinationFloor());
+	app.getGameLogic().updatePositionAbsoluteNoEvents(this.getDestinationFloor());
 	SoundLoader.playSound(SoundConstants.UP);
     }
 

@@ -57,7 +57,7 @@ final class MovingObjectTracker {
 
     void trackPart2() {
 	try {
-	    final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	    final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	    final PlayerLocationManager plMgr = gm.getPlayerManager();
 	    final int pz = plMgr.getPlayerLocationZ();
 	    if (this.objectMoving) {
@@ -97,7 +97,7 @@ final class MovingObjectTracker {
     }
 
     void activateObject(final int zx, final int zy, final int pushX, final int pushY, final AbstractMovableObject gmo) {
-	final GameManager gm = DungeonDiver7.getApplication().getGameManager();
+	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
 	final PlayerLocationManager plMgr = gm.getPlayerManager();
 	final int pz = plMgr.getPlayerLocationZ();
 	this.objIncX = pushX - zx;
@@ -148,7 +148,7 @@ final class MovingObjectTracker {
     private void doNormalObjectOnce() {
 	final BagOStuff app = DungeonDiver7.getApplication();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
-	final GameManager gm = app.getGameManager();
+	final GameLogic gm = app.getGameLogic();
 	final int pz = gm.getPlayerManager().getPlayerLocationZ();
 	try {
 	    if (gm.isDelayedDecayActive() && gm.isRemoteDecayActive()) {
@@ -250,7 +250,7 @@ final class MovingObjectTracker {
     private void doJumpObjectOnce(final AbstractJumpObject jumper) {
 	final BagOStuff app = DungeonDiver7.getApplication();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
-	final GameManager gm = app.getGameManager();
+	final GameLogic gm = app.getGameLogic();
 	final int pz = gm.getPlayerManager().getPlayerLocationZ();
 	try {
 	    this.jumpOnMover = false;

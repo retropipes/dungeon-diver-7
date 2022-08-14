@@ -8,6 +8,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDisruptedObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -35,12 +36,14 @@ public class DisruptedWoodenWall extends AbstractDisruptedObject {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy disrupted wooden wall
 	    SoundLoader.playSound(SoundConstants.BOOM);
-	    DungeonDiver7.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
 	    // Freeze disrupted wooden wall
 	    SoundLoader.playSound(SoundConstants.FROZEN);
-	    DungeonDiver7.getApplication().getGameManager().morph(new DisruptedIcyWall(this.disruptionLeft), locX, locY,
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(new DisruptedIcyWall(this.disruptionLeft), locX, locY,
 		    locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
@@ -54,8 +57,9 @@ public class DisruptedWoodenWall extends AbstractDisruptedObject {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
 	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
-	    final int z = DungeonDiver7.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
-	    DungeonDiver7.getApplication().getGameManager().morph(new WoodenWall(), locX, locY, z, this.getLayer());
+	    final int z = DungeonDiver7.getApplication().getGameLogic().getPlayerManager().getPlayerLocationZ();
+	    DungeonDiver7.getApplication().getGameLogic();
+	    GameLogic.morph(new WoodenWall(), locX, locY, z, this.getLayer());
 	} else {
 	    this.activateTimer(1);
 	}
