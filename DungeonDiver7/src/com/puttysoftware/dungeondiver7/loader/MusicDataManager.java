@@ -27,7 +27,7 @@ public class MusicDataManager {
 	    }
 	    return rawData.toArray(new String[rawData.size()]);
 	} catch (final IOException e) {
-	    DungeonDiver7.getErrorLogger().logError(e);
+	    DungeonDiver7.logError(e);
 	    return null;
 	}
     }

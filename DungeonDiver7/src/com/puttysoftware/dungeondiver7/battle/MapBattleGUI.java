@@ -268,7 +268,7 @@ class MapBattleGUI {
 		    b.endTurn();
 		}
 	    } catch (final Throwable t) {
-		DungeonDiver7.getErrorLogger().logError(t);
+		DungeonDiver7.logError(t);
 	    }
 	}
 
@@ -357,7 +357,7 @@ class MapBattleGUI {
 		    }
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
     }

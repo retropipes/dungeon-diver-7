@@ -52,7 +52,7 @@ public class LevelLoadTask extends Thread {
 	    app.getGameLogic().enableEvents();
 	    app.getGameLogic().redrawDungeon();
 	} catch (final Exception ex) {
-	    DungeonDiver7.getErrorLogger().logError(ex);
+	    DungeonDiver7.logError(ex);
 	} finally {
 	    this.loadFrame.setVisible(false);
 	}

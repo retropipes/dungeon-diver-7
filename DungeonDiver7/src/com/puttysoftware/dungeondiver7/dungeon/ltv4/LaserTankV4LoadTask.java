@@ -79,7 +79,7 @@ public class LaserTankV4LoadTask extends Thread {
 	    CommonDialogs.showDialog(ie.getMessage());
 	    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final Exception ex) {
-	    DungeonDiver7.getErrorLogger().logError(ex);
+	    DungeonDiver7.logError(ex);
 	} finally {
 	    this.loadFrame.setVisible(false);
 	}

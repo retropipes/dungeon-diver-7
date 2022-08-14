@@ -133,7 +133,7 @@ public class LocaleLoader {
 	    } catch (final IOException ioe) {
 		CommonDialogs.showErrorDialog("Something has gone horribly wrong trying to load the language data!",
 			"FATAL ERROR");
-		DungeonDiver7.getErrorLoggerDirectly().logError(ioe);
+		DungeonDiver7.logErrorDirectly(ioe);
 	    }
 	}
 	return LocaleLoader.LOCALIZED_LANGUAGES.toArray(new String[LocaleLoader.LOCALIZED_LANGUAGES.size()]);
@@ -209,7 +209,7 @@ public class LocaleLoader {
 	} catch (final IOException ioe) {
 	    CommonDialogs.showErrorDialog("Something has gone horribly wrong trying to load the string data!",
 		    "FATAL ERROR");
-	    DungeonDiver7.getErrorLoggerDirectly().logError(ioe);
+	    DungeonDiver7.logErrorDirectly(ioe);
 	}
     }
 
@@ -242,7 +242,7 @@ public class LocaleLoader {
 	} catch (final IOException ioe) {
 	    CommonDialogs.showErrorDialog("Something has gone horribly wrong trying to load the language string data!",
 		    "FATAL ERROR");
-	    DungeonDiver7.getErrorLoggerDirectly().logError(ioe);
+	    DungeonDiver7.logErrorDirectly(ioe);
 	}
     }
 }

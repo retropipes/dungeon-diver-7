@@ -154,7 +154,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    return copy;
 	} catch (final InstantiationException | IllegalAccessException | IllegalArgumentException
 		| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-	    DungeonDiver7.getErrorLogger().logError(e);
+	    DungeonDiver7.logError(e);
 	    return null;
 	}
     }

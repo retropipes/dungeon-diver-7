@@ -190,7 +190,7 @@ public abstract class GenericObjectEditor extends GenericEditor {
 	    } catch (final NumberFormatException nfe) {
 		// Ignore
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -217,7 +217,7 @@ public abstract class GenericObjectEditor extends GenericEditor {
 	    } catch (final NumberFormatException nfe) {
 		// Ignore
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
     }

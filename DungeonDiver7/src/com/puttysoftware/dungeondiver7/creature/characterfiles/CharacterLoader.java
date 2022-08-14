@@ -29,7 +29,7 @@ public class CharacterLoader {
 	    CharacterRegistration.autoremoveCharacter(name);
 	    return null;
 	} catch (final IOException e) {
-	    DungeonDiver7.getErrorLogger().logError(e);
+	    DungeonDiver7.logError(e);
 	    return null;
 	}
     }
@@ -61,7 +61,7 @@ public class CharacterLoader {
 	try (FileIOWriter saver = new XDataWriter(characterFile, "character")) {
 	    character.write(saver);
 	} catch (final IOException e) {
-	    DungeonDiver7.getErrorLogger().logError(e);
+	    DungeonDiver7.logError(e);
 	}
     }
 

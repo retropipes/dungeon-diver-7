@@ -23,7 +23,7 @@ public class CasteDescriptionManager {
 	    final String desc = rsr.readString();
 	    return desc;
 	} catch (final IOException e) {
-	    DungeonDiver7.getErrorLogger().logError(e);
+	    DungeonDiver7.logError(e);
 	    return null;
 	}
     }

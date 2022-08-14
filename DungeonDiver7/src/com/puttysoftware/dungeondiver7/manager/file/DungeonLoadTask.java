@@ -146,10 +146,10 @@ public class DungeonLoadTask extends Thread {
 		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
 			LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_FAILED));
 	    }
-	    DungeonDiver7.getErrorLoggerDirectly().logWarning(ie);
+	    DungeonDiver7.logWarningDirectly(ie);
 	    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final Exception ex) {
-	    DungeonDiver7.getErrorLogger().logError(ex);
+	    DungeonDiver7.logError(ex);
 	} finally {
 	    this.loadFrame.setVisible(false);
 	}

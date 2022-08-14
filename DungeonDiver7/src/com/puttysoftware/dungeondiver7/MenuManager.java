@@ -135,7 +135,7 @@ public class MenuManager implements MenuSection {
 		}
 		app.getMenuManager().checkFlags();
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
     }

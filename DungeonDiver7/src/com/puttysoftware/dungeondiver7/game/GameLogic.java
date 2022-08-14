@@ -722,7 +722,7 @@ public final class GameLogic implements MenuSection {
 		    GameLogic.this.updatePushedPosition(x, y, x + pushX, y + pushY, o);
 		    GameLogic.this.waitForMLOLoop();
 		} catch (final Throwable t) {
-		    DungeonDiver7.getErrorLogger().logError(t);
+		    DungeonDiver7.logError(t);
 		}
 	    }
 	}.start();

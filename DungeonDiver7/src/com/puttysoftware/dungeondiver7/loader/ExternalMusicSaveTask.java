@@ -30,7 +30,7 @@ public class ExternalMusicSaveTask extends Thread {
 	    FileUtilities.copyFile(new File(this.pathname + this.filename),
 		    new File(basePath + File.separator + this.filename.toLowerCase()));
 	} catch (final Exception ex) {
-	    DungeonDiver7.getErrorLogger().logError(ex);
+	    DungeonDiver7.logError(ex);
 	}
     }
 }

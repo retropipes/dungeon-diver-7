@@ -57,7 +57,7 @@ public class GameSaveTask extends Thread {
 		    + " failed, probably due to illegal characters in the file name.");
 	    success = false;
 	} catch (final Exception ex) {
-	    DungeonDiver7.getErrorLogger().logError(ex);
+	    DungeonDiver7.logError(ex);
 	}
 	DungeonDiver7.getApplication().getDungeonManager().handleDeferredSuccess(success, false, null);
     }

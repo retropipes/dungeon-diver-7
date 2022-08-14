@@ -272,7 +272,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 		}
 		app.getMenuManager().checkFlags();
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
     }

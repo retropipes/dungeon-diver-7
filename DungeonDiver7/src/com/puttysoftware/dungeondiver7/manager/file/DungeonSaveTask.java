@@ -79,7 +79,7 @@ public class DungeonSaveTask extends Thread {
 	} catch (final ProtectionCancelException pce) {
 	    success = false;
 	} catch (final Exception ex) {
-	    DungeonDiver7.getErrorLogger().logError(ex);
+	    DungeonDiver7.logError(ex);
 	}
 	if (this.isSavedGame) {
 	    DungeonDiver7.getApplication().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,

@@ -114,7 +114,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 		    ad.hideAboutDialog();
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
     }
@@ -139,7 +139,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 		}
 		app.getMenuManager().checkFlags();
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
     }

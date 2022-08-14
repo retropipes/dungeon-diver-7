@@ -102,7 +102,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    copy.savedState = (DungeonDataStorage) this.savedState.clone();
 	    return copy;
 	} catch (final CloneNotSupportedException cnse) {
-	    DungeonDiver7.getErrorLogger().logError(cnse);
+	    DungeonDiver7.logError(cnse);
 	    return null;
 	}
     }
@@ -1915,7 +1915,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	try {
 	    this.iue.updateUndoHistory((DungeonDataStorage) this.data.clone(), whatWas);
 	} catch (final CloneNotSupportedException cnse) {
-	    DungeonDiver7.getErrorLogger().logError(cnse);
+	    DungeonDiver7.logError(cnse);
 	}
     }
 
@@ -1924,7 +1924,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	try {
 	    this.iue.updateRedoHistory((DungeonDataStorage) this.data.clone(), whatWas);
 	} catch (final CloneNotSupportedException cnse) {
-	    DungeonDiver7.getErrorLogger().logError(cnse);
+	    DungeonDiver7.logError(cnse);
 	}
     }
 

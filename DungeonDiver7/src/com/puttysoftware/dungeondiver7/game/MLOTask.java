@@ -69,7 +69,7 @@ final class MLOTask extends Thread {
 	} catch (final AlreadyDeadException ade) {
 	    // Ignore
 	} catch (final Throwable t) {
-	    DungeonDiver7.getErrorLogger().logError(t);
+	    DungeonDiver7.logError(t);
 	}
     }
 

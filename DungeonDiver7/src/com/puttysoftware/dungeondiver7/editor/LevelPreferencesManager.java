@@ -180,7 +180,7 @@ class LevelPreferencesManager {
 		    lpm.hidePrefs();
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 

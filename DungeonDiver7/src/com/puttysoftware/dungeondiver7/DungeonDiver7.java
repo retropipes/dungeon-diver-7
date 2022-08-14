@@ -35,13 +35,20 @@ public class DungeonDiver7 {
 	return DungeonDiver7.bagOStuff;
     }
 
-    public static ErrorLogger getErrorLogger() {
+    public static void logError(final Throwable t) {
 	CommonDialogs.showErrorDialog(DungeonDiver7.ERROR_MESSAGE, DungeonDiver7.ERROR_TITLE);
-	return DungeonDiver7.errorLogger;
+	t.printStackTrace();
+	DungeonDiver7.errorLogger.logError(t);
     }
 
-    public static ErrorLogger getErrorLoggerDirectly() {
-	return DungeonDiver7.errorLogger;
+    public static void logErrorDirectly(final Throwable t) {
+	t.printStackTrace();
+	DungeonDiver7.errorLogger.logError(t);
+    }
+
+    public static void logWarningDirectly(final Throwable t) {
+	t.printStackTrace(System.out);
+	DungeonDiver7.errorLogger.logWarning(t);
     }
 
     public static int getDungeonLevelSize(final int zoneID) {
@@ -83,7 +90,7 @@ public class DungeonDiver7 {
 	    // Display GUI
 	    DungeonDiver7.bagOStuff.getGUIManager().showGUI();
 	} catch (final Throwable t) {
-	    DungeonDiver7.getErrorLogger().logError(t);
+	    DungeonDiver7.logError(t);
 	}
     }
 

@@ -57,7 +57,7 @@ class ReplayFileLoadTask extends Thread {
 	} catch (final IOException ie) {
 	    CommonDialogs.showDialog(ie.getMessage());
 	} catch (final Exception ex) {
-	    DungeonDiver7.getErrorLogger().logError(ex);
+	    DungeonDiver7.logError(ex);
 	} finally {
 	    this.loadFrame.setVisible(false);
 	}

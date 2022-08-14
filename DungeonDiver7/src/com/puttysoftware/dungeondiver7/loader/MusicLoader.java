@@ -53,7 +53,7 @@ public class MusicLoader {
 	    } catch (final BufferUnderflowException bue) {
 		// Ignore
 	    } catch (final Throwable t) {
-		DungeonDiver7.getErrorLogger().logError(t);
+		DungeonDiver7.logError(t);
 	    }
 	}
     }

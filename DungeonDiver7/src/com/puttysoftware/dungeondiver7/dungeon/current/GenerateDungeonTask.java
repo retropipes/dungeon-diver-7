@@ -94,7 +94,7 @@ public class GenerateDungeonTask extends Thread {
 		app.getGameLogic().redrawDungeon();
 	    }
 	} catch (final Throwable t) {
-	    DungeonDiver7.getErrorLogger().logError(t);
+	    DungeonDiver7.logError(t);
 	} finally {
 	    this.generateFrame.setVisible(false);
 	}

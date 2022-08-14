@@ -127,7 +127,7 @@ public class MapBattleLogic extends AbstractBattle {
 	try {
 	    bMap = AbstractDungeon.getTemporaryBattleCopy();
 	} catch (IOException e) {
-	    DungeonDiver7.getErrorLogger().logError(e);
+	    DungeonDiver7.logError(e);
 	}
 	DungeonDiver7.getApplication().getGameLogic().hideOutput();
 	DungeonDiver7.getApplication().setMode(BagOStuff.STATUS_BATTLE);

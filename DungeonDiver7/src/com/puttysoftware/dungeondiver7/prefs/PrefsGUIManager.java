@@ -223,7 +223,7 @@ class PrefsGUIManager {
 		    pm.hidePrefs();
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 

@@ -54,7 +54,7 @@ class AnimationTask extends Thread {
 		}
 	    }
 	} catch (final Throwable t) {
-	    DungeonDiver7.getErrorLogger().logError(t);
+	    DungeonDiver7.logError(t);
 	}
     }
 

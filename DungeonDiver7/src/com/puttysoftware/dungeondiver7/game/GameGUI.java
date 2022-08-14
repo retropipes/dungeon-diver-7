@@ -715,7 +715,7 @@ class GameGUI {
 			    LocaleConstants.GAME_STRING_OUT_OF_BOOSTS));
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -747,7 +747,7 @@ class GameGUI {
 			    LocaleConstants.GAME_STRING_OUT_OF_MAGNETS));
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -763,7 +763,7 @@ class GameGUI {
 			    LocaleConstants.GAME_STRING_OUT_OF_BOMBS));
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -779,7 +779,7 @@ class GameGUI {
 			    LocaleConstants.GAME_STRING_OUT_OF_HEAT_BOMBS));
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -795,7 +795,7 @@ class GameGUI {
 			    LocaleConstants.GAME_STRING_OUT_OF_ICE_BOMBS));
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -841,7 +841,7 @@ class GameGUI {
 		    gm.redrawDungeon();
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -853,7 +853,7 @@ class GameGUI {
 		final int py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -865,7 +865,7 @@ class GameGUI {
 		final int py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -877,7 +877,7 @@ class GameGUI {
 		final int py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -889,7 +889,7 @@ class GameGUI {
 		final int py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -901,7 +901,7 @@ class GameGUI {
 		final int py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -1023,7 +1023,7 @@ class GameGUI {
 		    break;
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -1060,7 +1060,7 @@ class GameGUI {
 		    app.getGameLogic().exitGame();
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -1128,7 +1128,7 @@ class GameGUI {
 		    }
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -1261,7 +1261,7 @@ class GameGUI {
 		}
 		app.getMenuManager().checkFlags();
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
     }

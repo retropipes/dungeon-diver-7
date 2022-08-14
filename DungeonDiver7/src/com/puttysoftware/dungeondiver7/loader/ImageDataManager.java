@@ -27,7 +27,7 @@ public class ImageDataManager {
 	    }
 	    return rawData.toArray(new String[rawData.size()]);
 	} catch (final IOException e) {
-	    DungeonDiver7.getErrorLogger().logError(e);
+	    DungeonDiver7.logError(e);
 	    return null;
 	}
     }
@@ -46,7 +46,7 @@ public class ImageDataManager {
 	    }
 	    return rawData.toArray(new String[rawData.size()]);
 	} catch (final IOException e) {
-	    DungeonDiver7.getErrorLogger().logError(e);
+	    DungeonDiver7.logError(e);
 	    return null;
 	}
     }

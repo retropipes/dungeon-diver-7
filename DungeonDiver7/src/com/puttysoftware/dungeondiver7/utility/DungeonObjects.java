@@ -272,7 +272,7 @@ public class DungeonObjects {
 		}
 	    } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-		DungeonDiver7.getErrorLogger().logError(e);
+		DungeonDiver7.logError(e);
 	    }
 	}
 	return null;
@@ -299,7 +299,7 @@ public class DungeonObjects {
 		}
 	    } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-		DungeonDiver7.getErrorLogger().logError(e);
+		DungeonDiver7.logError(e);
 	    }
 	}
 	return null;
@@ -326,7 +326,7 @@ public class DungeonObjects {
 		}
 	    } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-		DungeonDiver7.getErrorLogger().logError(e);
+		DungeonDiver7.logError(e);
 	    }
 	}
 	return null;
@@ -353,7 +353,7 @@ public class DungeonObjects {
 		}
 	    } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-		DungeonDiver7.getErrorLogger().logError(e);
+		DungeonDiver7.logError(e);
 	    }
 	}
 	return null;
@@ -380,7 +380,7 @@ public class DungeonObjects {
 		}
 	    } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-		DungeonDiver7.getErrorLogger().logError(e);
+		DungeonDiver7.logError(e);
 	    }
 	}
 	return null;
@@ -407,7 +407,7 @@ public class DungeonObjects {
 		}
 	    } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-		DungeonDiver7.getErrorLogger().logError(e);
+		DungeonDiver7.logError(e);
 	    }
 	}
 	return null;

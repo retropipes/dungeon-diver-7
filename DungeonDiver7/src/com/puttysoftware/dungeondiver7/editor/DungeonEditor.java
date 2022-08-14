@@ -1227,7 +1227,7 @@ public class DungeonEditor implements MenuSection {
 		this.exitEditor();
 	    }
 	} catch (final Exception ex) {
-	    DungeonDiver7.getErrorLogger().logError(ex);
+	    DungeonDiver7.logError(ex);
 	}
     }
 
@@ -1262,7 +1262,7 @@ public class DungeonEditor implements MenuSection {
 		    me.editObject(x, y);
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -1321,7 +1321,7 @@ public class DungeonEditor implements MenuSection {
 		final int y = e.getY();
 		me.editObject(x, y);
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -1355,7 +1355,7 @@ public class DungeonEditor implements MenuSection {
 		final int y = e.getY();
 		DungeonEditor.this.setPlayerLocation(x, y);
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
 
@@ -1557,7 +1557,7 @@ public class DungeonEditor implements MenuSection {
 		}
 		app.getMenuManager().checkFlags();
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
     }
@@ -1586,7 +1586,7 @@ public class DungeonEditor implements MenuSection {
 		    ae.changeLayerImpl(DungeonConstants.LAYER_UPPER_OBJECTS);
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.getErrorLogger().logError(ex);
+		DungeonDiver7.logError(ex);
 	    }
 	}
     }

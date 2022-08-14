@@ -255,7 +255,7 @@ public final class DungeonManager {
 		    if (!file.getParentFile().exists()) {
 			final boolean okay = file.getParentFile().mkdirs();
 			if (!okay) {
-			    DungeonDiver7.getErrorLogger().logError(new IOException("Cannot create game folder!"));
+			    DungeonDiver7.logError(new IOException("Cannot create game folder!"));
 			}
 		    }
 		    DungeonManager.saveGameFile(filename);

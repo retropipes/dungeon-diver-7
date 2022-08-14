@@ -101,7 +101,7 @@ public class GameLoadTask extends Thread {
 		    .showDialog("Loading the " + sg.toLowerCase() + " failed, due to some other type of I/O error.");
 	    DungeonDiver7.getApplication().getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final Exception ex) {
-	    DungeonDiver7.getErrorLogger().logError(ex);
+	    DungeonDiver7.logError(ex);
 	} finally {
 	    this.loadFrame.setVisible(false);
 	}
