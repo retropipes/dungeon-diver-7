@@ -3,7 +3,7 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package com.puttysoftware.dungeondiver7.dungeon.v4;
+package com.puttysoftware.dungeondiver7.dungeon.ltv4;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -34,7 +34,7 @@ import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.ColorConstants;
 import com.puttysoftware.dungeondiver7.utility.Direction;
 
-class V4FileLevel {
+class LaserTankV4FileLevel {
     // Fields
     private static byte[] objects;
     private static byte[] name;
@@ -48,29 +48,29 @@ class V4FileLevel {
     private static final int DIFFICULTY_SIZE = 2;
 
     // Constructors
-    private V4FileLevel() {
+    private LaserTankV4FileLevel() {
 	// Do nothing
     }
 
     // Methods
     static CurrentDungeonData loadAndConvert(final FileInputStream file, final AbstractDungeon a) {
 	try {
-	    V4FileLevel.objects = new byte[V4FileLevel.OBJECTS_SIZE];
-	    V4FileLevel.name = new byte[V4FileLevel.NAME_SIZE];
-	    V4FileLevel.hint = new byte[V4FileLevel.HINT_SIZE];
-	    V4FileLevel.author = new byte[V4FileLevel.AUTHOR_SIZE];
-	    V4FileLevel.difficulty = new byte[V4FileLevel.DIFFICULTY_SIZE];
+	    LaserTankV4FileLevel.objects = new byte[LaserTankV4FileLevel.OBJECTS_SIZE];
+	    LaserTankV4FileLevel.name = new byte[LaserTankV4FileLevel.NAME_SIZE];
+	    LaserTankV4FileLevel.hint = new byte[LaserTankV4FileLevel.HINT_SIZE];
+	    LaserTankV4FileLevel.author = new byte[LaserTankV4FileLevel.AUTHOR_SIZE];
+	    LaserTankV4FileLevel.difficulty = new byte[LaserTankV4FileLevel.DIFFICULTY_SIZE];
 	    final CurrentDungeonData t = new CurrentDungeonData();
 	    // Convert object byte map
-	    int bytesRead = file.read(V4FileLevel.objects, 0, V4FileLevel.OBJECTS_SIZE);
-	    if (bytesRead != V4FileLevel.OBJECTS_SIZE) {
+	    int bytesRead = file.read(LaserTankV4FileLevel.objects, 0, LaserTankV4FileLevel.OBJECTS_SIZE);
+	    if (bytesRead != LaserTankV4FileLevel.OBJECTS_SIZE) {
 		return null;
 	    }
 	    for (int x = 0; x < 16; x++) {
 		for (int y = 0; y < 16; y++) {
 		    final int z = x * 16 + y;
 		    AbstractDungeonObject ao = null;
-		    final byte b = V4FileLevel.objects[z];
+		    final byte b = LaserTankV4FileLevel.objects[z];
 		    switch (b) {
 		    case 0:
 			ao = new Ground();
@@ -213,41 +213,41 @@ class V4FileLevel {
 		}
 	    }
 	    // Convert level name
-	    bytesRead = file.read(V4FileLevel.name, 0, V4FileLevel.NAME_SIZE);
-	    if (bytesRead != V4FileLevel.NAME_SIZE) {
+	    bytesRead = file.read(LaserTankV4FileLevel.name, 0, LaserTankV4FileLevel.NAME_SIZE);
+	    if (bytesRead != LaserTankV4FileLevel.NAME_SIZE) {
 		return null;
 	    }
 	    final String levelName = Charset
 		    .forName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 			    LocaleConstants.NOTL_STRING_DEFAULT_CHARSET))
-		    .decode(ByteBuffer.wrap(V4FileLevel.name)).toString();
+		    .decode(ByteBuffer.wrap(LaserTankV4FileLevel.name)).toString();
 	    a.setName(levelName);
 	    // Convert level hint
-	    bytesRead = file.read(V4FileLevel.hint, 0, V4FileLevel.HINT_SIZE);
-	    if (bytesRead != V4FileLevel.HINT_SIZE) {
+	    bytesRead = file.read(LaserTankV4FileLevel.hint, 0, LaserTankV4FileLevel.HINT_SIZE);
+	    if (bytesRead != LaserTankV4FileLevel.HINT_SIZE) {
 		return null;
 	    }
 	    final String levelHint = Charset
 		    .forName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 			    LocaleConstants.NOTL_STRING_DEFAULT_CHARSET))
-		    .decode(ByteBuffer.wrap(V4FileLevel.hint)).toString();
+		    .decode(ByteBuffer.wrap(LaserTankV4FileLevel.hint)).toString();
 	    a.setHint(levelHint);
 	    // Convert level author
-	    bytesRead = file.read(V4FileLevel.author, 0, V4FileLevel.AUTHOR_SIZE);
-	    if (bytesRead != V4FileLevel.AUTHOR_SIZE) {
+	    bytesRead = file.read(LaserTankV4FileLevel.author, 0, LaserTankV4FileLevel.AUTHOR_SIZE);
+	    if (bytesRead != LaserTankV4FileLevel.AUTHOR_SIZE) {
 		return null;
 	    }
 	    final String levelAuthor = Charset
 		    .forName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 			    LocaleConstants.NOTL_STRING_DEFAULT_CHARSET))
-		    .decode(ByteBuffer.wrap(V4FileLevel.author)).toString();
+		    .decode(ByteBuffer.wrap(LaserTankV4FileLevel.author)).toString();
 	    a.setAuthor(levelAuthor);
 	    // Convert level difficulty
-	    bytesRead = file.read(V4FileLevel.difficulty, 0, V4FileLevel.DIFFICULTY_SIZE);
-	    if (bytesRead != V4FileLevel.DIFFICULTY_SIZE) {
+	    bytesRead = file.read(LaserTankV4FileLevel.difficulty, 0, LaserTankV4FileLevel.DIFFICULTY_SIZE);
+	    if (bytesRead != LaserTankV4FileLevel.DIFFICULTY_SIZE) {
 		return null;
 	    }
-	    final int tempDiff = V4FileLevel.toInt(V4FileLevel.difficulty);
+	    final int tempDiff = LaserTankV4FileLevel.toInt(LaserTankV4FileLevel.difficulty);
 	    switch (tempDiff) {
 	    case 1:
 		a.setDifficulty(1);

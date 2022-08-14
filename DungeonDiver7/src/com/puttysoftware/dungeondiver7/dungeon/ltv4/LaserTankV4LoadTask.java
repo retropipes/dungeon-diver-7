@@ -3,7 +3,7 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package com.puttysoftware.dungeondiver7.dungeon.v4;
+package com.puttysoftware.dungeondiver7.dungeon.ltv4;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,13 +23,13 @@ import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 
-public class V4LevelLoadTask extends Thread {
+public class LaserTankV4LoadTask extends Thread {
     // Fields
     private final String filename;
     private final JFrame loadFrame;
 
     // Constructors
-    public V4LevelLoadTask(final String file) {
+    public LaserTankV4LoadTask(final String file) {
 	JProgressBar loadBar;
 	this.filename = file;
 	this.setName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
@@ -53,7 +53,7 @@ public class V4LevelLoadTask extends Thread {
 	app.getGameLogic().setSavedGameFlag(false);
 	try (FileInputStream dungeonFile = new FileInputStream(this.filename)) {
 	    final AbstractDungeon gameDungeon = DungeonManager.createDungeon();
-	    V4File.loadOldFile(gameDungeon, dungeonFile);
+	    LaserTankV4File.loadOldFile(gameDungeon, dungeonFile);
 	    dungeonFile.close();
 	    app.getDungeonManager().setDungeon(gameDungeon);
 	    final boolean playerExists = gameDungeon.doesPlayerExist(0);

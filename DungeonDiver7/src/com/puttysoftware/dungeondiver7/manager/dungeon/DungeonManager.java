@@ -18,7 +18,7 @@ import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
-import com.puttysoftware.dungeondiver7.dungeon.v4.V4LevelLoadTask;
+import com.puttysoftware.dungeondiver7.dungeon.ltv4.LaserTankV4LoadTask;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.file.DungeonLoadTask;
@@ -329,7 +329,7 @@ public final class DungeonManager {
 		} else if (extension.equals(FileExtensions.getOldLevelExtension())) {
 		    this.lastUsedDungeonFile = filename;
 		    this.scoresFileName = DungeonManager.getNameWithoutExtension(file);
-		    final V4LevelLoadTask ollt = new V4LevelLoadTask(filename);
+		    final LaserTankV4LoadTask ollt = new LaserTankV4LoadTask(filename);
 		    ollt.start();
 		} else {
 		    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,

@@ -3,7 +3,7 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package com.puttysoftware.dungeondiver7.dungeon.v4;
+package com.puttysoftware.dungeondiver7.dungeon.ltv4;
 
 import java.io.FileInputStream;
 
@@ -13,8 +13,8 @@ import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.InvalidDungeonException;
 
-class V4File {
-    private V4File() {
+class LaserTankV4File {
+    private LaserTankV4File() {
 	// Do nothing
     }
 
@@ -23,7 +23,7 @@ class V4File {
 	int levelCount = 0;
 	do {
 	    a.switchLevel(levelCount);
-	    t = V4FileLevel.loadAndConvert(file, a);
+	    t = LaserTankV4FileLevel.loadAndConvert(file, a);
 	    if (t != null) {
 		levelCount++;
 		a.setData(t, levelCount);
