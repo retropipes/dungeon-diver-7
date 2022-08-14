@@ -57,31 +57,23 @@ public final class StuffBag {
 	this.objects = new DungeonObjects();
 	this.mode = StuffBag.STATUS_NULL;
 	this.formerMode = StuffBag.STATUS_NULL;
-	// Create Managers
-	this.about = new AboutDialog(StuffBag.getVersionString());
-	this.helpMgr = new HelpManager();
-	this.editor = new DungeonEditor();
-	this.guiMgr = new GUIManager();
-	this.menuMgr = new MenuManager();
-	this.battle = new MapBattleLogic();
+	// Create Shops
 	this.weapons = new Shop(ShopType.WEAPONS);
 	this.armor = new Shop(ShopType.ARMOR);
 	this.healer = new Shop(ShopType.HEALER);
 	this.regenerator = new Shop(ShopType.REGENERATOR);
 	this.spells = new Shop(ShopType.SPELLS);
-	// Cache Logo
-	this.guiMgr.updateLogo();
     }
 
     // Methods
     public void activeLanguageChanged() {
 	// Rebuild menus
-	this.menuMgr.unregisterAllModeManagers();
-	this.menuMgr.registerModeManager(this.guiMgr);
-	this.menuMgr.initMenus();
-	this.menuMgr.registerModeManager(this.gameLogic);
-	this.menuMgr.registerModeManager(this.editor);
-	this.menuMgr.registerModeManager(this.about);
+	this.getMenuManager().unregisterAllModeManagers();
+	this.getMenuManager().registerModeManager(this.getGUIManager());
+	this.getMenuManager().initMenus();
+	this.getMenuManager().registerModeManager(this.gameLogic);
+	this.getMenuManager().registerModeManager(this.getEditor());
+	this.getMenuManager().registerModeManager(this.getAboutDialog());
 	// Fire hooks
 	this.getHelpManager().activeLanguageChanged();
 	this.getGameLogic().activeLanguageChanged();
@@ -90,29 +82,29 @@ public final class StuffBag {
 
     void setInGUI() {
 	this.mode = StuffBag.STATUS_GUI;
-	this.menuMgr.modeChanged(this.guiMgr);
+	this.getMenuManager().modeChanged(this.getGUIManager());
     }
 
     public void setInPrefs() {
 	this.formerMode = this.mode;
 	this.mode = StuffBag.STATUS_PREFS;
-	this.menuMgr.modeChanged(null);
+	this.getMenuManager().modeChanged(null);
     }
 
     public void setInGame() {
 	this.mode = StuffBag.STATUS_GAME;
-	this.menuMgr.modeChanged(this.gameLogic);
+	this.getMenuManager().modeChanged(this.gameLogic);
     }
 
     public void setInEditor() {
 	this.mode = StuffBag.STATUS_EDITOR;
-	this.menuMgr.modeChanged(this.editor);
+	this.getMenuManager().modeChanged(this.getEditor());
     }
 
     public void setInHelp() {
 	this.formerMode = this.mode;
 	this.mode = StuffBag.STATUS_HELP;
-	this.menuMgr.modeChanged(null);
+	this.getMenuManager().modeChanged(null);
     }
 
     public void setMode(final int newMode) {
@@ -130,11 +122,11 @@ public final class StuffBag {
 
     void exitCurrentMode() {
 	if (this.mode == StuffBag.STATUS_GUI) {
-	    this.guiMgr.hideGUI();
+	    this.getGUIManager().hideGUI();
 	} else if (this.mode == StuffBag.STATUS_GAME) {
 	    this.gameLogic.exitGame();
 	} else if (this.mode == StuffBag.STATUS_EDITOR) {
-	    this.editor.exitEditor();
+	    this.getEditor().exitEditor();
 	}
     }
 
@@ -161,10 +153,17 @@ public final class StuffBag {
     }
 
     public MenuManager getMenuManager() {
+	if (this.menuMgr == null) {
+	    this.menuMgr = new MenuManager();
+	}
 	return this.menuMgr;
     }
 
     public GUIManager getGUIManager() {
+	if (this.guiMgr == null) {
+	    this.guiMgr = new GUIManager();
+	    this.guiMgr.updateLogo();
+	}
 	return this.guiMgr;
     }
 
@@ -180,14 +179,23 @@ public final class StuffBag {
     }
 
     HelpManager getHelpManager() {
+	if (this.helpMgr == null) {
+	    this.helpMgr = new HelpManager();
+	}
 	return this.helpMgr;
     }
 
     public DungeonEditor getEditor() {
+	if (this.editor == null) {
+	    this.editor = new DungeonEditor();
+	}
 	return this.editor;
     }
 
     AboutDialog getAboutDialog() {
+	if (this.about == null) {
+	    this.about = new AboutDialog(StuffBag.getVersionString());
+	}
 	return this.about;
     }
 
@@ -251,7 +259,7 @@ public final class StuffBag {
     }
 
     public String[] getLevelInfoList() {
-	return this.dungeonMgr.getDungeon().getLevelInfoList();
+	return this.getDungeonManager().getDungeon().getLevelInfoList();
     }
 
     public void updateLevelInfoList() {
@@ -268,7 +276,7 @@ public final class StuffBag {
 	loadFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	loadFrame.pack();
 	loadFrame.setVisible(true);
-	this.dungeonMgr.getDungeon().generateLevelInfoList();
+	this.getDungeonManager().getDungeon().generateLevelInfoList();
 	loadFrame.setVisible(false);
     }
 
@@ -296,10 +304,13 @@ public final class StuffBag {
     }
 
     public AbstractBattle getBattle() {
+	if (this.battle == null) {
+	    this.battle = new MapBattleLogic();
+	}
 	return this.battle;
     }
 
     public void resetBattleGUI() {
-	this.battle.resetGUI();
+	this.getBattle().resetGUI();
     }
 }
