@@ -28,8 +28,8 @@ public class LocaleConstants {
     private static final String DIALOG_STRINGS_FILE_NAME = "dialog";
     private static final String MESSAGE_STRINGS_FILE_NAME = "message";
     private static final String EDITOR_STRINGS_FILE_NAME = "editor";
-    private static final String GAME_STRINGS_FILE_NAME = "gam";
-    private static final String ERA_STRINGS_FILE_NAME = "eras";
+    private static final String GAME_STRINGS_FILE_NAME = "game";
+    private static final String ERA_STRINGS_FILE_NAME = "era";
     static final String[] STRINGS_FILES = new String[] { LocaleConstants.DIFFICULTY_STRINGS_FILE_NAME,
 	    LocaleConstants.ERROR_STRINGS_FILE_NAME, LocaleConstants.PREFS_STRINGS_FILE_NAME,
 	    LocaleConstants.GENERIC_STRINGS_FILE_NAME, LocaleConstants.OBJECT_STRINGS_FILE_NAME,

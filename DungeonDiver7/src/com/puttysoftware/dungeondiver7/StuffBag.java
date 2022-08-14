@@ -71,7 +71,7 @@ public final class StuffBag {
 	this.getMenuManager().unregisterAllModeManagers();
 	this.getMenuManager().registerModeManager(this.getGUIManager());
 	this.getMenuManager().initMenus();
-	this.getMenuManager().registerModeManager(this.gameLogic);
+	this.getMenuManager().registerModeManager(this.getGameLogic());
 	this.getMenuManager().registerModeManager(this.getEditor());
 	this.getMenuManager().registerModeManager(this.getAboutDialog());
 	// Fire hooks
@@ -93,7 +93,7 @@ public final class StuffBag {
 
     public void setInGame() {
 	this.mode = StuffBag.STATUS_GAME;
-	this.getMenuManager().modeChanged(this.gameLogic);
+	this.getMenuManager().modeChanged(this.getGameLogic());
     }
 
     public void setInEditor() {
@@ -124,7 +124,7 @@ public final class StuffBag {
 	if (this.mode == StuffBag.STATUS_GUI) {
 	    this.getGUIManager().hideGUI();
 	} else if (this.mode == StuffBag.STATUS_GAME) {
-	    this.gameLogic.exitGame();
+	    this.getGameLogic().exitGame();
 	} else if (this.mode == StuffBag.STATUS_EDITOR) {
 	    this.getEditor().exitEditor();
 	}
@@ -168,6 +168,9 @@ public final class StuffBag {
     }
 
     public GameLogic getGameLogic() {
+	if (this.gameLogic == null) {
+	    this.gameLogic = new GameLogic();
+	}
 	return this.gameLogic;
     }
 

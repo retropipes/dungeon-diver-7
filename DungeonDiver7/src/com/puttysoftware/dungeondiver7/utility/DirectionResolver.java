@@ -270,6 +270,9 @@ public class DirectionResolver {
     }
 
     public static String resolveDirectionConstantToImageName(final Direction dir) {
+	if (dir == null) {
+	    return LocaleConstants.COMMON_STRING_EMPTY;
+	}
 	return LocaleLoader.loadString(LocaleConstants.STRINGS_FILE, dir.getInternalValue());
     }
 }

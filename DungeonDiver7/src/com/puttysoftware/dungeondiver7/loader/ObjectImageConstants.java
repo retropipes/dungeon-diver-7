@@ -5,6 +5,9 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.loader;
 
+import com.puttysoftware.dungeondiver7.locale.GlobalFile;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+
 public class ObjectImageConstants {
     public static final int NONE = -1;
     public static final int ARMOR_SHOP = 0;
@@ -21,7 +24,7 @@ public class ObjectImageConstants {
     public static final int TILE = 11;
     public static final int WALL = 12;
     public static final int WEAPONS_SHOP = 13;
-    private static final String[] NAMES = ImageDataManager.getObjectGraphicsData();
+    private static final String[] NAMES = LocaleLoader.loadAllGlobalStrings(GlobalFile.IMAGE, 144);
 
     static String getObjectImageName(final int ID) {
 	if (ID == ObjectImageConstants.NONE) {

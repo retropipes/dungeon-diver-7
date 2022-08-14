@@ -323,7 +323,6 @@ class GameGUI {
 	this.outputFrame.setResizable(false);
 	this.outputFrame.addKeyListener(handler);
 	this.outputFrame.addWindowListener(handler);
-	
 	// Pasted code
 	final FocusHandler fHandler = new FocusHandler();
 	this.borderPane = new Container();
@@ -517,6 +516,8 @@ class GameGUI {
 	final MenuHandler mhandler = new MenuHandler();
 	final JMenu gameMenu = new JMenu(
 		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_MENU_GAME));
+	this.gameTimeTravelSubMenu = new JMenu(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
+		LocaleConstants.MENU_STRING_SUB_TIME_TRAVEL));
 	this.gameReset = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 		LocaleConstants.MENU_STRING_ITEM_RESET_CURRENT_LEVEL));
 	this.gameShowTable = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
@@ -641,7 +642,7 @@ class GameGUI {
 	public void keyTyped(final KeyEvent e) {
 	    // Do nothing
 	}
-	
+
 	private void handleKeystrokes(final KeyEvent e) {
 	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	    if (e.getKeyCode() == KeyEvent.VK_SPACE) {

@@ -6,5 +6,5 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.locale;
 
 class GlobalFileList {
-    static final String[] LIST = { "armortypes", "weapontypes", "sound" };
+    static final String[] LIST = { "armortypes", "weapontypes", "sound", "image" };
 }
