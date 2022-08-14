@@ -8,6 +8,9 @@ package com.puttysoftware.dungeondiver7;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.desktop.QuitEvent;
+import java.awt.desktop.QuitHandler;
+import java.awt.desktop.QuitResponse;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -33,7 +36,7 @@ import com.puttysoftware.dungeondiver7.utility.CleanupTask;
 import com.puttysoftware.dungeondiver7.utility.ScreenPrinter;
 import com.puttysoftware.images.BufferedImageIcon;
 
-public class GUIManager implements MenuSection {
+public class GUIManager implements MenuSection, QuitHandler {
     // Fields
     private final JFrame guiFrame;
     private final JLabel logoLabel;
@@ -426,5 +429,15 @@ public class GUIManager implements MenuSection {
     public void disableDirtyCommands() {
 	this.fileSave.setEnabled(false);
 	DungeonDiver7.getApplication().getMenuManager().disableDirtyCommands();
+    }
+
+    @Override
+    public void handleQuitRequestWith(QuitEvent e, QuitResponse response) {
+	boolean quitOK = this.quitHandler();
+	if (quitOK) {
+	    response.performQuit();
+	} else {
+	    response.cancelQuit();
+	}
     }
 }

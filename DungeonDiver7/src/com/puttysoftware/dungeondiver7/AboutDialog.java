@@ -10,6 +10,8 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.desktop.AboutEvent;
+import java.awt.desktop.AboutHandler;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -25,7 +27,7 @@ import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 
-public class AboutDialog implements MenuSection {
+public class AboutDialog implements AboutHandler, MenuSection {
     // Fields
     private JFrame aboutFrame;
     private JMenuItem helpAbout, helpHelp;
@@ -203,5 +205,10 @@ public class AboutDialog implements MenuSection {
     @Override
     public void disableDirtyCommands() {
 	// Do nothing
+    }
+
+    @Override
+    public void handleAbout(AboutEvent e) {
+	this.showAboutDialog();
     }
 }

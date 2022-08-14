@@ -12,6 +12,8 @@ import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.PrefsRequestHandler;
+import com.puttysoftware.integration.Integration;
 
 public class DungeonDiver7 {
     private DungeonDiver7() {
@@ -52,8 +54,6 @@ public class DungeonDiver7 {
 
     public static void main(final String[] args) {
 	try {
-	    // Integrate with host platform
-	    // Platform.hookLAF(DungeonDiver7.PROGRAM_NAME);
 	    try {
 		// Initialize strings
 		DungeonDiver7.preInit();
@@ -65,6 +65,9 @@ public class DungeonDiver7 {
 			"FATAL ERROR");
 		System.exit(1);
 	    }
+	    // Integrate with host platform
+	    Integration i = new Integration();
+	    i.configureLookAndFeel();
 	    // Create and initialize application
 	    DungeonDiver7.bagOStuff = new BagOStuff();
 	    // Set Up Common Dialogs
@@ -74,16 +77,9 @@ public class DungeonDiver7 {
 	    PrefsManager.readPrefs();
 	    LocaleLoader.activeLanguageChanged(PrefsManager.getLanguageID());
 	    // Register platform hooks
-//			Platform.hookAbout(DungeonDiver7.application.getAboutDialog(),
-//					DungeonDiver7.application.getAboutDialog().getClass().getDeclaredMethod(StringLoader.loadString(
-//							StringConstants.NOTL_STRINGS_FILE, StringConstants.NOTL_STRING_SHOW_ABOUT_DIALOG_METHOD)));
-//			Platform.hookPreferences(PreferencesManager.class,
-//					PreferencesManager.class.getDeclaredMethod(StringLoader.loadString(
-//							StringConstants.NOTL_STRINGS_FILE, StringConstants.NOTL_STRING_SHOW_PREFERENCES_METHOD)));
-//			Platform.hookQuit(DungeonDiver7.application.getGUIManager(),
-//					DungeonDiver7.application.getGUIManager().getClass().getDeclaredMethod(StringLoader.loadString(
-//							StringConstants.NOTL_STRINGS_FILE, StringConstants.NOTL_STRING_QUIT_HANDLER_METHOD)));
-//			Platform.hookDockIcon(LogoManager.getMiniatureLogo());
+	    i.setAboutHandler(DungeonDiver7.bagOStuff.getAboutDialog());
+	    i.setPreferencesHandler(new PrefsRequestHandler());
+	    i.setQuitHandler(DungeonDiver7.bagOStuff.getGUIManager());
 	    // Display GUI
 	    DungeonDiver7.bagOStuff.getGUIManager().showGUI();
 	} catch (final Throwable t) {
