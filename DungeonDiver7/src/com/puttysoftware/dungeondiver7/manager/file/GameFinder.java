@@ -8,12 +8,14 @@ package com.puttysoftware.dungeondiver7.manager.file;
 import java.io.File;
 import java.io.FilenameFilter;
 
+import com.puttysoftware.dungeondiver7.utility.FileExtensions;
+
 public class GameFinder implements FilenameFilter {
     @Override
     public boolean accept(final File f, final String s) {
 	final String extension = GameFinder.getExtension(s);
 	if (extension != null) {
-	    if (extension.equals(Extension.getGameExtension())) {
+	    if (extension.equals(FileExtensions.getGameExtension())) {
 		return true;
 	    } else {
 		return false;

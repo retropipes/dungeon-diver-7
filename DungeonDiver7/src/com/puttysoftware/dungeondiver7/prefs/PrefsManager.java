@@ -19,7 +19,7 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Ground;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.EditorLayoutConstants;
-import com.puttysoftware.dungeondiver7.utility.Extension;
+import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 
 public class PrefsManager {
     // Fields
@@ -301,7 +301,7 @@ public class PrefsManager {
     }
 
     private static String getPrefsFileExtension() {
-	return LocaleConstants.COMMON_STRING_NOTL_PERIOD + Extension.getPreferencesExtension();
+	return LocaleConstants.COMMON_STRING_NOTL_PERIOD + FileExtensions.getPreferencesExtension();
     }
 
     private static String getPrefsFileName() {

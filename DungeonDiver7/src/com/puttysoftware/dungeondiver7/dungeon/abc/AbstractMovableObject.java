@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import java.io.IOException;
 
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -62,7 +62,7 @@ public abstract class AbstractMovableObject extends AbstractDungeonObject {
     @Override
     public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	if (this.canMove()) {
 	    if (forceUnits >= this.getMinimumReactionForce()) {
 		try {

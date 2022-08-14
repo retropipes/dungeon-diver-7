@@ -5,9 +5,9 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
+import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractPassThroughObject;
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.game.GameLogic;
+import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
@@ -42,7 +42,7 @@ public class ClosedDoor extends AbstractPassThroughObject {
     @Override
     public void interactAction() {
 	SoundLoader.playSound(SoundConstants.DOOR_OPENS);
-	final GameLogic glm = Integration1.getApplication().getGameLogic();
+	final GameLogic glm = DungeonDiver7.getApplication().getGameLogic();
 	GameLogic.morph(new OpenDoor());
 	glm.redrawDungeon();
     }

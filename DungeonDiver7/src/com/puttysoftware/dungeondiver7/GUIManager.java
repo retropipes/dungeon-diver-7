@@ -24,10 +24,10 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.CleanupTask;
 import com.puttysoftware.dungeondiver7.utility.ScreenPrinter;
@@ -68,7 +68,7 @@ public class GUIManager implements MenuSection {
     }
 
     public void showGUI() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	app.setInGUI();
 	this.guiFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
 	this.guiFrame.setVisible(true);
@@ -77,7 +77,7 @@ public class GUIManager implements MenuSection {
     }
 
     public void attachMenus() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	this.guiFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
 	app.getMenuManager().checkFlags();
     }
@@ -184,7 +184,7 @@ public class GUIManager implements MenuSection {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		final Application app = DungeonDiver7.getApplication();
+		final BagOStuff app = DungeonDiver7.getApplication();
 		boolean loaded = false;
 		final String cmd = e.getActionCommand();
 		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
@@ -202,9 +202,9 @@ public class GUIManager implements MenuSection {
 		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 			LocaleConstants.MENU_STRING_ITEM_CLOSE))) {
 		    // Close the window
-		    if (app.getMode() == Application.STATUS_EDITOR) {
+		    if (app.getMode() == BagOStuff.STATUS_EDITOR) {
 			app.getEditor().handleCloseWindow();
-		    } else if (app.getMode() == Application.STATUS_GAME) {
+		    } else if (app.getMode() == BagOStuff.STATUS_GAME) {
 			boolean saved = true;
 			int status = 0;
 			if (app.getDungeonManager().getDirty()) {
@@ -395,8 +395,8 @@ public class GUIManager implements MenuSection {
 
     @Override
     public void enableLoadedCommands() {
-	final Application app = DungeonDiver7.getApplication();
-	if (app.getMode() == Application.STATUS_GUI) {
+	final BagOStuff app = DungeonDiver7.getApplication();
+	if (app.getMode() == BagOStuff.STATUS_GUI) {
 	    this.fileClose.setEnabled(false);
 	    this.fileSaveAs.setEnabled(false);
 	    this.fileSaveAsProtected.setEnabled(false);

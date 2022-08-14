@@ -19,6 +19,8 @@ public class FormatConstants {
     private static final int DUNGEON_FORMAT_17 = 17;
     private static final int DUNGEON_FORMAT_18 = 18;
     public static final int DUNGEON_FORMAT_LATEST = 18;
+    public static final byte CHARACTER_FORMAT_2 = 2;
+    public static final byte CHARACTER_FORMAT_LATEST = 3;
 
     private FormatConstants() {
 	// Do nothing

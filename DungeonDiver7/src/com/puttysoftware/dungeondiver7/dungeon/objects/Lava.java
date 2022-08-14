@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractGround;
@@ -24,7 +24,7 @@ public class Lava extends AbstractGround {
     // Scriptability
     @Override
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	if (pushed instanceof IcyBox) {
 	    app.getGameManager().morph(new Ground(), x, y, z, this.getLayer());
 	    SoundLoader.playSound(SoundConstants.COOL_OFF);

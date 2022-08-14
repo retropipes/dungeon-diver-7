@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Tunnel;
 import com.puttysoftware.dungeondiver7.utility.ColorConstants;
@@ -35,7 +35,7 @@ public abstract class AbstractTunnel extends AbstractDungeonObject {
     }
 
     private static void checkTunnelsOfColor(final int color) {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final int tx = app.getGameManager().getPlayerManager().getPlayerLocationX();
 	final int ty = app.getGameManager().getPlayerManager().getPlayerLocationY();
 	final int[] pgrmdest = app.getDungeonManager().getDungeon().circularScanTunnel(0, 0, 0,
@@ -50,7 +50,7 @@ public abstract class AbstractTunnel extends AbstractDungeonObject {
     // Scriptability
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final int tx = app.getGameManager().getPlayerManager().getPlayerLocationX();
 	final int ty = app.getGameManager().getPlayerManager().getPlayerLocationY();
 	final int[] pgrmdest = app.getDungeonManager().getDungeon().circularScanTunnel(dirX, dirY, dirZ,
@@ -62,7 +62,7 @@ public abstract class AbstractTunnel extends AbstractDungeonObject {
 
     @Override
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final int tx = app.getGameManager().getPlayerManager().getPlayerLocationX();
 	final int ty = app.getGameManager().getPlayerManager().getPlayerLocationY();
 	final int color = this.getColor();

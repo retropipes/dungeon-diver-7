@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeonData;
-import com.puttysoftware.dungeondiver7.dungeon.AbstractPrefixIO;
-import com.puttysoftware.dungeondiver7.dungeon.AbstractSuffixIO;
 import com.puttysoftware.dungeondiver7.dungeon.HistoryStatus;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButton;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButtonDoor;
@@ -23,12 +21,14 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.manager.file.AbstractPrefixIO;
+import com.puttysoftware.dungeondiver7.manager.file.AbstractSuffixIO;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DifficultyConstants;
 import com.puttysoftware.dungeondiver7.utility.Direction;
 import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.Extension;
+import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 import com.puttysoftware.dungeondiver7.utility.FormatConstants;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
@@ -94,6 +94,7 @@ public class CurrentDungeon extends AbstractDungeon {
 		+ File.separator;
     }
 
+    @Override
     public Direction computeFinalBossMoveDirection(final int locX, final int locY, final int locZ, final int pi) {
 	int px = this.getPlayerLocationX(pi);
 	int py = this.getPlayerLocationY(pi);
@@ -159,11 +160,13 @@ public class CurrentDungeon extends AbstractDungeon {
 	return DirectionResolver.resolveRelativeDirection(moveX4, moveY4);
     }
 
+    @Override
     public void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
 	    final AbstractMovingObject monster, final int pi) {
 	this.dungeonData.updateMonsterPosition(this, move, xLoc, yLoc, monster, pi);
     }
 
+    @Override
     public void postBattle(final AbstractMovingObject m, final int xLoc, final int yLoc, final boolean player) {
 	this.dungeonData.postBattle(this, m, xLoc, yLoc, player);
     }
@@ -868,7 +871,7 @@ public class CurrentDungeon extends AbstractDungeon {
 		m.basePath + File.separator
 			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_METAFILE)
-			+ Extension.getDungeonLevelExtensionWithPeriod(),
+			+ FileExtensions.getDungeonLevelExtensionWithPeriod(),
 		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ARENA))) {
 	    // Read metafile
@@ -913,7 +916,7 @@ public class CurrentDungeon extends AbstractDungeon {
 		this.basePath + File.separator
 			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL)
-			+ this.activeLevel + Extension.getDungeonLevelExtensionWithPeriod(),
+			+ this.activeLevel + FileExtensions.getDungeonLevelExtensionWithPeriod(),
 		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL));
     }
@@ -926,7 +929,7 @@ public class CurrentDungeon extends AbstractDungeon {
 			+ this.activeLevel
 			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ERA)
-			+ this.activeEra + Extension.getDungeonLevelExtensionWithPeriod(),
+			+ this.activeEra + FileExtensions.getDungeonLevelExtensionWithPeriod(),
 		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL));
     }
@@ -1000,7 +1003,7 @@ public class CurrentDungeon extends AbstractDungeon {
 		+ level
 		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ERA)
-		+ era + Extension.getDungeonLevelExtensionWithPeriod());
+		+ era + FileExtensions.getDungeonLevelExtensionWithPeriod());
     }
 
     @Override
@@ -1010,7 +1013,7 @@ public class CurrentDungeon extends AbstractDungeon {
 		this.basePath + File.separator
 			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_METAFILE)
-			+ Extension.getDungeonLevelExtensionWithPeriod(),
+			+ FileExtensions.getDungeonLevelExtensionWithPeriod(),
 		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ARENA))) {
 	    // Write metafile
@@ -1035,7 +1038,7 @@ public class CurrentDungeon extends AbstractDungeon {
 			+ this.activeLevel
 			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ERA)
-			+ this.activeEra + Extension.getDungeonLevelExtensionWithPeriod(),
+			+ this.activeEra + FileExtensions.getDungeonLevelExtensionWithPeriod(),
 		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL));
     }

@@ -3,7 +3,7 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package com.puttysoftware.dungeondiver7.dungeon;
+package com.puttysoftware.dungeondiver7.manager.file;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,12 +15,14 @@ import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.utility.InvalidDungeonException;
 import com.puttysoftware.fileutils.ZipUtilities;
 
@@ -54,7 +56,7 @@ public class DungeonLoadTask extends Thread {
     @Override
     public void run() {
 	this.loadFrame.setVisible(true);
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	if (this.isSavedGame) {
 	    app.getGameManager().setSavedGameFlag(true);
 	} else {
@@ -76,7 +78,7 @@ public class DungeonLoadTask extends Thread {
 				    LocaleConstants.ERROR_STRING_BAD_PROTECTION_KEY),
 			    LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
 				    LocaleConstants.ERROR_STRING_PROTECTION));
-		    app.getDungeonManager().handleDeferredSuccess(false);
+		    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 		    return;
 		} finally {
 		    tempLock.delete();
@@ -124,7 +126,7 @@ public class DungeonLoadTask extends Thread {
 		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
 			LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_SUCCESS));
 	    }
-	    app.getDungeonManager().handleDeferredSuccess(true);
+	    app.getDungeonManager().handleDeferredSuccess(true, false, null);
 	} catch (final FileNotFoundException fnfe) {
 	    if (this.isSavedGame) {
 		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
@@ -133,9 +135,9 @@ public class DungeonLoadTask extends Thread {
 		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
 			LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_FAILED));
 	    }
-	    app.getDungeonManager().handleDeferredSuccess(false);
+	    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final ProtectionCancelException pce) {
-	    app.getDungeonManager().handleDeferredSuccess(false);
+	    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final IOException ie) {
 	    if (this.isSavedGame) {
 		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
@@ -145,7 +147,7 @@ public class DungeonLoadTask extends Thread {
 			LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_FAILED));
 	    }
 	    DungeonDiver7.getErrorLoggerDirectly().logWarning(ie);
-	    app.getDungeonManager().handleDeferredSuccess(false);
+	    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final Exception ex) {
 	    DungeonDiver7.getErrorLogger().logError(ex);
 	} finally {

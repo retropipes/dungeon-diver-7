@@ -13,7 +13,7 @@ import com.puttysoftware.diane.scores.ScoreManager;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.Extension;
+import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 
 class ScoreTracker {
     // Fields
@@ -213,7 +213,7 @@ class ScoreTracker {
 	b.append(filename);
 	b.append(LocaleConstants.COMMON_STRING_UNDERSCORE);
 	b.append(DungeonDiver7.getApplication().getDungeonManager().getDungeon().getActiveLevel() + 1);
-	b.append(Extension.getScoresExtensionWithPeriod());
+	b.append(FileExtensions.getScoresExtensionWithPeriod());
 	return new File(b.toString());
     }
 }

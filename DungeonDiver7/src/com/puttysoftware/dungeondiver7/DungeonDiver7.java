@@ -19,7 +19,7 @@ public class DungeonDiver7 {
     }
 
     // Constants
-    private static Application application;
+    private static BagOStuff bagOStuff;
     private static String PROGRAM_NAME = "Dungeon Diver 7";
     private static String ERROR_MESSAGE = null;
     private static String ERROR_TITLE = null;
@@ -29,8 +29,8 @@ public class DungeonDiver7 {
     private static final int DUNGEON_SIZE_INCREMENT = 2;
 
     // Methods
-    public static Application getApplication() {
-	return DungeonDiver7.application;
+    public static BagOStuff getApplication() {
+	return DungeonDiver7.bagOStuff;
     }
 
     public static ErrorLogger getErrorLogger() {
@@ -66,8 +66,7 @@ public class DungeonDiver7 {
 		System.exit(1);
 	    }
 	    // Create and initialize application
-	    DungeonDiver7.application = new Application();
-	    DungeonDiver7.application.postConstruct();
+	    DungeonDiver7.bagOStuff = new BagOStuff();
 	    // Set Up Common Dialogs
 	    CommonDialogs.setDefaultTitle(DungeonDiver7.PROGRAM_NAME);
 	    CommonDialogs.setIcon(LogoLoader.getMicroLogo());
@@ -86,7 +85,7 @@ public class DungeonDiver7 {
 //							StringConstants.NOTL_STRINGS_FILE, StringConstants.NOTL_STRING_QUIT_HANDLER_METHOD)));
 //			Platform.hookDockIcon(LogoManager.getMiniatureLogo());
 	    // Display GUI
-	    DungeonDiver7.application.getGUIManager().showGUI();
+	    DungeonDiver7.bagOStuff.getGUIManager().showGUI();
 	} catch (final Throwable t) {
 	    DungeonDiver7.getErrorLogger().logError(t);
 	}

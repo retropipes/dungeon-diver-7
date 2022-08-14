@@ -6,8 +6,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
-import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.images.BufferedImageIcon;
 
@@ -39,17 +39,17 @@ public class Player extends AbstractCharacter {
 
     // Random Generation Rules
     @Override
-    public boolean isRequired(final CurrentDungeon dungeon) {
+    public boolean isRequired(final AbstractDungeon dungeon) {
 	return true;
     }
 
     @Override
-    public int getMinimumRequiredQuantity(final CurrentDungeon dungeon) {
+    public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
 	return 1;
     }
 
     @Override
-    public int getMaximumRequiredQuantity(final CurrentDungeon dungeon) {
+    public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
 	return 1;
     }
 

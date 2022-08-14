@@ -3,7 +3,7 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package com.puttysoftware.dungeondiver7.dungeon;
+package com.puttysoftware.dungeondiver7.manager.file;
 
 import java.io.IOException;
 

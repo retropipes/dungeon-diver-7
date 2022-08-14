@@ -13,10 +13,13 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButton;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButtonDoor;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.manager.file.AbstractPrefixIO;
+import com.puttysoftware.dungeondiver7.manager.file.AbstractSuffixIO;
 import com.puttysoftware.dungeondiver7.utility.Direction;
 
 public abstract class AbstractDungeon {
@@ -85,6 +88,13 @@ public abstract class AbstractDungeon {
 
     // Methods
     public abstract String getDungeonTempMusicFolder();
+    
+    public abstract Direction computeFinalBossMoveDirection(final int locX, final int locY, final int locZ, final int pi);
+
+    public abstract void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
+	    final AbstractMovingObject monster, final int pi);
+
+    public abstract void postBattle(final AbstractMovingObject m, final int xLoc, final int yLoc, final boolean player);
 
     public abstract boolean isMoveShootAllowed();
 

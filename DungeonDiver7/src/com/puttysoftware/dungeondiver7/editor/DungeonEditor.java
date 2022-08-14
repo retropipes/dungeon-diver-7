@@ -35,11 +35,10 @@ import javax.swing.WindowConstants;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.DrawGrid;
 import com.puttysoftware.dungeondiver7.Accelerators;
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.MenuSection;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
-import com.puttysoftware.dungeondiver7.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractJumpObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Ground;
@@ -49,6 +48,7 @@ import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjects;
@@ -208,8 +208,8 @@ public class DungeonEditor implements MenuSection {
     }
 
     private void checkMenus() {
-	final Application app = DungeonDiver7.getApplication();
-	if (app.getMode() == Application.STATUS_EDITOR) {
+	final BagOStuff app = DungeonDiver7.getApplication();
+	if (app.getMode() == BagOStuff.STATUS_EDITOR) {
 	    final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	    if (m.getLevels() == AbstractDungeon.getMinLevels()) {
 		this.disableRemoveLevel();
@@ -318,7 +318,7 @@ public class DungeonEditor implements MenuSection {
 
     private void redrawEditorBottomGround() {
 	// Draw the dungeon in edit mode
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	int x, y;
 	int xFix, yFix;
 	final DrawGrid drawGrid = this.outputPane.getGrid();
@@ -337,7 +337,7 @@ public class DungeonEditor implements MenuSection {
 
     private void redrawEditorGround() {
 	// Draw the dungeon in edit mode
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	int x, y;
 	int xFix, yFix;
 	final DrawGrid drawGrid = this.outputPane.getGrid();
@@ -358,7 +358,7 @@ public class DungeonEditor implements MenuSection {
 
     private void redrawEditorGroundBottomObjects() {
 	// Draw the dungeon in edit mode
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	int x, y;
 	int xFix, yFix;
 	final DrawGrid drawGrid = this.outputPane.getGrid();
@@ -381,7 +381,7 @@ public class DungeonEditor implements MenuSection {
 
     private void redrawEditorGroundObjects() {
 	// Draw the dungeon in edit mode
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	int x, y;
 	int xFix, yFix;
 	final DrawGrid drawGrid = this.outputPane.getGrid();
@@ -408,7 +408,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     void editObject(final int x, final int y) {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	int currentObjectIndex = 0;
 	if (PrefsManager.getEditorLayoutID() == EditorLayoutConstants.EDITOR_LAYOUT_CLASSIC) {
 	    currentObjectIndex = this.oldPicker.getPicked();
@@ -452,7 +452,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     void probeObjectProperties(final int x, final int y) {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final int xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
 	final int yOffset = this.horzScroll.getValue() - this.horzScroll.getMinimum();
 	final int gridX = x / ImageLoader.getGraphicSize() + EditorViewingWindowManager.getViewingWindowLocationX()
@@ -469,7 +469,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     void editObjectProperties(final int x, final int y) {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final int xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
 	final int yOffset = this.horzScroll.getValue() - this.horzScroll.getMinimum();
 	final int gridX = x / ImageLoader.getGraphicSize() + EditorViewingWindowManager.getViewingWindowLocationX()
@@ -517,7 +517,7 @@ public class DungeonEditor implements MenuSection {
 
     public void setPlayerLocation() {
 	final Party template = new Party(this.activePlayer + 1);
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final int oldX = app.getDungeonManager().getDungeon().getStartColumn(this.activePlayer);
 	final int oldY = app.getDungeonManager().getDungeon().getStartRow(this.activePlayer);
 	final int oldZ = app.getDungeonManager().getDungeon().getStartFloor(this.activePlayer);
@@ -537,7 +537,7 @@ public class DungeonEditor implements MenuSection {
 
     void setPlayerLocation(final int x, final int y) {
 	final Party template = new Party(this.activePlayer + 1);
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final int xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
 	final int yOffset = this.horzScroll.getValue() - this.horzScroll.getMinimum();
 	final int destX = x / ImageLoader.getGraphicSize() + EditorViewingWindowManager.getViewingWindowLocationX()
@@ -604,7 +604,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     public void editDungeon() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	if (app.getDungeonManager().getLoaded()) {
 	    app.getGUIManager().hideGUI();
 	    app.setInEditor();
@@ -630,7 +630,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     public boolean newDungeon() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	boolean success = true;
 	boolean saved = true;
 	int status = 0;
@@ -676,7 +676,7 @@ public class DungeonEditor implements MenuSection {
 
     public void fixLimits() {
 	// Fix limits
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	if (app.getDungeonManager().getDungeon() != null && this.elMgr != null) {
 	    this.elMgr.setLimitsFromDungeon(app.getDungeonManager().getDungeon());
 	}
@@ -717,7 +717,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     private boolean addLevelInternal() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	boolean success = true;
 	final int saveLevel = app.getDungeonManager().getDungeon().getActiveLevel();
 	success = app.getDungeonManager().getDungeon().addLevel();
@@ -733,7 +733,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     public boolean removeLevel() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	int level;
 	boolean success = true;
 	String[] choices = app.getLevelInfoList();
@@ -771,7 +771,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     public boolean resizeLevel() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	int levelSizeZ;
 	final int maxF = AbstractDungeon.getMaxFloors();
 	final int minF = AbstractDungeon.getMinFloors();
@@ -831,7 +831,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     public void showOutput() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	this.outputFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
 	app.getMenuManager().checkFlags();
 	this.outputFrame.setVisible(true);
@@ -839,7 +839,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     public void attachMenus() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	this.outputFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
 	app.getMenuManager().checkFlags();
     }
@@ -868,7 +868,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     public void exitEditor() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	// Hide the editor
 	this.hideOutput();
 	final DungeonManager mm = app.getDungeonManager();
@@ -950,7 +950,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     public void undo() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	this.engine.undo();
 	final AbstractDungeonObject obj = this.engine.getObject();
 	final int x = this.engine.getX();
@@ -973,7 +973,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     public void redo() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	this.engine.redo();
 	final AbstractDungeonObject obj = this.engine.getObject();
 	final int x = this.engine.getX();
@@ -1215,7 +1215,7 @@ public class DungeonEditor implements MenuSection {
 
     public void handleCloseWindow() {
 	try {
-	    final Application app = DungeonDiver7.getApplication();
+	    final BagOStuff app = DungeonDiver7.getApplication();
 	    boolean success = false;
 	    int status = JOptionPane.DEFAULT_OPTION;
 	    if (app.getDungeonManager().getDirty()) {
@@ -1401,24 +1401,24 @@ public class DungeonEditor implements MenuSection {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		final Application app = DungeonDiver7.getApplication();
+		final BagOStuff app = DungeonDiver7.getApplication();
 		final String cmd = e.getActionCommand();
 		final DungeonEditor editor = DungeonEditor.this;
 		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 			LocaleConstants.MENU_STRING_ITEM_UNDO))) {
 		    // Undo most recent action
-		    if (app.getMode() == Application.STATUS_EDITOR) {
+		    if (app.getMode() == BagOStuff.STATUS_EDITOR) {
 			editor.undo();
-		    } else if (app.getMode() == Application.STATUS_GAME) {
+		    } else if (app.getMode() == BagOStuff.STATUS_GAME) {
 			app.getGameManager().abortAndWaitForMLOLoop();
 			app.getGameManager().undoLastMove();
 		    }
 		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 			LocaleConstants.MENU_STRING_ITEM_REDO))) {
 		    // Redo most recent undone action
-		    if (app.getMode() == Application.STATUS_EDITOR) {
+		    if (app.getMode() == BagOStuff.STATUS_EDITOR) {
 			editor.redo();
-		    } else if (app.getMode() == Application.STATUS_GAME) {
+		    } else if (app.getMode() == BagOStuff.STATUS_GAME) {
 			app.getGameManager().abortAndWaitForMLOLoop();
 			app.getGameManager().redoLastMove();
 		    }

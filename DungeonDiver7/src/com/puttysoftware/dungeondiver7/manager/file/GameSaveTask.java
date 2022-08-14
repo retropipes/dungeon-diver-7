@@ -10,12 +10,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
-import com.puttysoftware.dungeondiver7.integration1.Application;
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.manager.dungeon.PrefixHandler;
-import com.puttysoftware.dungeondiver7.manager.dungeon.SuffixHandler;
+import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 import com.puttysoftware.fileutils.ZipUtilities;
 
 public class GameSaveTask extends Thread {
@@ -33,11 +31,11 @@ public class GameSaveTask extends Thread {
 	boolean success = true;
 	final String sg = "Game";
 	try {
-	    final Application app = Integration1.getApplication();
+	    final BagOStuff app = DungeonDiver7.getApplication();
 	    // filename check
 	    final boolean hasExtension = GameSaveTask.hasExtension(this.filename);
 	    if (!hasExtension) {
-		this.filename += Extension.getGameExtensionWithPeriod();
+		this.filename += FileExtensions.getGameExtensionWithPeriod();
 	    }
 	    final File mazeFile = new File(this.filename);
 	    final File tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
@@ -61,7 +59,7 @@ public class GameSaveTask extends Thread {
 	} catch (final Exception ex) {
 	    DungeonDiver7.getErrorLogger().logError(ex);
 	}
-	Integration1.getApplication().getDungeonManager().handleDeferredSuccess(success, false, null);
+	DungeonDiver7.getApplication().getDungeonManager().handleDeferredSuccess(success, false, null);
     }
 
     private static boolean hasExtension(final String s) {

@@ -6,11 +6,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.spell;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.battle.BattleTarget;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.effect.Effect;
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 
 public class SpellCaster {
@@ -106,11 +106,11 @@ public class SpellCaster {
 	    if (teamID == AbstractCreature.TEAM_PARTY) {
 		return PartyManager.getParty().getLeader();
 	    } else {
-		return Integration1.getApplication().getBattle().getEnemy();
+		return DungeonDiver7.getApplication().getBattle().getEnemy();
 	    }
 	case ENEMY:
 	    if (teamID == AbstractCreature.TEAM_PARTY) {
-		return Integration1.getApplication().getBattle().getEnemy();
+		return DungeonDiver7.getApplication().getBattle().getEnemy();
 	    } else {
 		return PartyManager.getParty().getLeader();
 	    }

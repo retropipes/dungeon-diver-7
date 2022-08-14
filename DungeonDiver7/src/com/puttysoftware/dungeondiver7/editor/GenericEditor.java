@@ -17,7 +17,7 @@ import javax.swing.JMenu;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
@@ -45,7 +45,7 @@ public abstract class GenericEditor {
 
     // Methods
     public final void edit() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	app.getGUIManager().hideGUI();
 	// Create the managers
 	if (this.objectChanged) {
@@ -82,7 +82,7 @@ public abstract class GenericEditor {
     }
 
     public final void showOutput() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	this.outputFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
 	this.outputFrame.setVisible(true);
 	this.outputFrame.pack();

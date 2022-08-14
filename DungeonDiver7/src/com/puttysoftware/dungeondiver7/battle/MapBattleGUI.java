@@ -29,7 +29,6 @@ import com.puttysoftware.dungeondiver7.ai.AbstractMapAIRoutine;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Darkness;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.loader.BattleImageManager;
 import com.puttysoftware.dungeondiver7.loader.ImageCompositor;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
@@ -85,7 +84,7 @@ class MapBattleGUI {
 
     void showBattle() {
 	this.battleFrame.setVisible(true);
-	this.battleFrame.setJMenuBar(Integration1.getApplication().getMenuManager().getMainMenuBar());
+	this.battleFrame.setJMenuBar(DungeonDiver7.getApplication().getMenuManager().getMainMenuBar());
     }
 
     void hideBattle() {
@@ -253,7 +252,7 @@ class MapBattleGUI {
 		    SoundLoader.playSound(SoundConstants.CLICK);
 		}
 		final String cmd = e.getActionCommand();
-		final AbstractBattle b = Integration1.getApplication().getBattle();
+		final AbstractBattle b = DungeonDiver7.getApplication().getBattle();
 		// Do Player Actions
 		if (cmd.equals("Cast Spell") || cmd.equals("c")) {
 		    // Cast Spell
@@ -303,7 +302,7 @@ class MapBattleGUI {
 			return;
 		    }
 		}
-		final AbstractBattle bl = Integration1.getApplication().getBattle();
+		final AbstractBattle bl = DungeonDiver7.getApplication().getBattle();
 		final MapBattleGUI bg = MapBattleGUI.this;
 		if (bg.eventHandlersOn) {
 		    final int keyCode = e.getKeyCode();

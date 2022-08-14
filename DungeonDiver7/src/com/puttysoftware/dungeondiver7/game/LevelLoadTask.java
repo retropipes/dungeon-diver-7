@@ -3,18 +3,17 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package com.puttysoftware.dungeondiver7.integration1.game;
+package com.puttysoftware.dungeondiver7.game;
 
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
-import com.puttysoftware.dungeondiver7.integration1.Application;
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.utility.ImageColorConstants;
 
@@ -42,8 +41,8 @@ public class LevelLoadTask extends Thread {
     public void run() {
 	try {
 	    this.loadFrame.setVisible(true);
-	    final Application app = Integration1.getApplication();
-	    final CurrentDungeon gameDungeon = app.getDungeonManager().getDungeon();
+	    final BagOStuff app = DungeonDiver7.getApplication();
+	    final AbstractDungeon gameDungeon = app.getDungeonManager().getDungeon();
 	    app.getGameLogic().disableEvents();
 	    gameDungeon.switchLevelOffset(this.level);
 	    PartyManager.getParty().offsetZone(this.level);

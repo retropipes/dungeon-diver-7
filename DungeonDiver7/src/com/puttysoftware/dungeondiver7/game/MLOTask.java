@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.game;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
@@ -305,7 +305,7 @@ final class MLOTask extends Thread {
     }
 
     private boolean canMoveThere() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final GameManager gm = app.getGameManager();
 	final PlayerLocationManager plMgr = gm.getPlayerManager();
 	final int px = plMgr.getPlayerLocationX();
@@ -346,7 +346,7 @@ final class MLOTask extends Thread {
 	int py = plMgr.getPlayerLocationY();
 	final int pz = plMgr.getPlayerLocationZ();
 	final int pw = DungeonConstants.LAYER_UPPER_OBJECTS;
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	this.proceed = true;
 	this.mover = false;
@@ -480,7 +480,7 @@ final class MLOTask extends Thread {
     }
 
     private boolean checkLoopCondition(final boolean zproceed) {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final GameManager gm = app.getGameManager();
 	final PlayerLocationManager plMgr = gm.getPlayerManager();
 	final int px = plMgr.getPlayerLocationX();

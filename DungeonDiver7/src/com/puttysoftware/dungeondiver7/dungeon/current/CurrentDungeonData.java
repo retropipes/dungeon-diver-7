@@ -8,6 +8,7 @@ package com.puttysoftware.dungeondiver7.dungeon.current;
 import java.io.IOException;
 import java.util.ArrayDeque;
 
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeonData;
@@ -31,8 +32,6 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.MonsterTile;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Party;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.game.GameManager;
-import com.puttysoftware.dungeondiver7.integration1.Application;
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
@@ -111,7 +110,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public void updateMonsterPosition(final AbstractDungeon dungeon, final Direction move, final int xLoc,
 	    final int yLoc, final AbstractMovingObject monster, final int pi) {
-	final Application app = Integration1.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final int[] dirMove = DirectionResolver.unresolveRelativeDirection(move);
 	final int pLocX = dungeon.getPlayerLocationX(pi);
 	final int pLocY = dungeon.getPlayerLocationY(pi);
@@ -122,7 +121,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    DungeonConstants.LAYER_LOWER_GROUND);
 	    if (!there.isSolid() && !(there instanceof AbstractMovingObject)) {
 		if (AbstractDungeon.radialScan(xLoc, yLoc, 0, pLocX, pLocY)) {
-		    if (app.getMode() != Application.STATUS_BATTLE) {
+		    if (app.getMode() != BagOStuff.STATUS_BATTLE) {
 			app.getGameLogic().stopMovement();
 			if (monster instanceof FinalBossMonsterTile) {
 			    app.getBattle().doFinalBossBattle();

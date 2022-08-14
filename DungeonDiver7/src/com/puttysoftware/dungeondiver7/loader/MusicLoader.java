@@ -14,7 +14,7 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.editor.ExternalMusic;
-import com.puttysoftware.dungeondiver7.manager.file.Extension;
+import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 
 public class MusicLoader {
     // Fields
@@ -33,7 +33,7 @@ public class MusicLoader {
 
     private static OggPlayer getMusic(final String filename) {
 	final URL modFile = MusicLoader.LOAD_CLASS
-		.getResource(MusicLoader.LOAD_PATH + filename + Extension.getMusicExtensionWithPeriod());
+		.getResource(MusicLoader.LOAD_PATH + filename + FileExtensions.getMusicExtensionWithPeriod());
 	return OggPlayer.loadLoopedResource(modFile);
     }
 

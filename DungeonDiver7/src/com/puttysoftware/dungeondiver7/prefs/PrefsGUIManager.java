@@ -22,7 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
@@ -72,29 +72,29 @@ class PrefsGUIManager {
     }
 
     public void showPrefs() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	app.setInPrefs();
 	this.prefFrame.setVisible(true);
 	final int formerMode = app.getFormerMode();
-	if (formerMode == Application.STATUS_GUI) {
+	if (formerMode == BagOStuff.STATUS_GUI) {
 	    app.getGUIManager().hideGUI();
-	} else if (formerMode == Application.STATUS_GAME) {
+	} else if (formerMode == BagOStuff.STATUS_GAME) {
 	    app.getGameManager().hideOutput();
-	} else if (formerMode == Application.STATUS_EDITOR) {
+	} else if (formerMode == BagOStuff.STATUS_EDITOR) {
 	    app.getEditor().hideOutput();
 	}
     }
 
     void hidePrefs() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	this.prefFrame.setVisible(false);
 	PrefsManager.writePrefs();
 	final int formerMode = app.getFormerMode();
-	if (formerMode == Application.STATUS_GUI) {
+	if (formerMode == BagOStuff.STATUS_GUI) {
 	    app.getGUIManager().showGUI();
-	} else if (formerMode == Application.STATUS_GAME) {
+	} else if (formerMode == BagOStuff.STATUS_GAME) {
 	    app.getGameManager().showOutput();
-	} else if (formerMode == Application.STATUS_EDITOR) {
+	} else if (formerMode == BagOStuff.STATUS_EDITOR) {
 	    app.getEditor().showOutput();
 	}
     }

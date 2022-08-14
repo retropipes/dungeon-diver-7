@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package com.puttysoftware.dungeondiver7.integration1.game;
+package com.puttysoftware.dungeondiver7.game;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -19,17 +19,15 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.DrawGrid;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Darkness;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Player;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
-import com.puttysoftware.dungeondiver7.integration1.Application;
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.loader.ImageCompositor;
 import com.puttysoftware.dungeondiver7.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
@@ -77,7 +75,7 @@ class GameGUI {
 
     void initViewManager() {
 	if (this.vwMgr == null) {
-	    this.vwMgr = Integration1.getApplication().getGameLogic().getViewManager();
+	    this.vwMgr = DungeonDiver7.getApplication().getGameLogic().getViewManager();
 	    this.setUpGUI();
 	}
     }
@@ -110,9 +108,8 @@ class GameGUI {
     }
 
     private void showOutputCommon() {
-	final Application app = Integration1.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	if (!this.outputFrame.isVisible()) {
-	    app.getMenuManager().setGameMenus();
 	    this.outputFrame.setVisible(true);
 	    this.outputFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
 	    if (this.deferredRedraw) {
@@ -143,8 +140,8 @@ class GameGUI {
     public void redrawDungeon() {
 	// Draw the maze, if it is visible
 	if (this.outputFrame.isVisible()) {
-	    final Application app = Integration1.getApplication();
-	    final CurrentDungeon m = app.getDungeonManager().getDungeon();
+	    final BagOStuff app = DungeonDiver7.getApplication();
+	    final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	    int x, y, u, v;
 	    int xFix, yFix;
 	    boolean visible;
@@ -212,7 +209,7 @@ class GameGUI {
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);
 	this.outputFrame = new JFrame("Chrystalz");
-	final Image iconlogo = Application.getIconLogo();
+	final Image iconlogo = BagOStuff.getIconLogo();
 	this.outputFrame.setIconImage(iconlogo);
 	this.drawGrid = new DrawGrid(PrefsManager.getViewingWindowSize());
 	this.outputPane = new GameDraw(this.drawGrid);
@@ -253,7 +250,7 @@ class GameGUI {
 
 	public void handleMovement(final KeyEvent e) {
 	    try {
-		final GameLogic glm = Integration1.getApplication().getGameLogic();
+		final GameLogic glm = DungeonDiver7.getApplication().getGameLogic();
 		final int keyCode = e.getKeyCode();
 		switch (keyCode) {
 		case KeyEvent.VK_LEFT:
@@ -290,8 +287,8 @@ class GameGUI {
 		    }
 		    break;
 		case KeyEvent.VK_SPACE:
-		    final Application app = Integration1.getApplication();
-		    final CurrentDungeon m = app.getDungeonManager().getDungeon();
+		    final BagOStuff app = DungeonDiver7.getApplication();
+		    final AbstractDungeon m = app.getDungeonManager().getDungeon();
 		    int px = m.getPlayerLocationX(0);
 		    int py = m.getPlayerLocationY(0);
 		    AbstractDungeonObject there = new Empty();
@@ -360,7 +357,7 @@ class GameGUI {
 	@Override
 	public void windowClosing(final WindowEvent we) {
 	    try {
-		final Application app = Integration1.getApplication();
+		final BagOStuff app = DungeonDiver7.getApplication();
 		boolean success = false;
 		int status = 0;
 		if (app.getDungeonManager().getDirty()) {

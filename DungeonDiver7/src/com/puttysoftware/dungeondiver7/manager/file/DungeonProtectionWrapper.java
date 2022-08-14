@@ -1,4 +1,4 @@
-package com.puttysoftware.dungeondiver7.dungeon;
+package com.puttysoftware.dungeondiver7.manager.file;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.game;
 
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
@@ -185,7 +185,7 @@ final class MovingLaserTracker {
 
     private void doLasersOnce(final boolean tracking) {
 	final Ground g = new Ground();
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final GameManager gm = app.getGameManager();
 	final PlayerLocationManager plMgr = app.getGameManager().getPlayerManager();
 	final int px = plMgr.getPlayerLocationX();
@@ -375,7 +375,7 @@ final class MovingLaserTracker {
 	final int px = plMgr.getPlayerLocationX();
 	final int py = plMgr.getPlayerLocationY();
 	final int pz = plMgr.getPlayerLocationZ();
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	boolean zproceed = true;
 	AbstractDungeonObject zo = null;

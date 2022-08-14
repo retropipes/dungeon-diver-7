@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
+import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.shop.Shop;
@@ -32,7 +32,7 @@ public abstract class AbstractShop extends AbstractDungeonObject {
 
     @Override
     public void interactAction() {
-	final Shop shop = Integration1.getApplication().getShopByType(this.shopType);
+	final Shop shop = DungeonDiver7.getApplication().getShopByType(this.shopType);
 	if (shop != null) {
 	    shop.showShop();
 	}

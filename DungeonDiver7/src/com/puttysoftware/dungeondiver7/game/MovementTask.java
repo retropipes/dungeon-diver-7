@@ -3,17 +3,16 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package com.puttysoftware.dungeondiver7.integration1.game;
+package com.puttysoftware.dungeondiver7.game;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
-import com.puttysoftware.dungeondiver7.integration1.Application;
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -81,7 +80,7 @@ final class MovementTask extends Thread {
     }
 
     void fireStepActions() {
-	final CurrentDungeon m = Integration1.getApplication().getDungeonManager().getDungeon();
+	final AbstractDungeon m = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
 	final int px = m.getPlayerLocationX(0);
 	final int py = m.getPlayerLocationY(0);
 	m.updateVisibleSquares(px, py, 0);
@@ -91,8 +90,8 @@ final class MovementTask extends Thread {
     }
 
     private void updatePositionRelative(final int dirX, final int dirY) {
-	final Application app = Integration1.getApplication();
-	final CurrentDungeon m = app.getDungeonManager().getDungeon();
+	final BagOStuff app = DungeonDiver7.getApplication();
+	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	int px = m.getPlayerLocationX(0);
 	int py = m.getPlayerLocationY(0);
 	int pz = 0;
@@ -222,8 +221,8 @@ final class MovementTask extends Thread {
     }
 
     private void updatePositionAbsolute(final int x, final int y) {
-	final Application app = Integration1.getApplication();
-	final CurrentDungeon m = app.getDungeonManager().getDungeon();
+	final BagOStuff app = DungeonDiver7.getApplication();
+	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	try {
 	    m.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS).preMoveAction(true, x, y);
 	} catch (final ArrayIndexOutOfBoundsException ae) {

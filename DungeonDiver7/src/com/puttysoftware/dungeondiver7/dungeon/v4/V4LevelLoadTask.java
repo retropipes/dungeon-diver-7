@@ -14,14 +14,14 @@ import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
-import com.puttysoftware.dungeondiver7.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 
 public class V4LevelLoadTask extends Thread {
     // Fields
@@ -49,7 +49,7 @@ public class V4LevelLoadTask extends Thread {
     @Override
     public void run() {
 	this.loadFrame.setVisible(true);
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	app.getGameManager().setSavedGameFlag(false);
 	try (FileInputStream dungeonFile = new FileInputStream(this.filename)) {
 	    final AbstractDungeon gameDungeon = DungeonManager.createDungeon();
@@ -70,14 +70,14 @@ public class V4LevelLoadTask extends Thread {
 	    MusicLoader.dungeonChanged();
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
 		    LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_SUCCESS));
-	    app.getDungeonManager().handleDeferredSuccess(true);
+	    app.getDungeonManager().handleDeferredSuccess(true, false, null);
 	} catch (final FileNotFoundException fnfe) {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
 		    LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_FAILED));
-	    app.getDungeonManager().handleDeferredSuccess(false);
+	    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final IOException ie) {
 	    CommonDialogs.showDialog(ie.getMessage());
-	    app.getDungeonManager().handleDeferredSuccess(false);
+	    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final Exception ex) {
 	    DungeonDiver7.getErrorLogger().logError(ex);
 	} finally {

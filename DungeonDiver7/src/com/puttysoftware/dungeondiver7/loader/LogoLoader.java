@@ -16,7 +16,7 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
 import com.puttysoftware.images.BufferedImageIcon;
@@ -58,7 +58,7 @@ public class LogoLoader {
 		final Graphics2D g2 = image.createGraphics();
 		g2.setFont(LogoLoader.LOGO_DRAW_FONT);
 		g2.setColor(Color.yellow);
-		final String logoVer = Application.getLogoVersionString();
+		final String logoVer = BagOStuff.getLogoVersionString();
 		g2.drawString(logoVer,
 			LogoLoader.LOGO_DRAW_HORZ
 				+ (LogoLoader.LOGO_DRAW_HORZ_MAX - logoVer.length()) * LogoLoader.LOGO_DRAW_HORZ_PCO,

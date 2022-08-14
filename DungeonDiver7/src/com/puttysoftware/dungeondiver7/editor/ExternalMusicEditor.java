@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JTextField;
 
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.ExternalMusicImporter;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
@@ -50,7 +50,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 	new Thread() {
 	    @Override
 	    public void run() {
-		final Application app = DungeonDiver7.getApplication();
+		final BagOStuff app = DungeonDiver7.getApplication();
 		Importer.showImporter(ExternalMusicEditor.this.getOutputFrame(), app.getMenuManager().getMainMenuBar());
 		while (Importer.isImporterVisible()) {
 		    // Wait

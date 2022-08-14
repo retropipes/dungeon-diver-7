@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractAttribute;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
@@ -27,7 +27,7 @@ public class Crumbling extends AbstractAttribute {
     @Override
     public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	app.getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
 	// Destroy whatever we were attached to
 	app.getGameManager().morph(new Empty(), locX, locY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS);
@@ -37,7 +37,7 @@ public class Crumbling extends AbstractAttribute {
 
     @Override
     public void moveFailedAction(final int locX, final int locY, final int locZ) {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	app.getGameManager().morph(new Empty(), locX, locY, locZ, this.getLayer());
 	// Destroy whatever we were attached to
 	app.getGameManager().morph(new Empty(), locX, locY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS);

@@ -9,12 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.integration1.Application;
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.ImageColorConstants;
 import com.puttysoftware.randomrange.RandomRange;
@@ -43,14 +44,14 @@ public class GenerateDungeonTask extends Thread {
     public void run() {
 	try {
 	    this.generateFrame.setVisible(true);
-	    final Application app = Integration1.getApplication();
+	    final BagOStuff app = DungeonDiver7.getApplication();
 	    int zoneID = PartyManager.getParty().getZone();
 	    int dungeonSize = DungeonDiver7.getDungeonLevelSize(zoneID);
-	    CurrentDungeon gameDungeon = app.getDungeonManager().getDungeon();
+	    AbstractDungeon gameDungeon = app.getDungeonManager().getDungeon();
 	    if (!this.scratch) {
 		app.getGameLogic().disableEvents();
 	    } else {
-		gameDungeon = new CurrentDungeon();
+		gameDungeon = DungeonManager.createDungeon();
 		app.getDungeonManager().setDungeon(gameDungeon);
 	    }
 	    gameDungeon.addFixedSizeLevel(dungeonSize, dungeonSize, 1);

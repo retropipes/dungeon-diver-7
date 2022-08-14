@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
@@ -42,7 +42,7 @@ public class MagneticMirror extends AbstractMovableObject {
 		return this.getDirection();
 	    } else {
 		// Move mirror
-		final Application app = DungeonDiver7.getApplication();
+		final BagOStuff app = DungeonDiver7.getApplication();
 		final AbstractDungeonObject mo = app.getDungeonManager().getDungeon().getCell(locX - dirX, locY - dirY,
 			locZ, this.getLayer());
 		if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE && mo != null

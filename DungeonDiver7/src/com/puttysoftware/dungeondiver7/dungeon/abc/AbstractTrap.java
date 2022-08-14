@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
-import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 import com.puttysoftware.randomrange.RandomRange;
@@ -43,7 +43,7 @@ public abstract class AbstractTrap extends AbstractDungeonObject {
     }
 
     @Override
-    public boolean shouldGenerateObject(final CurrentDungeon maze, final int row, final int col, final int level,
+    public boolean shouldGenerateObject(final AbstractDungeon maze, final int row, final int col, final int level,
 	    final int layer) {
 	// Generate all traps at 25% rate
 	final RandomRange reject = new RandomRange(1, 100);

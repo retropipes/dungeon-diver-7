@@ -14,7 +14,7 @@ import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
@@ -46,7 +46,7 @@ class ReplayFileLoadTask extends Thread {
     @Override
     public void run() {
 	this.loadFrame.setVisible(true);
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	app.getGameManager().setSavedGameFlag(false);
 	try (FileInputStream dungeonFile = new FileInputStream(this.filename)) {
 	    ReplayFile.loadLPB(dungeonFile);

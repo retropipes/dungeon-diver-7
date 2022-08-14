@@ -1,31 +1,44 @@
-/*  Chrystalz: A dungeon-crawling, roguelike game
-Licensed under MIT. See the LICENSE file for details.
+/*  DungeonDiver7: A Dungeon-Diving RPG
+ Copyright (C) 2021-present Eric Ahnell
 
-All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
+ Any questions should be directed to the author via email at: products@puttysoftware.com
  */
 package com.puttysoftware.dungeondiver7.manager.dungeon;
 
+import java.awt.FileDialog;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
-import com.puttysoftware.dungeondiver7.integration1.Application;
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.manager.file.Extension;
+import com.puttysoftware.dungeondiver7.dungeon.v4.V4LevelLoadTask;
+import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.manager.file.DungeonLoadTask;
+import com.puttysoftware.dungeondiver7.manager.file.DungeonSaveTask;
 import com.puttysoftware.dungeondiver7.manager.file.GameFinder;
 import com.puttysoftware.dungeondiver7.manager.file.GameLoadTask;
 import com.puttysoftware.dungeondiver7.manager.file.GameSaveTask;
+import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.utility.CleanupTask;
+import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 import com.puttysoftware.fileutils.FilenameChecker;
 
 public final class DungeonManager {
     // Fields
-    private CurrentDungeon gameDungeon;
+    private AbstractDungeon gameDungeon;
     private boolean loaded, isDirty;
+    private String scoresFileName;
+    private String lastUsedDungeonFile;
+    private String lastUsedGameFile;
+    private boolean dungeonProtected;
     private static final String MAC_PREFIX = "HOME";
     private static final String WIN_PREFIX = "APPDATA";
     private static final String UNIX_PREFIX = "HOME";
@@ -38,15 +51,30 @@ public final class DungeonManager {
 	this.loaded = false;
 	this.isDirty = false;
 	this.gameDungeon = null;
+	this.lastUsedDungeonFile = LocaleConstants.COMMON_STRING_EMPTY;
+	this.lastUsedGameFile = LocaleConstants.COMMON_STRING_EMPTY;
+	this.scoresFileName = LocaleConstants.COMMON_STRING_EMPTY;
     }
 
     // Methods
-    public CurrentDungeon getDungeon() {
+    public static AbstractDungeon createDungeon() throws IOException {
+	return new CurrentDungeon();
+    }
+
+    public AbstractDungeon getDungeon() {
 	return this.gameDungeon;
     }
 
-    public void setDungeon(final CurrentDungeon newDungeon) {
+    public void setDungeon(final AbstractDungeon newDungeon) {
 	this.gameDungeon = newDungeon;
+    }
+
+    public boolean isDungeonProtected() {
+	return this.dungeonProtected;
+    }
+
+    public void setDungeonProtected(final boolean value) {
+	this.dungeonProtected = value;
     }
 
     public void handleDeferredSuccess(final boolean value, final boolean versionError, final File triedToLoad) {
@@ -57,22 +85,28 @@ public final class DungeonManager {
 	    triedToLoad.delete();
 	}
 	this.setDirty(false);
-	Integration1.getApplication().getGameLogic().stateChanged();
-	Integration1.getApplication().getMenuManager().checkFlags();
+	DungeonDiver7.getApplication().getGameLogic().stateChanged();
+	DungeonDiver7.getApplication().getMenuManager().checkFlags();
     }
 
     public static int showSaveDialog() {
 	String type, source;
-	final Application app = Integration1.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final int mode = app.getMode();
-	if (mode == Application.STATUS_GAME) {
-	    type = "game";
-	    source = "Chrystalz";
+	if (mode == BagOStuff.STATUS_EDITOR) {
+	    type = LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
+		    LocaleConstants.DIALOG_STRING_PROMPT_SAVE_ARENA);
+	    source = LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE, LocaleConstants.EDITOR_STRING_EDITOR);
+	} else if (mode == BagOStuff.STATUS_GAME) {
+	    type = LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
+		    LocaleConstants.DIALOG_STRING_PROMPT_SAVE_GAME);
+	    source = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
+		    LocaleConstants.NOTL_STRING_PROGRAM_NAME);
 	} else {
 	    // Not in the game or editor, so abort
 	    return JOptionPane.NO_OPTION;
 	}
-	return CommonDialogs.showYNCConfirmDialog("Do you want to save your " + type + "?", source);
+	return CommonDialogs.showYNCConfirmDialog(type, source);
     }
 
     public boolean getLoaded() {
@@ -80,7 +114,7 @@ public final class DungeonManager {
     }
 
     public void setLoaded(final boolean status) {
-	final Application app = Integration1.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	this.loaded = status;
 	app.getMenuManager().checkFlags();
     }
@@ -90,13 +124,42 @@ public final class DungeonManager {
     }
 
     public void setDirty(final boolean newDirty) {
-	final Application app = Integration1.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	this.isDirty = newDirty;
 	final JFrame frame = app.getOutputFrame();
 	if (frame != null) {
 	    frame.getRootPane().putClientProperty("Window.documentModified", Boolean.valueOf(newDirty));
 	}
 	app.getMenuManager().checkFlags();
+    }
+
+    public void clearLastUsedFilenames() {
+	this.lastUsedDungeonFile = LocaleConstants.COMMON_STRING_EMPTY;
+	this.lastUsedGameFile = LocaleConstants.COMMON_STRING_EMPTY;
+    }
+
+    public String getLastUsedDungeon() {
+	return this.lastUsedDungeonFile;
+    }
+
+    public String getLastUsedGame() {
+	return this.lastUsedGameFile;
+    }
+
+    public void setLastUsedDungeon(final String newFile) {
+	this.lastUsedDungeonFile = newFile;
+    }
+
+    public void setLastUsedGame(final String newFile) {
+	this.lastUsedGameFile = newFile;
+    }
+
+    public String getScoresFileName() {
+	return this.scoresFileName;
+    }
+
+    public void setScoresFileName(final String filename) {
+	this.scoresFileName = filename;
     }
 
     public boolean loadGame() {
@@ -136,7 +199,7 @@ public final class DungeonManager {
 		    if (index != -1) {
 			final File file = new File(gameDir + rawChoices[index]);
 			filename = file.getAbsolutePath();
-			DungeonManager.loadFile(filename);
+			DungeonManager.loadGameFile(filename);
 		    } else {
 			// Result not found
 			if (this.loaded) {
@@ -159,7 +222,7 @@ public final class DungeonManager {
 	return false;
     }
 
-    private static void loadFile(final String filename) {
+    private static void loadGameFile(final String filename) {
 	if (!FilenameChecker
 		.isFilenameOK(DungeonManager.getNameWithoutExtension(DungeonManager.getFileNameOnly(filename)))) {
 	    CommonDialogs.showErrorDialog("The file you selected contains illegal characters in its\n"
@@ -179,7 +242,7 @@ public final class DungeonManager {
 	while (!FilenameChecker.isFilenameOK(returnVal)) {
 	    returnVal = CommonDialogs.showTextInputDialog("Name?", "Save Game");
 	    if (returnVal != null) {
-		extension = Extension.getGameExtensionWithPeriod();
+		extension = FileExtensions.getGameExtensionWithPeriod();
 		final File file = new File(DungeonManager.getGameDirectory() + returnVal + extension);
 		filename = file.getAbsolutePath();
 		if (!FilenameChecker.isFilenameOK(returnVal)) {
@@ -195,7 +258,7 @@ public final class DungeonManager {
 			    DungeonDiver7.getErrorLogger().logError(new IOException("Cannot create game folder!"));
 			}
 		    }
-		    DungeonManager.saveFile(filename);
+		    DungeonManager.saveGameFile(filename);
 		}
 	    } else {
 		break;
@@ -204,11 +267,238 @@ public final class DungeonManager {
 	return false;
     }
 
-    private static void saveFile(final String filename) {
+    private static void saveGameFile(final String filename) {
 	final String sg = "Saved Game";
-	Integration1.getApplication().showMessage("Saving " + sg + " file...");
+	DungeonDiver7.getApplication().showMessage("Saving " + sg + " file...");
 	final GameSaveTask lst = new GameSaveTask(filename);
 	lst.start();
+    }
+
+    public boolean loadDungeon() {
+	return this.loadDungeonImpl(PrefsManager.getLastDirOpen());
+    }
+
+    public boolean loadDungeonDefault() {
+	try {
+	    return this.loadDungeonImpl(
+		    DungeonManager.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()
+			    + File.separator + "Common" + File.separator + "Levels");
+	} catch (final URISyntaxException e) {
+	    return this.loadDungeon();
+	}
+    }
+
+    private boolean loadDungeonImpl(final String initialDirectory) {
+	final BagOStuff app = DungeonDiver7.getApplication();
+	int status = 0;
+	boolean saved = true;
+	String filename, extension, file, dir;
+	final FileDialog fd = new FileDialog(app.getOutputFrame(),
+		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_LOAD),
+		FileDialog.LOAD);
+	fd.setDirectory(initialDirectory);
+	if (this.getDirty()) {
+	    status = DungeonManager.showSaveDialog();
+	    if (status == JOptionPane.YES_OPTION) {
+		saved = this.saveDungeon(this.isDungeonProtected());
+	    } else if (status == JOptionPane.CANCEL_OPTION) {
+		saved = false;
+	    } else {
+		this.setDirty(false);
+	    }
+	}
+	if (saved) {
+	    fd.setVisible(true);
+	    file = fd.getFile();
+	    dir = fd.getDirectory();
+	    if (file != null && dir != null) {
+		PrefsManager.setLastDirOpen(dir);
+		filename = dir + file;
+		extension = DungeonManager.getExtension(filename);
+		if (extension.equals(FileExtensions.getDungeonExtension())) {
+		    this.lastUsedDungeonFile = filename;
+		    this.scoresFileName = DungeonManager.getNameWithoutExtension(file);
+		    DungeonManager.loadDungeonFile(filename, false, false);
+		} else if (extension.equals(FileExtensions.getProtectedDungeonExtension())) {
+		    this.lastUsedDungeonFile = filename;
+		    this.scoresFileName = DungeonManager.getNameWithoutExtension(file);
+		    DungeonManager.loadDungeonFile(filename, false, true);
+		} else if (extension.equals(FileExtensions.getGameExtension())) {
+		    this.lastUsedGameFile = filename;
+		    DungeonManager.loadDungeonFile(filename, true, false);
+		} else if (extension.equals(FileExtensions.getOldLevelExtension())) {
+		    this.lastUsedDungeonFile = filename;
+		    this.scoresFileName = DungeonManager.getNameWithoutExtension(file);
+		    final V4LevelLoadTask ollt = new V4LevelLoadTask(filename);
+		    ollt.start();
+		} else {
+		    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
+			    LocaleConstants.DIALOG_STRING_NON_DUNGEON_FILE));
+		}
+	    } else {
+		// User cancelled
+		if (this.loaded) {
+		    return true;
+		}
+	    }
+	}
+	return false;
+    }
+
+    private static void loadDungeonFile(final String filename, final boolean isSavedGame, final boolean protect) {
+	if (!FilenameChecker
+		.isFilenameOK(DungeonManager.getNameWithoutExtension(DungeonManager.getFileNameOnly(filename)))) {
+	    CommonDialogs.showErrorDialog(
+		    LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
+			    LocaleConstants.DIALOG_STRING_ILLEGAL_CHARACTERS),
+		    LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_LOAD));
+	} else {
+	    // Run cleanup task
+	    CleanupTask.cleanUp();
+	    // Load file
+	    final DungeonLoadTask xlt = new DungeonLoadTask(filename, isSavedGame, protect);
+	    xlt.start();
+	}
+    }
+
+    public boolean saveDungeon(final boolean protect) {
+	final BagOStuff app = DungeonDiver7.getApplication();
+	if (app.getMode() == BagOStuff.STATUS_GAME) {
+	    if (this.lastUsedGameFile != null && !this.lastUsedGameFile.equals(LocaleConstants.COMMON_STRING_EMPTY)) {
+		final String extension = DungeonManager.getExtension(this.lastUsedGameFile);
+		if (extension != null) {
+		    if (!extension.equals(FileExtensions.getGameExtension())) {
+			this.lastUsedGameFile = DungeonManager.getNameWithoutExtension(this.lastUsedGameFile)
+				+ FileExtensions.getGameExtensionWithPeriod();
+		    }
+		} else {
+		    this.lastUsedGameFile += FileExtensions.getGameExtensionWithPeriod();
+		}
+		DungeonManager.saveDungeonFile(this.lastUsedGameFile, true, false);
+	    } else {
+		return this.saveDungeonAs(protect);
+	    }
+	} else {
+	    if (protect) {
+		if (this.lastUsedDungeonFile != null
+			&& !this.lastUsedDungeonFile.equals(LocaleConstants.COMMON_STRING_EMPTY)) {
+		    final String extension = DungeonManager.getExtension(this.lastUsedDungeonFile);
+		    if (extension != null) {
+			if (!extension.equals(FileExtensions.getProtectedDungeonExtension())) {
+			    this.lastUsedDungeonFile = DungeonManager.getNameWithoutExtension(this.lastUsedDungeonFile)
+				    + FileExtensions.getProtectedDungeonExtensionWithPeriod();
+			}
+		    } else {
+			this.lastUsedDungeonFile += FileExtensions.getProtectedDungeonExtensionWithPeriod();
+		    }
+		    DungeonManager.saveDungeonFile(this.lastUsedDungeonFile, false, protect);
+		} else {
+		    return this.saveDungeonAs(protect);
+		}
+	    } else {
+		if (this.lastUsedDungeonFile != null
+			&& !this.lastUsedDungeonFile.equals(LocaleConstants.COMMON_STRING_EMPTY)) {
+		    final String extension = DungeonManager.getExtension(this.lastUsedDungeonFile);
+		    if (extension != null) {
+			if (!extension.equals(FileExtensions.getDungeonExtension())) {
+			    this.lastUsedDungeonFile = DungeonManager.getNameWithoutExtension(this.lastUsedDungeonFile)
+				    + FileExtensions.getDungeonExtensionWithPeriod();
+			}
+		    } else {
+			this.lastUsedDungeonFile += FileExtensions.getDungeonExtensionWithPeriod();
+		    }
+		    DungeonManager.saveDungeonFile(this.lastUsedDungeonFile, false, protect);
+		} else {
+		    return this.saveDungeonAs(protect);
+		}
+	    }
+	}
+	return false;
+    }
+
+    public boolean saveDungeonAs(final boolean protect) {
+	final BagOStuff app = DungeonDiver7.getApplication();
+	String filename = LocaleConstants.COMMON_STRING_EMPTY;
+	String fileOnly = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
+		LocaleConstants.NOTL_STRING_DOUBLE_BACKSLASH);
+	String extension, file, dir;
+	final String lastSave = PrefsManager.getLastDirSave();
+	final FileDialog fd = new FileDialog(app.getOutputFrame(),
+		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_SAVE),
+		FileDialog.SAVE);
+	fd.setDirectory(lastSave);
+	while (!FilenameChecker.isFilenameOK(fileOnly)) {
+	    fd.setVisible(true);
+	    file = fd.getFile();
+	    dir = fd.getDirectory();
+	    if (file != null && dir != null) {
+		extension = DungeonManager.getExtension(file);
+		filename = dir + file;
+		fileOnly = filename.substring(dir.length() + 1);
+		if (!FilenameChecker.isFilenameOK(fileOnly)) {
+		    CommonDialogs.showErrorDialog(
+			    LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
+				    LocaleConstants.DIALOG_STRING_ILLEGAL_CHARACTERS),
+			    LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
+				    LocaleConstants.DIALOG_STRING_SAVE));
+		} else {
+		    PrefsManager.setLastDirSave(dir);
+		    if (app.getMode() == BagOStuff.STATUS_GAME) {
+			if (extension != null) {
+			    if (!extension.equals(FileExtensions.getGameExtension())) {
+				filename = DungeonManager.getNameWithoutExtension(file)
+					+ FileExtensions.getGameExtensionWithPeriod();
+			    }
+			} else {
+			    filename += FileExtensions.getGameExtensionWithPeriod();
+			}
+			this.lastUsedGameFile = filename;
+			DungeonManager.saveDungeonFile(filename, true, false);
+		    } else {
+			if (protect) {
+			    if (extension != null) {
+				if (!extension.equals(FileExtensions.getProtectedDungeonExtension())) {
+				    filename = DungeonManager.getNameWithoutExtension(file)
+					    + FileExtensions.getProtectedDungeonExtensionWithPeriod();
+				}
+			    } else {
+				filename += FileExtensions.getProtectedDungeonExtensionWithPeriod();
+			    }
+			    this.lastUsedDungeonFile = filename;
+			    this.scoresFileName = DungeonManager.getNameWithoutExtension(file);
+			    DungeonManager.saveDungeonFile(filename, false, protect);
+			} else {
+			    if (extension != null) {
+				if (!extension.equals(FileExtensions.getDungeonExtension())) {
+				    filename = DungeonManager.getNameWithoutExtension(file)
+					    + FileExtensions.getDungeonExtensionWithPeriod();
+				}
+			    } else {
+				filename += FileExtensions.getDungeonExtensionWithPeriod();
+			    }
+			    this.lastUsedDungeonFile = filename;
+			    this.scoresFileName = DungeonManager.getNameWithoutExtension(file);
+			    DungeonManager.saveDungeonFile(filename, false, protect);
+			}
+		    }
+		}
+	    } else {
+		break;
+	    }
+	}
+	return false;
+    }
+
+    private static void saveDungeonFile(final String filename, final boolean isSavedGame, final boolean protect) {
+	if (isSavedGame) {
+	    DungeonDiver7.getApplication().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
+		    LocaleConstants.MESSAGE_STRING_SAVING_GAME));
+	} else {
+	    DungeonDiver7.getApplication().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
+		    LocaleConstants.MESSAGE_STRING_SAVING_ARENA));
+	}
+	final DungeonSaveTask xst = new DungeonSaveTask(filename, isSavedGame, protect);
+	xst.start();
     }
 
     private static String getGameDirectoryPrefix() {
@@ -244,6 +534,15 @@ public final class DungeonManager {
 	b.append(DungeonManager.getGameDirectoryPrefix());
 	b.append(DungeonManager.getGameDirectoryName());
 	return b.toString();
+    }
+
+    private static String getExtension(final String s) {
+	String ext = null;
+	final int i = s.lastIndexOf('.');
+	if (i > 0 && i < s.length() - 1) {
+	    ext = s.substring(i + 1).toLowerCase();
+	}
+	return ext;
     }
 
     private static String getNameWithoutExtension(final String s) {

@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.ai.AbstractMapAIRoutine;
 import com.puttysoftware.dungeondiver7.ai.AutoMapAI;
@@ -29,8 +30,6 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.effect.Effect;
-import com.puttysoftware.dungeondiver7.integration1.Application;
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
@@ -117,8 +116,8 @@ public class MapBattleLogic extends AbstractBattle {
 	// Level Up Check
 	if (playerCharacter.checkLevelUp()) {
 	    playerCharacter.levelUp();
-	    Integration1.getApplication().getGameLogic().keepNextMessage();
-	    Integration1.getApplication().showMessage("You reached level " + playerCharacter.getLevel() + ".");
+	    DungeonDiver7.getApplication().getGameLogic().keepNextMessage();
+	    DungeonDiver7.getApplication().showMessage("You reached level " + playerCharacter.getLevel() + ".");
 	}
     }
 
@@ -130,8 +129,8 @@ public class MapBattleLogic extends AbstractBattle {
 	} catch (IOException e) {
 	    DungeonDiver7.getErrorLogger().logError(e);
 	}
-	Integration1.getApplication().getGameLogic().hideOutput();
-	Integration1.getApplication().setMode(Application.STATUS_BATTLE);
+	DungeonDiver7.getApplication().getGameLogic().hideOutput();
+	DungeonDiver7.getApplication().setMode(BagOStuff.STATUS_BATTLE);
 	this.bd = new MapBattleDefinitions();
 	this.bd.setBattleDungeon(bMap);
 	this.pde = AbstractDamageEngine.getPlayerInstance();
@@ -180,10 +179,10 @@ public class MapBattleLogic extends AbstractBattle {
     public void battleDone() {
 	// Leave Battle
 	this.hideBattle();
-	Integration1.getApplication().setMode(Application.STATUS_GAME);
+	DungeonDiver7.getApplication().setMode(BagOStuff.STATUS_GAME);
 	// Return to whence we came
-	Integration1.getApplication().getGameLogic().showOutput();
-	Integration1.getApplication().getGameLogic().redrawDungeon();
+	DungeonDiver7.getApplication().getGameLogic().showOutput();
+	DungeonDiver7.getApplication().getGameLogic().redrawDungeon();
     }
 
     private void clearStatusMessage() {

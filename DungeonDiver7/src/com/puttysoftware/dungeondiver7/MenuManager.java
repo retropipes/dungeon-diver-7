@@ -83,7 +83,7 @@ public class MenuManager implements MenuSection {
     }
 
     public void checkFlags() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	if (app.getDungeonManager().getLoaded()) {
 	    for (final MenuSection mgr : this.modeMgrs) {
 		mgr.enableLoadedCommands();
@@ -113,7 +113,7 @@ public class MenuManager implements MenuSection {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		final Application app = DungeonDiver7.getApplication();
+		final BagOStuff app = DungeonDiver7.getApplication();
 		final String cmd = e.getActionCommand();
 		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 			LocaleConstants.MENU_STRING_ITEM_PLAY))) {
@@ -185,7 +185,7 @@ public class MenuManager implements MenuSection {
 
     @Override
     public void enableLoadedCommands() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	if (app.getDungeonManager().getDungeon().doesPlayerExist(0)) {
 	    this.playPlay.setEnabled(true);
 	} else {

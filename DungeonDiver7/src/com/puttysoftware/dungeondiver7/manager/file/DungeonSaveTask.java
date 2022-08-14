@@ -3,17 +3,18 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package com.puttysoftware.dungeondiver7.dungeon;
+package com.puttysoftware.dungeondiver7.manager.file;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.Extension;
+import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 import com.puttysoftware.fileutils.ZipUtilities;
 
 public class DungeonSaveTask extends Thread {
@@ -33,15 +34,15 @@ public class DungeonSaveTask extends Thread {
 
     @Override
     public void run() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	boolean success = true;
 	// filename check
 	final boolean hasExtension = DungeonSaveTask.hasExtension(this.filename);
 	if (!hasExtension) {
 	    if (this.isSavedGame) {
-		this.filename += Extension.getGameExtensionWithPeriod();
+		this.filename += FileExtensions.getGameExtensionWithPeriod();
 	    } else {
-		this.filename += Extension.getDungeonExtensionWithPeriod();
+		this.filename += FileExtensions.getDungeonExtensionWithPeriod();
 	    }
 	}
 	final File dungeonFile = new File(this.filename);
@@ -87,7 +88,7 @@ public class DungeonSaveTask extends Thread {
 	    DungeonDiver7.getApplication().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
 		    LocaleConstants.MESSAGE_STRING_DUNGEON_SAVED));
 	}
-	app.getDungeonManager().handleDeferredSuccess(success);
+	app.getDungeonManager().handleDeferredSuccess(success, false, null);
     }
 
     private static boolean hasExtension(final String s) {

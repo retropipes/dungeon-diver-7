@@ -14,17 +14,14 @@ import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.VersionException;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
-import com.puttysoftware.dungeondiver7.integration1.Application;
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
-import com.puttysoftware.dungeondiver7.integration1.VersionException;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
-import com.puttysoftware.dungeondiver7.manager.dungeon.PrefixHandler;
-import com.puttysoftware.dungeondiver7.manager.dungeon.SuffixHandler;
 import com.puttysoftware.dungeondiver7.utility.ImageColorConstants;
 import com.puttysoftware.fileutils.ZipUtilities;
 
@@ -54,7 +51,7 @@ public class GameLoadTask extends Thread {
 	final File mazeFile = new File(this.filename);
 	try {
 	    this.loadFrame.setVisible(true);
-	    final Application app = Integration1.getApplication();
+	    final BagOStuff app = DungeonDiver7.getApplication();
 	    int startW;
 	    app.getGameLogic().setSavedGameFlag(false);
 	    final File tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
@@ -94,15 +91,15 @@ public class GameLoadTask extends Thread {
 	} catch (final VersionException ve) {
 	    CommonDialogs.showDialog(
 		    "Loading the " + sg.toLowerCase() + " failed, due to the format version being unsupported.");
-	    Integration1.getApplication().getDungeonManager().handleDeferredSuccess(false, true, mazeFile);
+	    DungeonDiver7.getApplication().getDungeonManager().handleDeferredSuccess(false, true, mazeFile);
 	} catch (final FileNotFoundException fnfe) {
 	    CommonDialogs.showDialog("Loading the " + sg.toLowerCase()
 		    + " failed, probably due to illegal characters in the file name.");
-	    Integration1.getApplication().getDungeonManager().handleDeferredSuccess(false, false, null);
+	    DungeonDiver7.getApplication().getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final IOException ie) {
 	    CommonDialogs
 		    .showDialog("Loading the " + sg.toLowerCase() + " failed, due to some other type of I/O error.");
-	    Integration1.getApplication().getDungeonManager().handleDeferredSuccess(false, false, null);
+	    DungeonDiver7.getApplication().getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final Exception ex) {
 	    DungeonDiver7.getErrorLogger().logError(ex);
 	} finally {

@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
@@ -21,7 +21,7 @@ public abstract class AbstractTriggerButton extends AbstractButton {
 
     @Override
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	if (this.isUniversal() || pushed.getMaterial() == this.getMaterial()) {
 	    SoundLoader.playSound(SoundConstants.BUTTON);
 	    if (this.isTriggered()) {

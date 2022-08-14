@@ -11,9 +11,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.BitSet;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.loader.BattleImageManager;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
@@ -399,7 +398,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      */
     public void moveFailedAction(final int locX, final int locY, final int locZ) {
 	SoundLoader.playSound(SoundConstants.FAILED);
-	Integration1.getApplication().showMessage("Can't go that way");
+	DungeonDiver7.getApplication().showMessage("Can't go that way");
     }
 
     /**
@@ -411,7 +410,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      */
     public void interactAction() {
 	SoundLoader.playSound(SoundConstants.FAILED);
-	Integration1.getApplication().showMessage("Can't interact with that");
+	DungeonDiver7.getApplication().showMessage("Can't interact with that");
     }
 
     public AbstractDungeonObject attributeGameRenderHook() {
@@ -854,7 +853,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     }
 
     @Override
-    public boolean shouldGenerateObject(final CurrentDungeon dungeon, final int row, final int col, final int level,
+    public boolean shouldGenerateObject(final AbstractDungeon dungeon, final int row, final int col, final int level,
 	    final int layer) {
 	if (layer == DungeonConstants.LAYER_LOWER_OBJECTS) {
 	    // Handle object layer
@@ -892,17 +891,17 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     }
 
     @Override
-    public int getMinimumRequiredQuantity(final CurrentDungeon dungeon) {
+    public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
 	return RandomGenerationRule.NO_LIMIT;
     }
 
     @Override
-    public int getMaximumRequiredQuantity(final CurrentDungeon dungeon) {
+    public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
 	return RandomGenerationRule.NO_LIMIT;
     }
 
     @Override
-    public boolean isRequired(final CurrentDungeon dungeon) {
+    public boolean isRequired(final AbstractDungeon dungeon) {
 	return false;
     }
 

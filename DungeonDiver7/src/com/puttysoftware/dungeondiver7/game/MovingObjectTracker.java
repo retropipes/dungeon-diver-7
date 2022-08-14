@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.game;
 
-import com.puttysoftware.dungeondiver7.Application;
+import com.puttysoftware.dungeondiver7.BagOStuff;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
@@ -146,7 +146,7 @@ final class MovingObjectTracker {
     }
 
     private void doNormalObjectOnce() {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	final GameManager gm = app.getGameManager();
 	final int pz = gm.getPlayerManager().getPlayerLocationZ();
@@ -248,7 +248,7 @@ final class MovingObjectTracker {
     }
 
     private void doJumpObjectOnce(final AbstractJumpObject jumper) {
-	final Application app = DungeonDiver7.getApplication();
+	final BagOStuff app = DungeonDiver7.getApplication();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	final GameManager gm = app.getGameManager();
 	final int pz = gm.getPlayerManager().getPlayerLocationZ();

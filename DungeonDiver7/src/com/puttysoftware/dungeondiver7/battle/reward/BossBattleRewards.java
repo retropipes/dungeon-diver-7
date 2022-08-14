@@ -5,10 +5,10 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.battle.reward;
 
+import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.battle.BattleResult;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
-import com.puttysoftware.dungeondiver7.integration1.Integration1;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 
@@ -34,7 +34,7 @@ class BossBattleRewards {
 	} else if (br == BattleResult.WON || br == BattleResult.PERFECT) {
 	    SoundLoader.playSound(SoundConstants.BOSS_DIE);
 	    // Send player to next zone
-	    Integration1.getApplication().getGameLogic().goToLevelOffset(1);
+	    DungeonDiver7.getApplication().getGameLogic().goToLevelOffset(1);
 	}
     }
 }

@@ -7,18 +7,18 @@ package com.puttysoftware.dungeondiver7.creature.party;
 
 import java.io.IOException;
 
+import com.puttysoftware.dungeondiver7.VersionException;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
 import com.puttysoftware.dungeondiver7.creature.caste.Caste;
 import com.puttysoftware.dungeondiver7.creature.caste.CasteManager;
 import com.puttysoftware.dungeondiver7.creature.gender.Gender;
 import com.puttysoftware.dungeondiver7.dungeon.current.GenerateDungeonTask;
-import com.puttysoftware.dungeondiver7.integration1.VersionException;
 import com.puttysoftware.dungeondiver7.item.ItemInventory;
 import com.puttysoftware.dungeondiver7.loader.AvatarImageManager;
-import com.puttysoftware.dungeondiver7.manager.dungeon.FormatConstants;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.spell.SpellBook;
+import com.puttysoftware.dungeondiver7.utility.FormatConstants;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 import com.puttysoftware.images.BufferedImageIcon;
