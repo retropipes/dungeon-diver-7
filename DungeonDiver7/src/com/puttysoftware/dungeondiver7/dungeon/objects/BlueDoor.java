@@ -28,7 +28,7 @@ public class BlueDoor extends AbstractDoor {
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	SoundLoader.playSound(SoundConstants.UNLOCK);
 	PartyInventory.useBlueKey();
-	DungeonDiver7.getApplication().getGameLogic();
+	DungeonDiver7.getStuffBag().getGameLogic();
 	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 

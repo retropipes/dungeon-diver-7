@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
@@ -85,19 +85,19 @@ public final class DungeonManager {
 	    triedToLoad.delete();
 	}
 	this.setDirty(false);
-	DungeonDiver7.getApplication().getGameLogic().stateChanged();
-	DungeonDiver7.getApplication().getMenuManager().checkFlags();
+	DungeonDiver7.getStuffBag().getGameLogic().stateChanged();
+	DungeonDiver7.getStuffBag().getMenuManager().checkFlags();
     }
 
     public static int showSaveDialog() {
 	String type, source;
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final int mode = app.getMode();
-	if (mode == BagOStuff.STATUS_EDITOR) {
+	if (mode == StuffBag.STATUS_EDITOR) {
 	    type = LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
 		    LocaleConstants.DIALOG_STRING_PROMPT_SAVE_ARENA);
 	    source = LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE, LocaleConstants.EDITOR_STRING_EDITOR);
-	} else if (mode == BagOStuff.STATUS_GAME) {
+	} else if (mode == StuffBag.STATUS_GAME) {
 	    type = LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
 		    LocaleConstants.DIALOG_STRING_PROMPT_SAVE_GAME);
 	    source = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
@@ -114,7 +114,7 @@ public final class DungeonManager {
     }
 
     public void setLoaded(final boolean status) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	this.loaded = status;
 	app.getMenuManager().checkFlags();
     }
@@ -124,7 +124,7 @@ public final class DungeonManager {
     }
 
     public void setDirty(final boolean newDirty) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	this.isDirty = newDirty;
 	final JFrame frame = app.getOutputFrame();
 	if (frame != null) {
@@ -269,7 +269,7 @@ public final class DungeonManager {
 
     private static void saveGameFile(final String filename) {
 	final String sg = "Saved Game";
-	DungeonDiver7.getApplication().showMessage("Saving " + sg + " file...");
+	DungeonDiver7.getStuffBag().showMessage("Saving " + sg + " file...");
 	final GameSaveTask lst = new GameSaveTask(filename);
 	lst.start();
     }
@@ -289,7 +289,7 @@ public final class DungeonManager {
     }
 
     private boolean loadDungeonImpl(final String initialDirectory) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	int status = 0;
 	boolean saved = true;
 	String filename, extension, file, dir;
@@ -362,8 +362,8 @@ public final class DungeonManager {
     }
 
     public boolean saveDungeon(final boolean protect) {
-	final BagOStuff app = DungeonDiver7.getApplication();
-	if (app.getMode() == BagOStuff.STATUS_GAME) {
+	final StuffBag app = DungeonDiver7.getStuffBag();
+	if (app.getMode() == StuffBag.STATUS_GAME) {
 	    if (this.lastUsedGameFile != null && !this.lastUsedGameFile.equals(LocaleConstants.COMMON_STRING_EMPTY)) {
 		final String extension = DungeonManager.getExtension(this.lastUsedGameFile);
 		if (extension != null) {
@@ -417,7 +417,7 @@ public final class DungeonManager {
     }
 
     public boolean saveDungeonAs(final boolean protect) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	String filename = LocaleConstants.COMMON_STRING_EMPTY;
 	String fileOnly = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		LocaleConstants.NOTL_STRING_DOUBLE_BACKSLASH);
@@ -443,7 +443,7 @@ public final class DungeonManager {
 				    LocaleConstants.DIALOG_STRING_SAVE));
 		} else {
 		    PrefsManager.setLastDirSave(dir);
-		    if (app.getMode() == BagOStuff.STATUS_GAME) {
+		    if (app.getMode() == StuffBag.STATUS_GAME) {
 			if (extension != null) {
 			    if (!extension.equals(FileExtensions.getGameExtension())) {
 				filename = DungeonManager.getNameWithoutExtension(file)
@@ -491,10 +491,10 @@ public final class DungeonManager {
 
     private static void saveDungeonFile(final String filename, final boolean isSavedGame, final boolean protect) {
 	if (isSavedGame) {
-	    DungeonDiver7.getApplication().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
+	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
 		    LocaleConstants.MESSAGE_STRING_SAVING_GAME));
 	} else {
-	    DungeonDiver7.getApplication().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
+	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
 		    LocaleConstants.MESSAGE_STRING_SAVING_ARENA));
 	}
 	final DungeonSaveTask xst = new DungeonSaveTask(filename, isSavedGame, protect);

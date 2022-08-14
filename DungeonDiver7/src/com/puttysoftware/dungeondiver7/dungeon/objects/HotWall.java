@@ -30,14 +30,14 @@ public class HotWall extends AbstractWall {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 	    // Disrupt hot wall
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedHotWall(), locX, locY, locZ,
 		    this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
 	    // Cool off hot wall
 	    SoundLoader.playSound(SoundConstants.COOL_OFF);
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Wall(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {

@@ -43,17 +43,17 @@ public class RollingBarrelVertical extends AbstractMovableObject {
 	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	} else {
 	    // Break up
-	    final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	    final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	    // Boom!
 	    SoundLoader.playSound(SoundConstants.BARREL);
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy barrel
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    // Check for tank in range of explosion
 	    final boolean target = a.circularScanPlayer(locX, locY, locZ, 1);
 	    if (target) {
 		// Kill tank
-		DungeonDiver7.getApplication().getGameLogic().gameOver();
+		DungeonDiver7.getStuffBag().getGameLogic().gameOver();
 	    }
 	    if (laserType == ArrowTypeConstants.LASER_TYPE_POWER) {
 		// Laser keeps going
@@ -68,17 +68,17 @@ public class RollingBarrelVertical extends AbstractMovableObject {
     @Override
     public void pushCollideAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
 	// Break up
-	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	// Boom!
 	SoundLoader.playSound(SoundConstants.BARREL);
-	DungeonDiver7.getApplication().getGameLogic();
+	DungeonDiver7.getStuffBag().getGameLogic();
 	// Destroy barrel
 	GameLogic.morph(new Empty(), x, y, z, this.getLayer());
 	// Check for tank in range of explosion
 	final boolean target = a.circularScanPlayer(x, y, z, 1);
 	if (target) {
 	    // Kill tank
-	    DungeonDiver7.getApplication().getGameLogic().gameOver();
+	    DungeonDiver7.getStuffBag().getGameLogic().gameOver();
 	}
     }
 }

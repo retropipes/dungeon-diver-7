@@ -6,7 +6,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.game;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
@@ -80,7 +80,7 @@ final class MovementTask extends Thread {
     }
 
     void fireStepActions() {
-	final AbstractDungeon m = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	final AbstractDungeon m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	final int px = m.getPlayerLocationX(0);
 	final int py = m.getPlayerLocationY(0);
 	m.updateVisibleSquares(px, py, 0);
@@ -90,7 +90,7 @@ final class MovementTask extends Thread {
     }
 
     private void updatePositionRelative(final int dirX, final int dirY) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	int px = m.getPlayerLocationX(0);
 	int py = m.getPlayerLocationY(0);
@@ -221,7 +221,7 @@ final class MovementTask extends Thread {
     }
 
     private void updatePositionAbsolute(final int x, final int y) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	try {
 	    m.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS).preMoveAction(true, x, y);

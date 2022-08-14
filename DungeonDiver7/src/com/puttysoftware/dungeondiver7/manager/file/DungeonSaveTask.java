@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
@@ -34,7 +34,7 @@ public class DungeonSaveTask extends Thread {
 
     @Override
     public void run() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	boolean success = true;
 	// filename check
 	final boolean hasExtension = DungeonSaveTask.hasExtension(this.filename);
@@ -82,10 +82,10 @@ public class DungeonSaveTask extends Thread {
 	    DungeonDiver7.logError(ex);
 	}
 	if (this.isSavedGame) {
-	    DungeonDiver7.getApplication().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
+	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
 		    LocaleConstants.MESSAGE_STRING_GAME_SAVED));
 	} else {
-	    DungeonDiver7.getApplication().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
+	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
 		    LocaleConstants.MESSAGE_STRING_DUNGEON_SAVED));
 	}
 	app.getDungeonManager().handleDeferredSuccess(success, false, null);

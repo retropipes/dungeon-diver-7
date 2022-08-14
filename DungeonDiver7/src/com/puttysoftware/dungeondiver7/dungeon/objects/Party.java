@@ -24,7 +24,7 @@ public class Party extends AbstractCharacter {
 
     @Override
     public void editorPlaceHook(final int x, final int y, final int z) {
-	final DungeonEditor me = DungeonDiver7.getApplication().getEditor();
+	final DungeonEditor me = DungeonDiver7.getStuffBag().getEditor();
 	me.setPlayerLocation();
     }
 

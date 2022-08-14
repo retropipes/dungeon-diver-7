@@ -72,7 +72,7 @@ public class PrefsManager {
     public static void setEditorLayoutID(final int value) {
 	PrefsManager.storeMgr.setInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		LocaleConstants.NOTL_STRING_PREFS_KEY_EDITOR_LAYOUT_ID), value);
-	DungeonDiver7.getApplication().getEditor().resetBorderPane();
+	DungeonDiver7.getStuffBag().getEditor().resetBorderPane();
     }
 
     public static boolean getEditorShowAllObjects() {
@@ -83,7 +83,7 @@ public class PrefsManager {
     public static void setEditorShowAllObjects(final boolean value) {
 	PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		LocaleConstants.NOTL_STRING_PREFS_KEY_EDITOR_SHOW_ALL), value);
-	DungeonDiver7.getApplication().getEditor().resetBorderPane();
+	DungeonDiver7.getStuffBag().getEditor().resetBorderPane();
     }
 
     public static int getLanguageID() {

@@ -36,13 +36,13 @@ public class DisruptedWoodenWall extends AbstractDisruptedObject {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy disrupted wooden wall
 	    SoundLoader.playSound(SoundConstants.BOOM);
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
 	    // Freeze disrupted wooden wall
 	    SoundLoader.playSound(SoundConstants.FROZEN);
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedIcyWall(this.disruptionLeft), locX, locY,
 		    locZ, this.getLayer());
 	    return Direction.NONE;
@@ -57,8 +57,8 @@ public class DisruptedWoodenWall extends AbstractDisruptedObject {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
 	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
-	    final int z = DungeonDiver7.getApplication().getGameLogic().getPlayerManager().getPlayerLocationZ();
-	    DungeonDiver7.getApplication().getGameLogic();
+	    final int z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new WoodenWall(), locX, locY, z, this.getLayer());
 	} else {
 	    this.activateTimer(1);

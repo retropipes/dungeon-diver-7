@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.utility.FileExtensions;
@@ -31,7 +31,7 @@ public class GameSaveTask extends Thread {
 	boolean success = true;
 	final String sg = "Game";
 	try {
-	    final BagOStuff app = DungeonDiver7.getApplication();
+	    final StuffBag app = DungeonDiver7.getStuffBag();
 	    // filename check
 	    final boolean hasExtension = GameSaveTask.hasExtension(this.filename);
 	    if (!hasExtension) {
@@ -59,7 +59,7 @@ public class GameSaveTask extends Thread {
 	} catch (final Exception ex) {
 	    DungeonDiver7.logError(ex);
 	}
-	DungeonDiver7.getApplication().getDungeonManager().handleDeferredSuccess(success, false, null);
+	DungeonDiver7.getStuffBag().getDungeonManager().handleDeferredSuccess(success, false, null);
     }
 
     private static boolean hasExtension(final String s) {

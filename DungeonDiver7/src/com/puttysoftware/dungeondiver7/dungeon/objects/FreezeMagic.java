@@ -21,8 +21,8 @@ public class FreezeMagic extends AbstractSpell {
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	SoundLoader.playSound(SoundConstants.FREEZE_MAGIC);
-	DungeonDiver7.getApplication().getDungeonManager().getDungeon().fullScanFreezeGround();
-	DungeonDiver7.getApplication().getGameLogic();
+	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().fullScanFreezeGround();
+	DungeonDiver7.getStuffBag().getGameLogic();
 	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 

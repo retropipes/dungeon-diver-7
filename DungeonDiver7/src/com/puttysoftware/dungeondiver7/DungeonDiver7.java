@@ -21,7 +21,7 @@ public class DungeonDiver7 {
     }
 
     // Constants
-    private static BagOStuff bagOStuff;
+    private static StuffBag stuffBag;
     private static String PROGRAM_NAME = "Dungeon Diver 7";
     private static String ERROR_MESSAGE = null;
     private static String ERROR_TITLE = null;
@@ -31,8 +31,8 @@ public class DungeonDiver7 {
     private static final int DUNGEON_SIZE_INCREMENT = 2;
 
     // Methods
-    public static BagOStuff getApplication() {
-	return DungeonDiver7.bagOStuff;
+    public static StuffBag getStuffBag() {
+	return DungeonDiver7.stuffBag;
     }
 
     public static void logError(final Throwable t) {
@@ -76,7 +76,7 @@ public class DungeonDiver7 {
 	    Integration i = new Integration();
 	    i.configureLookAndFeel();
 	    // Create and initialize application
-	    DungeonDiver7.bagOStuff = new BagOStuff();
+	    DungeonDiver7.stuffBag = new StuffBag();
 	    // Set Up Common Dialogs
 	    CommonDialogs.setDefaultTitle(DungeonDiver7.PROGRAM_NAME);
 	    CommonDialogs.setIcon(LogoLoader.getMicroLogo());
@@ -84,11 +84,11 @@ public class DungeonDiver7 {
 	    PrefsManager.readPrefs();
 	    LocaleLoader.activeLanguageChanged(PrefsManager.getLanguageID());
 	    // Register platform hooks
-	    i.setAboutHandler(DungeonDiver7.bagOStuff.getAboutDialog());
+	    i.setAboutHandler(DungeonDiver7.stuffBag.getAboutDialog());
 	    i.setPreferencesHandler(new PrefsRequestHandler());
-	    i.setQuitHandler(DungeonDiver7.bagOStuff.getGUIManager());
+	    i.setQuitHandler(DungeonDiver7.stuffBag.getGUIManager());
 	    // Display GUI
-	    DungeonDiver7.bagOStuff.getGUIManager().showGUI();
+	    DungeonDiver7.stuffBag.getGUIManager().showGUI();
 	} catch (final Throwable t) {
 	    DungeonDiver7.logError(t);
 	}

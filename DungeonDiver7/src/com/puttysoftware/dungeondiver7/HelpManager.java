@@ -28,7 +28,7 @@ class HelpManager {
     // Methods
     void showHelp() {
 	this.initHelp();
-	DungeonDiver7.getApplication().setInHelp();
+	DungeonDiver7.getStuffBag().setInHelp();
 	this.helpFrame.setVisible(true);
     }
 

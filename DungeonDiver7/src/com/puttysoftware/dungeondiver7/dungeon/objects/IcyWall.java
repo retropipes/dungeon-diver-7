@@ -34,7 +34,7 @@ public class IcyWall extends AbstractWall {
 	    if (this.hasPreviousState()) {
 		diw.setPreviousState(this.getPreviousState());
 	    }
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(diw, locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
@@ -46,7 +46,7 @@ public class IcyWall extends AbstractWall {
 	    } else {
 		ao = new Wall();
 	    }
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(ao, locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {

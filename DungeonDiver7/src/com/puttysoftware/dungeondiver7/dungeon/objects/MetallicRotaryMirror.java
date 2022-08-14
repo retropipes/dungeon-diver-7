@@ -79,7 +79,7 @@ public class MetallicRotaryMirror extends AbstractReactionWall {
 	// Rotate mirror
 	this.toggleDirection();
 	SoundLoader.playSound(SoundConstants.ROTATE);
-	DungeonDiver7.getApplication().getDungeonManager().getDungeon().markAsDirty(locX + dirX, locY + dirY, locZ);
+	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().markAsDirty(locX + dirX, locY + dirY, locZ);
 	return true;
     }
 

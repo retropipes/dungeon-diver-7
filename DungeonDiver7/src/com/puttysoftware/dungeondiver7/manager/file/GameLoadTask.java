@@ -14,7 +14,7 @@ import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.VersionException;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
@@ -51,7 +51,7 @@ public class GameLoadTask extends Thread {
 	final File mazeFile = new File(this.filename);
 	try {
 	    this.loadFrame.setVisible(true);
-	    final BagOStuff app = DungeonDiver7.getApplication();
+	    final StuffBag app = DungeonDiver7.getStuffBag();
 	    int startW;
 	    app.getGameLogic().setSavedGameFlag(false);
 	    final File tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
@@ -91,15 +91,15 @@ public class GameLoadTask extends Thread {
 	} catch (final VersionException ve) {
 	    CommonDialogs.showDialog(
 		    "Loading the " + sg.toLowerCase() + " failed, due to the format version being unsupported.");
-	    DungeonDiver7.getApplication().getDungeonManager().handleDeferredSuccess(false, true, mazeFile);
+	    DungeonDiver7.getStuffBag().getDungeonManager().handleDeferredSuccess(false, true, mazeFile);
 	} catch (final FileNotFoundException fnfe) {
 	    CommonDialogs.showDialog("Loading the " + sg.toLowerCase()
 		    + " failed, probably due to illegal characters in the file name.");
-	    DungeonDiver7.getApplication().getDungeonManager().handleDeferredSuccess(false, false, null);
+	    DungeonDiver7.getStuffBag().getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final IOException ie) {
 	    CommonDialogs
 		    .showDialog("Loading the " + sg.toLowerCase() + " failed, due to some other type of I/O error.");
-	    DungeonDiver7.getApplication().getDungeonManager().handleDeferredSuccess(false, false, null);
+	    DungeonDiver7.getStuffBag().getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final Exception ex) {
 	    DungeonDiver7.logError(ex);
 	} finally {

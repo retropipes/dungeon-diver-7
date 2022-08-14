@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
@@ -52,7 +52,7 @@ public class WoodenBox extends AbstractMovableObject {
     @Override
     public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	if (forceUnits >= this.getMinimumReactionForce()) {
 	    final AbstractDungeonObject mof = app.getDungeonManager().getDungeon().getCell(locX + dirX, locY + dirY,
 		    locZ, this.getLayer());

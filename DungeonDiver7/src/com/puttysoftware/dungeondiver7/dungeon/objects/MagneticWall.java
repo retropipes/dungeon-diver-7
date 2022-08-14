@@ -29,7 +29,7 @@ public class MagneticWall extends AbstractWall {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 	    // Disrupt magnetic wall
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedMagneticWall(), locX, locY, locZ,
 		    this.getLayer());
 	    return Direction.NONE;

@@ -51,19 +51,19 @@ class LevelPreferencesManager {
     // Methods
     void showPrefs() {
 	this.loadPrefs();
-	DungeonDiver7.getApplication().getEditor().disableOutput();
+	DungeonDiver7.getStuffBag().getEditor().disableOutput();
 	this.prefFrame.setVisible(true);
     }
 
     void hidePrefs() {
 	this.prefFrame.setVisible(false);
-	DungeonDiver7.getApplication().getEditor().enableOutput();
-	DungeonDiver7.getApplication().getDungeonManager().setDirty(true);
-	DungeonDiver7.getApplication().getEditor().redrawEditor();
+	DungeonDiver7.getStuffBag().getEditor().enableOutput();
+	DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
+	DungeonDiver7.getStuffBag().getEditor().redrawEditor();
     }
 
     void setPrefs() {
-	final AbstractDungeon m = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	final AbstractDungeon m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	if (this.horizontalWrap.isSelected()) {
 	    m.enableHorizontalWraparound();
 	} else {
@@ -87,7 +87,7 @@ class LevelPreferencesManager {
     }
 
     private void loadPrefs() {
-	final AbstractDungeon m = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	final AbstractDungeon m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	this.horizontalWrap.setSelected(m.isHorizontalWraparoundEnabled());
 	this.verticalWrap.setSelected(m.isVerticalWraparoundEnabled());
 	this.thirdWrap.setSelected(m.isThirdDimensionWraparoundEnabled());

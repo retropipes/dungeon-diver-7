@@ -29,17 +29,17 @@ public class Barrel extends AbstractReactionWall {
     @Override
     public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
 	    final int dirY, final int laserType, final int forceUnits) {
-	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	// Boom!
 	SoundLoader.playSound(SoundConstants.BARREL);
-	DungeonDiver7.getApplication().getGameLogic();
+	DungeonDiver7.getStuffBag().getGameLogic();
 	// Destroy barrel
 	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	// Check for tank in range of explosion
 	final boolean target = a.circularScanPlayer(locX, locY, locZ, 1);
 	if (target) {
 	    // Kill tank
-	    DungeonDiver7.getApplication().getGameLogic().gameOver();
+	    DungeonDiver7.getStuffBag().getGameLogic().gameOver();
 	}
 	if (laserType == ArrowTypeConstants.LASER_TYPE_POWER) {
 	    // Laser keeps going
@@ -53,17 +53,17 @@ public class Barrel extends AbstractReactionWall {
     @Override
     public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
-	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	// Boom!
 	SoundLoader.playSound(SoundConstants.BARREL);
 	// Check for tank in range of explosion
 	final boolean target = a.circularScanPlayer(locX + dirX, locY + dirY, locZ, 1);
 	if (target) {
 	    // Kill tank
-	    DungeonDiver7.getApplication().getGameLogic().gameOver();
+	    DungeonDiver7.getStuffBag().getGameLogic().gameOver();
 	    return true;
 	}
-	DungeonDiver7.getApplication().getGameLogic();
+	DungeonDiver7.getStuffBag().getGameLogic();
 	// Destroy barrel
 	GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ,
 		this.getLayer());

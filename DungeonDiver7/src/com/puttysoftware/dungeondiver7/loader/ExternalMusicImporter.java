@@ -35,7 +35,7 @@ public class ExternalMusicImporter {
 	    }
 	    FileUtilities.copyFile(source, dest);
 	    MusicLoader.deleteExternalMusicFile();
-	    DungeonDiver7.getApplication().getEditor().setMusicFilename(musicfilename);
+	    DungeonDiver7.getStuffBag().getEditor().setMusicFilename(musicfilename);
 	    CommonDialogs.showDialog("Music successfully imported.");
 	} catch (final IOException io) {
 	    // Ignore

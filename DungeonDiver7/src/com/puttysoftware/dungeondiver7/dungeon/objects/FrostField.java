@@ -19,7 +19,7 @@ public class FrostField extends AbstractField {
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	SoundLoader.playSound(SoundConstants.FROZEN);
-	DungeonDiver7.getApplication().getGameLogic().updatePositionRelativeFrozen();
+	DungeonDiver7.getStuffBag().getGameLogic().updatePositionRelativeFrozen();
     }
 
     @Override

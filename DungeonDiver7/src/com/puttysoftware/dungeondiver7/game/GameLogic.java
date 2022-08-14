@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.Accelerators;
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.MenuSection;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
@@ -242,8 +242,8 @@ public final class GameLogic implements MenuSection {
     }
 
     private static void checkMenus() {
-	final DungeonEditor edit = DungeonDiver7.getApplication().getEditor();
-	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	final DungeonEditor edit = DungeonDiver7.getStuffBag().getEditor();
+	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	if (a.tryUndo()) {
 	    edit.enableUndo();
 	} else {
@@ -328,7 +328,7 @@ public final class GameLogic implements MenuSection {
     }
 
     private void resetPlayer() {
-	DungeonDiver7.getApplication().getDungeonManager().getDungeon().setCell(this.player,
+	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().setCell(this.player,
 		this.plMgr.getPlayerLocationX(), this.plMgr.getPlayerLocationY(), this.plMgr.getPlayerLocationZ(),
 		this.player.getLayer());
 	this.markPlayerAsDirty();
@@ -351,7 +351,7 @@ public final class GameLogic implements MenuSection {
     }
 
     private void updateInfo() {
-	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	this.levelInfo
 		.setText(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE, LocaleConstants.GAME_STRING_LEVEL)
 			+ LocaleConstants.COMMON_STRING_SPACE + (a.getActiveLevel() + 1)
@@ -558,7 +558,7 @@ public final class GameLogic implements MenuSection {
 
     void updatePlayer() {
 	final Party template = new Party(this.plMgr.getActivePlayerNumber() + 1);
-	this.player = (AbstractCharacter) DungeonDiver7.getApplication().getDungeonManager().getDungeon().getCell(
+	this.player = (AbstractCharacter) DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
 		this.plMgr.getPlayerLocationX(), this.plMgr.getPlayerLocationY(), this.plMgr.getPlayerLocationZ(),
 		template.getLayer());
     }
@@ -592,7 +592,7 @@ public final class GameLogic implements MenuSection {
     }
 
     void markPlayerAsDirty() {
-	DungeonDiver7.getApplication().getDungeonManager().getDungeon().markAsDirty(this.plMgr.getPlayerLocationX(),
+	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().markAsDirty(this.plMgr.getPlayerLocationX(),
 		this.plMgr.getPlayerLocationY(), this.plMgr.getPlayerLocationZ());
     }
 
@@ -622,7 +622,7 @@ public final class GameLogic implements MenuSection {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 		    LocaleConstants.GAME_STRING_OUT_OF_DISRUPTORS));
 	} else {
-	    final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	    final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	    if (!a.isMoveShootAllowed() && !this.shotActive || a.isMoveShootAllowed()) {
 		this.shotActive = true;
 		final int[] currDirection = DirectionResolver.unresolveRelativeDirection(shooter.getDirection());
@@ -666,13 +666,13 @@ public final class GameLogic implements MenuSection {
 	} else if (this.otherRangeMode == GameLogic.OTHER_RANGE_MODE_ICE_BOMBS) {
 	    GameLogic.updateUndo(false, false, false, false, false, false, false, false, false, true);
 	}
-	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	final int px = this.plMgr.getPlayerLocationX();
 	final int py = this.plMgr.getPlayerLocationY();
 	final int pz = this.plMgr.getPlayerLocationZ();
 	a.circularScanRange(px, py, pz, 1, this.otherRangeMode, AbstractDungeonObject
 		.getImbuedRangeForce(RangeTypeConstants.getMaterialForRangeType(this.otherRangeMode)));
-	DungeonDiver7.getApplication().getDungeonManager().getDungeon().tickTimers(pz, ActionConstants.ACTION_NON_MOVE);
+	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().tickTimers(pz, ActionConstants.ACTION_NON_MOVE);
 	this.updateScoreText();
     }
 
@@ -746,7 +746,7 @@ public final class GameLogic implements MenuSection {
     public void updatePushedIntoPositionAbsolute(final int x, final int y, final int z, final int x2, final int y2,
 	    final int z2, final AbstractMovableObject pushedInto, final AbstractDungeonObject source) {
 	final Party template = new Party(this.plMgr.getActivePlayerNumber() + 1);
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	boolean needsFixup1 = false;
 	boolean needsFixup2 = false;
@@ -790,7 +790,7 @@ public final class GameLogic implements MenuSection {
 
     public void updatePositionAbsoluteNoEvents(final int x, final int y, final int z) {
 	final Party template = new Party(this.plMgr.getActivePlayerNumber() + 1);
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	this.plMgr.savePlayerLocation();
 	try {
@@ -816,13 +816,13 @@ public final class GameLogic implements MenuSection {
 	    this.plMgr.restorePlayerLocation();
 	    m.setCell(this.player, this.plMgr.getPlayerLocationX(), this.plMgr.getPlayerLocationY(),
 		    this.plMgr.getPlayerLocationZ(), template.getLayer());
-	    DungeonDiver7.getApplication().showMessage(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
+	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 		    LocaleConstants.GAME_STRING_OUTSIDE_ARENA));
 	} catch (final NullPointerException np) {
 	    this.plMgr.restorePlayerLocation();
 	    m.setCell(this.player, this.plMgr.getPlayerLocationX(), this.plMgr.getPlayerLocationY(),
 		    this.plMgr.getPlayerLocationZ(), template.getLayer());
-	    DungeonDiver7.getApplication().showMessage(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
+	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 		    LocaleConstants.GAME_STRING_OUTSIDE_ARENA));
 	}
     }
@@ -899,7 +899,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void resetGameState() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	app.getDungeonManager().setDirty(false);
 	m.restore();
@@ -912,7 +912,7 @@ public final class GameLogic implements MenuSection {
     }
 
     private void resetLevel(final boolean flag) throws InvalidDungeonException {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	if (flag) {
 	    m.resetHistoryEngine();
@@ -942,7 +942,7 @@ public final class GameLogic implements MenuSection {
     }
 
     private void processLevelExists() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	try {
 	    this.resetPlayerLocation();
 	} catch (final InvalidDungeonException iae) {
@@ -1043,7 +1043,7 @@ public final class GameLogic implements MenuSection {
 	if (playSound) {
 	    SoundLoader.playSound(SoundConstants.END_LEVEL);
 	}
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	if (playSound) {
 	    if (this.recording) {
@@ -1073,7 +1073,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void previousLevel() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	m.resetHistoryEngine();
 	this.gre = new GameReplayEngine();
@@ -1103,7 +1103,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void loadLevel() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	final String[] choices = app.getLevelInfoList();
 	final String res = CommonDialogs.showInputDialog(
@@ -1183,7 +1183,7 @@ public final class GameLogic implements MenuSection {
     static void updateUndo(final boolean las, final boolean mis, final boolean stu, final boolean boo,
 	    final boolean mag, final boolean blu, final boolean dis, final boolean bom, final boolean hbm,
 	    final boolean ibm) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon a = app.getDungeonManager().getDungeon();
 	a.updateUndoHistory(new HistoryStatus(las, mis, stu, boo, mag, blu, dis, bom, hbm, ibm));
 	GameLogic.checkMenus();
@@ -1196,14 +1196,14 @@ public final class GameLogic implements MenuSection {
     private static void updateRedo(final boolean las, final boolean mis, final boolean stu, final boolean boo,
 	    final boolean mag, final boolean blu, final boolean dis, final boolean bom, final boolean hbm,
 	    final boolean ibm) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon a = app.getDungeonManager().getDungeon();
 	a.updateRedoHistory(new HistoryStatus(las, mis, stu, boo, mag, blu, dis, bom, hbm, ibm));
 	GameLogic.checkMenus();
     }
 
     public void undoLastMove() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon a = app.getDungeonManager().getDungeon();
 	if (a.tryUndo()) {
 	    this.moving = false;
@@ -1268,7 +1268,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void redoLastMove() {
-	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	if (a.tryRedo()) {
 	    this.moving = false;
 	    this.shotActive = false;
@@ -1361,7 +1361,7 @@ public final class GameLogic implements MenuSection {
 	if (this.player != null) {
 	    this.player.setSavedObject(new Empty());
 	}
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	m.setCell(new Empty(), m.getPlayerLocationX(0), m.getPlayerLocationY(0), 0,
 		DungeonConstants.LAYER_LOWER_OBJECTS);
@@ -1389,7 +1389,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public boolean newGame() {
-	final JFrame owner = DungeonDiver7.getApplication().getOutputFrame();
+	final JFrame owner = DungeonDiver7.getStuffBag().getOutputFrame();
 	boolean guiResult = this.gui.newGame();
 	if (guiResult) {
 	    if (this.savedGameFlag) {
@@ -1471,7 +1471,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void resetViewingWindow() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	if (m != null && this.vwMgr != null) {
 	    this.vwMgr.setViewingWindowLocationX(m.getPlayerLocationY(0) - GameViewingWindowManager.getOffsetFactorX());
@@ -1480,7 +1480,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void resetPlayerLocation() throws InvalidDungeonException {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	final int[] found = m.findPlayer(1);
 	if (found == null) {
@@ -1491,7 +1491,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public static void resetPlayerLocation(final int level) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	if (m != null) {
 	    m.switchLevel(level);
@@ -1500,7 +1500,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void goToLevelOffset(final int level) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	final boolean levelExists = m.doesLevelExistOffset(level);
 	this.stopMovement();
@@ -1525,7 +1525,7 @@ public final class GameLogic implements MenuSection {
 	}
 	this.mlot = null;
 	this.stateChanged = true;
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	// Restore the dungeon
 	m.restore();
@@ -1545,7 +1545,7 @@ public final class GameLogic implements MenuSection {
     }
 
     void identifyObject(final int x, final int y) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	final int destX = x / ImageLoader.getGraphicSize();
 	final int destY = y / ImageLoader.getGraphicSize();
@@ -1558,7 +1558,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void loadGameHookG1(final FileIOReader dungeonFile) throws IOException {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
 	this.st.setShots(dungeonFile.readLong());
@@ -1566,7 +1566,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void loadGameHookG2(final FileIOReader dungeonFile) throws IOException {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
 	this.st.setShots(dungeonFile.readLong());
@@ -1577,7 +1577,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void loadGameHookG3(final FileIOReader dungeonFile) throws IOException {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
 	this.st.setShots(dungeonFile.readLong());
@@ -1586,7 +1586,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void loadGameHookG4(final FileIOReader dungeonFile) throws IOException {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
 	this.st.setShots(dungeonFile.readLong());
@@ -1595,7 +1595,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void loadGameHookG5(final FileIOReader dungeonFile) throws IOException {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
 	this.st.setShots(dungeonFile.readLong());
@@ -1604,7 +1604,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void loadGameHookG6(final FileIOReader dungeonFile) throws IOException {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
 	this.st.setShots(dungeonFile.readLong());
@@ -1613,7 +1613,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void saveGameHook(final FileIOWriter dungeonFile) throws IOException {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	dungeonFile.writeString(app.getDungeonManager().getScoresFileName());
 	dungeonFile.writeLong(this.st.getMoves());
 	dungeonFile.writeLong(this.st.getShots());
@@ -1676,8 +1676,8 @@ public final class GameLogic implements MenuSection {
 
     private boolean readSolution() {
 	try {
-	    final int activeLevel = DungeonDiver7.getApplication().getDungeonManager().getDungeon().getActiveLevel();
-	    final String levelFile = DungeonDiver7.getApplication().getDungeonManager().getLastUsedDungeon();
+	    final int activeLevel = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getActiveLevel();
+	    final String levelFile = DungeonDiver7.getStuffBag().getDungeonManager().getLastUsedDungeon();
 	    final String filename = levelFile + LocaleConstants.COMMON_STRING_UNDERSCORE + activeLevel
 		    + FileExtensions.getSolutionExtensionWithPeriod();
 	    try (XDataReader file = new XDataReader(filename,
@@ -1692,8 +1692,8 @@ public final class GameLogic implements MenuSection {
 
     private void writeSolution() {
 	try {
-	    final int activeLevel = DungeonDiver7.getApplication().getDungeonManager().getDungeon().getActiveLevel();
-	    final String levelFile = DungeonDiver7.getApplication().getDungeonManager().getLastUsedDungeon();
+	    final int activeLevel = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getActiveLevel();
+	    final String levelFile = DungeonDiver7.getStuffBag().getDungeonManager().getLastUsedDungeon();
 	    final String filename = levelFile + LocaleConstants.COMMON_STRING_UNDERSCORE + activeLevel
 		    + FileExtensions.getSolutionExtensionWithPeriod();
 	    try (XDataWriter file = new XDataWriter(filename,
@@ -1710,14 +1710,14 @@ public final class GameLogic implements MenuSection {
     }
 
     public static void morph(final AbstractDungeonObject morphInto) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	m.setCell(morphInto, m.getPlayerLocationX(0), m.getPlayerLocationY(0), 0, morphInto.getLayer());
     }
 
     public static void morph(final AbstractDungeonObject morphInto, final int x, final int y, final int z,
 	    final int w) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	try {
 	    m.setCell(morphInto, x, y, z, w);
@@ -1734,7 +1734,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void playDungeon() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	if (app.getDungeonManager().getLoaded()) {
 	    this.gui.initViewManager();
@@ -1791,7 +1791,7 @@ public final class GameLogic implements MenuSection {
 	    } else {
 		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 			LocaleConstants.GAME_STRING_NO_LEVEL_WITH_DIFFICULTY));
-		DungeonDiver7.getApplication().getGUIManager().showGUI();
+		DungeonDiver7.getStuffBag().getGUIManager().showGUI();
 	    }
 	} else {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
@@ -1800,12 +1800,12 @@ public final class GameLogic implements MenuSection {
     }
 
     public void showOutput() {
-	DungeonDiver7.getApplication().setMode(BagOStuff.STATUS_GAME);
+	DungeonDiver7.getStuffBag().setMode(StuffBag.STATUS_GAME);
 	this.gui.showOutput();
     }
 
     public void showOutputAndKeepMusic() {
-	DungeonDiver7.getApplication().setMode(BagOStuff.STATUS_GAME);
+	DungeonDiver7.getStuffBag().setMode(StuffBag.STATUS_GAME);
 	this.gui.showOutputAndKeepMusic();
     }
 

@@ -24,7 +24,7 @@ public abstract class AbstractAllButton extends AbstractButton {
 	    if (!this.isTriggered()) {
 		// Check to open door at location
 		this.setTriggered(true);
-		DungeonDiver7.getApplication().getDungeonManager().getDungeon().fullScanAllButtonOpen(z, this);
+		DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().fullScanAllButtonOpen(z, this);
 	    }
 	}
 	return true;
@@ -36,7 +36,7 @@ public abstract class AbstractAllButton extends AbstractButton {
 	    if (this.isTriggered()) {
 		// Check to close door at location
 		this.setTriggered(false);
-		DungeonDiver7.getApplication().getDungeonManager().getDungeon().fullScanAllButtonClose(z, this);
+		DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().fullScanAllButtonClose(z, this);
 	    }
 	}
     }

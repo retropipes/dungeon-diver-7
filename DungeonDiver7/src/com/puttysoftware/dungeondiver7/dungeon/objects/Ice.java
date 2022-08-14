@@ -50,7 +50,7 @@ public class Ice extends AbstractGround {
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
 	if (pushed instanceof HotBox) {
 	    final Ground g = new Ground();
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(g, x, y, z, g.getLayer());
 	    SoundLoader.playSound(SoundConstants.DEFROST);
 	}

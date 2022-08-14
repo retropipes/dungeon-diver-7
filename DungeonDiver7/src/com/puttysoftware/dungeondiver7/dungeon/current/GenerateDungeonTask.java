@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
@@ -44,7 +44,7 @@ public class GenerateDungeonTask extends Thread {
     public void run() {
 	try {
 	    this.generateFrame.setVisible(true);
-	    final BagOStuff app = DungeonDiver7.getApplication();
+	    final StuffBag app = DungeonDiver7.getStuffBag();
 	    int zoneID = PartyManager.getParty().getZone();
 	    int dungeonSize = DungeonDiver7.getDungeonLevelSize(zoneID);
 	    AbstractDungeon gameDungeon = app.getDungeonManager().getDungeon();

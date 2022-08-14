@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JTextField;
 
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.ExternalMusicImporter;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
@@ -36,7 +36,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 
     // Methods
     public void setMusicFilename(final String fn) {
-	DungeonDiver7.getApplication().getDungeonManager().getDungeon().setMusicFilename(fn);
+	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().setMusicFilename(fn);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 	new Thread() {
 	    @Override
 	    public void run() {
-		final BagOStuff app = DungeonDiver7.getApplication();
+		final StuffBag app = DungeonDiver7.getStuffBag();
 		Importer.showImporter(ExternalMusicEditor.this.getOutputFrame(), app.getMenuManager().getMainMenuBar());
 		while (Importer.isImporterVisible()) {
 		    // Wait
@@ -75,7 +75,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 	    this.saveObject();
 	    MusicLoader.saveExternalMusic();
 	    file.deleteOnExit();
-	    DungeonDiver7.getApplication().getDungeonManager().setDirty(true);
+	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	}
 	return false;
     }
@@ -189,7 +189,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
     @Override
     public void handleCloseWindow() {
 	this.exitEditor();
-	DungeonDiver7.getApplication().getEditor().showOutput();
+	DungeonDiver7.getStuffBag().getEditor().showOutput();
     }
 
     @Override

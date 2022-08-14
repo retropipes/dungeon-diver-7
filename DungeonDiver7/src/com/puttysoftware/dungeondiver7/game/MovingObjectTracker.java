@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.game;
 
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
@@ -57,7 +57,7 @@ final class MovingObjectTracker {
 
     void trackPart2() {
 	try {
-	    final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
+	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	    final PlayerLocationManager plMgr = gm.getPlayerManager();
 	    final int pz = plMgr.getPlayerLocationZ();
 	    if (this.objectMoving) {
@@ -97,7 +97,7 @@ final class MovingObjectTracker {
     }
 
     void activateObject(final int zx, final int zy, final int pushX, final int pushY, final AbstractMovableObject gmo) {
-	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
+	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	final PlayerLocationManager plMgr = gm.getPlayerManager();
 	final int pz = plMgr.getPlayerLocationZ();
 	this.objIncX = pushX - zx;
@@ -121,10 +121,10 @@ final class MovingObjectTracker {
 	this.objCumX = zx;
 	this.objCumY = zy;
 	this.movingObj = gmo;
-	this.belowUpper = DungeonDiver7.getApplication().getDungeonManager().getDungeon().getCell(
+	this.belowUpper = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
 		this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
 		DungeonConstants.LAYER_UPPER_GROUND);
-	this.belowLower = DungeonDiver7.getApplication().getDungeonManager().getDungeon().getCell(
+	this.belowLower = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
 		this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
 		DungeonConstants.LAYER_LOWER_GROUND);
 	this.objectMoving = true;
@@ -146,7 +146,7 @@ final class MovingObjectTracker {
     }
 
     private void doNormalObjectOnce() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	final GameLogic gm = app.getGameLogic();
 	final int pz = gm.getPlayerManager().getPlayerLocationZ();
@@ -157,10 +157,10 @@ final class MovingObjectTracker {
 	    final AbstractDungeonObject oldSave = this.movingObj.getSavedObject();
 	    final AbstractDungeonObject saved = m.getCell(this.objCumX + this.objIncX * this.objMultX,
 		    this.objCumY + this.objIncY * this.objMultY, pz, this.movingObj.getLayer());
-	    this.belowUpper = DungeonDiver7.getApplication().getDungeonManager().getDungeon().getCell(
+	    this.belowUpper = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
 		    this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
 		    DungeonConstants.LAYER_UPPER_GROUND);
-	    this.belowLower = DungeonDiver7.getApplication().getDungeonManager().getDungeon().getCell(
+	    this.belowLower = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
 		    this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
 		    DungeonConstants.LAYER_LOWER_GROUND);
 	    if (MovingObjectTracker.checkSolid(saved)) {
@@ -248,7 +248,7 @@ final class MovingObjectTracker {
     }
 
     private void doJumpObjectOnce(final AbstractJumpObject jumper) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	final GameLogic gm = app.getGameLogic();
 	final int pz = gm.getPlayerManager().getPlayerLocationZ();
@@ -262,10 +262,10 @@ final class MovingObjectTracker {
 	    final AbstractDungeonObject oldSave = jumper.getSavedObject();
 	    final AbstractDungeonObject saved = m.getCell(this.objCumX + this.objIncX * this.objMultX,
 		    this.objCumY + this.objIncY * this.objMultY, pz, jumper.getLayer());
-	    this.belowUpper = DungeonDiver7.getApplication().getDungeonManager().getDungeon().getCell(
+	    this.belowUpper = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
 		    this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
 		    DungeonConstants.LAYER_UPPER_GROUND);
-	    this.belowLower = DungeonDiver7.getApplication().getDungeonManager().getDungeon().getCell(
+	    this.belowLower = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
 		    this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
 		    DungeonConstants.LAYER_LOWER_GROUND);
 	    if (MovingObjectTracker.checkSolid(saved) && this.objMultX != 0 && this.objMultY != 0) {

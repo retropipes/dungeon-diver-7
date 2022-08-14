@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.ai.AbstractMapAIRoutine;
 import com.puttysoftware.dungeondiver7.ai.AutoMapAI;
@@ -116,8 +116,8 @@ public class MapBattleLogic extends AbstractBattle {
 	// Level Up Check
 	if (playerCharacter.checkLevelUp()) {
 	    playerCharacter.levelUp();
-	    DungeonDiver7.getApplication().getGameLogic().keepNextMessage();
-	    DungeonDiver7.getApplication().showMessage("You reached level " + playerCharacter.getLevel() + ".");
+	    DungeonDiver7.getStuffBag().getGameLogic().keepNextMessage();
+	    DungeonDiver7.getStuffBag().showMessage("You reached level " + playerCharacter.getLevel() + ".");
 	}
     }
 
@@ -129,8 +129,8 @@ public class MapBattleLogic extends AbstractBattle {
 	} catch (IOException e) {
 	    DungeonDiver7.logError(e);
 	}
-	DungeonDiver7.getApplication().getGameLogic().hideOutput();
-	DungeonDiver7.getApplication().setMode(BagOStuff.STATUS_BATTLE);
+	DungeonDiver7.getStuffBag().getGameLogic().hideOutput();
+	DungeonDiver7.getStuffBag().setMode(StuffBag.STATUS_BATTLE);
 	this.bd = new MapBattleDefinitions();
 	this.bd.setBattleDungeon(bMap);
 	this.pde = AbstractDamageEngine.getPlayerInstance();
@@ -179,10 +179,10 @@ public class MapBattleLogic extends AbstractBattle {
     public void battleDone() {
 	// Leave Battle
 	this.hideBattle();
-	DungeonDiver7.getApplication().setMode(BagOStuff.STATUS_GAME);
+	DungeonDiver7.getStuffBag().setMode(StuffBag.STATUS_GAME);
 	// Return to whence we came
-	DungeonDiver7.getApplication().getGameLogic().showOutput();
-	DungeonDiver7.getApplication().getGameLogic().redrawDungeon();
+	DungeonDiver7.getStuffBag().getGameLogic().showOutput();
+	DungeonDiver7.getStuffBag().getGameLogic().redrawDungeon();
     }
 
     private void clearStatusMessage() {

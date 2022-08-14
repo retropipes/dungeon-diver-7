@@ -62,7 +62,7 @@ public final class PlayerLocationManager {
     }
 
     public void resetPlayerLocation() {
-	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	for (int pi = 0; pi < DungeonConstants.NUM_PLAYERS; pi++) {
 	    final int[] found = a.findPlayer(pi);
 	    if (found != null) {

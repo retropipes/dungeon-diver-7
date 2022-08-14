@@ -410,7 +410,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	    this.dungeonData = this.clipboard.clone();
 	    this.levelInfoData.set(this.activeLevel, new DungeonLevelInfo(this.activeLevelInfo));
 	    this.levelInfoList.set(this.activeLevel, this.generateCurrentLevelInfo());
-	    DungeonDiver7.getApplication().getDungeonManager().setDirty(true);
+	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	}
     }
 

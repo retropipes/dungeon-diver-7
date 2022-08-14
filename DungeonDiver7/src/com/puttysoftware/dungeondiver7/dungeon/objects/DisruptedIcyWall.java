@@ -48,7 +48,7 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
 	    if (this.hasPreviousState()) {
 		dw.setPreviousState(this.getPreviousState());
 	    }
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(dw, locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
@@ -62,12 +62,12 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
 	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
-	    final int z = DungeonDiver7.getApplication().getGameLogic().getPlayerManager().getPlayerLocationZ();
+	    final int z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
 	    final IcyWall iw = new IcyWall();
 	    if (this.hasPreviousState()) {
 		iw.setPreviousState(this.getPreviousState());
 	    }
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(iw, locX, locY, z, this.getLayer());
 	} else {
 	    this.activateTimer(1);

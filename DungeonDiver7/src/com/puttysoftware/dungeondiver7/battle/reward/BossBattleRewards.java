@@ -34,7 +34,7 @@ class BossBattleRewards {
 	} else if (br == BattleResult.WON || br == BattleResult.PERFECT) {
 	    SoundLoader.playSound(SoundConstants.BOSS_DIE);
 	    // Send player to next zone
-	    DungeonDiver7.getApplication().getGameLogic().goToLevelOffset(1);
+	    DungeonDiver7.getStuffBag().getGameLogic().goToLevelOffset(1);
 	}
     }
 }

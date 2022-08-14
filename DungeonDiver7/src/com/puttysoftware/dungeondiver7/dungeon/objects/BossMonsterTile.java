@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
@@ -21,8 +21,8 @@ public class BossMonsterTile extends AbstractMovingObject {
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, int dirZ) {
-	if (DungeonDiver7.getApplication().getMode() != BagOStuff.STATUS_BATTLE) {
-	    DungeonDiver7.getApplication().getBattle().doBossBattle();
+	if (DungeonDiver7.getStuffBag().getMode() != StuffBag.STATUS_BATTLE) {
+	    DungeonDiver7.getStuffBag().getBattle().doBossBattle();
 	}
     }
 

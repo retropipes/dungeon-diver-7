@@ -27,7 +27,7 @@ import com.puttysoftware.dungeondiver7.shop.ShopType;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjects;
 import com.puttysoftware.images.BufferedImageIcon;
 
-public final class BagOStuff {
+public final class StuffBag {
     // Fields
     private AboutDialog about;
     private GameLogic gameLogic;
@@ -53,12 +53,12 @@ public final class BagOStuff {
     private static final int STATUS_NULL = 6;
 
     // Constructors
-    public BagOStuff() {
+    public StuffBag() {
 	this.objects = new DungeonObjects();
-	this.mode = BagOStuff.STATUS_NULL;
-	this.formerMode = BagOStuff.STATUS_NULL;
+	this.mode = StuffBag.STATUS_NULL;
+	this.formerMode = StuffBag.STATUS_NULL;
 	// Create Managers
-	this.about = new AboutDialog(BagOStuff.getVersionString());
+	this.about = new AboutDialog(StuffBag.getVersionString());
 	this.helpMgr = new HelpManager();
 	this.editor = new DungeonEditor();
 	this.guiMgr = new GUIManager();
@@ -89,29 +89,29 @@ public final class BagOStuff {
     }
 
     void setInGUI() {
-	this.mode = BagOStuff.STATUS_GUI;
+	this.mode = StuffBag.STATUS_GUI;
 	this.menuMgr.modeChanged(this.guiMgr);
     }
 
     public void setInPrefs() {
 	this.formerMode = this.mode;
-	this.mode = BagOStuff.STATUS_PREFS;
+	this.mode = StuffBag.STATUS_PREFS;
 	this.menuMgr.modeChanged(null);
     }
 
     public void setInGame() {
-	this.mode = BagOStuff.STATUS_GAME;
+	this.mode = StuffBag.STATUS_GAME;
 	this.menuMgr.modeChanged(this.gameLogic);
     }
 
     public void setInEditor() {
-	this.mode = BagOStuff.STATUS_EDITOR;
+	this.mode = StuffBag.STATUS_EDITOR;
 	this.menuMgr.modeChanged(this.editor);
     }
 
     public void setInHelp() {
 	this.formerMode = this.mode;
-	this.mode = BagOStuff.STATUS_HELP;
+	this.mode = StuffBag.STATUS_HELP;
 	this.menuMgr.modeChanged(null);
     }
 
@@ -129,11 +129,11 @@ public final class BagOStuff {
     }
 
     void exitCurrentMode() {
-	if (this.mode == BagOStuff.STATUS_GUI) {
+	if (this.mode == StuffBag.STATUS_GUI) {
 	    this.guiMgr.hideGUI();
-	} else if (this.mode == BagOStuff.STATUS_GAME) {
+	} else if (this.mode == StuffBag.STATUS_GAME) {
 	    this.gameLogic.exitGame();
-	} else if (this.mode == BagOStuff.STATUS_EDITOR) {
+	} else if (this.mode == StuffBag.STATUS_EDITOR) {
 	    this.editor.exitEditor();
 	}
     }
@@ -151,9 +151,9 @@ public final class BagOStuff {
     }
 
     public void showMessage(final String msg) {
-	if (this.mode == BagOStuff.STATUS_EDITOR) {
+	if (this.mode == StuffBag.STATUS_EDITOR) {
 	    this.getEditor().setStatusMessage(msg);
-	} else if (this.mode == BagOStuff.STATUS_BATTLE) {
+	} else if (this.mode == StuffBag.STATUS_BATTLE) {
 	    this.getBattle().setStatusMessage(msg);
 	} else {
 	    CommonDialogs.showDialog(msg);
@@ -192,43 +192,43 @@ public final class BagOStuff {
     }
 
     private static String getVersionString() {
-	if (BagOStuff.isBetaModeEnabled()) {
-	    return LocaleConstants.COMMON_STRING_EMPTY + BagOStuff.VERSION_MAJOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + BagOStuff.VERSION_MINOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + BagOStuff.VERSION_BUGFIX
+	if (StuffBag.isBetaModeEnabled()) {
+	    return LocaleConstants.COMMON_STRING_EMPTY + StuffBag.VERSION_MAJOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_MINOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX
 		    + LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE, LocaleConstants.MESSAGE_STRING_BETA)
-		    + BagOStuff.VERSION_BETA;
+		    + StuffBag.VERSION_BETA;
 	} else {
-	    return LocaleConstants.COMMON_STRING_EMPTY + BagOStuff.VERSION_MAJOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + BagOStuff.VERSION_MINOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + BagOStuff.VERSION_BUGFIX;
+	    return LocaleConstants.COMMON_STRING_EMPTY + StuffBag.VERSION_MAJOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_MINOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX;
 	}
     }
 
     public static String getLogoVersionString() {
-	if (BagOStuff.isBetaModeEnabled()) {
-	    return LocaleConstants.COMMON_STRING_EMPTY + BagOStuff.VERSION_MAJOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + BagOStuff.VERSION_MINOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + BagOStuff.VERSION_BUGFIX
-		    + LocaleConstants.COMMON_STRING_BETA_SHORT + BagOStuff.VERSION_BETA;
+	if (StuffBag.isBetaModeEnabled()) {
+	    return LocaleConstants.COMMON_STRING_EMPTY + StuffBag.VERSION_MAJOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_MINOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX
+		    + LocaleConstants.COMMON_STRING_BETA_SHORT + StuffBag.VERSION_BETA;
 	} else {
-	    return LocaleConstants.COMMON_STRING_EMPTY + BagOStuff.VERSION_MAJOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + BagOStuff.VERSION_MINOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + BagOStuff.VERSION_BUGFIX;
+	    return LocaleConstants.COMMON_STRING_EMPTY + StuffBag.VERSION_MAJOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_MINOR
+		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX;
 	}
     }
 
     public JFrame getOutputFrame() {
 	try {
-	    if (this.getMode() == BagOStuff.STATUS_PREFS) {
+	    if (this.getMode() == StuffBag.STATUS_PREFS) {
 		return PrefsManager.getPrefFrame();
-	    } else if (this.getMode() == BagOStuff.STATUS_GUI) {
+	    } else if (this.getMode() == StuffBag.STATUS_GUI) {
 		return this.getGUIManager().getGUIFrame();
-	    } else if (this.getMode() == BagOStuff.STATUS_GAME) {
+	    } else if (this.getMode() == StuffBag.STATUS_GAME) {
 		return this.getGameLogic().getOutputFrame();
-	    } else if (this.getMode() == BagOStuff.STATUS_EDITOR) {
+	    } else if (this.getMode() == StuffBag.STATUS_EDITOR) {
 		return this.getEditor().getOutputFrame();
-	    } else if (this.getMode() == BagOStuff.STATUS_BATTLE) {
+	    } else if (this.getMode() == StuffBag.STATUS_BATTLE) {
 		return this.getBattle().getOutputFrame();
 	    } else {
 		return null;
@@ -273,7 +273,7 @@ public final class BagOStuff {
     }
 
     private static boolean isBetaModeEnabled() {
-	return BagOStuff.VERSION_BETA > 0;
+	return StuffBag.VERSION_BETA > 0;
     }
 
     public Shop getShopByType(final ShopType shopType) {

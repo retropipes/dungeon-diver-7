@@ -15,13 +15,13 @@ import com.puttysoftware.fileio.FileIOWriter;
 public class SuffixHandler implements AbstractSuffixIO {
     @Override
     public void readSuffix(final FileIOReader reader, final int formatVersion) throws IOException {
-	DungeonDiver7.getApplication().getGameLogic();
+	DungeonDiver7.getStuffBag().getGameLogic();
 	FileHooks.loadGameHook(reader);
     }
 
     @Override
     public void writeSuffix(final FileIOWriter writer) throws IOException {
-	DungeonDiver7.getApplication().getGameLogic();
+	DungeonDiver7.getStuffBag().getGameLogic();
 	FileHooks.saveGameHook(writer);
     }
 }

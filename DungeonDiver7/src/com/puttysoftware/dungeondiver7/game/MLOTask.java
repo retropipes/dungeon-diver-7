@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.game;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
@@ -58,7 +58,7 @@ final class MLOTask extends Thread {
     @Override
     public void run() {
 	try {
-	    final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
+	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	    gm.clearDead();
 	    this.doMovementLasersObjects();
 	    // Check auto-move flag
@@ -78,7 +78,7 @@ final class MLOTask extends Thread {
     }
 
     void activateMovement(final int zx, final int zy) {
-	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
+	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	if (zx == 2 || zy == 2 || zx == -2 || zy == -2) {
 	    // Boosting
 	    SoundLoader.playSound(SoundConstants.BOOST);
@@ -90,7 +90,7 @@ final class MLOTask extends Thread {
 	} else if (zx == 3 || zy == 3 || zx == -3 || zy == -3) {
 	    // Using a Magnet
 	    gm.updateScore(0, 0, 1);
-	    final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	    final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	    final int px = gm.getPlayerManager().getPlayerLocationX();
 	    final int py = gm.getPlayerManager().getPlayerLocationY();
 	    final int pz = gm.getPlayerManager().getPlayerLocationZ();
@@ -134,7 +134,7 @@ final class MLOTask extends Thread {
     }
 
     void activateFrozenMovement(final int zx, final int zy) {
-	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
+	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	// Moving under the influence of a Frost Field
 	this.frozen = true;
 	MLOTask.freezePlayer();
@@ -149,7 +149,7 @@ final class MLOTask extends Thread {
     }
 
     static void activateAutomaticMovement() {
-	DungeonDiver7.getApplication().getGameLogic().scheduleAutoMove();
+	DungeonDiver7.getStuffBag().getGameLogic().scheduleAutoMove();
     }
 
     void activateObjects(final int zx, final int zy, final int pushX, final int pushY,
@@ -176,7 +176,7 @@ final class MLOTask extends Thread {
 
     private void doMovementLasersObjects() {
 	synchronized (CurrentDungeonData.LOCK_OBJECT) {
-	    final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
+	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	    final PlayerLocationManager plMgr = gm.getPlayerManager();
 	    final int pz = plMgr.getPlayerLocationZ();
 	    this.loopCheck = true;
@@ -240,7 +240,7 @@ final class MLOTask extends Thread {
 			if (objs[DungeonConstants.LAYER_LOWER_OBJECTS].solvesOnMove()) {
 			    this.abort = true;
 			    if (this.move) {
-				DungeonDiver7.getApplication().getDungeonManager().setDirty(true);
+				DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 				this.defrostPlayer();
 				gm.moveLoopDone();
 				this.move = false;
@@ -257,7 +257,7 @@ final class MLOTask extends Thread {
 			this.loopCheck = false;
 		    }
 		    if (this.move && !this.loopCheck) {
-			DungeonDiver7.getApplication().getDungeonManager().setDirty(true);
+			DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 			this.defrostPlayer();
 			gm.moveLoopDone();
 			this.move = false;
@@ -273,11 +273,11 @@ final class MLOTask extends Thread {
 			this.move = true;
 			this.loopCheck = true;
 		    }
-		    DungeonDiver7.getApplication().getDungeonManager().getDungeon().tickTimers(pz, actionType);
+		    DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().tickTimers(pz, actionType);
 		    final int px = plMgr.getPlayerLocationX();
 		    final int py = plMgr.getPlayerLocationY();
-		    DungeonDiver7.getApplication().getDungeonManager().getDungeon().checkForEnemies(pz, px, py,
-			    DungeonDiver7.getApplication().getGameLogic().getPlayer());
+		    DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().checkForEnemies(pz, px, py,
+			    DungeonDiver7.getStuffBag().getGameLogic().getPlayer());
 		    // Delay
 		    try {
 			Thread.sleep(PrefsManager.getActionSpeed());
@@ -305,7 +305,7 @@ final class MLOTask extends Thread {
     }
 
     private boolean canMoveThere() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final GameLogic gm = app.getGameLogic();
 	final PlayerLocationManager plMgr = gm.getPlayerManager();
 	final int px = plMgr.getPlayerLocationX();
@@ -340,13 +340,13 @@ final class MLOTask extends Thread {
     }
 
     private AbstractDungeonObject[] doMovementOnce() {
-	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
+	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	final PlayerLocationManager plMgr = gm.getPlayerManager();
 	int px = plMgr.getPlayerLocationX();
 	int py = plMgr.getPlayerLocationY();
 	final int pz = plMgr.getPlayerLocationZ();
 	final int pw = DungeonConstants.LAYER_UPPER_OBJECTS;
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	this.proceed = true;
 	this.mover = false;
@@ -480,7 +480,7 @@ final class MLOTask extends Thread {
     }
 
     private boolean checkLoopCondition(final boolean zproceed) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final GameLogic gm = app.getGameLogic();
 	final PlayerLocationManager plMgr = gm.getPlayerManager();
 	final int px = plMgr.getPlayerLocationX();
@@ -507,7 +507,7 @@ final class MLOTask extends Thread {
     }
 
     private static void freezePlayer() {
-	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
+	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	final AbstractCharacter tank = gm.getPlayer();
 	final Direction dir = tank.getDirection();
 	final int px = gm.getPlayerManager().getPlayerLocationX();
@@ -522,7 +522,7 @@ final class MLOTask extends Thread {
     private void defrostPlayer() {
 	if (this.frozen) {
 	    this.frozen = false;
-	    final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
+	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	    final AbstractCharacter tank = gm.getPlayer();
 	    final Direction dir = tank.getDirection();
 	    final int px = gm.getPlayerManager().getPlayerLocationX();
@@ -537,7 +537,7 @@ final class MLOTask extends Thread {
     }
 
     private static boolean checkSolid(final AbstractDungeonObject next) {
-	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
+	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	// Check cheats
 	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
 	    return true;
@@ -547,8 +547,8 @@ final class MLOTask extends Thread {
     }
 
     static boolean checkSolid(final int zx, final int zy) {
-	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
-	final AbstractDungeonObject next = DungeonDiver7.getApplication().getDungeonManager().getDungeon().getCell(zx,
+	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final AbstractDungeonObject next = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(zx,
 		zy, gm.getPlayerManager().getPlayerLocationZ(), DungeonConstants.LAYER_LOWER_OBJECTS);
 	// Check cheats
 	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {

@@ -28,7 +28,7 @@ class ReplayFile {
 		    LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 			    LocaleConstants.GAME_STRING_LOAD_PLAYBACK));
 	} else {
-	    final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
+	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	    gm.clearReplay();
 	    final byte[] data = ReplayFileLoader.getData();
 	    for (int x = data.length - 1; x >= 0; x--) {
@@ -43,7 +43,7 @@ class ReplayFile {
     }
 
     private static void decodeData(final byte d) {
-	final GameLogic gm = DungeonDiver7.getApplication().getGameLogic();
+	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	switch (d) {
 	case 0x20:
 	    gm.loadReplay(true, 0, 0);

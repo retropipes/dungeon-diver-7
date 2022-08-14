@@ -25,7 +25,7 @@ public class ExternalMusicSaveTask extends Thread {
     @Override
     public void run() {
 	try {
-	    final String basePath = DungeonDiver7.getApplication().getDungeonManager().getDungeon()
+	    final String basePath = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
 		    .getDungeonTempMusicFolder();
 	    FileUtilities.copyFile(new File(this.pathname + this.filename),
 		    new File(basePath + File.separator + this.filename.toLowerCase()));

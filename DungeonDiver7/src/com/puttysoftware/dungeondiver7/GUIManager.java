@@ -71,7 +71,7 @@ public class GUIManager implements MenuSection, QuitHandler {
     }
 
     public void showGUI() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	app.setInGUI();
 	this.guiFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
 	this.guiFrame.setVisible(true);
@@ -80,7 +80,7 @@ public class GUIManager implements MenuSection, QuitHandler {
     }
 
     public void attachMenus() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	this.guiFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
 	app.getMenuManager().checkFlags();
     }
@@ -98,7 +98,7 @@ public class GUIManager implements MenuSection, QuitHandler {
     }
 
     public boolean quitHandler() {
-	final DungeonManager mm = DungeonDiver7.getApplication().getDungeonManager();
+	final DungeonManager mm = DungeonDiver7.getStuffBag().getDungeonManager();
 	boolean saved = true;
 	int status = JOptionPane.DEFAULT_OPTION;
 	if (mm.getDirty()) {
@@ -187,7 +187,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		final BagOStuff app = DungeonDiver7.getApplication();
+		final StuffBag app = DungeonDiver7.getStuffBag();
 		boolean loaded = false;
 		final String cmd = e.getActionCommand();
 		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
@@ -205,9 +205,9 @@ public class GUIManager implements MenuSection, QuitHandler {
 		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 			LocaleConstants.MENU_STRING_ITEM_CLOSE))) {
 		    // Close the window
-		    if (app.getMode() == BagOStuff.STATUS_EDITOR) {
+		    if (app.getMode() == StuffBag.STATUS_EDITOR) {
 			app.getEditor().handleCloseWindow();
-		    } else if (app.getMode() == BagOStuff.STATUS_GAME) {
+		    } else if (app.getMode() == StuffBag.STATUS_GAME) {
 			boolean saved = true;
 			int status = 0;
 			if (app.getDungeonManager().getDirty()) {
@@ -282,7 +282,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 	this.fileNew.setEnabled(true);
 	this.fileOpen.setEnabled(true);
 	this.fileOpenDefault.setEnabled(true);
-	DungeonDiver7.getApplication().getMenuManager().enableModeCommands();
+	DungeonDiver7.getStuffBag().getMenuManager().enableModeCommands();
     }
 
     @Override
@@ -290,7 +290,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 	this.fileNew.setEnabled(false);
 	this.fileOpen.setEnabled(false);
 	this.fileOpenDefault.setEnabled(false);
-	DungeonDiver7.getApplication().getMenuManager().disableModeCommands();
+	DungeonDiver7.getStuffBag().getMenuManager().disableModeCommands();
     }
 
     @Override
@@ -398,8 +398,8 @@ public class GUIManager implements MenuSection, QuitHandler {
 
     @Override
     public void enableLoadedCommands() {
-	final BagOStuff app = DungeonDiver7.getApplication();
-	if (app.getMode() == BagOStuff.STATUS_GUI) {
+	final StuffBag app = DungeonDiver7.getStuffBag();
+	if (app.getMode() == StuffBag.STATUS_GUI) {
 	    this.fileClose.setEnabled(false);
 	    this.fileSaveAs.setEnabled(false);
 	    this.fileSaveAsProtected.setEnabled(false);
@@ -408,7 +408,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 	    this.fileSaveAs.setEnabled(true);
 	    this.fileSaveAsProtected.setEnabled(true);
 	}
-	DungeonDiver7.getApplication().getMenuManager().enableLoadedCommands();
+	DungeonDiver7.getStuffBag().getMenuManager().enableLoadedCommands();
     }
 
     @Override
@@ -416,19 +416,19 @@ public class GUIManager implements MenuSection, QuitHandler {
 	this.fileClose.setEnabled(false);
 	this.fileSaveAs.setEnabled(false);
 	this.fileSaveAsProtected.setEnabled(false);
-	DungeonDiver7.getApplication().getMenuManager().disableLoadedCommands();
+	DungeonDiver7.getStuffBag().getMenuManager().disableLoadedCommands();
     }
 
     @Override
     public void enableDirtyCommands() {
 	this.fileSave.setEnabled(true);
-	DungeonDiver7.getApplication().getMenuManager().enableDirtyCommands();
+	DungeonDiver7.getStuffBag().getMenuManager().enableDirtyCommands();
     }
 
     @Override
     public void disableDirtyCommands() {
 	this.fileSave.setEnabled(false);
-	DungeonDiver7.getApplication().getMenuManager().disableDirtyCommands();
+	DungeonDiver7.getStuffBag().getMenuManager().disableDirtyCommands();
     }
 
     @Override

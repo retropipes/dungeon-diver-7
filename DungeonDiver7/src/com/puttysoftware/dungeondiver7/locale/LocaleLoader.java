@@ -109,7 +109,7 @@ public class LocaleLoader {
 		LocaleLoader.LANGUAGE_ID) + "/";
 	DifficultyConstants.reloadDifficultyNames();
 	DungeonConstants.activeLanguageChanged();
-	DungeonDiver7.getApplication().activeLanguageChanged();
+	DungeonDiver7.getStuffBag().activeLanguageChanged();
 	PrefsManager.activeLanguageChanged();
 	ImageLoader.activeLanguageChanged();
     }

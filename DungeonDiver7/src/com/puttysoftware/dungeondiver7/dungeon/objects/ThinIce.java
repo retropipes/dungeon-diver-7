@@ -23,12 +23,12 @@ public class ThinIce extends AbstractGround {
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	SoundLoader.playSound(SoundConstants.PUSH_MIRROR);
-	DungeonDiver7.getApplication().getGameLogic().remoteDelayedDecayTo(new Water());
+	DungeonDiver7.getStuffBag().getGameLogic().remoteDelayedDecayTo(new Water());
     }
 
     @Override
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-	DungeonDiver7.getApplication().getGameLogic().remoteDelayedDecayTo(new Water());
+	DungeonDiver7.getStuffBag().getGameLogic().remoteDelayedDecayTo(new Water());
 	return true;
     }
 

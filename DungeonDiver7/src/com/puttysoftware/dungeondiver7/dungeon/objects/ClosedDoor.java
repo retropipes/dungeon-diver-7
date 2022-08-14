@@ -42,7 +42,7 @@ public class ClosedDoor extends AbstractPassThroughObject {
     @Override
     public void interactAction() {
 	SoundLoader.playSound(SoundConstants.DOOR_OPENS);
-	final GameLogic glm = DungeonDiver7.getApplication().getGameLogic();
+	final GameLogic glm = DungeonDiver7.getStuffBag().getGameLogic();
 	GameLogic.morph(new OpenDoor());
 	glm.redrawDungeon();
     }

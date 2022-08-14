@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
@@ -83,7 +83,7 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
     @Override
     public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final int px = app.getGameLogic().getPlayerManager().getPlayerLocationX();
 	final int py = app.getGameLogic().getPlayerManager().getPlayerLocationY();
 	if (forceUnits > this.getMinimumReactionForce() && this.jumpRows == 0 && this.jumpCols == 0) {
@@ -120,7 +120,7 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 
     @Override
     public AbstractDungeonObject editorPropertiesHook() {
-	DungeonDiver7.getApplication().getEditor().editJumpBox(this);
+	DungeonDiver7.getStuffBag().getEditor().editJumpBox(this);
 	return this;
     }
 

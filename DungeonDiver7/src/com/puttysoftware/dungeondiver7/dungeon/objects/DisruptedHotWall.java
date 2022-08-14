@@ -44,7 +44,7 @@ public class DisruptedHotWall extends AbstractDisruptedObject {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
 	    // Cool off disrupted hot wall
 	    SoundLoader.playSound(SoundConstants.COOL_OFF);
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedWall(this.disruptionLeft), locX, locY,
 		    locZ, this.getLayer());
 	    return Direction.NONE;
@@ -59,8 +59,8 @@ public class DisruptedHotWall extends AbstractDisruptedObject {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
 	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
-	    final int z = DungeonDiver7.getApplication().getGameLogic().getPlayerManager().getPlayerLocationZ();
-	    DungeonDiver7.getApplication().getGameLogic();
+	    final int z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new HotWall(), locX, locY, z, this.getLayer());
 	} else {
 	    this.activateTimer(1);

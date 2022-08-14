@@ -106,11 +106,11 @@ public class SpellCaster {
 	    if (teamID == AbstractCreature.TEAM_PARTY) {
 		return PartyManager.getParty().getLeader();
 	    } else {
-		return DungeonDiver7.getApplication().getBattle().getEnemy();
+		return DungeonDiver7.getStuffBag().getBattle().getEnemy();
 	    }
 	case ENEMY:
 	    if (teamID == AbstractCreature.TEAM_PARTY) {
-		return DungeonDiver7.getApplication().getBattle().getEnemy();
+		return DungeonDiver7.getStuffBag().getBattle().getEnemy();
 	    } else {
 		return PartyManager.getParty().getLeader();
 	    }

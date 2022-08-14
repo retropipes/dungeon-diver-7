@@ -84,7 +84,7 @@ class MapBattleGUI {
 
     void showBattle() {
 	this.battleFrame.setVisible(true);
-	this.battleFrame.setJMenuBar(DungeonDiver7.getApplication().getMenuManager().getMainMenuBar());
+	this.battleFrame.setJMenuBar(DungeonDiver7.getStuffBag().getMenuManager().getMainMenuBar());
     }
 
     void hideBattle() {
@@ -252,7 +252,7 @@ class MapBattleGUI {
 		    SoundLoader.playSound(SoundConstants.CLICK);
 		}
 		final String cmd = e.getActionCommand();
-		final AbstractBattle b = DungeonDiver7.getApplication().getBattle();
+		final AbstractBattle b = DungeonDiver7.getStuffBag().getBattle();
 		// Do Player Actions
 		if (cmd.equals("Cast Spell") || cmd.equals("c")) {
 		    // Cast Spell
@@ -302,7 +302,7 @@ class MapBattleGUI {
 			return;
 		    }
 		}
-		final AbstractBattle bl = DungeonDiver7.getApplication().getBattle();
+		final AbstractBattle bl = DungeonDiver7.getStuffBag().getBattle();
 		final MapBattleGUI bg = MapBattleGUI.this;
 		if (bg.eventHandlersOn) {
 		    final int keyCode = e.getKeyCode();

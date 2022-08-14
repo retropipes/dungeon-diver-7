@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.utility;
 
 import javax.swing.JOptionPane;
 
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
@@ -19,7 +19,7 @@ public class CustomDialogs {
     }
 
     public static int showDeadDialog() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	return JOptionPane.showOptionDialog(app.getOutputFrame(),
 		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
 			LocaleConstants.DIALOG_STRING_DEAD_MESSAGE),

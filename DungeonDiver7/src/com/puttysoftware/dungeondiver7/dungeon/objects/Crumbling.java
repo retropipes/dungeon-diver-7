@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractAttribute;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
@@ -28,7 +28,7 @@ public class Crumbling extends AbstractAttribute {
     @Override
     public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	app.getGameLogic();
 	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	app.getGameLogic();
@@ -40,7 +40,7 @@ public class Crumbling extends AbstractAttribute {
 
     @Override
     public void moveFailedAction(final int locX, final int locY, final int locZ) {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	app.getGameLogic();
 	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	app.getGameLogic();

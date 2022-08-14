@@ -32,7 +32,7 @@ public abstract class AbstractShop extends AbstractDungeonObject {
 
     @Override
     public void interactAction() {
-	final Shop shop = DungeonDiver7.getApplication().getShopByType(this.shopType);
+	final Shop shop = DungeonDiver7.getStuffBag().getShopByType(this.shopType);
 	if (shop != null) {
 	    shop.showShop();
 	}

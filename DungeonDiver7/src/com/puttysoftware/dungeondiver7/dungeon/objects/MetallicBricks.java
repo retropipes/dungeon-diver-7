@@ -26,7 +26,7 @@ public class MetallicBricks extends AbstractReactionWall {
     public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
 	    final int dirY, final int laserType, final int forceUnits) {
 	SoundLoader.playSound(SoundConstants.BREAK_BRICKS);
-	DungeonDiver7.getApplication().getGameLogic();
+	DungeonDiver7.getStuffBag().getGameLogic();
 	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	if (laserType == ArrowTypeConstants.LASER_TYPE_POWER) {
 	    // Laser keeps going
@@ -41,7 +41,7 @@ public class MetallicBricks extends AbstractReactionWall {
     public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
 	SoundLoader.playSound(SoundConstants.BREAK_BRICKS);
-	DungeonDiver7.getApplication().getGameLogic();
+	DungeonDiver7.getStuffBag().getGameLogic();
 	GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ,
 		this.getLayer());
 	return true;

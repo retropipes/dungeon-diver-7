@@ -94,7 +94,7 @@ public class IntegrationMenuManager {
     }
 
     public void checkFlags() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	if (app.getDungeonManager().getDirty()) {
 	    this.setMenusDirtyOn();
 	} else {
@@ -116,8 +116,8 @@ public class IntegrationMenuManager {
     }
 
     private void setMenusLoadedOn() {
-	final BagOStuff app = DungeonDiver7.getApplication();
-	if (app.getMode() == BagOStuff.STATUS_GUI) {
+	final StuffBag app = DungeonDiver7.getStuffBag();
+	if (app.getMode() == StuffBag.STATUS_GUI) {
 	    this.fileClose.setEnabled(false);
 	} else {
 	    this.fileClose.setEnabled(true);
@@ -213,14 +213,14 @@ public class IntegrationMenuManager {
 	public void actionPerformed(final ActionEvent e) {
 	    try {
 		final String cmd = e.getActionCommand();
-		final BagOStuff app = DungeonDiver7.getApplication();
+		final StuffBag app = DungeonDiver7.getStuffBag();
 		boolean loaded = false;
 		if (cmd.equals("Open Game...")) {
 		    loaded = app.getDungeonManager().loadGame();
 		    app.getDungeonManager().setLoaded(loaded);
 		} else if (cmd.equals("Close")) {
 		    // Close the window
-		    if (app.getMode() == BagOStuff.STATUS_GAME) {
+		    if (app.getMode() == StuffBag.STATUS_GAME) {
 			boolean saved = true;
 			int status = 0;
 			if (app.getDungeonManager().getDirty()) {

@@ -31,7 +31,7 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy mirror crystal block
 	    SoundLoader.playSound(SoundConstants.BOOM);
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE) {
@@ -40,7 +40,7 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 	    // Disrupt mirror crystal block
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedMirrorCrystalBlock(), locX, locY, locZ,
 		    this.getLayer());
 	    return Direction.NONE;
@@ -61,7 +61,7 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
 	    final int rangeType, final int forceUnits) {
 	if (rangeType == RangeTypeConstants.RANGE_TYPE_BOMB
 		|| RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_METALLIC) {
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy mirror crystal block
 	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
@@ -69,7 +69,7 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
 	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_FIRE) {
 	    // Heat up mirror crystal block
 	    SoundLoader.playSound(SoundConstants.MELT);
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
@@ -77,7 +77,7 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
 	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_ICE) {
 	    // Freeze mirror crystal block
 	    SoundLoader.playSound(SoundConstants.FROZEN);
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(
 		    this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());

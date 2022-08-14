@@ -9,7 +9,7 @@ import java.awt.FileDialog;
 import java.io.File;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
@@ -25,7 +25,7 @@ public class ReplayManager {
 
     // Methods
     public static void loadLPB() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	String filename, extension, file, dir;
 	final String lastOpen = PrefsManager.getLastDirOpen();
 	final FileDialog fd = new FileDialog(app.getOutputFrame(),

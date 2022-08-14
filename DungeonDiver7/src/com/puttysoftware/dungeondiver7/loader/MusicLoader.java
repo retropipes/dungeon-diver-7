@@ -68,7 +68,7 @@ public class MusicLoader {
     private static OggPlayer getExternalMusic(final String filename) {
 	try {
 	    if (MusicLoader.EXTERNAL_LOAD_PATH == null) {
-		MusicLoader.EXTERNAL_LOAD_PATH = DungeonDiver7.getApplication().getDungeonManager().getDungeon()
+		MusicLoader.EXTERNAL_LOAD_PATH = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
 			.getDungeonTempMusicFolder();
 	    }
 	    final OggPlayer mmod = OggPlayer.loadLoopedFile(MusicLoader.EXTERNAL_LOAD_PATH + filename);
@@ -89,7 +89,7 @@ public class MusicLoader {
     }
 
     public static void playExternalMusic() {
-	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	final OggPlayer mmod = MusicLoader.getExternalMusic(a.getMusicFilename());
 	if (mmod != null) {
 	    mmod.play();
@@ -127,7 +127,7 @@ public class MusicLoader {
     }
 
     public static void loadExternalMusic() {
-	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	final ExternalMusicLoadTask ellt = new ExternalMusicLoadTask(
 		a.getDungeonTempMusicFolder() + a.getMusicFilename());
 	ellt.start();
@@ -146,7 +146,7 @@ public class MusicLoader {
     }
 
     public static void deleteExternalMusicFile() {
-	final AbstractDungeon a = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	final File file = new File(a.getDungeonTempMusicFolder() + a.getMusicFilename());
 	file.delete();
     }
@@ -154,7 +154,7 @@ public class MusicLoader {
     public static void saveExternalMusic() {
 	// Write external music
 	final File extMusicDir = new File(
-		DungeonDiver7.getApplication().getDungeonManager().getDungeon().getDungeonTempMusicFolder());
+		DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getDungeonTempMusicFolder());
 	if (!extMusicDir.exists()) {
 	    final boolean res = extMusicDir.mkdirs();
 	    if (!res) {

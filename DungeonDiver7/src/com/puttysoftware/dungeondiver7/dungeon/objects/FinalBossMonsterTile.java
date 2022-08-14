@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
@@ -23,15 +23,15 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, int dirZ) {
-	if (DungeonDiver7.getApplication().getMode() != BagOStuff.STATUS_BATTLE) {
-	    DungeonDiver7.getApplication().getBattle().doFinalBossBattle();
+	if (DungeonDiver7.getStuffBag().getMode() != StuffBag.STATUS_BATTLE) {
+	    DungeonDiver7.getStuffBag().getBattle().doFinalBossBattle();
 	}
     }
 
     @Override
     public void timerExpiredAction(final int locX, final int locY) {
 	// Move the monster
-	AbstractDungeon dungeon = DungeonDiver7.getApplication().getDungeonManager().getDungeon();
+	AbstractDungeon dungeon = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	final Direction move = dungeon.computeFinalBossMoveDirection(locX, locY, 0, 0);
 	dungeon.updateMonsterPosition(move, locX, locY, this, 0);
 	this.activateTimer(1);

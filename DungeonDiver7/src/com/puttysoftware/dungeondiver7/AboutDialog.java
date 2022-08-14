@@ -128,7 +128,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		final BagOStuff app = DungeonDiver7.getApplication();
+		final StuffBag app = DungeonDiver7.getStuffBag();
 		final String cmd = e.getActionCommand();
 		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 			LocaleConstants.MENU_STRING_ITEM_ABOUT_LASERTANK))) {

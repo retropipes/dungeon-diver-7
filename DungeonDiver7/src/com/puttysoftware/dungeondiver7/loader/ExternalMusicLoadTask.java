@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.loader;
 
 import java.io.File;
 
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.editor.ExternalMusic;
@@ -26,7 +26,7 @@ public class ExternalMusicLoadTask extends Thread {
     // Methods
     @Override
     public void run() {
-	final BagOStuff app = DungeonDiver7.getApplication();
+	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeon a = app.getDungeonManager().getDungeon();
 	try {
 	    this.gameExternalMusic = new ExternalMusic();

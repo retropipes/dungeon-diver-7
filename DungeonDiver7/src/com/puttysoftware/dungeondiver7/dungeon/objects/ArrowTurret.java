@@ -34,8 +34,8 @@ public class ArrowTurret extends AbstractMovableObject {
 
     public void kill(final int locX, final int locY) {
 	if (this.canShoot) {
-	    DungeonDiver7.getApplication().getGameLogic().setLaserType(ArrowTypeConstants.LASER_TYPE_RED);
-	    DungeonDiver7.getApplication().getGameLogic().fireLaser(locX, locY, this);
+	    DungeonDiver7.getStuffBag().getGameLogic().setLaserType(ArrowTypeConstants.LASER_TYPE_RED);
+	    DungeonDiver7.getStuffBag().getGameLogic().fireLaser(locX, locY, this);
 	    this.canShoot = false;
 	}
     }
@@ -96,7 +96,7 @@ public class ArrowTurret extends AbstractMovableObject {
 	    if (GameLogic.canObjectMove(locX, locY, unres[0], unres[1])) {
 		if (this.autoMove) {
 		    this.autoMove = false;
-		    DungeonDiver7.getApplication().getGameLogic().updatePushedPosition(locX, locY, locX + unres[0],
+		    DungeonDiver7.getStuffBag().getGameLogic().updatePushedPosition(locX, locY, locX + unres[0],
 			    locY + unres[1], this);
 		}
 	    } else {

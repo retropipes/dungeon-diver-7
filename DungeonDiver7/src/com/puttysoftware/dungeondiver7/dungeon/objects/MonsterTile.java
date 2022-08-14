@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.dungeondiver7.BagOStuff;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
@@ -24,9 +24,9 @@ public class MonsterTile extends AbstractMovingObject {
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, int dirZ) {
-	if (DungeonDiver7.getApplication().getMode() != BagOStuff.STATUS_BATTLE) {
-	    DungeonDiver7.getApplication().getBattle().doBattle();
-	    DungeonDiver7.getApplication().getDungeonManager().getDungeon().postBattle(this, dirX, dirY, true);
+	if (DungeonDiver7.getStuffBag().getMode() != StuffBag.STATUS_BATTLE) {
+	    DungeonDiver7.getStuffBag().getBattle().doBattle();
+	    DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().postBattle(this, dirX, dirY, true);
 	}
     }
 
@@ -35,7 +35,7 @@ public class MonsterTile extends AbstractMovingObject {
 	// Move the monster
 	final RandomRange r = new RandomRange(0, 7);
 	final Direction move = Direction.fromInternalValue(r.generate());
-	DungeonDiver7.getApplication().getDungeonManager().getDungeon().updateMonsterPosition(move, dirX, dirY, this, 0);
+	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().updateMonsterPosition(move, dirX, dirY, this, 0);
 	this.activateTimer(1);
     }
 

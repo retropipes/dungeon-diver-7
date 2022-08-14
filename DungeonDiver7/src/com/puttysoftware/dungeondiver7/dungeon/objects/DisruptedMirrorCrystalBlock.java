@@ -35,7 +35,7 @@ public class DisruptedMirrorCrystalBlock extends AbstractReactionDisruptedObject
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy disrupted mirror crystal block
 	    SoundLoader.playSound(SoundConstants.BOOM);
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE) {
@@ -52,8 +52,8 @@ public class DisruptedMirrorCrystalBlock extends AbstractReactionDisruptedObject
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
 	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
-	    final int z = DungeonDiver7.getApplication().getGameLogic().getPlayerManager().getPlayerLocationZ();
-	    DungeonDiver7.getApplication().getGameLogic();
+	    final int z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new MirrorCrystalBlock(), locX, locY, z,
 		    this.getLayer());
 	} else {
@@ -72,7 +72,7 @@ public class DisruptedMirrorCrystalBlock extends AbstractReactionDisruptedObject
 	    final int rangeType, final int forceUnits) {
 	if (rangeType == RangeTypeConstants.RANGE_TYPE_BOMB
 		|| RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_METALLIC) {
-	    DungeonDiver7.getApplication().getGameLogic();
+	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy disrupted mirror crystal block
 	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
