@@ -67,11 +67,11 @@ public class ImageListWithDescDialog extends JDialog implements ActionListener {
 	// Initialize the descriptions
 	ImageListWithDescDialog.descs = possibleDescriptions;
 	// Create and initialize the buttons.
-	final JButton cancelButton = new JButton("Cancel");
+	final JButton cancelButton = new JButton(AckInternalStrings.load(1));
 	cancelButton.addActionListener(this);
 	//
-	final JButton setButton = new JButton("OK");
-	setButton.setActionCommand("OK");
+	final JButton setButton = new JButton(AckInternalStrings.load(0));
+	setButton.setActionCommand(AckInternalStrings.load(0));
 	setButton.addActionListener(this);
 	this.getRootPane().setDefaultButton(setButton);
 	// Create a text area to hold the description
@@ -139,9 +139,9 @@ public class ImageListWithDescDialog extends JDialog implements ActionListener {
     // Handle clicks on the Set and Cancel buttons.
     @Override
     public void actionPerformed(final ActionEvent e) {
-	if ("OK".equals(e.getActionCommand())) {
+	if (AckInternalStrings.load(0).equals(e.getActionCommand())) {
 	    ImageListWithDescDialog.setValue(ImageListWithDescDialog.list.getSelectedIndex());
-	} else if ("Cancel".equals(e.getActionCommand())) {
+	} else if (AckInternalStrings.load(1).equals(e.getActionCommand())) {
 	    ImageListWithDescDialog.setValue(ImageListWithDescDialog.CANCEL);
 	}
 	ImageListWithDescDialog.dialog.setVisible(false);

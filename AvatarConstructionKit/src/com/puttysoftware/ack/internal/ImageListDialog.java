@@ -60,11 +60,11 @@ public class ImageListDialog extends JDialog implements ActionListener {
 	    final BufferedImageIcon[] data, final int initialValue) {
 	super(frame, title, true);
 	// Create and initialize the buttons.
-	final JButton cancelButton = new JButton("Cancel");
+	final JButton cancelButton = new JButton(AckInternalStrings.load(1));
 	cancelButton.addActionListener(this);
 	//
-	final JButton setButton = new JButton("OK");
-	setButton.setActionCommand("OK");
+	final JButton setButton = new JButton(AckInternalStrings.load(0));
+	setButton.setActionCommand(AckInternalStrings.load(0));
 	setButton.addActionListener(this);
 	this.getRootPane().setDefaultButton(setButton);
 	// main part of the dialog
@@ -117,9 +117,9 @@ public class ImageListDialog extends JDialog implements ActionListener {
     // Handle clicks on the Set and Cancel buttons.
     @Override
     public void actionPerformed(final ActionEvent e) {
-	if ("OK".equals(e.getActionCommand())) {
+	if (AckInternalStrings.load(0).equals(e.getActionCommand())) {
 	    ImageListDialog.setValue(ImageListDialog.list.getSelectedIndex());
-	} else if ("Cancel".equals(e.getActionCommand())) {
+	} else if (AckInternalStrings.load(1).equals(e.getActionCommand())) {
 	    ImageListDialog.setValue(ImageListDialog.CANCEL);
 	}
 	ImageListDialog.dialog.setVisible(false);
