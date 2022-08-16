@@ -9,6 +9,7 @@ import java.util.Properties;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.names.ZoneNames;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DifficultyConstants;
@@ -121,7 +122,7 @@ public class LocaleLoader {
 	    try (final InputStream is = LocaleLoader.LOAD_CLASS
 		    .getResourceAsStream(LocaleLoader.LOAD_PATH + LocaleLoader.LANGUAGE_NAME + filename);
 		    final ResourceStreamReader rsr = new ResourceStreamReader(is)) {
-		String line = LocaleConstants.COMMON_STRING_EMPTY;
+		String line = Strings.EMPTY;
 		while (line != null) {
 		    // Read line
 		    line = rsr.readString();
@@ -187,7 +188,7 @@ public class LocaleLoader {
 	try (final InputStream is = LocaleLoader.LOAD_CLASS.getResourceAsStream(
 		LocaleLoader.LOAD_PATH + LocaleLoader.LANGUAGE_NAME + filename + LocaleConstants.STRINGS_EXTENSION);
 		final ResourceStreamReader rsr = new ResourceStreamReader(is)) {
-	    String line = LocaleConstants.COMMON_STRING_EMPTY;
+	    String line = Strings.EMPTY;
 	    while (line != null) {
 		// Read line
 		line = rsr.readString();
@@ -218,7 +219,7 @@ public class LocaleLoader {
 	try (final InputStream is = LocaleLoader.LOAD_CLASS
 		.getResourceAsStream(LocaleLoader.LOAD_PATH + filename + LocaleConstants.STRINGS_EXTENSION);
 		final ResourceStreamReader rsr = new ResourceStreamReader(is)) {
-	    String line = LocaleConstants.COMMON_STRING_EMPTY;
+	    String line = Strings.EMPTY;
 	    while (line != null) {
 		// Read line
 		line = rsr.readString();

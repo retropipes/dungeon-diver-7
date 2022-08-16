@@ -24,8 +24,8 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
-import com.puttysoftware.dungeondiver7.locale.Globals;
-import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
@@ -56,7 +56,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	handler = new EventHandler();
 	this.aboutFrame = new JFrame(
 		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_ABOUT)
-			+ LocaleConstants.COMMON_STRING_SPACE + Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
+			+ LocaleConstants.COMMON_STRING_SPACE + Strings.untranslated(Untranslated.PROGRAM_NAME));
 	final Image iconlogo = LogoLoader.getIconLogo();
 	this.aboutFrame.setIconImage(iconlogo);
 	aboutPane = new Container();
@@ -65,7 +65,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	logoPane = new Container();
 	aboutOK = new JButton(
 		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_OK_BUTTON));
-	miniLabel = new JLabel(LocaleConstants.COMMON_STRING_EMPTY, LogoLoader.getMiniatureLogo(), SwingConstants.LEFT);
+	miniLabel = new JLabel(Strings.EMPTY, LogoLoader.getMiniatureLogo(), SwingConstants.LEFT);
 	miniLabel.setLabelFor(null);
 	aboutOK.setDefaultCapable(true);
 	this.aboutFrame.getRootPane().setDefaultButton(aboutOK);
@@ -74,11 +74,9 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	logoPane.setLayout(new FlowLayout());
 	logoPane.add(miniLabel);
 	textPane.setLayout(new GridLayout(4, 1));
-	textPane.add(
-		new JLabel(Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME)
-			+ LocaleConstants.COMMON_STRING_SPACE + LocaleLoader
-				.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_VERSION)
-			+ LocaleConstants.COMMON_STRING_SPACE + ver));
+	textPane.add(new JLabel(Strings.untranslated(Untranslated.PROGRAM_NAME) + LocaleConstants.COMMON_STRING_SPACE
+		+ LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_VERSION)
+		+ LocaleConstants.COMMON_STRING_SPACE + ver));
 	textPane.add(new JLabel(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
 		LocaleConstants.DIALOG_STRING_AUTHOR)
 		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_AUTHOR_NAME)));
@@ -173,8 +171,8 @@ public class AboutDialog implements AboutHandler, MenuSection {
 		LocaleConstants.MENU_STRING_ITEM_LASERTANK_HELP));
 	this.helpAbout.addActionListener(mhandler);
 	this.helpHelp.addActionListener(mhandler);
-	if (!System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME))
-		.equalsIgnoreCase(Globals.untranslated(GlobalsUntranslated.MACOS))) {
+	if (!System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
+		.equalsIgnoreCase(Strings.untranslated(Untranslated.MACOS))) {
 	    helpMenu.add(this.helpAbout);
 	}
 	helpMenu.add(this.helpHelp);

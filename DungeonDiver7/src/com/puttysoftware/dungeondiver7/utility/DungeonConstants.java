@@ -5,6 +5,8 @@
  */
 package com.puttysoftware.dungeondiver7.utility;
 
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.TimeTravel;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
@@ -41,12 +43,9 @@ public class DungeonConstants {
 			LocaleConstants.EDITOR_STRING_LOWER_OBJECTS_LAYER),
 		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
 			LocaleConstants.EDITOR_STRING_UPPER_OBJECTS_LAYER) };
-	DungeonConstants.ERA_LIST = new String[] {
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_DISTANT_PAST),
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_PAST),
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_PRESENT),
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_FUTURE),
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_DISTANT_FUTURE) };
+	DungeonConstants.ERA_LIST = new String[] { Strings.timeTravel(TimeTravel.FAR_PAST),
+		Strings.timeTravel(TimeTravel.PAST), Strings.timeTravel(TimeTravel.PRESENT),
+		Strings.timeTravel(TimeTravel.FUTURE), Strings.timeTravel(TimeTravel.FAR_FUTURE) };
     }
 
     public static String[] getLayerList() {

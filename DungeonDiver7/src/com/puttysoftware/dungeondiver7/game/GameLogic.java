@@ -33,8 +33,8 @@ import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Globals;
-import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
@@ -951,7 +951,7 @@ public final class GameLogic implements MenuSection {
 	    CommonDialogs.showErrorDialog(
 		    LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
 			    LocaleConstants.ERROR_STRING_TANK_LOCATION),
-		    Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
+		    Strings.untranslated(Untranslated.PROGRAM_NAME));
 	    this.exitGame();
 	    return;
 	}
@@ -1091,13 +1091,13 @@ public final class GameLogic implements MenuSection {
 		CommonDialogs.showErrorDialog(
 			LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
 				LocaleConstants.ERROR_STRING_NO_PREVIOUS_LEVEL),
-			Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
+			Strings.untranslated(Untranslated.PROGRAM_NAME));
 	    }
 	} else {
 	    CommonDialogs.showErrorDialog(
 		    LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
 			    LocaleConstants.ERROR_STRING_NO_PREVIOUS_LEVEL),
-		    Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
+		    Strings.untranslated(Untranslated.PROGRAM_NAME));
 	}
     }
 
@@ -1168,7 +1168,7 @@ public final class GameLogic implements MenuSection {
 		CommonDialogs.showErrorDialog(
 			LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
 				LocaleConstants.ERROR_STRING_TANK_LOCATION),
-			Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
+			Strings.untranslated(Untranslated.PROGRAM_NAME));
 		this.exitGame();
 		return;
 	    }
@@ -1251,7 +1251,7 @@ public final class GameLogic implements MenuSection {
 		CommonDialogs.showErrorDialog(
 			LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
 				LocaleConstants.ERROR_STRING_TANK_LOCATION),
-			Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
+			Strings.untranslated(Untranslated.PROGRAM_NAME));
 		this.exitGame();
 		return;
 	    }
@@ -1314,7 +1314,7 @@ public final class GameLogic implements MenuSection {
 		CommonDialogs.showErrorDialog(
 			LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
 				LocaleConstants.ERROR_STRING_TANK_LOCATION),
-			Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
+			Strings.untranslated(Untranslated.PROGRAM_NAME));
 		this.exitGame();
 		return;
 	    }
@@ -1633,7 +1633,7 @@ public final class GameLogic implements MenuSection {
 		CommonDialogs.showErrorDialog(
 			LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
 				LocaleConstants.ERROR_STRING_TANK_LOCATION),
-			Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
+			Strings.untranslated(Untranslated.PROGRAM_NAME));
 		this.exitGame();
 		return;
 	    }
@@ -1645,7 +1645,7 @@ public final class GameLogic implements MenuSection {
 		CommonDialogs.showErrorDialog(
 			LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
 				LocaleConstants.ERROR_STRING_NO_SOLUTION_FILE),
-			Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
+			Strings.untranslated(Untranslated.PROGRAM_NAME));
 	    } else {
 		this.replaying = true;
 		// Turn recording off
@@ -1657,7 +1657,7 @@ public final class GameLogic implements MenuSection {
 		    CommonDialogs.showErrorDialog(
 			    LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
 				    LocaleConstants.ERROR_STRING_TANK_LOCATION),
-			    Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
+			    Strings.untranslated(Untranslated.PROGRAM_NAME));
 		    this.exitGame();
 		    return;
 		}
@@ -1748,7 +1748,7 @@ public final class GameLogic implements MenuSection {
 		    CommonDialogs.showErrorDialog(
 			    LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
 				    LocaleConstants.ERROR_STRING_TANK_LOCATION),
-			    Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
+			    Strings.untranslated(Untranslated.PROGRAM_NAME));
 		    this.exitGame();
 		    return;
 		}

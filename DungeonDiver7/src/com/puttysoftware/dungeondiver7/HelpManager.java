@@ -12,8 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
-import com.puttysoftware.dungeondiver7.locale.Globals;
-import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
@@ -40,7 +40,7 @@ class HelpManager {
 
     private void initHelp() {
 	if (!this.inited) {
-	    this.helpFrame = new JFrame(Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME)
+	    this.helpFrame = new JFrame(Strings.untranslated(Untranslated.PROGRAM_NAME)
 		    + LocaleConstants.COMMON_STRING_SPACE
 		    + LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_HELP));
 	    final Image iconlogo = LogoLoader.getIconLogo();

@@ -18,6 +18,7 @@ import com.puttysoftware.dungeondiver7.battle.MapBattleLogic;
 import com.puttysoftware.dungeondiver7.editor.DungeonEditor;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
@@ -204,28 +205,24 @@ public final class StuffBag {
 
     private static String getVersionString() {
 	if (StuffBag.isBetaModeEnabled()) {
-	    return LocaleConstants.COMMON_STRING_EMPTY + StuffBag.VERSION_MAJOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_MINOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX
+	    return Strings.EMPTY + StuffBag.VERSION_MAJOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD
+		    + StuffBag.VERSION_MINOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX
 		    + LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE, LocaleConstants.MESSAGE_STRING_BETA)
 		    + StuffBag.VERSION_BETA;
 	} else {
-	    return LocaleConstants.COMMON_STRING_EMPTY + StuffBag.VERSION_MAJOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_MINOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX;
+	    return Strings.EMPTY + StuffBag.VERSION_MAJOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD
+		    + StuffBag.VERSION_MINOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX;
 	}
     }
 
     public static String getLogoVersionString() {
 	if (StuffBag.isBetaModeEnabled()) {
-	    return LocaleConstants.COMMON_STRING_EMPTY + StuffBag.VERSION_MAJOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_MINOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX
+	    return Strings.EMPTY + StuffBag.VERSION_MAJOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD
+		    + StuffBag.VERSION_MINOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX
 		    + LocaleConstants.COMMON_STRING_BETA_SHORT + StuffBag.VERSION_BETA;
 	} else {
-	    return LocaleConstants.COMMON_STRING_EMPTY + StuffBag.VERSION_MAJOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_MINOR
-		    + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX;
+	    return Strings.EMPTY + StuffBag.VERSION_MAJOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD
+		    + StuffBag.VERSION_MINOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX;
 	}
     }
 

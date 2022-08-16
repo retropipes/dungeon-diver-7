@@ -46,6 +46,8 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Party;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.TimeTravel;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
@@ -309,8 +311,7 @@ public class DungeonEditor implements MenuSection {
 		+ (z + 1)
 		+ LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
 			LocaleConstants.EDITOR_STRING_EDITOR_TITLE_2)
-		+ (u + 1) + LocaleConstants.COMMON_STRING_SPACE_DASH_SPACE
-		+ LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, e));
+		+ (u + 1) + LocaleConstants.COMMON_STRING_SPACE_DASH_SPACE + Strings.timeTravel(e));
 	this.outputPane.repaint();
 	this.showOutput();
     }
@@ -1509,8 +1510,7 @@ public class DungeonEditor implements MenuSection {
 			LocaleConstants.MENU_STRING_ITEM_DISABLE_GLOBAL_MOVE_SHOOT))) {
 		    // Disable Global Move-Shoot
 		    editor.disableGlobalMoveShoot();
-		} else if (cmd.equals(
-			LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_DISTANT_PAST))) {
+		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_PAST))) {
 		    // Time Travel: Distant Past
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_PAST);
 		    editor.editorEraDistantPast.setSelected(true);
@@ -1518,8 +1518,7 @@ public class DungeonEditor implements MenuSection {
 		    editor.editorEraPresent.setSelected(false);
 		    editor.editorEraFuture.setSelected(false);
 		    editor.editorEraDistantFuture.setSelected(false);
-		} else if (cmd
-			.equals(LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_PAST))) {
+		} else if (cmd.equals(Strings.timeTravel(TimeTravel.PAST))) {
 		    // Time Travel: Past
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PAST);
 		    editor.editorEraDistantPast.setSelected(false);
@@ -1527,8 +1526,7 @@ public class DungeonEditor implements MenuSection {
 		    editor.editorEraPresent.setSelected(false);
 		    editor.editorEraFuture.setSelected(false);
 		    editor.editorEraDistantFuture.setSelected(false);
-		} else if (cmd.equals(
-			LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_PRESENT))) {
+		} else if (cmd.equals(Strings.timeTravel(TimeTravel.PRESENT))) {
 		    // Time Travel: Present
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PRESENT);
 		    editor.editorEraDistantPast.setSelected(false);
@@ -1536,8 +1534,7 @@ public class DungeonEditor implements MenuSection {
 		    editor.editorEraPresent.setSelected(true);
 		    editor.editorEraFuture.setSelected(false);
 		    editor.editorEraDistantFuture.setSelected(false);
-		} else if (cmd.equals(
-			LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_FUTURE))) {
+		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FUTURE))) {
 		    // Time Travel: Future
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_FUTURE);
 		    editor.editorEraDistantPast.setSelected(false);
@@ -1545,8 +1542,7 @@ public class DungeonEditor implements MenuSection {
 		    editor.editorEraPresent.setSelected(false);
 		    editor.editorEraFuture.setSelected(true);
 		    editor.editorEraDistantFuture.setSelected(false);
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE,
-			DungeonConstants.ERA_DISTANT_FUTURE))) {
+		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_FUTURE))) {
 		    // Time Travel: Distant Future
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_FUTURE);
 		    editor.editorEraDistantPast.setSelected(false);
@@ -1698,16 +1694,11 @@ public class DungeonEditor implements MenuSection {
 		LocaleConstants.MENU_STRING_ITEM_ENABLE_GLOBAL_MOVE_SHOOT));
 	this.editorTimeTravelSubMenu = new JMenu(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 		LocaleConstants.MENU_STRING_SUB_TIME_TRAVEL));
-	this.editorEraDistantPast = new JCheckBoxMenuItem(
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_DISTANT_PAST), false);
-	this.editorEraPast = new JCheckBoxMenuItem(
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_PAST), false);
-	this.editorEraPresent = new JCheckBoxMenuItem(
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_PRESENT), true);
-	this.editorEraFuture = new JCheckBoxMenuItem(
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_FUTURE), false);
-	this.editorEraDistantFuture = new JCheckBoxMenuItem(
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_DISTANT_FUTURE), false);
+	this.editorEraDistantPast = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.FAR_PAST), false);
+	this.editorEraPast = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.PAST), false);
+	this.editorEraPresent = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.PRESENT), true);
+	this.editorEraFuture = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.FUTURE), false);
+	this.editorEraDistantFuture = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.FAR_FUTURE), false);
 	this.editorUndo.addActionListener(menuHandler);
 	this.editorRedo.addActionListener(menuHandler);
 	this.editorCutLevel.addActionListener(menuHandler);

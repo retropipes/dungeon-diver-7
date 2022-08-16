@@ -19,8 +19,8 @@ import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.ltv4.LaserTankV4LoadTask;
-import com.puttysoftware.dungeondiver7.locale.Globals;
-import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.file.DungeonLoadTask;
@@ -53,9 +53,9 @@ public final class DungeonManager {
 	this.loaded = false;
 	this.isDirty = false;
 	this.gameDungeon = null;
-	this.lastUsedDungeonFile = LocaleConstants.COMMON_STRING_EMPTY;
-	this.lastUsedGameFile = LocaleConstants.COMMON_STRING_EMPTY;
-	this.scoresFileName = LocaleConstants.COMMON_STRING_EMPTY;
+	this.lastUsedDungeonFile = Strings.EMPTY;
+	this.lastUsedGameFile = Strings.EMPTY;
+	this.scoresFileName = Strings.EMPTY;
     }
 
     // Methods
@@ -102,7 +102,7 @@ public final class DungeonManager {
 	} else if (mode == StuffBag.STATUS_GAME) {
 	    type = LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
 		    LocaleConstants.DIALOG_STRING_PROMPT_SAVE_GAME);
-	    source = Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME);
+	    source = Strings.untranslated(Untranslated.PROGRAM_NAME);
 	} else {
 	    // Not in the game or editor, so abort
 	    return JOptionPane.NO_OPTION;
@@ -135,8 +135,8 @@ public final class DungeonManager {
     }
 
     public void clearLastUsedFilenames() {
-	this.lastUsedDungeonFile = LocaleConstants.COMMON_STRING_EMPTY;
-	this.lastUsedGameFile = LocaleConstants.COMMON_STRING_EMPTY;
+	this.lastUsedDungeonFile = Strings.EMPTY;
+	this.lastUsedGameFile = Strings.EMPTY;
     }
 
     public String getLastUsedDungeon() {
@@ -365,7 +365,7 @@ public final class DungeonManager {
     public boolean saveDungeon(final boolean protect) {
 	final StuffBag app = DungeonDiver7.getStuffBag();
 	if (app.getMode() == StuffBag.STATUS_GAME) {
-	    if (this.lastUsedGameFile != null && !this.lastUsedGameFile.equals(LocaleConstants.COMMON_STRING_EMPTY)) {
+	    if (this.lastUsedGameFile != null && !this.lastUsedGameFile.equals(Strings.EMPTY)) {
 		final String extension = DungeonManager.getExtension(this.lastUsedGameFile);
 		if (extension != null) {
 		    if (!extension.equals(FileExtensions.getGameExtension())) {
@@ -381,8 +381,7 @@ public final class DungeonManager {
 	    }
 	} else {
 	    if (protect) {
-		if (this.lastUsedDungeonFile != null
-			&& !this.lastUsedDungeonFile.equals(LocaleConstants.COMMON_STRING_EMPTY)) {
+		if (this.lastUsedDungeonFile != null && !this.lastUsedDungeonFile.equals(Strings.EMPTY)) {
 		    final String extension = DungeonManager.getExtension(this.lastUsedDungeonFile);
 		    if (extension != null) {
 			if (!extension.equals(FileExtensions.getProtectedDungeonExtension())) {
@@ -397,8 +396,7 @@ public final class DungeonManager {
 		    return this.saveDungeonAs(protect);
 		}
 	    } else {
-		if (this.lastUsedDungeonFile != null
-			&& !this.lastUsedDungeonFile.equals(LocaleConstants.COMMON_STRING_EMPTY)) {
+		if (this.lastUsedDungeonFile != null && !this.lastUsedDungeonFile.equals(Strings.EMPTY)) {
 		    final String extension = DungeonManager.getExtension(this.lastUsedDungeonFile);
 		    if (extension != null) {
 			if (!extension.equals(FileExtensions.getDungeonExtension())) {
@@ -419,7 +417,7 @@ public final class DungeonManager {
 
     public boolean saveDungeonAs(final boolean protect) {
 	final StuffBag app = DungeonDiver7.getStuffBag();
-	String filename = LocaleConstants.COMMON_STRING_EMPTY;
+	String filename = Strings.EMPTY;
 	String fileOnly = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		LocaleConstants.NOTL_STRING_DOUBLE_BACKSLASH);
 	String extension, file, dir;

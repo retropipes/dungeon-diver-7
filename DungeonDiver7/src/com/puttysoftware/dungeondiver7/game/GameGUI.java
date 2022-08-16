@@ -53,8 +53,9 @@ import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Globals;
-import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.TimeTravel;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
@@ -329,7 +330,7 @@ class GameGUI {
 	final FocusHandler fHandler = new FocusHandler();
 	this.borderPane = new Container();
 	this.borderPane.setLayout(new BorderLayout());
-	this.outputFrame = new JFrame(Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
+	this.outputFrame = new JFrame(Strings.untranslated(Untranslated.PROGRAM_NAME));
 	this.outputFrame.setIconImage(iconlogo);
 	this.outerOutputPane = RCLGenerator.generateRowColumnLabels();
 	this.outputPane = new GameDraw();
@@ -545,16 +546,11 @@ class GameGUI {
 		LocaleConstants.MENU_STRING_ITEM_CHANGE_OTHER_TOOL));
 	this.gameChangeOtherRangeMode = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 		LocaleConstants.MENU_STRING_ITEM_CHANGE_OTHER_RANGE));
-	this.gameEraDistantPast = new JCheckBoxMenuItem(
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_DISTANT_PAST), false);
-	this.gameEraPast = new JCheckBoxMenuItem(
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_PAST), false);
-	this.gameEraPresent = new JCheckBoxMenuItem(
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_PRESENT), true);
-	this.gameEraFuture = new JCheckBoxMenuItem(
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_FUTURE), false);
-	this.gameEraDistantFuture = new JCheckBoxMenuItem(
-		LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_DISTANT_FUTURE), false);
+	this.gameEraDistantPast = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.FAR_PAST), false);
+	this.gameEraPast = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.PAST), false);
+	this.gameEraPresent = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.PRESENT), true);
+	this.gameEraFuture = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.FUTURE), false);
+	this.gameEraDistantFuture = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.FAR_FUTURE), false);
 	this.gameReset.addActionListener(mhandler);
 	this.gameShowTable.addActionListener(mhandler);
 	this.gameReplaySolution.addActionListener(mhandler);
@@ -1163,7 +1159,7 @@ class GameGUI {
 		    final int result = CommonDialogs.showConfirmDialog(
 			    LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 				    LocaleConstants.MENU_STRING_CONFIRM_RESET_CURRENT_LEVEL),
-			    Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
+			    Strings.untranslated(Untranslated.PROGRAM_NAME));
 		    if (result == JOptionPane.YES_OPTION) {
 			game.abortAndWaitForMLOLoop();
 			game.resetCurrentLevel();
@@ -1209,8 +1205,7 @@ class GameGUI {
 		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 			LocaleConstants.MENU_STRING_ITEM_CHANGE_OTHER_RANGE))) {
 		    game.changeOtherRangeMode();
-		} else if (cmd.equals(
-			LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_DISTANT_PAST))) {
+		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_PAST))) {
 		    // Time Travel: Distant Past
 		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_PAST);
@@ -1219,8 +1214,7 @@ class GameGUI {
 		    gui.gameEraPresent.setSelected(false);
 		    gui.gameEraFuture.setSelected(false);
 		    gui.gameEraDistantFuture.setSelected(false);
-		} else if (cmd
-			.equals(LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_PAST))) {
+		} else if (cmd.equals(Strings.timeTravel(TimeTravel.PAST))) {
 		    // Time Travel: Past
 		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PAST);
@@ -1229,8 +1223,7 @@ class GameGUI {
 		    gui.gameEraPresent.setSelected(false);
 		    gui.gameEraFuture.setSelected(false);
 		    gui.gameEraDistantFuture.setSelected(false);
-		} else if (cmd.equals(
-			LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_PRESENT))) {
+		} else if (cmd.equals(Strings.timeTravel(TimeTravel.PRESENT))) {
 		    // Time Travel: Present
 		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PRESENT);
@@ -1239,8 +1232,7 @@ class GameGUI {
 		    gui.gameEraPresent.setSelected(true);
 		    gui.gameEraFuture.setSelected(false);
 		    gui.gameEraDistantFuture.setSelected(false);
-		} else if (cmd.equals(
-			LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE, DungeonConstants.ERA_FUTURE))) {
+		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FUTURE))) {
 		    // Time Travel: Future
 		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_FUTURE);
@@ -1249,8 +1241,7 @@ class GameGUI {
 		    gui.gameEraPresent.setSelected(false);
 		    gui.gameEraFuture.setSelected(true);
 		    gui.gameEraDistantFuture.setSelected(false);
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.ERA_STRINGS_FILE,
-			DungeonConstants.ERA_DISTANT_FUTURE))) {
+		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_FUTURE))) {
 		    // Time Travel: Distant Future
 		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_FUTURE);

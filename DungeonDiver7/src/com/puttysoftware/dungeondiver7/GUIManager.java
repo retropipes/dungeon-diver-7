@@ -28,8 +28,8 @@ import javax.swing.border.EmptyBorder;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
-import com.puttysoftware.dungeondiver7.locale.Globals;
-import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
@@ -49,11 +49,11 @@ public class GUIManager implements MenuSection, QuitHandler {
     public GUIManager() {
 	final CloseHandler cHandler = new CloseHandler();
 	final FocusHandler fHandler = new FocusHandler();
-	this.guiFrame = new JFrame(Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
+	this.guiFrame = new JFrame(Strings.untranslated(Untranslated.PROGRAM_NAME));
 	final Container guiPane = this.guiFrame.getContentPane();
 	this.guiFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.guiFrame.setLayout(new GridLayout(1, 1));
-	this.logoLabel = new JLabel(LocaleConstants.COMMON_STRING_EMPTY, null, SwingConstants.CENTER);
+	this.logoLabel = new JLabel(Strings.EMPTY, null, SwingConstants.CENTER);
 	this.logoLabel.setLabelFor(null);
 	this.logoLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
 	guiPane.add(this.logoLabel);
@@ -331,8 +331,8 @@ public class GUIManager implements MenuSection, QuitHandler {
 		LocaleConstants.MENU_STRING_ITEM_PREFERENCES));
 	this.filePrint = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 		LocaleConstants.MENU_STRING_ITEM_PRINT_GAMEBOARD));
-	if (System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME))
-		.contains(Globals.untranslated(GlobalsUntranslated.WINDOWS))) {
+	if (System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
+		.contains(Strings.untranslated(Untranslated.WINDOWS))) {
 	    this.fileExit = new JMenuItem(
 		    LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_EXIT));
 	} else {
@@ -356,13 +356,13 @@ public class GUIManager implements MenuSection, QuitHandler {
 	fileMenu.add(this.fileSave);
 	fileMenu.add(this.fileSaveAs);
 	fileMenu.add(this.fileSaveAsProtected);
-	if (!System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME))
-		.equalsIgnoreCase(Globals.untranslated(GlobalsUntranslated.MACOS))) {
+	if (!System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
+		.equalsIgnoreCase(Strings.untranslated(Untranslated.MACOS))) {
 	    fileMenu.add(this.filePreferences);
 	}
 	fileMenu.add(this.filePrint);
-	if (!System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME))
-		.equalsIgnoreCase(Globals.untranslated(GlobalsUntranslated.MACOS))) {
+	if (!System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
+		.equalsIgnoreCase(Strings.untranslated(Untranslated.MACOS))) {
 	    fileMenu.add(this.fileExit);
 	}
 	return fileMenu;
@@ -377,8 +377,8 @@ public class GUIManager implements MenuSection, QuitHandler {
 	this.fileSaveAs.setAccelerator(accel.fileSaveAsAccel);
 	this.filePreferences.setAccelerator(accel.filePreferencesAccel);
 	this.filePrint.setAccelerator(accel.filePrintAccel);
-	if (System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME))
-		.contains(Globals.untranslated(GlobalsUntranslated.WINDOWS))) {
+	if (System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
+		.contains(Strings.untranslated(Untranslated.WINDOWS))) {
 	    this.fileExit.setAccelerator(null);
 	} else {
 	    this.fileExit.setAccelerator(accel.fileExitAccel);

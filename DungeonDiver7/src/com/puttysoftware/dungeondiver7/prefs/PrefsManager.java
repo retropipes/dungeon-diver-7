@@ -16,8 +16,8 @@ import javax.swing.JFrame;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Ground;
-import com.puttysoftware.dungeondiver7.locale.Globals;
-import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.EditorLayoutConstants;
@@ -114,7 +114,7 @@ public class PrefsManager {
 
     public static String getLastDirOpen() {
 	return PrefsManager.storeMgr.getString(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_LAST_DIR_OPEN), LocaleConstants.COMMON_STRING_EMPTY);
+		LocaleConstants.NOTL_STRING_PREFS_KEY_LAST_DIR_OPEN), Strings.EMPTY);
     }
 
     public static void setLastDirOpen(final String value) {
@@ -124,7 +124,7 @@ public class PrefsManager {
 
     public static String getLastDirSave() {
 	return PrefsManager.storeMgr.getString(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_LAST_DIR_SAVE), LocaleConstants.COMMON_STRING_EMPTY);
+		LocaleConstants.NOTL_STRING_PREFS_KEY_LAST_DIR_SAVE), Strings.EMPTY);
     }
 
     public static void setLastDirSave(final String value) {
@@ -263,12 +263,12 @@ public class PrefsManager {
     }
 
     private static String getPrefsDirPrefix() {
-	final String osName = System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME));
-	if (osName.indexOf(Globals.untranslated(GlobalsUntranslated.MACOS)) != -1) {
+	final String osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
+	if (osName.indexOf(Strings.untranslated(Untranslated.MACOS)) != -1) {
 	    // Mac OS X
 	    return System.getenv(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		    LocaleConstants.NOTL_STRING_DIRECTORY_UNIX_HOME));
-	} else if (osName.indexOf(Globals.untranslated(GlobalsUntranslated.WINDOWS)) != -1) {
+	} else if (osName.indexOf(Strings.untranslated(Untranslated.WINDOWS)) != -1) {
 	    // Windows
 	    return System.getenv(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		    LocaleConstants.NOTL_STRING_DIRECTORY_WINDOWS_APPDATA));
@@ -280,12 +280,12 @@ public class PrefsManager {
     }
 
     private static String getPrefsDirectory() {
-	final String osName = System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME));
-	if (osName.indexOf(Globals.untranslated(GlobalsUntranslated.MACOS)) != -1) {
+	final String osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
+	if (osName.indexOf(Strings.untranslated(Untranslated.MACOS)) != -1) {
 	    // Mac OS X
 	    return LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		    LocaleConstants.NOTL_STRING_DIRECTORY_PREFS_MAC);
-	} else if (osName.indexOf(Globals.untranslated(GlobalsUntranslated.WINDOWS)) != -1) {
+	} else if (osName.indexOf(Strings.untranslated(Untranslated.WINDOWS)) != -1) {
 	    // Windows
 	    return LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		    LocaleConstants.NOTL_STRING_DIRECTORY_PREFS_WINDOWS);
@@ -301,12 +301,12 @@ public class PrefsManager {
     }
 
     private static String getPrefsFileName() {
-	final String osName = System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME));
-	if (osName.indexOf(Globals.untranslated(GlobalsUntranslated.MACOS)) != -1) {
+	final String osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
+	if (osName.indexOf(Strings.untranslated(Untranslated.MACOS)) != -1) {
 	    // Mac OS X
 	    return LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		    LocaleConstants.NOTL_STRING_FILE_PREFS_MAC);
-	} else if (osName.indexOf(Globals.untranslated(GlobalsUntranslated.WINDOWS)) != -1) {
+	} else if (osName.indexOf(Strings.untranslated(Untranslated.WINDOWS)) != -1) {
 	    // Windows
 	    return LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		    LocaleConstants.NOTL_STRING_FILE_PREFS_WINDOWS);
@@ -341,9 +341,9 @@ public class PrefsManager {
 	} catch (final IOException io) {
 	    // Populate store with defaults
 	    PrefsManager.storeMgr.setString(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_LAST_DIR_OPEN), LocaleConstants.COMMON_STRING_EMPTY);
+		    LocaleConstants.NOTL_STRING_PREFS_KEY_LAST_DIR_OPEN), Strings.EMPTY);
 	    PrefsManager.storeMgr.setString(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_LAST_DIR_SAVE), LocaleConstants.COMMON_STRING_EMPTY);
+		    LocaleConstants.NOTL_STRING_PREFS_KEY_LAST_DIR_SAVE), Strings.EMPTY);
 	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		    LocaleConstants.NOTL_STRING_PREFS_KEY_UPDATES_STARTUP), true);
 	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,

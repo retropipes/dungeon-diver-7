@@ -19,8 +19,8 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
-import com.puttysoftware.dungeondiver7.locale.Globals;
-import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.file.AbstractPrefixIO;
@@ -75,7 +75,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	final String randomID = Long.toHexString(random);
 	this.basePath = System.getProperty(
 		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_TEMP_DIR))
-		+ File.separator + Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME) + File.separator + randomID
+		+ File.separator + Strings.untranslated(Untranslated.PROGRAM_NAME) + File.separator + randomID
 		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_FOLDER);
 	final File base = new File(this.basePath);

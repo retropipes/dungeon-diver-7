@@ -1,6 +1,6 @@
 package com.puttysoftware.dungeondiver7.locale;
 
-public enum GlobalsUntranslated {
+public enum Untranslated {
     OS_NAME,
     MACOS,
     WINDOWS,

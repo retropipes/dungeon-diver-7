@@ -3,7 +3,6 @@ package com.puttysoftware.dungeondiver7.locale.old;
 public class LocaleConstants {
     // File Constants
     static final String STRINGS_EXTENSION = ".properties";
-    public static final int DIFFICULTY_STRINGS_FILE = 0;
     public static final int ERROR_STRINGS_FILE = 1;
     public static final int PREFS_STRINGS_FILE = 2;
     public static final int GENERIC_STRINGS_FILE = 3;
@@ -13,13 +12,11 @@ public class LocaleConstants {
     public static final int MESSAGE_STRINGS_FILE = 7;
     public static final int EDITOR_STRINGS_FILE = 8;
     public static final int GAME_STRINGS_FILE = 9;
-    public static final int ERA_STRINGS_FILE = 10;
     static final int LANGUAGE_STRINGS_FILE = 0;
     public static final int NOTL_STRINGS_FILE = -1;
     public static final int IMAGE_STRINGS_FILE = -2;
     public static final int COLOR_STRINGS_FILE = -3;
     public static final int STRINGS_FILE = -4;
-    private static final String DIFFICULTY_STRINGS_FILE_NAME = "difficulty";
     private static final String ERROR_STRINGS_FILE_NAME = "error";
     private static final String PREFS_STRINGS_FILE_NAME = "prefs";
     private static final String GENERIC_STRINGS_FILE_NAME = "generic";
@@ -29,13 +26,11 @@ public class LocaleConstants {
     private static final String MESSAGE_STRINGS_FILE_NAME = "message";
     private static final String EDITOR_STRINGS_FILE_NAME = "editor";
     private static final String GAME_STRINGS_FILE_NAME = "game";
-    private static final String ERA_STRINGS_FILE_NAME = "era";
-    static final String[] STRINGS_FILES = new String[] { LocaleConstants.DIFFICULTY_STRINGS_FILE_NAME,
-	    LocaleConstants.ERROR_STRINGS_FILE_NAME, LocaleConstants.PREFS_STRINGS_FILE_NAME,
-	    LocaleConstants.GENERIC_STRINGS_FILE_NAME, LocaleConstants.OBJECT_STRINGS_FILE_NAME,
-	    LocaleConstants.MENU_STRINGS_FILE_NAME, LocaleConstants.DIALOG_STRINGS_FILE_NAME,
-	    LocaleConstants.MESSAGE_STRINGS_FILE_NAME, LocaleConstants.EDITOR_STRINGS_FILE_NAME,
-	    LocaleConstants.GAME_STRINGS_FILE_NAME, LocaleConstants.ERA_STRINGS_FILE_NAME };
+    static final String[] STRINGS_FILES = new String[] { null, LocaleConstants.ERROR_STRINGS_FILE_NAME,
+	    LocaleConstants.PREFS_STRINGS_FILE_NAME, LocaleConstants.GENERIC_STRINGS_FILE_NAME,
+	    LocaleConstants.OBJECT_STRINGS_FILE_NAME, LocaleConstants.MENU_STRINGS_FILE_NAME,
+	    LocaleConstants.DIALOG_STRINGS_FILE_NAME, LocaleConstants.MESSAGE_STRINGS_FILE_NAME,
+	    LocaleConstants.EDITOR_STRINGS_FILE_NAME, LocaleConstants.GAME_STRINGS_FILE_NAME };
     private static final String LANGUAGE_STRINGS_FILE_NAME = "language";
     private static final String NOTL_STRINGS_FILE_NAME = "notranslate";
     private static final String IMAGE_STRINGS_FILE_NAME = "image";
@@ -201,12 +196,6 @@ public class LocaleConstants {
     public static final int NOTL_STRING_PREFS_KEY_ENABLE_MUSIC = 156;
     public static final int NOTL_STRING_PREFS_KEY_EDITOR_LAYOUT_ID = 157;
     public static final int NOTL_STRING_DUNGEON_FORMAT_ERA = 158;
-    // Difficulty String Constants
-    public static final int DIFFICULTY_STRING_KIDS = 0;
-    public static final int DIFFICULTY_STRING_EASY = 1;
-    public static final int DIFFICULTY_STRING_MEDIUM = 2;
-    public static final int DIFFICULTY_STRING_HARD = 3;
-    public static final int DIFFICULTY_STRING_DEADLY = 4;
     // Error String Constants
     public static final int ERROR_STRING_ERROR_TITLE = 0;
     public static final int ERROR_STRING_ERROR_MESSAGE = 1;
@@ -425,7 +414,6 @@ public class LocaleConstants {
     public static final int EDITOR_STRING_CHANGE_LAYER_PROMPT = 41;
     public static final int EDITOR_STRING_ENABLE_MOVE_SHOOT = 42;
     // Common String Constants
-    public static final String COMMON_STRING_EMPTY = "";
     public static final String COMMON_STRING_SPACE = " ";
     public static final String COMMON_STRING_UNDERSCORE = "_";
     public static final String COMMON_STRING_NOTL_PERIOD = ".";

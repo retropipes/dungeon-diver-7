@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.fileutils.ResourceStreamReader;
@@ -33,7 +34,7 @@ final class CheatManager {
 	try (InputStream is = CheatManager.class.getResourceAsStream(
 		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_CHEATS_PATH));
 		ResourceStreamReader rsr = new ResourceStreamReader(is)) {
-	    String line = LocaleConstants.COMMON_STRING_EMPTY;
+	    String line = Strings.EMPTY;
 	    while (line != null) {
 		line = rsr.readString();
 		if (line != null) {

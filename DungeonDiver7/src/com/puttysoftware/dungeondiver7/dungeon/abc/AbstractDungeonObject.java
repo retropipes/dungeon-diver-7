@@ -19,6 +19,7 @@ import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -720,7 +721,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (this.hasColor()) {
 	    return ColorResolver.resolveColorConstantToImageName(this.color) + LocaleConstants.COMMON_STRING_SPACE;
 	} else {
-	    return LocaleConstants.COMMON_STRING_EMPTY;
+	    return Strings.EMPTY;
 	}
     }
 
@@ -728,7 +729,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (this.hasColor()) {
 	    return ColorResolver.resolveColorConstantToName(this.color) + LocaleConstants.COMMON_STRING_SPACE;
 	} else {
-	    return LocaleConstants.COMMON_STRING_EMPTY;
+	    return Strings.EMPTY;
 	}
     }
 
@@ -737,7 +738,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    return LocaleConstants.COMMON_STRING_SPACE
 		    + DirectionResolver.resolveDirectionConstantToImageName(this.direction);
 	} else {
-	    return LocaleConstants.COMMON_STRING_EMPTY;
+	    return Strings.EMPTY;
 	}
     }
 
@@ -745,7 +746,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (this.isAnimated()) {
 	    return LocaleConstants.COMMON_STRING_SPACE + this.frameNumber;
 	} else {
-	    return LocaleConstants.COMMON_STRING_EMPTY;
+	    return Strings.EMPTY;
 	}
     }
 

@@ -10,14 +10,14 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.KeyStroke;
 
-import com.puttysoftware.dungeondiver7.locale.Globals;
-import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 
 class ModernAccelerators extends Accelerators {
     ModernAccelerators() {
 	int modKey;
-	if (System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME))
-		.equalsIgnoreCase(Globals.untranslated(GlobalsUntranslated.MACOS))) {
+	if (System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
+		.equalsIgnoreCase(Strings.untranslated(Untranslated.MACOS))) {
 	    modKey = InputEvent.META_DOWN_MASK;
 	} else {
 	    modKey = InputEvent.CTRL_DOWN_MASK;

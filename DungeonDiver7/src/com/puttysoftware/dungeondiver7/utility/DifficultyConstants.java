@@ -5,8 +5,8 @@
  */
 package com.puttysoftware.dungeondiver7.utility;
 
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Difficulty;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 
 public final class DifficultyConstants {
     // Constants
@@ -30,16 +30,8 @@ public final class DifficultyConstants {
     }
 
     public static void reloadDifficultyNames() {
-	DifficultyConstants.DIFFICULTY_NAMES = new String[] {
-		LocaleLoader.loadString(LocaleConstants.DIFFICULTY_STRINGS_FILE,
-			LocaleConstants.DIFFICULTY_STRING_KIDS),
-		LocaleLoader.loadString(LocaleConstants.DIFFICULTY_STRINGS_FILE,
-			LocaleConstants.DIFFICULTY_STRING_EASY),
-		LocaleLoader.loadString(LocaleConstants.DIFFICULTY_STRINGS_FILE,
-			LocaleConstants.DIFFICULTY_STRING_MEDIUM),
-		LocaleLoader.loadString(LocaleConstants.DIFFICULTY_STRINGS_FILE,
-			LocaleConstants.DIFFICULTY_STRING_HARD),
-		LocaleLoader.loadString(LocaleConstants.DIFFICULTY_STRINGS_FILE,
-			LocaleConstants.DIFFICULTY_STRING_DEADLY) };
+	DifficultyConstants.DIFFICULTY_NAMES = new String[] { Strings.difficulty(Difficulty.KIDS),
+		Strings.difficulty(Difficulty.EASY), Strings.difficulty(Difficulty.MEDIUM),
+		Strings.difficulty(Difficulty.HARD), Strings.difficulty(Difficulty.DEADLY) };
     }
 }
