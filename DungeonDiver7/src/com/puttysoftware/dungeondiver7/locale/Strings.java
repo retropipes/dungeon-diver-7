@@ -11,6 +11,10 @@ public final class Strings {
     public static String difficulty(final Difficulty item) {
 	return ResourceBundle.getBundle("locale.difficulty").getString(Integer.toString(item.ordinal()));
     }
+    
+    public static String direction(final Direction item) {
+	return ResourceBundle.getBundle("locale.direction").getString(Integer.toString(item.ordinal()));
+    }
 
     public static String timeTravel(final TimeTravel item) {
 	return ResourceBundle.getBundle("locale.timetravel").getString(Integer.toString(item.ordinal()));

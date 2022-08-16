@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
-import com.puttysoftware.dungeondiver7.utility.Direction;
+import com.puttysoftware.dungeondiver7.locale.Direction;
 
 public abstract class AbstractReactionPassThroughObject extends AbstractPassThroughObject {
     // Constructors

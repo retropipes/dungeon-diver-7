@@ -6,7 +6,7 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMover;
-import com.puttysoftware.dungeondiver7.utility.Direction;
+import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 
 public class MirrorMover extends AbstractMover {

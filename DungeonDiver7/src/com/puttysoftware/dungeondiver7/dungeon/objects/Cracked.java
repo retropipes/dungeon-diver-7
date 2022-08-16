@@ -11,7 +11,7 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractAttribute;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.Direction;
+import com.puttysoftware.dungeondiver7.locale.Direction;
 
 public class Cracked extends AbstractAttribute {
     // Constructors

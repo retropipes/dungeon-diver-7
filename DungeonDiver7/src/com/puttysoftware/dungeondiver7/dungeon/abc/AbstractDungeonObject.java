@@ -19,13 +19,13 @@ import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
 import com.puttysoftware.dungeondiver7.utility.ColorConstants;
 import com.puttysoftware.dungeondiver7.utility.ColorResolver;
-import com.puttysoftware.dungeondiver7.utility.Direction;
 import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.ImageColorConstants;
@@ -735,8 +735,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 
     private final String getDirectionSuffix() {
 	if (this.hasDirection()) {
-	    return LocaleConstants.COMMON_STRING_SPACE
-		    + DirectionResolver.resolveDirectionConstantToImageName(this.direction);
+	    return LocaleConstants.COMMON_STRING_SPACE + Strings.direction(this.direction);
 	} else {
 	    return Strings.EMPTY;
 	}

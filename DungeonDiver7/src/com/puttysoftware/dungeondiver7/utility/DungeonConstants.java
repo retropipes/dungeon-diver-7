@@ -5,6 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.utility;
 
+import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.TimeTravel;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
