@@ -20,8 +20,8 @@ import com.puttysoftware.dungeondiver7.creature.StatConstants;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
-import com.puttysoftware.dungeondiver7.locale.LocalizedFile;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.old.LocalizedFile;
 
 public class StatisticsViewer {
     // Fields

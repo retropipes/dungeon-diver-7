@@ -5,8 +5,8 @@
  */
 package com.puttysoftware.dungeondiver7.utility;
 
-import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
 public class FileExtensions {
     private FileExtensions() {

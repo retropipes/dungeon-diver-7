@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.fileutils.ResourceStreamReader;
 
 final class CheatManager {

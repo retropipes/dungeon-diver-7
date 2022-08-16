@@ -43,8 +43,7 @@ public class DisruptedWoodenWall extends AbstractDisruptedObject {
 	    // Freeze disrupted wooden wall
 	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new DisruptedIcyWall(this.disruptionLeft), locX, locY,
-		    locZ, this.getLayer());
+	    GameLogic.morph(new DisruptedIcyWall(this.disruptionLeft), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
 	    // Stop laser

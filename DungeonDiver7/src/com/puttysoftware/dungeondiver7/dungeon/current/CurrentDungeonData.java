@@ -8,8 +8,8 @@ package com.puttysoftware.dungeondiver7.dungeon.current;
 import java.io.IOException;
 import java.util.ArrayDeque;
 
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeonData;
 import com.puttysoftware.dungeondiver7.dungeon.DungeonDataStorage;
@@ -34,8 +34,8 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.Direction;
 import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -759,7 +759,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public boolean circularScanPlayer(final AbstractDungeon dungeon, final int x, final int y, final int z, final int r) {
+    public boolean circularScanPlayer(final AbstractDungeon dungeon, final int x, final int y, final int z,
+	    final int r) {
 	final int[] tankLoc = DungeonDiver7.getStuffBag().getGameLogic().getPlayerLocation();
 	int fX = x;
 	int fY = y;
@@ -809,8 +810,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    if (!(obj instanceof Ground)) {
 			DungeonDiver7.getStuffBag().getGameLogic();
 			// Freeze the ground
-			GameLogic.morph(
-				obj.changesToOnExposure(MaterialConstants.MATERIAL_ICE), y, x, z,
+			GameLogic.morph(obj.changesToOnExposure(MaterialConstants.MATERIAL_ICE), y, x, z,
 				DungeonConstants.LAYER_LOWER_GROUND);
 		    }
 		}
@@ -1478,8 +1478,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	}
     }
 
-    private static CurrentDungeonData readDataG1(final AbstractDungeon dungeon, final FileIOReader reader, final int ver)
-	    throws IOException {
+    private static CurrentDungeonData readDataG1(final AbstractDungeon dungeon, final FileIOReader reader,
+	    final int ver) throws IOException {
 	int y, x, z, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
 	dungeonSizeY = reader.readInt();
@@ -1520,8 +1520,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG2(final AbstractDungeon dungeon, final FileIOReader reader, final int ver)
-	    throws IOException {
+    private static CurrentDungeonData readDataG2(final AbstractDungeon dungeon, final FileIOReader reader,
+	    final int ver) throws IOException {
 	int y, x, z, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
 	dungeonSizeY = reader.readInt();
@@ -1568,8 +1568,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG3(final AbstractDungeon dungeon, final FileIOReader reader, final int ver)
-	    throws IOException {
+    private static CurrentDungeonData readDataG3(final AbstractDungeon dungeon, final FileIOReader reader,
+	    final int ver) throws IOException {
 	int y, x, z, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
 	dungeonSizeY = reader.readInt();
@@ -1616,8 +1616,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG4(final AbstractDungeon dungeon, final FileIOReader reader, final int ver)
-	    throws IOException {
+    private static CurrentDungeonData readDataG4(final AbstractDungeon dungeon, final FileIOReader reader,
+	    final int ver) throws IOException {
 	int y, x, z, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
 	dungeonSizeY = reader.readInt();
@@ -1664,8 +1664,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG5(final AbstractDungeon dungeon, final FileIOReader reader, final int ver)
-	    throws IOException {
+    private static CurrentDungeonData readDataG5(final AbstractDungeon dungeon, final FileIOReader reader,
+	    final int ver) throws IOException {
 	int y, x, z, w, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
 	dungeonSizeY = reader.readInt();
@@ -1676,8 +1676,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			lt.setCell(dungeon, DungeonDiver7.getStuffBag().getObjects().readV5(reader, ver), y, x, z,
-				w);
+			lt.setCell(dungeon, DungeonDiver7.getStuffBag().getObjects().readV5(reader, ver), y, x, z, w);
 		    }
 		}
 	    }
@@ -1714,8 +1713,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG6(final AbstractDungeon dungeon, final FileIOReader reader, final int ver)
-	    throws IOException {
+    private static CurrentDungeonData readDataG6(final AbstractDungeon dungeon, final FileIOReader reader,
+	    final int ver) throws IOException {
 	int y, x, z, w, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
 	dungeonSizeY = reader.readInt();
@@ -1726,8 +1725,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			lt.setCell(dungeon, DungeonDiver7.getStuffBag().getObjects().readV6(reader, ver), y, x, z,
-				w);
+			lt.setCell(dungeon, DungeonDiver7.getStuffBag().getObjects().readV6(reader, ver), y, x, z, w);
 		    }
 		}
 	    }
@@ -1784,8 +1782,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	for (x = 0; x < saveSizeX; x++) {
 	    for (y = 0; y < saveSizeY; y++) {
 		for (z = 0; z < saveSizeZ; z++) {
-		    this.savedState.setCell(DungeonDiver7.getStuffBag().getObjects().readV2(reader, formatVersion),
-			    y, x, z, DungeonConstants.LAYER_LOWER_GROUND);
+		    this.savedState.setCell(DungeonDiver7.getStuffBag().getObjects().readV2(reader, formatVersion), y,
+			    x, z, DungeonConstants.LAYER_LOWER_GROUND);
 		}
 	    }
 	}
@@ -1803,8 +1801,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	for (x = 0; x < saveSizeX; x++) {
 	    for (y = 0; y < saveSizeY; y++) {
 		for (z = 0; z < saveSizeZ; z++) {
-		    this.savedState.setCell(DungeonDiver7.getStuffBag().getObjects().readV3(reader, formatVersion),
-			    y, x, z, DungeonConstants.LAYER_LOWER_GROUND);
+		    this.savedState.setCell(DungeonDiver7.getStuffBag().getObjects().readV3(reader, formatVersion), y,
+			    x, z, DungeonConstants.LAYER_LOWER_GROUND);
 		}
 	    }
 	}
@@ -1822,8 +1820,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	for (x = 0; x < saveSizeX; x++) {
 	    for (y = 0; y < saveSizeY; y++) {
 		for (z = 0; z < saveSizeZ; z++) {
-		    this.savedState.setCell(DungeonDiver7.getStuffBag().getObjects().readV4(reader, formatVersion),
-			    y, x, z, DungeonConstants.LAYER_LOWER_GROUND);
+		    this.savedState.setCell(DungeonDiver7.getStuffBag().getObjects().readV4(reader, formatVersion), y,
+			    x, z, DungeonConstants.LAYER_LOWER_GROUND);
 		}
 	    }
 	}
@@ -1842,8 +1840,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < saveSizeY; y++) {
 		for (z = 0; z < saveSizeZ; z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			this.savedState.setCell(
-				DungeonDiver7.getStuffBag().getObjects().readV5(reader, formatVersion), y, x, z, w);
+			this.savedState.setCell(DungeonDiver7.getStuffBag().getObjects().readV5(reader, formatVersion),
+				y, x, z, w);
 		    }
 		}
 	    }
@@ -1863,8 +1861,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < saveSizeY; y++) {
 		for (z = 0; z < saveSizeZ; z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			this.savedState.setCell(
-				DungeonDiver7.getStuffBag().getObjects().readV6(reader, formatVersion), y, x, z, w);
+			this.savedState.setCell(DungeonDiver7.getStuffBag().getObjects().readV6(reader, formatVersion),
+				y, x, z, w);
 		    }
 		}
 	    }

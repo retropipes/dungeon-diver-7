@@ -29,8 +29,8 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.ThinIce;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Tunnel;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Water;
-import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.ColorConstants;
 import com.puttysoftware.dungeondiver7.utility.Direction;
 

@@ -31,8 +31,7 @@ public class WoodenWall extends AbstractWall {
 	    // Disrupt wooden wall
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new DisruptedWoodenWall(), locX, locY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(new DisruptedWoodenWall(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy wooden wall

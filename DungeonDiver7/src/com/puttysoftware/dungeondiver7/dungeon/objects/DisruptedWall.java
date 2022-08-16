@@ -45,15 +45,13 @@ public class DisruptedWall extends AbstractDisruptedObject {
 	    // Heat up wall
 	    SoundLoader.playSound(SoundConstants.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new DisruptedHotWall(this.disruptionLeft), locX, locY,
-		    locZ, this.getLayer());
+	    GameLogic.morph(new DisruptedHotWall(this.disruptionLeft), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
 	    // Freeze wall
 	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new DisruptedIcyWall(this.disruptionLeft), locX, locY,
-		    locZ, this.getLayer());
+	    GameLogic.morph(new DisruptedIcyWall(this.disruptionLeft), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
 	    // Stop laser

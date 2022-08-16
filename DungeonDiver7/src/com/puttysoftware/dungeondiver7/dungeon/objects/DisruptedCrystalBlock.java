@@ -73,8 +73,7 @@ public class DisruptedCrystalBlock extends AbstractReactionDisruptedObject {
 		|| RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_METALLIC) {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy disrupted crystal block
-	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	} else {
 	    // Do nothing

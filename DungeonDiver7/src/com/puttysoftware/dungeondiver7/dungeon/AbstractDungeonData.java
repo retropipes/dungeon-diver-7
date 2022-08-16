@@ -200,8 +200,8 @@ public abstract class AbstractDungeonData implements Cloneable {
 
     public abstract void writeData(final AbstractDungeon dungeon, final FileIOWriter writer) throws IOException;
 
-    public abstract AbstractDungeonData readData(final AbstractDungeon dungeon, final FileIOReader reader, final int ver)
-	    throws IOException;
+    public abstract AbstractDungeonData readData(final AbstractDungeon dungeon, final FileIOReader reader,
+	    final int ver) throws IOException;
 
     public abstract void writeSavedState(final FileIOWriter writer) throws IOException;
 

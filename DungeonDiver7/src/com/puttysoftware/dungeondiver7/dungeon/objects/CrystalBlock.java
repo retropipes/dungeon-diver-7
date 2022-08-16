@@ -41,8 +41,7 @@ public class CrystalBlock extends AbstractReactionWall {
 	    // Disrupt crystal block
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new DisruptedCrystalBlock(), locX, locY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(new DisruptedCrystalBlock(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
 	    // Pass laser through
@@ -62,23 +61,20 @@ public class CrystalBlock extends AbstractReactionWall {
 	if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_METALLIC) {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy crystal block
-	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_FIRE) {
 	    // Heat up crystal block
 	    SoundLoader.playSound(SoundConstants.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(
-		    this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
 	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_ICE) {
 	    // Freeze crystal block
 	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(
-		    this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
 	} else {

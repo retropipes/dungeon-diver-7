@@ -65,8 +65,7 @@ public class Barrel extends AbstractReactionWall {
 	}
 	DungeonDiver7.getStuffBag().getGameLogic();
 	// Destroy barrel
-	GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ,
-		this.getLayer());
+	GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
 	return true;
     }
 

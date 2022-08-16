@@ -35,8 +35,8 @@ import javax.swing.WindowConstants;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.DrawGrid;
 import com.puttysoftware.dungeondiver7.Accelerators;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
@@ -53,8 +53,10 @@ import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Globals;
+import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
@@ -327,8 +329,7 @@ class GameGUI {
 	final FocusHandler fHandler = new FocusHandler();
 	this.borderPane = new Container();
 	this.borderPane.setLayout(new BorderLayout());
-	this.outputFrame = new JFrame(
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_PROGRAM_NAME));
+	this.outputFrame = new JFrame(Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
 	this.outputFrame.setIconImage(iconlogo);
 	this.outerOutputPane = RCLGenerator.generateRowColumnLabels();
 	this.outputPane = new GameDraw();
@@ -1162,8 +1163,7 @@ class GameGUI {
 		    final int result = CommonDialogs.showConfirmDialog(
 			    LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 				    LocaleConstants.MENU_STRING_CONFIRM_RESET_CURRENT_LEVEL),
-			    LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-				    LocaleConstants.NOTL_STRING_PROGRAM_NAME));
+			    Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
 		    if (result == JOptionPane.YES_OPTION) {
 			game.abortAndWaitForMLOLoop();
 			game.resetCurrentLevel();

@@ -45,8 +45,7 @@ public class DisruptedHotWall extends AbstractDisruptedObject {
 	    // Cool off disrupted hot wall
 	    SoundLoader.playSound(SoundConstants.COOL_OFF);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new DisruptedWall(this.disruptionLeft), locX, locY,
-		    locZ, this.getLayer());
+	    GameLogic.morph(new DisruptedWall(this.disruptionLeft), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
 	    // Stop laser

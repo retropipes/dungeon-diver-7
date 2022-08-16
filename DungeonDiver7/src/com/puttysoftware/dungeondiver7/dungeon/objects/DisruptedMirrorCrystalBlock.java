@@ -54,8 +54,7 @@ public class DisruptedMirrorCrystalBlock extends AbstractReactionDisruptedObject
 	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
 	    final int z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new MirrorCrystalBlock(), locX, locY, z,
-		    this.getLayer());
+	    GameLogic.morph(new MirrorCrystalBlock(), locX, locY, z, this.getLayer());
 	} else {
 	    this.activateTimer(1);
 	}
@@ -74,8 +73,7 @@ public class DisruptedMirrorCrystalBlock extends AbstractReactionDisruptedObject
 		|| RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_METALLIC) {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy disrupted mirror crystal block
-	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	} else {
 	    // Do nothing

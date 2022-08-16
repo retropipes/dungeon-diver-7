@@ -5,8 +5,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.loader;
 
-import com.puttysoftware.dungeondiver7.locale.GlobalFile;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.old.GlobalFile;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
 public class ObjectImageConstants {
     public static final int NONE = -1;

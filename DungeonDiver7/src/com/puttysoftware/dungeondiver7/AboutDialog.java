@@ -24,8 +24,10 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
-import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Globals;
+import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
 public class AboutDialog implements AboutHandler, MenuSection {
     // Fields
@@ -52,9 +54,9 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	EventHandler handler;
 	JLabel miniLabel;
 	handler = new EventHandler();
-	this.aboutFrame = new JFrame(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		LocaleConstants.DIALOG_STRING_ABOUT) + LocaleConstants.COMMON_STRING_SPACE
-		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_PROGRAM_NAME));
+	this.aboutFrame = new JFrame(
+		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_ABOUT)
+			+ LocaleConstants.COMMON_STRING_SPACE + Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
 	final Image iconlogo = LogoLoader.getIconLogo();
 	this.aboutFrame.setIconImage(iconlogo);
 	aboutPane = new Container();
@@ -72,8 +74,8 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	logoPane.setLayout(new FlowLayout());
 	logoPane.add(miniLabel);
 	textPane.setLayout(new GridLayout(4, 1));
-	textPane.add(new JLabel(
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_PROGRAM_NAME)
+	textPane.add(
+		new JLabel(Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME)
 			+ LocaleConstants.COMMON_STRING_SPACE + LocaleLoader
 				.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_VERSION)
 			+ LocaleConstants.COMMON_STRING_SPACE + ver));
@@ -171,11 +173,8 @@ public class AboutDialog implements AboutHandler, MenuSection {
 		LocaleConstants.MENU_STRING_ITEM_LASERTANK_HELP));
 	this.helpAbout.addActionListener(mhandler);
 	this.helpHelp.addActionListener(mhandler);
-	if (!System
-		.getProperty(
-			LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_OS_NAME))
-		.equalsIgnoreCase(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_MAC_OS_X))) {
+	if (!System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME))
+		.equalsIgnoreCase(Globals.untranslated(GlobalsUntranslated.MACOS))) {
 	    helpMenu.add(this.helpAbout);
 	}
 	helpMenu.add(this.helpHelp);

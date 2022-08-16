@@ -57,7 +57,8 @@ public class CharacterLoader {
     public static void saveCharacter(final PartyMember character) {
 	final String basePath = CharacterRegistration.getBasePath();
 	final String name = character.getName();
-	final String characterFile = basePath + File.separator + name + FileExtensions.getCharacterExtensionWithPeriod();
+	final String characterFile = basePath + File.separator + name
+		+ FileExtensions.getCharacterExtensionWithPeriod();
 	try (FileIOWriter saver = new XDataWriter(characterFile, "character")) {
 	    character.write(saver);
 	} catch (final IOException e) {
@@ -67,7 +68,8 @@ public class CharacterLoader {
 
     static void deleteCharacter(final String name, final boolean showResults) {
 	final String basePath = CharacterRegistration.getBasePath();
-	final String characterFile = basePath + File.separator + name + FileExtensions.getCharacterExtensionWithPeriod();
+	final String characterFile = basePath + File.separator + name
+		+ FileExtensions.getCharacterExtensionWithPeriod();
 	final File toDelete = new File(characterFile);
 	if (toDelete.exists()) {
 	    final boolean success = toDelete.delete();

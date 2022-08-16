@@ -11,8 +11,10 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.scores.SavedScoreManager;
 import com.puttysoftware.diane.scores.ScoreManager;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Globals;
+import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 
 class ScoreTracker {
@@ -122,9 +124,7 @@ class ScoreTracker {
 	    if (this.trackScores) {
 		final String scoresFile = sf.getAbsolutePath();
 		this.ssMgr = new SavedScoreManager(3, 10, ScoreManager.SORT_ORDER_DESCENDING, 10000L,
-			LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-				LocaleConstants.NOTL_STRING_PROGRAM_NAME)
-				+ LocaleConstants.COMMON_STRING_SPACE
+			Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME) + LocaleConstants.COMMON_STRING_SPACE
 				+ LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 					LocaleConstants.GAME_STRING_SCORES),
 			new String[] {
@@ -173,14 +173,11 @@ class ScoreTracker {
     }
 
     private static String getScoreDirPrefix() {
-	final String osName = System.getProperty(
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_OS_NAME));
-	if (osName.indexOf(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_MAC_OS_X)) != -1) {
+	final String osName = System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME));
+	if (osName.indexOf(Globals.untranslated(GlobalsUntranslated.MACOS)) != -1) {
 	    // Mac OS X
 	    return System.getenv(ScoreTracker.MAC_PREFIX);
-	} else if (osName.indexOf(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_WINDOWS)) != -1) {
+	} else if (osName.indexOf(Globals.untranslated(GlobalsUntranslated.WINDOWS)) != -1) {
 	    // Windows
 	    return System.getenv(ScoreTracker.WIN_PREFIX);
 	} else {
@@ -190,14 +187,11 @@ class ScoreTracker {
     }
 
     private static String getScoreDirectory() {
-	final String osName = System.getProperty(
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_OS_NAME));
-	if (osName.indexOf(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_MAC_OS_X)) != -1) {
+	final String osName = System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME));
+	if (osName.indexOf(Globals.untranslated(GlobalsUntranslated.MACOS)) != -1) {
 	    // Mac OS X
 	    return ScoreTracker.MAC_DIR;
-	} else if (osName.indexOf(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_WINDOWS)) != -1) {
+	} else if (osName.indexOf(Globals.untranslated(GlobalsUntranslated.WINDOWS)) != -1) {
 	    // Windows
 	    return ScoreTracker.WIN_DIR;
 	} else {

@@ -5,8 +5,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.names;
 
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
-import com.puttysoftware.dungeondiver7.locale.LocalizedFile;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.old.LocalizedFile;
 
 public class MonsterNames {
     // Private constructor

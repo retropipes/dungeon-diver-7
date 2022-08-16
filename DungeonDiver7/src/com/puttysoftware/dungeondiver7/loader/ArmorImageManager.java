@@ -11,8 +11,8 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import com.puttysoftware.dungeondiver7.locale.GlobalFile;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.old.GlobalFile;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.names.ZoneNames;
 import com.puttysoftware.images.BufferedImageIcon;
 

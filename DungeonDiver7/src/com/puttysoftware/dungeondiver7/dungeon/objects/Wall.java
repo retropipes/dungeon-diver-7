@@ -31,8 +31,7 @@ public class Wall extends AbstractWall {
 	    // Disrupt wall
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new DisruptedWall(), locX, locY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(new DisruptedWall(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Heat up wall

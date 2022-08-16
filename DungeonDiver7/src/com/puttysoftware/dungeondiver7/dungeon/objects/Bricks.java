@@ -42,8 +42,7 @@ public class Bricks extends AbstractReactionWall {
 	    final int rangeType, final int forceUnits) {
 	SoundLoader.playSound(SoundConstants.BREAK_BRICKS);
 	DungeonDiver7.getStuffBag().getGameLogic();
-	GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ,
-		this.getLayer());
+	GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
 	return true;
     }
 

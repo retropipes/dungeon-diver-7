@@ -35,9 +35,9 @@ import javax.swing.WindowConstants;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.DrawGrid;
 import com.puttysoftware.dungeondiver7.Accelerators;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.MenuSection;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractJumpObject;
@@ -46,8 +46,8 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Party;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
-import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -483,8 +483,8 @@ public class DungeonEditor implements MenuSection {
 	    if (!mo.defersSetProperties()) {
 		final AbstractDungeonObject mo2 = mo.editorPropertiesHook();
 		if (mo2 == null) {
-		    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(
-			    LocaleConstants.EDITOR_STRINGS_FILE, LocaleConstants.EDITOR_STRING_NO_PROPERTIES));
+		    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
+			    LocaleConstants.EDITOR_STRING_NO_PROPERTIES));
 		} else {
 		    this.updateUndoHistory(this.savedDungeonObject, gridX, gridY, this.elMgr.getEditorLocationZ(),
 			    this.elMgr.getEditorLocationW(), this.elMgr.getEditorLocationU());

@@ -38,8 +38,7 @@ public class HotCrystalBlock extends AbstractReactionWall {
 	    // Disrupt hot crystal block
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new DisruptedHotCrystalBlock(), locX, locY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(new DisruptedHotCrystalBlock(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	} else {
 	    // Stop laser
@@ -54,8 +53,7 @@ public class HotCrystalBlock extends AbstractReactionWall {
 	if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_METALLIC) {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy hot crystal block
-	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_FIRE) {
 	    // Do nothing
@@ -64,8 +62,7 @@ public class HotCrystalBlock extends AbstractReactionWall {
 	    // Freeze crystal block
 	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(
-		    this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
 	} else {

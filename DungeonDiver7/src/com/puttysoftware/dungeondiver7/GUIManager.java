@@ -28,8 +28,10 @@ import javax.swing.border.EmptyBorder;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
-import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Globals;
+import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.CleanupTask;
@@ -47,8 +49,7 @@ public class GUIManager implements MenuSection, QuitHandler {
     public GUIManager() {
 	final CloseHandler cHandler = new CloseHandler();
 	final FocusHandler fHandler = new FocusHandler();
-	this.guiFrame = new JFrame(
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_PROGRAM_NAME));
+	this.guiFrame = new JFrame(Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME));
 	final Container guiPane = this.guiFrame.getContentPane();
 	this.guiFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.guiFrame.setLayout(new GridLayout(1, 1));
@@ -330,11 +331,8 @@ public class GUIManager implements MenuSection, QuitHandler {
 		LocaleConstants.MENU_STRING_ITEM_PREFERENCES));
 	this.filePrint = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
 		LocaleConstants.MENU_STRING_ITEM_PRINT_GAMEBOARD));
-	if (System
-		.getProperty(
-			LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_OS_NAME))
-		.contains(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_WINDOWS))) {
+	if (System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME))
+		.contains(Globals.untranslated(GlobalsUntranslated.WINDOWS))) {
 	    this.fileExit = new JMenuItem(
 		    LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_EXIT));
 	} else {
@@ -358,19 +356,13 @@ public class GUIManager implements MenuSection, QuitHandler {
 	fileMenu.add(this.fileSave);
 	fileMenu.add(this.fileSaveAs);
 	fileMenu.add(this.fileSaveAsProtected);
-	if (!System
-		.getProperty(
-			LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_OS_NAME))
-		.equalsIgnoreCase(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_MAC_OS_X))) {
+	if (!System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME))
+		.equalsIgnoreCase(Globals.untranslated(GlobalsUntranslated.MACOS))) {
 	    fileMenu.add(this.filePreferences);
 	}
 	fileMenu.add(this.filePrint);
-	if (!System
-		.getProperty(
-			LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_OS_NAME))
-		.equalsIgnoreCase(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_MAC_OS_X))) {
+	if (!System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME))
+		.equalsIgnoreCase(Globals.untranslated(GlobalsUntranslated.MACOS))) {
 	    fileMenu.add(this.fileExit);
 	}
 	return fileMenu;
@@ -385,11 +377,8 @@ public class GUIManager implements MenuSection, QuitHandler {
 	this.fileSaveAs.setAccelerator(accel.fileSaveAsAccel);
 	this.filePreferences.setAccelerator(accel.filePreferencesAccel);
 	this.filePrint.setAccelerator(accel.filePrintAccel);
-	if (System
-		.getProperty(
-			LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_OS_NAME))
-		.contains(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_WINDOWS))) {
+	if (System.getProperty(Globals.untranslated(GlobalsUntranslated.OS_NAME))
+		.contains(Globals.untranslated(GlobalsUntranslated.WINDOWS))) {
 	    this.fileExit.setAccelerator(null);
 	} else {
 	    this.fileExit.setAccelerator(accel.fileExitAccel);

@@ -17,8 +17,8 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 import com.puttysoftware.dungeondiver7.StuffBag;
-import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class LogoLoader {

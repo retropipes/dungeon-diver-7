@@ -16,8 +16,10 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
-import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Globals;
+import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.file.AbstractPrefixIO;
 import com.puttysoftware.dungeondiver7.manager.file.AbstractSuffixIO;
 import com.puttysoftware.dungeondiver7.utility.Direction;
@@ -40,11 +42,9 @@ public abstract class AbstractDungeon {
 
     // Static methods
     public static String getDungeonTempFolder() {
-	return System
-		.getProperty(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_TEMP_DIR))
-		+ File.separator
-		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_PROGRAM_NAME);
+	return System.getProperty(
+		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_TEMP_DIR))
+		+ File.separator + Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME);
     }
 
     public static int getMinLevels() {
@@ -88,8 +88,9 @@ public abstract class AbstractDungeon {
 
     // Methods
     public abstract String getDungeonTempMusicFolder();
-    
-    public abstract Direction computeFinalBossMoveDirection(final int locX, final int locY, final int locZ, final int pi);
+
+    public abstract Direction computeFinalBossMoveDirection(final int locX, final int locY, final int locZ,
+	    final int pi);
 
     public abstract void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
 	    final AbstractMovingObject monster, final int pi);

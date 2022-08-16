@@ -1,4 +1,4 @@
-package com.puttysoftware.dungeondiver7.locale;
+package com.puttysoftware.dungeondiver7.locale.old;
 
 public class LocaleConstants {
     // File Constants
@@ -46,9 +46,6 @@ public class LocaleConstants {
 	    LocaleConstants.COLOR_STRINGS_FILE_NAME, LocaleConstants.STRINGS_FILE_NAME };
     static final String LOCALIZED_LANGUAGE_FILE_NAME = "localizedlanguages.txt";
     // No Translate String Constants
-    public static final int NOTL_STRING_OS_NAME = 0;
-    public static final int NOTL_STRING_MAC_OS_X = 1;
-    public static final int NOTL_STRING_WINDOWS = 2;
     public static final int NOTL_STRING_SHOW_ABOUT_DIALOG_METHOD = 3;
     public static final int NOTL_STRING_SHOW_PREFERENCES_METHOD = 4;
     public static final int NOTL_STRING_QUIT_HANDLER_METHOD = 5;
@@ -77,7 +74,6 @@ public class LocaleConstants {
     public static final int NOTL_STRING_FILE_PREFS_UNIX = 28;
     public static final int NOTL_STRING_DEFAULT_CHARSET = 29;
     public static final int NOTL_STRING_TEMP_DIR = 30;
-    public static final int NOTL_STRING_PROGRAM_NAME = 31;
     public static final int NOTL_STRING_PREFS_KEY_LANGUAGE_ID = 32;
     public static final int NOTL_STRING_IMAGE_FORMAT_PNG = 33;
     public static final int NOTL_STRING_DUNGEON_FORMAT_METAFILE = 34;

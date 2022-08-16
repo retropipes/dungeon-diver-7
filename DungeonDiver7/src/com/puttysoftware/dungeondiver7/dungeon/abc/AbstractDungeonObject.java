@@ -19,8 +19,8 @@ import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
 import com.puttysoftware.dungeondiver7.utility.ColorConstants;
 import com.puttysoftware.dungeondiver7.utility.ColorResolver;
@@ -575,8 +575,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    // Burn wooden object
 	    SoundLoader.playSound(SoundConstants.WOOD_BURN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(
-		    this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
 	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_ICE
@@ -587,8 +586,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    // Freeze metal, wooden, or plastic object
 	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(
-		    this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
 	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_FIRE
@@ -597,8 +595,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    // Melt icy object
 	    SoundLoader.playSound(SoundConstants.DEFROST);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(
-		    this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
 	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_ICE
@@ -607,8 +604,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    // Cool hot object
 	    SoundLoader.playSound(SoundConstants.COOL_OFF);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(
-		    this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
 	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_FIRE
@@ -617,8 +613,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    // Melt metal object
 	    SoundLoader.playSound(SoundConstants.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(
-		    this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
 	}
@@ -641,18 +636,18 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (this.isSolid()) {
 	    if (forceUnits > this.getMinimumReactionForce() && this.canMove()) {
 		try {
-		    final AbstractDungeonObject nextObj = DungeonDiver7.getStuffBag().getDungeonManager()
-			    .getDungeon().getCell(locX + dirX, locY + dirY, locZ, this.getLayer());
-		    final AbstractDungeonObject nextObj2 = DungeonDiver7.getStuffBag().getDungeonManager()
-			    .getDungeon().getCell(locX + dirX * 2, locY + dirY * 2, locZ, this.getLayer());
+		    final AbstractDungeonObject nextObj = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
+			    .getCell(locX + dirX, locY + dirY, locZ, this.getLayer());
+		    final AbstractDungeonObject nextObj2 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
+			    .getCell(locX + dirX * 2, locY + dirY * 2, locZ, this.getLayer());
 		    if (this instanceof AbstractMovableObject && nextObj != null
 			    && nextObj instanceof AbstractMovableObject && nextObj.canMove()
 			    && (nextObj2 != null && !nextObj2.isConditionallySolid() || forceUnits > 2)) {
 			// Move BOTH this object and the one in front of it
 			final AbstractMovableObject gmo = (AbstractMovableObject) this;
 			final AbstractMovableObject gmo2 = (AbstractMovableObject) nextObj;
-			DungeonDiver7.getStuffBag().getGameLogic().updatePushedPositionLater(locX, locY, dirX,
-				dirY, gmo, locX + dirX, locY + dirY, gmo2, laserType,
+			DungeonDiver7.getStuffBag().getGameLogic().updatePushedPositionLater(locX, locY, dirX, dirY,
+				gmo, locX + dirX, locY + dirY, gmo2, laserType,
 				forceUnits - Math.max(1, this.getMinimumReactionForce()));
 		    } else {
 			// Object crushed by impact

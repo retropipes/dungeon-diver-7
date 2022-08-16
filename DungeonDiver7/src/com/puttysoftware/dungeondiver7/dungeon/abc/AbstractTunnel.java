@@ -5,8 +5,8 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Tunnel;
 import com.puttysoftware.dungeondiver7.utility.ColorConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -70,8 +70,8 @@ public abstract class AbstractTunnel extends AbstractDungeonObject {
 		AbstractTunnel.SCAN_RADIUS, tx, ty, AbstractTunnel.getTunnelOfColor(this.getColor()), false);
 	if (pgrmdest != null) {
 	    AbstractTunnel.tunnelsFull[color] = false;
-	    app.getGameLogic().updatePushedIntoPositionAbsolute(pgrmdest[0], pgrmdest[1], pgrmdest[2], x, y, z,
-		    pushed, this);
+	    app.getGameLogic().updatePushedIntoPositionAbsolute(pgrmdest[0], pgrmdest[1], pgrmdest[2], x, y, z, pushed,
+		    this);
 	} else {
 	    AbstractTunnel.tunnelsFull[color] = true;
 	    pushed.setWaitingOnTunnel(true);

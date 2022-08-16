@@ -14,13 +14,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.ltv4.LaserTankV4LoadTask;
-import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Globals;
+import com.puttysoftware.dungeondiver7.locale.GlobalsUntranslated;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.file.DungeonLoadTask;
 import com.puttysoftware.dungeondiver7.manager.file.DungeonSaveTask;
 import com.puttysoftware.dungeondiver7.manager.file.GameFinder;
@@ -100,8 +102,7 @@ public final class DungeonManager {
 	} else if (mode == StuffBag.STATUS_GAME) {
 	    type = LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
 		    LocaleConstants.DIALOG_STRING_PROMPT_SAVE_GAME);
-	    source = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PROGRAM_NAME);
+	    source = Globals.untranslated(GlobalsUntranslated.PROGRAM_NAME);
 	} else {
 	    // Not in the game or editor, so abort
 	    return JOptionPane.NO_OPTION;

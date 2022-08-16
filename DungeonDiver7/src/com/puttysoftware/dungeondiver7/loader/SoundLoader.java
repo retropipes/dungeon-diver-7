@@ -8,8 +8,8 @@ package com.puttysoftware.dungeondiver7.loader;
 import java.net.URL;
 
 import com.puttysoftware.audio.wav.WAVPlayer;
-import com.puttysoftware.dungeondiver7.locale.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 
 public class SoundLoader {

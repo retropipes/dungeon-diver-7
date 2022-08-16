@@ -1,4 +1,4 @@
-package com.puttysoftware.dungeondiver7.locale;
+package com.puttysoftware.dungeondiver7.locale.old;
 
 import java.io.IOException;
 import java.io.InputStream;

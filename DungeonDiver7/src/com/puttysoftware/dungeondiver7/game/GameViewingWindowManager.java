@@ -21,8 +21,8 @@ public final class GameViewingWindowManager {
 	this.oldLocX = 0;
 	this.oldLocY = 0;
     }
-    
- // Static Methods
+
+    // Static Methods
     static int getFixedViewingWindowLocationX() {
 	return 0;
     }
