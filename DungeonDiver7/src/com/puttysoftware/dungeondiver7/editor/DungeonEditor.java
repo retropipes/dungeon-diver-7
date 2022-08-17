@@ -46,6 +46,7 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Party;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.TimeTravel;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
@@ -125,14 +126,12 @@ public class DungeonEditor implements MenuSection {
 
     void enableGlobalMoveShoot() {
 	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().setMoveShootAllowedGlobally(true);
-	this.editorGlobalMoveShoot.setText(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_DISABLE_GLOBAL_MOVE_SHOOT));
+	this.editorGlobalMoveShoot.setText(Strings.menu(Menu.DISABLE_GLOBAL_MOVE_SHOOT));
     }
 
     void disableGlobalMoveShoot() {
 	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().setMoveShootAllowedGlobally(false);
-	this.editorGlobalMoveShoot.setText(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_ENABLE_GLOBAL_MOVE_SHOOT));
+	this.editorGlobalMoveShoot.setText(Strings.menu(Menu.ENABLE_GLOBAL_MOVE_SHOOT));
     }
 
     public void setMusicFilename(final String fn) {
@@ -624,8 +623,7 @@ public class DungeonEditor implements MenuSection {
 	    this.resetBorderPane();
 	    this.checkMenus();
 	} else {
-	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		    LocaleConstants.MENU_STRING_ERROR_NO_DUNGEON_OPENED));
+	    CommonDialogs.showDialog(Strings.menu(Menu.ERROR_NO_DUNGEON_OPENED));
 	}
     }
 
@@ -1399,8 +1397,7 @@ public class DungeonEditor implements MenuSection {
 		final StuffBag app = DungeonDiver7.getStuffBag();
 		final String cmd = e.getActionCommand();
 		final DungeonEditor editor = DungeonEditor.this;
-		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_UNDO))) {
+		if (cmd.equals(Strings.menu(Menu.UNDO))) {
 		    // Undo most recent action
 		    if (app.getMode() == StuffBag.STATUS_EDITOR) {
 			editor.undo();
@@ -1408,8 +1405,7 @@ public class DungeonEditor implements MenuSection {
 			app.getGameLogic().abortAndWaitForMLOLoop();
 			app.getGameLogic().undoLastMove();
 		    }
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_REDO))) {
+		} else if (cmd.equals(Strings.menu(Menu.REDO))) {
 		    // Redo most recent undone action
 		    if (app.getMode() == StuffBag.STATUS_EDITOR) {
 			editor.redo();
@@ -1417,97 +1413,75 @@ public class DungeonEditor implements MenuSection {
 			app.getGameLogic().abortAndWaitForMLOLoop();
 			app.getGameLogic().redoLastMove();
 		    }
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_CUT_LEVEL))) {
+		} else if (cmd.equals(Strings.menu(Menu.CUT_LEVEL))) {
 		    // Cut Level
 		    final int level = editor.getLocationManager().getEditorLocationU();
 		    app.getDungeonManager().getDungeon().cutLevel();
 		    editor.fixLimits();
 		    editor.updateEditorLevelAbsolute(level);
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_COPY_LEVEL))) {
+		} else if (cmd.equals(Strings.menu(Menu.COPY_LEVEL))) {
 		    // Copy Level
 		    app.getDungeonManager().getDungeon().copyLevel();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_PASTE_LEVEL))) {
+		} else if (cmd.equals(Strings.menu(Menu.PASTE_LEVEL))) {
 		    // Paste Level
 		    app.getDungeonManager().getDungeon().pasteLevel();
 		    editor.fixLimits();
 		    editor.redrawEditor();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_INSERT_LEVEL_FROM_CLIPBOARD))) {
+		} else if (cmd.equals(Strings.menu(Menu.INSERT_LEVEL_FROM_CLIPBOARD))) {
 		    // Insert Level From Clipboard
 		    app.getDungeonManager().getDungeon().insertLevelFromClipboard();
 		    editor.fixLimits();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_CLEAR_HISTORY))) {
+		} else if (cmd.equals(Strings.menu(Menu.CLEAR_HISTORY))) {
 		    // Clear undo/redo history, confirm first
-		    final int res = CommonDialogs.showConfirmDialog(
-			    LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-				    LocaleConstants.MENU_STRING_CONFIRM_CLEAR_HISTORY),
+		    final int res = CommonDialogs.showConfirmDialog(Strings.menu(Menu.CONFIRM_CLEAR_HISTORY),
 			    LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
 				    LocaleConstants.EDITOR_STRING_EDITOR));
 		    if (res == JOptionPane.YES_OPTION) {
 			editor.clearHistory();
 		    }
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_GO_TO_LEVEL))) {
+		} else if (cmd.equals(Strings.menu(Menu.GO_TO_LEVEL))) {
 		    // Go To Level
 		    editor.goToLevelHandler();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_UP_ONE_FLOOR))) {
+		} else if (cmd.equals(Strings.menu(Menu.UP_ONE_FLOOR))) {
 		    // Go up one floor
 		    editor.updateEditorPosition(1, 0);
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_DOWN_ONE_FLOOR))) {
+		} else if (cmd.equals(Strings.menu(Menu.DOWN_ONE_FLOOR))) {
 		    // Go down one floor
 		    editor.updateEditorPosition(-1, 0);
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_UP_ONE_LEVEL))) {
+		} else if (cmd.equals(Strings.menu(Menu.UP_ONE_LEVEL))) {
 		    // Go up one level
 		    editor.updateEditorPosition(0, 1);
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_DOWN_ONE_LEVEL))) {
+		} else if (cmd.equals(Strings.menu(Menu.DOWN_ONE_LEVEL))) {
 		    // Go down one level
 		    editor.updateEditorPosition(0, -1);
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_ADD_A_LEVEL))) {
+		} else if (cmd.equals(Strings.menu(Menu.ADD_A_LEVEL))) {
 		    // Add a level
 		    editor.addLevel();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_REMOVE_A_LEVEL))) {
+		} else if (cmd.equals(Strings.menu(Menu.REMOVE_A_LEVEL))) {
 		    // Remove a level
 		    editor.removeLevel();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_FILL_CURRENT_LEVEL))) {
+		} else if (cmd.equals(Strings.menu(Menu.FILL_CURRENT_LEVEL))) {
 		    // Fill level
 		    editor.fillLevel();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_RESIZE_CURRENT_LEVEL))) {
+		} else if (cmd.equals(Strings.menu(Menu.RESIZE_CURRENT_LEVEL))) {
 		    // Resize level
 		    editor.resizeLevel();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_LEVEL_PREFERENCES))) {
+		} else if (cmd.equals(Strings.menu(Menu.LEVEL_PREFERENCES))) {
 		    // Set Level Preferences
 		    editor.setLevelPrefs();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_SET_START_POINT))) {
+		} else if (cmd.equals(Strings.menu(Menu.SET_START_POINT))) {
 		    // Set Start Point
 		    editor.editPlayerLocation();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_SET_MUSIC))) {
+		} else if (cmd.equals(Strings.menu(Menu.SET_MUSIC))) {
 		    // Set Music
 		    editor.defineDungeonMusic();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_CHANGE_LAYER))) {
+		} else if (cmd.equals(Strings.menu(Menu.CHANGE_LAYER))) {
 		    // Change Layer
 		    editor.changeLayer();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_ENABLE_GLOBAL_MOVE_SHOOT))) {
+		} else if (cmd.equals(Strings.menu(Menu.ENABLE_GLOBAL_MOVE_SHOOT))) {
 		    // Enable Global Move-Shoot
 		    editor.enableGlobalMoveShoot();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_DISABLE_GLOBAL_MOVE_SHOOT))) {
+		} else if (cmd.equals(Strings.menu(Menu.DISABLE_GLOBAL_MOVE_SHOOT))) {
 		    // Disable Global Move-Shoot
 		    editor.disableGlobalMoveShoot();
 		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_PAST))) {
@@ -1648,52 +1622,29 @@ public class DungeonEditor implements MenuSection {
     @Override
     public JMenu createCommandsMenu() {
 	final MenuHandler menuHandler = new MenuHandler();
-	final JMenu editorMenu = new JMenu(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_MENU_EDITOR));
-	this.editorUndo = new JMenuItem(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_UNDO));
-	this.editorRedo = new JMenuItem(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_REDO));
-	this.editorCutLevel = new JMenuItem(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_CUT_LEVEL));
-	this.editorCopyLevel = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_COPY_LEVEL));
-	this.editorPasteLevel = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_PASTE_LEVEL));
-	this.editorInsertLevelFromClipboard = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_INSERT_LEVEL_FROM_CLIPBOARD));
-	this.editorClearHistory = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_CLEAR_HISTORY));
-	this.editorGoToLevel = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_GO_TO_LEVEL));
-	this.editorUpOneFloor = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_UP_ONE_FLOOR));
-	this.editorDownOneFloor = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_DOWN_ONE_FLOOR));
-	this.editorUpOneLevel = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_UP_ONE_LEVEL));
-	this.editorDownOneLevel = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_DOWN_ONE_LEVEL));
-	this.editorAddLevel = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_ADD_A_LEVEL));
-	this.editorRemoveLevel = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_REMOVE_A_LEVEL));
-	this.editorFillLevel = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_FILL_CURRENT_LEVEL));
-	this.editorResizeLevel = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_RESIZE_CURRENT_LEVEL));
-	this.editorLevelPreferences = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_LEVEL_PREFERENCES));
-	this.editorSetStartPoint = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_SET_START_POINT));
-	this.editorSetMusic = new JMenuItem(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_SET_MUSIC));
-	this.editorChangeLayer = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_CHANGE_LAYER));
-	this.editorGlobalMoveShoot = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_ENABLE_GLOBAL_MOVE_SHOOT));
-	this.editorTimeTravelSubMenu = new JMenu(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_SUB_TIME_TRAVEL));
+	final JMenu editorMenu = new JMenu(Strings.menu(Menu.EDITOR));
+	this.editorUndo = new JMenuItem(Strings.menu(Menu.UNDO));
+	this.editorRedo = new JMenuItem(Strings.menu(Menu.REDO));
+	this.editorCutLevel = new JMenuItem(Strings.menu(Menu.CUT_LEVEL));
+	this.editorCopyLevel = new JMenuItem(Strings.menu(Menu.COPY_LEVEL));
+	this.editorPasteLevel = new JMenuItem(Strings.menu(Menu.PASTE_LEVEL));
+	this.editorInsertLevelFromClipboard = new JMenuItem(Strings.menu(Menu.INSERT_LEVEL_FROM_CLIPBOARD));
+	this.editorClearHistory = new JMenuItem(Strings.menu(Menu.CLEAR_HISTORY));
+	this.editorGoToLevel = new JMenuItem(Strings.menu(Menu.GO_TO_LEVEL));
+	this.editorUpOneFloor = new JMenuItem(Strings.menu(Menu.UP_ONE_FLOOR));
+	this.editorDownOneFloor = new JMenuItem(Strings.menu(Menu.DOWN_ONE_FLOOR));
+	this.editorUpOneLevel = new JMenuItem(Strings.menu(Menu.UP_ONE_LEVEL));
+	this.editorDownOneLevel = new JMenuItem(Strings.menu(Menu.DOWN_ONE_LEVEL));
+	this.editorAddLevel = new JMenuItem(Strings.menu(Menu.ADD_A_LEVEL));
+	this.editorRemoveLevel = new JMenuItem(Strings.menu(Menu.REMOVE_A_LEVEL));
+	this.editorFillLevel = new JMenuItem(Strings.menu(Menu.FILL_CURRENT_LEVEL));
+	this.editorResizeLevel = new JMenuItem(Strings.menu(Menu.RESIZE_CURRENT_LEVEL));
+	this.editorLevelPreferences = new JMenuItem(Strings.menu(Menu.LEVEL_PREFERENCES));
+	this.editorSetStartPoint = new JMenuItem(Strings.menu(Menu.SET_START_POINT));
+	this.editorSetMusic = new JMenuItem(Strings.menu(Menu.SET_MUSIC));
+	this.editorChangeLayer = new JMenuItem(Strings.menu(Menu.CHANGE_LAYER));
+	this.editorGlobalMoveShoot = new JMenuItem(Strings.menu(Menu.ENABLE_GLOBAL_MOVE_SHOOT));
+	this.editorTimeTravelSubMenu = new JMenu(Strings.menu(Menu.TIME_TRAVEL));
 	this.editorEraDistantPast = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.FAR_PAST), false);
 	this.editorEraPast = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.PAST), false);
 	this.editorEraPresent = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.PRESENT), true);

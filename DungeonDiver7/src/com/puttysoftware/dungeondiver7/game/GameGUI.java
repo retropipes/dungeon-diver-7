@@ -54,6 +54,7 @@ import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.Direction;
+import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.TimeTravel;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
@@ -516,36 +517,21 @@ class GameGUI {
 
     public JMenu createCommandsMenu() {
 	final MenuHandler mhandler = new MenuHandler();
-	final JMenu gameMenu = new JMenu(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_MENU_GAME));
-	this.gameTimeTravelSubMenu = new JMenu(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_SUB_TIME_TRAVEL));
-	this.gameReset = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_RESET_CURRENT_LEVEL));
-	this.gameShowTable = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_SHOW_SCORE_TABLE));
-	this.gameReplaySolution = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_REPLAY_SOLUTION));
-	this.gameRecordSolution = new JCheckBoxMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_RECORD_SOLUTION));
-	this.gameLoadLPB = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_LOAD_PLAYBACK_FILE));
-	this.gamePreviousLevel = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_PREVIOUS_LEVEL));
-	this.gameSkipLevel = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_SKIP_LEVEL));
-	this.gameLoadLevel = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_LOAD_LEVEL));
-	this.gameShowHint = new JMenuItem(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_SHOW_HINT));
-	this.gameCheats = new JMenuItem(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_CHEATS));
-	this.gameChangeOtherAmmoMode = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_CHANGE_OTHER_AMMO));
-	this.gameChangeOtherToolMode = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_CHANGE_OTHER_TOOL));
-	this.gameChangeOtherRangeMode = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_CHANGE_OTHER_RANGE));
+	final JMenu gameMenu = new JMenu(Strings.menu(Menu.GAME));
+	this.gameTimeTravelSubMenu = new JMenu(Strings.menu(Menu.TIME_TRAVEL));
+	this.gameReset = new JMenuItem(Strings.menu(Menu.RESET_CURRENT_LEVEL));
+	this.gameShowTable = new JMenuItem(Strings.menu(Menu.SHOW_SCORE_TABLE));
+	this.gameReplaySolution = new JMenuItem(Strings.menu(Menu.REPLAY_SOLUTION));
+	this.gameRecordSolution = new JCheckBoxMenuItem(Strings.menu(Menu.RECORD_SOLUTION));
+	this.gameLoadLPB = new JMenuItem(Strings.menu(Menu.LOAD_REPLAY_FILE));
+	this.gamePreviousLevel = new JMenuItem(Strings.menu(Menu.PREVIOUS_LEVEL));
+	this.gameSkipLevel = new JMenuItem(Strings.menu(Menu.SKIP_LEVEL));
+	this.gameLoadLevel = new JMenuItem(Strings.menu(Menu.LOAD_LEVEL));
+	this.gameShowHint = new JMenuItem(Strings.menu(Menu.SHOW_HINT));
+	this.gameCheats = new JMenuItem(Strings.menu(Menu.CHEATS));
+	this.gameChangeOtherAmmoMode = new JMenuItem(Strings.menu(Menu.CHANGE_OTHER_AMMO));
+	this.gameChangeOtherToolMode = new JMenuItem(Strings.menu(Menu.CHANGE_OTHER_TOOL));
+	this.gameChangeOtherRangeMode = new JMenuItem(Strings.menu(Menu.CHANGE_OTHER_RANGE));
 	this.gameEraDistantPast = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.FAR_PAST), false);
 	this.gameEraPast = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.PAST), false);
 	this.gameEraPresent = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.PRESENT), true);
@@ -1154,56 +1140,41 @@ class GameGUI {
 		final String cmd = e.getActionCommand();
 		final GameLogic game = app.getGameLogic();
 		final GameGUI gui = GameGUI.this;
-		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_RESET_CURRENT_LEVEL))) {
-		    final int result = CommonDialogs.showConfirmDialog(
-			    LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-				    LocaleConstants.MENU_STRING_CONFIRM_RESET_CURRENT_LEVEL),
+		if (cmd.equals(Strings.menu(Menu.RESET_CURRENT_LEVEL))) {
+		    final int result = CommonDialogs.showConfirmDialog(Strings.menu(Menu.CONFIRM_RESET_CURRENT_LEVEL),
 			    Strings.untranslated(Untranslated.PROGRAM_NAME));
 		    if (result == JOptionPane.YES_OPTION) {
 			game.abortAndWaitForMLOLoop();
 			game.resetCurrentLevel();
 		    }
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_SHOW_SCORE_TABLE))) {
+		} else if (cmd.equals(Strings.menu(Menu.SHOW_SCORE_TABLE))) {
 		    game.showScoreTable();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_REPLAY_SOLUTION))) {
+		} else if (cmd.equals(Strings.menu(Menu.REPLAY_SOLUTION))) {
 		    game.abortAndWaitForMLOLoop();
 		    game.replaySolution();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_RECORD_SOLUTION))) {
+		} else if (cmd.equals(Strings.menu(Menu.RECORD_SOLUTION))) {
 		    game.toggleRecording();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_LOAD_PLAYBACK_FILE))) {
+		} else if (cmd.equals(Strings.menu(Menu.LOAD_REPLAY_FILE))) {
 		    game.abortAndWaitForMLOLoop();
 		    ReplayManager.loadLPB();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_PREVIOUS_LEVEL))) {
+		} else if (cmd.equals(Strings.menu(Menu.PREVIOUS_LEVEL))) {
 		    game.abortAndWaitForMLOLoop();
 		    game.previousLevel();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_SKIP_LEVEL))) {
+		} else if (cmd.equals(Strings.menu(Menu.SKIP_LEVEL))) {
 		    game.abortAndWaitForMLOLoop();
 		    game.solvedLevel(false);
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_LOAD_LEVEL))) {
+		} else if (cmd.equals(Strings.menu(Menu.LOAD_LEVEL))) {
 		    game.abortAndWaitForMLOLoop();
 		    game.loadLevel();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_SHOW_HINT))) {
+		} else if (cmd.equals(Strings.menu(Menu.SHOW_HINT))) {
 		    CommonDialogs.showDialog(app.getDungeonManager().getDungeon().getHint().trim());
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_CHEATS))) {
+		} else if (cmd.equals(Strings.menu(Menu.CHEATS))) {
 		    game.enterCheatCode();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_CHANGE_OTHER_AMMO))) {
+		} else if (cmd.equals(Strings.menu(Menu.CHANGE_OTHER_AMMO))) {
 		    game.changeOtherAmmoMode();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_CHANGE_OTHER_TOOL))) {
+		} else if (cmd.equals(Strings.menu(Menu.CHANGE_OTHER_TOOL))) {
 		    game.changeOtherToolMode();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_CHANGE_OTHER_RANGE))) {
+		} else if (cmd.equals(Strings.menu(Menu.CHANGE_OTHER_RANGE))) {
 		    game.changeOtherRangeMode();
 		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_PAST))) {
 		    // Time Travel: Distant Past

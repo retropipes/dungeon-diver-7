@@ -14,8 +14,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Menu;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 
 public class MenuManager implements MenuSection {
@@ -115,21 +115,18 @@ public class MenuManager implements MenuSection {
 	    try {
 		final StuffBag app = DungeonDiver7.getStuffBag();
 		final String cmd = e.getActionCommand();
-		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_PLAY))) {
+		if (cmd.equals(Strings.menu(Menu.PLAY_DUNGEON))) {
 		    // Play the current dungeon
 		    final boolean proceed = app.getGameLogic().newGame();
 		    if (proceed) {
 			app.exitCurrentMode();
 			app.getGameLogic().playDungeon();
 		    }
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_EDIT))) {
+		} else if (cmd.equals(Strings.menu(Menu.EDIT_DUNGEON))) {
 		    // Edit the current dungeon
 		    app.exitCurrentMode();
 		    app.getEditor().editDungeon();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_USE_CLASSIC_ACCELERATORS))) {
+		} else if (cmd.equals(Strings.menu(Menu.USE_CLASSIC_ACCELERATORS))) {
 		    // Toggle accelerators
 		    MenuManager.this.toggleAccelerators();
 		}
@@ -160,14 +157,10 @@ public class MenuManager implements MenuSection {
     @Override
     public JMenu createCommandsMenu() {
 	final EventHandler mhandler = new EventHandler();
-	final JMenu playMenu = new JMenu(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_MENU_PLAY));
-	this.playPlay = new JMenuItem(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_PLAY));
-	this.playEdit = new JMenuItem(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_EDIT));
-	this.playToggleAccelerators = new JCheckBoxMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_USE_CLASSIC_ACCELERATORS));
+	final JMenu playMenu = new JMenu(Strings.menu(Menu.PLAY));
+	this.playPlay = new JMenuItem(Strings.menu(Menu.PLAY_DUNGEON));
+	this.playEdit = new JMenuItem(Strings.menu(Menu.EDIT_DUNGEON));
+	this.playToggleAccelerators = new JCheckBoxMenuItem(Strings.menu(Menu.USE_CLASSIC_ACCELERATORS));
 	this.playPlay.addActionListener(mhandler);
 	this.playEdit.addActionListener(mhandler);
 	this.playToggleAccelerators.addActionListener(mhandler);

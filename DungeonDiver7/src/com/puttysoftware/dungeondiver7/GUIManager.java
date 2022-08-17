@@ -28,10 +28,9 @@ import javax.swing.border.EmptyBorder;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.CleanupTask;
@@ -191,20 +190,16 @@ public class GUIManager implements MenuSection, QuitHandler {
 		final StuffBag app = DungeonDiver7.getStuffBag();
 		boolean loaded = false;
 		final String cmd = e.getActionCommand();
-		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_NEW))) {
+		if (cmd.equals(Strings.menu(Menu.NEW))) {
 		    loaded = app.getEditor().newDungeon();
 		    app.getDungeonManager().setLoaded(loaded);
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_OPEN))) {
+		} else if (cmd.equals(Strings.menu(Menu.OPEN))) {
 		    loaded = app.getDungeonManager().loadDungeon();
 		    app.getDungeonManager().setLoaded(loaded);
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_OPEN_DEFAULT))) {
+		} else if (cmd.equals(Strings.menu(Menu.OPEN_DEFAULT))) {
 		    loaded = app.getDungeonManager().loadDungeonDefault();
 		    app.getDungeonManager().setLoaded(loaded);
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_CLOSE))) {
+		} else if (cmd.equals(Strings.menu(Menu.CLOSE))) {
 		    // Close the window
 		    if (app.getMode() == StuffBag.STATUS_EDITOR) {
 			app.getEditor().handleCloseWindow();
@@ -227,45 +222,35 @@ public class GUIManager implements MenuSection, QuitHandler {
 			}
 		    }
 		    app.getGUIManager().showGUI();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_SAVE))) {
+		} else if (cmd.equals(Strings.menu(Menu.SAVE))) {
 		    if (app.getDungeonManager().getLoaded()) {
 			app.getDungeonManager().saveDungeon(app.getDungeonManager().isDungeonProtected());
 		    } else {
-			CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-				LocaleConstants.MENU_STRING_ERROR_NO_DUNGEON_OPENED));
+			CommonDialogs.showDialog(Strings.menu(Menu.ERROR_NO_DUNGEON_OPENED));
 		    }
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_SAVE_AS))) {
+		} else if (cmd.equals(Strings.menu(Menu.SAVE_AS))) {
 		    if (app.getDungeonManager().getLoaded()) {
 			app.getDungeonManager().saveDungeonAs(false);
 		    } else {
-			CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-				LocaleConstants.MENU_STRING_ERROR_NO_DUNGEON_OPENED));
+			CommonDialogs.showDialog(Strings.menu(Menu.ERROR_NO_DUNGEON_OPENED));
 		    }
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_SAVE_AS_PROTECTED))) {
+		} else if (cmd.equals(Strings.menu(Menu.SAVE_AS_PROTECTED))) {
 		    if (app.getDungeonManager().getLoaded()) {
 			app.getDungeonManager().saveDungeonAs(true);
 		    } else {
-			CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-				LocaleConstants.MENU_STRING_ERROR_NO_DUNGEON_OPENED));
+			CommonDialogs.showDialog(Strings.menu(Menu.ERROR_NO_DUNGEON_OPENED));
 		    }
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_PREFERENCES))) {
+		} else if (cmd.equals(Strings.menu(Menu.PREFERENCES))) {
 		    // Show preferences dialog
 		    PrefsManager.showPrefs();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_PRINT_GAMEBOARD))) {
+		} else if (cmd.equals(Strings.menu(Menu.PRINT_GAME_WINDOW))) {
 		    ScreenPrinter.printBoard(app.getOutputFrame());
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_EXIT))) {
+		} else if (cmd.equals(Strings.menu(Menu.EXIT))) {
 		    // Exit program
 		    if (app.getGUIManager().quitHandler()) {
 			System.exit(0);
 		    }
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_QUIT))) {
+		} else if (cmd.equals(Strings.menu(Menu.QUIT))) {
 		    // Quit program
 		    if (app.getGUIManager().quitHandler()) {
 			System.exit(0);
@@ -311,33 +296,21 @@ public class GUIManager implements MenuSection, QuitHandler {
     @Override
     public JMenu createCommandsMenu() {
 	final MenuHandler mhandler = new MenuHandler();
-	final JMenu fileMenu = new JMenu(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_MENU_FILE));
-	this.fileNew = new JMenuItem(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_NEW));
-	this.fileOpen = new JMenuItem(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_OPEN));
-	this.fileOpenDefault = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_OPEN_DEFAULT));
-	this.fileClose = new JMenuItem(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_CLOSE));
-	this.fileSave = new JMenuItem(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_SAVE));
-	this.fileSaveAs = new JMenuItem(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_SAVE_AS));
-	this.fileSaveAsProtected = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_SAVE_AS_PROTECTED));
-	this.filePreferences = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_PREFERENCES));
-	this.filePrint = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_PRINT_GAMEBOARD));
+	final JMenu fileMenu = new JMenu(Strings.menu(Menu.FILE));
+	this.fileNew = new JMenuItem(Strings.menu(Menu.NEW));
+	this.fileOpen = new JMenuItem(Strings.menu(Menu.OPEN));
+	this.fileOpenDefault = new JMenuItem(Strings.menu(Menu.OPEN_DEFAULT));
+	this.fileClose = new JMenuItem(Strings.menu(Menu.CLOSE));
+	this.fileSave = new JMenuItem(Strings.menu(Menu.SAVE));
+	this.fileSaveAs = new JMenuItem(Strings.menu(Menu.SAVE_AS));
+	this.fileSaveAsProtected = new JMenuItem(Strings.menu(Menu.SAVE_AS_PROTECTED));
+	this.filePreferences = new JMenuItem(Strings.menu(Menu.PREFERENCES));
+	this.filePrint = new JMenuItem(Strings.menu(Menu.PRINT_GAME_WINDOW));
 	if (System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
 		.contains(Strings.untranslated(Untranslated.WINDOWS))) {
-	    this.fileExit = new JMenuItem(
-		    LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_EXIT));
+	    this.fileExit = new JMenuItem(Strings.menu(Menu.EXIT));
 	} else {
-	    this.fileExit = new JMenuItem(
-		    LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_ITEM_QUIT));
+	    this.fileExit = new JMenuItem(Strings.menu(Menu.QUIT));
 	}
 	this.fileNew.addActionListener(mhandler);
 	this.fileOpen.addActionListener(mhandler);

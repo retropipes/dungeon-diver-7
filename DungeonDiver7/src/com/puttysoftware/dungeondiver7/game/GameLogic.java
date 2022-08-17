@@ -34,6 +34,7 @@ import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.Direction;
+import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
@@ -1786,8 +1787,7 @@ public final class GameLogic implements MenuSection {
 		DungeonDiver7.getStuffBag().getGUIManager().showGUI();
 	    }
 	} else {
-	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		    LocaleConstants.MENU_STRING_ERROR_NO_DUNGEON_OPENED));
+	    CommonDialogs.showDialog(Strings.menu(Menu.ERROR_NO_DUNGEON_OPENED));
 	}
     }
 

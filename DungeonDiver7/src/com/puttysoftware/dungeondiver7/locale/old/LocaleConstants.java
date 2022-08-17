@@ -7,7 +7,6 @@ public class LocaleConstants {
     public static final int PREFS_STRINGS_FILE = 2;
     public static final int GENERIC_STRINGS_FILE = 3;
     public static final int OBJECT_STRINGS_FILE = 4;
-    public static final int MENU_STRINGS_FILE = 5;
     public static final int DIALOG_STRINGS_FILE = 6;
     public static final int MESSAGE_STRINGS_FILE = 7;
     public static final int EDITOR_STRINGS_FILE = 8;
@@ -21,14 +20,13 @@ public class LocaleConstants {
     private static final String PREFS_STRINGS_FILE_NAME = "prefs";
     private static final String GENERIC_STRINGS_FILE_NAME = "generic";
     private static final String OBJECT_STRINGS_FILE_NAME = "object";
-    private static final String MENU_STRINGS_FILE_NAME = "menu";
     private static final String DIALOG_STRINGS_FILE_NAME = "dialog";
     private static final String MESSAGE_STRINGS_FILE_NAME = "message";
     private static final String EDITOR_STRINGS_FILE_NAME = "editor";
     private static final String GAME_STRINGS_FILE_NAME = "game";
     static final String[] STRINGS_FILES = new String[] { null, LocaleConstants.ERROR_STRINGS_FILE_NAME,
 	    LocaleConstants.PREFS_STRINGS_FILE_NAME, LocaleConstants.GENERIC_STRINGS_FILE_NAME,
-	    LocaleConstants.OBJECT_STRINGS_FILE_NAME, LocaleConstants.MENU_STRINGS_FILE_NAME,
+	    LocaleConstants.OBJECT_STRINGS_FILE_NAME, null,
 	    LocaleConstants.DIALOG_STRINGS_FILE_NAME, LocaleConstants.MESSAGE_STRINGS_FILE_NAME,
 	    LocaleConstants.EDITOR_STRINGS_FILE_NAME, LocaleConstants.GAME_STRINGS_FILE_NAME };
     private static final String LANGUAGE_STRINGS_FILE_NAME = "language";
@@ -252,75 +250,7 @@ public class LocaleConstants {
     public static final int GENERIC_STRING_VERTICAL = 17;
     public static final int GENERIC_STRING_TUNNEL = 18;
     public static final int GENERIC_STRING_UN_NAMED_LEVEL = 19;
-    public static final int GENERIC_STRING_UNKNOWN_AUTHOR = 20;
-    // Menu String Constants
-    public static final int MENU_STRING_MENU_FILE = 0;
-    // public static final int MENU_STRING_MENU_EDIT = 1;
-    public static final int MENU_STRING_MENU_PLAY = 2;
-    public static final int MENU_STRING_MENU_GAME = 3;
-    public static final int MENU_STRING_MENU_EDITOR = 4;
-    // public static final int MENU_STRING_MENU_OVERRIDE = 5;
-    public static final int MENU_STRING_MENU_HELP = 6;
-    public static final int MENU_STRING_ITEM_NEW = 7;
-    public static final int MENU_STRING_ITEM_OPEN = 8;
-    public static final int MENU_STRING_ITEM_CLOSE = 9;
-    public static final int MENU_STRING_ITEM_SAVE = 10;
-    public static final int MENU_STRING_ITEM_SAVE_AS = 11;
-    public static final int MENU_STRING_ITEM_PRINT_GAMEBOARD = 12;
-    public static final int MENU_STRING_ITEM_EXIT = 13;
-    public static final int MENU_STRING_ITEM_QUIT = 14;
-    public static final int MENU_STRING_ITEM_UNDO = 15;
-    public static final int MENU_STRING_ITEM_REDO = 16;
-    public static final int MENU_STRING_ITEM_CUT_LEVEL = 17;
-    public static final int MENU_STRING_ITEM_COPY_LEVEL = 18;
-    public static final int MENU_STRING_ITEM_PASTE_LEVEL = 19;
-    public static final int MENU_STRING_ITEM_INSERT_LEVEL_FROM_CLIPBOARD = 20;
-    public static final int MENU_STRING_ITEM_PREFERENCES = 21;
-    public static final int MENU_STRING_ITEM_CLEAR_HISTORY = 22;
-    public static final int MENU_STRING_ITEM_PLAY = 23;
-    public static final int MENU_STRING_ITEM_EDIT = 24;
-    public static final int MENU_STRING_ITEM_USE_CLASSIC_ACCELERATORS = 25;
-    public static final int MENU_STRING_ITEM_RESET_CURRENT_LEVEL = 26;
-    public static final int MENU_STRING_ITEM_SHOW_SCORE_TABLE = 27;
-    public static final int MENU_STRING_ITEM_REPLAY_SOLUTION = 28;
-    public static final int MENU_STRING_ITEM_RECORD_SOLUTION = 29;
-    public static final int MENU_STRING_ITEM_LOAD_PLAYBACK_FILE = 30;
-    public static final int MENU_STRING_ITEM_PREVIOUS_LEVEL = 31;
-    public static final int MENU_STRING_ITEM_SKIP_LEVEL = 32;
-    public static final int MENU_STRING_ITEM_LOAD_LEVEL = 33;
-    public static final int MENU_STRING_ITEM_SHOW_HINT = 34;
-    public static final int MENU_STRING_ITEM_CHEATS = 35;
-    public static final int MENU_STRING_ITEM_CHANGE_OTHER_AMMO = 36;
-    public static final int MENU_STRING_ITEM_CHANGE_OTHER_TOOL = 37;
-    public static final int MENU_STRING_ITEM_GO_TO_LEVEL = 38;
-    public static final int MENU_STRING_ITEM_UP_ONE_FLOOR = 39;
-    public static final int MENU_STRING_ITEM_DOWN_ONE_FLOOR = 40;
-    public static final int MENU_STRING_ITEM_UP_ONE_LEVEL = 41;
-    public static final int MENU_STRING_ITEM_DOWN_ONE_LEVEL = 42;
-    public static final int MENU_STRING_ITEM_ADD_A_LEVEL = 43;
-    public static final int MENU_STRING_ITEM_REMOVE_A_LEVEL = 44;
-    public static final int MENU_STRING_ITEM_FILL_CURRENT_LEVEL = 45;
-    public static final int MENU_STRING_ITEM_RESIZE_CURRENT_LEVEL = 46;
-    public static final int MENU_STRING_ITEM_LEVEL_PREFERENCES = 47;
-    public static final int MENU_STRING_ITEM_SET_START_POINT = 48;
-    public static final int MENU_STRING_ITEM_CHANGE_LAYER = 49;
-    // public static final int MENU_STRING_ITEM_REVERT_RESOURCES = 50;
-    // public static final int MENU_STRING_ITEM_LOAD_GRAPHICS_FILE = 51;
-    // public static final int MENU_STRING_ITEM_GRAPHICS_FILE_INFO = 52;
-    public static final int MENU_STRING_ITEM_CHECK_FOR_UPDATES = 53;
-    // public static final int MENU_STRING_ITEM_CHECK_FOR_BETA_UPDATES = 54;
-    public static final int MENU_STRING_ITEM_ABOUT_LASERTANK = 55;
-    public static final int MENU_STRING_ITEM_LASERTANK_HELP = 56;
-    public static final int MENU_STRING_ERROR_NO_DUNGEON_OPENED = 57;
-    public static final int MENU_STRING_CONFIRM_CLEAR_HISTORY = 58;
-    public static final int MENU_STRING_CONFIRM_RESET_CURRENT_LEVEL = 59;
-    public static final int MENU_STRING_ITEM_CHANGE_OTHER_RANGE = 60;
-    public static final int MENU_STRING_ITEM_SET_MUSIC = 61;
-    public static final int MENU_STRING_ITEM_SAVE_AS_PROTECTED = 62;
-    public static final int MENU_STRING_ITEM_OPEN_DEFAULT = 63;
-    public static final int MENU_STRING_ITEM_ENABLE_GLOBAL_MOVE_SHOOT = 64;
-    public static final int MENU_STRING_ITEM_DISABLE_GLOBAL_MOVE_SHOOT = 65;
-    public static final int MENU_STRING_SUB_TIME_TRAVEL = 66;
+    public static final int GENERIC_STRING_UNKNOWN_AUTHOR = 20; 
     // Dialog String Constants
     public static final int DIALOG_STRING_DEAD_MESSAGE = 0;
     public static final int DIALOG_STRING_DEAD_TITLE = 1;

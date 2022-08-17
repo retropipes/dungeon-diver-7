@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
@@ -130,11 +131,11 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	    try {
 		final StuffBag app = DungeonDiver7.getStuffBag();
 		final String cmd = e.getActionCommand();
-		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_ABOUT_LASERTANK))) {
+		if (cmd.equals(Strings.subst(Strings.menu(Menu.ABOUT_PROGRAM),
+			Strings.untranslated(Untranslated.PROGRAM_NAME)))) {
 		    app.getAboutDialog().showAboutDialog();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-			LocaleConstants.MENU_STRING_ITEM_LASERTANK_HELP))) {
+		} else if (cmd.equals(Strings.subst(Strings.menu(Menu.PROGRAM_HELP),
+			Strings.untranslated(Untranslated.PROGRAM_NAME)))) {
 		    app.getHelpManager().showHelp();
 		}
 		app.getMenuManager().checkFlags();
@@ -163,12 +164,11 @@ public class AboutDialog implements AboutHandler, MenuSection {
     @Override
     public JMenu createCommandsMenu() {
 	final MenuHandler mhandler = new MenuHandler();
-	final JMenu helpMenu = new JMenu(
-		LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE, LocaleConstants.MENU_STRING_MENU_HELP));
-	this.helpAbout = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_ABOUT_LASERTANK));
-	this.helpHelp = new JMenuItem(LocaleLoader.loadString(LocaleConstants.MENU_STRINGS_FILE,
-		LocaleConstants.MENU_STRING_ITEM_LASERTANK_HELP));
+	final JMenu helpMenu = new JMenu(Strings.menu(Menu.HELP));
+	this.helpAbout = new JMenuItem(
+		Strings.subst(Strings.menu(Menu.ABOUT_PROGRAM), Strings.untranslated(Untranslated.PROGRAM_NAME)));
+	this.helpHelp = new JMenuItem(
+		Strings.subst(Strings.menu(Menu.PROGRAM_HELP), Strings.untranslated(Untranslated.PROGRAM_NAME)));
 	this.helpAbout.addActionListener(mhandler);
 	this.helpHelp.addActionListener(mhandler);
 	if (!System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
