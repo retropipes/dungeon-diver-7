@@ -12,6 +12,7 @@ import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
 public final class Strings {
     public static final String EMPTY = "";
+    private static final String NAMED_DELIM = "$$";
     public static final int ARMOR_TYPES_COUNT = 6;
     public static final int WEAPON_TYPES_COUNT = 6;
     public static final int COLOR_COUNT = 8;
@@ -25,7 +26,7 @@ public final class Strings {
 	Strings.ACTIVE = Locale.getDefault();
 	Strings.activeLanguageChanged();
     }
-    
+
     public static void changeLanguage(final Locale newLang) {
 	Strings.ACTIVE = newLang;
 	Strings.activeLanguageChanged();
@@ -166,5 +167,9 @@ public final class Strings {
 
     public static String monsterzone(final int zoneID, final int monID) {
 	return DianeStrings.subst(Strings.group(Group.PAIR), Strings.zone(zoneID), Strings.monster(monID));
+    }
+
+    public static String namedSubst(final String orig, final NamedSubst param, final String value) {
+	return orig.replace(Strings.NAMED_DELIM + param.toString() + Strings.NAMED_DELIM, value);
     }
 }
