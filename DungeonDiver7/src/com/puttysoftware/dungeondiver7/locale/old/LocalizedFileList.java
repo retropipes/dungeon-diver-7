@@ -6,6 +6,6 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.locale.old;
 
 class LocalizedFileList {
-    static final String[] LIST = { "monsters", "zones", "bosses", "weapons", "armor", "weapontypes", "armortypes",
+    static final String[] LIST = { "bosses", "weapons", "armor", "weapontypes", "armortypes",
 	    "stats", "slots" };
 }

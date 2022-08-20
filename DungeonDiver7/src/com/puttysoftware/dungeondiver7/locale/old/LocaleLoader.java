@@ -10,7 +10,7 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.names.ZoneNames;
+import com.puttysoftware.dungeondiver7.names.Zones;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DifficultyConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -39,7 +39,7 @@ public class LocaleLoader {
 		+ LocalizedFileList.LIST[file.ordinal()] + FileExtensions.getStringExtensionWithPeriod())) {
 	    LocaleLoader.LOCAL.load(stream);
 	    for (int k = 0; k < max; k++) {
-		final String key = ZoneNames.getZoneNumber(k);
+		final String key = Zones.getZoneNumber(k);
 		retVal[k] = LocaleLoader.LOCAL.getProperty(key);
 	    }
 	} catch (final IOException ioe) {

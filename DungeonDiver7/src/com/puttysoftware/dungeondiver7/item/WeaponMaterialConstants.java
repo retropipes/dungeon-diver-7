@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.item;
 
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.locale.old.LocalizedFile;
-import com.puttysoftware.dungeondiver7.names.ZoneNames;
+import com.puttysoftware.dungeondiver7.names.Zones;
 
 class WeaponMaterialConstants {
     // Private Constructor
@@ -16,6 +16,6 @@ class WeaponMaterialConstants {
     }
 
     public static synchronized String getWeaponMaterial(final int index) {
-	return LocaleLoader.loadString(LocalizedFile.WEAPONS, ZoneNames.getZoneNumber(index));
+	return LocaleLoader.loadString(LocalizedFile.WEAPONS, Zones.getZoneNumber(index));
     }
 }

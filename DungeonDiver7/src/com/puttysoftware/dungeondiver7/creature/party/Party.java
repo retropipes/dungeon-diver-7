@@ -12,7 +12,8 @@ import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.names.ZoneNames;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.names.Zones;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 
@@ -64,7 +65,7 @@ public class Party {
     }
 
     public String getZoneString() {
-	return "Zone Name: " + ZoneNames.getName(this.zone);
+	return "Zone Name: " + Strings.zone(this.zone);
     }
 
     public PartyMember getLeader() {

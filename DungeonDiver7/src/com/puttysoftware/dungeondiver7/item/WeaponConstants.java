@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.item;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.locale.old.LocalizedFile;
-import com.puttysoftware.dungeondiver7.names.ZoneNames;
+import com.puttysoftware.dungeondiver7.names.Zones;
 
 public class WeaponConstants {
     // Private Constructor
@@ -25,7 +25,7 @@ public class WeaponConstants {
     }
 
     public static synchronized String getWeapon(final int index) {
-	return LocaleLoader.loadString(LocalizedFile.WEAPON_TYPES, ZoneNames.getZoneNumber(index));
+	return LocaleLoader.loadString(LocalizedFile.WEAPON_TYPES, Zones.getZoneNumber(index));
     }
 
     public static int getWeaponTypeHitSound(final int index) {

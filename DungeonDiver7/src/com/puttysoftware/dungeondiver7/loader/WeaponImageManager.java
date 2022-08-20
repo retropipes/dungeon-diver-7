@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 
 import com.puttysoftware.dungeondiver7.locale.old.GlobalFile;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.names.ZoneNames;
+import com.puttysoftware.dungeondiver7.names.Zones;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class WeaponImageManager {
@@ -24,7 +24,7 @@ public class WeaponImageManager {
     public static BufferedImageIcon getImage(final int typeID, final int zoneID) {
 	// Get it from the cache
 	final String name = LocaleLoader.loadGlobalString(GlobalFile.WEAPON_TYPES, typeID) + "/"
-		+ ZoneNames.getZoneNumber(zoneID);
+		+ Zones.getZoneNumber(zoneID);
 	return WeaponImageCache.getCachedImage(name);
     }
 

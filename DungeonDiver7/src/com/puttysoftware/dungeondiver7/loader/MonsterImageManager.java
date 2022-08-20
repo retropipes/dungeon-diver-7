@@ -12,7 +12,6 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 import com.puttysoftware.dungeondiver7.names.MonsterNames;
-import com.puttysoftware.dungeondiver7.names.ZoneNames;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class MonsterImageManager {
@@ -22,7 +21,7 @@ public class MonsterImageManager {
 
     public static BufferedImageIcon getImage(final int zoneID, final int monID) {
 	// Get it from the cache
-	final String name = ZoneNames.getZoneName(zoneID) + MonsterNames.getName(monID);
+	final String name = MonsterNames.getImageFilename(monID);
 	return MonsterImageCache.getCachedImage(name);
     }
 

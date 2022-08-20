@@ -11,17 +11,17 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import com.puttysoftware.dungeondiver7.names.ZoneNames;
+import com.puttysoftware.dungeondiver7.names.Zones;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class CrystalImageManager {
-    private static final String DEFAULT_LOAD_PATH = "/assets/images/items/crystals/";
+    private static final String DEFAULT_LOAD_PATH = "/asset/image/item/crystal_";
     private static String LOAD_PATH = CrystalImageManager.DEFAULT_LOAD_PATH;
     private static Class<?> LOAD_CLASS = CrystalImageManager.class;
 
     public static BufferedImageIcon getImage(final int ID) {
 	// Get it from the cache
-	final String name = ZoneNames.getZoneName(ID);
+	final String name = Zones.getZoneNumber(ID);
 	return CrystalImageCache.getCachedImage(name);
     }
 

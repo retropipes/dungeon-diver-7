@@ -21,7 +21,7 @@ public class BossImageManager {
 
     public static BufferedImageIcon getBossImage(final int zoneID) {
 	// Get it from the cache
-	return BossImageCache.getCachedImage(MonsterNames.getName(zoneID));
+	return BossImageCache.getCachedImage(MonsterNames.getImageFilename(zoneID));
     }
 
     public static BufferedImageIcon getFinalBossImage() {

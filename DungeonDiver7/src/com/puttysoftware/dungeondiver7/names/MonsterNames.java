@@ -5,8 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.names;
 
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.locale.old.LocalizedFile;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 
 public class MonsterNames {
     // Private constructor
@@ -14,7 +13,7 @@ public class MonsterNames {
 	// Do nothing
     }
 
-    public static final String getName(final int ID) {
+    public static final String getImageFilename(final int ID) {
 	final String tempMonID = Integer.toString(ID);
 	String monID;
 	if (tempMonID.length() == 1) {
@@ -26,13 +25,6 @@ public class MonsterNames {
     }
 
     public static final String getType(final int zoneID, final int ID) {
-	final String tempMonID = Integer.toString(ID);
-	String monID;
-	if (tempMonID.length() == 1) {
-	    monID = "0" + tempMonID;
-	} else {
-	    monID = tempMonID;
-	}
-	return ZoneNames.getName(zoneID) + " " + LocaleLoader.loadString(LocalizedFile.MONSTERS, monID);
+	return Strings.monsterzone(zoneID, ID);
     }
 }
