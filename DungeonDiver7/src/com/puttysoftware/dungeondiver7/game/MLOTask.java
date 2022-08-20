@@ -8,6 +8,8 @@ package com.puttysoftware.dungeondiver7.game;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
+import com.puttysoftware.diane.utilties.DirectionResolver;
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
@@ -21,13 +23,11 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Party;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.ActionConstants;
 import com.puttysoftware.dungeondiver7.utility.AlreadyDeadException;
-import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 
@@ -95,18 +95,18 @@ final class MLOTask extends Thread {
 	    final int py = gm.getPlayerManager().getPlayerLocationY();
 	    final int pz = gm.getPlayerManager().getPlayerLocationZ();
 	    if (zx == 3) {
-		this.sx = a.checkForMagnetic(pz, px, py, Direction.EAST);
+		this.sx = a.checkForMagnetic(pz, px, py, Directions.EAST);
 		this.sy = 0;
 	    } else if (zx == -3) {
-		this.sx = -a.checkForMagnetic(pz, px, py, Direction.WEST);
+		this.sx = -a.checkForMagnetic(pz, px, py, Directions.WEST);
 		this.sy = 0;
 	    }
 	    if (zy == 3) {
 		this.sx = 0;
-		this.sy = a.checkForMagnetic(pz, px, py, Direction.SOUTH);
+		this.sy = a.checkForMagnetic(pz, px, py, Directions.SOUTH);
 	    } else if (zy == -3) {
 		this.sx = 0;
-		this.sy = -a.checkForMagnetic(pz, px, py, Direction.NORTH);
+		this.sy = -a.checkForMagnetic(pz, px, py, Directions.NORTH);
 	    }
 	    this.magnet = true;
 	    if (this.sx == 0 && this.sy == 0) {
@@ -396,8 +396,8 @@ final class MLOTask extends Thread {
 		    loo.postMoveAction(px, py, pz);
 		    uoo.postMoveAction(px, py, pz);
 		    if (ugo.isOfType(TypeConstants.TYPE_MOVER)) {
-			final Direction dir = ugo.getDirection();
-			final int[] unres = DirectionResolver.unresolveRelativeDirection(dir);
+			final Directions dir = ugo.getDirection();
+			final int[] unres = DirectionResolver.unresolve(dir);
 			this.sx = unres[0];
 			this.sy = unres[1];
 			this.mover = true;
@@ -430,8 +430,8 @@ final class MLOTask extends Thread {
 		    uoo.moveFailedAction(plMgr.getPlayerLocationX() + this.sx, plMgr.getPlayerLocationY() + this.sy,
 			    plMgr.getPlayerLocationZ());
 		    if (gm.getPlayer().getSavedObject().isOfType(TypeConstants.TYPE_MOVER)) {
-			final Direction dir = gm.getPlayer().getSavedObject().getDirection();
-			final int[] unres = DirectionResolver.unresolveRelativeDirection(dir);
+			final Directions dir = gm.getPlayer().getSavedObject().getDirection();
+			final int[] unres = DirectionResolver.unresolve(dir);
 			this.sx = unres[0];
 			this.sy = unres[1];
 			this.mover = true;
@@ -509,7 +509,7 @@ final class MLOTask extends Thread {
     private static void freezePlayer() {
 	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	final AbstractCharacter tank = gm.getPlayer();
-	final Direction dir = tank.getDirection();
+	final Directions dir = tank.getDirection();
 	final int px = gm.getPlayerManager().getPlayerLocationX();
 	final int py = gm.getPlayerManager().getPlayerLocationY();
 	final int pz = gm.getPlayerManager().getPlayerLocationZ();
@@ -524,7 +524,7 @@ final class MLOTask extends Thread {
 	    this.frozen = false;
 	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	    final AbstractCharacter tank = gm.getPlayer();
-	    final Direction dir = tank.getDirection();
+	    final Directions dir = tank.getDirection();
 	    final int px = gm.getPlayerManager().getPlayerLocationX();
 	    final int py = gm.getPlayerManager().getPlayerLocationY();
 	    final int pz = gm.getPlayerManager().getPlayerLocationZ();

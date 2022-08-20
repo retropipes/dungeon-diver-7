@@ -5,14 +5,14 @@
  */
 package com.puttysoftware.dungeondiver7.game;
 
+import com.puttysoftware.diane.utilties.DirectionResolver;
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractJumpObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
-import com.puttysoftware.dungeondiver7.locale.Direction;
-import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 
@@ -196,24 +196,24 @@ final class MovingObjectTracker {
 		    } else if (this.belowUpper.isOfType(TypeConstants.TYPE_ANTI_MOVER)
 			    && this.movingObj.isOfType(TypeConstants.TYPE_ANTI)) {
 			// Handle anti-tank on anti-tank mover
-			final Direction dir = this.belowUpper.getDirection();
-			final int[] unres = DirectionResolver.unresolveRelativeDirection(dir);
+			final Directions dir = this.belowUpper.getDirection();
+			final int[] unres = DirectionResolver.unresolve(dir);
 			this.objIncX = unres[0];
 			this.objIncY = unres[1];
 			this.objectCheck = true;
 		    } else if (this.belowUpper.isOfType(TypeConstants.TYPE_BOX_MOVER)
 			    && this.movingObj.isOfType(TypeConstants.TYPE_BOX)) {
 			// Handle box on box mover
-			final Direction dir = this.belowUpper.getDirection();
-			final int[] unres = DirectionResolver.unresolveRelativeDirection(dir);
+			final Directions dir = this.belowUpper.getDirection();
+			final int[] unres = DirectionResolver.unresolve(dir);
 			this.objIncX = unres[0];
 			this.objIncY = unres[1];
 			this.objectCheck = true;
 		    } else if (this.belowUpper.isOfType(TypeConstants.TYPE_MIRROR_MOVER)
 			    && this.movingObj.isOfType(TypeConstants.TYPE_MOVABLE_MIRROR)) {
 			// Handle mirror on mirror mover
-			final Direction dir = this.belowUpper.getDirection();
-			final int[] unres = DirectionResolver.unresolveRelativeDirection(dir);
+			final Directions dir = this.belowUpper.getDirection();
+			final int[] unres = DirectionResolver.unresolve(dir);
 			this.objIncX = unres[0];
 			this.objIncY = unres[1];
 			this.objectCheck = true;
@@ -300,8 +300,8 @@ final class MovingObjectTracker {
 		    } else if (this.belowUpper.isOfType(TypeConstants.TYPE_ANTI_MOVER)
 			    && jumper.isOfType(TypeConstants.TYPE_ANTI)) {
 			// Handle anti-tank on anti-tank mover
-			final Direction dir = this.belowUpper.getDirection();
-			final int[] unres = DirectionResolver.unresolveRelativeDirection(dir);
+			final Directions dir = this.belowUpper.getDirection();
+			final int[] unres = DirectionResolver.unresolve(dir);
 			this.objIncX = unres[0];
 			this.objIncY = unres[1];
 			this.objectCheck = true;
@@ -309,16 +309,16 @@ final class MovingObjectTracker {
 			    && jumper.isOfType(TypeConstants.TYPE_BOX)) {
 			// Handle box on box mover
 			this.jumpOnMover = true;
-			final Direction dir = this.belowUpper.getDirection();
-			final int[] unres = DirectionResolver.unresolveRelativeDirection(dir);
+			final Directions dir = this.belowUpper.getDirection();
+			final int[] unres = DirectionResolver.unresolve(dir);
 			this.objIncX = unres[0];
 			this.objIncY = unres[1];
 			this.objectCheck = true;
 		    } else if (this.belowUpper.isOfType(TypeConstants.TYPE_MIRROR_MOVER)
 			    && this.movingObj.isOfType(TypeConstants.TYPE_MOVABLE_MIRROR)) {
 			// Handle mirror on mirror mover
-			final Direction dir = this.belowUpper.getDirection();
-			final int[] unres = DirectionResolver.unresolveRelativeDirection(dir);
+			final Directions dir = this.belowUpper.getDirection();
+			final int[] unres = DirectionResolver.unresolve(dir);
 			this.objIncX = unres[0];
 			this.objIncY = unres[1];
 			this.objectCheck = true;

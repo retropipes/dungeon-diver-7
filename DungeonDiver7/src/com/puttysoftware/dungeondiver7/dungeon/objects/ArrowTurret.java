@@ -5,15 +5,15 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
+import com.puttysoftware.diane.utilties.DirectionResolver;
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.utility.ActionConstants;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 
 public class ArrowTurret extends AbstractMovableObject {
@@ -24,7 +24,7 @@ public class ArrowTurret extends AbstractMovableObject {
     // Constructors
     public ArrowTurret() {
 	super(true);
-	this.setDirection(Direction.NORTH);
+	this.setDirection(Directions.NORTH);
 	this.setFrameNumber(1);
 	this.activateTimer(1);
 	this.canShoot = true;
@@ -56,32 +56,32 @@ public class ArrowTurret extends AbstractMovableObject {
     }
 
     @Override
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	final Direction baseDir = this.getDirection();
+	final Directions baseDir = this.getDirection();
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE || laserType == ArrowTypeConstants.LASER_TYPE_POWER) {
 	    final DeadArrowTurret dat = new DeadArrowTurret();
 	    dat.setSavedObject(this.getSavedObject());
 	    dat.setDirection(baseDir);
 	    GameLogic.morph(dat, locX, locY, locZ, this.getLayer());
 	    SoundLoader.playSound(SoundConstants.ANTI_DIE);
-	    return Direction.NONE;
+	    return Directions.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
 	    final StunnedArrowTurret sat = new StunnedArrowTurret();
 	    sat.setSavedObject(this.getSavedObject());
 	    sat.setDirection(baseDir);
 	    GameLogic.morph(sat, locX, locY, locZ, this.getLayer());
 	    SoundLoader.playSound(SoundConstants.STUN);
-	    return Direction.NONE;
+	    return Directions.NONE;
 	} else {
-	    final Direction sourceDir = DirectionResolver.resolveRelativeDirectionInvert(dirX, dirY);
+	    final Directions sourceDir = DirectionResolver.resolveInvert(dirX, dirY);
 	    if (sourceDir == baseDir) {
 		final DeadArrowTurret dat = new DeadArrowTurret();
 		dat.setSavedObject(this.getSavedObject());
 		dat.setDirection(baseDir);
 		GameLogic.morph(dat, locX, locY, locZ, this.getLayer());
 		SoundLoader.playSound(SoundConstants.ANTI_DIE);
-		return Direction.NONE;
+		return Directions.NONE;
 	    } else {
 		return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	    }
@@ -91,8 +91,8 @@ public class ArrowTurret extends AbstractMovableObject {
     @Override
     public void timerExpiredAction(final int locX, final int locY) {
 	if (this.getSavedObject().isOfType(TypeConstants.TYPE_ANTI_MOVER)) {
-	    final Direction moveDir = this.getSavedObject().getDirection();
-	    final int[] unres = DirectionResolver.unresolveRelativeDirection(moveDir);
+	    final Directions moveDir = this.getSavedObject().getDirection();
+	    final int[] unres = DirectionResolver.unresolve(moveDir);
 	    if (GameLogic.canObjectMove(locX, locY, unres[0], unres[1])) {
 		if (this.autoMove) {
 		    this.autoMove = false;

@@ -7,10 +7,10 @@ package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import java.io.IOException;
 
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
@@ -60,7 +60,7 @@ public abstract class AbstractMovableObject extends AbstractDungeonObject {
     public abstract void playSoundHook();
 
     @Override
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	final StuffBag app = DungeonDiver7.getStuffBag();
 	if (this.canMove()) {
@@ -107,7 +107,7 @@ public abstract class AbstractMovableObject extends AbstractDungeonObject {
 	    // Object is not movable
 	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
-	return Direction.NONE;
+	return Directions.NONE;
     }
 
     @Override

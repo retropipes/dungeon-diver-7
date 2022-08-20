@@ -5,11 +5,11 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.utility.ActionConstants;
 
 public class ArrowTurretDisguise extends AbstractCharacter {
@@ -22,11 +22,11 @@ public class ArrowTurretDisguise extends AbstractCharacter {
 	super(number);
 	this.disguiseLeft = ArrowTurretDisguise.DISGUISE_LENGTH;
 	this.activateTimer(1);
-	this.setDirection(Direction.NORTH);
+	this.setDirection(Directions.NORTH);
 	this.setFrameNumber(1);
     }
 
-    public ArrowTurretDisguise(final Direction dir, final int number) {
+    public ArrowTurretDisguise(final Directions dir, final int number) {
 	super(number);
 	this.disguiseLeft = ArrowTurretDisguise.DISGUISE_LENGTH;
 	this.activateTimer(1);

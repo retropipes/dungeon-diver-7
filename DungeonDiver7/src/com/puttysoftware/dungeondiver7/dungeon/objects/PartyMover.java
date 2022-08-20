@@ -5,15 +5,15 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMover;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 
 public class PartyMover extends AbstractMover {
     // Constructors
     public PartyMover() {
 	super();
-	this.setDirection(Direction.NORTH);
+	this.setDirection(Directions.NORTH);
 	this.setFrameNumber(1);
 	this.type.set(TypeConstants.TYPE_MOVER);
     }

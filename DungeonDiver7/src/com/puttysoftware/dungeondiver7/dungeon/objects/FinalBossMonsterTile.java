@@ -5,12 +5,12 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.utility.RandomGenerationRule;
 
 public class FinalBossMonsterTile extends AbstractMovingObject {
@@ -32,7 +32,7 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
     public void timerExpiredAction(final int locX, final int locY) {
 	// Move the monster
 	AbstractDungeon dungeon = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	final Direction move = dungeon.computeFinalBossMoveDirection(locX, locY, 0, 0);
+	final Directions move = dungeon.computeFinalBossMoveDirection(locX, locY, 0, 0);
 	dungeon.updateMonsterPosition(move, locX, locY, this, 0);
 	this.activateTimer(1);
     }

@@ -5,13 +5,13 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
 import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
 import com.puttysoftware.dungeondiver7.utility.RangeTypeConstants;
@@ -26,24 +26,24 @@ public class HotCrystalBlock extends AbstractReactionWall {
     }
 
     @Override
-    public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
+    public Directions laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
 	    final int dirY, final int laserType, final int forceUnits) {
 	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
 	    // Destroy hot crystal block
 	    SoundLoader.playSound(SoundConstants.BOOM);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
-	    return Direction.NONE;
+	    return Directions.NONE;
 	} else if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 	    // Disrupt hot crystal block
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedHotCrystalBlock(), locX, locY, locZ, this.getLayer());
-	    return Direction.NONE;
+	    return Directions.NONE;
 	} else {
 	    // Stop laser
 	    SoundLoader.playSound(SoundConstants.LASER_DIE);
-	    return Direction.NONE;
+	    return Directions.NONE;
 	}
     }
 

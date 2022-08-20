@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.puttysoftware.diane.utilties.DirectionResolver;
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeonData;
@@ -19,7 +21,6 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
@@ -29,7 +30,7 @@ import com.puttysoftware.dungeondiver7.manager.file.AbstractPrefixIO;
 import com.puttysoftware.dungeondiver7.manager.file.AbstractSuffixIO;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DifficultyConstants;
-import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
+import com.puttysoftware.dungeondiver7.utility.DirectionRotator;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 import com.puttysoftware.dungeondiver7.utility.FormatConstants;
@@ -96,7 +97,7 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     @Override
-    public Direction computeFinalBossMoveDirection(final int locX, final int locY, final int locZ, final int pi) {
+    public Directions computeFinalBossMoveDirection(final int locX, final int locY, final int locZ, final int pi) {
 	int px = this.getPlayerLocationX(pi);
 	int py = this.getPlayerLocationY(pi);
 	int relX = px - locX;
@@ -112,57 +113,57 @@ public class CurrentDungeon extends AbstractDungeon {
 	boolean canMove = !this.getCell(locX + moveX, locY + moveY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove) {
-	    return DirectionResolver.resolveRelativeDirection(moveX, moveY);
+	    return DirectionResolver.resolve(moveX, moveY);
 	}
-	int moveX1L = DirectionResolver.rotate45LeftX(moveX, moveY);
-	int moveY1L = DirectionResolver.rotate45LeftY(moveX, moveY);
+	int moveX1L = DirectionRotator.rotate45LeftX(moveX, moveY);
+	int moveY1L = DirectionRotator.rotate45LeftY(moveX, moveY);
 	boolean canMove1L = !this.getCell(locX + moveX1L, locY + moveY1L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove1L) {
-	    return DirectionResolver.resolveRelativeDirection(moveX1L, moveY1L);
+	    return DirectionResolver.resolve(moveX1L, moveY1L);
 	}
-	int moveX1R = DirectionResolver.rotate45RightX(moveX, moveY);
-	int moveY1R = DirectionResolver.rotate45RightY(moveX, moveY);
+	int moveX1R = DirectionRotator.rotate45RightX(moveX, moveY);
+	int moveY1R = DirectionRotator.rotate45RightY(moveX, moveY);
 	boolean canMove1R = !this.getCell(locX + moveX1R, locY + moveY1R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove1R) {
-	    return DirectionResolver.resolveRelativeDirection(moveX1R, moveY1R);
+	    return DirectionResolver.resolve(moveX1R, moveY1R);
 	}
-	int moveX2L = DirectionResolver.rotate45LeftX(moveX1L, moveY1L);
-	int moveY2L = DirectionResolver.rotate45LeftY(moveX1L, moveY1L);
+	int moveX2L = DirectionRotator.rotate45LeftX(moveX1L, moveY1L);
+	int moveY2L = DirectionRotator.rotate45LeftY(moveX1L, moveY1L);
 	boolean canMove2L = !this.getCell(locX + moveX2L, locY + moveY2L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove2L) {
-	    return DirectionResolver.resolveRelativeDirection(moveX2L, moveY2L);
+	    return DirectionResolver.resolve(moveX2L, moveY2L);
 	}
-	int moveX2R = DirectionResolver.rotate45RightX(moveX1R, moveY1R);
-	int moveY2R = DirectionResolver.rotate45RightY(moveX1R, moveY1R);
+	int moveX2R = DirectionRotator.rotate45RightX(moveX1R, moveY1R);
+	int moveY2R = DirectionRotator.rotate45RightY(moveX1R, moveY1R);
 	boolean canMove2R = !this.getCell(locX + moveX2R, locY + moveY2R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove2R) {
-	    return DirectionResolver.resolveRelativeDirection(moveX2R, moveY2R);
+	    return DirectionResolver.resolve(moveX2R, moveY2R);
 	}
-	int moveX3L = DirectionResolver.rotate45LeftX(moveX2L, moveY2L);
-	int moveY3L = DirectionResolver.rotate45LeftY(moveX2L, moveY2L);
+	int moveX3L = DirectionRotator.rotate45LeftX(moveX2L, moveY2L);
+	int moveY3L = DirectionRotator.rotate45LeftY(moveX2L, moveY2L);
 	boolean canMove3L = !this.getCell(locX + moveX3L, locY + moveY3L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove3L) {
-	    return DirectionResolver.resolveRelativeDirection(moveX3L, moveY3L);
+	    return DirectionResolver.resolve(moveX3L, moveY3L);
 	}
-	int moveX3R = DirectionResolver.rotate45RightX(moveX2R, moveY2R);
-	int moveY3R = DirectionResolver.rotate45RightY(moveX2R, moveY2R);
+	int moveX3R = DirectionRotator.rotate45RightX(moveX2R, moveY2R);
+	int moveY3R = DirectionRotator.rotate45RightY(moveX2R, moveY2R);
 	boolean canMove3R = !this.getCell(locX + moveX3R, locY + moveY3R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove3R) {
-	    return DirectionResolver.resolveRelativeDirection(moveX3R, moveY3R);
+	    return DirectionResolver.resolve(moveX3R, moveY3R);
 	}
-	int moveX4 = DirectionResolver.rotate45LeftX(moveX3L, moveY3L);
-	int moveY4 = DirectionResolver.rotate45LeftY(moveX3L, moveY3L);
-	return DirectionResolver.resolveRelativeDirection(moveX4, moveY4);
+	int moveX4 = DirectionRotator.rotate45LeftX(moveX3L, moveY3L);
+	int moveY4 = DirectionRotator.rotate45LeftY(moveX3L, moveY3L);
+	return DirectionResolver.resolve(moveX4, moveY4);
     }
 
     @Override
-    public void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
+    public void updateMonsterPosition(final Directions move, final int xLoc, final int yLoc,
 	    final AbstractMovingObject monster, final int pi) {
 	this.dungeonData.updateMonsterPosition(this, move, xLoc, yLoc, monster, pi);
     }
@@ -625,7 +626,7 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     @Override
-    public int checkForMagnetic(final int floor, final int centerX, final int centerY, final Direction dir) {
+    public int checkForMagnetic(final int floor, final int centerX, final int centerY, final Directions dir) {
 	return this.dungeonData.checkForMagnetic(this, floor, centerX, centerY, dir);
     }
 

@@ -2,13 +2,13 @@ package com.puttysoftware.dungeondiver7.dungeon;
 
 import java.io.IOException;
 
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButton;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButtonDoor;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 
@@ -39,7 +39,7 @@ public abstract class AbstractDungeonData implements Cloneable {
     @Override
     public abstract AbstractDungeonData clone();
 
-    public abstract void updateMonsterPosition(final AbstractDungeon dungeon, final Direction move, final int xLoc,
+    public abstract void updateMonsterPosition(final AbstractDungeon dungeon, final Directions move, final int xLoc,
 	    final int yLoc, final AbstractMovingObject monster, final int pi);
 
     public abstract void postBattle(final AbstractDungeon dungeon, final AbstractMovingObject m, final int xLoc,
@@ -67,13 +67,13 @@ public abstract class AbstractDungeonData implements Cloneable {
 	    final int enemyLocYIn, final AbstractCharacter enemy);
 
     public abstract int checkForMagnetic(final AbstractDungeon dungeon, final int floor, final int centerX,
-	    final int centerY, final Direction dir);
+	    final int centerY, final Directions dir);
 
     public abstract boolean linearScan(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
-	    final Direction d);
+	    final Directions d);
 
     public abstract int linearScanMagnetic(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
-	    final Direction d);
+	    final Directions d);
 
     public abstract int[] findObject(final AbstractDungeon dungeon, final int z, final String targetName);
 

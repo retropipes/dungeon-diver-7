@@ -18,5 +18,6 @@ module com.puttysoftware.diane {
   exports com.puttysoftware.diane.map;
   exports com.puttysoftware.diane.objectmodel;
   exports com.puttysoftware.diane.scores;
+  exports com.puttysoftware.diane.strings;
   exports com.puttysoftware.diane.utilties;
 }

@@ -2,6 +2,8 @@ package com.puttysoftware.dungeondiver7.locale;
 
 import java.util.ResourceBundle;
 
+import com.puttysoftware.diane.strings.DianeStrings;
+
 public final class Strings {
     public static final String EMPTY = "";
     public static final int ARMOR_TYPES_COUNT = 6;
@@ -42,10 +44,6 @@ public final class Strings {
 	return ResourceBundle.getBundle("locale.difficulty").getString(Integer.toString(item.ordinal()));
     }
 
-    public static String direction(final Direction item) {
-	return ResourceBundle.getBundle("locale.direction").getString(Integer.toString(item.ordinal()));
-    }
-    
     public static String error(final ErrorString item) {
 	return ResourceBundle.getBundle("locale.error").getString(Integer.toString(item.ordinal()));
     }
@@ -95,22 +93,14 @@ public final class Strings {
     }
 
     public static String armorName(final int mID, final int aID) {
-	return Strings.subst(Strings.group(), Strings.armorType(mID), Strings.armor(aID));
-    }
-    
-    public static String weaponName(final int mID, final int wID) {
-	return Strings.subst(Strings.group(), Strings.weaponType(mID), Strings.weapon(wID));
-    }
-    
-    public static String monsterzone(final int zoneID, final int monID) {
-	return Strings.subst(Strings.group(), Strings.zone(zoneID), Strings.monster(monID));
+	return DianeStrings.subst(Strings.group(), Strings.armorType(mID), Strings.armor(aID));
     }
 
-    public static String subst(final String orig, final String... values) {
-	String result = orig;
-	for (int s = 0; s < values.length; s++) {
-	    result = result.replace("%" + s, values[s]);
-	}
-	return result;
+    public static String weaponName(final int mID, final int wID) {
+	return DianeStrings.subst(Strings.group(), Strings.weaponType(mID), Strings.weapon(wID));
+    }
+
+    public static String monsterzone(final int zoneID, final int monID) {
+	return DianeStrings.subst(Strings.group(), Strings.zone(zoneID), Strings.monster(monID));
     }
 }

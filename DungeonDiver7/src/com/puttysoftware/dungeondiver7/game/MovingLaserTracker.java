@@ -5,6 +5,8 @@
  */
 package com.puttysoftware.dungeondiver7.game;
 
+import com.puttysoftware.diane.utilties.DirectionResolver;
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
@@ -24,9 +26,7 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Stunner;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
@@ -148,8 +148,8 @@ final class MovingLaserTracker {
 	boolean mover = nMover;
 	if (!this.res && this.laser) {
 	    if (gm.getPlayer().getSavedObject().isOfType(TypeConstants.TYPE_MOVER)) {
-		final Direction dir = gm.getPlayer().getSavedObject().getDirection();
-		final int[] unres = DirectionResolver.unresolveRelativeDirection(dir);
+		final Directions dir = gm.getPlayer().getSavedObject().getDirection();
+		final int[] unres = DirectionResolver.unresolve(dir);
 		sx = unres[0];
 		sy = unres[1];
 		mover = true;
@@ -204,16 +204,16 @@ final class MovingLaserTracker {
 	}
 	if (this.res) {
 	    int[] resolved;
-	    Direction laserDir;
+	    Directions laserDir;
 	    this.l = MovingLaserTracker.createLaserForType(this.lt);
 	    if (this.lt == ArrowTypeConstants.LASER_TYPE_MISSILE) {
-		final Direction suffix = DirectionResolver.resolveRelativeDirection(this.incX, this.incY);
+		final Directions suffix = DirectionResolver.resolve(this.incX, this.incY);
 		this.l.setDirection(suffix);
 	    } else if (this.lt == ArrowTypeConstants.LASER_TYPE_STUNNER
 		    || this.lt == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
 		// Do nothing
 	    } else {
-		final Direction suffix = DirectionResolver.resolveRelativeDirectionHV(this.incX, this.incY);
+		final Directions suffix = DirectionResolver.resolveHV(this.incX, this.incY);
 		this.l.setDirection(suffix);
 	    }
 	    final int oldincX = this.incX;
@@ -231,20 +231,20 @@ final class MovingLaserTracker {
 	    } catch (final ArrayIndexOutOfBoundsException aioobe) {
 		// Ignore
 	    }
-	    final Direction oldLaserDir = this.l.getDirection();
+	    final Directions oldLaserDir = this.l.getDirection();
 	    laserDir = oldLaserDir;
 	    final boolean laserKill = this.ox + this.cumX == px && this.oy + this.cumY == py;
 	    if (laserKill) {
 		gm.gameOver();
 		return;
 	    }
-	    Direction dir = lou.laserEnteredAction(this.ox + this.cumX, this.oy + this.cumY, pz, this.incX, this.incY,
+	    Directions dir = lou.laserEnteredAction(this.ox + this.cumX, this.oy + this.cumY, pz, this.incX, this.incY,
 		    this.lt, this.l.getForceUnitsImbued());
-	    if (dir != Direction.NONE) {
+	    if (dir != Directions.NONE) {
 		dir = lol.laserEnteredAction(this.ox + this.cumX, this.oy + this.cumY, pz, this.incX, this.incY,
 			this.lt, this.l.getForceUnitsImbued());
 	    }
-	    if (dir == Direction.NONE) {
+	    if (dir == Directions.NONE) {
 		this.res = false;
 		// Clear laser, because it died
 		try {
@@ -254,18 +254,18 @@ final class MovingLaserTracker {
 		}
 		return;
 	    }
-	    resolved = DirectionResolver.unresolveRelativeDirection(dir);
+	    resolved = DirectionResolver.unresolve(dir);
 	    int resX = resolved[0];
 	    int resY = resolved[1];
-	    laserDir = DirectionResolver.resolveRelativeDirectionHV(resX, resY);
+	    laserDir = DirectionResolver.resolveHV(resX, resY);
 	    this.l.setDirection(laserDir);
 	    this.incX = resX;
 	    this.incY = resY;
 	    dir = lou.laserExitedAction(oldincX, oldincY, pz, this.incX, this.incY, this.lt);
-	    if (dir != Direction.NONE) {
+	    if (dir != Directions.NONE) {
 		dir = lol.laserExitedAction(oldincX, oldincY, pz, this.incX, this.incY, this.lt);
 	    }
-	    if (dir == Direction.NONE) {
+	    if (dir == Directions.NONE) {
 		this.res = false;
 		// Clear laser, because it died
 		try {
@@ -275,10 +275,10 @@ final class MovingLaserTracker {
 		}
 		return;
 	    }
-	    resolved = DirectionResolver.unresolveRelativeDirection(dir);
+	    resolved = DirectionResolver.unresolve(dir);
 	    resX = resolved[0];
 	    resY = resolved[1];
-	    laserDir = DirectionResolver.resolveRelativeDirectionHV(resX, resY);
+	    laserDir = DirectionResolver.resolveHV(resX, resY);
 	    this.l.setDirection(laserDir);
 	    this.incX = resX;
 	    this.incY = resY;

@@ -13,6 +13,8 @@ import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.utilties.DirectionResolver;
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.Accelerators;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.MenuSection;
@@ -33,7 +35,6 @@ import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
@@ -45,7 +46,6 @@ import com.puttysoftware.dungeondiver7.utility.ActionConstants;
 import com.puttysoftware.dungeondiver7.utility.AlreadyDeadException;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
 import com.puttysoftware.dungeondiver7.utility.CustomDialogs;
-import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 import com.puttysoftware.dungeondiver7.utility.InvalidDungeonException;
@@ -575,8 +575,8 @@ public final class GameLogic implements MenuSection {
 		this.mlot = new MLOTask();
 	    }
 	}
-	final Direction dir = this.getPlayer().getDirection();
-	final int[] unres = DirectionResolver.unresolveRelativeDirection(dir);
+	final Directions dir = this.getPlayer().getDirection();
+	final int[] unres = DirectionResolver.unresolve(dir);
 	final int x = unres[0];
 	final int y = unres[1];
 	this.mlot.activateFrozenMovement(x, y);
@@ -629,7 +629,7 @@ public final class GameLogic implements MenuSection {
 	    final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	    if (!a.isMoveShootAllowed() && !this.shotActive || a.isMoveShootAllowed()) {
 		this.shotActive = true;
-		final int[] currDirection = DirectionResolver.unresolveRelativeDirection(shooter.getDirection());
+		final int[] currDirection = DirectionResolver.unresolve(shooter.getDirection());
 		final int x = currDirection[0];
 		final int y = currDirection[1];
 		if (this.mlot == null) {
@@ -1328,8 +1328,8 @@ public final class GameLogic implements MenuSection {
 	    if (laser) {
 		this.fireLaser(px, py, this.player);
 	    } else {
-		final Direction currDir = this.player.getDirection();
-		final Direction newDir = DirectionResolver.resolveRelativeDirection(x, y);
+		final Directions currDir = this.player.getDirection();
+		final Directions newDir = DirectionResolver.resolve(x, y);
 		if (currDir != newDir) {
 		    this.player.setDirection(newDir);
 		    SoundLoader.playSound(SoundConstants.TURN);

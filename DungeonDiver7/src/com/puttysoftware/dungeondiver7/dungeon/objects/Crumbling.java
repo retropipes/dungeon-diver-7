@@ -5,13 +5,13 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractAttribute;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
 public class Crumbling extends AbstractAttribute {
@@ -26,7 +26,7 @@ public class Crumbling extends AbstractAttribute {
     }
 
     @Override
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	final StuffBag app = DungeonDiver7.getStuffBag();
 	app.getGameLogic();
@@ -35,7 +35,7 @@ public class Crumbling extends AbstractAttribute {
 	// Destroy whatever we were attached to
 	GameLogic.morph(new Empty(), locX, locY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS);
 	SoundLoader.playSound(SoundConstants.CRACK);
-	return Direction.NONE;
+	return Directions.NONE;
     }
 
     @Override

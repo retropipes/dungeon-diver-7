@@ -5,8 +5,8 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 
 public class FrozenParty extends AbstractCharacter {
     // Constructors
@@ -14,7 +14,7 @@ public class FrozenParty extends AbstractCharacter {
 	super(number);
     }
 
-    public FrozenParty(final Direction dir, final int number) {
+    public FrozenParty(final Directions dir, final int number) {
 	super(number);
 	this.setDirection(dir);
     }

@@ -34,6 +34,8 @@ import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.DrawGrid;
+import com.puttysoftware.diane.utilties.DirectionResolver;
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.Accelerators;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
@@ -55,7 +57,6 @@ import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.TimeTravel;
@@ -66,7 +67,6 @@ import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
 import com.puttysoftware.dungeondiver7.utility.DifficultyConstants;
-import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 import com.puttysoftware.dungeondiver7.utility.RCLGenerator;
@@ -686,8 +686,8 @@ class GameGUI {
 		    }
 		}
 	    } else {
-		final Direction currDir = gm.player.getDirection();
-		final Direction newDir = this.mapKeyToDirection(e);
+		final Directions currDir = gm.player.getDirection();
+		final Directions newDir = this.mapKeyToDirection(e);
 		if (currDir != newDir) {
 		    this.handleTurns(newDir);
 		} else {
@@ -816,34 +816,34 @@ class GameGUI {
 	    }
 	}
 
-	public void handleTurns(final Direction dir) {
+	public void handleTurns(final Directions dir) {
 	    try {
 		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 		boolean fired = false;
 		switch (dir) {
 		case WEST:
-		    gm.player.setDirection(Direction.WEST);
+		    gm.player.setDirection(Directions.WEST);
 		    if (!gm.isReplaying()) {
 			gm.updateReplay(false, -1, 0);
 		    }
 		    fired = true;
 		    break;
 		case SOUTH:
-		    gm.player.setDirection(Direction.SOUTH);
+		    gm.player.setDirection(Directions.SOUTH);
 		    if (!gm.isReplaying()) {
 			gm.updateReplay(false, 0, 1);
 		    }
 		    fired = true;
 		    break;
 		case EAST:
-		    gm.player.setDirection(Direction.EAST);
+		    gm.player.setDirection(Directions.EAST);
 		    if (!gm.isReplaying()) {
 			gm.updateReplay(false, 1, 0);
 		    }
 		    fired = true;
 		    break;
 		case NORTH:
-		    gm.player.setDirection(Direction.NORTH);
+		    gm.player.setDirection(Directions.NORTH);
 		    if (!gm.isReplaying()) {
 			gm.updateReplay(false, 0, -1);
 		    }
@@ -922,7 +922,7 @@ class GameGUI {
 	    }
 	}
 
-	public Direction mapMouseToDirection(final MouseEvent me) {
+	public Directions mapMouseToDirection(final MouseEvent me) {
 	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	    final int x = me.getX();
 	    final int y = me.getY();
@@ -930,22 +930,22 @@ class GameGUI {
 	    final int py = gm.getPlayerManager().getPlayerLocationY();
 	    final int destX = (int) Math.signum(x / ImageLoader.getGraphicSize() - px);
 	    final int destY = (int) Math.signum(y / ImageLoader.getGraphicSize() - py);
-	    return DirectionResolver.resolveRelativeDirection(destX, destY);
+	    return DirectionResolver.resolve(destX, destY);
 	}
 
-	public Direction mapKeyToDirection(final KeyEvent e) {
+	public Directions mapKeyToDirection(final KeyEvent e) {
 	    final int keyCode = e.getKeyCode();
 	    switch (keyCode) {
 	    case KeyEvent.VK_LEFT:
-		return Direction.WEST;
+		return Directions.WEST;
 	    case KeyEvent.VK_DOWN:
-		return Direction.SOUTH;
+		return Directions.SOUTH;
 	    case KeyEvent.VK_RIGHT:
-		return Direction.EAST;
+		return Directions.EAST;
 	    case KeyEvent.VK_UP:
-		return Direction.NORTH;
+		return Directions.NORTH;
 	    default:
-		return Direction.INVALID;
+		return Directions.INVALID;
 	    }
 	}
 
@@ -1123,8 +1123,8 @@ class GameGUI {
 		} else {
 		    if (e.getButton() == MouseEvent.BUTTON1) {
 			// Move
-			final Direction dir = this.mapMouseToDirection(e);
-			final Direction tankDir = game.player.getDirection();
+			final Directions dir = this.mapMouseToDirection(e);
+			final Directions tankDir = game.player.getDirection();
 			if (tankDir != dir) {
 			    this.handleTurns(dir);
 			} else {

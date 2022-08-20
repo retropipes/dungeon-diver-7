@@ -5,13 +5,13 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
 import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
@@ -26,7 +26,7 @@ public class MagneticBox extends AbstractMovableObject {
     }
 
     @Override
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeonObject mo = app.getDungeonManager().getDungeon().getCell(locX - dirX, locY - dirY, locZ,
@@ -45,7 +45,7 @@ public class MagneticBox extends AbstractMovableObject {
 		return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	    }
 	}
-	return Direction.NONE;
+	return Directions.NONE;
     }
 
     @Override

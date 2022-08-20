@@ -5,11 +5,11 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 
 public abstract class AbstractJumpObject extends AbstractMovableObject {
@@ -81,14 +81,14 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
     }
 
     @Override
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	final StuffBag app = DungeonDiver7.getStuffBag();
 	final int px = app.getGameLogic().getPlayerManager().getPlayerLocationX();
 	final int py = app.getGameLogic().getPlayerManager().getPlayerLocationY();
 	if (forceUnits > this.getMinimumReactionForce() && this.jumpRows == 0 && this.jumpCols == 0) {
 	    this.pushCrushAction(locX, locY, locZ);
-	    return Direction.NONE;
+	    return Directions.NONE;
 	} else {
 	    if (this.jumpShot) {
 		this.jumpShot = false;
@@ -96,7 +96,7 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 		this.dir2Y = (int) Math.signum(py - locY);
 		if (this.dir1X != 0 && this.dir2X != 0 || this.dir1Y != 0 && this.dir2Y != 0) {
 		    SoundLoader.playSound(SoundConstants.LASER_DIE);
-		    return Direction.NONE;
+		    return Directions.NONE;
 		} else {
 		    if (this.dir1X == 0 && this.dir2X == 1 && this.dir1Y == -1 && this.dir2Y == 0
 			    || this.dir1X == 0 && this.dir2X == -1 && this.dir1Y == 1 && this.dir2Y == 0
@@ -113,7 +113,7 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 		this.dir1X = (int) Math.signum(px - locX);
 		this.dir1Y = (int) Math.signum(py - locY);
 		SoundLoader.playSound(SoundConstants.PREPARE);
-		return Direction.NONE;
+		return Directions.NONE;
 	    }
 	}
     }

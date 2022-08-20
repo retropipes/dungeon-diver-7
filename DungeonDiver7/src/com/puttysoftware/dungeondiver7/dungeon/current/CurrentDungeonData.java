@@ -8,6 +8,8 @@ package com.puttysoftware.dungeondiver7.dungeon.current;
 import java.io.IOException;
 import java.util.ArrayDeque;
 
+import com.puttysoftware.diane.utilties.DirectionResolver;
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
@@ -34,10 +36,8 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.FormatConstants;
 import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
@@ -108,10 +108,10 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void updateMonsterPosition(final AbstractDungeon dungeon, final Direction move, final int xLoc,
+    public void updateMonsterPosition(final AbstractDungeon dungeon, final Directions move, final int xLoc,
 	    final int yLoc, final AbstractMovingObject monster, final int pi) {
 	final StuffBag app = DungeonDiver7.getStuffBag();
-	final int[] dirMove = DirectionResolver.unresolveRelativeDirection(move);
+	final int[] dirMove = DirectionResolver.unresolve(move);
 	final int pLocX = dungeon.getPlayerLocationX(pi);
 	final int pLocY = dungeon.getPlayerLocationY(pi);
 	try {
@@ -281,13 +281,13 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	int x, y, z, w;
 	// Tick all DungeonObject timers
 	AbstractTunnel.checkTunnels();
-	for (z = Direction.NORTH.ordinal(); z <= Direction.NORTHWEST.ordinal(); z += 2) {
+	for (z = Directions.NORTH.ordinal(); z <= Directions.NORTHWEST.ordinal(); z += 2) {
 	    for (x = 0; x < this.getColumns(); x++) {
 		for (y = 0; y < this.getRows(); y++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 			final AbstractDungeonObject mo = this.getCell(dungeon, y, x, floorFix, w);
 			if (mo != null) {
-			    if (z == Direction.NORTH.ordinal()) {
+			    if (z == Directions.NORTH.ordinal()) {
 				// Handle objects waiting for a tunnel to open
 				if (mo instanceof AbstractMovableObject) {
 				    final AbstractMovableObject gmo = (AbstractMovableObject) mo;
@@ -332,7 +332,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    floor = this.normalizeFloor(floor);
 	}
-	final boolean scanE = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Direction.EAST);
+	final boolean scanE = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Directions.EAST);
 	if (scanE) {
 	    try {
 		final ArrowTurret at = (ArrowTurret) this.getCell(dungeon, this.foundX, this.foundY, floor,
@@ -342,7 +342,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		// Ignore
 	    }
 	}
-	final boolean scanW = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Direction.WEST);
+	final boolean scanW = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Directions.WEST);
 	if (scanW) {
 	    try {
 		final ArrowTurret at = (ArrowTurret) this.getCell(dungeon, this.foundX, this.foundY, floor,
@@ -352,7 +352,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		// Ignore
 	    }
 	}
-	final boolean scanS = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Direction.SOUTH);
+	final boolean scanS = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Directions.SOUTH);
 	if (scanS) {
 	    try {
 		final ArrowTurret at = (ArrowTurret) this.getCell(dungeon, this.foundX, this.foundY, floor,
@@ -362,7 +362,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		// Ignore
 	    }
 	}
-	final boolean scanN = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Direction.NORTH);
+	final boolean scanN = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Directions.NORTH);
 	if (scanN) {
 	    try {
 		final ArrowTurret at = (ArrowTurret) this.getCell(dungeon, this.foundX, this.foundY, floor,
@@ -376,22 +376,22 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public int checkForMagnetic(final AbstractDungeon dungeon, final int floor, final int centerX, final int centerY,
-	    final Direction dir) {
-	if (dir == Direction.EAST) {
-	    return this.linearScanMagnetic(dungeon, centerX, centerY, floor, Direction.EAST);
-	} else if (dir == Direction.WEST) {
-	    return this.linearScanMagnetic(dungeon, centerX, centerY, floor, Direction.WEST);
-	} else if (dir == Direction.SOUTH) {
-	    return this.linearScanMagnetic(dungeon, centerX, centerY, floor, Direction.SOUTH);
-	} else if (dir == Direction.NORTH) {
-	    return this.linearScanMagnetic(dungeon, centerX, centerY, floor, Direction.NORTH);
+	    final Directions dir) {
+	if (dir == Directions.EAST) {
+	    return this.linearScanMagnetic(dungeon, centerX, centerY, floor, Directions.EAST);
+	} else if (dir == Directions.WEST) {
+	    return this.linearScanMagnetic(dungeon, centerX, centerY, floor, Directions.WEST);
+	} else if (dir == Directions.SOUTH) {
+	    return this.linearScanMagnetic(dungeon, centerX, centerY, floor, Directions.SOUTH);
+	} else if (dir == Directions.NORTH) {
+	    return this.linearScanMagnetic(dungeon, centerX, centerY, floor, Directions.NORTH);
 	}
 	return 0;
     }
 
     @Override
     public boolean linearScan(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
-	    final Direction d) {
+	    final Directions d) {
 	// Perform the scan
 	int xFix = xIn;
 	int yFix = yIn;
@@ -406,7 +406,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    zFix = this.normalizeFloor(zFix);
 	}
 	int u, w;
-	if (d == Direction.NORTH) {
+	if (d == Directions.NORTH) {
 	    final AbstractDungeonObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
@@ -416,8 +416,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 			try {
 			    final AbstractDungeonObject obj = this.getCell(dungeon, xFix, u, zFix, w);
 			    if (obj.isOfType(TypeConstants.TYPE_ANTI)) {
-				final int[] unres = DirectionResolver.unresolveRelativeDirection(obj.getDirection());
-				final Direction invert = DirectionResolver.resolveRelativeDirectionInvert(unres[0],
+				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
+				final Directions invert = DirectionResolver.resolveInvert(unres[0],
 					unres[1]);
 				if (d == invert) {
 				    this.foundX = xFix;
@@ -435,7 +435,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		}
 	    }
 	    return false;
-	} else if (d == Direction.SOUTH) {
+	} else if (d == Directions.SOUTH) {
 	    final AbstractDungeonObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
@@ -445,8 +445,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 			try {
 			    final AbstractDungeonObject obj = this.getCell(dungeon, xFix, u, zFix, w);
 			    if (obj.isOfType(TypeConstants.TYPE_ANTI)) {
-				final int[] unres = DirectionResolver.unresolveRelativeDirection(obj.getDirection());
-				final Direction invert = DirectionResolver.resolveRelativeDirectionInvert(unres[0],
+				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
+				final Directions invert = DirectionResolver.resolveInvert(unres[0],
 					unres[1]);
 				if (d == invert) {
 				    this.foundX = xFix;
@@ -464,7 +464,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		}
 	    }
 	    return false;
-	} else if (d == Direction.WEST) {
+	} else if (d == Directions.WEST) {
 	    final AbstractDungeonObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
@@ -474,8 +474,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 			try {
 			    final AbstractDungeonObject obj = this.getCell(dungeon, u, yFix, zFix, w);
 			    if (obj.isOfType(TypeConstants.TYPE_ANTI)) {
-				final int[] unres = DirectionResolver.unresolveRelativeDirection(obj.getDirection());
-				final Direction invert = DirectionResolver.resolveRelativeDirectionInvert(unres[0],
+				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
+				final Directions invert = DirectionResolver.resolveInvert(unres[0],
 					unres[1]);
 				if (d == invert) {
 				    this.foundX = u;
@@ -493,7 +493,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		}
 	    }
 	    return false;
-	} else if (d == Direction.EAST) {
+	} else if (d == Directions.EAST) {
 	    final AbstractDungeonObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
@@ -503,8 +503,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 			try {
 			    final AbstractDungeonObject obj = this.getCell(dungeon, u, yFix, zFix, w);
 			    if (obj.isOfType(TypeConstants.TYPE_ANTI)) {
-				final int[] unres = DirectionResolver.unresolveRelativeDirection(obj.getDirection());
-				final Direction invert = DirectionResolver.resolveRelativeDirectionInvert(unres[0],
+				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
+				final Directions invert = DirectionResolver.resolveInvert(unres[0],
 					unres[1]);
 				if (d == invert) {
 				    this.foundX = u;
@@ -528,7 +528,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public int linearScanMagnetic(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
-	    final Direction d) {
+	    final Directions d) {
 	// Perform the scan
 	int xFix = xIn;
 	int yFix = yIn;
@@ -543,7 +543,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    zFix = this.normalizeFloor(zFix);
 	}
 	int u, w;
-	if (d == Direction.NORTH) {
+	if (d == Directions.NORTH) {
 	    for (u = yFix - 1; u >= 0; u--) {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
@@ -560,7 +560,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		}
 	    }
 	    return 0;
-	} else if (d == Direction.SOUTH) {
+	} else if (d == Directions.SOUTH) {
 	    for (u = yFix + 1; u < 24; u++) {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
@@ -577,7 +577,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		}
 	    }
 	    return 0;
-	} else if (d == Direction.WEST) {
+	} else if (d == Directions.WEST) {
 	    for (u = xFix - 1; u >= 0; u--) {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
@@ -594,7 +594,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		}
 	    }
 	    return 0;
-	} else if (d == Direction.EAST) {
+	} else if (d == Directions.EAST) {
 	    for (u = xFix + 1; u < 24; u++) {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {

@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.BitSet;
 
+import com.puttysoftware.diane.strings.DianeStrings;
+import com.puttysoftware.diane.utilties.DirectionResolver;
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
@@ -19,14 +22,12 @@ import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
 import com.puttysoftware.dungeondiver7.utility.ColorConstants;
 import com.puttysoftware.dungeondiver7.utility.ColorResolver;
-import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.ImageColorConstants;
 import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
@@ -49,7 +50,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     private int initialTimerValue;
     private boolean timerActive;
     private int frameNumber;
-    private Direction direction;
+    private Directions directions;
     private boolean diagonalOnly;
     private int color;
     private int material;
@@ -75,7 +76,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.initialTimerValue = 0;
 	this.timerActive = false;
 	this.frameNumber = 0;
-	this.direction = Direction.NONE;
+	this.directions = Directions.NONE;
 	this.diagonalOnly = false;
 	this.color = -1;
 	this.material = MaterialConstants.MATERIAL_DEFAULT;
@@ -112,7 +113,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.timerValue = 0;
 	this.timerActive = false;
 	this.frameNumber = 0;
-	this.direction = Direction.NONE;
+	this.directions = Directions.NONE;
 	this.diagonalOnly = false;
 	this.color = -1;
 	this.material = MaterialConstants.MATERIAL_DEFAULT;
@@ -128,7 +129,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.timerValue = 0;
 	this.timerActive = false;
 	this.frameNumber = 0;
-	this.direction = Direction.NONE;
+	this.directions = Directions.NONE;
 	this.diagonalOnly = false;
 	this.color = -1;
 	this.material = MaterialConstants.MATERIAL_DEFAULT;
@@ -148,7 +149,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    copy.initialTimerValue = this.initialTimerValue;
 	    copy.timerActive = this.timerActive;
 	    copy.frameNumber = this.frameNumber;
-	    copy.direction = this.direction;
+	    copy.directions = this.directions;
 	    copy.diagonalOnly = this.diagonalOnly;
 	    copy.color = this.color;
 	    copy.material = this.material;
@@ -171,7 +172,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	result = prime * result + (this.timerActive ? 1231 : 1237);
 	result = prime * result + this.timerValue;
 	result = prime * result + (this.type == null ? 0 : this.type.hashCode());
-	result = prime * result + this.direction.hashCode();
+	result = prime * result + this.directions.hashCode();
 	result = prime * result + this.color;
 	result = prime * result + (this.blocksLOS ? 1231 : 1237);
 	return prime * result + this.material;
@@ -208,7 +209,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	} else if (!this.type.equals(other.type)) {
 	    return false;
 	}
-	if (this.direction != other.direction) {
+	if (this.directions != other.directions) {
 	    return false;
 	}
 	if (this.color != other.color) {
@@ -272,27 +273,27 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	return this.frameNumber > 0;
     }
 
-    public final Direction getDirection() {
-	return this.direction;
+    public final Directions getDirection() {
+	return this.directions;
     }
 
     public final void toggleDirection() {
-	this.direction = DungeonConstants.nextDirOrtho(this.direction);
+	this.directions = DungeonConstants.nextDirOrtho(this.directions);
     }
 
-    public static boolean hitReflectiveSide(final Direction dir) {
-	Direction trigger1, trigger2;
+    public static boolean hitReflectiveSide(final Directions dir) {
+	Directions trigger1, trigger2;
 	trigger1 = DungeonConstants.previousDir(dir);
 	trigger2 = DungeonConstants.nextDir(dir);
 	return dir == trigger1 || dir == trigger2;
     }
 
-    public final void setDirection(final Direction dir) {
-	this.direction = dir;
+    public final void setDirection(final Directions dir) {
+	this.directions = dir;
     }
 
     private final boolean hasDirection() {
-	return this.direction != Direction.INVALID && this.direction != Direction.NONE;
+	return this.directions != Directions.INVALID && this.directions != Directions.NONE;
     }
 
     public final int getMaterial() {
@@ -632,7 +633,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      * @param forceUnits
      * @return
      */
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	if (this.isSolid()) {
 	    if (forceUnits > this.getMinimumReactionForce() && this.canMove()) {
@@ -666,9 +667,9 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 		    SoundLoader.playSound(SoundConstants.LASER_DIE);
 		}
 	    }
-	    return Direction.NONE;
+	    return Directions.NONE;
 	} else {
-	    return DirectionResolver.resolveRelativeDirection(dirX, dirY);
+	    return DirectionResolver.resolve(dirX, dirY);
 	}
     }
 
@@ -682,9 +683,9 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      * @param laserType
      * @return
      */
-    public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Directions laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType) {
-	return DirectionResolver.resolveRelativeDirection(dirX, dirY);
+	return DirectionResolver.resolve(dirX, dirY);
     }
 
     public void laserDoneAction() {
@@ -735,7 +736,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 
     private final String getDirectionSuffix() {
 	if (this.hasDirection()) {
-	    return LocaleConstants.COMMON_STRING_SPACE + Strings.direction(this.direction);
+	    return LocaleConstants.COMMON_STRING_SPACE + DianeStrings.directions(this.directions);
 	} else {
 	    return Strings.EMPTY;
 	}
@@ -911,11 +912,11 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	writer.writeString(this.getIdentifier());
 	final int cc = this.getCustomFormat();
 	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    writer.writeInt(this.direction.ordinal());
+	    writer.writeInt(this.directions.ordinal());
 	    writer.writeInt(this.color);
 	    this.writeHook(writer);
 	} else {
-	    writer.writeInt(this.direction.ordinal());
+	    writer.writeInt(this.directions.ordinal());
 	    writer.writeInt(this.color);
 	    for (int x = 0; x < cc; x++) {
 		final int cx = this.getCustomProperty(x + 1);
@@ -929,12 +930,12 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (ident.equals(this.getIdentifier())) {
 	    final int cc = this.getCustomFormat();
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-		this.direction = Direction.values()[reader.readInt()];
+		this.directions = Directions.values()[reader.readInt()];
 		reader.readInt();
 		this.color = reader.readInt();
 		return this.readHookV2(reader, ver);
 	    } else {
-		this.direction = Direction.values()[reader.readInt()];
+		this.directions = Directions.values()[reader.readInt()];
 		this.color = reader.readInt();
 		for (int x = 0; x < cc; x++) {
 		    final int cx = reader.readInt();
@@ -952,13 +953,13 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (ident.equals(this.getIdentifier())) {
 	    final int cc = this.getCustomFormat();
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-		this.direction = Direction.values()[reader.readInt()];
+		this.directions = Directions.values()[reader.readInt()];
 		this.color = reader.readInt();
 		// Discard material
 		reader.readInt();
 		return this.readHookV3(reader, ver);
 	    } else {
-		this.direction = Direction.values()[reader.readInt()];
+		this.directions = Directions.values()[reader.readInt()];
 		this.color = reader.readInt();
 		// Discard material
 		reader.readInt();
@@ -978,11 +979,11 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (ident.equals(this.getIdentifier())) {
 	    final int cc = this.getCustomFormat();
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-		this.direction = Direction.values()[reader.readInt()];
+		this.directions = Directions.values()[reader.readInt()];
 		this.color = reader.readInt();
 		return this.readHookV4(reader, ver);
 	    } else {
-		this.direction = Direction.values()[reader.readInt()];
+		this.directions = Directions.values()[reader.readInt()];
 		this.color = reader.readInt();
 		for (int x = 0; x < cc; x++) {
 		    final int cx = reader.readInt();
@@ -1000,11 +1001,11 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (ident.equals(this.getIdentifier())) {
 	    final int cc = this.getCustomFormat();
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-		this.direction = Direction.values()[reader.readInt()];
+		this.directions = Directions.values()[reader.readInt()];
 		this.color = reader.readInt();
 		return this.readHookV5(reader, ver);
 	    } else {
-		this.direction = Direction.values()[reader.readInt()];
+		this.directions = Directions.values()[reader.readInt()];
 		this.color = reader.readInt();
 		for (int x = 0; x < cc; x++) {
 		    final int cx = reader.readInt();
@@ -1022,11 +1023,11 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (ident.equals(this.getIdentifier())) {
 	    final int cc = this.getCustomFormat();
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-		this.direction = Direction.values()[reader.readInt()];
+		this.directions = Directions.values()[reader.readInt()];
 		this.color = reader.readInt();
 		return this.readHookV6(reader, ver);
 	    } else {
-		this.direction = Direction.values()[reader.readInt()];
+		this.directions = Directions.values()[reader.readInt()];
 		this.color = reader.readInt();
 		for (int x = 0; x < cc; x++) {
 		    final int cx = reader.readInt();
@@ -1044,11 +1045,11 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (ident.equals(this.getIdentifier())) {
 	    final int cc = this.getCustomFormat();
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-		this.direction = Direction.values()[reader.readInt()];
+		this.directions = Directions.values()[reader.readInt()];
 		this.color = reader.readInt();
 		return this.readHookV7(reader, ver);
 	    } else {
-		this.direction = Direction.values()[reader.readInt()];
+		this.directions = Directions.values()[reader.readInt()];
 		this.color = reader.readInt();
 		for (int x = 0; x < cc; x++) {
 		    final int cx = reader.readInt();

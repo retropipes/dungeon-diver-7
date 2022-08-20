@@ -23,6 +23,7 @@ import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import com.puttysoftware.diane.strings.DianeStrings;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
@@ -131,10 +132,10 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	    try {
 		final StuffBag app = DungeonDiver7.getStuffBag();
 		final String cmd = e.getActionCommand();
-		if (cmd.equals(Strings.subst(Strings.menu(Menu.ABOUT_PROGRAM),
+		if (cmd.equals(DianeStrings.subst(Strings.menu(Menu.ABOUT_PROGRAM),
 			Strings.untranslated(Untranslated.PROGRAM_NAME)))) {
 		    app.getAboutDialog().showAboutDialog();
-		} else if (cmd.equals(Strings.subst(Strings.menu(Menu.PROGRAM_HELP),
+		} else if (cmd.equals(DianeStrings.subst(Strings.menu(Menu.PROGRAM_HELP),
 			Strings.untranslated(Untranslated.PROGRAM_NAME)))) {
 		    app.getHelpManager().showHelp();
 		}
@@ -166,9 +167,9 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	final MenuHandler mhandler = new MenuHandler();
 	final JMenu helpMenu = new JMenu(Strings.menu(Menu.HELP));
 	this.helpAbout = new JMenuItem(
-		Strings.subst(Strings.menu(Menu.ABOUT_PROGRAM), Strings.untranslated(Untranslated.PROGRAM_NAME)));
+		DianeStrings.subst(Strings.menu(Menu.ABOUT_PROGRAM), Strings.untranslated(Untranslated.PROGRAM_NAME)));
 	this.helpHelp = new JMenuItem(
-		Strings.subst(Strings.menu(Menu.PROGRAM_HELP), Strings.untranslated(Untranslated.PROGRAM_NAME)));
+		DianeStrings.subst(Strings.menu(Menu.PROGRAM_HELP), Strings.untranslated(Untranslated.PROGRAM_NAME)));
 	this.helpAbout.addActionListener(mhandler);
 	this.helpHelp.addActionListener(mhandler);
 	if (!System.getProperty(Strings.untranslated(Untranslated.OS_NAME))

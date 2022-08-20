@@ -5,14 +5,14 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
+import com.puttysoftware.diane.utilties.DirectionResolver;
+import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Direction;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
 
 public class Bricks extends AbstractReactionWall {
@@ -23,17 +23,17 @@ public class Bricks extends AbstractReactionWall {
     }
 
     @Override
-    public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
+    public Directions laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
 	    final int dirY, final int laserType, final int forceUnits) {
 	SoundLoader.playSound(SoundConstants.BREAK_BRICKS);
 	DungeonDiver7.getStuffBag().getGameLogic();
 	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	if (laserType == ArrowTypeConstants.LASER_TYPE_POWER) {
 	    // Laser keeps going
-	    return DirectionResolver.resolveRelativeDirection(dirX, dirY);
+	    return DirectionResolver.resolve(dirX, dirY);
 	} else {
 	    // Laser stops
-	    return Direction.NONE;
+	    return Directions.NONE;
 	}
     }
 

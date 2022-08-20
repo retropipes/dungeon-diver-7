@@ -30,7 +30,7 @@ class MoveProperties {
 
   // Constructors
   public MoveProperties() {
-    this.moveData = new FlagStorage(MoveProperties.MOVE_DATA_TYPES, Directions.COUNT);
+    this.moveData = new FlagStorage(MoveProperties.MOVE_DATA_TYPES, DirectionResolver.COUNT);
   }
 
   // Methods
@@ -58,17 +58,17 @@ class MoveProperties {
 
   public boolean isPushable() {
     boolean result = true;
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       result = result && this.moveData.getCell(MoveDataTypes.PUSH.index, dir);
     }
     return result;
   }
 
   public boolean isDirectionallyPushable(final int dirX, final int dirY) {
-    final int dir = DirectionResolver.resolve(dirX, dirY);
+    final Directions dir = DirectionResolver.resolve(dirX, dirY);
     try {
       if (dir != Directions.NONE) {
-        return this.moveData.getCell(MoveDataTypes.PUSH.index, dir);
+        return this.moveData.getCell(MoveDataTypes.PUSH.index, dir.ordinal());
       } else {
         return false;
       }
@@ -79,17 +79,17 @@ class MoveProperties {
 
   public boolean isPullable() {
     boolean result = true;
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       result = result && this.moveData.getCell(MoveDataTypes.PULL.index, dir);
     }
     return result;
   }
 
   public boolean isDirectionallyPullable(final int dirX, final int dirY) {
-    final int dir = DirectionResolver.resolve(dirX, dirY);
+    final Directions dir = DirectionResolver.resolve(dirX, dirY);
     try {
       if (dir != Directions.NONE) {
-        return this.moveData.getCell(MoveDataTypes.PULL.index, dir);
+        return this.moveData.getCell(MoveDataTypes.PULL.index, dir.ordinal());
       } else {
         return false;
       }
@@ -100,17 +100,17 @@ class MoveProperties {
 
   public boolean isPushableInto() {
     boolean result = true;
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       result = result && this.moveData.getCell(MoveDataTypes.PUSH_INTO.index, dir);
     }
     return result;
   }
 
   public boolean isDirectionallyPushableInto(final int dirX, final int dirY) {
-    final int dir = DirectionResolver.resolve(dirX, dirY);
+    final Directions dir = DirectionResolver.resolve(dirX, dirY);
     try {
       if (dir != Directions.NONE) {
-        return this.moveData.getCell(MoveDataTypes.PUSH_INTO.index, dir);
+        return this.moveData.getCell(MoveDataTypes.PUSH_INTO.index, dir.ordinal());
       } else {
         return false;
       }
@@ -121,17 +121,17 @@ class MoveProperties {
 
   public boolean isPullableInto() {
     boolean result = true;
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       result = result && this.moveData.getCell(MoveDataTypes.PULL_INTO.index, dir);
     }
     return result;
   }
 
   public boolean isDirectionallyPullableInto(final int dirX, final int dirY) {
-    final int dir = DirectionResolver.resolve(dirX, dirY);
+    final Directions dir = DirectionResolver.resolve(dirX, dirY);
     try {
       if (dir != Directions.NONE) {
-        return this.moveData.getCell(MoveDataTypes.PULL_INTO.index, dir);
+        return this.moveData.getCell(MoveDataTypes.PULL_INTO.index, dir.ordinal());
       } else {
         return false;
       }
@@ -142,17 +142,17 @@ class MoveProperties {
 
   public boolean isPushableOut() {
     boolean result = true;
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       result = result && this.moveData.getCell(MoveDataTypes.PUSH_OUT.index, dir);
     }
     return result;
   }
 
   public boolean isDirectionallyPushableOut(final int dirX, final int dirY) {
-    final int dir = DirectionResolver.resolve(dirX, dirY);
+    final Directions dir = DirectionResolver.resolve(dirX, dirY);
     try {
       if (dir != Directions.NONE) {
-        return this.moveData.getCell(MoveDataTypes.PUSH_OUT.index, dir);
+        return this.moveData.getCell(MoveDataTypes.PUSH_OUT.index, dir.ordinal());
       } else {
         return false;
       }
@@ -163,17 +163,17 @@ class MoveProperties {
 
   public boolean isPullableOut() {
     boolean result = true;
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       result = result && this.moveData.getCell(MoveDataTypes.PULL_OUT.index, dir);
     }
     return result;
   }
 
   public boolean isDirectionallyPullableOut(final int dirX, final int dirY) {
-    final int dir = DirectionResolver.resolve(dirX, dirY);
+    final Directions dir = DirectionResolver.resolve(dirX, dirY);
     try {
       if (dir != Directions.NONE) {
-        return this.moveData.getCell(MoveDataTypes.PULL_OUT.index, dir);
+        return this.moveData.getCell(MoveDataTypes.PULL_OUT.index, dir.ordinal());
       } else {
         return false;
       }
@@ -183,7 +183,7 @@ class MoveProperties {
   }
 
   public void setPushable(final boolean value) {
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       this.setDirectionallyPushable(dir, value);
     }
   }
@@ -193,7 +193,7 @@ class MoveProperties {
   }
 
   public void setPullable(final boolean value) {
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       this.setDirectionallyPullable(dir, value);
     }
   }
@@ -203,7 +203,7 @@ class MoveProperties {
   }
 
   public void setPushableInto(final boolean value) {
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       this.setDirectionallyPushableInto(dir, value);
     }
   }
@@ -213,7 +213,7 @@ class MoveProperties {
   }
 
   public void setPullableInto(final boolean value) {
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       this.setDirectionallyPullableInto(dir, value);
     }
   }
@@ -223,7 +223,7 @@ class MoveProperties {
   }
 
   public void setPushableOut(final boolean value) {
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       this.setDirectionallyPushableOut(dir, value);
     }
   }
@@ -233,7 +233,7 @@ class MoveProperties {
   }
 
   public void setPullableOut(final boolean value) {
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       this.setDirectionallyPullableOut(dir, value);
     }
   }

@@ -30,7 +30,7 @@ class VisionProperties {
 
   // Constructors
   public VisionProperties() {
-    this.visionData = new FlagStorage(VisionProperties.VISION_DATA_TYPES, Directions.COUNT);
+    this.visionData = new FlagStorage(VisionProperties.VISION_DATA_TYPES, DirectionResolver.COUNT);
   }
 
   // Methods
@@ -58,7 +58,7 @@ class VisionProperties {
 
   public boolean isSightBlocking() {
     boolean result = false;
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       result = result || this.visionData.getCell(VisionDataTypes.EXTERNAL.index, dir);
     }
     return result;
@@ -66,30 +66,30 @@ class VisionProperties {
 
   public boolean isInternallySightBlocking() {
     boolean result = false;
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       result = result || this.visionData.getCell(VisionDataTypes.INTERNAL.index, dir);
     }
     return result;
   }
 
   public boolean isDirectionallySightBlocking(final int dirX, final int dirY) {
-    final int dir = DirectionResolver.resolve(dirX, dirY);
-    return this.visionData.getCell(VisionDataTypes.EXTERNAL.index, dir);
+    final Directions dir = DirectionResolver.resolve(dirX, dirY);
+    return this.visionData.getCell(VisionDataTypes.EXTERNAL.index, dir.ordinal());
   }
 
   public boolean isInternallyDirectionallySightBlocking(final int dirX, final int dirY) {
-    final int dir = DirectionResolver.resolve(dirX, dirY);
-    return this.visionData.getCell(VisionDataTypes.INTERNAL.index, dir);
+    final Directions dir = DirectionResolver.resolve(dirX, dirY);
+    return this.visionData.getCell(VisionDataTypes.INTERNAL.index, dir.ordinal());
   }
 
   public void setSightBlocking(final boolean value) {
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       this.visionData.setCell(value, VisionDataTypes.EXTERNAL.index, dir);
     }
   }
 
   public void setInternallySightBlocking(final boolean value) {
-    for (int dir = 0; dir < Directions.COUNT; dir++) {
+    for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
       this.visionData.setCell(value, VisionDataTypes.INTERNAL.index, dir);
     }
   }
