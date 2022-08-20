@@ -29,11 +29,11 @@ import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.file.AbstractPrefixIO;
 import com.puttysoftware.dungeondiver7.manager.file.AbstractSuffixIO;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.utility.DifficultyConstants;
+import com.puttysoftware.dungeondiver7.utility.Difficulties;
 import com.puttysoftware.dungeondiver7.utility.DirectionRotator;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.FileExtensions;
-import com.puttysoftware.dungeondiver7.utility.FormatConstants;
+import com.puttysoftware.dungeondiver7.utility.FileFormats;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 import com.puttysoftware.fileio.XDataReader;
@@ -334,7 +334,7 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     private static String convertDifficultyNumberToName(final int number) {
-	return DifficultyConstants.getDifficultyNames()[number - 1];
+	return Difficulties.getDifficultyNames()[number - 1];
     }
 
     @Override
@@ -878,12 +878,12 @@ public class CurrentDungeon extends AbstractDungeon {
 			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ARENA))) {
 	    // Read metafile
 	    version = m.readDungeonMetafileVersion(metaReader);
-	    if (FormatConstants.isFormatVersionValidGeneration7(version)) {
+	    if (FileFormats.isFormatVersionValidGeneration7(version)) {
 		m.readDungeonMetafileG7(metaReader, version);
-	    } else if (FormatConstants.isFormatVersionValidGeneration6(version)) {
+	    } else if (FileFormats.isFormatVersionValidGeneration6(version)) {
 		m.readDungeonMetafileG6(metaReader, version);
-	    } else if (FormatConstants.isFormatVersionValidGeneration4(version)
-		    || FormatConstants.isFormatVersionValidGeneration5(version)) {
+	    } else if (FileFormats.isFormatVersionValidGeneration4(version)
+		    || FileFormats.isFormatVersionValidGeneration5(version)) {
 		m.readDungeonMetafileG4(metaReader, version);
 	    } else {
 		m.readDungeonMetafileG3(metaReader, version);
@@ -891,7 +891,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	} catch (final IOException ioe) {
 	    throw ioe;
 	}
-	if (!FormatConstants.isLevelListStored(version)) {
+	if (!FileFormats.isLevelListStored(version)) {
 	    // Create data reader
 	    try (FileIOReader dataReader = m.getLevelReaderG5()) {
 		// Read data
@@ -937,11 +937,11 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     private int readDungeonMetafileVersion(final FileIOReader reader) throws IOException {
-	int ver = FormatConstants.DUNGEON_FORMAT_LATEST;
+	int ver = FileFormats.DUNGEON_LATEST;
 	if (this.prefixHandler != null) {
 	    ver = this.prefixHandler.readPrefix(reader);
 	}
-	this.moveShootAllowed = FormatConstants.isMoveShootAllowed(ver);
+	this.moveShootAllowed = FileFormats.isMoveShootAllowed(ver);
 	return ver;
     }
 
@@ -990,7 +990,7 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     private void readDungeonLevel(final FileIOReader reader) throws IOException {
-	this.readDungeonLevel(reader, FormatConstants.DUNGEON_FORMAT_LATEST);
+	this.readDungeonLevel(reader, FileFormats.DUNGEON_LATEST);
     }
 
     private void readDungeonLevel(final FileIOReader reader, final int formatVersion) throws IOException {

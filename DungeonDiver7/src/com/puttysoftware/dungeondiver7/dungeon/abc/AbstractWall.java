@@ -6,15 +6,15 @@
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractWall extends AbstractDungeonObject {
     // Constructors
     protected AbstractWall() {
 	super(true);
-	this.type.set(TypeConstants.TYPE_WALL);
-	this.setMaterial(MaterialConstants.MATERIAL_STONE);
+	this.type.set(DungeonObjectTypes.TYPE_WALL);
+	this.setMaterial(Materials.STONE);
     }
 
     @Override

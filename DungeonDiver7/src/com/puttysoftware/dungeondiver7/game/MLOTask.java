@@ -26,10 +26,10 @@ import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.utility.ActionConstants;
+import com.puttysoftware.dungeondiver7.utility.GameActions;
 import com.puttysoftware.dungeondiver7.utility.AlreadyDeadException;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 final class MLOTask extends Thread {
     // Fields
@@ -215,12 +215,12 @@ final class MLOTask extends Thread {
 		    int actionType = 0;
 		    if (this.move) {
 			if (!this.magnet && Math.abs(this.sx) <= 1 && Math.abs(this.sy) <= 1) {
-			    actionType = ActionConstants.ACTION_MOVE;
+			    actionType = GameActions.MOVE;
 			} else {
-			    actionType = ActionConstants.ACTION_NON_MOVE;
+			    actionType = GameActions.NON_MOVE;
 			}
 		    } else {
-			actionType = ActionConstants.ACTION_NON_MOVE;
+			actionType = GameActions.NON_MOVE;
 		    }
 		    for (final MovingLaserTracker tracker : this.laserTrackers) {
 			if (tracker.isTracking()) {
@@ -395,7 +395,7 @@ final class MLOTask extends Thread {
 		    ugo.postMoveAction(px, py, pz);
 		    loo.postMoveAction(px, py, pz);
 		    uoo.postMoveAction(px, py, pz);
-		    if (ugo.isOfType(TypeConstants.TYPE_MOVER)) {
+		    if (ugo.isOfType(DungeonObjectTypes.TYPE_MOVER)) {
 			final Directions dir = ugo.getDirection();
 			final int[] unres = DirectionResolver.unresolve(dir);
 			this.sx = unres[0];
@@ -429,7 +429,7 @@ final class MLOTask extends Thread {
 		    }
 		    uoo.moveFailedAction(plMgr.getPlayerLocationX() + this.sx, plMgr.getPlayerLocationY() + this.sy,
 			    plMgr.getPlayerLocationZ());
-		    if (gm.getPlayer().getSavedObject().isOfType(TypeConstants.TYPE_MOVER)) {
+		    if (gm.getPlayer().getSavedObject().isOfType(DungeonObjectTypes.TYPE_MOVER)) {
 			final Directions dir = gm.getPlayer().getSavedObject().getDirection();
 			final int[] unres = DirectionResolver.unresolve(dir);
 			this.sx = unres[0];

@@ -9,15 +9,15 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class Box extends AbstractMovableObject {
     // Constructors
     public Box() {
 	super(true);
-	this.type.set(TypeConstants.TYPE_BOX);
-	this.setMaterial(MaterialConstants.MATERIAL_STONE);
+	this.type.set(DungeonObjectTypes.TYPE_BOX);
+	this.setMaterial(Materials.STONE);
     }
 
     @Override
@@ -33,11 +33,11 @@ public class Box extends AbstractMovableObject {
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
-	case MaterialConstants.MATERIAL_ICE:
+	case Materials.ICE:
 	    final IcyBox ib = new IcyBox();
 	    ib.setPreviousState(this);
 	    return ib;
-	case MaterialConstants.MATERIAL_FIRE:
+	case Materials.FIRE:
 	    return new HotBox();
 	default:
 	    return this;

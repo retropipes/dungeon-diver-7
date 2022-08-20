@@ -12,9 +12,9 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class DisruptedIcyWall extends AbstractDisruptedObject {
     // Fields
@@ -24,24 +24,24 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
     // Constructors
     public DisruptedIcyWall() {
 	super();
-	this.type.set(TypeConstants.TYPE_PLAIN_WALL);
+	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.disruptionLeft = DisruptedIcyWall.DISRUPTION_START;
 	this.activateTimer(1);
-	this.setMaterial(MaterialConstants.MATERIAL_ICE);
+	this.setMaterial(Materials.ICE);
     }
 
     DisruptedIcyWall(final int disruption) {
 	super();
-	this.type.set(TypeConstants.TYPE_PLAIN_WALL);
+	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.disruptionLeft = disruption;
 	this.activateTimer(1);
-	this.setMaterial(MaterialConstants.MATERIAL_ICE);
+	this.setMaterial(Materials.ICE);
     }
 
     @Override
     public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
+	if (laserType == ShotTypes.MISSILE) {
 	    // Defrost icy wall
 	    SoundLoader.playSound(SoundConstants.DEFROST);
 	    final DisruptedWall dw = new DisruptedWall();
@@ -82,7 +82,7 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
-	case MaterialConstants.MATERIAL_FIRE:
+	case Materials.FIRE:
 	    return new DisruptedWall(this.disruptionLeft);
 	default:
 	    return this;

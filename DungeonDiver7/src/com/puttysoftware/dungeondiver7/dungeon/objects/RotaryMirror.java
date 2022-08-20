@@ -13,7 +13,7 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 
 public class RotaryMirror extends AbstractReactionWall {
     // Constructors
@@ -26,7 +26,7 @@ public class RotaryMirror extends AbstractReactionWall {
     @Override
     public Directions laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
 	    final int dirY, final int laserType, final int forceUnits) {
-	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
+	if (laserType == ShotTypes.MISSILE) {
 	    // Destroy mirror
 	    SoundLoader.playSound(SoundConstants.BOOM);
 	    DungeonDiver7.getStuffBag().getGameLogic();

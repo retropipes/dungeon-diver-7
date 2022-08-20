@@ -6,13 +6,13 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractPressureButtonDoor;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class WoodenPressureButtonDoor extends AbstractPressureButtonDoor {
     // Constructors
     public WoodenPressureButtonDoor() {
 	super();
-	this.setMaterial(MaterialConstants.MATERIAL_WOODEN);
+	this.setMaterial(Materials.WOODEN);
     }
 
     @Override

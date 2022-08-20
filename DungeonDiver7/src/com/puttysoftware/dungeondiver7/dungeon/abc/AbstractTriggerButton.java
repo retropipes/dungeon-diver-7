@@ -11,13 +11,13 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractTriggerButton extends AbstractButton {
     // Constructors
     protected AbstractTriggerButton(final AbstractTriggerButtonDoor tbd, final boolean isUniversal) {
 	super(tbd, isUniversal);
-	this.type.set(TypeConstants.TYPE_TRIGGER_BUTTON);
+	this.type.set(DungeonObjectTypes.TYPE_TRIGGER_BUTTON);
     }
 
     @Override

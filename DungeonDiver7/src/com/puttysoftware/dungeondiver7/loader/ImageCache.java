@@ -6,7 +6,7 @@
 package com.puttysoftware.dungeondiver7.loader;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.images.BufferedImageIcon;
 
 class ImageCache {
@@ -30,7 +30,7 @@ class ImageCache {
     static BufferedImageIcon getCachedImage(final AbstractDungeonObject obj, final boolean useText) {
 	String name;
 	final String custom = obj.getCustomText();
-	if (obj.isOfType(TypeConstants.TYPE_TUNNEL)) {
+	if (obj.isOfType(DungeonObjectTypes.TYPE_TUNNEL)) {
 	    if (useText && custom != null) {
 		if (obj.isEnabled()) {
 		    name = obj.getBaseImageName() + custom;

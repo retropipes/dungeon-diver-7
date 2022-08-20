@@ -11,7 +11,7 @@ import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.shop.Shop;
 import com.puttysoftware.dungeondiver7.shop.ShopType;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractShop extends AbstractDungeonObject {
     // Fields
@@ -21,7 +21,7 @@ public abstract class AbstractShop extends AbstractDungeonObject {
     public AbstractShop(final ShopType newShopType) {
 	super(false, false);
 	this.shopType = newShopType;
-	this.type.set(TypeConstants.TYPE_SHOP);
+	this.type.set(DungeonObjectTypes.TYPE_SHOP);
     }
 
     // Methods

@@ -55,7 +55,7 @@ import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjects;
-import com.puttysoftware.dungeondiver7.utility.EditorLayoutConstants;
+import com.puttysoftware.dungeondiver7.utility.EditorLayouts;
 import com.puttysoftware.dungeondiver7.utility.RCLGenerator;
 import com.puttysoftware.images.BufferedImageIcon;
 import com.puttysoftware.picturepicker.PicturePicker;
@@ -115,7 +115,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     public void activeLanguageChanged() {
-	EditorLayoutConstants.activeLanguageChanged();
+	EditorLayouts.activeLanguageChanged();
 	this.updatePicker();
     }
 
@@ -409,11 +409,11 @@ public class DungeonEditor implements MenuSection {
     void editObject(final int x, final int y) {
 	final StuffBag app = DungeonDiver7.getStuffBag();
 	int currentObjectIndex = 0;
-	if (PrefsManager.getEditorLayoutID() == EditorLayoutConstants.EDITOR_LAYOUT_CLASSIC) {
+	if (PrefsManager.getEditorLayoutID() == EditorLayouts.EDITOR_LAYOUT_CLASSIC) {
 	    currentObjectIndex = this.oldPicker.getPicked();
-	} else if (PrefsManager.getEditorLayoutID() == EditorLayoutConstants.EDITOR_LAYOUT_MODERN_V11) {
+	} else if (PrefsManager.getEditorLayoutID() == EditorLayouts.EDITOR_LAYOUT_MODERN_V11) {
 	    currentObjectIndex = this.newPicker11.getPicked();
-	} else if (PrefsManager.getEditorLayoutID() == EditorLayoutConstants.EDITOR_LAYOUT_MODERN_V12) {
+	} else if (PrefsManager.getEditorLayoutID() == EditorLayouts.EDITOR_LAYOUT_MODERN_V12) {
 	    currentObjectIndex = this.newPicker12.getPicked();
 	}
 	final int xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
@@ -1012,11 +1012,11 @@ public class DungeonEditor implements MenuSection {
 	    this.editorAppearances = objectList.getAllEditorAppearancesOnLayer(this.elMgr.getEditorLocationW(),
 		    PrefsManager.getEditorShowAllObjects());
 	    this.objectsEnabled = objectList.getObjectEnabledStatuses(this.elMgr.getEditorLocationW());
-	    if (PrefsManager.getEditorLayoutID() == EditorLayoutConstants.EDITOR_LAYOUT_CLASSIC) {
+	    if (PrefsManager.getEditorLayoutID() == EditorLayouts.EDITOR_LAYOUT_CLASSIC) {
 		this.updateOldPicker();
-	    } else if (PrefsManager.getEditorLayoutID() == EditorLayoutConstants.EDITOR_LAYOUT_MODERN_V11) {
+	    } else if (PrefsManager.getEditorLayoutID() == EditorLayouts.EDITOR_LAYOUT_MODERN_V11) {
 		this.updateNewPicker11();
-	    } else if (PrefsManager.getEditorLayoutID() == EditorLayoutConstants.EDITOR_LAYOUT_MODERN_V12) {
+	    } else if (PrefsManager.getEditorLayoutID() == EditorLayouts.EDITOR_LAYOUT_MODERN_V12) {
 		this.updateNewPicker12();
 	    }
 	    this.updatePickerLayout();
@@ -1055,11 +1055,11 @@ public class DungeonEditor implements MenuSection {
     }
 
     private void updatePickerLayout() {
-	if (PrefsManager.getEditorLayoutID() == EditorLayoutConstants.EDITOR_LAYOUT_CLASSIC) {
+	if (PrefsManager.getEditorLayoutID() == EditorLayouts.EDITOR_LAYOUT_CLASSIC) {
 	    this.updateOldPickerLayout();
-	} else if (PrefsManager.getEditorLayoutID() == EditorLayoutConstants.EDITOR_LAYOUT_MODERN_V11) {
+	} else if (PrefsManager.getEditorLayoutID() == EditorLayouts.EDITOR_LAYOUT_MODERN_V11) {
 	    this.updateNewPicker11Layout();
-	} else if (PrefsManager.getEditorLayoutID() == EditorLayoutConstants.EDITOR_LAYOUT_MODERN_V12) {
+	} else if (PrefsManager.getEditorLayoutID() == EditorLayouts.EDITOR_LAYOUT_MODERN_V12) {
 	    this.updateNewPicker12Layout();
 	}
     }
@@ -1090,11 +1090,11 @@ public class DungeonEditor implements MenuSection {
 	    this.borderPane.removeAll();
 	    this.borderPane.add(this.outerOutputPane, BorderLayout.CENTER);
 	    this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
-	    if (PrefsManager.getEditorLayoutID() == EditorLayoutConstants.EDITOR_LAYOUT_CLASSIC) {
+	    if (PrefsManager.getEditorLayoutID() == EditorLayouts.EDITOR_LAYOUT_CLASSIC) {
 		this.borderPane.add(this.oldPicker.getPicker(), BorderLayout.EAST);
-	    } else if (PrefsManager.getEditorLayoutID() == EditorLayoutConstants.EDITOR_LAYOUT_MODERN_V11) {
+	    } else if (PrefsManager.getEditorLayoutID() == EditorLayouts.EDITOR_LAYOUT_MODERN_V11) {
 		this.borderPane.add(this.newPicker11.getPicker(), BorderLayout.EAST);
-	    } else if (PrefsManager.getEditorLayoutID() == EditorLayoutConstants.EDITOR_LAYOUT_MODERN_V12) {
+	    } else if (PrefsManager.getEditorLayoutID() == EditorLayouts.EDITOR_LAYOUT_MODERN_V12) {
 		this.borderPane.add(this.newPicker12.getPicker(), BorderLayout.EAST);
 	    }
 	    this.borderPane.add(this.switcherPane, BorderLayout.SOUTH);

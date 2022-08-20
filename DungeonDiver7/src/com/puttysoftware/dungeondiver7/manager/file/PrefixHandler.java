@@ -7,12 +7,12 @@ package com.puttysoftware.dungeondiver7.manager.file;
 
 import java.io.IOException;
 
-import com.puttysoftware.dungeondiver7.utility.FormatConstants;
+import com.puttysoftware.dungeondiver7.utility.FileFormats;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 
 public class PrefixHandler implements AbstractPrefixIO {
-    private static final byte FORMAT_VERSION = (byte) FormatConstants.DUNGEON_FORMAT_LATEST;
+    private static final byte FORMAT_VERSION = (byte) FileFormats.DUNGEON_LATEST;
 
     @Override
     public int readPrefix(final FileIOReader reader) throws IOException {

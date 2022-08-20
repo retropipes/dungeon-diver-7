@@ -14,9 +14,9 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class MagneticMirror extends AbstractMovableObject {
     // Constructors
@@ -24,14 +24,14 @@ public class MagneticMirror extends AbstractMovableObject {
 	super(true);
 	this.setDirection(Directions.NORTHEAST);
 	this.setDiagonalOnly(true);
-	this.type.set(TypeConstants.TYPE_MOVABLE_MIRROR);
-	this.setMaterial(MaterialConstants.MATERIAL_MAGNETIC);
+	this.type.set(DungeonObjectTypes.TYPE_MOVABLE_MIRROR);
+	this.setMaterial(Materials.MAGNETIC);
     }
 
     @Override
     public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
+	if (laserType == ShotTypes.MISSILE) {
 	    // Destroy mirror
 	    SoundLoader.playSound(SoundConstants.BOOM);
 	    DungeonDiver7.getStuffBag().getGameLogic();
@@ -47,15 +47,15 @@ public class MagneticMirror extends AbstractMovableObject {
 		final StuffBag app = DungeonDiver7.getStuffBag();
 		final AbstractDungeonObject mo = app.getDungeonManager().getDungeon().getCell(locX - dirX, locY - dirY,
 			locZ, this.getLayer());
-		if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE && mo != null
-			&& (mo.isOfType(TypeConstants.TYPE_CHARACTER) || !mo.isSolid())) {
+		if (laserType == ShotTypes.BLUE && mo != null
+			&& (mo.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mo.isSolid())) {
 		    app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
 		    this.playSoundHook();
-		} else if (mo != null && (mo.isOfType(TypeConstants.TYPE_CHARACTER) || !mo.isSolid())) {
+		} else if (mo != null && (mo.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mo.isSolid())) {
 		    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
 		    this.playSoundHook();
 		} else {
-		    if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
+		    if (laserType == ShotTypes.MISSILE) {
 			SoundLoader.playSound(SoundConstants.BOOM);
 		    } else {
 			return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);

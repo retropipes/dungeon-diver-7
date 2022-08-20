@@ -11,10 +11,10 @@ import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 
@@ -27,7 +27,7 @@ public abstract class AbstractMovableObject extends AbstractDungeonObject {
 	super(true, pushable, true);
 	this.setSavedObject(new Empty());
 	this.waitingOnTunnel = false;
-	this.type.set(TypeConstants.TYPE_MOVABLE);
+	this.type.set(DungeonObjectTypes.TYPE_MOVABLE);
     }
 
     public final boolean waitingOnTunnel() {
@@ -70,12 +70,12 @@ public abstract class AbstractMovableObject extends AbstractDungeonObject {
 			    locY + dirY, locZ, this.getLayer());
 		    final AbstractDungeonObject mor = app.getDungeonManager().getDungeon().getCell(locX - dirX,
 			    locY - dirY, locZ, this.getLayer());
-		    if (this.getMaterial() == MaterialConstants.MATERIAL_MAGNETIC) {
-			if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE && mof != null
-				&& (mof.isOfType(TypeConstants.TYPE_CHARACTER) || !mof.isSolid())) {
+		    if (this.getMaterial() == Materials.MAGNETIC) {
+			if (laserType == ShotTypes.BLUE && mof != null
+				&& (mof.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mof.isSolid())) {
 			    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
 			    this.playSoundHook();
-			} else if (mor != null && (mor.isOfType(TypeConstants.TYPE_CHARACTER) || !mor.isSolid())) {
+			} else if (mor != null && (mor.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mor.isSolid())) {
 			    app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
 			    this.playSoundHook();
 			} else {
@@ -83,11 +83,11 @@ public abstract class AbstractMovableObject extends AbstractDungeonObject {
 			    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 			}
 		    } else {
-			if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE && mor != null
-				&& (mor.isOfType(TypeConstants.TYPE_CHARACTER) || !mor.isSolid())) {
+			if (laserType == ShotTypes.BLUE && mor != null
+				&& (mor.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mor.isSolid())) {
 			    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
 			    this.playSoundHook();
-			} else if (mof != null && (mof.isOfType(TypeConstants.TYPE_CHARACTER) || !mof.isSolid())) {
+			} else if (mof != null && (mof.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mof.isSolid())) {
 			    app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
 			    this.playSoundHook();
 			} else {

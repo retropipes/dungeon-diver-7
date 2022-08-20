@@ -8,24 +8,24 @@ package com.puttysoftware.dungeondiver7.manager.file;
 import java.io.IOException;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.utility.FormatConstants;
+import com.puttysoftware.dungeondiver7.utility.FileFormats;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 
 public class DungeonFileSuffixHandler implements AbstractSuffixIO {
     @Override
     public void readSuffix(final FileIOReader reader, final int formatVersion) throws IOException {
-	if (FormatConstants.isFormatVersionValidGeneration1(formatVersion)) {
+	if (FileFormats.isFormatVersionValidGeneration1(formatVersion)) {
 	    DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG1(reader);
-	} else if (FormatConstants.isFormatVersionValidGeneration2(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
 	    DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG2(reader);
-	} else if (FormatConstants.isFormatVersionValidGeneration3(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
 	    DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG3(reader);
-	} else if (FormatConstants.isFormatVersionValidGeneration4(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
 	    DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG4(reader);
-	} else if (FormatConstants.isFormatVersionValidGeneration5(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
 	    DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG5(reader);
-	} else if (FormatConstants.isFormatVersionValidGeneration6(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
 	    DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG6(reader);
 	}
     }

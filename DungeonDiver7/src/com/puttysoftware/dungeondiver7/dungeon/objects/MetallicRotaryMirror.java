@@ -12,7 +12,7 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class MetallicRotaryMirror extends AbstractReactionWall {
     // Constructors
@@ -20,7 +20,7 @@ public class MetallicRotaryMirror extends AbstractReactionWall {
 	super();
 	this.setDirection(Directions.NORTHEAST);
 	this.setDiagonalOnly(true);
-	this.setMaterial(MaterialConstants.MATERIAL_METALLIC);
+	this.setMaterial(Materials.METALLIC);
     }
 
     @Override

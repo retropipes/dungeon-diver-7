@@ -6,13 +6,13 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractPressureButton;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class StonePressureButton extends AbstractPressureButton {
     // Constructors
     public StonePressureButton() {
 	super(new StonePressureButtonDoor(), false);
-	this.setMaterial(MaterialConstants.MATERIAL_STONE);
+	this.setMaterial(Materials.STONE);
     }
 
     @Override

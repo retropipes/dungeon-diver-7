@@ -13,13 +13,13 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class Cloak extends AbstractAttribute {
     // Constructors
     public Cloak() {
 	super();
-	this.type.set(TypeConstants.TYPE_CLOAK);
+	this.type.set(DungeonObjectTypes.TYPE_CLOAK);
     }
 
     @Override

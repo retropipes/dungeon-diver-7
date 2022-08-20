@@ -6,13 +6,13 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractAllButtonDoor;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class MagneticAllButtonDoor extends AbstractAllButtonDoor {
     // Constructors
     public MagneticAllButtonDoor() {
 	super();
-	this.setMaterial(MaterialConstants.MATERIAL_MAGNETIC);
+	this.setMaterial(Materials.MAGNETIC);
     }
 
     @Override

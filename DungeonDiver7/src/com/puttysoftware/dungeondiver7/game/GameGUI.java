@@ -65,8 +65,8 @@ import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.DifficultyConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
+import com.puttysoftware.dungeondiver7.utility.Difficulties;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 import com.puttysoftware.dungeondiver7.utility.RCLGenerator;
@@ -128,19 +128,19 @@ class GameGUI {
     static int[] getEnabledDifficulties() {
 	final ArrayList<Integer> temp = new ArrayList<>();
 	if (PrefsManager.isKidsDifficultyEnabled()) {
-	    temp.add(Integer.valueOf(DifficultyConstants.DIFFICULTY_KIDS - 1));
+	    temp.add(Integer.valueOf(Difficulties.KIDS - 1));
 	}
 	if (PrefsManager.isEasyDifficultyEnabled()) {
-	    temp.add(Integer.valueOf(DifficultyConstants.DIFFICULTY_EASY - 1));
+	    temp.add(Integer.valueOf(Difficulties.EASY - 1));
 	}
 	if (PrefsManager.isMediumDifficultyEnabled()) {
-	    temp.add(Integer.valueOf(DifficultyConstants.DIFFICULTY_MEDIUM - 1));
+	    temp.add(Integer.valueOf(Difficulties.MEDIUM - 1));
 	}
 	if (PrefsManager.isHardDifficultyEnabled()) {
-	    temp.add(Integer.valueOf(DifficultyConstants.DIFFICULTY_HARD - 1));
+	    temp.add(Integer.valueOf(Difficulties.HARD - 1));
 	}
 	if (PrefsManager.isDeadlyDifficultyEnabled()) {
-	    temp.add(Integer.valueOf(DifficultyConstants.DIFFICULTY_DEADLY - 1));
+	    temp.add(Integer.valueOf(Difficulties.DEADLY - 1));
 	}
 	final Integer[] temp2 = temp.toArray(new Integer[temp.size()]);
 	final int[] retVal = new int[temp2.length];
@@ -405,7 +405,7 @@ class GameGUI {
 	final Container difficultyPane = new Container();
 	final Container listPane = new Container();
 	final Container buttonPane = new Container();
-	this.difficultyList = new JList<>(DifficultyConstants.getDifficultyNames());
+	this.difficultyList = new JList<>(Difficulties.getDifficultyNames());
 	final JButton okButton = new JButton(
 		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_OK_BUTTON));
 	final JButton cancelButton = new JButton(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
@@ -438,27 +438,27 @@ class GameGUI {
 
     void difficultyDialogOKButtonClicked() {
 	this.difficultyFrame.setVisible(false);
-	if (this.difficultyList.isSelectedIndex(DifficultyConstants.DIFFICULTY_KIDS - 1)) {
+	if (this.difficultyList.isSelectedIndex(Difficulties.KIDS - 1)) {
 	    PrefsManager.setKidsDifficultyEnabled(true);
 	} else {
 	    PrefsManager.setKidsDifficultyEnabled(false);
 	}
-	if (this.difficultyList.isSelectedIndex(DifficultyConstants.DIFFICULTY_EASY - 1)) {
+	if (this.difficultyList.isSelectedIndex(Difficulties.EASY - 1)) {
 	    PrefsManager.setEasyDifficultyEnabled(true);
 	} else {
 	    PrefsManager.setEasyDifficultyEnabled(false);
 	}
-	if (this.difficultyList.isSelectedIndex(DifficultyConstants.DIFFICULTY_MEDIUM - 1)) {
+	if (this.difficultyList.isSelectedIndex(Difficulties.MEDIUM - 1)) {
 	    PrefsManager.setMediumDifficultyEnabled(true);
 	} else {
 	    PrefsManager.setMediumDifficultyEnabled(false);
 	}
-	if (this.difficultyList.isSelectedIndex(DifficultyConstants.DIFFICULTY_HARD - 1)) {
+	if (this.difficultyList.isSelectedIndex(Difficulties.HARD - 1)) {
 	    PrefsManager.setHardDifficultyEnabled(true);
 	} else {
 	    PrefsManager.setHardDifficultyEnabled(false);
 	}
-	if (this.difficultyList.isSelectedIndex(DifficultyConstants.DIFFICULTY_DEADLY - 1)) {
+	if (this.difficultyList.isSelectedIndex(Difficulties.DEADLY - 1)) {
 	    PrefsManager.setDeadlyDifficultyEnabled(true);
 	} else {
 	    PrefsManager.setDeadlyDifficultyEnabled(false);
@@ -865,7 +865,7 @@ class GameGUI {
 	public void handleLasers() {
 	    try {
 		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-		gm.setLaserType(ArrowTypeConstants.LASER_TYPE_GREEN);
+		gm.setLaserType(ShotTypes.GREEN);
 		final int px = gm.getPlayerManager().getPlayerLocationX();
 		final int py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
@@ -877,7 +877,7 @@ class GameGUI {
 	public void handleMissiles() {
 	    try {
 		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-		gm.setLaserType(ArrowTypeConstants.LASER_TYPE_MISSILE);
+		gm.setLaserType(ShotTypes.MISSILE);
 		final int px = gm.getPlayerManager().getPlayerLocationX();
 		final int py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
@@ -889,7 +889,7 @@ class GameGUI {
 	public void handleStunners() {
 	    try {
 		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-		gm.setLaserType(ArrowTypeConstants.LASER_TYPE_STUNNER);
+		gm.setLaserType(ShotTypes.STUNNER);
 		final int px = gm.getPlayerManager().getPlayerLocationX();
 		final int py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
@@ -901,7 +901,7 @@ class GameGUI {
 	public void handleBlueLasers() {
 	    try {
 		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-		gm.setLaserType(ArrowTypeConstants.LASER_TYPE_BLUE);
+		gm.setLaserType(ShotTypes.BLUE);
 		final int px = gm.getPlayerManager().getPlayerLocationX();
 		final int py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
@@ -913,7 +913,7 @@ class GameGUI {
 	public void handleDisruptors() {
 	    try {
 		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-		gm.setLaserType(ArrowTypeConstants.LASER_TYPE_DISRUPTOR);
+		gm.setLaserType(ShotTypes.DISRUPTOR);
 		final int px = gm.getPlayerManager().getPlayerLocationX();
 		final int py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
@@ -1138,7 +1138,7 @@ class GameGUI {
 			}
 		    } else if (e.getButton() == MouseEvent.BUTTON2 || e.getButton() == MouseEvent.BUTTON3) {
 			// Fire Laser
-			game.setLaserType(ArrowTypeConstants.LASER_TYPE_GREEN);
+			game.setLaserType(ShotTypes.GREEN);
 			final int px = game.getPlayerManager().getPlayerLocationX();
 			final int py = game.getPlayerManager().getPlayerLocationY();
 			game.fireLaser(px, py, game.player);

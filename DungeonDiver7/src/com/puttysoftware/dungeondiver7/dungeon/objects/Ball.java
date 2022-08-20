@@ -8,14 +8,14 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class Ball extends AbstractMovableObject {
     // Constructors
     public Ball() {
 	super(true);
-	this.type.set(TypeConstants.TYPE_BALL);
-	this.type.set(TypeConstants.TYPE_ICY);
+	this.type.set(DungeonObjectTypes.TYPE_BALL);
+	this.type.set(DungeonObjectTypes.TYPE_ICY);
     }
 
     @Override

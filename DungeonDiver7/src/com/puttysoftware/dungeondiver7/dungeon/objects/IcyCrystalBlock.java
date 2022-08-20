@@ -12,29 +12,29 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.RangeTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.RangeTypes;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class IcyCrystalBlock extends AbstractReactionWall {
     // Constructors
     public IcyCrystalBlock() {
 	super();
-	this.type.set(TypeConstants.TYPE_PLAIN_WALL);
-	this.setMaterial(MaterialConstants.MATERIAL_ICE);
+	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
+	this.setMaterial(Materials.ICE);
     }
 
     @Override
     public Directions laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
 	    final int dirY, final int laserType, final int forceUnits) {
-	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
+	if (laserType == ShotTypes.MISSILE) {
 	    // Destroy icy crystal block
 	    SoundLoader.playSound(SoundConstants.BOOM);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
+	} else if (laserType == ShotTypes.DISRUPTOR) {
 	    // Disrupt icy crystal block
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    final DisruptedIcyCrystalBlock dicb = new DisruptedIcyCrystalBlock();
@@ -54,19 +54,19 @@ public class IcyCrystalBlock extends AbstractReactionWall {
     @Override
     public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
-	if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_METALLIC) {
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.METALLIC) {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy icy crystal block
 	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
-	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_FIRE) {
+	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE) {
 	    // Heat up crystal block
 	    SoundLoader.playSound(SoundConstants.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
-	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_ICE) {
+	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE) {
 	    // Do nothing
 	    return true;
 	} else {
@@ -83,7 +83,7 @@ public class IcyCrystalBlock extends AbstractReactionWall {
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
-	case MaterialConstants.MATERIAL_FIRE:
+	case Materials.FIRE:
 	    if (this.hasPreviousState()) {
 		return this.getPreviousState();
 	    } else {

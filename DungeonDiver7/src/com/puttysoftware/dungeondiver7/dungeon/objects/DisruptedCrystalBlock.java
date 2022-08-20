@@ -12,9 +12,9 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionDisruptedObje
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.RangeTypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.RangeTypes;
 
 public class DisruptedCrystalBlock extends AbstractReactionDisruptedObject {
     // Fields
@@ -26,19 +26,19 @@ public class DisruptedCrystalBlock extends AbstractReactionDisruptedObject {
 	super();
 	this.disruptionLeft = DisruptedCrystalBlock.DISRUPTION_START;
 	this.activateTimer(1);
-	this.setMaterial(MaterialConstants.MATERIAL_METALLIC);
+	this.setMaterial(Materials.METALLIC);
     }
 
     @Override
     public Directions laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
 	    final int dirY, final int laserType, final int forceUnits) {
-	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
+	if (laserType == ShotTypes.MISSILE) {
 	    // Destroy disrupted crystal block
 	    SoundLoader.playSound(SoundConstants.BOOM);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE) {
+	} else if (laserType == ShotTypes.BLUE) {
 	    // Reflect laser
 	    return DirectionResolver.resolveInvert(dirX, dirY);
 	} else {
@@ -69,8 +69,8 @@ public class DisruptedCrystalBlock extends AbstractReactionDisruptedObject {
     @Override
     public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
-	if (rangeType == RangeTypeConstants.RANGE_TYPE_BOMB
-		|| RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_METALLIC) {
+	if (rangeType == RangeTypes.BOMB
+		|| RangeTypes.getMaterialForRangeType(rangeType) == Materials.METALLIC) {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy disrupted crystal block
 	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());

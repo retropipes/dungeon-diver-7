@@ -12,14 +12,14 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class MetallicBricks extends AbstractReactionWall {
     // Constructors
     public MetallicBricks() {
 	super();
-	this.setMaterial(MaterialConstants.MATERIAL_METALLIC);
+	this.setMaterial(Materials.METALLIC);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class MetallicBricks extends AbstractReactionWall {
 	SoundLoader.playSound(SoundConstants.BREAK_BRICKS);
 	DungeonDiver7.getStuffBag().getGameLogic();
 	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
-	if (laserType == ArrowTypeConstants.LASER_TYPE_POWER) {
+	if (laserType == ShotTypes.POWER) {
 	    // Laser keeps going
 	    return DirectionResolver.resolve(dirX, dirY);
 	} else {

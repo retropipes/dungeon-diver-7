@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMover;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class PartyMover extends AbstractMover {
     // Constructors
@@ -15,7 +15,7 @@ public class PartyMover extends AbstractMover {
 	super();
 	this.setDirection(Directions.NORTH);
 	this.setFrameNumber(1);
-	this.type.set(TypeConstants.TYPE_MOVER);
+	this.type.set(DungeonObjectTypes.TYPE_MOVER);
     }
 
     @Override

@@ -11,22 +11,22 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class MagneticWall extends AbstractWall {
     // Constructors
     public MagneticWall() {
 	super();
-	this.type.set(TypeConstants.TYPE_PLAIN_WALL);
-	this.setMaterial(MaterialConstants.MATERIAL_MAGNETIC);
+	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
+	this.setMaterial(Materials.MAGNETIC);
     }
 
     @Override
     public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
+	if (laserType == ShotTypes.DISRUPTOR) {
 	    // Disrupt magnetic wall
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();

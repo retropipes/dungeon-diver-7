@@ -27,7 +27,7 @@ import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.EditorLayoutConstants;
+import com.puttysoftware.dungeondiver7.utility.EditorLayouts;
 
 class PrefsGUIManager {
     // Fields
@@ -165,7 +165,7 @@ class PrefsGUIManager {
 		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE, LocaleConstants.PREFS_STRING_SPEED_4),
 		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE, LocaleConstants.PREFS_STRING_SPEED_5) });
 	this.languageList = new JComboBox<>(LocaleLoader.loadLocalizedLanguagesList());
-	this.editorLayoutList = new JComboBox<>(EditorLayoutConstants.getEditorLayoutList());
+	this.editorLayoutList = new JComboBox<>(EditorLayouts.getEditorLayoutList());
 	this.editorShowAllObjects = new JCheckBox(LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE,
 		LocaleConstants.PREFS_STRING_SHOW_ALL_OBJECTS), true);
 	this.difficultyPicker = new JComboBox<>(PrefsGUIManager.DIFFICULTY_NAMES);

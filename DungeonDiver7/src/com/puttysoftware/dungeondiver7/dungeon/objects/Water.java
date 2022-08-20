@@ -13,15 +13,15 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class Water extends AbstractGround {
     // Constructors
     public Water() {
 	super();
 	this.setFrameNumber(1);
-	this.setMaterial(MaterialConstants.MATERIAL_WOODEN);
+	this.setMaterial(Materials.WOODEN);
     }
 
     // Scriptability
@@ -31,8 +31,8 @@ public class Water extends AbstractGround {
 	app.getGameLogic();
 	// Get rid of pushed object
 	GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
-	if (pushed.isOfType(TypeConstants.TYPE_BOX)) {
-	    if (pushed.getMaterial() == MaterialConstants.MATERIAL_ICE) {
+	if (pushed.isOfType(DungeonObjectTypes.TYPE_BOX)) {
+	    if (pushed.getMaterial() == Materials.ICE) {
 		app.getGameLogic();
 		GameLogic.morph(new IceBridge(), x, y, z, this.getLayer());
 	    } else {
@@ -57,11 +57,11 @@ public class Water extends AbstractGround {
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
-	case MaterialConstants.MATERIAL_ICE:
+	case Materials.ICE:
 	    final Ice i = new Ice();
 	    i.setPreviousState(this);
 	    return i;
-	case MaterialConstants.MATERIAL_FIRE:
+	case Materials.FIRE:
 	    return new Ground();
 	default:
 	    return this;

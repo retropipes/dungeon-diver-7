@@ -11,7 +11,7 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Tunnel;
 import com.puttysoftware.dungeondiver7.locale.Colors;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractTunnel extends AbstractDungeonObject {
     // Fields
@@ -21,7 +21,7 @@ public abstract class AbstractTunnel extends AbstractDungeonObject {
     // Constructors
     protected AbstractTunnel() {
 	super(false, false, true);
-	this.type.set(TypeConstants.TYPE_TUNNEL);
+	this.type.set(DungeonObjectTypes.TYPE_TUNNEL);
     }
 
     // Static methods

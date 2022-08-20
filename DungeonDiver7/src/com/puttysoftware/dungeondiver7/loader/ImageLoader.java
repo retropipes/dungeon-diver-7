@@ -21,7 +21,7 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Tunnel;
 import com.puttysoftware.dungeondiver7.locale.Colors;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class ImageLoader {
@@ -56,7 +56,7 @@ public class ImageLoader {
     static BufferedImageIcon getUncachedImage(final AbstractDungeonObject obj, final boolean useText) {
 	try {
 	    String name, extraPath;
-	    if (obj.isOfType(TypeConstants.TYPE_TUNNEL)) {
+	    if (obj.isOfType(DungeonObjectTypes.TYPE_TUNNEL)) {
 		name = obj.getBaseImageName();
 	    } else {
 		name = obj.getImageName();

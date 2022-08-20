@@ -10,7 +10,7 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractJumpObject extends AbstractMovableObject {
     // Fields
@@ -29,7 +29,7 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 	this.jumpRows = 0;
 	this.jumpCols = 0;
 	this.jumpShot = false;
-	this.type.set(TypeConstants.TYPE_JUMP_OBJECT);
+	this.type.set(DungeonObjectTypes.TYPE_JUMP_OBJECT);
     }
 
     public int getActualJumpRows() {

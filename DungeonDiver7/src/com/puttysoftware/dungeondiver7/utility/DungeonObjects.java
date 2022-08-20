@@ -252,8 +252,8 @@ public class DungeonObjects {
     public AbstractDungeonObject readV2(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	String UID = LocaleConstants.COMMON_STRING_SPACE;
-	if (FormatConstants.isFormatVersionValidGeneration1(formatVersion)
-		|| FormatConstants.isFormatVersionValidGeneration2(formatVersion)) {
+	if (FileFormats.isFormatVersionValidGeneration1(formatVersion)
+		|| FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
 	    UID = reader.readString();
 	} else {
 	    return null;
@@ -261,8 +261,8 @@ public class DungeonObjects {
 	for (final AbstractDungeonObject allObject : this.allObjects) {
 	    try {
 		final AbstractDungeonObject instance = allObject.getClass().getConstructor().newInstance();
-		if (FormatConstants.isFormatVersionValidGeneration1(formatVersion)
-			|| FormatConstants.isFormatVersionValidGeneration2(formatVersion)) {
+		if (FileFormats.isFormatVersionValidGeneration1(formatVersion)
+			|| FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
 		    o = instance.readV2(reader, UID, formatVersion);
 		} else {
 		    return null;
@@ -281,7 +281,7 @@ public class DungeonObjects {
     public AbstractDungeonObject readV3(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	String UID = LocaleConstants.COMMON_STRING_SPACE;
-	if (FormatConstants.isFormatVersionValidGeneration3(formatVersion)) {
+	if (FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
 	    UID = reader.readString();
 	} else {
 	    return null;
@@ -289,7 +289,7 @@ public class DungeonObjects {
 	for (final AbstractDungeonObject allObject : this.allObjects) {
 	    try {
 		final AbstractDungeonObject instance = allObject.getClass().getConstructor().newInstance();
-		if (FormatConstants.isFormatVersionValidGeneration3(formatVersion)) {
+		if (FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
 		    o = instance.readV3(reader, UID, formatVersion);
 		} else {
 		    return null;
@@ -308,7 +308,7 @@ public class DungeonObjects {
     public AbstractDungeonObject readV4(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	String UID = LocaleConstants.COMMON_STRING_SPACE;
-	if (FormatConstants.isFormatVersionValidGeneration4(formatVersion)) {
+	if (FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
 	    UID = reader.readString();
 	} else {
 	    return null;
@@ -316,7 +316,7 @@ public class DungeonObjects {
 	for (final AbstractDungeonObject allObject : this.allObjects) {
 	    try {
 		final AbstractDungeonObject instance = allObject.getClass().getConstructor().newInstance();
-		if (FormatConstants.isFormatVersionValidGeneration4(formatVersion)) {
+		if (FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
 		    o = instance.readV4(reader, UID, formatVersion);
 		} else {
 		    return null;
@@ -335,7 +335,7 @@ public class DungeonObjects {
     public AbstractDungeonObject readV5(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	String UID = LocaleConstants.COMMON_STRING_SPACE;
-	if (FormatConstants.isFormatVersionValidGeneration5(formatVersion)) {
+	if (FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
 	    UID = reader.readString();
 	} else {
 	    return null;
@@ -343,7 +343,7 @@ public class DungeonObjects {
 	for (final AbstractDungeonObject allObject : this.allObjects) {
 	    try {
 		final AbstractDungeonObject instance = allObject.getClass().getConstructor().newInstance();
-		if (FormatConstants.isFormatVersionValidGeneration5(formatVersion)) {
+		if (FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
 		    o = instance.readV5(reader, UID, formatVersion);
 		} else {
 		    return null;
@@ -362,7 +362,7 @@ public class DungeonObjects {
     public AbstractDungeonObject readV6(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	String UID = LocaleConstants.COMMON_STRING_SPACE;
-	if (FormatConstants.isFormatVersionValidGeneration6(formatVersion)) {
+	if (FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
 	    UID = reader.readString();
 	} else {
 	    return null;
@@ -370,7 +370,7 @@ public class DungeonObjects {
 	for (final AbstractDungeonObject allObject : this.allObjects) {
 	    try {
 		final AbstractDungeonObject instance = allObject.getClass().getConstructor().newInstance();
-		if (FormatConstants.isFormatVersionValidGeneration6(formatVersion)) {
+		if (FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
 		    o = instance.readV6(reader, UID, formatVersion);
 		} else {
 		    return null;
@@ -389,7 +389,7 @@ public class DungeonObjects {
     public AbstractDungeonObject readV7(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	String UID = LocaleConstants.COMMON_STRING_SPACE;
-	if (FormatConstants.isFormatVersionValidGeneration7(formatVersion)) {
+	if (FileFormats.isFormatVersionValidGeneration7(formatVersion)) {
 	    UID = reader.readString();
 	} else {
 	    return null;
@@ -397,7 +397,7 @@ public class DungeonObjects {
 	for (final AbstractDungeonObject allObject : this.allObjects) {
 	    try {
 		final AbstractDungeonObject instance = allObject.getClass().getConstructor().newInstance();
-		if (FormatConstants.isFormatVersionValidGeneration7(formatVersion)) {
+		if (FileFormats.isFormatVersionValidGeneration7(formatVersion)) {
 		    o = instance.readV7(reader, UID, formatVersion);
 		} else {
 		    return null;

@@ -6,13 +6,13 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTriggerButton;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class MagneticTriggerButton extends AbstractTriggerButton {
     // Constructors
     public MagneticTriggerButton() {
 	super(new MagneticTriggerButtonDoor(), false);
-	this.setMaterial(MaterialConstants.MATERIAL_MAGNETIC);
+	this.setMaterial(Materials.MAGNETIC);
     }
 
     @Override

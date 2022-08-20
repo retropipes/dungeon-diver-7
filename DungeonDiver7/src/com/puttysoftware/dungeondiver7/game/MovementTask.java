@@ -16,7 +16,7 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 final class MovementTask extends Thread {
     // Fields
@@ -146,7 +146,7 @@ final class MovementTask extends Thread {
 			    groundInto = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_GROUND);
 			    if (groundInto.overridesDefaultPostMove()) {
 				groundInto.postMoveAction(px, py, pz);
-				if (!this.saved.isOfType(TypeConstants.TYPE_PASS_THROUGH)) {
+				if (!this.saved.isOfType(DungeonObjectTypes.TYPE_PASS_THROUGH)) {
 				    this.saved.postMoveAction(px, py, pz);
 				}
 			    } else {

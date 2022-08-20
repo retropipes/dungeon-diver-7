@@ -8,13 +8,13 @@ package com.puttysoftware.dungeondiver7.dungeon.abc;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractAllButton extends AbstractButton {
     // Constructors
     protected AbstractAllButton(final AbstractAllButtonDoor abd, final boolean isUniversal) {
 	super(abd, isUniversal);
-	this.type.set(TypeConstants.TYPE_ALL_BUTTON);
+	this.type.set(DungeonObjectTypes.TYPE_ALL_BUTTON);
     }
 
     @Override

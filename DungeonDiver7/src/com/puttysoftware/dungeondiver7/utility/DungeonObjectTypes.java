@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.utility;
 
-public class TypeConstants {
+public class DungeonObjectTypes {
     public static final int TYPE_GROUND = 0;
     public static final int TYPE_CHARACTER = 1;
     public static final int TYPE_PASS_THROUGH = 2;
@@ -48,7 +48,7 @@ public class TypeConstants {
     public static final int TYPE_TRIGGER = 39;
     public static final int TYPES_COUNT = 40;
 
-    private TypeConstants() {
+    private DungeonObjectTypes() {
 	// Do nothing
     }
 }

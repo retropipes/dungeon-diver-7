@@ -11,13 +11,13 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractPressureButton extends AbstractButton {
     // Constructors
     protected AbstractPressureButton(final AbstractPressureButtonDoor pbd, final boolean isUniversal) {
 	super(pbd, isUniversal);
-	this.type.set(TypeConstants.TYPE_PRESSURE_BUTTON);
+	this.type.set(DungeonObjectTypes.TYPE_PRESSURE_BUTTON);
     }
 
     @Override

@@ -26,13 +26,13 @@ import com.puttysoftware.dungeondiver7.locale.Colors;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.ImageColors;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 import com.puttysoftware.dungeondiver7.utility.RandomGenerationRule;
-import com.puttysoftware.dungeondiver7.utility.RangeTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.RangeTypes;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 import com.puttysoftware.images.BufferedImageIcon;
@@ -70,7 +70,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.blocksLOS = isSolid;
 	this.pushable = false;
 	this.friction = true;
-	this.type = new BitSet(TypeConstants.TYPES_COUNT);
+	this.type = new BitSet(DungeonObjectTypes.TYPES_COUNT);
 	this.timerValue = 0;
 	this.initialTimerValue = 0;
 	this.timerActive = false;
@@ -78,7 +78,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.directions = Directions.NONE;
 	this.diagonalOnly = false;
 	this.color = Colors.NONE;
-	this.material = MaterialConstants.MATERIAL_DEFAULT;
+	this.material = Materials.DEFAULT;
 	this.imageEnabled = true;
     }
 
@@ -86,7 +86,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.solid = isSolid;
 	this.friction = true;
 	this.blocksLOS = sightBlock;
-	this.type = new BitSet(TypeConstants.TYPES_COUNT);
+	this.type = new BitSet(DungeonObjectTypes.TYPES_COUNT);
 	this.timerValue = 0;
 	this.initialTimerValue = 0;
 	this.timerActive = false;
@@ -96,7 +96,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.solid = isSolid;
 	this.friction = hasFriction;
 	this.blocksLOS = sightBlock;
-	this.type = new BitSet(TypeConstants.TYPES_COUNT);
+	this.type = new BitSet(DungeonObjectTypes.TYPES_COUNT);
 	this.timerValue = 0;
 	this.initialTimerValue = 0;
 	this.timerActive = false;
@@ -108,14 +108,14 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.blocksLOS = sightBlock;
 	this.pushable = isPushable;
 	this.friction = hasFriction;
-	this.type = new BitSet(TypeConstants.TYPES_COUNT);
+	this.type = new BitSet(DungeonObjectTypes.TYPES_COUNT);
 	this.timerValue = 0;
 	this.timerActive = false;
 	this.frameNumber = 0;
 	this.directions = Directions.NONE;
 	this.diagonalOnly = false;
 	this.color = Colors.NONE;
-	this.material = MaterialConstants.MATERIAL_DEFAULT;
+	this.material = Materials.DEFAULT;
 	this.imageEnabled = true;
     }
 
@@ -124,14 +124,14 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.blocksLOS = false;
 	this.pushable = false;
 	this.friction = true;
-	this.type = new BitSet(TypeConstants.TYPES_COUNT);
+	this.type = new BitSet(DungeonObjectTypes.TYPES_COUNT);
 	this.timerValue = 0;
 	this.timerActive = false;
 	this.frameNumber = 0;
 	this.directions = Directions.NONE;
 	this.diagonalOnly = false;
 	this.color = Colors.NONE;
-	this.material = MaterialConstants.MATERIAL_DEFAULT;
+	this.material = Materials.DEFAULT;
 	this.imageEnabled = true;
     }
 
@@ -575,51 +575,51 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      */
     public boolean rangeAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
-	if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_FIRE
-		&& this.getMaterial() == MaterialConstants.MATERIAL_WOODEN
-		&& this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE) != null) {
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE
+		&& this.getMaterial() == Materials.WOODEN
+		&& this.changesToOnExposure(Materials.FIRE) != null) {
 	    // Burn wooden object
 	    SoundLoader.playSound(SoundConstants.WOOD_BURN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
-	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_ICE
-		&& (this.getMaterial() == MaterialConstants.MATERIAL_METALLIC
-			|| this.getMaterial() == MaterialConstants.MATERIAL_WOODEN
-			|| this.getMaterial() == MaterialConstants.MATERIAL_PLASTIC)
-		&& this.changesToOnExposure(MaterialConstants.MATERIAL_ICE) != null) {
+	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE
+		&& (this.getMaterial() == Materials.METALLIC
+			|| this.getMaterial() == Materials.WOODEN
+			|| this.getMaterial() == Materials.PLASTIC)
+		&& this.changesToOnExposure(Materials.ICE) != null) {
 	    // Freeze metal, wooden, or plastic object
 	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
-	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_FIRE
-		&& this.getMaterial() == MaterialConstants.MATERIAL_ICE
-		&& this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE) != null) {
+	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE
+		&& this.getMaterial() == Materials.ICE
+		&& this.changesToOnExposure(Materials.FIRE) != null) {
 	    // Melt icy object
 	    SoundLoader.playSound(SoundConstants.DEFROST);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
-	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_ICE
-		&& this.getMaterial() == MaterialConstants.MATERIAL_FIRE
-		&& this.changesToOnExposure(MaterialConstants.MATERIAL_ICE) != null) {
+	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE
+		&& this.getMaterial() == Materials.FIRE
+		&& this.changesToOnExposure(Materials.ICE) != null) {
 	    // Cool hot object
 	    SoundLoader.playSound(SoundConstants.COOL_OFF);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(MaterialConstants.MATERIAL_ICE), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
-	} else if (RangeTypeConstants.getMaterialForRangeType(rangeType) == MaterialConstants.MATERIAL_FIRE
-		&& this.getMaterial() == MaterialConstants.MATERIAL_METALLIC
-		&& this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE) != null) {
+	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE
+		&& this.getMaterial() == Materials.METALLIC
+		&& this.changesToOnExposure(Materials.FIRE) != null) {
 	    // Melt metal object
 	    SoundLoader.playSound(SoundConstants.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(MaterialConstants.MATERIAL_FIRE), locX + dirX, locY + dirY, locZ,
+	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ,
 		    this.getLayer());
 	    return true;
 	}
@@ -667,7 +667,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 		final AbstractDungeonObject adj = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
 			.getCell(locX - dirX, locY - dirY, locZ, this.getLayer());
 		if (adj != null && !adj.rangeAction(locX - 2 * dirX, locY - 2 * dirY, locZ, dirX, dirY,
-			ArrowTypeConstants.getRangeTypeForLaserType(laserType), 1)) {
+			ShotTypes.getRangeTypeForLaserType(laserType), 1)) {
 		    SoundLoader.playSound(SoundConstants.LASER_DIE);
 		}
 	    }
@@ -747,9 +747,9 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     }
 
     public static final int getImbuedRangeForce(final int material) {
-	if (material == MaterialConstants.MATERIAL_PLASTIC) {
+	if (material == Materials.PLASTIC) {
 	    return AbstractDungeonObject.PLASTIC_MINIMUM_REACTION_FORCE;
-	} else if (material == MaterialConstants.MATERIAL_METALLIC) {
+	} else if (material == Materials.METALLIC) {
 	    return AbstractDungeonObject.METAL_MINIMUM_REACTION_FORCE;
 	} else {
 	    return AbstractDungeonObject.DEFAULT_MINIMUM_REACTION_FORCE;
@@ -757,9 +757,9 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     }
 
     public final int getMinimumReactionForce() {
-	if (this.material == MaterialConstants.MATERIAL_PLASTIC) {
+	if (this.material == Materials.PLASTIC) {
 	    return AbstractDungeonObject.PLASTIC_MINIMUM_REACTION_FORCE;
-	} else if (this.material == MaterialConstants.MATERIAL_METALLIC) {
+	} else if (this.material == Materials.METALLIC) {
 	    return AbstractDungeonObject.METAL_MINIMUM_REACTION_FORCE;
 	} else {
 	    return AbstractDungeonObject.DEFAULT_MINIMUM_REACTION_FORCE;
@@ -856,7 +856,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    final int layer) {
 	if (layer == DungeonConstants.LAYER_LOWER_OBJECTS) {
 	    // Handle object layer
-	    if (!this.isOfType(TypeConstants.TYPE_PASS_THROUGH)) {
+	    if (!this.isOfType(DungeonObjectTypes.TYPE_PASS_THROUGH)) {
 		// Limit generation of other objects to 20%, unless required
 		if (this.isRequired(dungeon)) {
 		    return true;
@@ -874,7 +874,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    }
 	} else {
 	    // Handle ground layer
-	    if (this.isOfType(TypeConstants.TYPE_FIELD)) {
+	    if (this.isOfType(DungeonObjectTypes.TYPE_FIELD)) {
 		// Limit generation of fields to 20%
 		final RandomRange r = new RandomRange(1, 100);
 		if (r.generate() <= 20) {

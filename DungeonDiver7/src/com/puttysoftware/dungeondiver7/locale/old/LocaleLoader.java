@@ -11,13 +11,13 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.utility.DifficultyConstants;
+import com.puttysoftware.dungeondiver7.utility.Difficulties;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 import com.puttysoftware.fileutils.ResourceStreamReader;
 
 public class LocaleLoader {
-    private static final String LOAD_PATH = "/locale/";
+    private static final String LOAD_PATH = FilePaths.BASE;
     private static Class<?> LOAD_CLASS = LocaleLoader.class;
     private static ArrayList<HashMap<Integer, String>> STRING_CACHE;
     private static ArrayList<HashMap<Integer, String>> LANGUAGE_STRING_CACHE;
@@ -75,7 +75,7 @@ public class LocaleLoader {
 	LocaleLoader.LANGUAGE_ID = newLanguageID;
 	LocaleLoader.LANGUAGE_NAME = LocaleLoader.loadLanguageString(LocaleConstants.LANGUAGE_STRINGS_FILE,
 		LocaleLoader.LANGUAGE_ID) + "/";
-	DifficultyConstants.reloadDifficultyNames();
+	Difficulties.activeLanguageChanged();
 	DungeonConstants.activeLanguageChanged();
 	DungeonDiver7.getStuffBag().activeLanguageChanged();
 	PrefsManager.activeLanguageChanged();

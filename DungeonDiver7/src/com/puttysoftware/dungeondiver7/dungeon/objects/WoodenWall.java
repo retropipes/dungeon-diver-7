@@ -12,34 +12,34 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class WoodenWall extends AbstractWall {
     // Constructors
     public WoodenWall() {
 	super();
-	this.type.set(TypeConstants.TYPE_PLAIN_WALL);
-	this.setMaterial(MaterialConstants.MATERIAL_WOODEN);
+	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
+	this.setMaterial(Materials.WOODEN);
     }
 
     @Override
     public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
+	if (laserType == ShotTypes.DISRUPTOR) {
 	    // Disrupt wooden wall
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedWoodenWall(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
+	} else if (laserType == ShotTypes.MISSILE) {
 	    // Destroy wooden wall
 	    SoundLoader.playSound(SoundConstants.BOOM);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
+	} else if (laserType == ShotTypes.STUNNER) {
 	    // Freeze wooden wall
 	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    final IcyWall iw = new IcyWall();
@@ -61,9 +61,9 @@ public class WoodenWall extends AbstractWall {
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
-	case MaterialConstants.MATERIAL_FIRE:
+	case Materials.FIRE:
 	    return new Ground();
-	case MaterialConstants.MATERIAL_ICE:
+	case Materials.ICE:
 	    final IcyWall iw = new IcyWall();
 	    iw.setPreviousState(this);
 	    return iw;

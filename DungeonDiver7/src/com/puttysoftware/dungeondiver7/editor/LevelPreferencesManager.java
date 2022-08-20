@@ -29,7 +29,7 @@ import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.DifficultyConstants;
+import com.puttysoftware.dungeondiver7.utility.Difficulties;
 
 class LevelPreferencesManager {
     // Fields
@@ -125,7 +125,7 @@ class LevelPreferencesManager {
 	this.name = new JTextField();
 	this.author = new JTextField();
 	this.hint = new JTextArea(8, 32);
-	this.difficulty = new JComboBox<>(DifficultyConstants.getDifficultyNames());
+	this.difficulty = new JComboBox<>(Difficulties.getDifficultyNames());
 	this.moveShoot = new JCheckBox(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
 		LocaleConstants.EDITOR_STRING_ENABLE_MOVE_SHOOT), true);
 	this.prefFrame.setContentPane(mainPrefPane);

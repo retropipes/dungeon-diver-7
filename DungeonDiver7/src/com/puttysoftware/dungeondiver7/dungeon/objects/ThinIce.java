@@ -11,13 +11,13 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractGround;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class ThinIce extends AbstractGround {
     // Constructors
     public ThinIce() {
 	super(false);
-	this.setMaterial(MaterialConstants.MATERIAL_ICE);
+	this.setMaterial(Materials.ICE);
     }
 
     @Override
@@ -40,11 +40,11 @@ public class ThinIce extends AbstractGround {
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
-	case MaterialConstants.MATERIAL_ICE:
+	case Materials.ICE:
 	    final Ice i = new Ice();
 	    i.setPreviousState(this);
 	    return i;
-	case MaterialConstants.MATERIAL_FIRE:
+	case Materials.FIRE:
 	    return new Water();
 	default:
 	    return this;

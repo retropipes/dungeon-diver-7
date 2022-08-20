@@ -6,13 +6,13 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTriggerButtonDoor;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class MetallicTriggerButtonDoor extends AbstractTriggerButtonDoor {
     // Constructors
     public MetallicTriggerButtonDoor() {
 	super();
-	this.setMaterial(MaterialConstants.MATERIAL_METALLIC);
+	this.setMaterial(Materials.METALLIC);
     }
 
     @Override

@@ -12,17 +12,17 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class MagneticBox extends AbstractMovableObject {
     // Constructors
     public MagneticBox() {
 	super(true);
-	this.type.set(TypeConstants.TYPE_BOX);
-	this.type.set(TypeConstants.TYPE_MAGNETIC_BOX);
-	this.setMaterial(MaterialConstants.MATERIAL_MAGNETIC);
+	this.type.set(DungeonObjectTypes.TYPE_BOX);
+	this.type.set(DungeonObjectTypes.TYPE_MAGNETIC_BOX);
+	this.setMaterial(Materials.MAGNETIC);
     }
 
     @Override
@@ -31,15 +31,15 @@ public class MagneticBox extends AbstractMovableObject {
 	final StuffBag app = DungeonDiver7.getStuffBag();
 	final AbstractDungeonObject mo = app.getDungeonManager().getDungeon().getCell(locX - dirX, locY - dirY, locZ,
 		this.getLayer());
-	if (laserType == ArrowTypeConstants.LASER_TYPE_BLUE && mo != null
-		&& (mo.isOfType(TypeConstants.TYPE_CHARACTER) || !mo.isSolid())) {
+	if (laserType == ShotTypes.BLUE && mo != null
+		&& (mo.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mo.isSolid())) {
 	    app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
 	    this.playSoundHook();
-	} else if (mo != null && (mo.isOfType(TypeConstants.TYPE_CHARACTER) || !mo.isSolid())) {
+	} else if (mo != null && (mo.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mo.isSolid())) {
 	    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
 	    this.playSoundHook();
 	} else {
-	    if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
+	    if (laserType == ShotTypes.MISSILE) {
 		SoundLoader.playSound(SoundConstants.BOOM);
 	    } else {
 		return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);

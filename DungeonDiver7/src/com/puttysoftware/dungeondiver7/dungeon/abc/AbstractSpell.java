@@ -6,13 +6,13 @@
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractSpell extends AbstractDungeonObject {
     // Constructors
     protected AbstractSpell() {
 	super();
-	this.type.set(TypeConstants.TYPE_SPELL);
+	this.type.set(DungeonObjectTypes.TYPE_SPELL);
     }
 
     @Override

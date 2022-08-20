@@ -11,7 +11,7 @@ import java.io.IOException;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 
@@ -24,7 +24,7 @@ public abstract class AbstractCharacter extends AbstractDungeonObject {
 	super(true);
 	this.setSavedObject(new Empty());
 	this.activateTimer(1);
-	this.type.set(TypeConstants.TYPE_CHARACTER);
+	this.type.set(DungeonObjectTypes.TYPE_CHARACTER);
 	this.characterNumber = 1;
     }
 
@@ -32,7 +32,7 @@ public abstract class AbstractCharacter extends AbstractDungeonObject {
 	super(true);
 	this.setSavedObject(new Empty());
 	this.activateTimer(1);
-	this.type.set(TypeConstants.TYPE_CHARACTER);
+	this.type.set(DungeonObjectTypes.TYPE_CHARACTER);
 	this.characterNumber = number;
     }
 

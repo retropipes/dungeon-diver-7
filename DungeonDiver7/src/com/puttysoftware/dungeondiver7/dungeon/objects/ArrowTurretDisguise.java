@@ -10,7 +10,7 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ActionConstants;
+import com.puttysoftware.dungeondiver7.utility.GameActions;
 
 public class ArrowTurretDisguise extends AbstractCharacter {
     // Fields
@@ -41,7 +41,7 @@ public class ArrowTurretDisguise extends AbstractCharacter {
 
     @Override
     public boolean acceptTick(final int actionType) {
-	return actionType == ActionConstants.ACTION_MOVE;
+	return actionType == GameActions.MOVE;
     }
 
     @Override

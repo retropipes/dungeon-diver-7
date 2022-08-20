@@ -7,13 +7,13 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractGround;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class Ground extends AbstractGround {
     // Constructors
     public Ground() {
 	super();
-	this.setMaterial(MaterialConstants.MATERIAL_METALLIC);
+	this.setMaterial(Materials.METALLIC);
     }
 
     @Override
@@ -24,11 +24,11 @@ public class Ground extends AbstractGround {
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
-	case MaterialConstants.MATERIAL_ICE:
+	case Materials.ICE:
 	    final Ice i = new Ice();
 	    i.setPreviousState(this);
 	    return i;
-	case MaterialConstants.MATERIAL_FIRE:
+	case Materials.FIRE:
 	    return new Lava();
 	default:
 	    return this;

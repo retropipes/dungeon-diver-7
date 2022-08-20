@@ -14,7 +14,7 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractJumpObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 final class MovingObjectTracker {
     // Fields
@@ -190,27 +190,27 @@ final class MovingObjectTracker {
 		if (this.belowUpper == null || this.belowLower == null) {
 		    this.objectCheck = false;
 		} else {
-		    if (this.movingObj.isOfType(TypeConstants.TYPE_ICY)) {
+		    if (this.movingObj.isOfType(DungeonObjectTypes.TYPE_ICY)) {
 			// Handle icy objects
 			this.objectCheck = true;
-		    } else if (this.belowUpper.isOfType(TypeConstants.TYPE_ANTI_MOVER)
-			    && this.movingObj.isOfType(TypeConstants.TYPE_ANTI)) {
+		    } else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_ANTI_MOVER)
+			    && this.movingObj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
 			// Handle anti-tank on anti-tank mover
 			final Directions dir = this.belowUpper.getDirection();
 			final int[] unres = DirectionResolver.unresolve(dir);
 			this.objIncX = unres[0];
 			this.objIncY = unres[1];
 			this.objectCheck = true;
-		    } else if (this.belowUpper.isOfType(TypeConstants.TYPE_BOX_MOVER)
-			    && this.movingObj.isOfType(TypeConstants.TYPE_BOX)) {
+		    } else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_BOX_MOVER)
+			    && this.movingObj.isOfType(DungeonObjectTypes.TYPE_BOX)) {
 			// Handle box on box mover
 			final Directions dir = this.belowUpper.getDirection();
 			final int[] unres = DirectionResolver.unresolve(dir);
 			this.objIncX = unres[0];
 			this.objIncY = unres[1];
 			this.objectCheck = true;
-		    } else if (this.belowUpper.isOfType(TypeConstants.TYPE_MIRROR_MOVER)
-			    && this.movingObj.isOfType(TypeConstants.TYPE_MOVABLE_MIRROR)) {
+		    } else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_MIRROR_MOVER)
+			    && this.movingObj.isOfType(DungeonObjectTypes.TYPE_MOVABLE_MIRROR)) {
 			// Handle mirror on mirror mover
 			final Directions dir = this.belowUpper.getDirection();
 			final int[] unres = DirectionResolver.unresolve(dir);
@@ -294,19 +294,19 @@ final class MovingObjectTracker {
 		if (this.belowUpper == null || this.belowLower == null) {
 		    this.objectCheck = false;
 		} else {
-		    if (jumper.isOfType(TypeConstants.TYPE_ICY)) {
+		    if (jumper.isOfType(DungeonObjectTypes.TYPE_ICY)) {
 			// Handle icy objects
 			this.objectCheck = true;
-		    } else if (this.belowUpper.isOfType(TypeConstants.TYPE_ANTI_MOVER)
-			    && jumper.isOfType(TypeConstants.TYPE_ANTI)) {
+		    } else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_ANTI_MOVER)
+			    && jumper.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
 			// Handle anti-tank on anti-tank mover
 			final Directions dir = this.belowUpper.getDirection();
 			final int[] unres = DirectionResolver.unresolve(dir);
 			this.objIncX = unres[0];
 			this.objIncY = unres[1];
 			this.objectCheck = true;
-		    } else if (this.belowUpper.isOfType(TypeConstants.TYPE_BOX_MOVER)
-			    && jumper.isOfType(TypeConstants.TYPE_BOX)) {
+		    } else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_BOX_MOVER)
+			    && jumper.isOfType(DungeonObjectTypes.TYPE_BOX)) {
 			// Handle box on box mover
 			this.jumpOnMover = true;
 			final Directions dir = this.belowUpper.getDirection();
@@ -314,8 +314,8 @@ final class MovingObjectTracker {
 			this.objIncX = unres[0];
 			this.objIncY = unres[1];
 			this.objectCheck = true;
-		    } else if (this.belowUpper.isOfType(TypeConstants.TYPE_MIRROR_MOVER)
-			    && this.movingObj.isOfType(TypeConstants.TYPE_MOVABLE_MIRROR)) {
+		    } else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_MIRROR_MOVER)
+			    && this.movingObj.isOfType(DungeonObjectTypes.TYPE_MOVABLE_MIRROR)) {
 			// Handle mirror on mirror mover
 			final Directions dir = this.belowUpper.getDirection();
 			final int[] unres = DirectionResolver.unresolve(dir);
@@ -365,7 +365,7 @@ final class MovingObjectTracker {
     private static boolean checkSolid(final AbstractDungeonObject next) {
 	final boolean nextSolid = next.isConditionallySolid();
 	if (nextSolid) {
-	    if (next.isOfType(TypeConstants.TYPE_CHARACTER)) {
+	    if (next.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
 		return true;
 	    } else {
 		return false;

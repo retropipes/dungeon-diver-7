@@ -6,13 +6,13 @@
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public abstract class AbstractInventoryModifier extends AbstractGround {
     // Constructors
     protected AbstractInventoryModifier() {
 	super();
-	this.setMaterial(MaterialConstants.MATERIAL_NOT_APPLICABLE);
+	this.setMaterial(Materials.NOT_APPLICABLE);
     }
 
     @Override

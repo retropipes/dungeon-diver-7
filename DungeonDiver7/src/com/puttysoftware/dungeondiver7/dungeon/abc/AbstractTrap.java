@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.randomrange.RandomRange;
 
 public abstract class AbstractTrap extends AbstractDungeonObject {
@@ -18,7 +18,7 @@ public abstract class AbstractTrap extends AbstractDungeonObject {
     protected AbstractTrap(final int baseName) {
 	super(false, false);
 	this.base = baseName;
-	this.type.set(TypeConstants.TYPE_TRAP);
+	this.type.set(DungeonObjectTypes.TYPE_TRAP);
     }
 
     // Scriptability

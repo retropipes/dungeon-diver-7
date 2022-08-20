@@ -12,22 +12,22 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class IcyWall extends AbstractWall {
     // Constructors
     public IcyWall() {
 	super();
-	this.type.set(TypeConstants.TYPE_PLAIN_WALL);
-	this.setMaterial(MaterialConstants.MATERIAL_ICE);
+	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
+	this.setMaterial(Materials.ICE);
     }
 
     @Override
     public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	if (laserType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
+	if (laserType == ShotTypes.DISRUPTOR) {
 	    // Disrupt icy wall
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    final DisruptedIcyWall diw = new DisruptedIcyWall();
@@ -37,7 +37,7 @@ public class IcyWall extends AbstractWall {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(diw, locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
+	} else if (laserType == ShotTypes.MISSILE) {
 	    // Defrost icy wall
 	    SoundLoader.playSound(SoundConstants.DEFROST);
 	    AbstractDungeonObject ao;
@@ -58,7 +58,7 @@ public class IcyWall extends AbstractWall {
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
-	case MaterialConstants.MATERIAL_FIRE:
+	case Materials.FIRE:
 	    if (this.hasPreviousState()) {
 		return this.getPreviousState();
 	    } else {

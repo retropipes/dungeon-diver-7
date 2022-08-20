@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
-import com.puttysoftware.dungeondiver7.utility.ActionConstants;
+import com.puttysoftware.dungeondiver7.utility.GameActions;
 
 public abstract class AbstractReactionDisruptedObject extends AbstractReactionPassThroughObject {
     // Constructors
@@ -15,6 +15,6 @@ public abstract class AbstractReactionDisruptedObject extends AbstractReactionPa
 
     @Override
     public boolean acceptTick(final int actionType) {
-	return actionType == ActionConstants.ACTION_MOVE;
+	return actionType == GameActions.MOVE;
     }
 }

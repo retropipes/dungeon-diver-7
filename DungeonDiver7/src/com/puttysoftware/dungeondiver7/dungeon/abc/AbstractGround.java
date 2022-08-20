@@ -6,18 +6,18 @@
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractGround extends AbstractDungeonObject {
     // Constructors
     protected AbstractGround() {
 	super(false, false, true);
-	this.type.set(TypeConstants.TYPE_GROUND);
+	this.type.set(DungeonObjectTypes.TYPE_GROUND);
     }
 
     protected AbstractGround(final boolean hasFriction) {
 	super(false, false, hasFriction);
-	this.type.set(TypeConstants.TYPE_GROUND);
+	this.type.set(DungeonObjectTypes.TYPE_GROUND);
     }
 
     @Override

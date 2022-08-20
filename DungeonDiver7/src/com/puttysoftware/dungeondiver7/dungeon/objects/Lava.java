@@ -13,13 +13,13 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class Lava extends AbstractGround {
     // Constructors
     public Lava() {
 	super();
-	this.setMaterial(MaterialConstants.MATERIAL_FIRE);
+	this.setMaterial(Materials.FIRE);
     }
 
     // Scriptability
@@ -52,7 +52,7 @@ public class Lava extends AbstractGround {
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
-	case MaterialConstants.MATERIAL_ICE:
+	case Materials.ICE:
 	    return new Ground();
 	default:
 	    return this;

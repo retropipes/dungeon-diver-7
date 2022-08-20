@@ -6,13 +6,13 @@
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractPassThroughObject extends AbstractDungeonObject {
     // Constructors
     protected AbstractPassThroughObject() {
 	super(false);
-	this.type.set(TypeConstants.TYPE_PASS_THROUGH);
+	this.type.set(DungeonObjectTypes.TYPE_PASS_THROUGH);
     }
 
     @Override

@@ -9,15 +9,15 @@ import java.awt.Color;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractJumpObject;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class JumpBox extends AbstractJumpObject {
     // Constructors
     public JumpBox() {
 	super();
-	this.type.set(TypeConstants.TYPE_BOX);
-	this.setMaterial(MaterialConstants.MATERIAL_STONE);
+	this.type.set(DungeonObjectTypes.TYPE_BOX);
+	this.setMaterial(Materials.STONE);
     }
 
     @Override
@@ -33,11 +33,11 @@ public class JumpBox extends AbstractJumpObject {
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
-	case MaterialConstants.MATERIAL_ICE:
+	case Materials.ICE:
 	    final IcyBox ib = new IcyBox();
 	    ib.setPreviousState(this);
 	    return ib;
-	case MaterialConstants.MATERIAL_FIRE:
+	case Materials.FIRE:
 	    return new HotBox();
 	default:
 	    return this;

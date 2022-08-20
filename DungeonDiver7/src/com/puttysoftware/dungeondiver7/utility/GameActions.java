@@ -5,13 +5,13 @@
  */
 package com.puttysoftware.dungeondiver7.utility;
 
-public final class ActionConstants {
+public final class GameActions {
     // Constants
-    public static final int ACTION_MOVE = 1;
-    public static final int ACTION_NON_MOVE = 2;
+    public static final int MOVE = 1;
+    public static final int NON_MOVE = 2;
 
     // Private Constructor
-    private ActionConstants() {
+    private GameActions() {
 	// Do nothing
     }
 }

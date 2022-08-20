@@ -6,13 +6,13 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractAllButton;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class FireAllButton extends AbstractAllButton {
     // Constructors
     public FireAllButton() {
 	super(new FireAllButtonDoor(), false);
-	this.setMaterial(MaterialConstants.MATERIAL_FIRE);
+	this.setMaterial(Materials.FIRE);
     }
 
     @Override

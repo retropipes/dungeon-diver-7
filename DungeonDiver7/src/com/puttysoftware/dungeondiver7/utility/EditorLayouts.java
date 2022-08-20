@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.utility;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
-public final class EditorLayoutConstants {
+public final class EditorLayouts {
     // Constants
     public static final int EDITOR_LAYOUT_CLASSIC = 0;
     public static final int EDITOR_LAYOUT_MODERN_V11 = 1;
@@ -22,12 +22,12 @@ public final class EditorLayoutConstants {
 		    LocaleConstants.PREFS_STRING_EDITOR_LAYOUT_MODERN_V12) };
 
     // Private Constructor
-    private EditorLayoutConstants() {
+    private EditorLayouts() {
 	// Do nothing
     }
 
     public static void activeLanguageChanged() {
-	EditorLayoutConstants.EDITOR_LAYOUT_LIST = new String[] {
+	EditorLayouts.EDITOR_LAYOUT_LIST = new String[] {
 		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE,
 			LocaleConstants.PREFS_STRING_EDITOR_LAYOUT_CLASSIC),
 		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE,
@@ -37,6 +37,6 @@ public final class EditorLayoutConstants {
     }
 
     public static String[] getEditorLayoutList() {
-	return EditorLayoutConstants.EDITOR_LAYOUT_LIST;
+	return EditorLayouts.EDITOR_LAYOUT_LIST;
     }
 }

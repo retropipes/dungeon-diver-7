@@ -6,13 +6,13 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTriggerButton;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class IceTriggerButton extends AbstractTriggerButton {
     // Constructors
     public IceTriggerButton() {
 	super(new IceTriggerButtonDoor(), false);
-	this.setMaterial(MaterialConstants.MATERIAL_ICE);
+	this.setMaterial(Materials.ICE);
     }
 
     @Override

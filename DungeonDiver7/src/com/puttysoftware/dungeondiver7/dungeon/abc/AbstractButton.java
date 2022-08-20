@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.dungeon.abc;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractButton extends AbstractDungeonObject {
     // Fields
@@ -25,7 +25,7 @@ public abstract class AbstractButton extends AbstractDungeonObject {
 	this.doorY = -1;
 	this.buttonDoor = bd;
 	this.universal = isUniversal;
-	this.type.set(TypeConstants.TYPE_BUTTON);
+	this.type.set(DungeonObjectTypes.TYPE_BUTTON);
     }
 
     @Override

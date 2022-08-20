@@ -14,16 +14,16 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class Barrel extends AbstractReactionWall {
     // Constructors
     public Barrel() {
 	super();
-	this.type.set(TypeConstants.TYPE_BARREL);
-	this.setMaterial(MaterialConstants.MATERIAL_WOODEN);
+	this.type.set(DungeonObjectTypes.TYPE_BARREL);
+	this.setMaterial(Materials.WOODEN);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Barrel extends AbstractReactionWall {
 	    // Kill tank
 	    DungeonDiver7.getStuffBag().getGameLogic().gameOver();
 	}
-	if (laserType == ArrowTypeConstants.LASER_TYPE_POWER) {
+	if (laserType == ShotTypes.POWER) {
 	    // Laser keeps going
 	    return DirectionResolver.resolve(dirX, dirY);
 	} else {
@@ -72,8 +72,8 @@ public class Barrel extends AbstractReactionWall {
     @Override
     public void pushCollideAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
 	// React to balls hitting barrels
-	if (pushed.isOfType(TypeConstants.TYPE_BALL)) {
-	    this.laserEnteredAction(x, y, z, 0, 0, ArrowTypeConstants.LASER_TYPE_GREEN, 1);
+	if (pushed.isOfType(DungeonObjectTypes.TYPE_BALL)) {
+	    this.laserEnteredAction(x, y, z, 0, 0, ShotTypes.GREEN, 1);
 	}
     }
 

@@ -11,8 +11,8 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class MetallicMirror extends AbstractMovableObject {
     // Constructors
@@ -20,8 +20,8 @@ public class MetallicMirror extends AbstractMovableObject {
 	super(true);
 	this.setDirection(Directions.NORTHEAST);
 	this.setDiagonalOnly(true);
-	this.type.set(TypeConstants.TYPE_MOVABLE_MIRROR);
-	this.setMaterial(MaterialConstants.MATERIAL_METALLIC);
+	this.type.set(DungeonObjectTypes.TYPE_MOVABLE_MIRROR);
+	this.setMaterial(Materials.METALLIC);
     }
 
     @Override

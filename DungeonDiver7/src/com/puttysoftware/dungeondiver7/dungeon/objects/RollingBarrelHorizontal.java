@@ -13,15 +13,15 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class RollingBarrelHorizontal extends AbstractMovableObject {
     // Constructors
     public RollingBarrelHorizontal() {
 	super(true);
-	this.type.set(TypeConstants.TYPE_BARREL);
-	this.type.set(TypeConstants.TYPE_ICY);
+	this.type.set(DungeonObjectTypes.TYPE_BARREL);
+	this.type.set(DungeonObjectTypes.TYPE_ICY);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class RollingBarrelHorizontal extends AbstractMovableObject {
 		// Kill tank
 		DungeonDiver7.getStuffBag().getGameLogic().gameOver();
 	    }
-	    if (laserType == ArrowTypeConstants.LASER_TYPE_POWER) {
+	    if (laserType == ShotTypes.POWER) {
 		// Laser keeps going
 		return DirectionResolver.resolve(dirX, dirY);
 	    } else {

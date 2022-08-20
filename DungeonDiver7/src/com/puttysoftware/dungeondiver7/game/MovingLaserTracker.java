@@ -26,10 +26,10 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Stunner;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 final class MovingLaserTracker {
     // Fields
@@ -64,12 +64,12 @@ final class MovingLaserTracker {
 	this.cumY = zy;
 	this.incX = zx;
 	this.incY = zy;
-	if (this.lt == ArrowTypeConstants.LASER_TYPE_GREEN) {
+	if (this.lt == ShotTypes.GREEN) {
 	    if (this.shooter instanceof PowerfulParty) {
-		this.lt = ArrowTypeConstants.LASER_TYPE_POWER;
+		this.lt = ShotTypes.POWER;
 		SoundLoader.playSound(SoundConstants.POWER_LASER);
 	    } else if (this.shooter instanceof ArrowTurretDisguise) {
-		this.lt = ArrowTypeConstants.LASER_TYPE_RED;
+		this.lt = ShotTypes.RED;
 		SoundLoader.playSound(SoundConstants.ANTI_FIRE);
 	    } else {
 		SoundLoader.playSound(SoundConstants.FIRE_LASER);
@@ -82,13 +82,13 @@ final class MovingLaserTracker {
 	    }
 	    this.laser = true;
 	    this.res = true;
-	} else if (this.lt == ArrowTypeConstants.LASER_TYPE_RED) {
+	} else if (this.lt == ShotTypes.RED) {
 	    if (!gm.getCheatStatus(GameLogic.CHEAT_INVINCIBLE)) {
 		SoundLoader.playSound(SoundConstants.ANTI_FIRE);
 		this.laser = true;
 		this.res = true;
 	    }
-	} else if (this.lt == ArrowTypeConstants.LASER_TYPE_MISSILE) {
+	} else if (this.lt == ShotTypes.MISSILE) {
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, true, false, false, false, false, false, false, false, false);
 	    PartyInventory.fireMissile();
@@ -99,7 +99,7 @@ final class MovingLaserTracker {
 	    }
 	    this.laser = true;
 	    this.res = true;
-	} else if (this.lt == ArrowTypeConstants.LASER_TYPE_STUNNER) {
+	} else if (this.lt == ShotTypes.STUNNER) {
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, false, true, false, false, false, false, false, false, false);
 	    PartyInventory.fireStunner();
@@ -110,7 +110,7 @@ final class MovingLaserTracker {
 	    }
 	    this.laser = true;
 	    this.res = true;
-	} else if (this.lt == ArrowTypeConstants.LASER_TYPE_BLUE) {
+	} else if (this.lt == ShotTypes.BLUE) {
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, false, false, false, false, true, false, false, false, false);
 	    PartyInventory.fireBlueLaser();
@@ -121,7 +121,7 @@ final class MovingLaserTracker {
 	    }
 	    this.laser = true;
 	    this.res = true;
-	} else if (this.lt == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
+	} else if (this.lt == ShotTypes.DISRUPTOR) {
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, false, false, false, false, false, true, false, false, false);
 	    PartyInventory.fireDisruptor();
@@ -147,7 +147,7 @@ final class MovingLaserTracker {
 	int sy = nsy;
 	boolean mover = nMover;
 	if (!this.res && this.laser) {
-	    if (gm.getPlayer().getSavedObject().isOfType(TypeConstants.TYPE_MOVER)) {
+	    if (gm.getPlayer().getSavedObject().isOfType(DungeonObjectTypes.TYPE_MOVER)) {
 		final Directions dir = gm.getPlayer().getSavedObject().getDirection();
 		final int[] unres = DirectionResolver.unresolve(dir);
 		sx = unres[0];
@@ -206,11 +206,11 @@ final class MovingLaserTracker {
 	    int[] resolved;
 	    Directions laserDir;
 	    this.l = MovingLaserTracker.createLaserForType(this.lt);
-	    if (this.lt == ArrowTypeConstants.LASER_TYPE_MISSILE) {
+	    if (this.lt == ShotTypes.MISSILE) {
 		final Directions suffix = DirectionResolver.resolve(this.incX, this.incY);
 		this.l.setDirection(suffix);
-	    } else if (this.lt == ArrowTypeConstants.LASER_TYPE_STUNNER
-		    || this.lt == ArrowTypeConstants.LASER_TYPE_DISRUPTOR) {
+	    } else if (this.lt == ShotTypes.STUNNER
+		    || this.lt == ShotTypes.DISRUPTOR) {
 		// Do nothing
 	    } else {
 		final Directions suffix = DirectionResolver.resolveHV(this.incX, this.incY);
@@ -318,19 +318,19 @@ final class MovingLaserTracker {
 
     private static AbstractTransientObject createLaserForType(final int type) {
 	switch (type) {
-	case ArrowTypeConstants.LASER_TYPE_GREEN:
+	case ShotTypes.GREEN:
 	    return new Arrow();
-	case ArrowTypeConstants.LASER_TYPE_BLUE:
+	case ShotTypes.BLUE:
 	    return new InverseArrow();
-	case ArrowTypeConstants.LASER_TYPE_RED:
+	case ShotTypes.RED:
 	    return new DeathArrow();
-	case ArrowTypeConstants.LASER_TYPE_MISSILE:
+	case ShotTypes.MISSILE:
 	    return new Missile();
-	case ArrowTypeConstants.LASER_TYPE_STUNNER:
+	case ShotTypes.STUNNER:
 	    return new Stunner();
-	case ArrowTypeConstants.LASER_TYPE_DISRUPTOR:
+	case ShotTypes.DISRUPTOR:
 	    return new Disruptor();
-	case ArrowTypeConstants.LASER_TYPE_POWER:
+	case ShotTypes.POWER:
 	    return new PowerArrow();
 	default:
 	    return null;
@@ -409,7 +409,7 @@ final class MovingLaserTracker {
 	} else {
 	    final boolean nextSolid = next.isConditionallySolid();
 	    if (nextSolid) {
-		if (next.isOfType(TypeConstants.TYPE_CHARACTER)) {
+		if (next.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
 		    return true;
 		} else {
 		    return false;

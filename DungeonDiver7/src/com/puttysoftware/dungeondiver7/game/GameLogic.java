@@ -42,16 +42,16 @@ import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.utility.ActionConstants;
+import com.puttysoftware.dungeondiver7.utility.GameActions;
 import com.puttysoftware.dungeondiver7.utility.AlreadyDeadException;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 import com.puttysoftware.dungeondiver7.utility.CustomDialogs;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 import com.puttysoftware.dungeondiver7.utility.InvalidDungeonException;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
-import com.puttysoftware.dungeondiver7.utility.RangeTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.RangeTypes;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 import com.puttysoftware.fileio.XDataReader;
@@ -142,7 +142,7 @@ public final class GameLogic implements MenuSection {
 	this.delayedDecayActive = false;
 	this.delayedDecayObject = null;
 	this.shotActive = false;
-	this.activeShotType = ArrowTypeConstants.LASER_TYPE_GREEN;
+	this.activeShotType = ShotTypes.GREEN;
 	this.remoteDecay = false;
 	this.moving = false;
 	this.gre = new GameReplayEngine();
@@ -606,22 +606,22 @@ public final class GameLogic implements MenuSection {
 
     public boolean fireLaser(final int ox, final int oy, final AbstractDungeonObject shooter) {
 	if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_MISSILES
-		&& this.activeShotType == ArrowTypeConstants.LASER_TYPE_MISSILE && PartyInventory.getMissilesLeft() == 0
+		&& this.activeShotType == ShotTypes.MISSILE && PartyInventory.getMissilesLeft() == 0
 		&& !this.getCheatStatus(GameLogic.CHEAT_MISSILES)) {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 		    LocaleConstants.GAME_STRING_OUT_OF_MISSILES));
 	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_STUNNERS
-		&& this.activeShotType == ArrowTypeConstants.LASER_TYPE_STUNNER && PartyInventory.getStunnersLeft() == 0
+		&& this.activeShotType == ShotTypes.STUNNER && PartyInventory.getStunnersLeft() == 0
 		&& !this.getCheatStatus(GameLogic.CHEAT_STUNNERS)) {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 		    LocaleConstants.GAME_STRING_OUT_OF_STUNNERS));
 	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_BLUE_LASERS
-		&& this.activeShotType == ArrowTypeConstants.LASER_TYPE_BLUE && PartyInventory.getBlueLasersLeft() == 0
+		&& this.activeShotType == ShotTypes.BLUE && PartyInventory.getBlueLasersLeft() == 0
 		&& !this.getCheatStatus(GameLogic.CHEAT_BLUE_LASERS)) {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 		    LocaleConstants.GAME_STRING_OUT_OF_BLUE_LASERS));
 	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_DISRUPTORS
-		&& this.activeShotType == ArrowTypeConstants.LASER_TYPE_DISRUPTOR
+		&& this.activeShotType == ShotTypes.DISRUPTOR
 		&& PartyInventory.getDisruptorsLeft() == 0 && !this.getCheatStatus(GameLogic.CHEAT_DISRUPTORS)) {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 		    LocaleConstants.GAME_STRING_OUT_OF_DISRUPTORS));
@@ -675,8 +675,8 @@ public final class GameLogic implements MenuSection {
 	final int py = this.plMgr.getPlayerLocationY();
 	final int pz = this.plMgr.getPlayerLocationZ();
 	a.circularScanRange(px, py, pz, 1, this.otherRangeMode, AbstractDungeonObject
-		.getImbuedRangeForce(RangeTypeConstants.getMaterialForRangeType(this.otherRangeMode)));
-	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().tickTimers(pz, ActionConstants.ACTION_NON_MOVE);
+		.getImbuedRangeForce(RangeTypes.getMaterialForRangeType(this.otherRangeMode)));
+	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().tickTimers(pz, GameActions.NON_MOVE);
 	this.updateScoreText();
     }
 
@@ -758,10 +758,10 @@ public final class GameLogic implements MenuSection {
 	    if (!m.getCell(x, y, z, pushedInto.getLayer()).isConditionallySolid()) {
 		final AbstractDungeonObject saved = m.getCell(x, y, z, pushedInto.getLayer());
 		final AbstractDungeonObject there = m.getCell(x2, y2, z2, pushedInto.getLayer());
-		if (there.isOfType(TypeConstants.TYPE_CHARACTER)) {
+		if (there.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
 		    needsFixup1 = true;
 		}
-		if (saved.isOfType(TypeConstants.TYPE_CHARACTER)) {
+		if (saved.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
 		    needsFixup2 = true;
 		}
 		if (needsFixup2) {

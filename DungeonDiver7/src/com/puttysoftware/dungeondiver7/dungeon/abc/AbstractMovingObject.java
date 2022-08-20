@@ -6,13 +6,13 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractMovingObject extends AbstractDungeonObject {
     // Constructors
     public AbstractMovingObject(final boolean solid) {
 	super(solid, false);
-	this.type.set(TypeConstants.TYPE_DUNGEON);
+	this.type.set(DungeonObjectTypes.TYPE_DUNGEON);
     }
 
     // Methods

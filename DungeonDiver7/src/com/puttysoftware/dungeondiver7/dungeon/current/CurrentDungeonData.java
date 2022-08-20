@@ -40,10 +40,10 @@ import com.puttysoftware.dungeondiver7.locale.Colors;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.FormatConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
-import com.puttysoftware.dungeondiver7.utility.VisionModeConstants;
+import com.puttysoftware.dungeondiver7.utility.FileFormats;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
+import com.puttysoftware.dungeondiver7.utility.VisionModes;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 import com.puttysoftware.randomrange.RandomRange;
@@ -78,7 +78,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	this.foundX = -1;
 	this.foundY = -1;
 	this.iue = new ImageUndoEngine();
-	this.visionMode = VisionModeConstants.VISION_MODE_EXPLORE_AND_LOS;
+	this.visionMode = VisionModes.EXPLORE_AND_LOS;
 	this.visionModeExploreRadius = 2;
     }
 
@@ -416,7 +416,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 			try {
 			    final AbstractDungeonObject obj = this.getCell(dungeon, xFix, u, zFix, w);
-			    if (obj.isOfType(TypeConstants.TYPE_ANTI)) {
+			    if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
 				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
 				final Directions invert = DirectionResolver.resolveInvert(unres[0],
 					unres[1]);
@@ -445,7 +445,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 			try {
 			    final AbstractDungeonObject obj = this.getCell(dungeon, xFix, u, zFix, w);
-			    if (obj.isOfType(TypeConstants.TYPE_ANTI)) {
+			    if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
 				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
 				final Directions invert = DirectionResolver.resolveInvert(unres[0],
 					unres[1]);
@@ -474,7 +474,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 			try {
 			    final AbstractDungeonObject obj = this.getCell(dungeon, u, yFix, zFix, w);
-			    if (obj.isOfType(TypeConstants.TYPE_ANTI)) {
+			    if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
 				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
 				final Directions invert = DirectionResolver.resolveInvert(unres[0],
 					unres[1]);
@@ -503,7 +503,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 			try {
 			    final AbstractDungeonObject obj = this.getCell(dungeon, u, yFix, zFix, w);
-			    if (obj.isOfType(TypeConstants.TYPE_ANTI)) {
+			    if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
 				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
 				final Directions invert = DirectionResolver.resolveInvert(unres[0],
 					unres[1]);
@@ -549,7 +549,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
 			final AbstractDungeonObject obj = this.getCell(dungeon, xFix, u, zFix, w);
-			if (obj.getMaterial() == MaterialConstants.MATERIAL_MAGNETIC) {
+			if (obj.getMaterial() == Materials.MAGNETIC) {
 			    return yFix - u - 1;
 			}
 			if (obj.isSolid()) {
@@ -566,7 +566,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
 			final AbstractDungeonObject obj = this.getCell(dungeon, xFix, u, zFix, w);
-			if (obj.getMaterial() == MaterialConstants.MATERIAL_MAGNETIC) {
+			if (obj.getMaterial() == Materials.MAGNETIC) {
 			    return u - yFix - 1;
 			}
 			if (obj.isSolid()) {
@@ -583,7 +583,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
 			final AbstractDungeonObject obj = this.getCell(dungeon, u, yFix, zFix, w);
-			if (obj.getMaterial() == MaterialConstants.MATERIAL_MAGNETIC) {
+			if (obj.getMaterial() == Materials.MAGNETIC) {
 			    return xFix - u - 1;
 			}
 			if (obj.isSolid()) {
@@ -600,7 +600,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
 			final AbstractDungeonObject obj = this.getCell(dungeon, u, yFix, zFix, w);
-			if (obj.getMaterial() == MaterialConstants.MATERIAL_MAGNETIC) {
+			if (obj.getMaterial() == Materials.MAGNETIC) {
 			    return u - xFix - 1;
 			}
 			if (obj.isSolid()) {
@@ -662,7 +662,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 			final AbstractDungeonObject obj = this.getCell(dungeon, v, u, zFix, w);
 			final AbstractDungeonObject savedObj = obj.getSavedObject();
 			String testName;
-			if (obj.isOfType(TypeConstants.TYPE_CHARACTER)) {
+			if (obj.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
 			    if (moved) {
 				testName = obj.getImageName();
 			    } else {
@@ -710,7 +710,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    final AbstractDungeonObject obj = this.getCell(dungeon, v, u, zFix, w);
 		    final AbstractDungeonObject savedObj = obj.getSavedObject();
 		    AbstractDungeonObject test;
-		    if (obj.isOfType(TypeConstants.TYPE_CHARACTER)) {
+		    if (obj.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
 			test = savedObj;
 		    } else {
 			test = obj;
@@ -811,7 +811,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    if (!(obj instanceof Ground)) {
 			DungeonDiver7.getStuffBag().getGameLogic();
 			// Freeze the ground
-			GameLogic.morph(obj.changesToOnExposure(MaterialConstants.MATERIAL_ICE), y, x, z,
+			GameLogic.morph(obj.changesToOnExposure(Materials.ICE), y, x, z,
 				DungeonConstants.LAYER_LOWER_GROUND);
 		    }
 		}
@@ -1079,7 +1079,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public void updateVisibleSquares(final AbstractDungeon dungeon, final int xp, final int yp, final int zp) {
-	if ((this.visionMode | VisionModeConstants.VISION_MODE_EXPLORE) == this.visionMode) {
+	if ((this.visionMode | VisionModes.EXPLORE) == this.visionMode) {
 	    for (int x = xp - this.visionModeExploreRadius; x <= xp + this.visionModeExploreRadius; x++) {
 		for (int y = yp - this.visionModeExploreRadius; y <= yp + this.visionModeExploreRadius; y++) {
 		    int fx, fy;
@@ -1100,7 +1100,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 			// Ignore
 		    }
 		    if (!alreadyVisible) {
-			if ((this.visionMode | VisionModeConstants.VISION_MODE_LOS) == this.visionMode) {
+			if ((this.visionMode | VisionModes.LOS) == this.visionMode) {
 			    if (this.isSquareVisibleLOS(dungeon, x, y, xp, yp, zp)) {
 				try {
 				    this.visionData.setCell(true, fx, fy);
@@ -1124,13 +1124,13 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public boolean isSquareVisible(final AbstractDungeon dungeon, final int x1, final int y1, final int x2,
 	    final int y2, final int zp) {
-	if (this.visionMode == VisionModeConstants.VISION_MODE_NONE) {
+	if (this.visionMode == VisionModes.NONE) {
 	    return true;
 	} else {
 	    boolean result = false;
-	    if ((this.visionMode | VisionModeConstants.VISION_MODE_EXPLORE) == this.visionMode) {
+	    if ((this.visionMode | VisionModes.EXPLORE) == this.visionMode) {
 		result = result || this.isSquareVisibleExplore(dungeon, x2, y2);
-		if (result && (this.visionMode | VisionModeConstants.VISION_MODE_LOS) == this.visionMode) {
+		if (result && (this.visionMode | VisionModes.LOS) == this.visionMode) {
 		    if (this.areCoordsInBounds(dungeon, x1, y1, x2, y2)) {
 			// In bounds
 			result = result || this.isSquareVisibleLOS(dungeon, x1, y1, x2, y2, zp);
@@ -1455,22 +1455,22 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public AbstractDungeonData readData(final AbstractDungeon dungeon, final FileIOReader reader,
 	    final int formatVersion) throws IOException {
-	if (FormatConstants.isFormatVersionValidGeneration1(formatVersion)) {
+	if (FileFormats.isFormatVersionValidGeneration1(formatVersion)) {
 	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG1(dungeon, reader, formatVersion);
 	    return tempData;
-	} else if (FormatConstants.isFormatVersionValidGeneration2(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
 	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG2(dungeon, reader, formatVersion);
 	    return tempData;
-	} else if (FormatConstants.isFormatVersionValidGeneration3(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
 	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG3(dungeon, reader, formatVersion);
 	    return tempData;
-	} else if (FormatConstants.isFormatVersionValidGeneration4(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
 	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG4(dungeon, reader, formatVersion);
 	    return tempData;
-	} else if (FormatConstants.isFormatVersionValidGeneration5(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
 	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG5(dungeon, reader, formatVersion);
 	    return tempData;
-	} else if (FormatConstants.isFormatVersionValidGeneration6(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
 	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG6(dungeon, reader, formatVersion);
 	    return tempData;
 	} else {
@@ -1756,17 +1756,17 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public void readSavedState(final FileIOReader reader, final int formatVersion) throws IOException {
-	if (FormatConstants.isFormatVersionValidGeneration1(formatVersion)) {
+	if (FileFormats.isFormatVersionValidGeneration1(formatVersion)) {
 	    this.readSavedStateG2(reader, formatVersion);
-	} else if (FormatConstants.isFormatVersionValidGeneration2(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
 	    this.readSavedStateG2(reader, formatVersion);
-	} else if (FormatConstants.isFormatVersionValidGeneration3(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
 	    this.readSavedStateG3(reader, formatVersion);
-	} else if (FormatConstants.isFormatVersionValidGeneration4(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
 	    this.readSavedStateG4(reader, formatVersion);
-	} else if (FormatConstants.isFormatVersionValidGeneration5(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
 	    this.readSavedStateG5(reader, formatVersion);
-	} else if (FormatConstants.isFormatVersionValidGeneration6(formatVersion)) {
+	} else if (FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
 	    this.readSavedStateG6(reader, formatVersion);
 	} else {
 	    throw new IOException(Strings.error(

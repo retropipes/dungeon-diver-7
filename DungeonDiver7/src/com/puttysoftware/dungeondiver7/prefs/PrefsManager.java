@@ -20,7 +20,7 @@ import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.EditorLayoutConstants;
+import com.puttysoftware.dungeondiver7.utility.EditorLayouts;
 import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 
 public class PrefsManager {
@@ -28,7 +28,7 @@ public class PrefsManager {
     private final static PrefsFileManager storeMgr = new PrefsFileManager();
     private final static PrefsGUIManager guiMgr = new PrefsGUIManager();
     private final static int FALLBACK_LANGUAGE_ID = 0;
-    private final static int DEFAULT_EDITOR_LAYOUT_ID = EditorLayoutConstants.EDITOR_LAYOUT_MODERN_V12;
+    private final static int DEFAULT_EDITOR_LAYOUT_ID = EditorLayouts.EDITOR_LAYOUT_MODERN_V12;
     private static final int BATTLE_SPEED = 1000;
     private static final int VIEWING_WINDOW_SIZE = 11;
     public static final int DIFFICULTY_VERY_EASY = 0;

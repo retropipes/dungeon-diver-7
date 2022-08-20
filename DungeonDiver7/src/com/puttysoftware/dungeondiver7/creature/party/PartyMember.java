@@ -18,7 +18,7 @@ import com.puttysoftware.dungeondiver7.item.ItemInventory;
 import com.puttysoftware.dungeondiver7.loader.AvatarImageManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.spell.SpellBook;
-import com.puttysoftware.dungeondiver7.utility.FormatConstants;
+import com.puttysoftware.dungeondiver7.utility.FileFormats;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 import com.puttysoftware.images.BufferedImageIcon;
@@ -230,7 +230,7 @@ public class PartyMember extends AbstractCreature {
 
     public static PartyMember read(final FileIOReader worldFile) throws IOException {
 	final int version = worldFile.readByte();
-	if (version < FormatConstants.CHARACTER_FORMAT_2) {
+	if (version < FileFormats.CHARACTER_2) {
 	    throw new VersionException("Invalid character version found: " + version);
 	}
 	final int k = worldFile.readInt();
@@ -280,7 +280,7 @@ public class PartyMember extends AbstractCreature {
     }
 
     public void write(final FileIOWriter worldFile) throws IOException {
-	worldFile.writeByte(FormatConstants.CHARACTER_FORMAT_LATEST);
+	worldFile.writeByte(FileFormats.CHARACTER_LATEST);
 	worldFile.writeInt(this.kills);
 	worldFile.writeInt(this.getPermanentAttackPoints());
 	worldFile.writeInt(this.getPermanentDefensePoints());

@@ -6,13 +6,13 @@
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractTeleport extends AbstractDungeonObject {
     // Constructors
     protected AbstractTeleport() {
 	super(false);
-	this.type.set(TypeConstants.TYPE_TELEPORT);
+	this.type.set(DungeonObjectTypes.TYPE_TELEPORT);
     }
 
     public abstract int getDestinationFloor();

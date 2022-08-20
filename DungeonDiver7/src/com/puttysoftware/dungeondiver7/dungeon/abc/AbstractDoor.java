@@ -6,7 +6,7 @@
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractDoor extends AbstractDungeonObject {
     // Fields
@@ -16,7 +16,7 @@ public abstract class AbstractDoor extends AbstractDungeonObject {
     protected AbstractDoor(final AbstractKey mgk) {
 	super(true);
 	this.key = mgk;
-	this.type.set(TypeConstants.TYPE_DOOR);
+	this.type.set(DungeonObjectTypes.TYPE_DOOR);
     }
 
     @Override

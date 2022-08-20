@@ -10,8 +10,8 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDisruptedObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class DisruptedMagneticWall extends AbstractDisruptedObject {
     // Fields
@@ -21,10 +21,10 @@ public class DisruptedMagneticWall extends AbstractDisruptedObject {
     // Constructors
     public DisruptedMagneticWall() {
 	super();
-	this.type.set(TypeConstants.TYPE_PLAIN_WALL);
+	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.disruptionLeft = DisruptedMagneticWall.DISRUPTION_START;
 	this.activateTimer(1);
-	this.setMaterial(MaterialConstants.MATERIAL_MAGNETIC);
+	this.setMaterial(Materials.MAGNETIC);
     }
 
     @Override

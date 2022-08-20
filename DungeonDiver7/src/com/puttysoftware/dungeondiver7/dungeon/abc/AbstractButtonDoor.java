@@ -8,13 +8,13 @@ package com.puttysoftware.dungeondiver7.dungeon.abc;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractButtonDoor extends AbstractDungeonObject {
     // Constructors
     protected AbstractButtonDoor() {
 	super(true);
-	this.type.set(TypeConstants.TYPE_BUTTON_DOOR);
+	this.type.set(DungeonObjectTypes.TYPE_BUTTON_DOOR);
     }
 
     @Override

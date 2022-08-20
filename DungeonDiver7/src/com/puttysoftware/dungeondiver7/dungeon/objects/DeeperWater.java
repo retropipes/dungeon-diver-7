@@ -13,26 +13,26 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class DeeperWater extends AbstractGround {
     // Constructors
     public DeeperWater() {
 	super();
 	this.setFrameNumber(1);
-	this.setMaterial(MaterialConstants.MATERIAL_WOODEN);
+	this.setMaterial(Materials.WOODEN);
     }
 
     // Scriptability
     @Override
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
 	final StuffBag app = DungeonDiver7.getStuffBag();
-	if (pushed.isOfType(TypeConstants.TYPE_BOX)) {
+	if (pushed.isOfType(DungeonObjectTypes.TYPE_BOX)) {
 	    app.getGameLogic();
 	    // Get rid of pushed object
 	    GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
-	    if (pushed.getMaterial() == MaterialConstants.MATERIAL_WOODEN) {
+	    if (pushed.getMaterial() == Materials.WOODEN) {
 		app.getGameLogic();
 		GameLogic.morph(new Bridge(), x, y, z, this.getLayer());
 	    } else {
@@ -60,11 +60,11 @@ public class DeeperWater extends AbstractGround {
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
-	case MaterialConstants.MATERIAL_ICE:
+	case Materials.ICE:
 	    final Ice i = new Ice();
 	    i.setPreviousState(this);
 	    return i;
-	case MaterialConstants.MATERIAL_FIRE:
+	case Materials.FIRE:
 	    return new DeepWater();
 	default:
 	    return this;

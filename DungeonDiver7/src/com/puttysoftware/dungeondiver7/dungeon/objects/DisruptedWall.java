@@ -12,9 +12,9 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
-import com.puttysoftware.dungeondiver7.utility.TypeConstants;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class DisruptedWall extends AbstractDisruptedObject {
     // Fields
@@ -24,30 +24,30 @@ public class DisruptedWall extends AbstractDisruptedObject {
     // Constructors
     public DisruptedWall() {
 	super();
-	this.type.set(TypeConstants.TYPE_PLAIN_WALL);
+	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.disruptionLeft = DisruptedWall.DISRUPTION_START;
 	this.activateTimer(1);
-	this.setMaterial(MaterialConstants.MATERIAL_METALLIC);
+	this.setMaterial(Materials.METALLIC);
     }
 
     DisruptedWall(final int disruption) {
 	super();
-	this.type.set(TypeConstants.TYPE_PLAIN_WALL);
+	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.disruptionLeft = disruption;
 	this.activateTimer(1);
-	this.setMaterial(MaterialConstants.MATERIAL_METALLIC);
+	this.setMaterial(Materials.METALLIC);
     }
 
     @Override
     public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	if (laserType == ArrowTypeConstants.LASER_TYPE_MISSILE) {
+	if (laserType == ShotTypes.MISSILE) {
 	    // Heat up wall
 	    SoundLoader.playSound(SoundConstants.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedHotWall(this.disruptionLeft), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ArrowTypeConstants.LASER_TYPE_STUNNER) {
+	} else if (laserType == ShotTypes.STUNNER) {
 	    // Freeze wall
 	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
@@ -80,11 +80,11 @@ public class DisruptedWall extends AbstractDisruptedObject {
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
-	case MaterialConstants.MATERIAL_ICE:
+	case Materials.ICE:
 	    final DisruptedIcyWall diw = new DisruptedIcyWall(this.disruptionLeft);
 	    diw.setPreviousState(this);
 	    return diw;
-	case MaterialConstants.MATERIAL_FIRE:
+	case Materials.FIRE:
 	    return new DisruptedHotWall(this.disruptionLeft);
 	default:
 	    return this;
