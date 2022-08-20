@@ -7,17 +7,18 @@ package com.puttysoftware.dungeondiver7.item;
 
 import java.io.IOException;
 
+import com.puttysoftware.dungeondiver7.locale.Slot;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 
 public class Equipment extends Item {
     // Properties
     private final int materialID;
-    private final int slotUsed;
+    private final Slot slotUsed;
     private final int hitSound;
 
     // Constructors
-    Equipment(final String itemName, final int buyFor, final int grams, final int power, final int slot,
+    Equipment(final String itemName, final int buyFor, final int grams, final int power, final Slot slot,
 	    final int newMaterialID, final int hitSoundID) {
 	super(itemName, buyFor, grams, power);
 	this.materialID = newMaterialID;
@@ -37,7 +38,7 @@ public class Equipment extends Item {
     public int hashCode() {
 	final int prime = 31;
 	int result = super.hashCode();
-	result = prime * result + this.slotUsed;
+	result = prime * result + this.slotUsed.ordinal();
 	return prime * result + this.materialID;
     }
 
@@ -66,7 +67,7 @@ public class Equipment extends Item {
 	return this.hitSound;
     }
 
-    public final int getSlotUsed() {
+    public final Slot getSlotUsed() {
 	return this.slotUsed;
     }
 
@@ -81,7 +82,7 @@ public class Equipment extends Item {
 	    return null;
 	}
 	final int matID = dr.readInt();
-	final int slot = dr.readInt();
+	final Slot slot = Slot.values()[dr.readInt()];
 	final int hs = dr.readInt();
 	return new Equipment(i.getName(), i.getBuyPrice(), i.getWeight(), i.getPotency(), slot, matID, hs);
     }
@@ -89,7 +90,7 @@ public class Equipment extends Item {
     final void writeEquipment(final FileIOWriter dw) throws IOException {
 	super.writeItem(dw);
 	dw.writeInt(this.materialID);
-	dw.writeInt(this.slotUsed);
+	dw.writeInt(this.slotUsed.ordinal());
 	dw.writeInt(this.hitSound);
     }
 }

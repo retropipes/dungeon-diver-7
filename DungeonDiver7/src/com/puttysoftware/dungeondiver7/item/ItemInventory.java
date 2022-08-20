@@ -12,6 +12,8 @@ import java.util.Arrays;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.locale.Slot;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 
@@ -21,7 +23,7 @@ public class ItemInventory {
 
     // Constructors
     public ItemInventory() {
-	this.equipment = new Equipment[EquipmentSlotConstants.MAX_SLOTS];
+	this.equipment = new Equipment[Strings.SLOTS_COUNT];
     }
 
     // Methods
@@ -31,19 +33,19 @@ public class ItemInventory {
 
     public void equip(final AbstractCreature pc, final Equipment ei, final boolean playSound) {
 	// Fix character load, changing gear
-	if (this.equipment[ei.getSlotUsed()] != null) {
-	    pc.offsetLoad(-this.equipment[ei.getSlotUsed()].getWeight());
+	if (this.equipment[ei.getSlotUsed().ordinal()] != null) {
+	    pc.offsetLoad(-this.equipment[ei.getSlotUsed().ordinal()].getWeight());
 	}
 	pc.offsetLoad(ei.getWeight());
 	// Equip it
-	this.equipment[ei.getSlotUsed()] = ei;
+	this.equipment[ei.getSlotUsed().ordinal()] = ei;
 	if (playSound) {
 	    SoundLoader.playSound(SoundConstants.EQUIP);
 	}
     }
 
     public int getWeaponHitSound(final AbstractCreature pc) {
-	Equipment weapon = this.equipment[EquipmentSlotConstants.SLOT_WEAPON];
+	Equipment weapon = this.equipment[Slot.WEAPON.ordinal()];
 	if (weapon != null) {
 	    return weapon.getHitSound();
 	}
@@ -58,7 +60,7 @@ public class ItemInventory {
 	StringBuilder sb;
 	for (int x = 0; x < result.length - 1; x++) {
 	    sb = new StringBuilder();
-	    sb.append(EquipmentSlotConstants.getSlotNames()[x]);
+	    sb.append(Strings.slot(x));
 	    sb.append(": ");
 	    if (this.equipment[x] == null) {
 		sb.append("Nothing (0)");
@@ -75,38 +77,38 @@ public class ItemInventory {
 
     public int getTotalPower() {
 	int total = 0;
-	if (this.equipment[EquipmentSlotConstants.SLOT_WEAPON] != null) {
-	    total += this.equipment[EquipmentSlotConstants.SLOT_WEAPON].getPotency();
+	if (this.equipment[Slot.WEAPON.ordinal()] != null) {
+	    total += this.equipment[Slot.WEAPON.ordinal()].getPotency();
 	}
 	return total;
     }
 
     public int getTotalAbsorb() {
 	int total = 0;
-	if (this.equipment[EquipmentSlotConstants.SLOT_HEAD] != null) {
-	    total += this.equipment[EquipmentSlotConstants.SLOT_HEAD].getPotency();
+	if (this.equipment[Slot.HEAD.ordinal()] != null) {
+	    total += this.equipment[Slot.HEAD.ordinal()].getPotency();
 	}
-	if (this.equipment[EquipmentSlotConstants.SLOT_NECK] != null) {
-	    total += this.equipment[EquipmentSlotConstants.SLOT_NECK].getPotency();
+	if (this.equipment[Slot.NECK.ordinal()] != null) {
+	    total += this.equipment[Slot.NECK.ordinal()].getPotency();
 	}
-	if (this.equipment[EquipmentSlotConstants.SLOT_ARMS] != null) {
-	    total += this.equipment[EquipmentSlotConstants.SLOT_ARMS].getPotency();
+	if (this.equipment[Slot.ARMS.ordinal()] != null) {
+	    total += this.equipment[Slot.ARMS.ordinal()].getPotency();
 	}
-	if (this.equipment[EquipmentSlotConstants.SLOT_HANDS] != null) {
-	    total += this.equipment[EquipmentSlotConstants.SLOT_HANDS].getPotency();
+	if (this.equipment[Slot.HANDS.ordinal()] != null) {
+	    total += this.equipment[Slot.HANDS.ordinal()].getPotency();
 	}
-	if (this.equipment[EquipmentSlotConstants.SLOT_BODY] != null) {
-	    total += this.equipment[EquipmentSlotConstants.SLOT_BODY].getPotency();
+	if (this.equipment[Slot.BODY.ordinal()] != null) {
+	    total += this.equipment[Slot.BODY.ordinal()].getPotency();
 	}
-	if (this.equipment[EquipmentSlotConstants.SLOT_FEET] != null) {
-	    total += this.equipment[EquipmentSlotConstants.SLOT_FEET].getPotency();
+	if (this.equipment[Slot.FEET.ordinal()] != null) {
+	    total += this.equipment[Slot.FEET.ordinal()].getPotency();
 	}
 	return total;
     }
 
     public int getTotalEquipmentWeight() {
 	int total = 0;
-	for (int x = 0; x < EquipmentSlotConstants.MAX_SLOTS; x++) {
+	for (int x = 0; x < Strings.SLOTS_COUNT; x++) {
 	    if (this.equipment[x] != null) {
 		total += this.equipment[x].getWeight();
 	    }

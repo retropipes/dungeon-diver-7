@@ -15,11 +15,12 @@ public final class Strings {
     public static final int ARMOR_TYPES_COUNT = 6;
     public static final int WEAPON_TYPES_COUNT = 6;
     public static final int COLOR_COUNT = 8;
+    public static final int SLOTS_COUNT = 12;
     private static Locale ACTIVE = Locale.getDefault();
 
     private Strings() {
     }
-    
+
     public static void activeLanguageChanged(final Locale newActive) {
 	Strings.ACTIVE = newActive;
 	Difficulties.activeLanguageChanged();
@@ -34,6 +35,14 @@ public final class Strings {
 	for (int index = 0; index < result.length; index++) {
 	    result[index] = ResourceBundle.getBundle("locale.armortype", Strings.ACTIVE)
 		    .getString(Integer.toString(index));
+	}
+	return result;
+    }
+
+    public static String[] allSlots() {
+	String[] result = new String[Strings.SLOTS_COUNT];
+	for (int index = 0; index < result.length; index++) {
+	    result[index] = ResourceBundle.getBundle("locale.slot", Strings.ACTIVE).getString(Integer.toString(index));
 	}
 	return result;
     }
@@ -90,6 +99,10 @@ public final class Strings {
 
     public static String slot(final int index) {
 	return ResourceBundle.getBundle("locale.slot", Strings.ACTIVE).getString(Integer.toString(index));
+    }
+
+    public static String slot(final Slot item) {
+	return ResourceBundle.getBundle("locale.slot", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
     }
 
     public static String stat(final int index) {
