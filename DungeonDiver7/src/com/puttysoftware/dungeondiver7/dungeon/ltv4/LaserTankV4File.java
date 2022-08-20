@@ -9,8 +9,8 @@ import java.io.FileInputStream;
 
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeonData;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.ErrorString;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.utility.InvalidDungeonException;
 
 class LaserTankV4File {
@@ -29,8 +29,8 @@ class LaserTankV4File {
 		a.setData(t, levelCount);
 		final int[] found = a.findPlayer(1);
 		if (found == null) {
-		    throw new InvalidDungeonException(LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-			    LocaleConstants.ERROR_STRING_TANK_LOCATION));
+		    throw new InvalidDungeonException(Strings.error(
+			    ErrorString.PLAYER_LOCATION));
 		} else {
 		    a.setStartColumn(0, found[0]);
 		    a.setStartRow(0, found[1]);

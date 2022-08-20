@@ -35,8 +35,8 @@ import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.Direction;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.ErrorString;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.utility.DirectionResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.FormatConstants;
@@ -1473,8 +1473,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG6(dungeon, reader, formatVersion);
 	    return tempData;
 	} else {
-	    throw new IOException(LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-		    LocaleConstants.ERROR_STRING_UNKNOWN_DUNGEON_FORMAT));
+	    throw new IOException(Strings.error(
+		    ErrorString.UNKNOWN_FILE_FORMAT));
 	}
     }
 
@@ -1768,8 +1768,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	} else if (FormatConstants.isFormatVersionValidGeneration6(formatVersion)) {
 	    this.readSavedStateG6(reader, formatVersion);
 	} else {
-	    throw new IOException(LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-		    LocaleConstants.ERROR_STRING_UNKNOWN_DUNGEON_FORMAT));
+	    throw new IOException(Strings.error(
+		    ErrorString.UNKNOWN_FILE_FORMAT));
 	}
     }
 

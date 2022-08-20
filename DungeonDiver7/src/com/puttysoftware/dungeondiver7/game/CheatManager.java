@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
@@ -74,8 +75,8 @@ final class CheatManager {
 		}
 	    } else {
 		CommonDialogs.showErrorDialog(
-			LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-				LocaleConstants.ERROR_STRING_INVALID_CHEAT),
+			Strings.error(
+				ErrorString.INVALID_CHEAT),
 			LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
 				LocaleConstants.DIALOG_STRING_CHEATS));
 		return null;

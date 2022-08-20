@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
+import com.puttysoftware.dungeondiver7.locale.ErrorString;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
@@ -23,8 +25,8 @@ class ReplayFile {
 	final boolean success = ReplayFileLoader.loadLPB(file);
 	if (!success) {
 	    CommonDialogs.showErrorDialog(
-		    LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-			    LocaleConstants.ERROR_STRING_LPB_LOAD_FAILURE),
+		    Strings.error(
+			    ErrorString.REPLAY_LOAD_FAILURE),
 		    LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 			    LocaleConstants.GAME_STRING_LOAD_PLAYBACK));
 	} else {

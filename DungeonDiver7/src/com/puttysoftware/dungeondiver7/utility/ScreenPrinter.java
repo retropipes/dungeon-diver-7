@@ -27,6 +27,7 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.JFrame;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
@@ -60,14 +61,14 @@ public class ScreenPrinter {
 		job.print(doc, pras);
 	    }
 	} catch (final IOException ioe) {
-	    CommonDialogs.showErrorDialog(LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-		    LocaleConstants.ERROR_STRING_PRINTING_FAILURE), Strings.menu(Menu.PRINT_GAME_WINDOW));
+	    CommonDialogs.showErrorDialog(Strings.error(
+		    ErrorString.PRINTING_FAILURE), Strings.menu(Menu.PRINT_GAME_WINDOW));
 	} catch (final PrintException pe) {
-	    CommonDialogs.showErrorDialog(LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-		    LocaleConstants.ERROR_STRING_PRINTING_FAILURE), Strings.menu(Menu.PRINT_GAME_WINDOW));
+	    CommonDialogs.showErrorDialog(Strings.error(
+		    ErrorString.PRINTING_FAILURE), Strings.menu(Menu.PRINT_GAME_WINDOW));
 	} catch (final NullPointerException npe) {
-	    CommonDialogs.showErrorDialog(LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-		    LocaleConstants.ERROR_STRING_PRINTING_FAILURE), Strings.menu(Menu.PRINT_GAME_WINDOW));
+	    CommonDialogs.showErrorDialog(Strings.error(
+		    ErrorString.PRINTING_FAILURE), Strings.menu(Menu.PRINT_GAME_WINDOW));
 	}
     }
 }

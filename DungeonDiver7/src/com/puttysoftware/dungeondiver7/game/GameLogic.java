@@ -34,6 +34,7 @@ import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.Direction;
+import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
@@ -949,9 +950,7 @@ public final class GameLogic implements MenuSection {
 	try {
 	    this.resetPlayerLocation();
 	} catch (final InvalidDungeonException iae) {
-	    CommonDialogs.showErrorDialog(
-		    LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-			    LocaleConstants.ERROR_STRING_TANK_LOCATION),
+	    CommonDialogs.showErrorDialog(Strings.error(ErrorString.PLAYER_LOCATION),
 		    Strings.untranslated(Untranslated.PROGRAM_NAME));
 	    this.exitGame();
 	    return;
@@ -1089,15 +1088,11 @@ public final class GameLogic implements MenuSection {
 		m.setDirtyFlags(this.plMgr.getPlayerLocationZ());
 		this.processLevelExists();
 	    } else {
-		CommonDialogs.showErrorDialog(
-			LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-				LocaleConstants.ERROR_STRING_NO_PREVIOUS_LEVEL),
+		CommonDialogs.showErrorDialog(Strings.error(ErrorString.NO_PREVIOUS_LEVEL),
 			Strings.untranslated(Untranslated.PROGRAM_NAME));
 	    }
 	} else {
-	    CommonDialogs.showErrorDialog(
-		    LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-			    LocaleConstants.ERROR_STRING_NO_PREVIOUS_LEVEL),
+	    CommonDialogs.showErrorDialog(Strings.error(ErrorString.NO_PREVIOUS_LEVEL),
 		    Strings.untranslated(Untranslated.PROGRAM_NAME));
 	}
     }
@@ -1166,9 +1161,7 @@ public final class GameLogic implements MenuSection {
 	    try {
 		this.resetCurrentLevel();
 	    } catch (final InvalidDungeonException iae) {
-		CommonDialogs.showErrorDialog(
-			LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-				LocaleConstants.ERROR_STRING_TANK_LOCATION),
+		CommonDialogs.showErrorDialog(Strings.error(ErrorString.PLAYER_LOCATION),
 			Strings.untranslated(Untranslated.PROGRAM_NAME));
 		this.exitGame();
 		return;
@@ -1249,9 +1242,7 @@ public final class GameLogic implements MenuSection {
 	    try {
 		this.resetPlayerLocation();
 	    } catch (final InvalidDungeonException iae) {
-		CommonDialogs.showErrorDialog(
-			LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-				LocaleConstants.ERROR_STRING_TANK_LOCATION),
+		CommonDialogs.showErrorDialog(Strings.error(ErrorString.PLAYER_LOCATION),
 			Strings.untranslated(Untranslated.PROGRAM_NAME));
 		this.exitGame();
 		return;
@@ -1312,9 +1303,7 @@ public final class GameLogic implements MenuSection {
 	    try {
 		this.resetPlayerLocation();
 	    } catch (final InvalidDungeonException iae) {
-		CommonDialogs.showErrorDialog(
-			LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-				LocaleConstants.ERROR_STRING_TANK_LOCATION),
+		CommonDialogs.showErrorDialog(Strings.error(ErrorString.PLAYER_LOCATION),
 			Strings.untranslated(Untranslated.PROGRAM_NAME));
 		this.exitGame();
 		return;
@@ -1481,8 +1470,7 @@ public final class GameLogic implements MenuSection {
 	final AbstractDungeon m = app.getDungeonManager().getDungeon();
 	final int[] found = m.findPlayer(1);
 	if (found == null) {
-	    throw new InvalidDungeonException(LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-		    LocaleConstants.ERROR_STRING_TANK_LOCATION));
+	    throw new InvalidDungeonException(Strings.error(ErrorString.PLAYER_LOCATION));
 	}
 	this.plMgr.setPlayerLocation(found[0], found[1], found[2]);
     }
@@ -1631,9 +1619,7 @@ public final class GameLogic implements MenuSection {
 	    try {
 		this.resetCurrentLevel(false);
 	    } catch (final InvalidDungeonException iae) {
-		CommonDialogs.showErrorDialog(
-			LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-				LocaleConstants.ERROR_STRING_TANK_LOCATION),
+		CommonDialogs.showErrorDialog(Strings.error(ErrorString.PLAYER_LOCATION),
 			Strings.untranslated(Untranslated.PROGRAM_NAME));
 		this.exitGame();
 		return;
@@ -1643,9 +1629,7 @@ public final class GameLogic implements MenuSection {
 	} else {
 	    final boolean success = this.readSolution();
 	    if (!success) {
-		CommonDialogs.showErrorDialog(
-			LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-				LocaleConstants.ERROR_STRING_NO_SOLUTION_FILE),
+		CommonDialogs.showErrorDialog(Strings.error(ErrorString.NO_SOLUTION_FILE),
 			Strings.untranslated(Untranslated.PROGRAM_NAME));
 	    } else {
 		this.replaying = true;
@@ -1655,9 +1639,7 @@ public final class GameLogic implements MenuSection {
 		try {
 		    this.resetCurrentLevel(false);
 		} catch (final InvalidDungeonException iae) {
-		    CommonDialogs.showErrorDialog(
-			    LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-				    LocaleConstants.ERROR_STRING_TANK_LOCATION),
+		    CommonDialogs.showErrorDialog(Strings.error(ErrorString.PLAYER_LOCATION),
 			    Strings.untranslated(Untranslated.PROGRAM_NAME));
 		    this.exitGame();
 		    return;
@@ -1746,9 +1728,7 @@ public final class GameLogic implements MenuSection {
 		try {
 		    this.resetPlayerLocation();
 		} catch (final InvalidDungeonException iae) {
-		    CommonDialogs.showErrorDialog(
-			    LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-				    LocaleConstants.ERROR_STRING_TANK_LOCATION),
+		    CommonDialogs.showErrorDialog(Strings.error(ErrorString.PLAYER_LOCATION),
 			    Strings.untranslated(Untranslated.PROGRAM_NAME));
 		    this.exitGame();
 		    return;

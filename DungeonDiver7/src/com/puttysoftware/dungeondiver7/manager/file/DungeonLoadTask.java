@@ -20,6 +20,8 @@ import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
+import com.puttysoftware.dungeondiver7.locale.ErrorString;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
@@ -74,10 +76,10 @@ public class DungeonLoadTask extends Thread {
 		    app.getDungeonManager().setDungeonProtected(true);
 		} catch (final ZipException ze) {
 		    CommonDialogs.showErrorDialog(
-			    LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-				    LocaleConstants.ERROR_STRING_BAD_PROTECTION_KEY),
-			    LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-				    LocaleConstants.ERROR_STRING_PROTECTION));
+			    Strings.error(
+				    ErrorString.BAD_PROTECTION_KEY),
+			    Strings.error(
+				    ErrorString.PROTECTION));
 		    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 		    return;
 		} finally {
@@ -97,8 +99,8 @@ public class DungeonLoadTask extends Thread {
 	    }
 	    gameDungeon = gameDungeon.readDungeon();
 	    if (gameDungeon == null) {
-		throw new InvalidDungeonException(LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-			LocaleConstants.ERROR_STRING_UNKNOWN_OBJECT));
+		throw new InvalidDungeonException(Strings.error(
+			ErrorString.UNKNOWN_OBJECT));
 	    }
 	    app.getDungeonManager().setDungeon(gameDungeon);
 	    final boolean playerExists = gameDungeon.doesPlayerExist(0);

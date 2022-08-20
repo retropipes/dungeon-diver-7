@@ -7,8 +7,8 @@ package com.puttysoftware.dungeondiver7.manager.file;
 
 import java.io.IOException;
 
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.ErrorString;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.utility.FormatConstants;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
@@ -21,8 +21,8 @@ public class DungeonFilePrefixHandler implements AbstractPrefixIO {
 	final byte formatVer = DungeonFilePrefixHandler.readFormatVersion(reader);
 	final boolean res = DungeonFilePrefixHandler.checkFormatVersion(formatVer);
 	if (!res) {
-	    throw new IOException(LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-		    LocaleConstants.ERROR_STRING_UNKNOWN_DUNGEON_FORMAT));
+	    throw new IOException(Strings.error(
+		    ErrorString.UNKNOWN_FILE_FORMAT));
 	}
 	return formatVer;
     }

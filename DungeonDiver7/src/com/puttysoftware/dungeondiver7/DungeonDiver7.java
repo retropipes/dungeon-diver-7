@@ -9,7 +9,8 @@ import com.puttysoftware.diane.ErrorLogger;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.ErrorString;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsRequestHandler;
@@ -96,10 +97,8 @@ public class DungeonDiver7 {
 
     private static void preInit() {
 	LocaleLoader.setDefaultLanguage();
-	DungeonDiver7.ERROR_TITLE = LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-		LocaleConstants.ERROR_STRING_ERROR_TITLE);
-	DungeonDiver7.ERROR_MESSAGE = LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE,
-		LocaleConstants.ERROR_STRING_ERROR_MESSAGE);
+	DungeonDiver7.ERROR_TITLE = Strings.error(ErrorString.ERROR_TITLE);
+	DungeonDiver7.ERROR_MESSAGE = Strings.error(ErrorString.ERROR_MESSAGE);
 	AbstractCreature.computeActionCap(DungeonDiver7.BATTLE_MAP_SIZE, DungeonDiver7.BATTLE_MAP_SIZE);
     }
 }

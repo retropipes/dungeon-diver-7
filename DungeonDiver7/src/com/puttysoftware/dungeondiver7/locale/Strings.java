@@ -45,6 +45,10 @@ public final class Strings {
     public static String direction(final Direction item) {
 	return ResourceBundle.getBundle("locale.direction").getString(Integer.toString(item.ordinal()));
     }
+    
+    public static String error(final ErrorString item) {
+	return ResourceBundle.getBundle("locale.error").getString(Integer.toString(item.ordinal()));
+    }
 
     public static String menu(final Menu item) {
 	return ResourceBundle.getBundle("locale.menu").getString(Integer.toString(item.ordinal()));

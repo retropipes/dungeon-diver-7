@@ -3,7 +3,6 @@ package com.puttysoftware.dungeondiver7.locale.old;
 public class LocaleConstants {
     // File Constants
     static final String STRINGS_EXTENSION = ".properties";
-    public static final int ERROR_STRINGS_FILE = 1;
     public static final int PREFS_STRINGS_FILE = 2;
     public static final int GENERIC_STRINGS_FILE = 3;
     public static final int OBJECT_STRINGS_FILE = 4;
@@ -15,8 +14,6 @@ public class LocaleConstants {
     public static final int NOTL_STRINGS_FILE = -1;
     public static final int IMAGE_STRINGS_FILE = -2;
     public static final int COLOR_STRINGS_FILE = -3;
-    public static final int STRINGS_FILE = -4;
-    private static final String ERROR_STRINGS_FILE_NAME = "error";
     private static final String PREFS_STRINGS_FILE_NAME = "prefs";
     private static final String GENERIC_STRINGS_FILE_NAME = "generic";
     private static final String OBJECT_STRINGS_FILE_NAME = "object";
@@ -24,19 +21,17 @@ public class LocaleConstants {
     private static final String MESSAGE_STRINGS_FILE_NAME = "message";
     private static final String EDITOR_STRINGS_FILE_NAME = "editor";
     private static final String GAME_STRINGS_FILE_NAME = "game";
-    static final String[] STRINGS_FILES = new String[] { null, LocaleConstants.ERROR_STRINGS_FILE_NAME,
-	    LocaleConstants.PREFS_STRINGS_FILE_NAME, LocaleConstants.GENERIC_STRINGS_FILE_NAME,
-	    LocaleConstants.OBJECT_STRINGS_FILE_NAME, null,
+    static final String[] STRINGS_FILES = new String[] { null, null, LocaleConstants.PREFS_STRINGS_FILE_NAME,
+	    LocaleConstants.GENERIC_STRINGS_FILE_NAME, LocaleConstants.OBJECT_STRINGS_FILE_NAME, null,
 	    LocaleConstants.DIALOG_STRINGS_FILE_NAME, LocaleConstants.MESSAGE_STRINGS_FILE_NAME,
 	    LocaleConstants.EDITOR_STRINGS_FILE_NAME, LocaleConstants.GAME_STRINGS_FILE_NAME };
     private static final String LANGUAGE_STRINGS_FILE_NAME = "language";
     private static final String NOTL_STRINGS_FILE_NAME = "notranslate";
     private static final String IMAGE_STRINGS_FILE_NAME = "image";
     private static final String COLOR_STRINGS_FILE_NAME = "color";
-    private static final String STRINGS_FILE_NAME = "direction";
     static final String[] LANGUAGE_STRINGS_FILES = new String[] { LocaleConstants.LANGUAGE_STRINGS_FILE_NAME,
 	    LocaleConstants.NOTL_STRINGS_FILE_NAME, LocaleConstants.IMAGE_STRINGS_FILE_NAME,
-	    LocaleConstants.COLOR_STRINGS_FILE_NAME, LocaleConstants.STRINGS_FILE_NAME };
+	    LocaleConstants.COLOR_STRINGS_FILE_NAME };
     static final String LOCALIZED_LANGUAGE_FILE_NAME = "localizedlanguages.txt";
     // No Translate String Constants
     public static final int NOTL_STRING_SHOW_ABOUT_DIALOG_METHOD = 3;
@@ -194,21 +189,6 @@ public class LocaleConstants {
     public static final int NOTL_STRING_PREFS_KEY_ENABLE_MUSIC = 156;
     public static final int NOTL_STRING_PREFS_KEY_EDITOR_LAYOUT_ID = 157;
     public static final int NOTL_STRING_DUNGEON_FORMAT_ERA = 158;
-    // Error String Constants
-    public static final int ERROR_STRING_ERROR_TITLE = 0;
-    public static final int ERROR_STRING_ERROR_MESSAGE = 1;
-    public static final int ERROR_STRING_TANK_LOCATION = 2;
-    public static final int ERROR_STRING_TEMP_DIR = 3;
-    public static final int ERROR_STRING_INVALID_CHEAT = 4;
-    public static final int ERROR_STRING_LPB_LOAD_FAILURE = 5;
-    public static final int ERROR_STRING_NO_PREVIOUS_LEVEL = 6;
-    public static final int ERROR_STRING_NO_SOLUTION_FILE = 7;
-    // public static final int ERROR_STRING_LTG_LOAD_FAILURE = 8;
-    public static final int ERROR_STRING_PRINTING_FAILURE = 9;
-    public static final int ERROR_STRING_UNKNOWN_DUNGEON_FORMAT = 10;
-    public static final int ERROR_STRING_UNKNOWN_OBJECT = 11;
-    public static final int ERROR_STRING_BAD_PROTECTION_KEY = 12;
-    public static final int ERROR_STRING_PROTECTION = 13;
     // Prefs String Constants
     public static final int PREFS_STRING_TITLE = 0;
     public static final int PREFS_STRING_ENABLE_SOUNDS = 1;
@@ -250,7 +230,7 @@ public class LocaleConstants {
     public static final int GENERIC_STRING_VERTICAL = 17;
     public static final int GENERIC_STRING_TUNNEL = 18;
     public static final int GENERIC_STRING_UN_NAMED_LEVEL = 19;
-    public static final int GENERIC_STRING_UNKNOWN_AUTHOR = 20; 
+    public static final int GENERIC_STRING_UNKNOWN_AUTHOR = 20;
     // Dialog String Constants
     public static final int DIALOG_STRING_DEAD_MESSAGE = 0;
     public static final int DIALOG_STRING_DEAD_TITLE = 1;

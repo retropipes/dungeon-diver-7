@@ -20,6 +20,7 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
 import com.puttysoftware.dungeondiver7.locale.Direction;
+import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
@@ -82,7 +83,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	final boolean res = base.mkdirs();
 	if (!res) {
 	    throw new IOException(
-		    LocaleLoader.loadString(LocaleConstants.ERROR_STRINGS_FILE, LocaleConstants.ERROR_STRING_TEMP_DIR));
+		    Strings.error( ErrorString.TEMP_DIR));
 	}
     }
 
