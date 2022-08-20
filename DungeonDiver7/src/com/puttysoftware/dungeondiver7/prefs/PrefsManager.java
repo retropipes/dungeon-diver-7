@@ -10,6 +10,7 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Locale;
 
 import javax.swing.JFrame;
 
@@ -98,7 +99,7 @@ public class PrefsManager {
 	PrefsManager.storeMgr.setInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		LocaleConstants.NOTL_STRING_PREFS_KEY_LANGUAGE_ID), value);
 	if (oldValue != value) {
-	    LocaleLoader.activeLanguageChanged(value);
+	    Strings.changeLanguage(Locale.getDefault());
 	}
     }
 

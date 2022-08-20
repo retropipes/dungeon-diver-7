@@ -21,8 +21,17 @@ public final class Strings {
     private Strings() {
     }
 
-    public static void activeLanguageChanged(final Locale newActive) {
-	Strings.ACTIVE = newActive;
+    public static void init() {
+	Strings.ACTIVE = Locale.getDefault();
+	Strings.activeLanguageChanged();
+    }
+    
+    public static void changeLanguage(final Locale newLang) {
+	Strings.ACTIVE = newLang;
+	Strings.activeLanguageChanged();
+    }
+
+    public static void activeLanguageChanged() {
 	Difficulties.activeLanguageChanged();
 	DungeonConstants.activeLanguageChanged();
 	DungeonDiver7.getStuffBag().activeLanguageChanged();
@@ -67,7 +76,7 @@ public final class Strings {
     public static String boss(final int index) {
 	return ResourceBundle.getBundle("locale.boss", Strings.ACTIVE).getString(Integer.toString(index));
     }
-    
+
     public static String cheat(final int index) {
 	return ResourceBundle.getBundle("locale.cheat", Strings.ACTIVE).getString(Integer.toString(index));
     }

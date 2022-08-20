@@ -10,6 +10,5 @@ class FilePaths {
 	// Do nothing
     }
 
-    static final String BASE = "/locale/old/";
-    static final String LANG_DEFAULT = "en/";
+    static final String BASE = "/locale/";
 }

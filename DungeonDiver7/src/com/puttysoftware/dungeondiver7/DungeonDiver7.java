@@ -11,7 +11,6 @@ import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsRequestHandler;
 import com.puttysoftware.integration.Integration;
@@ -83,7 +82,6 @@ public class DungeonDiver7 {
 	    CommonDialogs.setIcon(LogoLoader.getMicroLogo());
 	    // Initialize preferences
 	    PrefsManager.readPrefs();
-	    LocaleLoader.activeLanguageChanged(PrefsManager.getLanguageID());
 	    // Register platform hooks
 	    i.setAboutHandler(DungeonDiver7.stuffBag.getAboutDialog());
 	    i.setPreferencesHandler(new PrefsRequestHandler());
@@ -96,7 +94,7 @@ public class DungeonDiver7 {
     }
 
     private static void preInit() {
-	LocaleLoader.setDefaultLanguage();
+	Strings.init();
 	DungeonDiver7.ERROR_TITLE = Strings.error(ErrorString.ERROR_TITLE);
 	DungeonDiver7.ERROR_MESSAGE = Strings.error(ErrorString.ERROR_MESSAGE);
 	AbstractCreature.computeActionCap(DungeonDiver7.BATTLE_MAP_SIZE, DungeonDiver7.BATTLE_MAP_SIZE);
