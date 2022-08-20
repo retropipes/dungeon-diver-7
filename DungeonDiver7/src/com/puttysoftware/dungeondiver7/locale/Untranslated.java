@@ -8,6 +8,5 @@ public enum Untranslated {
     WINDOWS_SUPPORT,
     UNIX_SUPPORT,
     COMPANY_SUBFOLDER,
-    PROGRAM_SUBFOLDER,
     PROGRAM_NAME
 }
