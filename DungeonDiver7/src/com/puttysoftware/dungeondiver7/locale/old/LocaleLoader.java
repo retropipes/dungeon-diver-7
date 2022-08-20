@@ -10,7 +10,6 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.names.Zones;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DifficultyConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -25,30 +24,8 @@ public class LocaleLoader {
     private static ArrayList<String> LOCALIZED_LANGUAGES;
     private static int LANGUAGE_ID = 0;
     private static String LANGUAGE_NAME = null;
-    private static final Properties LOCAL = new Properties();
     private static final Properties GLOBAL = new Properties();
     private static final String ERROR = "Error!";
-
-    public static String loadString(final LocalizedFile file, final int key) {
-	return LocaleLoader.loadString(file, Integer.toString(key));
-    }
-
-    public static String[] loadAllStrings(final LocalizedFile file, final int max) {
-	final String[] retVal = new String[max];
-	try (InputStream stream = LocaleLoader.class.getResourceAsStream(FilePaths.BASE + FilePaths.LANG_DEFAULT
-		+ LocalizedFileList.LIST[file.ordinal()] + FileExtensions.getStringExtensionWithPeriod())) {
-	    LocaleLoader.LOCAL.load(stream);
-	    for (int k = 0; k < max; k++) {
-		final String key = Zones.getZoneNumber(k);
-		retVal[k] = LocaleLoader.LOCAL.getProperty(key);
-	    }
-	} catch (final IOException ioe) {
-	    for (int k = 0; k < max; k++) {
-		retVal[k] = LocaleLoader.ERROR;
-	    }
-	}
-	return retVal;
-    }
 
     public static String[] loadAllGlobalStrings(final GlobalFile file, final int max) {
 	final String[] retVal = new String[max];
@@ -65,16 +42,6 @@ public class LocaleLoader {
 	    }
 	}
 	return retVal;
-    }
-
-    public static String loadString(final LocalizedFile file, final String key) {
-	try (InputStream stream = LocaleLoader.class.getResourceAsStream(FilePaths.BASE + FilePaths.LANG_DEFAULT
-		+ LocalizedFileList.LIST[file.ordinal()] + FileExtensions.getStringExtensionWithPeriod())) {
-	    LocaleLoader.LOCAL.load(stream);
-	    return LocaleLoader.LOCAL.getProperty(key);
-	} catch (final IOException ioe) {
-	    return LocaleLoader.ERROR;
-	}
     }
 
     public static String loadGlobalString(final GlobalFile file, final int key) {

@@ -20,8 +20,7 @@ import com.puttysoftware.dungeondiver7.creature.StatConstants;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.locale.old.LocalizedFile;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 
 public class StatisticsViewer {
     // Fields
@@ -48,10 +47,10 @@ public class StatisticsViewer {
 		if (x == StatConstants.STAT_HIT || x == StatConstants.STAT_EVADE) {
 		    final double fmtVal = value / 100.0;
 		    StatisticsViewer.statisticsValues[x]
-			    .setText(" " + LocaleLoader.loadString(LocalizedFile.STATS, x) + ": " + fmtVal + "%  ");
+			    .setText(" " + Strings.stat(x) + ": " + fmtVal + "%  ");
 		} else {
 		    StatisticsViewer.statisticsValues[x]
-			    .setText(" " + LocaleLoader.loadString(LocalizedFile.STATS, x) + ": " + value + "  ");
+			    .setText(" " + Strings.stat(x) + ": " + value + "  ");
 		}
 	    }
 	    StatisticsViewer.statisticsFrame.pack();

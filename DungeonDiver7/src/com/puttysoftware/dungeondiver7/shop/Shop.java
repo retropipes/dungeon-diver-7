@@ -12,16 +12,15 @@ import com.puttysoftware.diane.gui.ListWithImageDialog;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
-import com.puttysoftware.dungeondiver7.item.ArmorConstants;
 import com.puttysoftware.dungeondiver7.item.Equipment;
 import com.puttysoftware.dungeondiver7.item.EquipmentFactory;
-import com.puttysoftware.dungeondiver7.item.WeaponConstants;
 import com.puttysoftware.dungeondiver7.loader.ArmorImageManager;
 import com.puttysoftware.dungeondiver7.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.loader.WeaponImageManager;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class Shop {
@@ -278,18 +277,18 @@ public class Shop {
 	    SoundLoader.playSound(SoundConstants.SHOP);
 	    final int zoneID = PartyManager.getParty().getZone();
 	    if (Shop.this.type == ShopType.WEAPONS) {
-		Shop.this.imageChoices = new BufferedImageIcon[WeaponConstants.TYPE_COUNT];
-		for (int i = 0; i < WeaponConstants.TYPE_COUNT; i++) {
+		Shop.this.imageChoices = new BufferedImageIcon[Strings.WEAPON_TYPES_COUNT];
+		for (int i = 0; i < Strings.WEAPON_TYPES_COUNT; i++) {
 		    Shop.this.imageChoices[i] = WeaponImageManager.getImage(i, zoneID);
 		}
-		Shop.this.typeChoices = WeaponConstants.getWeaponChoices();
+		Shop.this.typeChoices = Strings.allWeaponTypes();
 		Shop.this.typeDefault = 0;
 	    } else if (Shop.this.type == ShopType.ARMOR) {
-		Shop.this.imageChoices = new BufferedImageIcon[ArmorConstants.TYPE_COUNT];
-		for (int i = 0; i < ArmorConstants.TYPE_COUNT; i++) {
+		Shop.this.imageChoices = new BufferedImageIcon[Strings.ARMOR_TYPES_COUNT];
+		for (int i = 0; i < Strings.ARMOR_TYPES_COUNT; i++) {
 		    Shop.this.imageChoices[i] = ArmorImageManager.getImage(i, zoneID);
 		}
-		Shop.this.typeChoices = ArmorConstants.getArmorChoices();
+		Shop.this.typeChoices = Strings.allArmorTypes();
 		Shop.this.typeDefault = 0;
 	    } else {
 		// Invalid shop type
@@ -318,9 +317,9 @@ public class Shop {
 	    // Stage 2
 	    Shop.this.index = PartyManager.getParty().getZone();
 	    if (Shop.this.type == ShopType.WEAPONS) {
-		Shop.this.result = EquipmentFactory.getWeaponName(Shop.this.index, Shop.this.typeIndex);
+		Shop.this.result = Strings.weaponName(Shop.this.index, Shop.this.typeIndex);
 	    } else if (Shop.this.type == ShopType.ARMOR) {
-		Shop.this.result = EquipmentFactory.getArmorName(Shop.this.index, Shop.this.typeIndex);
+		Shop.this.result = Strings.armorName(Shop.this.index, Shop.this.typeIndex);
 	    }
 	    return true;
 	}

@@ -5,8 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.item;
 
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.locale.old.LocalizedFile;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 
 public class EquipmentSlotConstants {
     static final int SLOT_NONE = -1;
@@ -24,7 +23,7 @@ public class EquipmentSlotConstants {
 	if (EquipmentSlotConstants.SLOT_NAMES == null) {
 	    final String[] temp = new String[EquipmentSlotConstants.MAX_SLOTS];
 	    for (int x = 0; x < temp.length; x++) {
-		temp[x] = LocaleLoader.loadString(LocalizedFile.SLOTS, x);
+		temp[x] = Strings.slot(x);
 	    }
 	    EquipmentSlotConstants.SLOT_NAMES = temp;
 	}
