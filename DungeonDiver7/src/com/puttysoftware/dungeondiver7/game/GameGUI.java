@@ -37,9 +37,11 @@ import com.puttysoftware.diane.gui.DrawGrid;
 import com.puttysoftware.dungeondiver7.Accelerators;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
+import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterRegistration;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import com.puttysoftware.dungeondiver7.dungeon.current.GenerateDungeonTask;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Darkness;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Player;
@@ -97,7 +99,8 @@ class GameGUI {
     JCheckBoxMenuItem gameEraDistantPast, gameEraPast, gameEraPresent, gameEraFuture, gameEraDistantFuture;
     private JMenuItem gameReset, gameShowTable, gameReplaySolution, gameLoadLPB, gamePreviousLevel, gameSkipLevel,
 	    gameLoadLevel, gameShowHint, gameCheats, gameChangeOtherAmmoMode, gameChangeOtherToolMode,
-	    gameChangeOtherRangeMode;
+	    gameChangeOtherRangeMode, gameNewGame, gameEquipment, gameRegisterCharacter, gameUnregisterCharacter,
+	    gameRemoveCharacter, gameViewStats;
     private JCheckBoxMenuItem gameRecordSolution;
 
     // Constructors
@@ -470,6 +473,7 @@ class GameGUI {
     }
 
     public void enableModeCommands() {
+	this.gameNewGame.setEnabled(false);
 	this.gameReset.setEnabled(true);
 	this.gameShowTable.setEnabled(true);
 	this.gameReplaySolution.setEnabled(true);
@@ -488,9 +492,15 @@ class GameGUI {
 	this.gameEraPresent.setEnabled(true);
 	this.gameEraFuture.setEnabled(true);
 	this.gameEraDistantFuture.setEnabled(true);
+	this.gameRegisterCharacter.setEnabled(false);
+	this.gameUnregisterCharacter.setEnabled(false);
+	this.gameRemoveCharacter.setEnabled(false);
+	this.gameEquipment.setEnabled(true);
+	this.gameViewStats.setEnabled(true);
     }
 
     public void disableModeCommands() {
+	this.gameNewGame.setEnabled(true);
 	this.gameReset.setEnabled(false);
 	this.gameShowTable.setEnabled(false);
 	this.gameReplaySolution.setEnabled(false);
@@ -509,6 +519,11 @@ class GameGUI {
 	this.gameEraPresent.setEnabled(false);
 	this.gameEraFuture.setEnabled(false);
 	this.gameEraDistantFuture.setEnabled(false);
+	this.gameRegisterCharacter.setEnabled(true);
+	this.gameUnregisterCharacter.setEnabled(true);
+	this.gameRemoveCharacter.setEnabled(true);
+	this.gameEquipment.setEnabled(false);
+	this.gameViewStats.setEnabled(false);
     }
 
     public void setInitialState() {
@@ -519,6 +534,7 @@ class GameGUI {
 	final MenuHandler mhandler = new MenuHandler();
 	final JMenu gameMenu = new JMenu(Strings.menu(Menu.GAME));
 	this.gameTimeTravelSubMenu = new JMenu(Strings.menu(Menu.TIME_TRAVEL));
+	this.gameNewGame = new JMenuItem(Strings.menu(Menu.NEW_GAME));
 	this.gameReset = new JMenuItem(Strings.menu(Menu.RESET_CURRENT_LEVEL));
 	this.gameShowTable = new JMenuItem(Strings.menu(Menu.SHOW_SCORE_TABLE));
 	this.gameReplaySolution = new JMenuItem(Strings.menu(Menu.REPLAY_SOLUTION));
@@ -537,6 +553,12 @@ class GameGUI {
 	this.gameEraPresent = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.PRESENT), true);
 	this.gameEraFuture = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.FUTURE), false);
 	this.gameEraDistantFuture = new JCheckBoxMenuItem(Strings.timeTravel(TimeTravel.FAR_FUTURE), false);
+	this.gameRegisterCharacter = new JMenuItem(Strings.menu(Menu.REGISTER_CHARACTER));
+	this.gameUnregisterCharacter = new JMenuItem(Strings.menu(Menu.UNREGISTER_CHARACTER));
+	this.gameRemoveCharacter = new JMenuItem(Strings.menu(Menu.REMOVE_CHARACTER));
+	this.gameEquipment = new JMenuItem(Strings.menu(Menu.SHOW_EQUIPMENT));
+	this.gameViewStats = new JMenuItem(Strings.menu(Menu.VIEW_STATISTICS));
+	this.gameNewGame.addActionListener(mhandler);
 	this.gameReset.addActionListener(mhandler);
 	this.gameShowTable.addActionListener(mhandler);
 	this.gameReplaySolution.addActionListener(mhandler);
@@ -555,11 +577,17 @@ class GameGUI {
 	this.gameEraPresent.addActionListener(mhandler);
 	this.gameEraFuture.addActionListener(mhandler);
 	this.gameEraDistantFuture.addActionListener(mhandler);
+	this.gameRegisterCharacter.addActionListener(mhandler);
+	this.gameUnregisterCharacter.addActionListener(mhandler);
+	this.gameRemoveCharacter.addActionListener(mhandler);
+	this.gameEquipment.addActionListener(mhandler);
+	this.gameViewStats.addActionListener(mhandler);
 	this.gameTimeTravelSubMenu.add(this.gameEraDistantPast);
 	this.gameTimeTravelSubMenu.add(this.gameEraPast);
 	this.gameTimeTravelSubMenu.add(this.gameEraPresent);
 	this.gameTimeTravelSubMenu.add(this.gameEraFuture);
 	this.gameTimeTravelSubMenu.add(this.gameEraDistantFuture);
+	gameMenu.add(this.gameNewGame);
 	gameMenu.add(this.gameReset);
 	gameMenu.add(this.gameShowTable);
 	gameMenu.add(this.gameReplaySolution);
@@ -574,6 +602,11 @@ class GameGUI {
 	gameMenu.add(this.gameChangeOtherToolMode);
 	gameMenu.add(this.gameChangeOtherRangeMode);
 	gameMenu.add(this.gameTimeTravelSubMenu);
+	gameMenu.add(this.gameEquipment);
+	gameMenu.add(this.gameRegisterCharacter);
+	gameMenu.add(this.gameUnregisterCharacter);
+	gameMenu.add(this.gameRemoveCharacter);
+	gameMenu.add(this.gameViewStats);
 	return gameMenu;
     }
 
@@ -1221,6 +1254,32 @@ class GameGUI {
 		    gui.gameEraPresent.setSelected(false);
 		    gui.gameEraFuture.setSelected(false);
 		    gui.gameEraDistantFuture.setSelected(true);
+		} else if (cmd.equals(Strings.menu(Menu.NEW_GAME))) {
+		    // Start a new game
+		    final boolean proceed = app.getGameLogic().newGame();
+		    if (proceed) {
+			new GenerateDungeonTask(true).start();
+		    }
+		} else if (cmd.equals(Strings.menu(Menu.REGISTER_CHARACTER))) {
+		    // Register Character
+		    CharacterRegistration.registerCharacter();
+		} else if (cmd.equals(Strings.menu(Menu.UNREGISTER_CHARACTER))) {
+		    // Unregister Character
+		    CharacterRegistration.unregisterCharacter();
+		} else if (cmd.equals(Strings.menu(Menu.REMOVE_CHARACTER))) {
+		    // Confirm
+		    final int confirm = CommonDialogs
+			    .showConfirmDialog("WARNING: This will DELETE the character from disk,\n"
+				    + "and CANNOT be undone! Proceed anyway?", "Remove Character");
+		    if (confirm == CommonDialogs.YES_OPTION) {
+			// Remove Character
+			CharacterRegistration.removeCharacter();
+		    }
+		} else if (cmd.equals(Strings.menu(Menu.SHOW_EQUIPMENT))) {
+		    InventoryViewer.showEquipmentDialog();
+		} else if (cmd.equals(Strings.menu(Menu.VIEW_STATISTICS))) {
+		    // View Statistics
+		    StatisticsViewer.viewStatistics();
 		}
 		app.getMenuManager().checkFlags();
 	    } catch (final Exception ex) {
