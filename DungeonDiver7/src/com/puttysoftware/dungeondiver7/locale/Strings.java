@@ -67,6 +67,10 @@ public final class Strings {
     public static String boss(final int index) {
 	return ResourceBundle.getBundle("locale.boss", Strings.ACTIVE).getString(Integer.toString(index));
     }
+    
+    public static String cheat(final int index) {
+	return ResourceBundle.getBundle("locale.cheat", Strings.ACTIVE).getString(Integer.toString(index));
+    }
 
     public static String color(final int index) {
 	return ResourceBundle.getBundle("locale.color", Strings.ACTIVE).getString(Integer.toString(index));
@@ -87,6 +91,10 @@ public final class Strings {
 
     public static String generic(final Generic item) {
 	return ResourceBundle.getBundle("locale.generic", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
+    }
+
+    public static String item(final ItemString item) {
+	return ResourceBundle.getBundle("locale.item", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
     }
 
     public static String menu(final Menu item) {
@@ -135,19 +143,19 @@ public final class Strings {
 	return ResourceBundle.getBundle("locale.zone", Strings.ACTIVE).getString(Integer.toString(index));
     }
 
-    public static String group() {
-	return ResourceBundle.getBundle("locale.group", Strings.ACTIVE).getString(Integer.toString(0));
+    public static String group(final Group item) {
+	return ResourceBundle.getBundle("locale.group", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
     }
 
     public static String armorName(final int mID, final int aID) {
-	return DianeStrings.subst(Strings.group(), Strings.armorType(mID), Strings.armor(aID));
+	return DianeStrings.subst(Strings.group(Group.PAIR), Strings.armorType(mID), Strings.armor(aID));
     }
 
     public static String weaponName(final int mID, final int wID) {
-	return DianeStrings.subst(Strings.group(), Strings.weaponType(mID), Strings.weapon(wID));
+	return DianeStrings.subst(Strings.group(Group.PAIR), Strings.weaponType(mID), Strings.weapon(wID));
     }
 
     public static String monsterzone(final int zoneID, final int monID) {
-	return DianeStrings.subst(Strings.group(), Strings.zone(zoneID), Strings.monster(monID));
+	return DianeStrings.subst(Strings.group(Group.PAIR), Strings.zone(zoneID), Strings.monster(monID));
     }
 }
