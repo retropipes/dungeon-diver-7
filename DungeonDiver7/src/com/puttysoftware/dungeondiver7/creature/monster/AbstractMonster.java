@@ -9,7 +9,7 @@ import com.puttysoftware.dungeondiver7.ai.AbstractMapAIRoutine;
 import com.puttysoftware.dungeondiver7.ai.MapAIRoutinePicker;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.names.MonsterNames;
+import com.puttysoftware.dungeondiver7.names.Monsters;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.spell.SpellBook;
 import com.puttysoftware.randomrange.RandomRange;
@@ -38,7 +38,7 @@ public abstract class AbstractMonster extends AbstractCreature {
     protected void configureDefaults() {
 	this.monID = RandomRange.generate(0, 99);
 	final int zoneID = PartyManager.getParty().getZone();
-	this.type = MonsterNames.getType(zoneID, this.monID);
+	this.type = Monsters.getType(zoneID, this.monID);
     }
 
     protected void overrideDefaults(final int oID, final String oType) {

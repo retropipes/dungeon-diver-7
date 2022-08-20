@@ -11,7 +11,7 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import com.puttysoftware.dungeondiver7.names.MonsterNames;
+import com.puttysoftware.dungeondiver7.names.Monsters;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class BossImageManager {
@@ -21,7 +21,7 @@ public class BossImageManager {
 
     public static BufferedImageIcon getBossImage(final int zoneID) {
 	// Get it from the cache
-	return BossImageCache.getCachedImage(MonsterNames.getImageFilename(zoneID));
+	return BossImageCache.getCachedImage(Monsters.getImageFilename(zoneID));
     }
 
     public static BufferedImageIcon getFinalBossImage() {

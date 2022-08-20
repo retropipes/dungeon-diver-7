@@ -7,9 +7,9 @@ package com.puttysoftware.dungeondiver7.names;
 
 import com.puttysoftware.dungeondiver7.locale.Strings;
 
-public class MonsterNames {
+public class Monsters {
     // Private constructor
-    private MonsterNames() {
+    private Monsters() {
 	// Do nothing
     }
 

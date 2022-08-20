@@ -8,6 +8,10 @@ public final class Strings {
     private Strings() {
     }
 
+    public static String boss(final int index) {
+	return ResourceBundle.getBundle("locale.boss").getString(Integer.toString(index));
+    }
+
     public static String difficulty(final Difficulty item) {
 	return ResourceBundle.getBundle("locale.difficulty").getString(Integer.toString(item.ordinal()));
     }

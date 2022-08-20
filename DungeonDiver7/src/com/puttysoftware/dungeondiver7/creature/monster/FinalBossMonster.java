@@ -9,7 +9,7 @@ import com.puttysoftware.dungeondiver7.ai.MapAIRoutinePicker;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.loader.BossImageManager;
-import com.puttysoftware.dungeondiver7.names.BossNames;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.spell.SpellBook;
 import com.puttysoftware.images.BufferedImageIcon;
@@ -77,7 +77,7 @@ public class FinalBossMonster extends AbstractMonster {
     @Override
     public void loadCreature() {
 	final int zoneID = PartyManager.getParty().getZone();
-	final String bossName = BossNames.getName(zoneID);
+	final String bossName = Strings.boss(zoneID);
 	this.overrideDefaults(zoneID, bossName);
 	final int newLevel = zoneID + 6;
 	this.setLevel(newLevel);
