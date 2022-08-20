@@ -14,7 +14,6 @@ public class ColorConstants {
     public static final int COLOR_RED = 5;
     public static final int COLOR_WHITE = 6;
     public static final int COLOR_YELLOW = 7;
-    public static final int COLOR_COUNT = 8;
 
     private ColorConstants() {
 	// Do nothing

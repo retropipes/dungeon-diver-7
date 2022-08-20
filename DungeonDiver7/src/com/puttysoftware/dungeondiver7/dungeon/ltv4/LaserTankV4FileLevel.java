@@ -30,9 +30,9 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.ThinIce;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Tunnel;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Water;
+import com.puttysoftware.dungeondiver7.locale.Colors;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.ColorConstants;
 
 class LaserTankV4FileLevel {
     // Fields
@@ -169,42 +169,42 @@ class LaserTankV4FileLevel {
 		    case 64:
 		    case 65:
 			ao = new Tunnel();
-			ao.setColor(ColorConstants.COLOR_RED);
+			ao.setColor(Colors.RED);
 			break;
 		    case 66:
 		    case 67:
 			ao = new Tunnel();
-			ao.setColor(ColorConstants.COLOR_GREEN);
+			ao.setColor(Colors.GREEN);
 			break;
 		    case 68:
 		    case 69:
 			ao = new Tunnel();
-			ao.setColor(ColorConstants.COLOR_BLUE);
+			ao.setColor(Colors.BLUE);
 			break;
 		    case 70:
 		    case 71:
 			ao = new Tunnel();
-			ao.setColor(ColorConstants.COLOR_CYAN);
+			ao.setColor(Colors.CYAN);
 			break;
 		    case 72:
 		    case 73:
 			ao = new Tunnel();
-			ao.setColor(ColorConstants.COLOR_YELLOW);
+			ao.setColor(Colors.YELLOW);
 			break;
 		    case 74:
 		    case 75:
 			ao = new Tunnel();
-			ao.setColor(ColorConstants.COLOR_MAGENTA);
+			ao.setColor(Colors.MAGENTA);
 			break;
 		    case 76:
 		    case 77:
 			ao = new Tunnel();
-			ao.setColor(ColorConstants.COLOR_WHITE);
+			ao.setColor(Colors.WHITE);
 			break;
 		    case 78:
 		    case 79:
 			ao = new Tunnel();
-			ao.setColor(ColorConstants.COLOR_GRAY);
+			ao.setColor(Colors.GRAY);
 			break;
 		    default:
 			ao = new Empty();

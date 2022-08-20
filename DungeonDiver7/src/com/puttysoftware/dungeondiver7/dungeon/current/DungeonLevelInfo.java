@@ -7,9 +7,8 @@ package com.puttysoftware.dungeondiver7.dungeon.current;
 
 import java.io.IOException;
 
+import com.puttysoftware.dungeondiver7.locale.Generic;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
@@ -40,11 +39,9 @@ public final class DungeonLevelInfo {
 	this.horizontalWraparoundEnabled = false;
 	this.verticalWraparoundEnabled = false;
 	this.thirdDimensionWraparoundEnabled = false;
-	this.name = LocaleLoader.loadString(LocaleConstants.GENERIC_STRINGS_FILE,
-		LocaleConstants.GENERIC_STRING_UN_NAMED_LEVEL);
+	this.name = Strings.generic(Generic.UNNAMED_LEVEL);
 	this.hint = Strings.EMPTY;
-	this.author = LocaleLoader.loadString(LocaleConstants.GENERIC_STRINGS_FILE,
-		LocaleConstants.GENERIC_STRING_UNKNOWN_AUTHOR);
+	this.author = Strings.generic(Generic.UNKNOWN_AUTHOR);
 	this.difficulty = 1;
 	this.moveShootAllowed = false;
     }

@@ -6,16 +6,16 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
-import com.puttysoftware.dungeondiver7.utility.ColorConstants;
+import com.puttysoftware.dungeondiver7.locale.Colors;
 
 public class Tunnel extends AbstractTunnel {
     // Constructors
     public Tunnel() {
 	super();
-	this.setColor(ColorConstants.COLOR_GRAY);
+	this.setColor(Colors.GRAY);
     }
 
-    public Tunnel(final int color) {
+    public Tunnel(final Colors color) {
 	super();
 	this.setColor(color);
     }

@@ -8,6 +8,7 @@ public final class Strings {
     public static final String EMPTY = "";
     public static final int ARMOR_TYPES_COUNT = 6;
     public static final int WEAPON_TYPES_COUNT = 6;
+    public static final int COLOR_COUNT = 8;
 
     private Strings() {
     }
@@ -40,12 +41,24 @@ public final class Strings {
 	return ResourceBundle.getBundle("locale.boss").getString(Integer.toString(index));
     }
 
+    public static String color(final int index) {
+	return ResourceBundle.getBundle("locale.color").getString(Integer.toString(index));
+    }
+
+    public static String color(final Colors item) {
+	return ResourceBundle.getBundle("locale.color").getString(Integer.toString(item.ordinal()));
+    }
+
     public static String difficulty(final Difficulty item) {
 	return ResourceBundle.getBundle("locale.difficulty").getString(Integer.toString(item.ordinal()));
     }
 
     public static String error(final ErrorString item) {
 	return ResourceBundle.getBundle("locale.error").getString(Integer.toString(item.ordinal()));
+    }
+
+    public static String generic(final Generic item) {
+	return ResourceBundle.getBundle("locale.generic").getString(Integer.toString(item.ordinal()));
     }
 
     public static String menu(final Menu item) {

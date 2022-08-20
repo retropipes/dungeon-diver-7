@@ -36,6 +36,7 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.locale.Colors;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -293,7 +294,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 				    final AbstractMovableObject gmo = (AbstractMovableObject) mo;
 				    final AbstractDungeonObject saved = gmo.getSavedObject();
 				    if (saved instanceof AbstractTunnel) {
-					final int color = saved.getColor();
+					final Colors color = saved.getColor();
 					if (gmo.waitingOnTunnel() && !AbstractTunnel.tunnelsFull(color)) {
 					    gmo.setWaitingOnTunnel(false);
 					    saved.pushIntoAction(gmo, y, x, floorFix);

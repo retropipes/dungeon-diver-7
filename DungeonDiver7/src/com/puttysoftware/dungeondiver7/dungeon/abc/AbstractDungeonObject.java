@@ -22,12 +22,11 @@ import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.locale.Colors;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
-import com.puttysoftware.dungeondiver7.utility.ColorConstants;
-import com.puttysoftware.dungeondiver7.utility.ColorResolver;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.ImageColorConstants;
 import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
@@ -52,7 +51,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     private int frameNumber;
     private Directions directions;
     private boolean diagonalOnly;
-    private int color;
+    private Colors color;
     private int material;
     private boolean imageEnabled;
     private final boolean blocksLOS;
@@ -78,7 +77,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.frameNumber = 0;
 	this.directions = Directions.NONE;
 	this.diagonalOnly = false;
-	this.color = -1;
+	this.color = Colors.NONE;
 	this.material = MaterialConstants.MATERIAL_DEFAULT;
 	this.imageEnabled = true;
     }
@@ -115,7 +114,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.frameNumber = 0;
 	this.directions = Directions.NONE;
 	this.diagonalOnly = false;
-	this.color = -1;
+	this.color = Colors.NONE;
 	this.material = MaterialConstants.MATERIAL_DEFAULT;
 	this.imageEnabled = true;
     }
@@ -131,7 +130,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.frameNumber = 0;
 	this.directions = Directions.NONE;
 	this.diagonalOnly = false;
-	this.color = -1;
+	this.color = Colors.NONE;
 	this.material = MaterialConstants.MATERIAL_DEFAULT;
 	this.imageEnabled = true;
     }
@@ -173,7 +172,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	result = prime * result + this.timerValue;
 	result = prime * result + (this.type == null ? 0 : this.type.hashCode());
 	result = prime * result + this.directions.hashCode();
-	result = prime * result + this.color;
+	result = prime * result + this.color.ordinal();
 	result = prime * result + (this.blocksLOS ? 1231 : 1237);
 	return prime * result + this.material;
     }
@@ -313,24 +312,29 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	return this;
     }
 
-    public final int getColor() {
+    public final Colors getColor() {
 	return this.color;
     }
 
-    public final void setColor(final int col) {
+    public final void setColor(final Colors col) {
 	this.color = col;
     }
 
     private final boolean hasColor() {
-	return this.color >= 0;
+	return this.color != Colors.NONE;
     }
 
     private final void toggleColor() {
 	if (this.hasColor()) {
-	    this.color++;
-	    if (this.color >= ColorConstants.COLOR_COUNT) {
-		this.color = ColorConstants.COLOR_GRAY;
+	    int oldColorValue = this.color.ordinal();
+	    int newColorValue = oldColorValue++;
+	    Colors newColor;
+	    if (newColorValue >= Strings.COLOR_COUNT) {
+		newColor = Colors.GRAY;
+	    } else {
+		newColor = Colors.values()[newColorValue];
 	    }
+	    this.color = newColor;
 	}
     }
 
@@ -711,24 +715,16 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     }
 
     public final String getImageName() {
-	return this.getColorPrefix() + this.getBaseImageName() + this.getDirectionSuffix() + this.getFrameSuffix();
+	return this.getBaseImageName() + this.getDirectionSuffix() + this.getFrameSuffix();
     }
 
     public final String getBaseImageName() {
 	return LocaleLoader.loadString(LocaleConstants.IMAGE_STRINGS_FILE, this.getBaseID());
     }
 
-    private final String getColorPrefix() {
-	if (this.hasColor()) {
-	    return ColorResolver.resolveColorConstantToImageName(this.color) + LocaleConstants.COMMON_STRING_SPACE;
-	} else {
-	    return Strings.EMPTY;
-	}
-    }
-
     private final String getLocalColorPrefix() {
 	if (this.hasColor()) {
-	    return ColorResolver.resolveColorConstantToName(this.color) + LocaleConstants.COMMON_STRING_SPACE;
+	    return Strings.color(this.color) + LocaleConstants.COMMON_STRING_SPACE;
 	} else {
 	    return Strings.EMPTY;
 	}
@@ -913,11 +909,11 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	final int cc = this.getCustomFormat();
 	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 	    writer.writeInt(this.directions.ordinal());
-	    writer.writeInt(this.color);
+	    writer.writeInt(this.color.ordinal());
 	    this.writeHook(writer);
 	} else {
 	    writer.writeInt(this.directions.ordinal());
-	    writer.writeInt(this.color);
+	    writer.writeInt(this.color.ordinal());
 	    for (int x = 0; x < cc; x++) {
 		final int cx = this.getCustomProperty(x + 1);
 		writer.writeInt(cx);
@@ -932,11 +928,11 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 		this.directions = Directions.values()[reader.readInt()];
 		reader.readInt();
-		this.color = reader.readInt();
+		this.color = Colors.values()[reader.readInt()];
 		return this.readHookV2(reader, ver);
 	    } else {
 		this.directions = Directions.values()[reader.readInt()];
-		this.color = reader.readInt();
+		this.color = Colors.values()[reader.readInt()];
 		for (int x = 0; x < cc; x++) {
 		    final int cx = reader.readInt();
 		    this.setCustomProperty(x + 1, cx);
@@ -954,13 +950,13 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    final int cc = this.getCustomFormat();
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 		this.directions = Directions.values()[reader.readInt()];
-		this.color = reader.readInt();
+		this.color = Colors.values()[reader.readInt()];
 		// Discard material
 		reader.readInt();
 		return this.readHookV3(reader, ver);
 	    } else {
 		this.directions = Directions.values()[reader.readInt()];
-		this.color = reader.readInt();
+		this.color = Colors.values()[reader.readInt()];
 		// Discard material
 		reader.readInt();
 		for (int x = 0; x < cc; x++) {
@@ -980,11 +976,11 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    final int cc = this.getCustomFormat();
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 		this.directions = Directions.values()[reader.readInt()];
-		this.color = reader.readInt();
+		this.color = Colors.values()[reader.readInt()];
 		return this.readHookV4(reader, ver);
 	    } else {
 		this.directions = Directions.values()[reader.readInt()];
-		this.color = reader.readInt();
+		this.color = Colors.values()[reader.readInt()];
 		for (int x = 0; x < cc; x++) {
 		    final int cx = reader.readInt();
 		    this.setCustomProperty(x + 1, cx);
@@ -1002,11 +998,11 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    final int cc = this.getCustomFormat();
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 		this.directions = Directions.values()[reader.readInt()];
-		this.color = reader.readInt();
+		this.color = Colors.values()[reader.readInt()];
 		return this.readHookV5(reader, ver);
 	    } else {
 		this.directions = Directions.values()[reader.readInt()];
-		this.color = reader.readInt();
+		this.color = Colors.values()[reader.readInt()];
 		for (int x = 0; x < cc; x++) {
 		    final int cx = reader.readInt();
 		    this.setCustomProperty(x + 1, cx);
@@ -1024,11 +1020,11 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    final int cc = this.getCustomFormat();
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 		this.directions = Directions.values()[reader.readInt()];
-		this.color = reader.readInt();
+		this.color = Colors.values()[reader.readInt()];
 		return this.readHookV6(reader, ver);
 	    } else {
 		this.directions = Directions.values()[reader.readInt()];
-		this.color = reader.readInt();
+		this.color = Colors.values()[reader.readInt()];
 		for (int x = 0; x < cc; x++) {
 		    final int cx = reader.readInt();
 		    this.setCustomProperty(x + 1, cx);
@@ -1046,11 +1042,11 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    final int cc = this.getCustomFormat();
 	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 		this.directions = Directions.values()[reader.readInt()];
-		this.color = reader.readInt();
+		this.color = Colors.values()[reader.readInt()];
 		return this.readHookV7(reader, ver);
 	    } else {
 		this.directions = Directions.values()[reader.readInt()];
-		this.color = reader.readInt();
+		this.color = Colors.values()[reader.readInt()];
 		for (int x = 0; x < cc; x++) {
 		    final int cx = reader.readInt();
 		    this.setCustomProperty(x + 1, cx);

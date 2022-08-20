@@ -209,28 +209,6 @@ public class LocaleConstants {
     public static final int PREFS_STRING_EDITOR_LAYOUT_MODERN_V11 = 16;
     public static final int PREFS_STRING_EDITOR_LAYOUT_MODERN_V12 = 17;
     public static final int PREFS_STRING_SHOW_ALL_OBJECTS = 18;
-    // Generic String Constants
-    public static final int GENERIC_STRING_COLOR_BLUE = 0;
-    public static final int GENERIC_STRING_COLOR_CYAN = 1;
-    public static final int GENERIC_STRING_COLOR_GRAY = 2;
-    public static final int GENERIC_STRING_COLOR_GREEN = 3;
-    public static final int GENERIC_STRING_COLOR_MAGENTA = 4;
-    public static final int GENERIC_STRING_COLOR_RED = 5;
-    public static final int GENERIC_STRING_COLOR_WHITE = 6;
-    public static final int GENERIC_STRING_COLOR_YELLOW = 7;
-    public static final int GENERIC_STRING_NORTHWEST = 8;
-    public static final int GENERIC_STRING_NORTH = 9;
-    public static final int GENERIC_STRING_NORTHEAST = 10;
-    public static final int GENERIC_STRING_EAST = 11;
-    public static final int GENERIC_STRING_SOUTHEAST = 12;
-    public static final int GENERIC_STRING_SOUTH = 13;
-    public static final int GENERIC_STRING_SOUTHWEST = 14;
-    public static final int GENERIC_STRING_WEST = 15;
-    public static final int GENERIC_STRING_HORIZONTAL = 16;
-    public static final int GENERIC_STRING_VERTICAL = 17;
-    public static final int GENERIC_STRING_TUNNEL = 18;
-    public static final int GENERIC_STRING_UN_NAMED_LEVEL = 19;
-    public static final int GENERIC_STRING_UNKNOWN_AUTHOR = 20;
     // Dialog String Constants
     public static final int DIALOG_STRING_DEAD_MESSAGE = 0;
     public static final int DIALOG_STRING_DEAD_TITLE = 1;

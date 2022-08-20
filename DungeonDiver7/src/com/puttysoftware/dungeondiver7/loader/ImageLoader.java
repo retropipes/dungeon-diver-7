@@ -18,9 +18,9 @@ import javax.imageio.ImageIO;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Tunnel;
+import com.puttysoftware.dungeondiver7.locale.Colors;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.ColorConstants;
 import com.puttysoftware.dungeondiver7.utility.TypeConstants;
 import com.puttysoftware.images.BufferedImageIcon;
 
@@ -100,23 +100,23 @@ public class ImageLoader {
 	}
     }
 
-    private static BufferedImageIcon getTransformedTunnel(final int cc, final boolean useText) {
+    private static BufferedImageIcon getTransformedTunnel(final Colors cc, final boolean useText) {
 	try {
 	    final BufferedImageIcon icon = ImageCache.getCachedImage(new Tunnel(), useText);
 	    Color color;
-	    if (cc == ColorConstants.COLOR_BLUE) {
+	    if (cc == Colors.BLUE) {
 		color = Color.blue;
-	    } else if (cc == ColorConstants.COLOR_CYAN) {
+	    } else if (cc == Colors.CYAN) {
 		color = Color.cyan;
-	    } else if (cc == ColorConstants.COLOR_GREEN) {
+	    } else if (cc == Colors.GREEN) {
 		color = Color.green;
-	    } else if (cc == ColorConstants.COLOR_MAGENTA) {
+	    } else if (cc == Colors.MAGENTA) {
 		color = Color.magenta;
-	    } else if (cc == ColorConstants.COLOR_RED) {
+	    } else if (cc == Colors.RED) {
 		color = Color.red;
-	    } else if (cc == ColorConstants.COLOR_WHITE) {
+	    } else if (cc == Colors.WHITE) {
 		color = Color.white;
-	    } else if (cc == ColorConstants.COLOR_YELLOW) {
+	    } else if (cc == Colors.YELLOW) {
 		color = Color.yellow;
 	    } else {
 		color = Color.gray;
