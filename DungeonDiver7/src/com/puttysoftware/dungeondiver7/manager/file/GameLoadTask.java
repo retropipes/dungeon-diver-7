@@ -22,7 +22,7 @@ import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
-import com.puttysoftware.dungeondiver7.utility.ImageColorConstants;
+import com.puttysoftware.dungeondiver7.utility.ImageColors;
 import com.puttysoftware.fileutils.ZipUtilities;
 
 public class GameLoadTask extends Thread {
@@ -83,7 +83,7 @@ public class GameLoadTask extends Thread {
 	    // Final cleanup
 	    app.getGameLogic().stateChanged();
 	    AbstractDungeonObject
-		    .setTemplateColor(ImageColorConstants.getColorForLevel(PartyManager.getParty().getZone()));
+		    .setTemplateColor(ImageColors.getColorForLevel(PartyManager.getParty().getZone()));
 	    app.getDungeonManager().setLoaded(true);
 	    CommonDialogs.showDialog(sg + " loaded.");
 	    app.getGameLogic().playDungeon();

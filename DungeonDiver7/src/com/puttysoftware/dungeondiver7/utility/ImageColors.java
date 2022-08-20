@@ -7,8 +7,8 @@ package com.puttysoftware.dungeondiver7.utility;
 
 import java.awt.Color;
 
-public class ImageColorConstants {
-    public static final int COLOR_NONE = -1;
+public class ImageColors {
+    public static final int NONE = -1;
     private static final int COLOR_00 = new Color(127, 127, 255).getRGB();
     private static final int COLOR_01 = new Color(127, 159, 255).getRGB();
     private static final int COLOR_02 = new Color(159, 127, 255).getRGB();
@@ -64,27 +64,27 @@ public class ImageColorConstants {
     private static final int COLOR_52 = new Color(255, 127, 255).getRGB();
     private static final int COLOR_53 = new Color(255, 191, 255).getRGB();
     private static final int COLOR_54 = new Color(255, 255, 255).getRGB();
-    private static final int[] LEVEL_COLORS = new int[] { ImageColorConstants.COLOR_00, ImageColorConstants.COLOR_01,
-	    ImageColorConstants.COLOR_02, ImageColorConstants.COLOR_03, ImageColorConstants.COLOR_04,
-	    ImageColorConstants.COLOR_05, ImageColorConstants.COLOR_06, ImageColorConstants.COLOR_07,
-	    ImageColorConstants.COLOR_08, ImageColorConstants.COLOR_09, ImageColorConstants.COLOR_10,
-	    ImageColorConstants.COLOR_11, ImageColorConstants.COLOR_12, ImageColorConstants.COLOR_13,
-	    ImageColorConstants.COLOR_14, ImageColorConstants.COLOR_15, ImageColorConstants.COLOR_16,
-	    ImageColorConstants.COLOR_17, ImageColorConstants.COLOR_18, ImageColorConstants.COLOR_19,
-	    ImageColorConstants.COLOR_20, ImageColorConstants.COLOR_21, ImageColorConstants.COLOR_22,
-	    ImageColorConstants.COLOR_23, ImageColorConstants.COLOR_24, ImageColorConstants.COLOR_25,
-	    ImageColorConstants.COLOR_26, ImageColorConstants.COLOR_27, ImageColorConstants.COLOR_28,
-	    ImageColorConstants.COLOR_29, ImageColorConstants.COLOR_30, ImageColorConstants.COLOR_31,
-	    ImageColorConstants.COLOR_32, ImageColorConstants.COLOR_33, ImageColorConstants.COLOR_34,
-	    ImageColorConstants.COLOR_35, ImageColorConstants.COLOR_36, ImageColorConstants.COLOR_37,
-	    ImageColorConstants.COLOR_38, ImageColorConstants.COLOR_39, ImageColorConstants.COLOR_40,
-	    ImageColorConstants.COLOR_41, ImageColorConstants.COLOR_42, ImageColorConstants.COLOR_43,
-	    ImageColorConstants.COLOR_44, ImageColorConstants.COLOR_45, ImageColorConstants.COLOR_46,
-	    ImageColorConstants.COLOR_47, ImageColorConstants.COLOR_48, ImageColorConstants.COLOR_49,
-	    ImageColorConstants.COLOR_50, ImageColorConstants.COLOR_51, ImageColorConstants.COLOR_52,
-	    ImageColorConstants.COLOR_53, ImageColorConstants.COLOR_54 };
+    private static final int[] LEVEL_COLORS = new int[] { ImageColors.COLOR_00, ImageColors.COLOR_01,
+	    ImageColors.COLOR_02, ImageColors.COLOR_03, ImageColors.COLOR_04,
+	    ImageColors.COLOR_05, ImageColors.COLOR_06, ImageColors.COLOR_07,
+	    ImageColors.COLOR_08, ImageColors.COLOR_09, ImageColors.COLOR_10,
+	    ImageColors.COLOR_11, ImageColors.COLOR_12, ImageColors.COLOR_13,
+	    ImageColors.COLOR_14, ImageColors.COLOR_15, ImageColors.COLOR_16,
+	    ImageColors.COLOR_17, ImageColors.COLOR_18, ImageColors.COLOR_19,
+	    ImageColors.COLOR_20, ImageColors.COLOR_21, ImageColors.COLOR_22,
+	    ImageColors.COLOR_23, ImageColors.COLOR_24, ImageColors.COLOR_25,
+	    ImageColors.COLOR_26, ImageColors.COLOR_27, ImageColors.COLOR_28,
+	    ImageColors.COLOR_29, ImageColors.COLOR_30, ImageColors.COLOR_31,
+	    ImageColors.COLOR_32, ImageColors.COLOR_33, ImageColors.COLOR_34,
+	    ImageColors.COLOR_35, ImageColors.COLOR_36, ImageColors.COLOR_37,
+	    ImageColors.COLOR_38, ImageColors.COLOR_39, ImageColors.COLOR_40,
+	    ImageColors.COLOR_41, ImageColors.COLOR_42, ImageColors.COLOR_43,
+	    ImageColors.COLOR_44, ImageColors.COLOR_45, ImageColors.COLOR_46,
+	    ImageColors.COLOR_47, ImageColors.COLOR_48, ImageColors.COLOR_49,
+	    ImageColors.COLOR_50, ImageColors.COLOR_51, ImageColors.COLOR_52,
+	    ImageColors.COLOR_53, ImageColors.COLOR_54 };
 
     public static int getColorForLevel(final int level) {
-	return ImageColorConstants.LEVEL_COLORS[level];
+	return ImageColors.LEVEL_COLORS[level];
     }
 }

@@ -15,7 +15,7 @@ import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
-import com.puttysoftware.dungeondiver7.utility.ImageColorConstants;
+import com.puttysoftware.dungeondiver7.utility.ImageColors;
 
 public class LevelLoadTask extends Thread {
     // Fields
@@ -47,7 +47,7 @@ public class LevelLoadTask extends Thread {
 	    gameDungeon.switchLevelOffset(this.level);
 	    PartyManager.getParty().offsetZone(this.level);
 	    AbstractDungeonObject
-		    .setTemplateColor(ImageColorConstants.getColorForLevel(PartyManager.getParty().getZone()));
+		    .setTemplateColor(ImageColors.getColorForLevel(PartyManager.getParty().getZone()));
 	    app.getGameLogic().resetViewingWindow();
 	    app.getGameLogic().enableEvents();
 	    app.getGameLogic().redrawDungeon();

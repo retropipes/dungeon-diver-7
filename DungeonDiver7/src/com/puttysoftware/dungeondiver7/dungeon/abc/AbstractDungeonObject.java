@@ -28,7 +28,7 @@ import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.ArrowTypeConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.ImageColorConstants;
+import com.puttysoftware.dungeondiver7.utility.ImageColors;
 import com.puttysoftware.dungeondiver7.utility.MaterialConstants;
 import com.puttysoftware.dungeondiver7.utility.RandomGenerationRule;
 import com.puttysoftware.dungeondiver7.utility.RangeTypeConstants;
@@ -55,7 +55,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     private int material;
     private boolean imageEnabled;
     private final boolean blocksLOS;
-    private static int templateColor = ImageColorConstants.COLOR_NONE;
+    private static int templateColor = ImageColors.NONE;
     static final int DEFAULT_CUSTOM_VALUE = 0;
     protected static final int CUSTOM_FORMAT_MANUAL_OVERRIDE = -1;
     private static final int PLASTIC_MINIMUM_REACTION_FORCE = 0;

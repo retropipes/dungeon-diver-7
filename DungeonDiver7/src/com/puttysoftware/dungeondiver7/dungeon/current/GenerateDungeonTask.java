@@ -17,7 +17,7 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.ImageColorConstants;
+import com.puttysoftware.dungeondiver7.utility.ImageColors;
 import com.puttysoftware.randomrange.RandomRange;
 
 public class GenerateDungeonTask extends Thread {
@@ -84,7 +84,7 @@ public class GenerateDungeonTask extends Thread {
 	    }
 	    gameDungeon.save();
 	    // Final cleanup
-	    AbstractDungeonObject.setTemplateColor(ImageColorConstants.getColorForLevel(zoneID));
+	    AbstractDungeonObject.setTemplateColor(ImageColors.getColorForLevel(zoneID));
 	    if (this.scratch) {
 		app.getGameLogic().stateChanged();
 		app.getGameLogic().playDungeon();
