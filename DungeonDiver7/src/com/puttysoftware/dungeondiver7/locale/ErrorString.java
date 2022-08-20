@@ -16,5 +16,6 @@ public enum ErrorString {
     BAD_PROTECTION_KEY,
     PROTECTION,
     WARNING_TITLE,
-    WARNING_MESSAGE
+    WARNING_MESSAGE,
+    BAD_VERSION
 }
