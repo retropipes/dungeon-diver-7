@@ -575,52 +575,42 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      */
     public boolean rangeAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
-	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE
-		&& this.getMaterial() == Materials.WOODEN
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE && this.getMaterial() == Materials.WOODEN
 		&& this.changesToOnExposure(Materials.FIRE) != null) {
 	    // Burn wooden object
 	    SoundLoader.playSound(SoundConstants.WOOD_BURN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE
-		&& (this.getMaterial() == Materials.METALLIC
-			|| this.getMaterial() == Materials.WOODEN
+		&& (this.getMaterial() == Materials.METALLIC || this.getMaterial() == Materials.WOODEN
 			|| this.getMaterial() == Materials.PLASTIC)
 		&& this.changesToOnExposure(Materials.ICE) != null) {
 	    // Freeze metal, wooden, or plastic object
 	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE
-		&& this.getMaterial() == Materials.ICE
-		&& this.changesToOnExposure(Materials.FIRE) != null) {
+		&& this.getMaterial() == Materials.ICE && this.changesToOnExposure(Materials.FIRE) != null) {
 	    // Melt icy object
 	    SoundLoader.playSound(SoundConstants.DEFROST);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE
-		&& this.getMaterial() == Materials.FIRE
-		&& this.changesToOnExposure(Materials.ICE) != null) {
+		&& this.getMaterial() == Materials.FIRE && this.changesToOnExposure(Materials.ICE) != null) {
 	    // Cool hot object
 	    SoundLoader.playSound(SoundConstants.COOL_OFF);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE
-		&& this.getMaterial() == Materials.METALLIC
-		&& this.changesToOnExposure(Materials.FIRE) != null) {
+		&& this.getMaterial() == Materials.METALLIC && this.changesToOnExposure(Materials.FIRE) != null) {
 	    // Melt metal object
 	    SoundLoader.playSound(SoundConstants.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	}
 	return false;
@@ -732,7 +722,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 
     private final String getDirectionSuffix() {
 	if (this.hasDirection()) {
-	    return LocaleConstants.COMMON_STRING_SPACE + DianeStrings.directions(this.directions);
+	    return LocaleConstants.COMMON_STRING_SPACE + DianeStrings.directionSuffix(this.directions);
 	} else {
 	    return Strings.EMPTY;
 	}

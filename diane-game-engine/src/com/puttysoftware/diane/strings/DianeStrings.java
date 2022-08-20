@@ -8,8 +8,12 @@ public final class DianeStrings {
   private DianeStrings() {
   }
 
-  public static String directions(final Directions item) {
+  public static String direction(final Directions item) {
     return ResourceBundle.getBundle("locale.diane.direction").getString(Integer.toString(item.ordinal()));
+  }
+  
+  public static String directionSuffix(final Directions item) {
+    return ResourceBundle.getBundle("locale.diane.dirsuffix").getString(Integer.toString(item.ordinal()));
   }
 
   public static String subst(final String orig, final String... values) {
