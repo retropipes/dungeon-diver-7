@@ -29,7 +29,6 @@ import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.EditorLayout;
 import com.puttysoftware.dungeondiver7.locale.PrefString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
 class PrefsGUIManager {
     // Fields
@@ -44,8 +43,7 @@ class PrefsGUIManager {
     private JComboBox<String> editorLayoutList;
     private JCheckBox editorShowAllObjects;
     private JComboBox<String> difficultyPicker;
-    private static final String[] DIFFICULTY_NAMES = new String[] { "Very Easy", "Easy", "Normal", "Hard",
-	    "Very Hard" };
+    private static String[] DIFFICULTY_NAMES = Strings.allDifficulties();
     private static final int GRID_LENGTH = 14;
 
     // Constructors
@@ -60,6 +58,7 @@ class PrefsGUIManager {
 	if (this.prefFrame != null) {
 	    this.prefFrame.dispose();
 	}
+	PrefsGUIManager.DIFFICULTY_NAMES = Strings.allDifficulties();
 	this.setUpGUI();
 	PrefsManager.writePrefs();
 	this.loadPrefs();
@@ -152,7 +151,7 @@ class PrefsGUIManager {
 	this.actionDelay = new JComboBox<>(new String[] { Strings.prefs(PrefString.SPEED_1),
 		Strings.prefs(PrefString.SPEED_2), Strings.prefs(PrefString.SPEED_3), Strings.prefs(PrefString.SPEED_4),
 		Strings.prefs(PrefString.SPEED_5) });
-	this.languageList = new JComboBox<>(LocaleLoader.loadLocalizedLanguagesList());
+	this.languageList = new JComboBox<>(Strings.allLanguages());
 	this.editorLayoutList = new JComboBox<>(Strings.allEditorLayouts());
 	this.editorShowAllObjects = new JCheckBox(Strings.prefs(PrefString.SHOW_ALL_OBJECTS), true);
 	this.difficultyPicker = new JComboBox<>(PrefsGUIManager.DIFFICULTY_NAMES);

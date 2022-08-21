@@ -3,34 +3,18 @@ package com.puttysoftware.dungeondiver7.locale.old;
 public class LocaleConstants {
     // File Constants
     static final String STRINGS_EXTENSION = ".properties";
-    public static final int GENERIC_STRINGS_FILE = 3;
-    public static final int OBJECT_STRINGS_FILE = 4;
-    public static final int DIALOG_STRINGS_FILE = 6;
-    public static final int MESSAGE_STRINGS_FILE = 7;
-    public static final int EDITOR_STRINGS_FILE = 8;
-    public static final int GAME_STRINGS_FILE = 9;
-    static final int LANGUAGE_STRINGS_FILE = 0;
-    public static final int NOTL_STRINGS_FILE = -1;
-    public static final int IMAGE_STRINGS_FILE = -2;
-    public static final int COLOR_STRINGS_FILE = -3;
-    private static final String GENERIC_STRINGS_FILE_NAME = "generic";
+    public static final int OBJECT_STRINGS_FILE = 0;
+    public static final int MESSAGE_STRINGS_FILE = 1;
+    public static final int NOTL_STRINGS_FILE = 0;
+    public static final int IMAGE_STRINGS_FILE = -1;
     private static final String OBJECT_STRINGS_FILE_NAME = "object";
-    private static final String DIALOG_STRINGS_FILE_NAME = "dialog";
     private static final String MESSAGE_STRINGS_FILE_NAME = "message";
-    private static final String EDITOR_STRINGS_FILE_NAME = "editor";
-    private static final String GAME_STRINGS_FILE_NAME = "game";
-    static final String[] STRINGS_FILES = new String[] { null, null, null, LocaleConstants.GENERIC_STRINGS_FILE_NAME,
-	    LocaleConstants.OBJECT_STRINGS_FILE_NAME, null, LocaleConstants.DIALOG_STRINGS_FILE_NAME,
-	    LocaleConstants.MESSAGE_STRINGS_FILE_NAME, LocaleConstants.EDITOR_STRINGS_FILE_NAME,
-	    LocaleConstants.GAME_STRINGS_FILE_NAME };
-    private static final String LANGUAGE_STRINGS_FILE_NAME = "language";
+    static final String[] STRINGS_FILES = new String[] { LocaleConstants.OBJECT_STRINGS_FILE_NAME,
+	    LocaleConstants.MESSAGE_STRINGS_FILE_NAME };
     private static final String NOTL_STRINGS_FILE_NAME = "notranslate";
     private static final String IMAGE_STRINGS_FILE_NAME = "image";
-    private static final String COLOR_STRINGS_FILE_NAME = "color";
-    static final String[] LANGUAGE_STRINGS_FILES = new String[] { LocaleConstants.LANGUAGE_STRINGS_FILE_NAME,
-	    LocaleConstants.NOTL_STRINGS_FILE_NAME, LocaleConstants.IMAGE_STRINGS_FILE_NAME,
-	    LocaleConstants.COLOR_STRINGS_FILE_NAME };
-    static final String LOCALIZED_LANGUAGE_FILE_NAME = "localizedlanguages.txt";
+    static final String[] LANGUAGE_STRINGS_FILES = new String[] { LocaleConstants.NOTL_STRINGS_FILE_NAME,
+	    LocaleConstants.IMAGE_STRINGS_FILE_NAME };
     // No Translate String Constants
     public static final int NOTL_STRING_DOUBLE_BACKSLASH = 20;
     public static final int NOTL_STRING_DIRECTORY_UNIX_HOME = 21;

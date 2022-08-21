@@ -17,7 +17,6 @@ public class LocaleLoader {
     private static Class<?> LOAD_CLASS = LocaleLoader.class;
     private static ArrayList<HashMap<Integer, String>> STRING_CACHE;
     private static ArrayList<HashMap<Integer, String>> LANGUAGE_STRING_CACHE;
-    private static ArrayList<String> LOCALIZED_LANGUAGES;
     private static String LANGUAGE_NAME = null;
     private static final Properties GLOBAL = new Properties();
     private static final String ERROR = "Error!";
@@ -51,31 +50,6 @@ public class LocaleLoader {
 	} catch (final IOException ioe) {
 	    return LocaleLoader.ERROR;
 	}
-    }
-
-    public static String[] loadLocalizedLanguagesList() {
-	if (LocaleLoader.LOCALIZED_LANGUAGES == null) {
-	    LocaleLoader.LOCALIZED_LANGUAGES = new ArrayList<>();
-	    final String filename = LocaleConstants.LOCALIZED_LANGUAGE_FILE_NAME;
-	    try (final InputStream is = LocaleLoader.LOAD_CLASS
-		    .getResourceAsStream(LocaleLoader.LOAD_PATH + LocaleLoader.LANGUAGE_NAME + filename);
-		    final ResourceStreamReader rsr = new ResourceStreamReader(is)) {
-		String line = Strings.EMPTY;
-		while (line != null) {
-		    // Read line
-		    line = rsr.readString();
-		    if (line != null) {
-			// Parse line
-			LocaleLoader.LOCALIZED_LANGUAGES.add(line);
-		    }
-		}
-	    } catch (final IOException ioe) {
-		CommonDialogs.showErrorDialog("Something has gone horribly wrong trying to load the language data!",
-			"FATAL ERROR");
-		DungeonDiver7.logErrorDirectly(ioe);
-	    }
-	}
-	return LocaleLoader.LOCALIZED_LANGUAGES.toArray(new String[LocaleLoader.LOCALIZED_LANGUAGES.size()]);
     }
 
     private static String loadLanguageString(final int fileID, final int strID) {

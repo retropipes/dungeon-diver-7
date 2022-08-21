@@ -54,12 +54,12 @@ public class PrefsManager {
     }
 
     public static int getGameDifficulty() {
-	return PrefsManager.storeMgr.getInteger(Strings.prefKeys(PrefKey.GAME_DIFFICULTY),
+	return PrefsManager.storeMgr.getInteger(Strings.prefKey(PrefKey.GAME_DIFFICULTY),
 		PrefsManager.DEFAULT_DIFFICULTY);
     }
 
     static void setGameDifficulty(final int value) {
-	PrefsManager.storeMgr.setInteger(Strings.prefKeys(PrefKey.GAME_DIFFICULTY), value);
+	PrefsManager.storeMgr.setInteger(Strings.prefKey(PrefKey.GAME_DIFFICULTY), value);
     }
 
     public static void activeLanguageChanged() {
@@ -67,75 +67,75 @@ public class PrefsManager {
     }
 
     public static EditorLayout getEditorLayout() {
-	return EditorLayout.values()[PrefsManager.storeMgr.getInteger(Strings.prefKeys(PrefKey.EDITOR_LAYOUT),
+	return EditorLayout.values()[PrefsManager.storeMgr.getInteger(Strings.prefKey(PrefKey.EDITOR_LAYOUT),
 		PrefsManager.DEFAULT_EDITOR_LAYOUT.ordinal())];
     }
 
     public static void setEditorLayout(final EditorLayout value) {
-	PrefsManager.storeMgr.setInteger(Strings.prefKeys(PrefKey.EDITOR_LAYOUT), value.ordinal());
+	PrefsManager.storeMgr.setInteger(Strings.prefKey(PrefKey.EDITOR_LAYOUT), value.ordinal());
 	DungeonDiver7.getStuffBag().getEditor().resetBorderPane();
     }
 
     public static boolean getEditorShowAllObjects() {
-	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.EDITOR_SHOW_ALL_OBJECTS), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKey(PrefKey.EDITOR_SHOW_ALL_OBJECTS), true);
     }
 
     public static void setEditorShowAllObjects(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.EDITOR_SHOW_ALL_OBJECTS), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.EDITOR_SHOW_ALL_OBJECTS), value);
 	DungeonDiver7.getStuffBag().getEditor().resetBorderPane();
     }
 
     public static int getLanguageID() {
-	return PrefsManager.storeMgr.getInteger(Strings.prefKeys(PrefKey.ACTIVE_LANGUAGE),
+	return PrefsManager.storeMgr.getInteger(Strings.prefKey(PrefKey.ACTIVE_LANGUAGE),
 		PrefsManager.FALLBACK_LANGUAGE);
     }
 
     public static void setLanguageID(final int value) {
 	final int oldValue = PrefsManager.getLanguageID();
-	PrefsManager.storeMgr.setInteger(Strings.prefKeys(PrefKey.ACTIVE_LANGUAGE), value);
+	PrefsManager.storeMgr.setInteger(Strings.prefKey(PrefKey.ACTIVE_LANGUAGE), value);
 	if (oldValue != value) {
 	    Strings.changeLanguage(Locale.getDefault());
 	}
     }
 
     public static boolean useClassicAccelerators() {
-	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ACCELERATOR_MODEL), false);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKey(PrefKey.ACCELERATOR_MODEL), false);
     }
 
     public static void setClassicAccelerators(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ACCELERATOR_MODEL), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ACCELERATOR_MODEL), value);
     }
 
     public static String getLastDirOpen() {
-	return PrefsManager.storeMgr.getString(Strings.prefKeys(PrefKey.LAST_FOLDER_OPEN), Strings.EMPTY);
+	return PrefsManager.storeMgr.getString(Strings.prefKey(PrefKey.LAST_FOLDER_OPEN), Strings.EMPTY);
     }
 
     public static void setLastDirOpen(final String value) {
-	PrefsManager.storeMgr.setString(Strings.prefKeys(PrefKey.LAST_FOLDER_OPEN), value);
+	PrefsManager.storeMgr.setString(Strings.prefKey(PrefKey.LAST_FOLDER_OPEN), value);
     }
 
     public static String getLastDirSave() {
-	return PrefsManager.storeMgr.getString(Strings.prefKeys(PrefKey.LAST_FOLDER_SAVE), Strings.EMPTY);
+	return PrefsManager.storeMgr.getString(Strings.prefKey(PrefKey.LAST_FOLDER_SAVE), Strings.EMPTY);
     }
 
     public static void setLastDirSave(final String value) {
-	PrefsManager.storeMgr.setString(Strings.prefKeys(PrefKey.LAST_FOLDER_SAVE), value);
+	PrefsManager.storeMgr.setString(Strings.prefKey(PrefKey.LAST_FOLDER_SAVE), value);
     }
 
     public static boolean shouldCheckUpdatesAtStartup() {
-	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.UPDATES_STARTUP), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKey(PrefKey.UPDATES_STARTUP), true);
     }
 
     static void setCheckUpdatesAtStartup(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.UPDATES_STARTUP), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.UPDATES_STARTUP), value);
     }
 
     static int getActionDelay() {
-	return PrefsManager.storeMgr.getInteger(Strings.prefKeys(PrefKey.ACTION_DELAY), 2);
+	return PrefsManager.storeMgr.getInteger(Strings.prefKey(PrefKey.ACTION_DELAY), 2);
     }
 
     static void setActionDelay(final int value) {
-	PrefsManager.storeMgr.setInteger(Strings.prefKeys(PrefKey.ACTION_DELAY), value);
+	PrefsManager.storeMgr.setInteger(Strings.prefKey(PrefKey.ACTION_DELAY), value);
     }
 
     public static long getActionSpeed() {
@@ -147,59 +147,59 @@ public class PrefsManager {
     }
 
     public static boolean oneMove() {
-	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ONE_MOVE), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKey(PrefKey.ONE_MOVE), true);
     }
 
     static void setOneMove(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ONE_MOVE), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ONE_MOVE), value);
     }
 
     public static boolean enableAnimation() {
-	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_ANIMATION), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKey(PrefKey.ENABLE_ANIMATION), true);
     }
 
     static void setEnableAnimation(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_ANIMATION), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_ANIMATION), value);
     }
 
     public static boolean isKidsDifficultyEnabled() {
-	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_KIDS), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_KIDS), true);
     }
 
     public static void setKidsDifficultyEnabled(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_KIDS), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_KIDS), value);
     }
 
     public static boolean isEasyDifficultyEnabled() {
-	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_EASY), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_EASY), true);
     }
 
     public static void setEasyDifficultyEnabled(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_EASY), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_EASY), value);
     }
 
     public static boolean isMediumDifficultyEnabled() {
-	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_MEDIUM), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_MEDIUM), true);
     }
 
     public static void setMediumDifficultyEnabled(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_MEDIUM), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_MEDIUM), value);
     }
 
     public static boolean isHardDifficultyEnabled() {
-	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_HARD), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_HARD), true);
     }
 
     public static void setHardDifficultyEnabled(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_HARD), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_HARD), value);
     }
 
     public static boolean isDeadlyDifficultyEnabled() {
-	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_DEADLY), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_DEADLY), true);
     }
 
     public static void setDeadlyDifficultyEnabled(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_DEADLY), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_DEADLY), value);
     }
 
     public static AbstractDungeonObject getEditorDefaultFill() {
@@ -207,19 +207,19 @@ public class PrefsManager {
     }
 
     public static boolean getSoundsEnabled() {
-	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_SOUNDS), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKey(PrefKey.ENABLE_SOUNDS), true);
     }
 
     static void setSoundsEnabled(final boolean status) {
-	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_SOUNDS), status);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_SOUNDS), status);
     }
 
     public static boolean getMusicEnabled() {
-	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_MUSIC), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKey(PrefKey.ENABLE_MUSIC), true);
     }
 
     static void setMusicEnabled(final boolean status) {
-	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_MUSIC), status);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_MUSIC), status);
     }
 
     public static JFrame getPrefFrame() {
@@ -297,24 +297,24 @@ public class PrefsManager {
 	    PrefsManager.storeMgr.loadStore(buf);
 	} catch (final IOException io) {
 	    // Populate store with defaults
-	    PrefsManager.storeMgr.setString(Strings.prefKeys(PrefKey.LAST_FOLDER_OPEN), Strings.EMPTY);
-	    PrefsManager.storeMgr.setString(Strings.prefKeys(PrefKey.LAST_FOLDER_SAVE), Strings.EMPTY);
-	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.UPDATES_STARTUP), true);
-	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ONE_MOVE), true);
-	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_SOUNDS), true);
-	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_MUSIC), true);
-	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_ANIMATION), true);
-	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_KIDS), true);
-	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_EASY), true);
-	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_MEDIUM), true);
-	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_HARD), true);
-	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_DEADLY), true);
-	    PrefsManager.storeMgr.setInteger(Strings.prefKeys(PrefKey.ACTION_DELAY), 2);
-	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ACCELERATOR_MODEL), false);
-	    PrefsManager.storeMgr.setInteger(Strings.prefKeys(PrefKey.ACTIVE_LANGUAGE), PrefsManager.FALLBACK_LANGUAGE);
-	    PrefsManager.storeMgr.setInteger(Strings.prefKeys(PrefKey.EDITOR_LAYOUT),
+	    PrefsManager.storeMgr.setString(Strings.prefKey(PrefKey.LAST_FOLDER_OPEN), Strings.EMPTY);
+	    PrefsManager.storeMgr.setString(Strings.prefKey(PrefKey.LAST_FOLDER_SAVE), Strings.EMPTY);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.UPDATES_STARTUP), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ONE_MOVE), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_SOUNDS), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_MUSIC), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_ANIMATION), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_KIDS), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_EASY), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_MEDIUM), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_HARD), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_DEADLY), true);
+	    PrefsManager.storeMgr.setInteger(Strings.prefKey(PrefKey.ACTION_DELAY), 2);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.ACCELERATOR_MODEL), false);
+	    PrefsManager.storeMgr.setInteger(Strings.prefKey(PrefKey.ACTIVE_LANGUAGE), PrefsManager.FALLBACK_LANGUAGE);
+	    PrefsManager.storeMgr.setInteger(Strings.prefKey(PrefKey.EDITOR_LAYOUT),
 		    PrefsManager.DEFAULT_EDITOR_LAYOUT.ordinal());
-	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.EDITOR_SHOW_ALL_OBJECTS), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKey(PrefKey.EDITOR_SHOW_ALL_OBJECTS), true);
 	}
     }
 }
