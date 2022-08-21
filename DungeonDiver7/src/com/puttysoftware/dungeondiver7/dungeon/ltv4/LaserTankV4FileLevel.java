@@ -31,6 +31,7 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Tunnel;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Water;
 import com.puttysoftware.dungeondiver7.locale.Colors;
+import com.puttysoftware.dungeondiver7.locale.Difficulty;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
@@ -250,22 +251,22 @@ class LaserTankV4FileLevel {
 	    final int tempDiff = LaserTankV4FileLevel.toInt(LaserTankV4FileLevel.difficulty);
 	    switch (tempDiff) {
 	    case 1:
-		a.setDifficulty(1);
+		a.setDifficulty(Difficulty.KIDS);
 		break;
 	    case 2:
-		a.setDifficulty(2);
+		a.setDifficulty(Difficulty.EASY);
 		break;
 	    case 4:
-		a.setDifficulty(3);
+		a.setDifficulty(Difficulty.MEDIUM);
 		break;
 	    case 8:
-		a.setDifficulty(4);
+		a.setDifficulty(Difficulty.HARD);
 		break;
 	    case 16:
-		a.setDifficulty(5);
+		a.setDifficulty(Difficulty.DEADLY);
 		break;
 	    default:
-		a.setDifficulty(3);
+		a.setDifficulty(Difficulty.MEDIUM);
 		break;
 	    }
 	    t.fillNulls(a, new Ground(), new Wall(), true);

@@ -25,6 +25,7 @@ import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.strings.DianeStrings;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
@@ -57,7 +58,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	JLabel miniLabel;
 	handler = new EventHandler();
 	this.aboutFrame = new JFrame(
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_ABOUT)
+		Strings.dialog(DialogString.ABOUT)
 			+ LocaleConstants.COMMON_STRING_SPACE + Strings.untranslated(Untranslated.PROGRAM_NAME));
 	final Image iconlogo = LogoLoader.getIconLogo();
 	this.aboutFrame.setIconImage(iconlogo);
@@ -66,7 +67,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	buttonPane = new Container();
 	logoPane = new Container();
 	aboutOK = new JButton(
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_OK_BUTTON));
+		Strings.dialog(DialogString.OK_BUTTON));
 	miniLabel = new JLabel(Strings.EMPTY, LogoLoader.getMiniatureLogo(), SwingConstants.LEFT);
 	miniLabel.setLabelFor(null);
 	aboutOK.setDefaultCapable(true);
@@ -77,17 +78,17 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	logoPane.add(miniLabel);
 	textPane.setLayout(new GridLayout(4, 1));
 	textPane.add(new JLabel(Strings.untranslated(Untranslated.PROGRAM_NAME) + LocaleConstants.COMMON_STRING_SPACE
-		+ LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_VERSION)
+		+ Strings.dialog(DialogString.VERSION)
 		+ LocaleConstants.COMMON_STRING_SPACE + ver));
-	textPane.add(new JLabel(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		LocaleConstants.DIALOG_STRING_AUTHOR)
+	textPane.add(new JLabel(Strings.dialog(
+		DialogString.AUTHOR)
 		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_AUTHOR_NAME)));
 	textPane.add(new JLabel(
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_WEB_SITE)
+		Strings.dialog(DialogString.WEB_SITE)
 			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 				LocaleConstants.NOTL_STRING_GAME_WEB_URL)));
-	textPane.add(new JLabel(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		LocaleConstants.DIALOG_STRING_BUG_REPORTS)
+	textPane.add(new JLabel(Strings.dialog(
+		DialogString.BUG_REPORTS)
 		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_GAME_EMAIL)));
 	buttonPane.setLayout(new FlowLayout());
 	buttonPane.add(aboutOK);
@@ -111,8 +112,8 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	    try {
 		final AboutDialog ad = AboutDialog.this;
 		final String cmd = e.getActionCommand();
-		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_OK_BUTTON))) {
+		if (cmd.equals(Strings.dialog(
+			DialogString.OK_BUTTON))) {
 		    ad.hideAboutDialog();
 		}
 	    } catch (final Exception ex) {

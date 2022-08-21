@@ -17,6 +17,7 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
+import com.puttysoftware.dungeondiver7.locale.Difficulty;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
@@ -123,9 +124,9 @@ public abstract class AbstractDungeon {
 
     public abstract void setAuthor(String newAuthor);
 
-    public abstract int getDifficulty();
+    public abstract Difficulty getDifficulty();
 
-    public abstract void setDifficulty(int newDifficulty);
+    public abstract void setDifficulty(Difficulty newDifficulty);
 
     public abstract String getBasePath();
 
@@ -148,7 +149,7 @@ public abstract class AbstractDungeon {
     public final boolean switchToNextLevelWithDifficulty(final int[] difficulty) {
 	boolean keepGoing = true;
 	while (keepGoing) {
-	    final int diff = this.getDifficulty();
+	    final int diff = this.getDifficulty().ordinal();
 	    for (final int element : difficulty) {
 		if (diff - 1 == element) {
 		    keepGoing = false;
@@ -169,7 +170,7 @@ public abstract class AbstractDungeon {
     public final boolean switchToPreviousLevelWithDifficulty(final int[] difficulty) {
 	boolean keepGoing = true;
 	while (keepGoing) {
-	    final int diff = this.getDifficulty();
+	    final int diff = this.getDifficulty().ordinal();
 	    for (final int element : difficulty) {
 		if (diff - 1 == element) {
 		    keepGoing = false;

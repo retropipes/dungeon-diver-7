@@ -7,6 +7,7 @@ package com.puttysoftware.dungeondiver7.dungeon.current;
 
 import java.io.IOException;
 
+import com.puttysoftware.dungeondiver7.locale.Difficulty;
 import com.puttysoftware.dungeondiver7.locale.Generic;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -25,7 +26,7 @@ public final class DungeonLevelInfo {
     private String name;
     private String hint;
     private String author;
-    private int difficulty;
+    private Difficulty difficulty;
     private boolean moveShootAllowed;
 
     // Constructors
@@ -42,7 +43,7 @@ public final class DungeonLevelInfo {
 	this.name = Strings.generic(Generic.UNNAMED_LEVEL);
 	this.hint = Strings.EMPTY;
 	this.author = Strings.generic(Generic.UNKNOWN_AUTHOR);
-	this.difficulty = 1;
+	this.difficulty = Difficulty.KIDS;
 	this.moveShootAllowed = false;
     }
 
@@ -91,11 +92,11 @@ public final class DungeonLevelInfo {
 	this.author = newAuthor;
     }
 
-    public int getDifficulty() {
+    public Difficulty getDifficulty() {
 	return this.difficulty;
     }
 
-    public void setDifficulty(final int newDifficulty) {
+    public void setDifficulty(final Difficulty newDifficulty) {
 	this.difficulty = newDifficulty;
     }
 
@@ -238,7 +239,7 @@ public final class DungeonLevelInfo {
 	writer.writeString(this.name);
 	writer.writeString(this.hint);
 	writer.writeString(this.author);
-	writer.writeInt(this.difficulty);
+	writer.writeInt(this.difficulty.ordinal());
 	writer.writeBoolean(this.moveShootAllowed);
     }
 
@@ -256,7 +257,7 @@ public final class DungeonLevelInfo {
 	li.name = reader.readString();
 	li.hint = reader.readString();
 	li.author = reader.readString();
-	li.difficulty = reader.readInt();
+	li.difficulty = Difficulty.values()[reader.readInt()];
 	li.moveShootAllowed = reader.readBoolean();
 	return li;
     }

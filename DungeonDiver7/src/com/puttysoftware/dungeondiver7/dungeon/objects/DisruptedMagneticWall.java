@@ -10,8 +10,8 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDisruptedObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.Materials;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class DisruptedMagneticWall extends AbstractDisruptedObject {
     // Fields

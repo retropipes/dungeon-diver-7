@@ -13,6 +13,7 @@ import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.strings.DianeStrings;
 import com.puttysoftware.diane.utilties.DirectionResolver;
 import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.Accelerators;
@@ -35,6 +36,7 @@ import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
@@ -42,16 +44,16 @@ import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.utility.GameActions;
 import com.puttysoftware.dungeondiver7.utility.AlreadyDeadException;
-import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 import com.puttysoftware.dungeondiver7.utility.CustomDialogs;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.FileExtensions;
+import com.puttysoftware.dungeondiver7.utility.GameActions;
 import com.puttysoftware.dungeondiver7.utility.InvalidDungeonException;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 import com.puttysoftware.dungeondiver7.utility.RangeTypes;
-import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 import com.puttysoftware.fileio.XDataReader;
@@ -356,14 +358,9 @@ public final class GameLogic implements MenuSection {
 
     private void updateInfo() {
 	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	this.levelInfo
-		.setText(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE, LocaleConstants.GAME_STRING_LEVEL)
-			+ LocaleConstants.COMMON_STRING_SPACE + (a.getActiveLevel() + 1)
-			+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE + a.getName().trim()
-			+ LocaleConstants.COMMON_STRING_SPACE
-			+ LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-				LocaleConstants.DIALOG_STRING_DUNGEON_LEVEL_BY)
-			+ LocaleConstants.COMMON_STRING_SPACE + a.getAuthor().trim());
+	this.levelInfo.setText(DianeStrings.subst(Strings.dialog(DialogString.CURRENT_LEVEL_INFO),
+		Integer.toString(a.getActiveLevel() + 1), a.getName().trim(), a.getAuthor().trim(),
+		Strings.difficulty(a.getDifficulty())));
     }
 
     void updateScore(final int moves, final int shots, final int others) {
@@ -605,24 +602,21 @@ public final class GameLogic implements MenuSection {
     }
 
     public boolean fireLaser(final int ox, final int oy, final AbstractDungeonObject shooter) {
-	if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_MISSILES
-		&& this.activeShotType == ShotTypes.MISSILE && PartyInventory.getMissilesLeft() == 0
-		&& !this.getCheatStatus(GameLogic.CHEAT_MISSILES)) {
+	if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_MISSILES && this.activeShotType == ShotTypes.MISSILE
+		&& PartyInventory.getMissilesLeft() == 0 && !this.getCheatStatus(GameLogic.CHEAT_MISSILES)) {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 		    LocaleConstants.GAME_STRING_OUT_OF_MISSILES));
-	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_STUNNERS
-		&& this.activeShotType == ShotTypes.STUNNER && PartyInventory.getStunnersLeft() == 0
-		&& !this.getCheatStatus(GameLogic.CHEAT_STUNNERS)) {
+	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_STUNNERS && this.activeShotType == ShotTypes.STUNNER
+		&& PartyInventory.getStunnersLeft() == 0 && !this.getCheatStatus(GameLogic.CHEAT_STUNNERS)) {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 		    LocaleConstants.GAME_STRING_OUT_OF_STUNNERS));
-	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_BLUE_LASERS
-		&& this.activeShotType == ShotTypes.BLUE && PartyInventory.getBlueLasersLeft() == 0
-		&& !this.getCheatStatus(GameLogic.CHEAT_BLUE_LASERS)) {
+	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_BLUE_LASERS && this.activeShotType == ShotTypes.BLUE
+		&& PartyInventory.getBlueLasersLeft() == 0 && !this.getCheatStatus(GameLogic.CHEAT_BLUE_LASERS)) {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 		    LocaleConstants.GAME_STRING_OUT_OF_BLUE_LASERS));
 	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_DISRUPTORS
-		&& this.activeShotType == ShotTypes.DISRUPTOR
-		&& PartyInventory.getDisruptorsLeft() == 0 && !this.getCheatStatus(GameLogic.CHEAT_DISRUPTORS)) {
+		&& this.activeShotType == ShotTypes.DISRUPTOR && PartyInventory.getDisruptorsLeft() == 0
+		&& !this.getCheatStatus(GameLogic.CHEAT_DISRUPTORS)) {
 	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
 		    LocaleConstants.GAME_STRING_OUT_OF_DISRUPTORS));
 	} else {
@@ -674,8 +668,8 @@ public final class GameLogic implements MenuSection {
 	final int px = this.plMgr.getPlayerLocationX();
 	final int py = this.plMgr.getPlayerLocationY();
 	final int pz = this.plMgr.getPlayerLocationZ();
-	a.circularScanRange(px, py, pz, 1, this.otherRangeMode, AbstractDungeonObject
-		.getImbuedRangeForce(RangeTypes.getMaterialForRangeType(this.otherRangeMode)));
+	a.circularScanRange(px, py, pz, 1, this.otherRangeMode,
+		AbstractDungeonObject.getImbuedRangeForce(RangeTypes.getMaterialForRangeType(this.otherRangeMode)));
 	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().tickTimers(pz, GameActions.NON_MOVE);
 	this.updateScoreText();
     }

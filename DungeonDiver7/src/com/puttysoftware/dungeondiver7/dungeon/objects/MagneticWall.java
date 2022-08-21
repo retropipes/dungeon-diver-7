@@ -11,9 +11,9 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ShotTypes;
-import com.puttysoftware.dungeondiver7.utility.Materials;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 
 public class MagneticWall extends AbstractWall {
     // Constructors

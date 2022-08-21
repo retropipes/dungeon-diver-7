@@ -19,6 +19,8 @@ import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
@@ -35,7 +37,7 @@ public class LaserTankV4LoadTask extends Thread {
 	this.setName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		LocaleConstants.NOTL_STRING_OLD_AG_LOADER_NAME));
 	this.loadFrame = new JFrame(
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_LOADING));
+		Strings.dialog(DialogString.LOADING));
 	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
@@ -68,12 +70,12 @@ public class LaserTankV4LoadTask extends Thread {
 	    app.updateLevelInfoList();
 	    app.getEditor().dungeonChanged();
 	    MusicLoader.dungeonChanged();
-	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		    LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_SUCCESS));
+	    CommonDialogs.showDialog(Strings.dialog(
+		    DialogString.DUNGEON_LOADING_SUCCESS));
 	    app.getDungeonManager().handleDeferredSuccess(true, false, null);
 	} catch (final FileNotFoundException fnfe) {
-	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		    LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_FAILED));
+	    CommonDialogs.showDialog(Strings.dialog(
+		    DialogString.DUNGEON_LOADING_FAILED));
 	    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final IOException ie) {
 	    CommonDialogs.showDialog(ie.getMessage());

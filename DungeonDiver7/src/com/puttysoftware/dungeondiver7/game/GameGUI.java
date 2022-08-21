@@ -57,6 +57,8 @@ import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
+import com.puttysoftware.dungeondiver7.locale.Difficulty;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.TimeTravel;
@@ -65,11 +67,10 @@ import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.utility.ShotTypes;
-import com.puttysoftware.dungeondiver7.utility.Difficulties;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 import com.puttysoftware.dungeondiver7.utility.RCLGenerator;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 import com.puttysoftware.images.BufferedImageIcon;
 
 class GameGUI {
@@ -128,19 +129,19 @@ class GameGUI {
     static int[] getEnabledDifficulties() {
 	final ArrayList<Integer> temp = new ArrayList<>();
 	if (PrefsManager.isKidsDifficultyEnabled()) {
-	    temp.add(Integer.valueOf(Difficulties.KIDS - 1));
+	    temp.add(Integer.valueOf(Difficulty.KIDS.ordinal()));
 	}
 	if (PrefsManager.isEasyDifficultyEnabled()) {
-	    temp.add(Integer.valueOf(Difficulties.EASY - 1));
+	    temp.add(Integer.valueOf(Difficulty.EASY.ordinal()));
 	}
 	if (PrefsManager.isMediumDifficultyEnabled()) {
-	    temp.add(Integer.valueOf(Difficulties.MEDIUM - 1));
+	    temp.add(Integer.valueOf(Difficulty.MEDIUM.ordinal()));
 	}
 	if (PrefsManager.isHardDifficultyEnabled()) {
-	    temp.add(Integer.valueOf(Difficulties.HARD - 1));
+	    temp.add(Integer.valueOf(Difficulty.HARD.ordinal()));
 	}
 	if (PrefsManager.isDeadlyDifficultyEnabled()) {
-	    temp.add(Integer.valueOf(Difficulties.DEADLY - 1));
+	    temp.add(Integer.valueOf(Difficulty.DEADLY.ordinal()));
 	}
 	final Integer[] temp2 = temp.toArray(new Integer[temp.size()]);
 	final int[] retVal = new int[temp2.length];
@@ -405,11 +406,9 @@ class GameGUI {
 	final Container difficultyPane = new Container();
 	final Container listPane = new Container();
 	final Container buttonPane = new Container();
-	this.difficultyList = new JList<>(Difficulties.getDifficultyNames());
-	final JButton okButton = new JButton(
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_OK_BUTTON));
-	final JButton cancelButton = new JButton(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		LocaleConstants.DIALOG_STRING_CANCEL_BUTTON));
+	this.difficultyList = new JList<>(Strings.allDifficulties());
+	final JButton okButton = new JButton(Strings.dialog(DialogString.OK_BUTTON));
+	final JButton cancelButton = new JButton(Strings.dialog(DialogString.CANCEL_BUTTON));
 	buttonPane.setLayout(new FlowLayout());
 	buttonPane.add(okButton);
 	buttonPane.add(cancelButton);
@@ -438,27 +437,27 @@ class GameGUI {
 
     void difficultyDialogOKButtonClicked() {
 	this.difficultyFrame.setVisible(false);
-	if (this.difficultyList.isSelectedIndex(Difficulties.KIDS - 1)) {
+	if (this.difficultyList.isSelectedIndex(Difficulty.KIDS.ordinal())) {
 	    PrefsManager.setKidsDifficultyEnabled(true);
 	} else {
 	    PrefsManager.setKidsDifficultyEnabled(false);
 	}
-	if (this.difficultyList.isSelectedIndex(Difficulties.EASY - 1)) {
+	if (this.difficultyList.isSelectedIndex(Difficulty.EASY.ordinal())) {
 	    PrefsManager.setEasyDifficultyEnabled(true);
 	} else {
 	    PrefsManager.setEasyDifficultyEnabled(false);
 	}
-	if (this.difficultyList.isSelectedIndex(Difficulties.MEDIUM - 1)) {
+	if (this.difficultyList.isSelectedIndex(Difficulty.MEDIUM.ordinal())) {
 	    PrefsManager.setMediumDifficultyEnabled(true);
 	} else {
 	    PrefsManager.setMediumDifficultyEnabled(false);
 	}
-	if (this.difficultyList.isSelectedIndex(Difficulties.HARD - 1)) {
+	if (this.difficultyList.isSelectedIndex(Difficulty.HARD.ordinal())) {
 	    PrefsManager.setHardDifficultyEnabled(true);
 	} else {
 	    PrefsManager.setHardDifficultyEnabled(false);
 	}
-	if (this.difficultyList.isSelectedIndex(Difficulties.DEADLY - 1)) {
+	if (this.difficultyList.isSelectedIndex(Difficulty.DEADLY.ordinal())) {
 	    PrefsManager.setDeadlyDifficultyEnabled(true);
 	} else {
 	    PrefsManager.setDeadlyDifficultyEnabled(false);
@@ -1332,8 +1331,7 @@ class GameGUI {
 	public void actionPerformed(final ActionEvent e) {
 	    final String cmd = e.getActionCommand();
 	    final GameGUI gm = GameGUI.this;
-	    if (cmd.equals(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		    LocaleConstants.DIALOG_STRING_OK_BUTTON))) {
+	    if (cmd.equals(Strings.dialog(DialogString.OK_BUTTON))) {
 		gm.difficultyDialogOKButtonClicked();
 	    } else {
 		gm.difficultyDialogCancelButtonClicked();

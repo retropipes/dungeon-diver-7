@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 
 public class CustomDialogs {
     private CustomDialogs() {
@@ -21,18 +21,18 @@ public class CustomDialogs {
     public static int showDeadDialog() {
 	final StuffBag app = DungeonDiver7.getStuffBag();
 	return JOptionPane.showOptionDialog(app.getOutputFrame(),
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_DEAD_MESSAGE),
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_DEAD_TITLE),
+		Strings.dialog(
+			DialogString.DEAD_MESSAGE),
+		Strings.dialog(DialogString.DEAD_TITLE),
 		JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, LogoLoader.getMicroLogo(),
 		new String[] {
-			LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-				LocaleConstants.DIALOG_STRING_UNDO_BUTTON),
-			LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-				LocaleConstants.DIALOG_STRING_RESTART_BUTTON),
-			LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-				LocaleConstants.DIALOG_STRING_END_BUTTON) },
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_UNDO_BUTTON));
+			Strings.dialog(
+				DialogString.UNDO_BUTTON),
+			Strings.dialog(
+				DialogString.RESTART_BUTTON),
+			Strings.dialog(
+				DialogString.END_BUTTON) },
+		Strings.dialog(
+			DialogString.UNDO_BUTTON));
     }
 }

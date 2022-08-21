@@ -27,8 +27,8 @@ import javax.swing.border.EmptyBorder;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.loader.ExternalMusicImporter;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 
 public class Importer {
     // Fields
@@ -78,13 +78,13 @@ public class Importer {
 				Importer.sourceFrame.setJMenuBar(Importer.sourceMenus);
 			    } else {
 				// Unknown file type
-				CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-					LocaleConstants.DIALOG_STRING_IMPORT_FAILED_FILE_TYPE));
+				CommonDialogs.showDialog(Strings.dialog(
+					DialogString.IMPORT_FAILED_FILE_TYPE));
 			    }
 			} else {
 			    // Not a file
-			    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-				    LocaleConstants.DIALOG_STRING_IMPORT_FAILED_NON_FILE));
+			    CommonDialogs.showDialog(Strings.dialog(
+				    DialogString.IMPORT_FAILED_NON_FILE));
 			}
 		    }
 		}
@@ -121,14 +121,14 @@ public class Importer {
     }
 
     private static void init() {
-	Importer.guiFrame = new JFrame(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		LocaleConstants.DIALOG_STRING_IMPORT_TITLE));
+	Importer.guiFrame = new JFrame(Strings.dialog(
+		DialogString.IMPORT_TITLE));
 	Importer.guiPane = Importer.guiFrame.getContentPane();
 	Importer.guiFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	Importer.guiFrame.addWindowListener(new CloseHandler());
 	Importer.guiFrame.setLayout(new GridLayout(1, 1));
-	Importer.logoLabel = new JLabel(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		LocaleConstants.DIALOG_STRING_IMPORT_INSTRUCTIONS), null, SwingConstants.CENTER);
+	Importer.logoLabel = new JLabel(Strings.dialog(
+		DialogString.IMPORT_INSTRUCTIONS), null, SwingConstants.CENTER);
 	Importer.logoLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
 	Importer.logoLabel.setPreferredSize(new Dimension(500, 500));
 	Importer.guiPane.add(Importer.logoLabel);

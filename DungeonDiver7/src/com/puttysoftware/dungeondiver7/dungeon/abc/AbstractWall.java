@@ -6,8 +6,8 @@
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.Materials;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public abstract class AbstractWall extends AbstractDungeonObject {
     // Constructors

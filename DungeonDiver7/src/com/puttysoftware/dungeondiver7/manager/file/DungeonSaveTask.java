@@ -12,6 +12,8 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.FileExtensions;
@@ -69,11 +71,11 @@ public class DungeonSaveTask extends Thread {
 	    }
 	} catch (final FileNotFoundException fnfe) {
 	    if (this.isSavedGame) {
-		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_GAME_SAVING_FAILED));
+		CommonDialogs.showDialog(Strings.dialog(
+			DialogString.GAME_SAVING_FAILED));
 	    } else {
-		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_DUNGEON_SAVING_FAILED));
+		CommonDialogs.showDialog(Strings.dialog(
+			DialogString.DUNGEON_SAVING_FAILED));
 	    }
 	    success = false;
 	} catch (final ProtectionCancelException pce) {

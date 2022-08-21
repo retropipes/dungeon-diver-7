@@ -25,9 +25,10 @@ import javax.swing.WindowConstants;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.EditorLayout;
+import com.puttysoftware.dungeondiver7.locale.PrefString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
 class PrefsGUIManager {
@@ -134,41 +135,28 @@ class PrefsGUIManager {
 
     private void setUpGUI() {
 	final EventHandler handler = new EventHandler();
-	this.prefFrame = new JFrame(
-		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE, LocaleConstants.PREFS_STRING_TITLE));
+	this.prefFrame = new JFrame(Strings.prefs(PrefString.TITLE));
 	final Container mainPrefPane = new Container();
 	final Container buttonPane = new Container();
 	final Container settingsPane = new Container();
 	final JButton prefsOK = new JButton(
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_OK_BUTTON));
+		Strings.dialog(DialogString.OK_BUTTON));
 	prefsOK.setDefaultCapable(true);
 	this.prefFrame.getRootPane().setDefaultButton(prefsOK);
-	final JButton prefsCancel = new JButton(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		LocaleConstants.DIALOG_STRING_CANCEL_BUTTON));
+	final JButton prefsCancel = new JButton(Strings.dialog(
+		DialogString.CANCEL_BUTTON));
 	prefsCancel.setDefaultCapable(false);
-	this.sounds = new JCheckBox(
-		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE, LocaleConstants.PREFS_STRING_ENABLE_SOUNDS),
-		true);
-	this.music = new JCheckBox(
-		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE, LocaleConstants.PREFS_STRING_ENABLE_MUSIC),
-		true);
-	this.checkUpdatesStartup = new JCheckBox(LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE,
-		LocaleConstants.PREFS_STRING_STARTUP_UPDATES), true);
-	this.moveOneAtATime = new JCheckBox(
-		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE, LocaleConstants.PREFS_STRING_ONE_MOVE),
-		true);
-	this.enableAnimation = new JCheckBox(LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE,
-		LocaleConstants.PREFS_STRING_ENABLE_ANIMATION), true);
-	this.actionDelay = new JComboBox<>(new String[] {
-		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE, LocaleConstants.PREFS_STRING_SPEED_1),
-		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE, LocaleConstants.PREFS_STRING_SPEED_2),
-		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE, LocaleConstants.PREFS_STRING_SPEED_3),
-		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE, LocaleConstants.PREFS_STRING_SPEED_4),
-		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE, LocaleConstants.PREFS_STRING_SPEED_5) });
+	this.sounds = new JCheckBox(Strings.prefs(PrefString.ENABLE_SOUNDS), true);
+	this.music = new JCheckBox(Strings.prefs(PrefString.ENABLE_MUSIC), true);
+	this.checkUpdatesStartup = new JCheckBox(Strings.prefs(PrefString.STARTUP_UPDATES), true);
+	this.moveOneAtATime = new JCheckBox(Strings.prefs(PrefString.ONE_MOVE), true);
+	this.enableAnimation = new JCheckBox(Strings.prefs(PrefString.ENABLE_ANIMATION), true);
+	this.actionDelay = new JComboBox<>(new String[] { Strings.prefs(PrefString.SPEED_1),
+		Strings.prefs(PrefString.SPEED_2), Strings.prefs(PrefString.SPEED_3), Strings.prefs(PrefString.SPEED_4),
+		Strings.prefs(PrefString.SPEED_5) });
 	this.languageList = new JComboBox<>(LocaleLoader.loadLocalizedLanguagesList());
 	this.editorLayoutList = new JComboBox<>(Strings.allEditorLayouts());
-	this.editorShowAllObjects = new JCheckBox(LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE,
-		LocaleConstants.PREFS_STRING_SHOW_ALL_OBJECTS), true);
+	this.editorShowAllObjects = new JCheckBox(Strings.prefs(PrefString.SHOW_ALL_OBJECTS), true);
 	this.difficultyPicker = new JComboBox<>(PrefsGUIManager.DIFFICULTY_NAMES);
 	this.prefFrame.setContentPane(mainPrefPane);
 	this.prefFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -181,14 +169,11 @@ class PrefsGUIManager {
 	settingsPane.add(this.enableAnimation);
 	settingsPane.add(this.checkUpdatesStartup);
 	settingsPane.add(this.moveOneAtATime);
-	settingsPane.add(new JLabel(
-		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE, LocaleConstants.PREFS_STRING_SPEED_LABEL)));
+	settingsPane.add(new JLabel(Strings.prefs(PrefString.SPEED_LABEL)));
 	settingsPane.add(this.actionDelay);
-	settingsPane.add(new JLabel(LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE,
-		LocaleConstants.PREFS_STRING_ACTIVE_LANGUAGE_LABEL)));
+	settingsPane.add(new JLabel(Strings.prefs(PrefString.ACTIVE_LANGUAGE_LABEL)));
 	settingsPane.add(this.languageList);
-	settingsPane.add(new JLabel(LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE,
-		LocaleConstants.PREFS_STRING_EDITOR_LAYOUT_LABEL)));
+	settingsPane.add(new JLabel(Strings.prefs(PrefString.EDITOR_LAYOUT_LABEL)));
 	settingsPane.add(this.editorLayoutList);
 	settingsPane.add(this.editorShowAllObjects);
 	settingsPane.add(new JLabel("Game Difficulty"));
@@ -216,11 +201,11 @@ class PrefsGUIManager {
 	    try {
 		final PrefsGUIManager pm = PrefsGUIManager.this;
 		final String cmd = e.getActionCommand();
-		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_OK_BUTTON))) {
+		if (cmd.equals(Strings.dialog(
+			DialogString.OK_BUTTON))) {
 		    pm.setPrefs();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_CANCEL_BUTTON))) {
+		} else if (cmd.equals(Strings.dialog(
+			DialogString.CANCEL_BUTTON))) {
 		    pm.hidePrefs();
 		}
 	    } catch (final Exception ex) {

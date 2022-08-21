@@ -20,6 +20,7 @@ import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
@@ -44,7 +45,7 @@ public class DungeonLoadTask extends Thread {
 	this.setName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		LocaleConstants.NOTL_STRING_NEW_AG_LOADER_NAME));
 	this.loadFrame = new JFrame(
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_LOADING));
+		Strings.dialog(DialogString.LOADING));
 	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
@@ -78,8 +79,8 @@ public class DungeonLoadTask extends Thread {
 		    CommonDialogs.showErrorDialog(
 			    Strings.error(
 				    ErrorString.BAD_PROTECTION_KEY),
-			    Strings.error(
-				    ErrorString.PROTECTION));
+			    Strings.dialog(
+				    DialogString.PROTECTION_TITLE));
 		    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 		    return;
 		} finally {
@@ -122,31 +123,31 @@ public class DungeonLoadTask extends Thread {
 	    app.getEditor().dungeonChanged();
 	    MusicLoader.dungeonChanged();
 	    if (this.isSavedGame) {
-		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_GAME_LOADING_SUCCESS));
+		CommonDialogs.showDialog(Strings.dialog(
+			DialogString.GAME_LOADING_SUCCESS));
 	    } else {
-		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_SUCCESS));
+		CommonDialogs.showDialog(Strings.dialog(
+			DialogString.DUNGEON_LOADING_SUCCESS));
 	    }
 	    app.getDungeonManager().handleDeferredSuccess(true, false, null);
 	} catch (final FileNotFoundException fnfe) {
 	    if (this.isSavedGame) {
-		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_GAME_LOADING_FAILED));
+		CommonDialogs.showDialog(Strings.dialog(
+			DialogString.GAME_LOADING_FAILED));
 	    } else {
-		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_FAILED));
+		CommonDialogs.showDialog(Strings.dialog(
+			DialogString.DUNGEON_LOADING_FAILED));
 	    }
 	    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final ProtectionCancelException pce) {
 	    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final IOException ie) {
 	    if (this.isSavedGame) {
-		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_GAME_LOADING_FAILED));
+		CommonDialogs.showDialog(Strings.dialog(
+			DialogString.GAME_LOADING_FAILED));
 	    } else {
-		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_DUNGEON_LOADING_FAILED));
+		CommonDialogs.showDialog(Strings.dialog(
+			DialogString.DUNGEON_LOADING_FAILED));
 	    }
 	    DungeonDiver7.logWarningDirectly(ie);
 	    app.getDungeonManager().handleDeferredSuccess(false, false, null);

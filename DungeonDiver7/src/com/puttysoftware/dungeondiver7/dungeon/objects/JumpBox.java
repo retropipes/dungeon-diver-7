@@ -9,8 +9,8 @@ import java.awt.Color;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractJumpObject;
-import com.puttysoftware.dungeondiver7.utility.Materials;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
+import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class JumpBox extends AbstractJumpObject {
     // Constructors

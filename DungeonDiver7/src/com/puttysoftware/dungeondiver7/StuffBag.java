@@ -18,6 +18,7 @@ import com.puttysoftware.dungeondiver7.battle.MapBattleLogic;
 import com.puttysoftware.dungeondiver7.editor.DungeonEditor;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
@@ -265,8 +266,8 @@ public final class StuffBag {
     public void updateLevelInfoList() {
 	JFrame loadFrame;
 	JProgressBar loadBar;
-	loadFrame = new JFrame(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		LocaleConstants.DIALOG_STRING_UPDATING_LEVEL_INFO));
+	loadFrame = new JFrame(Strings.dialog(
+		DialogString.UPDATING_LEVEL_INFO));
 	loadFrame.setIconImage(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);

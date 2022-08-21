@@ -26,10 +26,10 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Stunner;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
+import com.puttysoftware.dungeondiver7.utility.PartyInventory;
+import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 
 final class MovingLaserTracker {
     // Fields

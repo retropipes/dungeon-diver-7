@@ -7,6 +7,7 @@ package com.puttysoftware.dungeondiver7.prefs;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,17 +19,16 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Ground;
 import com.puttysoftware.dungeondiver7.locale.EditorLayout;
+import com.puttysoftware.dungeondiver7.locale.FileExtension;
+import com.puttysoftware.dungeondiver7.locale.PrefKey;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 
 public class PrefsManager {
     // Fields
     private final static PrefsFileManager storeMgr = new PrefsFileManager();
     private final static PrefsGUIManager guiMgr = new PrefsGUIManager();
-    private final static int FALLBACK_LANGUAGE_ID = 0;
+    private final static int FALLBACK_LANGUAGE = 0;
     private final static EditorLayout DEFAULT_EDITOR_LAYOUT = EditorLayout.VERTICAL;
     private static final int BATTLE_SPEED = 1000;
     private static final int VIEWING_WINDOW_SIZE = 11;
@@ -54,13 +54,12 @@ public class PrefsManager {
     }
 
     public static int getGameDifficulty() {
-	return PrefsManager.storeMgr.getInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_DIFFICULTY), PrefsManager.DEFAULT_DIFFICULTY);
+	return PrefsManager.storeMgr.getInteger(Strings.prefKeys(PrefKey.GAME_DIFFICULTY),
+		PrefsManager.DEFAULT_DIFFICULTY);
     }
 
     static void setGameDifficulty(final int value) {
-	PrefsManager.storeMgr.setInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_DIFFICULTY), value);
+	PrefsManager.storeMgr.setInteger(Strings.prefKeys(PrefKey.GAME_DIFFICULTY), value);
     }
 
     public static void activeLanguageChanged() {
@@ -68,91 +67,75 @@ public class PrefsManager {
     }
 
     public static EditorLayout getEditorLayout() {
-	return EditorLayout.values()[PrefsManager.storeMgr.getInteger(
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_PREFS_KEY_EDITOR_LAYOUT_ID),
+	return EditorLayout.values()[PrefsManager.storeMgr.getInteger(Strings.prefKeys(PrefKey.EDITOR_LAYOUT),
 		PrefsManager.DEFAULT_EDITOR_LAYOUT.ordinal())];
     }
 
     public static void setEditorLayout(final EditorLayout value) {
-	PrefsManager.storeMgr.setInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_EDITOR_LAYOUT_ID), value.ordinal());
+	PrefsManager.storeMgr.setInteger(Strings.prefKeys(PrefKey.EDITOR_LAYOUT), value.ordinal());
 	DungeonDiver7.getStuffBag().getEditor().resetBorderPane();
     }
 
     public static boolean getEditorShowAllObjects() {
-	return PrefsManager.storeMgr.getBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_EDITOR_SHOW_ALL), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.EDITOR_SHOW_ALL_OBJECTS), true);
     }
 
     public static void setEditorShowAllObjects(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_EDITOR_SHOW_ALL), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.EDITOR_SHOW_ALL_OBJECTS), value);
 	DungeonDiver7.getStuffBag().getEditor().resetBorderPane();
     }
 
     public static int getLanguageID() {
-	return PrefsManager.storeMgr.getInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_LANGUAGE_ID), PrefsManager.FALLBACK_LANGUAGE_ID);
+	return PrefsManager.storeMgr.getInteger(Strings.prefKeys(PrefKey.ACTIVE_LANGUAGE),
+		PrefsManager.FALLBACK_LANGUAGE);
     }
 
     public static void setLanguageID(final int value) {
 	final int oldValue = PrefsManager.getLanguageID();
-	PrefsManager.storeMgr.setInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_LANGUAGE_ID), value);
+	PrefsManager.storeMgr.setInteger(Strings.prefKeys(PrefKey.ACTIVE_LANGUAGE), value);
 	if (oldValue != value) {
 	    Strings.changeLanguage(Locale.getDefault());
 	}
     }
 
     public static boolean useClassicAccelerators() {
-	return PrefsManager.storeMgr.getBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_CLASSIC_ACCEL), false);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ACCELERATOR_MODEL), false);
     }
 
     public static void setClassicAccelerators(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_CLASSIC_ACCEL), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ACCELERATOR_MODEL), value);
     }
 
     public static String getLastDirOpen() {
-	return PrefsManager.storeMgr.getString(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_LAST_DIR_OPEN), Strings.EMPTY);
+	return PrefsManager.storeMgr.getString(Strings.prefKeys(PrefKey.LAST_FOLDER_OPEN), Strings.EMPTY);
     }
 
     public static void setLastDirOpen(final String value) {
-	PrefsManager.storeMgr.setString(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_LAST_DIR_OPEN), value);
+	PrefsManager.storeMgr.setString(Strings.prefKeys(PrefKey.LAST_FOLDER_OPEN), value);
     }
 
     public static String getLastDirSave() {
-	return PrefsManager.storeMgr.getString(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_LAST_DIR_SAVE), Strings.EMPTY);
+	return PrefsManager.storeMgr.getString(Strings.prefKeys(PrefKey.LAST_FOLDER_SAVE), Strings.EMPTY);
     }
 
     public static void setLastDirSave(final String value) {
-	PrefsManager.storeMgr.setString(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_LAST_DIR_SAVE), value);
+	PrefsManager.storeMgr.setString(Strings.prefKeys(PrefKey.LAST_FOLDER_SAVE), value);
     }
 
     public static boolean shouldCheckUpdatesAtStartup() {
-	return PrefsManager.storeMgr.getBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_UPDATES_STARTUP), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.UPDATES_STARTUP), true);
     }
 
     static void setCheckUpdatesAtStartup(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_UPDATES_STARTUP), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.UPDATES_STARTUP), value);
     }
 
     static int getActionDelay() {
-	return PrefsManager.storeMgr.getInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ACTION_DELAY), 2);
+	return PrefsManager.storeMgr.getInteger(Strings.prefKeys(PrefKey.ACTION_DELAY), 2);
     }
 
     static void setActionDelay(final int value) {
-	PrefsManager.storeMgr.setInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ACTION_DELAY), value);
+	PrefsManager.storeMgr.setInteger(Strings.prefKeys(PrefKey.ACTION_DELAY), value);
     }
 
     public static long getActionSpeed() {
@@ -164,73 +147,59 @@ public class PrefsManager {
     }
 
     public static boolean oneMove() {
-	return PrefsManager.storeMgr.getBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ONE_MOVE), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ONE_MOVE), true);
     }
 
     static void setOneMove(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ONE_MOVE), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ONE_MOVE), value);
     }
 
     public static boolean enableAnimation() {
-	return PrefsManager.storeMgr.getBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_ANIMATION), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_ANIMATION), true);
     }
 
     static void setEnableAnimation(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_ANIMATION), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_ANIMATION), value);
     }
 
     public static boolean isKidsDifficultyEnabled() {
-	return PrefsManager.storeMgr.getBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_KIDS), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_KIDS), true);
     }
 
     public static void setKidsDifficultyEnabled(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_KIDS), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_KIDS), value);
     }
 
     public static boolean isEasyDifficultyEnabled() {
-	return PrefsManager.storeMgr.getBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_EASY), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_EASY), true);
     }
 
     public static void setEasyDifficultyEnabled(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_EASY), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_EASY), value);
     }
 
     public static boolean isMediumDifficultyEnabled() {
-	return PrefsManager.storeMgr.getBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_MEDIUM), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_MEDIUM), true);
     }
 
     public static void setMediumDifficultyEnabled(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_MEDIUM), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_MEDIUM), value);
     }
 
     public static boolean isHardDifficultyEnabled() {
-	return PrefsManager.storeMgr.getBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_HARD), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_HARD), true);
     }
 
     public static void setHardDifficultyEnabled(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_HARD), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_HARD), value);
     }
 
     public static boolean isDeadlyDifficultyEnabled() {
-	return PrefsManager.storeMgr.getBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_DEADLY), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_DEADLY), true);
     }
 
     public static void setDeadlyDifficultyEnabled(final boolean value) {
-	PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_DEADLY), value);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_DEADLY), value);
     }
 
     public static AbstractDungeonObject getEditorDefaultFill() {
@@ -238,23 +207,19 @@ public class PrefsManager {
     }
 
     public static boolean getSoundsEnabled() {
-	return PrefsManager.storeMgr.getBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_SOUNDS), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_SOUNDS), true);
     }
 
     static void setSoundsEnabled(final boolean status) {
-	PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_SOUNDS), status);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_SOUNDS), status);
     }
 
     public static boolean getMusicEnabled() {
-	return PrefsManager.storeMgr.getBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_MUSIC), true);
+	return PrefsManager.storeMgr.getBoolean(Strings.prefKeys(PrefKey.ENABLE_MUSIC), true);
     }
 
     static void setMusicEnabled(final boolean status) {
-	PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_MUSIC), status);
+	PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_MUSIC), status);
     }
 
     public static JFrame getPrefFrame() {
@@ -269,55 +234,44 @@ public class PrefsManager {
 	final String osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
 	if (osName.indexOf(Strings.untranslated(Untranslated.MACOS)) != -1) {
 	    // Mac OS X
-	    return System.getenv(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_DIRECTORY_UNIX_HOME));
+	    return System.getenv(Strings.untranslated(Untranslated.UNIX_HOME));
 	} else if (osName.indexOf(Strings.untranslated(Untranslated.WINDOWS)) != -1) {
 	    // Windows
-	    return System.getenv(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_DIRECTORY_WINDOWS_APPDATA));
+	    return System.getenv(Strings.untranslated(Untranslated.WINDOWS_SUPPORT));
 	} else {
 	    // Other - assume UNIX-like
-	    return System.getenv(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_DIRECTORY_UNIX_HOME));
+	    return System.getenv(Strings.untranslated(Untranslated.UNIX_HOME));
 	}
     }
 
     private static String getPrefsDirectory() {
 	final String osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
+	String base;
 	if (osName.indexOf(Strings.untranslated(Untranslated.MACOS)) != -1) {
 	    // Mac OS X
-	    return LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_DIRECTORY_PREFS_MAC);
+	    base = Strings.untranslated(Untranslated.MACOS_SUPPORT);
 	} else if (osName.indexOf(Strings.untranslated(Untranslated.WINDOWS)) != -1) {
 	    // Windows
-	    return LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_DIRECTORY_PREFS_WINDOWS);
+	    base = Strings.EMPTY;
 	} else {
 	    // Other - assume UNIX-like
-	    return LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_DIRECTORY_PREFS_UNIX);
+	    base = Strings.untranslated(Untranslated.UNIX_SUPPORT);
+	}
+	if (base != Strings.EMPTY) {
+	    return base + File.pathSeparator + Strings.untranslated(Untranslated.COMPANY_SUBFOLDER) + File.pathSeparator
+		    + Strings.untranslated(Untranslated.PROGRAM_NAME);
+	} else {
+	    return Strings.untranslated(Untranslated.COMPANY_SUBFOLDER) + File.pathSeparator
+		    + Strings.untranslated(Untranslated.PROGRAM_NAME);
 	}
     }
 
     private static String getPrefsFileExtension() {
-	return LocaleConstants.COMMON_STRING_NOTL_PERIOD + FileExtensions.getPreferencesExtension();
+	return Strings.fileExtension(FileExtension.PREFS);
     }
 
     private static String getPrefsFileName() {
-	final String osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
-	if (osName.indexOf(Strings.untranslated(Untranslated.MACOS)) != -1) {
-	    // Mac OS X
-	    return LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_FILE_PREFS_MAC);
-	} else if (osName.indexOf(Strings.untranslated(Untranslated.WINDOWS)) != -1) {
-	    // Windows
-	    return LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_FILE_PREFS_WINDOWS);
-	} else {
-	    // Other - assume UNIX-like
-	    return LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_FILE_PREFS_UNIX);
-	}
+	return Strings.untranslated(Untranslated.PREFS_FILE);
     }
 
     private static String getPrefsFile() {
@@ -343,42 +297,24 @@ public class PrefsManager {
 	    PrefsManager.storeMgr.loadStore(buf);
 	} catch (final IOException io) {
 	    // Populate store with defaults
-	    PrefsManager.storeMgr.setString(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_LAST_DIR_OPEN), Strings.EMPTY);
-	    PrefsManager.storeMgr.setString(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_LAST_DIR_SAVE), Strings.EMPTY);
-	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_UPDATES_STARTUP), true);
-	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_ONE_MOVE), true);
-	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_SOUNDS), true);
-	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_MUSIC), true);
-	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_ANIMATION), true);
-	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_KIDS), true);
-	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_EASY), true);
-	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_MEDIUM), true);
-	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_HARD), true);
-	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_ENABLE_DIFFICULTY_DEADLY), true);
-	    PrefsManager.storeMgr.setInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_ACTION_DELAY), 2);
-	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_CLASSIC_ACCEL), false);
-	    PrefsManager.storeMgr.setInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_LANGUAGE_ID), PrefsManager.FALLBACK_LANGUAGE_ID);
-	    PrefsManager.storeMgr.setInteger(
-		    LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			    LocaleConstants.NOTL_STRING_PREFS_KEY_EDITOR_LAYOUT_ID),
+	    PrefsManager.storeMgr.setString(Strings.prefKeys(PrefKey.LAST_FOLDER_OPEN), Strings.EMPTY);
+	    PrefsManager.storeMgr.setString(Strings.prefKeys(PrefKey.LAST_FOLDER_SAVE), Strings.EMPTY);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.UPDATES_STARTUP), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ONE_MOVE), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_SOUNDS), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_MUSIC), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_ANIMATION), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_KIDS), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_EASY), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_MEDIUM), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_HARD), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ENABLE_DIFFICULTY_DEADLY), true);
+	    PrefsManager.storeMgr.setInteger(Strings.prefKeys(PrefKey.ACTION_DELAY), 2);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.ACCELERATOR_MODEL), false);
+	    PrefsManager.storeMgr.setInteger(Strings.prefKeys(PrefKey.ACTIVE_LANGUAGE), PrefsManager.FALLBACK_LANGUAGE);
+	    PrefsManager.storeMgr.setInteger(Strings.prefKeys(PrefKey.EDITOR_LAYOUT),
 		    PrefsManager.DEFAULT_EDITOR_LAYOUT.ordinal());
-	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_PREFS_KEY_EDITOR_SHOW_ALL), true);
+	    PrefsManager.storeMgr.setBoolean(Strings.prefKeys(PrefKey.EDITOR_SHOW_ALL_OBJECTS), true);
 	}
     }
 }

@@ -17,6 +17,8 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
@@ -32,7 +34,7 @@ class ReplayFileLoadTask extends Thread {
 	this.setName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		LocaleConstants.NOTL_STRING_PLAYBACK_LOADER_NAME));
 	this.loadFrame = new JFrame(
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_LOADING));
+		Strings.dialog(DialogString.LOADING));
 	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);

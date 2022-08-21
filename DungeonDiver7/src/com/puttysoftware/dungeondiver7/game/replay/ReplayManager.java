@@ -11,6 +11,8 @@ import java.io.File;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
@@ -41,8 +43,8 @@ public class ReplayManager {
 	    if (extension.equals(FileExtensions.getOldPlaybackExtension())) {
 		ReplayManager.loadFile(filename);
 	    } else {
-		CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_NON_PLAYBACK_FILE));
+		CommonDialogs.showDialog(Strings.dialog(
+			DialogString.NON_PLAYBACK_FILE));
 	    }
 	}
     }
@@ -51,9 +53,9 @@ public class ReplayManager {
 	if (!FilenameChecker
 		.isFilenameOK(ReplayManager.getNameWithoutExtension(ReplayManager.getFileNameOnly(filename)))) {
 	    CommonDialogs.showErrorDialog(
-		    LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			    LocaleConstants.DIALOG_STRING_ILLEGAL_CHARACTERS),
-		    LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_LOAD));
+		    Strings.dialog(
+			    DialogString.ILLEGAL_CHARACTERS),
+		    Strings.dialog(DialogString.LOAD));
 	} else {
 	    final ReplayFileLoadTask lpblt = new ReplayFileLoadTask(filename);
 	    lpblt.start();

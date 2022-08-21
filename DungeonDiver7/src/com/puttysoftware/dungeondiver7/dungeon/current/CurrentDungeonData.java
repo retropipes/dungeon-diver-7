@@ -37,12 +37,13 @@ import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.Colors;
+import com.puttysoftware.dungeondiver7.locale.Difficulty;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
+import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.FileFormats;
 import com.puttysoftware.dungeondiver7.utility.Materials;
-import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.VisionModes;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
@@ -418,8 +419,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 			    final AbstractDungeonObject obj = this.getCell(dungeon, xFix, u, zFix, w);
 			    if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
 				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
-				final Directions invert = DirectionResolver.resolveInvert(unres[0],
-					unres[1]);
+				final Directions invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
 				if (d == invert) {
 				    this.foundX = xFix;
 				    this.foundY = u;
@@ -447,8 +447,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 			    final AbstractDungeonObject obj = this.getCell(dungeon, xFix, u, zFix, w);
 			    if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
 				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
-				final Directions invert = DirectionResolver.resolveInvert(unres[0],
-					unres[1]);
+				final Directions invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
 				if (d == invert) {
 				    this.foundX = xFix;
 				    this.foundY = u;
@@ -476,8 +475,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 			    final AbstractDungeonObject obj = this.getCell(dungeon, u, yFix, zFix, w);
 			    if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
 				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
-				final Directions invert = DirectionResolver.resolveInvert(unres[0],
-					unres[1]);
+				final Directions invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
 				if (d == invert) {
 				    this.foundX = u;
 				    this.foundY = yFix;
@@ -505,8 +503,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 			    final AbstractDungeonObject obj = this.getCell(dungeon, u, yFix, zFix, w);
 			    if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
 				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
-				final Directions invert = DirectionResolver.resolveInvert(unres[0],
-					unres[1]);
+				final Directions invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
 				if (d == invert) {
 				    this.foundX = u;
 				    this.foundY = yFix;
@@ -1474,8 +1471,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG6(dungeon, reader, formatVersion);
 	    return tempData;
 	} else {
-	    throw new IOException(Strings.error(
-		    ErrorString.UNKNOWN_FILE_FORMAT));
+	    throw new IOException(Strings.error(ErrorString.UNKNOWN_FILE_FORMAT));
 	}
     }
 
@@ -1513,7 +1509,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeon.setName(reader.readString());
 	dungeon.setHint(reader.readString());
 	dungeon.setAuthor(reader.readString());
-	dungeon.setDifficulty(reader.readInt());
+	dungeon.setDifficulty(Difficulty.values()[reader.readInt()]);
 	dungeon.setMoveShootAllowedThisLevel(false);
 	// Fill nulls
 	lt.fillNulls(dungeon, new Ground(), new Wall(), true);
@@ -1561,7 +1557,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeon.setName(reader.readString());
 	dungeon.setHint(reader.readString());
 	dungeon.setAuthor(reader.readString());
-	dungeon.setDifficulty(reader.readInt());
+	dungeon.setDifficulty(Difficulty.values()[reader.readInt()]);
 	dungeon.setMoveShootAllowedThisLevel(false);
 	// Fill nulls
 	lt.fillNulls(dungeon, new Ground(), null, false);
@@ -1609,7 +1605,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeon.setName(reader.readString());
 	dungeon.setHint(reader.readString());
 	dungeon.setAuthor(reader.readString());
-	dungeon.setDifficulty(reader.readInt());
+	dungeon.setDifficulty(Difficulty.values()[reader.readInt()]);
 	dungeon.setMoveShootAllowedThisLevel(false);
 	// Fill nulls
 	lt.fillNulls(dungeon, new Ground(), null, false);
@@ -1657,7 +1653,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeon.setName(reader.readString());
 	dungeon.setHint(reader.readString());
 	dungeon.setAuthor(reader.readString());
-	dungeon.setDifficulty(reader.readInt());
+	dungeon.setDifficulty(Difficulty.values()[reader.readInt()]);
 	dungeon.setMoveShootAllowedThisLevel(false);
 	// Fill nulls
 	lt.fillNulls(dungeon, new Ground(), null, false);
@@ -1706,7 +1702,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeon.setName(reader.readString());
 	dungeon.setHint(reader.readString());
 	dungeon.setAuthor(reader.readString());
-	dungeon.setDifficulty(reader.readInt());
+	dungeon.setDifficulty(Difficulty.values()[reader.readInt()]);
 	dungeon.setMoveShootAllowedThisLevel(reader.readBoolean());
 	// Fill nulls
 	lt.fillNulls(dungeon, new Ground(), null, false);
@@ -1769,8 +1765,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	} else if (FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
 	    this.readSavedStateG6(reader, formatVersion);
 	} else {
-	    throw new IOException(Strings.error(
-		    ErrorString.UNKNOWN_FILE_FORMAT));
+	    throw new IOException(Strings.error(ErrorString.UNKNOWN_FILE_FORMAT));
 	}
     }
 

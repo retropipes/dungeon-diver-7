@@ -27,9 +27,11 @@ import javax.swing.WindowConstants;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
+import com.puttysoftware.dungeondiver7.locale.Difficulty;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.Difficulties;
 
 class LevelPreferencesManager {
     // Fields
@@ -82,7 +84,7 @@ class LevelPreferencesManager {
 	m.setName(this.name.getText());
 	m.setAuthor(this.author.getText());
 	m.setHint(this.hint.getText());
-	m.setDifficulty(this.difficulty.getSelectedIndex() + 1);
+	m.setDifficulty(Difficulty.values()[this.difficulty.getSelectedIndex() + 1]);
 	m.setMoveShootAllowedThisLevel(this.moveShoot.isSelected());
     }
 
@@ -94,7 +96,7 @@ class LevelPreferencesManager {
 	this.name.setText(m.getName());
 	this.author.setText(m.getAuthor());
 	this.hint.setText(m.getHint());
-	this.difficulty.setSelectedIndex(m.getDifficulty() - 1);
+	this.difficulty.setSelectedIndex(m.getDifficulty().ordinal() - 1);
 	this.moveShoot.setSelected(m.isMoveShootAllowedThisLevel());
     }
 
@@ -110,11 +112,11 @@ class LevelPreferencesManager {
 	contentPane = new Container();
 	buttonPane = new Container();
 	prefsOK = new JButton(
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_OK_BUTTON));
+		Strings.dialog(DialogString.OK_BUTTON));
 	prefsOK.setDefaultCapable(true);
 	this.prefFrame.getRootPane().setDefaultButton(prefsOK);
-	prefsCancel = new JButton(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		LocaleConstants.DIALOG_STRING_CANCEL_BUTTON));
+	prefsCancel = new JButton(Strings.dialog(
+		DialogString.CANCEL_BUTTON));
 	prefsCancel.setDefaultCapable(false);
 	this.horizontalWrap = new JCheckBox(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
 		LocaleConstants.EDITOR_STRING_ENABLE_HORIZONTAL_WRAP_AROUND), false);
@@ -125,7 +127,7 @@ class LevelPreferencesManager {
 	this.name = new JTextField();
 	this.author = new JTextField();
 	this.hint = new JTextArea(8, 32);
-	this.difficulty = new JComboBox<>(Difficulties.getDifficultyNames());
+	this.difficulty = new JComboBox<>(Strings.allDifficulties());
 	this.moveShoot = new JCheckBox(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
 		LocaleConstants.EDITOR_STRING_ENABLE_MOVE_SHOOT), true);
 	this.prefFrame.setContentPane(mainPrefPane);
@@ -171,12 +173,12 @@ class LevelPreferencesManager {
 	    try {
 		final LevelPreferencesManager lpm = LevelPreferencesManager.this;
 		final String cmd = e.getActionCommand();
-		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_OK_BUTTON))) {
+		if (cmd.equals(Strings.dialog(
+			DialogString.OK_BUTTON))) {
 		    lpm.setPrefs();
 		    lpm.hidePrefs();
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_CANCEL_BUTTON))) {
+		} else if (cmd.equals(Strings.dialog(
+			DialogString.CANCEL_BUTTON))) {
 		    lpm.hidePrefs();
 		}
 	    } catch (final Exception ex) {

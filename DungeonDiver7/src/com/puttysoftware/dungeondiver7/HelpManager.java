@@ -12,10 +12,10 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
 class HelpManager {
     // Fields
@@ -42,7 +42,7 @@ class HelpManager {
 	if (!this.inited) {
 	    this.helpFrame = new JFrame(Strings.untranslated(Untranslated.PROGRAM_NAME)
 		    + LocaleConstants.COMMON_STRING_SPACE
-		    + LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_HELP));
+		    + Strings.dialog(DialogString.HELP));
 	    final Image iconlogo = LogoLoader.getIconLogo();
 	    this.helpFrame.setIconImage(iconlogo);
 	    this.helpFrame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);

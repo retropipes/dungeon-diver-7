@@ -6,8 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 
 public class DungeonProtectionWrapper {
     // Constants
@@ -57,10 +57,10 @@ public class DungeonProtectionWrapper {
 
     private static char[] getTransform() {
 	return CommonDialogs.showPasswordInputDialog(
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_PROTECTION_PROMPT),
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			LocaleConstants.DIALOG_STRING_PROTECTION_TITLE),
+		Strings.dialog(
+			DialogString.PROTECTION_PROMPT),
+		Strings.dialog(
+			DialogString.PROTECTION_TITLE),
 		15);
     }
 }

@@ -4,9 +4,11 @@ public enum Untranslated {
     OS_NAME,
     MACOS,
     WINDOWS,
-    MACOS_SUPPORT,
+    UNIX_HOME,
     WINDOWS_SUPPORT,
+    MACOS_SUPPORT,
     UNIX_SUPPORT,
     COMPANY_SUBFOLDER,
-    PROGRAM_NAME
+    PROGRAM_NAME,
+    PREFS_FILE
 }

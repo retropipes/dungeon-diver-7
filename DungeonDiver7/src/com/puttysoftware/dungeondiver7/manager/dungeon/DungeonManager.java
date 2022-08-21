@@ -19,6 +19,7 @@ import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.ltv4.LaserTankV4LoadTask;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
@@ -96,12 +97,12 @@ public final class DungeonManager {
 	final StuffBag app = DungeonDiver7.getStuffBag();
 	final int mode = app.getMode();
 	if (mode == StuffBag.STATUS_EDITOR) {
-	    type = LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		    LocaleConstants.DIALOG_STRING_PROMPT_SAVE_ARENA);
+	    type = Strings.dialog(
+		    DialogString.PROMPT_SAVE_ARENA);
 	    source = LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE, LocaleConstants.EDITOR_STRING_EDITOR);
 	} else if (mode == StuffBag.STATUS_GAME) {
-	    type = LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		    LocaleConstants.DIALOG_STRING_PROMPT_SAVE_GAME);
+	    type = Strings.dialog(
+		    DialogString.PROMPT_SAVE_GAME);
 	    source = Strings.untranslated(Untranslated.PROGRAM_NAME);
 	} else {
 	    // Not in the game or editor, so abort
@@ -295,7 +296,7 @@ public final class DungeonManager {
 	boolean saved = true;
 	String filename, extension, file, dir;
 	final FileDialog fd = new FileDialog(app.getOutputFrame(),
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_LOAD),
+		Strings.dialog(DialogString.LOAD),
 		FileDialog.LOAD);
 	fd.setDirectory(initialDirectory);
 	if (this.getDirty()) {
@@ -333,8 +334,8 @@ public final class DungeonManager {
 		    final LaserTankV4LoadTask ollt = new LaserTankV4LoadTask(filename);
 		    ollt.start();
 		} else {
-		    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			    LocaleConstants.DIALOG_STRING_NON_DUNGEON_FILE));
+		    CommonDialogs.showDialog(Strings.dialog(
+			    DialogString.NON_DUNGEON_FILE));
 		}
 	    } else {
 		// User cancelled
@@ -350,9 +351,9 @@ public final class DungeonManager {
 	if (!FilenameChecker
 		.isFilenameOK(DungeonManager.getNameWithoutExtension(DungeonManager.getFileNameOnly(filename)))) {
 	    CommonDialogs.showErrorDialog(
-		    LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-			    LocaleConstants.DIALOG_STRING_ILLEGAL_CHARACTERS),
-		    LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_LOAD));
+		    Strings.dialog(
+			    DialogString.ILLEGAL_CHARACTERS),
+		    Strings.dialog(DialogString.LOAD));
 	} else {
 	    // Run cleanup task
 	    CleanupTask.cleanUp();
@@ -423,7 +424,7 @@ public final class DungeonManager {
 	String extension, file, dir;
 	final String lastSave = PrefsManager.getLastDirSave();
 	final FileDialog fd = new FileDialog(app.getOutputFrame(),
-		LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE, LocaleConstants.DIALOG_STRING_SAVE),
+		Strings.dialog(DialogString.SAVE),
 		FileDialog.SAVE);
 	fd.setDirectory(lastSave);
 	while (!FilenameChecker.isFilenameOK(fileOnly)) {
@@ -436,10 +437,10 @@ public final class DungeonManager {
 		fileOnly = filename.substring(dir.length() + 1);
 		if (!FilenameChecker.isFilenameOK(fileOnly)) {
 		    CommonDialogs.showErrorDialog(
-			    LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-				    LocaleConstants.DIALOG_STRING_ILLEGAL_CHARACTERS),
-			    LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-				    LocaleConstants.DIALOG_STRING_SAVE));
+			    Strings.dialog(
+				    DialogString.ILLEGAL_CHARACTERS),
+			    Strings.dialog(
+				    DialogString.SAVE));
 		} else {
 		    PrefsManager.setLastDirSave(dir);
 		    if (app.getMode() == StuffBag.STATUS_GAME) {

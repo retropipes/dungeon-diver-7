@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.puttysoftware.diane.strings.DianeStrings;
 import com.puttysoftware.diane.utilties.DirectionResolver;
 import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
@@ -21,6 +22,8 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
+import com.puttysoftware.dungeondiver7.locale.DialogString;
+import com.puttysoftware.dungeondiver7.locale.Difficulty;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
@@ -29,7 +32,6 @@ import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.file.AbstractPrefixIO;
 import com.puttysoftware.dungeondiver7.manager.file.AbstractSuffixIO;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.utility.Difficulties;
 import com.puttysoftware.dungeondiver7.utility.DirectionRotator;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.FileExtensions;
@@ -83,8 +85,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	final File base = new File(this.basePath);
 	final boolean res = base.mkdirs();
 	if (!res) {
-	    throw new IOException(
-		    Strings.error( ErrorString.TEMP_DIR));
+	    throw new IOException(Strings.error(ErrorString.TEMP_DIR));
 	}
     }
 
@@ -241,12 +242,12 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     @Override
-    public int getDifficulty() {
+    public Difficulty getDifficulty() {
 	return this.levelInfoData.get(this.activeLevel).getDifficulty();
     }
 
     @Override
-    public void setDifficulty(final int newDifficulty) {
+    public void setDifficulty(final Difficulty newDifficulty) {
 	this.levelInfoData.get(this.activeLevel).setDifficulty(newDifficulty);
 	this.levelInfoList.set(this.activeLevel, this.generateCurrentLevelInfo());
     }
@@ -314,27 +315,9 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     private String generateCurrentLevelInfo() {
-	final StringBuilder sb = new StringBuilder();
-	sb.append(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		LocaleConstants.DIALOG_STRING_DUNGEON_LEVEL));
-	sb.append(LocaleConstants.COMMON_STRING_SPACE);
-	sb.append(this.getActiveLevel() + 1);
-	sb.append(LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE);
-	sb.append(this.getName().trim());
-	sb.append(LocaleConstants.COMMON_STRING_SPACE);
-	sb.append(LocaleLoader.loadString(LocaleConstants.DIALOG_STRINGS_FILE,
-		LocaleConstants.DIALOG_STRING_DUNGEON_LEVEL_BY));
-	sb.append(LocaleConstants.COMMON_STRING_SPACE);
-	sb.append(this.getAuthor().trim());
-	sb.append(LocaleConstants.COMMON_STRING_SPACE);
-	sb.append(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES);
-	sb.append(CurrentDungeon.convertDifficultyNumberToName(this.getDifficulty()));
-	sb.append(LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
-	return sb.toString();
-    }
-
-    private static String convertDifficultyNumberToName(final int number) {
-	return Difficulties.getDifficultyNames()[number - 1];
+	return DianeStrings.subst(Strings.dialog(DialogString.CURRENT_LEVEL_INFO),
+		Integer.toString(this.getActiveLevel() + 1), this.getName().trim(), this.getAuthor().trim(),
+		Strings.difficulty(this.getDifficulty()));
     }
 
     @Override
