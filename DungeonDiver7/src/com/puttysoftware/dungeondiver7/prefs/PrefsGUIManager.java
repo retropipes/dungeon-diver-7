@@ -25,9 +25,10 @@ import javax.swing.WindowConstants;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.locale.EditorLayout;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.EditorLayouts;
 
 class PrefsGUIManager {
     // Fields
@@ -107,7 +108,7 @@ class PrefsGUIManager {
 	this.moveOneAtATime.setSelected(PrefsManager.oneMove());
 	this.actionDelay.setSelectedIndex(PrefsManager.getActionDelay());
 	this.languageList.setSelectedIndex(PrefsManager.getLanguageID());
-	this.editorLayoutList.setSelectedIndex(PrefsManager.getEditorLayoutID());
+	this.editorLayoutList.setSelectedIndex(PrefsManager.getEditorLayout().ordinal());
 	this.editorShowAllObjects.setSelected(PrefsManager.getEditorShowAllObjects());
 	this.difficultyPicker.setSelectedIndex(PrefsManager.getGameDifficulty());
     }
@@ -120,7 +121,7 @@ class PrefsGUIManager {
 	PrefsManager.setOneMove(this.moveOneAtATime.isSelected());
 	PrefsManager.setActionDelay(this.actionDelay.getSelectedIndex());
 	PrefsManager.setLanguageID(this.languageList.getSelectedIndex());
-	PrefsManager.setEditorLayoutID(this.editorLayoutList.getSelectedIndex());
+	PrefsManager.setEditorLayout(EditorLayout.values()[this.editorLayoutList.getSelectedIndex()]);
 	PrefsManager.setEditorShowAllObjects(this.editorShowAllObjects.isSelected());
 	PrefsManager.setGameDifficulty(this.difficultyPicker.getSelectedIndex());
 	this.hidePrefs();
@@ -165,7 +166,7 @@ class PrefsGUIManager {
 		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE, LocaleConstants.PREFS_STRING_SPEED_4),
 		LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE, LocaleConstants.PREFS_STRING_SPEED_5) });
 	this.languageList = new JComboBox<>(LocaleLoader.loadLocalizedLanguagesList());
-	this.editorLayoutList = new JComboBox<>(EditorLayouts.getEditorLayoutList());
+	this.editorLayoutList = new JComboBox<>(Strings.allEditorLayouts());
 	this.editorShowAllObjects = new JCheckBox(LocaleLoader.loadString(LocaleConstants.PREFS_STRINGS_FILE,
 		LocaleConstants.PREFS_STRING_SHOW_ALL_OBJECTS), true);
 	this.difficultyPicker = new JComboBox<>(PrefsGUIManager.DIFFICULTY_NAMES);

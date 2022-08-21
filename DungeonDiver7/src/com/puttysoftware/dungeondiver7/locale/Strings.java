@@ -17,6 +17,7 @@ public final class Strings {
     public static final int WEAPON_TYPES_COUNT = 6;
     public static final int COLOR_COUNT = 8;
     public static final int SLOTS_COUNT = 12;
+    private static final int EDITOR_LAYOUTS_COUNT = 3;
     private static Locale ACTIVE = Locale.getDefault();
 
     private Strings() {
@@ -44,6 +45,15 @@ public final class Strings {
 	String[] result = new String[Strings.ARMOR_TYPES_COUNT];
 	for (int index = 0; index < result.length; index++) {
 	    result[index] = ResourceBundle.getBundle("locale.armortype", Strings.ACTIVE)
+		    .getString(Integer.toString(index));
+	}
+	return result;
+    }
+
+    public static String[] allEditorLayouts() {
+	String[] result = new String[Strings.EDITOR_LAYOUTS_COUNT];
+	for (int index = 0; index < result.length; index++) {
+	    result[index] = ResourceBundle.getBundle("locale.editorlayout", Strings.ACTIVE)
 		    .getString(Integer.toString(index));
 	}
 	return result;

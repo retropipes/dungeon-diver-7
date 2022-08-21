@@ -17,11 +17,11 @@ import javax.swing.JFrame;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Ground;
+import com.puttysoftware.dungeondiver7.locale.EditorLayout;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.EditorLayouts;
 import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 
 public class PrefsManager {
@@ -29,7 +29,7 @@ public class PrefsManager {
     private final static PrefsFileManager storeMgr = new PrefsFileManager();
     private final static PrefsGUIManager guiMgr = new PrefsGUIManager();
     private final static int FALLBACK_LANGUAGE_ID = 0;
-    private final static int DEFAULT_EDITOR_LAYOUT_ID = EditorLayouts.EDITOR_LAYOUT_MODERN_V12;
+    private final static EditorLayout DEFAULT_EDITOR_LAYOUT = EditorLayout.VERTICAL;
     private static final int BATTLE_SPEED = 1000;
     private static final int VIEWING_WINDOW_SIZE = 11;
     public static final int DIFFICULTY_VERY_EASY = 0;
@@ -67,14 +67,16 @@ public class PrefsManager {
 	PrefsManager.guiMgr.activeLanguageChanged();
     }
 
-    public static int getEditorLayoutID() {
-	return PrefsManager.storeMgr.getInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_EDITOR_LAYOUT_ID), PrefsManager.DEFAULT_EDITOR_LAYOUT_ID);
+    public static EditorLayout getEditorLayout() {
+	return EditorLayout.values()[PrefsManager.storeMgr.getInteger(
+		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
+			LocaleConstants.NOTL_STRING_PREFS_KEY_EDITOR_LAYOUT_ID),
+		PrefsManager.DEFAULT_EDITOR_LAYOUT.ordinal())];
     }
 
-    public static void setEditorLayoutID(final int value) {
+    public static void setEditorLayout(final EditorLayout value) {
 	PrefsManager.storeMgr.setInteger(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PREFS_KEY_EDITOR_LAYOUT_ID), value);
+		LocaleConstants.NOTL_STRING_PREFS_KEY_EDITOR_LAYOUT_ID), value.ordinal());
 	DungeonDiver7.getStuffBag().getEditor().resetBorderPane();
     }
 
@@ -374,7 +376,7 @@ public class PrefsManager {
 	    PrefsManager.storeMgr.setInteger(
 		    LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 			    LocaleConstants.NOTL_STRING_PREFS_KEY_EDITOR_LAYOUT_ID),
-		    PrefsManager.DEFAULT_EDITOR_LAYOUT_ID);
+		    PrefsManager.DEFAULT_EDITOR_LAYOUT.ordinal());
 	    PrefsManager.storeMgr.setBoolean(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		    LocaleConstants.NOTL_STRING_PREFS_KEY_EDITOR_SHOW_ALL), true);
 	}

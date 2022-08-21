@@ -193,7 +193,6 @@ public class LocaleConstants {
     public static final int PREFS_STRING_TITLE = 0;
     public static final int PREFS_STRING_ENABLE_SOUNDS = 1;
     public static final int PREFS_STRING_STARTUP_UPDATES = 2;
-    // public static final int PREFS_STRING_STARTUP_BETA_UPDATES = 3;
     public static final int PREFS_STRING_ONE_MOVE = 4;
     public static final int PREFS_STRING_ENABLE_ANIMATION = 5;
     public static final int PREFS_STRING_SPEED_1 = 6;
