@@ -43,8 +43,7 @@ public class FileFormats {
     }
 
     public static final boolean isFormatVersionValidGeneration5(final int ver) {
-	return ver == FileFormats.DUNGEON_12 || ver == FileFormats.DUNGEON_15
-		|| ver == FileFormats.DUNGEON_16;
+	return ver == FileFormats.DUNGEON_12 || ver == FileFormats.DUNGEON_15 || ver == FileFormats.DUNGEON_16;
     }
 
     public static final boolean isFormatVersionValidGeneration4(final int ver) {

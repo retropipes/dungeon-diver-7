@@ -41,8 +41,7 @@ class HelpManager {
     private void initHelp() {
 	if (!this.inited) {
 	    this.helpFrame = new JFrame(Strings.untranslated(Untranslated.PROGRAM_NAME)
-		    + LocaleConstants.COMMON_STRING_SPACE
-		    + Strings.dialog(DialogString.HELP));
+		    + LocaleConstants.COMMON_STRING_SPACE + Strings.dialog(DialogString.HELP));
 	    final Image iconlogo = LogoLoader.getIconLogo();
 	    this.helpFrame.setIconImage(iconlogo);
 	    this.helpFrame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);

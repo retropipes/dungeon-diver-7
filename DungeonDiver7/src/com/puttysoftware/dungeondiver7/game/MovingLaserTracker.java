@@ -209,8 +209,7 @@ final class MovingLaserTracker {
 	    if (this.lt == ShotTypes.MISSILE) {
 		final Directions suffix = DirectionResolver.resolve(this.incX, this.incY);
 		this.l.setDirection(suffix);
-	    } else if (this.lt == ShotTypes.STUNNER
-		    || this.lt == ShotTypes.DISRUPTOR) {
+	    } else if (this.lt == ShotTypes.STUNNER || this.lt == ShotTypes.DISRUPTOR) {
 		// Do nothing
 	    } else {
 		final Directions suffix = DirectionResolver.resolveHV(this.incX, this.incY);

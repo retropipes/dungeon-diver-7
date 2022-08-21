@@ -21,8 +21,7 @@ public class DungeonFilePrefixHandler implements AbstractPrefixIO {
 	final byte formatVer = DungeonFilePrefixHandler.readFormatVersion(reader);
 	final boolean res = DungeonFilePrefixHandler.checkFormatVersion(formatVer);
 	if (!res) {
-	    throw new IOException(Strings.error(
-		    ErrorString.UNKNOWN_FILE_FORMAT));
+	    throw new IOException(Strings.error(ErrorString.UNKNOWN_FILE_FORMAT));
 	}
 	return formatVer;
     }

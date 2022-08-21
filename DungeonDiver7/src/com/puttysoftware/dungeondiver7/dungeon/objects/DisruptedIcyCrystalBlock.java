@@ -73,8 +73,7 @@ public class DisruptedIcyCrystalBlock extends AbstractReactionDisruptedObject {
     @Override
     public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
-	if (rangeType == RangeTypes.BOMB
-		|| RangeTypes.getMaterialForRangeType(rangeType) == Materials.METALLIC) {
+	if (rangeType == RangeTypes.BOMB || RangeTypes.getMaterialForRangeType(rangeType) == Materials.METALLIC) {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy disrupted icy crystal block
 	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());

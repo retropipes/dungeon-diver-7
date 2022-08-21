@@ -23,11 +23,8 @@ class ReplayFile {
 	// Load LPB
 	final boolean success = ReplayFileLoader.loadLPB(file);
 	if (!success) {
-	    CommonDialogs.showErrorDialog(
-		    Strings.error(
-			    ErrorString.REPLAY_LOAD_FAILURE),
-		    Strings.game(
-			    GameString.LOAD_PLAYBACK));
+	    CommonDialogs.showErrorDialog(Strings.error(ErrorString.REPLAY_LOAD_FAILURE),
+		    Strings.game(GameString.LOAD_PLAYBACK));
 	} else {
 	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
 	    gm.clearReplay();
@@ -35,11 +32,8 @@ class ReplayFile {
 	    for (int x = data.length - 1; x >= 0; x--) {
 		ReplayFile.decodeData(data[x]);
 	    }
-	    CommonDialogs.showTitledDialog(
-		    Strings.game(
-			    GameString.PLAYBACK_LOADED),
-		    Strings.game(
-			    GameString.LOAD_PLAYBACK));
+	    CommonDialogs.showTitledDialog(Strings.game(GameString.PLAYBACK_LOADED),
+		    Strings.game(GameString.LOAD_PLAYBACK));
 	}
     }
 

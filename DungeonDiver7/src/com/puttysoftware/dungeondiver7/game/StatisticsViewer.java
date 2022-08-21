@@ -46,11 +46,9 @@ public class StatisticsViewer {
 		final long value = leader.getStat(x);
 		if (x == StatConstants.STAT_HIT || x == StatConstants.STAT_EVADE) {
 		    final double fmtVal = value / 100.0;
-		    StatisticsViewer.statisticsValues[x]
-			    .setText(" " + Strings.stat(x) + ": " + fmtVal + "%  ");
+		    StatisticsViewer.statisticsValues[x].setText(" " + Strings.stat(x) + ": " + fmtVal + "%  ");
 		} else {
-		    StatisticsViewer.statisticsValues[x]
-			    .setText(" " + Strings.stat(x) + ": " + value + "  ");
+		    StatisticsViewer.statisticsValues[x].setText(" " + Strings.stat(x) + ": " + value + "  ");
 		}
 	    }
 	    StatisticsViewer.statisticsFrame.pack();

@@ -71,11 +71,9 @@ public class DungeonSaveTask extends Thread {
 	    }
 	} catch (final FileNotFoundException fnfe) {
 	    if (this.isSavedGame) {
-		CommonDialogs.showDialog(Strings.dialog(
-			DialogString.GAME_SAVING_FAILED));
+		CommonDialogs.showDialog(Strings.dialog(DialogString.GAME_SAVING_FAILED));
 	    } else {
-		CommonDialogs.showDialog(Strings.dialog(
-			DialogString.DUNGEON_SAVING_FAILED));
+		CommonDialogs.showDialog(Strings.dialog(DialogString.DUNGEON_SAVING_FAILED));
 	    }
 	    success = false;
 	} catch (final ProtectionCancelException pce) {

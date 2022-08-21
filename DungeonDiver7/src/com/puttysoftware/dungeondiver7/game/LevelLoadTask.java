@@ -46,8 +46,7 @@ public class LevelLoadTask extends Thread {
 	    app.getGameLogic().disableEvents();
 	    gameDungeon.switchLevelOffset(this.level);
 	    PartyManager.getParty().offsetZone(this.level);
-	    AbstractDungeonObject
-		    .setTemplateColor(ImageColors.getColorForLevel(PartyManager.getParty().getZone()));
+	    AbstractDungeonObject.setTemplateColor(ImageColors.getColorForLevel(PartyManager.getParty().getZone()));
 	    app.getGameLogic().resetViewingWindow();
 	    app.getGameLogic().enableEvents();
 	    app.getGameLogic().redrawDungeon();

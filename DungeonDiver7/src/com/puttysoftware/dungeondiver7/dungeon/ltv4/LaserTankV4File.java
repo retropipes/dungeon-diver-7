@@ -29,8 +29,7 @@ class LaserTankV4File {
 		a.setData(t, levelCount);
 		final int[] found = a.findPlayer(1);
 		if (found == null) {
-		    throw new InvalidDungeonException(Strings.error(
-			    ErrorString.PLAYER_LOCATION));
+		    throw new InvalidDungeonException(Strings.error(ErrorString.PLAYER_LOCATION));
 		} else {
 		    a.setStartColumn(0, found[0]);
 		    a.setStartRow(0, found[1]);

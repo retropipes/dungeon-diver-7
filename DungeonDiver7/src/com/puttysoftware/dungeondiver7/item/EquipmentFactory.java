@@ -18,8 +18,7 @@ public class EquipmentFactory {
     // Methods
     public static Equipment createWeapon(final int material, final int weaponType) {
 	return new Equipment(Strings.weaponName(material, weaponType), Shop.getEquipmentCost(material), material + 1,
-		material + 1, Slot.WEAPON, material,
-		WeaponHit.getWeaponTypeHitSound(weaponType));
+		material + 1, Slot.WEAPON, material, WeaponHit.getWeaponTypeHitSound(weaponType));
     }
 
     public static Equipment createArmor(final int material, final int armorType) {

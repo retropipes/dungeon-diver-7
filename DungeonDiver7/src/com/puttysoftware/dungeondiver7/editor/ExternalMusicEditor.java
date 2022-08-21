@@ -19,8 +19,8 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.loader.ExternalMusicImporter;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.EditorString;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.utility.Importer;
 
 public class ExternalMusicEditor extends GenericObjectEditor {
@@ -29,8 +29,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
     private final EventHandler handler;
 
     public ExternalMusicEditor() {
-	super(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE, LocaleConstants.EDITOR_STRING_MUSIC_EDITOR),
-		2, 5, 1, true);
+	super(Strings.editor(EditorString.MUSIC_EDITOR), 2, 5, 1, true);
 	this.handler = new EventHandler();
     }
 
@@ -145,14 +144,11 @@ public class ExternalMusicEditor extends GenericObjectEditor {
     protected void guiActionButtonProperties(final JButton actBtn, final int row, final int col) {
 	if (actBtn != null) {
 	    if (col == 0) {
-		actBtn.setText(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_MUSIC_PLAY));
+		actBtn.setText(Strings.editor(EditorString.MUSIC_PLAY));
 	    } else if (col == 1) {
-		actBtn.setText(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_MUSIC_STOP));
+		actBtn.setText(Strings.editor(EditorString.MUSIC_STOP));
 	    } else if (col == 2) {
-		actBtn.setText(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_MUSIC_MODIFY));
+		actBtn.setText(Strings.editor(EditorString.MUSIC_MODIFY));
 	    }
 	}
     }

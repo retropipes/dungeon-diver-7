@@ -117,6 +117,10 @@ public final class Strings {
 		.getString(Integer.toString(item.ordinal()));
     }
 
+    public static String editor(final EditorString item) {
+	return ResourceBundle.getBundle("locale.editor", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
+    }
+
     public static String error(final ErrorString item) {
 	return ResourceBundle.getBundle("locale.error", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
     }

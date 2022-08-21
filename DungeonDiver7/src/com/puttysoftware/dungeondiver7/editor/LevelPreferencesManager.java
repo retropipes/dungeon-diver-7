@@ -29,9 +29,8 @@ import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Difficulty;
+import com.puttysoftware.dungeondiver7.locale.EditorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
 class LevelPreferencesManager {
     // Fields
@@ -104,32 +103,25 @@ class LevelPreferencesManager {
 	Container mainPrefPane, contentPane, buttonPane;
 	JButton prefsOK, prefsCancel;
 	final EventHandler handler = new EventHandler();
-	this.prefFrame = new JFrame(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_LEVEL_PREFERENCES));
+	this.prefFrame = new JFrame(Strings.editor(EditorString.LEVEL_PREFERENCES));
 	final Image iconlogo = LogoLoader.getIconLogo();
 	this.prefFrame.setIconImage(iconlogo);
 	mainPrefPane = new Container();
 	contentPane = new Container();
 	buttonPane = new Container();
-	prefsOK = new JButton(
-		Strings.dialog(DialogString.OK_BUTTON));
+	prefsOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	prefsOK.setDefaultCapable(true);
 	this.prefFrame.getRootPane().setDefaultButton(prefsOK);
-	prefsCancel = new JButton(Strings.dialog(
-		DialogString.CANCEL_BUTTON));
+	prefsCancel = new JButton(Strings.dialog(DialogString.CANCEL_BUTTON));
 	prefsCancel.setDefaultCapable(false);
-	this.horizontalWrap = new JCheckBox(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_ENABLE_HORIZONTAL_WRAP_AROUND), false);
-	this.verticalWrap = new JCheckBox(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_ENABLE_VERTICAL_WRAP_AROUND), false);
-	this.thirdWrap = new JCheckBox(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_ENABLE_THIRD_DIMENSION_WRAP_AROUND), false);
+	this.horizontalWrap = new JCheckBox(Strings.editor(EditorString.ENABLE_HORIZONTAL_WRAP_AROUND), false);
+	this.verticalWrap = new JCheckBox(Strings.editor(EditorString.ENABLE_VERTICAL_WRAP_AROUND), false);
+	this.thirdWrap = new JCheckBox(Strings.editor(EditorString.ENABLE_THIRD_DIMENSION_WRAP_AROUND), false);
 	this.name = new JTextField();
 	this.author = new JTextField();
 	this.hint = new JTextArea(8, 32);
 	this.difficulty = new JComboBox<>(Strings.allDifficulties());
-	this.moveShoot = new JCheckBox(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_ENABLE_MOVE_SHOOT), true);
+	this.moveShoot = new JCheckBox(Strings.editor(EditorString.ENABLE_MOVE_SHOOT), true);
 	this.prefFrame.setContentPane(mainPrefPane);
 	this.prefFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.prefFrame.addWindowListener(handler);
@@ -139,17 +131,13 @@ class LevelPreferencesManager {
 	contentPane.add(this.horizontalWrap);
 	contentPane.add(this.verticalWrap);
 	contentPane.add(this.thirdWrap);
-	contentPane.add(new JLabel(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_LEVEL_NAME)));
+	contentPane.add(new JLabel(Strings.editor(EditorString.LEVEL_NAME)));
 	contentPane.add(this.name);
-	contentPane.add(new JLabel(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_LEVEL_AUTHOR)));
+	contentPane.add(new JLabel(Strings.editor(EditorString.LEVEL_AUTHOR)));
 	contentPane.add(this.author);
-	contentPane.add(new JLabel(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_LEVEL_HINT)));
+	contentPane.add(new JLabel(Strings.editor(EditorString.LEVEL_HINT)));
 	contentPane.add(this.hint);
-	contentPane.add(new JLabel(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_LEVEL_DIFFICULTY)));
+	contentPane.add(new JLabel(Strings.editor(EditorString.LEVEL_DIFFICULTY)));
 	contentPane.add(this.difficulty);
 	contentPane.add(this.moveShoot);
 	buttonPane.setLayout(new FlowLayout());
@@ -173,12 +161,10 @@ class LevelPreferencesManager {
 	    try {
 		final LevelPreferencesManager lpm = LevelPreferencesManager.this;
 		final String cmd = e.getActionCommand();
-		if (cmd.equals(Strings.dialog(
-			DialogString.OK_BUTTON))) {
+		if (cmd.equals(Strings.dialog(DialogString.OK_BUTTON))) {
 		    lpm.setPrefs();
 		    lpm.hidePrefs();
-		} else if (cmd.equals(Strings.dialog(
-			DialogString.CANCEL_BUTTON))) {
+		} else if (cmd.equals(Strings.dialog(DialogString.CANCEL_BUTTON))) {
 		    lpm.hidePrefs();
 		}
 	    } catch (final Exception ex) {

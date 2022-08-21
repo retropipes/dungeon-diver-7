@@ -139,12 +139,10 @@ class PrefsGUIManager {
 	final Container mainPrefPane = new Container();
 	final Container buttonPane = new Container();
 	final Container settingsPane = new Container();
-	final JButton prefsOK = new JButton(
-		Strings.dialog(DialogString.OK_BUTTON));
+	final JButton prefsOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	prefsOK.setDefaultCapable(true);
 	this.prefFrame.getRootPane().setDefaultButton(prefsOK);
-	final JButton prefsCancel = new JButton(Strings.dialog(
-		DialogString.CANCEL_BUTTON));
+	final JButton prefsCancel = new JButton(Strings.dialog(DialogString.CANCEL_BUTTON));
 	prefsCancel.setDefaultCapable(false);
 	this.sounds = new JCheckBox(Strings.prefs(PrefString.ENABLE_SOUNDS), true);
 	this.music = new JCheckBox(Strings.prefs(PrefString.ENABLE_MUSIC), true);
@@ -201,11 +199,9 @@ class PrefsGUIManager {
 	    try {
 		final PrefsGUIManager pm = PrefsGUIManager.this;
 		final String cmd = e.getActionCommand();
-		if (cmd.equals(Strings.dialog(
-			DialogString.OK_BUTTON))) {
+		if (cmd.equals(Strings.dialog(DialogString.OK_BUTTON))) {
 		    pm.setPrefs();
-		} else if (cmd.equals(Strings.dialog(
-			DialogString.CANCEL_BUTTON))) {
+		} else if (cmd.equals(Strings.dialog(DialogString.CANCEL_BUTTON))) {
 		    pm.hidePrefs();
 		}
 	    } catch (final Exception ex) {

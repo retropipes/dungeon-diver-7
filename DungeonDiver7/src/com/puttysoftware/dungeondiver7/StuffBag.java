@@ -266,8 +266,7 @@ public final class StuffBag {
     public void updateLevelInfoList() {
 	JFrame loadFrame;
 	JProgressBar loadBar;
-	loadFrame = new JFrame(Strings.dialog(
-		DialogString.UPDATING_LEVEL_INFO));
+	loadFrame = new JFrame(Strings.dialog(DialogString.UPDATING_LEVEL_INFO));
 	loadFrame.setIconImage(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);

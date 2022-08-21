@@ -55,32 +55,23 @@ final class CheatManager {
     }
 
     String enterCheat() {
-	final String userInput = CommonDialogs.showTextInputDialog(
-		Strings.game(GameString.CHEAT_PROMPT),
+	final String userInput = CommonDialogs.showTextInputDialog(Strings.game(GameString.CHEAT_PROMPT),
 		Strings.dialog(DialogString.CHEATS));
 	if (userInput != null) {
 	    final int index = this.cheatCache.indexOf(userInput.toLowerCase());
 	    if (index != -1) {
-		final int value = CommonDialogs.showConfirmDialog(
-			Strings.game(
-				GameString.CHEAT_ACTION),
-			Strings.dialog(
-				DialogString.CHEATS));
+		final int value = CommonDialogs.showConfirmDialog(Strings.game(GameString.CHEAT_ACTION),
+			Strings.dialog(DialogString.CHEATS));
 		if (value == JOptionPane.YES_OPTION) {
-		    return Strings.game(
-			    GameString.ENABLE_CHEAT) + LocaleConstants.COMMON_STRING_SPACE
+		    return Strings.game(GameString.ENABLE_CHEAT) + LocaleConstants.COMMON_STRING_SPACE
 			    + userInput.toLowerCase();
 		} else {
-		    return Strings.game(
-			    GameString.DISABLE_CHEAT) + LocaleConstants.COMMON_STRING_SPACE
+		    return Strings.game(GameString.DISABLE_CHEAT) + LocaleConstants.COMMON_STRING_SPACE
 			    + userInput.toLowerCase();
 		}
 	    } else {
-		CommonDialogs.showErrorDialog(
-			Strings.error(
-				ErrorString.INVALID_CHEAT),
-			Strings.dialog(
-				DialogString.CHEATS));
+		CommonDialogs.showErrorDialog(Strings.error(ErrorString.INVALID_CHEAT),
+			Strings.dialog(DialogString.CHEATS));
 		return null;
 	    }
 	} else {

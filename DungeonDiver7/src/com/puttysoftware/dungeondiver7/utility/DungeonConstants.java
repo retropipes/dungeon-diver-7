@@ -6,10 +6,9 @@
 package com.puttysoftware.dungeondiver7.utility;
 
 import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.dungeondiver7.locale.EditorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.TimeTravel;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
 public class DungeonConstants {
     public static final int LAYER_LOWER_GROUND = 0;
@@ -35,15 +34,9 @@ public class DungeonConstants {
     }
 
     public static void activeLanguageChanged() {
-	DungeonConstants.LAYER_LIST = new String[] {
-		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_LOWER_GROUND_LAYER),
-		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_UPPER_GROUND_LAYER),
-		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_LOWER_OBJECTS_LAYER),
-		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_UPPER_OBJECTS_LAYER) };
+	DungeonConstants.LAYER_LIST = new String[] { Strings.editor(EditorString.LOWER_GROUND_LAYER),
+		Strings.editor(EditorString.UPPER_GROUND_LAYER), Strings.editor(EditorString.LOWER_OBJECTS_LAYER),
+		Strings.editor(EditorString.UPPER_OBJECTS_LAYER) };
 	DungeonConstants.ERA_LIST = new String[] { Strings.timeTravel(TimeTravel.FAR_PAST),
 		Strings.timeTravel(TimeTravel.PAST), Strings.timeTravel(TimeTravel.PRESENT),
 		Strings.timeTravel(TimeTravel.FUTURE), Strings.timeTravel(TimeTravel.FAR_FUTURE) };

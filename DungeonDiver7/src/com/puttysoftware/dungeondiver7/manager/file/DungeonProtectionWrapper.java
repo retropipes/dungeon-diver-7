@@ -56,11 +56,7 @@ public class DungeonProtectionWrapper {
     }
 
     private static char[] getTransform() {
-	return CommonDialogs.showPasswordInputDialog(
-		Strings.dialog(
-			DialogString.PROTECTION_PROMPT),
-		Strings.dialog(
-			DialogString.PROTECTION_TITLE),
-		15);
+	return CommonDialogs.showPasswordInputDialog(Strings.dialog(DialogString.PROTECTION_PROMPT),
+		Strings.dialog(DialogString.PROTECTION_TITLE), 15);
     }
 }

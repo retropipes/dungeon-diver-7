@@ -57,17 +57,15 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	EventHandler handler;
 	JLabel miniLabel;
 	handler = new EventHandler();
-	this.aboutFrame = new JFrame(
-		Strings.dialog(DialogString.ABOUT)
-			+ LocaleConstants.COMMON_STRING_SPACE + Strings.untranslated(Untranslated.PROGRAM_NAME));
+	this.aboutFrame = new JFrame(Strings.dialog(DialogString.ABOUT) + LocaleConstants.COMMON_STRING_SPACE
+		+ Strings.untranslated(Untranslated.PROGRAM_NAME));
 	final Image iconlogo = LogoLoader.getIconLogo();
 	this.aboutFrame.setIconImage(iconlogo);
 	aboutPane = new Container();
 	textPane = new Container();
 	buttonPane = new Container();
 	logoPane = new Container();
-	aboutOK = new JButton(
-		Strings.dialog(DialogString.OK_BUTTON));
+	aboutOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	miniLabel = new JLabel(Strings.EMPTY, LogoLoader.getMiniatureLogo(), SwingConstants.LEFT);
 	miniLabel.setLabelFor(null);
 	aboutOK.setDefaultCapable(true);
@@ -78,17 +76,12 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	logoPane.add(miniLabel);
 	textPane.setLayout(new GridLayout(4, 1));
 	textPane.add(new JLabel(Strings.untranslated(Untranslated.PROGRAM_NAME) + LocaleConstants.COMMON_STRING_SPACE
-		+ Strings.dialog(DialogString.VERSION)
-		+ LocaleConstants.COMMON_STRING_SPACE + ver));
-	textPane.add(new JLabel(Strings.dialog(
-		DialogString.AUTHOR)
+		+ Strings.dialog(DialogString.VERSION) + LocaleConstants.COMMON_STRING_SPACE + ver));
+	textPane.add(new JLabel(Strings.dialog(DialogString.AUTHOR)
 		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_AUTHOR_NAME)));
-	textPane.add(new JLabel(
-		Strings.dialog(DialogString.WEB_SITE)
-			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-				LocaleConstants.NOTL_STRING_GAME_WEB_URL)));
-	textPane.add(new JLabel(Strings.dialog(
-		DialogString.BUG_REPORTS)
+	textPane.add(new JLabel(Strings.dialog(DialogString.WEB_SITE) + LocaleLoader
+		.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_GAME_WEB_URL)));
+	textPane.add(new JLabel(Strings.dialog(DialogString.BUG_REPORTS)
 		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_GAME_EMAIL)));
 	buttonPane.setLayout(new FlowLayout());
 	buttonPane.add(aboutOK);
@@ -112,8 +105,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	    try {
 		final AboutDialog ad = AboutDialog.this;
 		final String cmd = e.getActionCommand();
-		if (cmd.equals(Strings.dialog(
-			DialogString.OK_BUTTON))) {
+		if (cmd.equals(Strings.dialog(DialogString.OK_BUTTON))) {
 		    ad.hideAboutDialog();
 		}
 	    } catch (final Exception ex) {

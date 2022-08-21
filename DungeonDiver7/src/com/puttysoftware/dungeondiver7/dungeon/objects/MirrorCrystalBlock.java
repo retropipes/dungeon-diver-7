@@ -58,8 +58,7 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
     @Override
     public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
-	if (rangeType == RangeTypes.BOMB
-		|| RangeTypes.getMaterialForRangeType(rangeType) == Materials.METALLIC) {
+	if (rangeType == RangeTypes.BOMB || RangeTypes.getMaterialForRangeType(rangeType) == Materials.METALLIC) {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy mirror crystal block
 	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
@@ -68,15 +67,13 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
 	    // Heat up mirror crystal block
 	    SoundLoader.playSound(SoundConstants.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE) {
 	    // Freeze mirror crystal block
 	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ,
-		    this.getLayer());
+	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	} else {
 	    // Do nothing

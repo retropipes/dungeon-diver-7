@@ -36,8 +36,7 @@ public class LaserTankV4LoadTask extends Thread {
 	this.filename = file;
 	this.setName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		LocaleConstants.NOTL_STRING_OLD_AG_LOADER_NAME));
-	this.loadFrame = new JFrame(
-		Strings.dialog(DialogString.LOADING));
+	this.loadFrame = new JFrame(Strings.dialog(DialogString.LOADING));
 	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
@@ -70,12 +69,10 @@ public class LaserTankV4LoadTask extends Thread {
 	    app.updateLevelInfoList();
 	    app.getEditor().dungeonChanged();
 	    MusicLoader.dungeonChanged();
-	    CommonDialogs.showDialog(Strings.dialog(
-		    DialogString.DUNGEON_LOADING_SUCCESS));
+	    CommonDialogs.showDialog(Strings.dialog(DialogString.DUNGEON_LOADING_SUCCESS));
 	    app.getDungeonManager().handleDeferredSuccess(true, false, null);
 	} catch (final FileNotFoundException fnfe) {
-	    CommonDialogs.showDialog(Strings.dialog(
-		    DialogString.DUNGEON_LOADING_FAILED));
+	    CommonDialogs.showDialog(Strings.dialog(DialogString.DUNGEON_LOADING_FAILED));
 	    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final IOException ie) {
 	    CommonDialogs.showDialog(ie.getMessage());

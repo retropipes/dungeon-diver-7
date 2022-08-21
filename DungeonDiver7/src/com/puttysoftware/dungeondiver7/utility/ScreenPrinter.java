@@ -61,14 +61,14 @@ public class ScreenPrinter {
 		job.print(doc, pras);
 	    }
 	} catch (final IOException ioe) {
-	    CommonDialogs.showErrorDialog(Strings.error(
-		    ErrorString.PRINTING_FAILURE), Strings.menu(Menu.PRINT_GAME_WINDOW));
+	    CommonDialogs.showErrorDialog(Strings.error(ErrorString.PRINTING_FAILURE),
+		    Strings.menu(Menu.PRINT_GAME_WINDOW));
 	} catch (final PrintException pe) {
-	    CommonDialogs.showErrorDialog(Strings.error(
-		    ErrorString.PRINTING_FAILURE), Strings.menu(Menu.PRINT_GAME_WINDOW));
+	    CommonDialogs.showErrorDialog(Strings.error(ErrorString.PRINTING_FAILURE),
+		    Strings.menu(Menu.PRINT_GAME_WINDOW));
 	} catch (final NullPointerException npe) {
-	    CommonDialogs.showErrorDialog(Strings.error(
-		    ErrorString.PRINTING_FAILURE), Strings.menu(Menu.PRINT_GAME_WINDOW));
+	    CommonDialogs.showErrorDialog(Strings.error(ErrorString.PRINTING_FAILURE),
+		    Strings.menu(Menu.PRINT_GAME_WINDOW));
 	}
     }
 }

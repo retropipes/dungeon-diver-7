@@ -47,11 +47,11 @@ import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.EditorLayout;
+import com.puttysoftware.dungeondiver7.locale.EditorString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.TimeTravel;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -147,11 +147,8 @@ public class DungeonEditor implements MenuSection {
 
     public void changeLayer() {
 	final String[] list = DungeonConstants.getLayerList();
-	final String choice = CommonDialogs.showInputDialog(
-		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_CHANGE_LAYER_PROMPT),
-		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE, LocaleConstants.EDITOR_STRING_EDITOR),
-		list, list[this.elMgr.getEditorLocationW()]);
+	final String choice = CommonDialogs.showInputDialog(Strings.editor(EditorString.CHANGE_LAYER_PROMPT),
+		Strings.editor(EditorString.EDITOR), list, list[this.elMgr.getEditorLocationW()]);
 	if (choice != null) {
 	    final int len = list.length;
 	    int index = -1;
@@ -304,12 +301,9 @@ public class DungeonEditor implements MenuSection {
 	    this.redrawEditorGroundObjects();
 	}
 	this.outputFrame.pack();
-	this.outputFrame.setTitle(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_EDITOR_TITLE_1)
-		+ (z + 1)
-		+ LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_EDITOR_TITLE_2)
-		+ (u + 1) + LocaleConstants.COMMON_STRING_SPACE_DASH_SPACE + Strings.timeTravel(e));
+	this.outputFrame.setTitle(
+		Strings.editor(EditorString.EDITOR_TITLE_1) + (z + 1) + Strings.editor(EditorString.EDITOR_TITLE_2)
+			+ (u + 1) + LocaleConstants.COMMON_STRING_SPACE_DASH_SPACE + Strings.timeTravel(e));
 	this.outputPane.repaint();
 	this.showOutput();
     }
@@ -482,8 +476,7 @@ public class DungeonEditor implements MenuSection {
 	    if (!mo.defersSetProperties()) {
 		final AbstractDungeonObject mo2 = mo.editorPropertiesHook();
 		if (mo2 == null) {
-		    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			    LocaleConstants.EDITOR_STRING_NO_PROPERTIES));
+		    DungeonDiver7.getStuffBag().showMessage(Strings.editor(EditorString.NO_PROPERTIES));
 		} else {
 		    this.updateUndoHistory(this.savedDungeonObject, gridX, gridY, this.elMgr.getEditorLocationZ(),
 			    this.elMgr.getEditorLocationW(), this.elMgr.getEditorLocationU());
@@ -509,8 +502,7 @@ public class DungeonEditor implements MenuSection {
 	// Swap event handlers
 	this.secondaryPane.removeMouseListener(this.mhandler);
 	this.secondaryPane.addMouseListener(this.shandler);
-	DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_SET_START_POINT));
+	DungeonDiver7.getStuffBag().showMessage(Strings.editor(EditorString.SET_START_POINT));
     }
 
     public void setPlayerLocation() {
@@ -558,8 +550,7 @@ public class DungeonEditor implements MenuSection {
 	    app.getDungeonManager().getDungeon().setStartFloor(this.activePlayer, this.elMgr.getEditorLocationZ());
 	    app.getDungeonManager().getDungeon().setCell(template, destX, destY, this.elMgr.getEditorLocationZ(),
 		    template.getLayer());
-	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		    LocaleConstants.EDITOR_STRING_START_POINT_SET));
+	    DungeonDiver7.getStuffBag().showMessage(Strings.editor(EditorString.START_POINT_SET));
 	} catch (final ArrayIndexOutOfBoundsException aioob) {
 	    try {
 		app.getDungeonManager().getDungeon().setStartRow(this.activePlayer, oldY);
@@ -568,8 +559,7 @@ public class DungeonEditor implements MenuSection {
 	    } catch (final ArrayIndexOutOfBoundsException aioob2) {
 		// Ignore
 	    }
-	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		    LocaleConstants.EDITOR_STRING_AIM_WITHIN_THE_ARENA));
+	    DungeonDiver7.getStuffBag().showMessage(Strings.editor(EditorString.AIM_WITHIN_THE_ARENA));
 	}
 	// Swap event handlers
 	this.secondaryPane.removeMouseListener(this.shandler);
@@ -582,16 +572,11 @@ public class DungeonEditor implements MenuSection {
     public void editJumpBox(final AbstractJumpObject jumper) {
 	final int currentX = jumper.getJumpCols();
 	final int currentY = jumper.getJumpRows();
-	final String newXStr = CommonDialogs.showInputDialog(
-		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE, LocaleConstants.EDITOR_STRING_HORZ_JUMP),
-		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE, LocaleConstants.EDITOR_STRING_EDITOR),
-		DungeonEditor.JUMP_LIST, DungeonEditor.JUMP_LIST[currentX]);
+	final String newXStr = CommonDialogs.showInputDialog(Strings.editor(EditorString.HORZ_JUMP),
+		Strings.editor(EditorString.EDITOR), DungeonEditor.JUMP_LIST, DungeonEditor.JUMP_LIST[currentX]);
 	if (newXStr != null) {
-	    final String newYStr = CommonDialogs.showInputDialog(
-		    LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			    LocaleConstants.EDITOR_STRING_VERT_JUMP),
-		    LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE, LocaleConstants.EDITOR_STRING_EDITOR),
-		    DungeonEditor.JUMP_LIST, DungeonEditor.JUMP_LIST[currentY]);
+	    final String newYStr = CommonDialogs.showInputDialog(Strings.editor(EditorString.VERT_JUMP),
+		    Strings.editor(EditorString.EDITOR), DungeonEditor.JUMP_LIST, DungeonEditor.JUMP_LIST[currentY]);
 	    if (newYStr != null) {
 		final int newX = Integer.parseInt(newXStr);
 		final int newY = Integer.parseInt(newYStr);
@@ -662,11 +647,9 @@ public class DungeonEditor implements MenuSection {
 	}
 	if (success) {
 	    this.dungeonChanged = true;
-	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		    LocaleConstants.EDITOR_STRING_DUNGEON_CREATED));
+	    CommonDialogs.showDialog(Strings.editor(EditorString.DUNGEON_CREATED));
 	} else {
-	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		    LocaleConstants.EDITOR_STRING_DUNGEON_CREATION_FAILED));
+	    CommonDialogs.showDialog(Strings.editor(EditorString.DUNGEON_CREATION_FAILED));
 	}
 	return success;
     }
@@ -680,10 +663,8 @@ public class DungeonEditor implements MenuSection {
     }
 
     private boolean confirmNonUndoable() {
-	final int confirm = CommonDialogs.showConfirmDialog(
-		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_CONFIRM_CANNOT_BE_UNDONE),
-		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE, LocaleConstants.EDITOR_STRING_EDITOR));
+	final int confirm = CommonDialogs.showConfirmDialog(Strings.editor(EditorString.CONFIRM_CANNOT_BE_UNDONE),
+		Strings.editor(EditorString.EDITOR));
 	if (confirm == JOptionPane.YES_OPTION) {
 	    this.clearHistory();
 	    return true;
@@ -694,8 +675,7 @@ public class DungeonEditor implements MenuSection {
     public void fillLevel() {
 	if (this.confirmNonUndoable()) {
 	    DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().fillDefault();
-	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		    LocaleConstants.EDITOR_STRING_LEVEL_FILLED));
+	    DungeonDiver7.getStuffBag().showMessage(Strings.editor(EditorString.LEVEL_FILLED));
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    this.redrawEditor();
 	}
@@ -704,11 +684,9 @@ public class DungeonEditor implements MenuSection {
     public boolean addLevel() {
 	final boolean success = this.addLevelInternal();
 	if (success) {
-	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		    LocaleConstants.EDITOR_STRING_LEVEL_ADDED));
+	    CommonDialogs.showDialog(Strings.editor(EditorString.LEVEL_ADDED));
 	} else {
-	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		    LocaleConstants.EDITOR_STRING_LEVEL_ADDING_FAILED));
+	    CommonDialogs.showDialog(Strings.editor(EditorString.LEVEL_ADDING_FAILED));
 	}
 	return success;
     }
@@ -738,12 +716,8 @@ public class DungeonEditor implements MenuSection {
 	    choices = app.getLevelInfoList();
 	}
 	String input;
-	input = CommonDialogs.showInputDialog(
-		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_WHICH_LEVEL_TO_REMOVE),
-		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_REMOVE_LEVEL),
-		choices, choices[0]);
+	input = CommonDialogs.showInputDialog(Strings.editor(EditorString.WHICH_LEVEL_TO_REMOVE),
+		Strings.editor(EditorString.REMOVE_LEVEL), choices, choices[0]);
 	if (input != null) {
 	    for (level = 0; level < choices.length; level++) {
 		if (input.equals(choices[level])) {
@@ -772,24 +746,19 @@ public class DungeonEditor implements MenuSection {
 	int levelSizeZ;
 	final int maxF = AbstractDungeon.getMaxFloors();
 	final int minF = AbstractDungeon.getMinFloors();
-	final String msg = LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_RESIZE_LEVEL);
+	final String msg = Strings.editor(EditorString.RESIZE_LEVEL);
 	boolean success = true;
 	String input3;
-	input3 = CommonDialogs.showTextInputDialogWithDefault(
-		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_NUMBER_OF_FLOORS),
-		msg, Integer.toString(app.getDungeonManager().getDungeon().getFloors()));
+	input3 = CommonDialogs.showTextInputDialogWithDefault(Strings.editor(EditorString.NUMBER_OF_FLOORS), msg,
+		Integer.toString(app.getDungeonManager().getDungeon().getFloors()));
 	if (input3 != null) {
 	    try {
 		levelSizeZ = Integer.parseInt(input3);
 		if (levelSizeZ < minF) {
-		    throw new NumberFormatException(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			    LocaleConstants.EDITOR_STRING_FLOORS_TOO_LOW));
+		    throw new NumberFormatException(Strings.editor(EditorString.FLOORS_TOO_LOW));
 		}
 		if (levelSizeZ > maxF) {
-		    throw new NumberFormatException(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			    LocaleConstants.EDITOR_STRING_FLOORS_TOO_HIGH));
+		    throw new NumberFormatException(Strings.editor(EditorString.FLOORS_TOO_HIGH));
 		}
 		app.getDungeonManager().getDungeon().resize(levelSizeZ, new Ground());
 		this.fixLimits();
@@ -811,12 +780,10 @@ public class DungeonEditor implements MenuSection {
 
     public void goToLevelHandler() {
 	int locW;
-	final String msg = LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_GO_TO_LEVEL);
+	final String msg = Strings.editor(EditorString.GO_TO_LEVEL);
 	String input;
 	final String[] choices = DungeonDiver7.getStuffBag().getLevelInfoList();
-	input = CommonDialogs.showInputDialog(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_GO_TO_WHICH_LEVEL), msg, choices, choices[0]);
+	input = CommonDialogs.showInputDialog(Strings.editor(EditorString.GO_TO_WHICH_LEVEL), msg, choices, choices[0]);
 	if (input != null) {
 	    for (locW = 0; locW < choices.length; locW++) {
 		if (input.equals(choices[locW])) {
@@ -882,8 +849,7 @@ public class DungeonEditor implements MenuSection {
 	}
 	final FocusHandler fHandler = new FocusHandler();
 	this.messageLabel = new JLabel(LocaleConstants.COMMON_STRING_SPACE);
-	this.outputFrame = new JFrame(
-		LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE, LocaleConstants.EDITOR_STRING_EDITOR));
+	this.outputFrame = new JFrame(Strings.editor(EditorString.EDITOR));
 	final Image iconlogo = LogoLoader.getIconLogo();
 	this.outputFrame.setIconImage(iconlogo);
 	this.outputPane = new EditorDraw();
@@ -917,14 +883,10 @@ public class DungeonEditor implements MenuSection {
 	this.switcherPane = new Container();
 	final SwitcherHandler switcherHandler = new SwitcherHandler();
 	final ButtonGroup switcherGroup = new ButtonGroup();
-	this.lowerGround = new JToggleButton(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_LOWER_GROUND_LAYER));
-	this.upperGround = new JToggleButton(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_UPPER_GROUND_LAYER));
-	this.lowerObjects = new JToggleButton(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_LOWER_OBJECTS_LAYER));
-	this.upperObjects = new JToggleButton(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		LocaleConstants.EDITOR_STRING_UPPER_OBJECTS_LAYER));
+	this.lowerGround = new JToggleButton(Strings.editor(EditorString.LOWER_GROUND_LAYER));
+	this.upperGround = new JToggleButton(Strings.editor(EditorString.UPPER_GROUND_LAYER));
+	this.lowerObjects = new JToggleButton(Strings.editor(EditorString.LOWER_OBJECTS_LAYER));
+	this.upperObjects = new JToggleButton(Strings.editor(EditorString.UPPER_OBJECTS_LAYER));
 	this.lowerGround.setSelected(true);
 	this.lowerGround.addActionListener(switcherHandler);
 	this.upperGround.addActionListener(switcherHandler);
@@ -959,8 +921,7 @@ public class DungeonEditor implements MenuSection {
 	    this.checkMenus();
 	    this.redrawEditor();
 	} else {
-	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		    LocaleConstants.EDITOR_STRING_NOTHING_TO_UNDO));
+	    DungeonDiver7.getStuffBag().showMessage(Strings.editor(EditorString.NOTHING_TO_UNDO));
 	}
     }
 
@@ -982,8 +943,7 @@ public class DungeonEditor implements MenuSection {
 	    this.checkMenus();
 	    this.redrawEditor();
 	} else {
-	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-		    LocaleConstants.EDITOR_STRING_NOTHING_TO_REDO));
+	    DungeonDiver7.getStuffBag().showMessage(Strings.editor(EditorString.NOTHING_TO_REDO));
 	}
     }
 
@@ -1433,8 +1393,7 @@ public class DungeonEditor implements MenuSection {
 		} else if (cmd.equals(Strings.menu(Menu.CLEAR_HISTORY))) {
 		    // Clear undo/redo history, confirm first
 		    final int res = CommonDialogs.showConfirmDialog(Strings.menu(Menu.CONFIRM_CLEAR_HISTORY),
-			    LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-				    LocaleConstants.EDITOR_STRING_EDITOR));
+			    Strings.editor(EditorString.EDITOR));
 		    if (res == JOptionPane.YES_OPTION) {
 			editor.clearHistory();
 		    }
@@ -1541,17 +1500,13 @@ public class DungeonEditor implements MenuSection {
 	    try {
 		final String cmd = e.getActionCommand();
 		final DungeonEditor ae = DungeonEditor.this;
-		if (cmd.equals(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_LOWER_GROUND_LAYER))) {
+		if (cmd.equals(Strings.editor(EditorString.LOWER_GROUND_LAYER))) {
 		    ae.changeLayerImpl(DungeonConstants.LAYER_LOWER_GROUND);
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_UPPER_GROUND_LAYER))) {
+		} else if (cmd.equals(Strings.editor(EditorString.UPPER_GROUND_LAYER))) {
 		    ae.changeLayerImpl(DungeonConstants.LAYER_UPPER_GROUND);
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_LOWER_OBJECTS_LAYER))) {
+		} else if (cmd.equals(Strings.editor(EditorString.LOWER_OBJECTS_LAYER))) {
 		    ae.changeLayerImpl(DungeonConstants.LAYER_LOWER_OBJECTS);
-		} else if (cmd.equals(LocaleLoader.loadString(LocaleConstants.EDITOR_STRINGS_FILE,
-			LocaleConstants.EDITOR_STRING_UPPER_OBJECTS_LAYER))) {
+		} else if (cmd.equals(Strings.editor(EditorString.UPPER_OBJECTS_LAYER))) {
 		    ae.changeLayerImpl(DungeonConstants.LAYER_UPPER_OBJECTS);
 		}
 	    } catch (final Exception ex) {

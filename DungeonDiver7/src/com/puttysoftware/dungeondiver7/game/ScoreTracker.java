@@ -126,15 +126,9 @@ class ScoreTracker {
 		final String scoresFile = sf.getAbsolutePath();
 		this.ssMgr = new SavedScoreManager(3, 10, ScoreManager.SORT_ORDER_DESCENDING, 10000L,
 			Strings.untranslated(Untranslated.PROGRAM_NAME) + LocaleConstants.COMMON_STRING_SPACE
-				+ Strings.game(
-					GameString.SCORES),
-			new String[] {
-				Strings.game(
-					GameString.SCORE_MOVES),
-				Strings.game(
-					GameString.SCORE_SHOTS),
-				Strings.game(
-					GameString.SCORE_OTHERS) },
+				+ Strings.game(GameString.SCORES),
+			new String[] { Strings.game(GameString.SCORE_MOVES), Strings.game(GameString.SCORE_SHOTS),
+				Strings.game(GameString.SCORE_OTHERS) },
 			scoresFile);
 	    }
 	}
@@ -168,8 +162,7 @@ class ScoreTracker {
 	if (this.trackScores) {
 	    this.ssMgr.viewTable();
 	} else {
-	    CommonDialogs.showDialog(Strings.game(
-		    GameString.SCORES_UNAVAILABLE));
+	    CommonDialogs.showDialog(Strings.game(GameString.SCORES_UNAVAILABLE));
 	}
     }
 

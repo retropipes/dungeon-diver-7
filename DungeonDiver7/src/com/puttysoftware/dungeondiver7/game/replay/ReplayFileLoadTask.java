@@ -34,8 +34,7 @@ class ReplayFileLoadTask extends Thread {
 	this.filename = file;
 	this.setName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		LocaleConstants.NOTL_STRING_PLAYBACK_LOADER_NAME));
-	this.loadFrame = new JFrame(
-		Strings.dialog(DialogString.LOADING));
+	this.loadFrame = new JFrame(Strings.dialog(DialogString.LOADING));
 	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
@@ -55,8 +54,7 @@ class ReplayFileLoadTask extends Thread {
 	    ReplayFile.loadLPB(dungeonFile);
 	    dungeonFile.close();
 	} catch (final FileNotFoundException fnfe) {
-	    CommonDialogs.showDialog(Strings.game(
-		    GameString.PLAYBACK_LOAD_FAILED));
+	    CommonDialogs.showDialog(Strings.game(GameString.PLAYBACK_LOAD_FAILED));
 	} catch (final IOException ie) {
 	    CommonDialogs.showDialog(ie.getMessage());
 	} catch (final Exception ex) {

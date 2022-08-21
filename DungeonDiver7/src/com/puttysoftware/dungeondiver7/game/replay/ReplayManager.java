@@ -29,8 +29,7 @@ public class ReplayManager {
 	final StuffBag app = DungeonDiver7.getStuffBag();
 	String filename, extension, file, dir;
 	final String lastOpen = PrefsManager.getLastDirOpen();
-	final FileDialog fd = new FileDialog(app.getOutputFrame(),
-		Strings.game(GameString.LOAD_PLAYBACK),
+	final FileDialog fd = new FileDialog(app.getOutputFrame(), Strings.game(GameString.LOAD_PLAYBACK),
 		FileDialog.LOAD);
 	fd.setDirectory(lastOpen);
 	fd.setVisible(true);
@@ -42,8 +41,7 @@ public class ReplayManager {
 	    if (extension.equals(FileExtensions.getOldPlaybackExtension())) {
 		ReplayManager.loadFile(filename);
 	    } else {
-		CommonDialogs.showDialog(Strings.dialog(
-			DialogString.NON_PLAYBACK_FILE));
+		CommonDialogs.showDialog(Strings.dialog(DialogString.NON_PLAYBACK_FILE));
 	    }
 	}
     }
@@ -51,9 +49,7 @@ public class ReplayManager {
     public static void loadFile(final String filename) {
 	if (!FilenameChecker
 		.isFilenameOK(ReplayManager.getNameWithoutExtension(ReplayManager.getFileNameOnly(filename)))) {
-	    CommonDialogs.showErrorDialog(
-		    Strings.dialog(
-			    DialogString.ILLEGAL_CHARACTERS),
+	    CommonDialogs.showErrorDialog(Strings.dialog(DialogString.ILLEGAL_CHARACTERS),
 		    Strings.dialog(DialogString.LOAD));
 	} else {
 	    final ReplayFileLoadTask lpblt = new ReplayFileLoadTask(filename);

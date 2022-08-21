@@ -44,8 +44,7 @@ public class DungeonLoadTask extends Thread {
 	this.dungeonProtected = protect;
 	this.setName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
 		LocaleConstants.NOTL_STRING_NEW_AG_LOADER_NAME));
-	this.loadFrame = new JFrame(
-		Strings.dialog(DialogString.LOADING));
+	this.loadFrame = new JFrame(Strings.dialog(DialogString.LOADING));
 	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
@@ -76,11 +75,8 @@ public class DungeonLoadTask extends Thread {
 		    ZipUtilities.unzipDirectory(tempLock, new File(gameDungeon.getBasePath()));
 		    app.getDungeonManager().setDungeonProtected(true);
 		} catch (final ZipException ze) {
-		    CommonDialogs.showErrorDialog(
-			    Strings.error(
-				    ErrorString.BAD_PROTECTION_KEY),
-			    Strings.dialog(
-				    DialogString.PROTECTION_TITLE));
+		    CommonDialogs.showErrorDialog(Strings.error(ErrorString.BAD_PROTECTION_KEY),
+			    Strings.dialog(DialogString.PROTECTION_TITLE));
 		    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 		    return;
 		} finally {
@@ -100,8 +96,7 @@ public class DungeonLoadTask extends Thread {
 	    }
 	    gameDungeon = gameDungeon.readDungeon();
 	    if (gameDungeon == null) {
-		throw new InvalidDungeonException(Strings.error(
-			ErrorString.UNKNOWN_OBJECT));
+		throw new InvalidDungeonException(Strings.error(ErrorString.UNKNOWN_OBJECT));
 	    }
 	    app.getDungeonManager().setDungeon(gameDungeon);
 	    final boolean playerExists = gameDungeon.doesPlayerExist(0);
@@ -123,31 +118,25 @@ public class DungeonLoadTask extends Thread {
 	    app.getEditor().dungeonChanged();
 	    MusicLoader.dungeonChanged();
 	    if (this.isSavedGame) {
-		CommonDialogs.showDialog(Strings.dialog(
-			DialogString.GAME_LOADING_SUCCESS));
+		CommonDialogs.showDialog(Strings.dialog(DialogString.GAME_LOADING_SUCCESS));
 	    } else {
-		CommonDialogs.showDialog(Strings.dialog(
-			DialogString.DUNGEON_LOADING_SUCCESS));
+		CommonDialogs.showDialog(Strings.dialog(DialogString.DUNGEON_LOADING_SUCCESS));
 	    }
 	    app.getDungeonManager().handleDeferredSuccess(true, false, null);
 	} catch (final FileNotFoundException fnfe) {
 	    if (this.isSavedGame) {
-		CommonDialogs.showDialog(Strings.dialog(
-			DialogString.GAME_LOADING_FAILED));
+		CommonDialogs.showDialog(Strings.dialog(DialogString.GAME_LOADING_FAILED));
 	    } else {
-		CommonDialogs.showDialog(Strings.dialog(
-			DialogString.DUNGEON_LOADING_FAILED));
+		CommonDialogs.showDialog(Strings.dialog(DialogString.DUNGEON_LOADING_FAILED));
 	    }
 	    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final ProtectionCancelException pce) {
 	    app.getDungeonManager().handleDeferredSuccess(false, false, null);
 	} catch (final IOException ie) {
 	    if (this.isSavedGame) {
-		CommonDialogs.showDialog(Strings.dialog(
-			DialogString.GAME_LOADING_FAILED));
+		CommonDialogs.showDialog(Strings.dialog(DialogString.GAME_LOADING_FAILED));
 	    } else {
-		CommonDialogs.showDialog(Strings.dialog(
-			DialogString.DUNGEON_LOADING_FAILED));
+		CommonDialogs.showDialog(Strings.dialog(DialogString.DUNGEON_LOADING_FAILED));
 	    }
 	    DungeonDiver7.logWarningDirectly(ie);
 	    app.getDungeonManager().handleDeferredSuccess(false, false, null);
