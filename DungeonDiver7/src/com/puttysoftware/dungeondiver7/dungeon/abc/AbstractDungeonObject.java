@@ -24,8 +24,6 @@ import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.Colors;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.ImageColors;
@@ -803,24 +801,23 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     }
 
     public final String getBaseName() {
-	return LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getBaseID() * 3 + 0);
+	return Strings.object(this.getBaseID() * 3 + 0);
     }
 
     public final String getIdentityName() {
-	return this.getLocalColorPrefix()
-		+ LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getBaseID() * 3 + 0);
+	return this.getLocalColorPrefix() + Strings.object(this.getBaseID() * 3 + 0);
     }
 
     public String getName() {
-	return LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getBaseID() * 3 + 0);
+	return Strings.object(this.getBaseID() * 3 + 0);
     }
 
     public String getPluralName() {
-	return LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getBaseID() * 3 + 1);
+	return Strings.object(this.getBaseID() * 3 + 1);
     }
 
     public String getDescription() {
-	return LocaleLoader.loadString(LocaleConstants.OBJECT_STRINGS_FILE, this.getBaseID() * 3 + 2);
+	return Strings.object(this.getBaseID() * 3 + 2);
     }
 
     abstract public int getLayer();

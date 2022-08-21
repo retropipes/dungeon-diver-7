@@ -194,6 +194,10 @@ public final class Strings {
 	return orig.replace(Strings.NAMED_DELIM + param.toString() + Strings.NAMED_DELIM, value);
     }
 
+    public static String object(final int index) {
+	return ResourceBundle.getBundle("locale.object").getString(Integer.toString(index));
+    }
+
     public static String objectImage(final int index) {
 	return ResourceBundle.getBundle("locale.objectimage").getString(Integer.toString(index));
     }
