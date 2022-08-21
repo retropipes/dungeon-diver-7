@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
+import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
@@ -55,23 +56,23 @@ final class CheatManager {
 
     String enterCheat() {
 	final String userInput = CommonDialogs.showTextInputDialog(
-		LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE, LocaleConstants.GAME_STRING_CHEAT_PROMPT),
+		Strings.game(GameString.CHEAT_PROMPT),
 		Strings.dialog(DialogString.CHEATS));
 	if (userInput != null) {
 	    final int index = this.cheatCache.indexOf(userInput.toLowerCase());
 	    if (index != -1) {
 		final int value = CommonDialogs.showConfirmDialog(
-			LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
-				LocaleConstants.GAME_STRING_CHEAT_ACTION),
+			Strings.game(
+				GameString.CHEAT_ACTION),
 			Strings.dialog(
 				DialogString.CHEATS));
 		if (value == JOptionPane.YES_OPTION) {
-		    return LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
-			    LocaleConstants.GAME_STRING_ENABLE_CHEAT) + LocaleConstants.COMMON_STRING_SPACE
+		    return Strings.game(
+			    GameString.ENABLE_CHEAT) + LocaleConstants.COMMON_STRING_SPACE
 			    + userInput.toLowerCase();
 		} else {
-		    return LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
-			    LocaleConstants.GAME_STRING_DISABLE_CHEAT) + LocaleConstants.COMMON_STRING_SPACE
+		    return Strings.game(
+			    GameString.DISABLE_CHEAT) + LocaleConstants.COMMON_STRING_SPACE
 			    + userInput.toLowerCase();
 		}
 	    } else {

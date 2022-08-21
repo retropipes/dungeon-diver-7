@@ -18,6 +18,7 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
+import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
@@ -54,8 +55,8 @@ class ReplayFileLoadTask extends Thread {
 	    ReplayFile.loadLPB(dungeonFile);
 	    dungeonFile.close();
 	} catch (final FileNotFoundException fnfe) {
-	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
-		    LocaleConstants.GAME_STRING_PLAYBACK_LOAD_FAILED));
+	    CommonDialogs.showDialog(Strings.game(
+		    GameString.PLAYBACK_LOAD_FAILED));
 	} catch (final IOException ie) {
 	    CommonDialogs.showDialog(ie.getMessage());
 	} catch (final Exception ex) {

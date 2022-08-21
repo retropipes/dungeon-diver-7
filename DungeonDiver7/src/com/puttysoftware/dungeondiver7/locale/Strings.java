@@ -125,6 +125,10 @@ public final class Strings {
 	return ResourceBundle.getBundle("locale.file").getString(Integer.toString(item.ordinal()));
     }
 
+    public static String game(final GameString item) {
+	return ResourceBundle.getBundle("locale.game", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
+    }
+
     public static String generic(final Generic item) {
 	return ResourceBundle.getBundle("locale.generic", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
     }

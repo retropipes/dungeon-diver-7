@@ -59,12 +59,12 @@ import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Difficulty;
+import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.TimeTravel;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -348,30 +348,24 @@ class GameGUI {
 	this.outputFrame.addWindowListener(handler);
 	this.outputFrame.addWindowFocusListener(fHandler);
 	this.outputPane.addMouseListener(handler);
-	this.scoreMoves = new JLabel(
-		LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE, LocaleConstants.GAME_STRING_MOVES)
+	this.scoreMoves = new JLabel(Strings.game(GameString.MOVES) + LocaleConstants.COMMON_STRING_COLON
+		+ LocaleConstants.COMMON_STRING_SPACE + LocaleConstants.COMMON_STRING_ZERO);
+	this.scoreShots = new JLabel(Strings.game(GameString.SHOTS) + LocaleConstants.COMMON_STRING_COLON
+		+ LocaleConstants.COMMON_STRING_SPACE + LocaleConstants.COMMON_STRING_ZERO);
+	this.scoreOthers = new JLabel(Strings.game(GameString.OTHERS) + LocaleConstants.COMMON_STRING_COLON
+		+ LocaleConstants.COMMON_STRING_SPACE + LocaleConstants.COMMON_STRING_ZERO);
+	this.otherAmmoLeft = new JLabel(
+		LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.MISSILES)
 			+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-			+ LocaleConstants.COMMON_STRING_ZERO);
-	this.scoreShots = new JLabel(
-		LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE, LocaleConstants.GAME_STRING_SHOTS)
+			+ LocaleConstants.COMMON_STRING_ZERO + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+	this.otherToolsLeft = new JLabel(
+		LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.BOOSTS)
 			+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-			+ LocaleConstants.COMMON_STRING_ZERO);
-	this.scoreOthers = new JLabel(
-		LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE, LocaleConstants.GAME_STRING_OTHERS)
+			+ LocaleConstants.COMMON_STRING_ZERO + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+	this.otherRangesLeft = new JLabel(
+		LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.BOMBS)
 			+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-			+ LocaleConstants.COMMON_STRING_ZERO);
-	this.otherAmmoLeft = new JLabel(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES
-		+ LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE, LocaleConstants.GAME_STRING_MISSILES)
-		+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-		+ LocaleConstants.COMMON_STRING_ZERO + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
-	this.otherToolsLeft = new JLabel(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES
-		+ LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE, LocaleConstants.GAME_STRING_BOOSTS)
-		+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-		+ LocaleConstants.COMMON_STRING_ZERO + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
-	this.otherRangesLeft = new JLabel(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES
-		+ LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE, LocaleConstants.GAME_STRING_BOMBS)
-		+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-		+ LocaleConstants.COMMON_STRING_ZERO + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+			+ LocaleConstants.COMMON_STRING_ZERO + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
 	this.scorePane = new Container();
 	this.scorePane.setLayout(new FlowLayout());
 	this.scorePane.add(this.scoreMoves);
@@ -401,8 +395,8 @@ class GameGUI {
     private void setUpDifficultyDialog() {
 	// Set up Difficulty Dialog
 	final DifficultyEventHandler dhandler = new DifficultyEventHandler();
-	this.difficultyFrame = new JDialog(DungeonDiver7.getStuffBag().getOutputFrame(), LocaleLoader
-		.loadString(LocaleConstants.GAME_STRINGS_FILE, LocaleConstants.GAME_STRING_SELECT_DIFFICULTY));
+	this.difficultyFrame = new JDialog(DungeonDiver7.getStuffBag().getOutputFrame(),
+		Strings.game(GameString.SELECT_DIFFICULTY));
 	final Container difficultyPane = new Container();
 	final Container listPane = new Container();
 	final Container buttonPane = new Container();
@@ -727,8 +721,7 @@ class GameGUI {
 			break;
 		    }
 		} else {
-		    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
-			    LocaleConstants.GAME_STRING_OUT_OF_BOOSTS));
+		    CommonDialogs.showDialog(Strings.game(GameString.OUT_OF_BOOSTS));
 		}
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
@@ -759,8 +752,7 @@ class GameGUI {
 			break;
 		    }
 		} else {
-		    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
-			    LocaleConstants.GAME_STRING_OUT_OF_MAGNETS));
+		    CommonDialogs.showDialog(Strings.game(GameString.OUT_OF_MAGNETS));
 		}
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
@@ -775,8 +767,7 @@ class GameGUI {
 		    PartyInventory.fireBomb();
 		    gm.fireRange();
 		} else {
-		    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
-			    LocaleConstants.GAME_STRING_OUT_OF_BOMBS));
+		    CommonDialogs.showDialog(Strings.game(GameString.OUT_OF_BOMBS));
 		}
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
@@ -791,8 +782,7 @@ class GameGUI {
 		    PartyInventory.fireHeatBomb();
 		    gm.fireRange();
 		} else {
-		    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
-			    LocaleConstants.GAME_STRING_OUT_OF_HEAT_BOMBS));
+		    CommonDialogs.showDialog(Strings.game(GameString.OUT_OF_HEAT_BOMBS));
 		}
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
@@ -807,8 +797,7 @@ class GameGUI {
 		    PartyInventory.fireIceBomb();
 		    gm.fireRange();
 		} else {
-		    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
-			    LocaleConstants.GAME_STRING_OUT_OF_ICE_BOMBS));
+		    CommonDialogs.showDialog(Strings.game(GameString.OUT_OF_ICE_BOMBS));
 		}
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);

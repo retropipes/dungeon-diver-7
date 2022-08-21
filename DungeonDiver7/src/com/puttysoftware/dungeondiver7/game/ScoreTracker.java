@@ -11,6 +11,7 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.scores.SavedScoreManager;
 import com.puttysoftware.diane.scores.ScoreManager;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
@@ -125,15 +126,15 @@ class ScoreTracker {
 		final String scoresFile = sf.getAbsolutePath();
 		this.ssMgr = new SavedScoreManager(3, 10, ScoreManager.SORT_ORDER_DESCENDING, 10000L,
 			Strings.untranslated(Untranslated.PROGRAM_NAME) + LocaleConstants.COMMON_STRING_SPACE
-				+ LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
-					LocaleConstants.GAME_STRING_SCORES),
+				+ Strings.game(
+					GameString.SCORES),
 			new String[] {
-				LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
-					LocaleConstants.GAME_STRING_SCORE_MOVES),
-				LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
-					LocaleConstants.GAME_STRING_SCORE_SHOTS),
-				LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
-					LocaleConstants.GAME_STRING_SCORE_OTHERS) },
+				Strings.game(
+					GameString.SCORE_MOVES),
+				Strings.game(
+					GameString.SCORE_SHOTS),
+				Strings.game(
+					GameString.SCORE_OTHERS) },
 			scoresFile);
 	    }
 	}
@@ -167,8 +168,8 @@ class ScoreTracker {
 	if (this.trackScores) {
 	    this.ssMgr.viewTable();
 	} else {
-	    CommonDialogs.showDialog(LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE,
-		    LocaleConstants.GAME_STRING_SCORES_UNAVAILABLE));
+	    CommonDialogs.showDialog(Strings.game(
+		    GameString.SCORES_UNAVAILABLE));
 	}
     }
 

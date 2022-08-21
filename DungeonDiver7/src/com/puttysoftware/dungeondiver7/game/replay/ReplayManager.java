@@ -12,9 +12,8 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
+import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 import com.puttysoftware.fileutils.FilenameChecker;
@@ -31,7 +30,7 @@ public class ReplayManager {
 	String filename, extension, file, dir;
 	final String lastOpen = PrefsManager.getLastDirOpen();
 	final FileDialog fd = new FileDialog(app.getOutputFrame(),
-		LocaleLoader.loadString(LocaleConstants.GAME_STRINGS_FILE, LocaleConstants.GAME_STRING_LOAD_PLAYBACK),
+		Strings.game(GameString.LOAD_PLAYBACK),
 		FileDialog.LOAD);
 	fd.setDirectory(lastOpen);
 	fd.setVisible(true);
