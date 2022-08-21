@@ -10,7 +10,6 @@ import java.io.IOException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.utility.IDGenerator;
 import com.puttysoftware.fileutils.FileUtilities;
 
@@ -25,8 +24,7 @@ public class ExternalMusicImporter {
 
     public static void importMusic(final File source) {
 	final String basePath = ExternalMusicImporter.getMusicBasePath();
-	final String musicfilename = IDGenerator.generateRandomFilename() + LocaleConstants.COMMON_STRING_NOTL_PERIOD
-		+ MusicLoader.getExtension(source);
+	final String musicfilename = IDGenerator.generateRandomFilename() + getExtension(source);
 	final File dest = new File(basePath + File.separator + musicfilename);
 	ExternalMusicImporter.destFile = dest;
 	try {
@@ -79,5 +77,15 @@ public class ExternalMusicImporter {
 	b.append(ExternalMusicImporter.getDirPrefix());
 	b.append(ExternalMusicImporter.getMusicDirectory());
 	return b.toString();
+    }
+
+    private static String getExtension(final File f) {
+	String ext = null;
+	final String s = f.getName();
+	final int i = s.lastIndexOf('.');
+	if (i > 0 && i < s.length() - 1) {
+	    ext = s.substring(i).toLowerCase();
+	}
+	return ext;
     }
 }

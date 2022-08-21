@@ -13,7 +13,7 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.objects.*;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.images.BufferedImageIcon;
 
@@ -251,7 +251,7 @@ public class DungeonObjects {
 
     public AbstractDungeonObject readV2(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
-	String UID = LocaleConstants.COMMON_STRING_SPACE;
+	String UID = Strings.SPACE;
 	if (FileFormats.isFormatVersionValidGeneration1(formatVersion)
 		|| FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
 	    UID = reader.readString();
@@ -280,7 +280,7 @@ public class DungeonObjects {
 
     public AbstractDungeonObject readV3(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
-	String UID = LocaleConstants.COMMON_STRING_SPACE;
+	String UID = Strings.SPACE;
 	if (FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
 	    UID = reader.readString();
 	} else {
@@ -307,7 +307,7 @@ public class DungeonObjects {
 
     public AbstractDungeonObject readV4(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
-	String UID = LocaleConstants.COMMON_STRING_SPACE;
+	String UID = Strings.SPACE;
 	if (FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
 	    UID = reader.readString();
 	} else {
@@ -334,7 +334,7 @@ public class DungeonObjects {
 
     public AbstractDungeonObject readV5(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
-	String UID = LocaleConstants.COMMON_STRING_SPACE;
+	String UID = Strings.SPACE;
 	if (FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
 	    UID = reader.readString();
 	} else {
@@ -361,7 +361,7 @@ public class DungeonObjects {
 
     public AbstractDungeonObject readV6(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
-	String UID = LocaleConstants.COMMON_STRING_SPACE;
+	String UID = Strings.SPACE;
 	if (FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
 	    UID = reader.readString();
 	} else {
@@ -388,7 +388,7 @@ public class DungeonObjects {
 
     public AbstractDungeonObject readV7(final FileIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
-	String UID = LocaleConstants.COMMON_STRING_SPACE;
+	String UID = Strings.SPACE;
 	if (FileFormats.isFormatVersionValidGeneration7(formatVersion)) {
 	    UID = reader.readString();
 	} else {

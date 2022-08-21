@@ -15,7 +15,6 @@ import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 
 class ScoreTracker {
     // Fields
@@ -112,7 +111,7 @@ class ScoreTracker {
 	    if (this.trackScores) {
 		final String scoresFile = sf.getAbsolutePath();
 		this.ssMgr = new SavedScoreManager(3, 10, ScoreManager.SORT_ORDER_DESCENDING, 10000L,
-			Strings.untranslated(Untranslated.PROGRAM_NAME) + LocaleConstants.COMMON_STRING_SPACE
+			Strings.untranslated(Untranslated.PROGRAM_NAME) + Strings.SPACE
 				+ Strings.game(GameString.SCORES),
 			new String[] { Strings.game(GameString.SCORE_MOVES), Strings.game(GameString.SCORE_SHOTS),
 				Strings.game(GameString.SCORE_OTHERS) },
@@ -194,7 +193,7 @@ class ScoreTracker {
 	b.append(ScoreTracker.getScoreDirPrefix());
 	b.append(ScoreTracker.getScoreDirectory());
 	b.append(filename);
-	b.append(LocaleConstants.COMMON_STRING_UNDERSCORE);
+	b.append(Strings.UNDERSCORE);
 	b.append(DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getActiveLevel() + 1);
 	b.append(Strings.fileExtension(FileExtension.SCORES));
 	return new File(b.toString());

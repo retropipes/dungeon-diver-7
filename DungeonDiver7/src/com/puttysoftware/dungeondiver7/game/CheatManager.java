@@ -14,7 +14,6 @@ import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 
 final class CheatManager {
     // Fields
@@ -42,10 +41,10 @@ final class CheatManager {
 		final int value = CommonDialogs.showConfirmDialog(Strings.game(GameString.CHEAT_ACTION),
 			Strings.dialog(DialogString.CHEATS));
 		if (value == JOptionPane.YES_OPTION) {
-		    return Strings.game(GameString.ENABLE_CHEAT) + LocaleConstants.COMMON_STRING_SPACE
+		    return Strings.game(GameString.ENABLE_CHEAT) + Strings.SPACE
 			    + userInput.toLowerCase();
 		} else {
-		    return Strings.game(GameString.DISABLE_CHEAT) + LocaleConstants.COMMON_STRING_SPACE
+		    return Strings.game(GameString.DISABLE_CHEAT) + Strings.SPACE
 			    + userInput.toLowerCase();
 		}
 	    } else {

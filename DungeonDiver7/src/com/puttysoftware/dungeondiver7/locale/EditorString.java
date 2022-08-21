@@ -1,8 +1,7 @@
 package com.puttysoftware.dungeondiver7.locale;
 
 public enum EditorString {
-    EDITOR_TITLE_1,
-    EDITOR_TITLE_2,
+    EDITOR_TITLE,
     NO_PROPERTIES,
     SET_START_POINT,
     START_POINT_SET,

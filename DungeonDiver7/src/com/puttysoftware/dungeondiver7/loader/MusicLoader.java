@@ -168,14 +168,4 @@ public class MusicLoader {
 	final ExternalMusicSaveTask esst = new ExternalMusicSaveTask(filepath, filename);
 	esst.start();
     }
-
-    public static String getExtension(final File f) {
-	String ext = null;
-	final String s = f.getName();
-	final int i = s.lastIndexOf('.');
-	if (i > 0 && i < s.length() - 1) {
-	    ext = s.substring(i + 1).toLowerCase();
-	}
-	return ext;
-    }
 }

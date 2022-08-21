@@ -12,8 +12,10 @@ import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
 public final class Strings {
     public static final String EMPTY = "";
+    public static final String SPACE = " ";
     public static final String BETA = "b";
     public static final String VERSION = "V";
+    public static final String UNDERSCORE = "_";
     public static final String VERSION_DELIM = ".";
     private static final String NAMED_DELIM = "$$";
     public static final int ARMOR_TYPES_COUNT = 6;
@@ -190,6 +192,10 @@ public final class Strings {
 
     public static String namedSubst(final String orig, final NamedSubst param, final String value) {
 	return orig.replace(Strings.NAMED_DELIM + param.toString() + Strings.NAMED_DELIM, value);
+    }
+
+    public static String objectImage(final int index) {
+	return ResourceBundle.getBundle("locale.objectimage").getString(Integer.toString(index));
     }
 
     public static String prefKey(final PrefKey item) {

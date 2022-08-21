@@ -34,6 +34,7 @@ import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.DrawGrid;
+import com.puttysoftware.diane.strings.DianeStrings;
 import com.puttysoftware.dungeondiver7.Accelerators;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.MenuSection;
@@ -51,7 +52,6 @@ import com.puttysoftware.dungeondiver7.locale.EditorString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.TimeTravel;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -301,9 +301,8 @@ public class DungeonEditor implements MenuSection {
 	    this.redrawEditorGroundObjects();
 	}
 	this.outputFrame.pack();
-	this.outputFrame.setTitle(
-		Strings.editor(EditorString.EDITOR_TITLE_1) + (z + 1) + Strings.editor(EditorString.EDITOR_TITLE_2)
-			+ (u + 1) + LocaleConstants.COMMON_STRING_SPACE_DASH_SPACE + Strings.timeTravel(e));
+	this.outputFrame.setTitle(DianeStrings.subst(Strings.editor(EditorString.EDITOR_TITLE), Integer.toString(z + 1),
+		Integer.toString(u + 1), Strings.timeTravel(e)));
 	this.outputPane.repaint();
 	this.showOutput();
     }
@@ -848,7 +847,7 @@ public class DungeonEditor implements MenuSection {
 	    this.outputFrame.dispose();
 	}
 	final FocusHandler fHandler = new FocusHandler();
-	this.messageLabel = new JLabel(LocaleConstants.COMMON_STRING_SPACE);
+	this.messageLabel = new JLabel(Strings.SPACE);
 	this.outputFrame = new JFrame(Strings.editor(EditorString.EDITOR));
 	final Image iconlogo = LogoLoader.getIconLogo();
 	this.outputFrame.setIconImage(iconlogo);

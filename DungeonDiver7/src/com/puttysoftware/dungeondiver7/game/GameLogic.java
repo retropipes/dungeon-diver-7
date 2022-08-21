@@ -44,7 +44,6 @@ import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.AlreadyDeadException;
 import com.puttysoftware.dungeondiver7.utility.CustomDialogs;
@@ -331,12 +330,10 @@ public final class GameLogic implements MenuSection {
     }
 
     private void updateScore() {
-	this.scoreMoves.setText(Strings.game(GameString.MOVES) + LocaleConstants.COMMON_STRING_COLON
-		+ LocaleConstants.COMMON_STRING_SPACE + this.st.getMoves());
-	this.scoreShots.setText(Strings.game(GameString.SHOTS) + LocaleConstants.COMMON_STRING_COLON
-		+ LocaleConstants.COMMON_STRING_SPACE + this.st.getShots());
-	this.scoreShots.setText(Strings.game(GameString.OTHERS) + LocaleConstants.COMMON_STRING_COLON
-		+ LocaleConstants.COMMON_STRING_SPACE + this.st.getOthers());
+	this.scoreMoves.setText(DianeStrings.subst(Strings.game(GameString.MOVES), Long.toString(this.st.getMoves())));
+	this.scoreShots.setText(DianeStrings.subst(Strings.game(GameString.SHOTS), Long.toString(this.st.getShots())));
+	this.scoreOthers
+		.setText(DianeStrings.subst(Strings.game(GameString.OTHERS), Long.toString(this.st.getOthers())));
 	this.updateScoreText();
     }
 
@@ -363,12 +360,10 @@ public final class GameLogic implements MenuSection {
 	} else if (others < 0) {
 	    this.st.decrementOthers();
 	}
-	this.scoreMoves.setText(Strings.game(GameString.MOVES) + LocaleConstants.COMMON_STRING_COLON
-		+ LocaleConstants.COMMON_STRING_SPACE + this.st.getMoves());
-	this.scoreShots.setText(Strings.game(GameString.SHOTS) + LocaleConstants.COMMON_STRING_COLON
-		+ LocaleConstants.COMMON_STRING_SPACE + this.st.getShots());
-	this.scoreOthers.setText(Strings.game(GameString.OTHERS) + LocaleConstants.COMMON_STRING_COLON
-		+ LocaleConstants.COMMON_STRING_SPACE + this.st.getOthers());
+	this.scoreMoves.setText(DianeStrings.subst(Strings.game(GameString.MOVES), Long.toString(this.st.getMoves())));
+	this.scoreShots.setText(DianeStrings.subst(Strings.game(GameString.SHOTS), Long.toString(this.st.getShots())));
+	this.scoreOthers
+		.setText(DianeStrings.subst(Strings.game(GameString.OTHERS), Long.toString(this.st.getOthers())));
 	this.updateScoreText();
     }
 
@@ -376,115 +371,79 @@ public final class GameLogic implements MenuSection {
 	// Ammo
 	if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_MISSILES) {
 	    if (this.getCheatStatus(GameLogic.CHEAT_MISSILES)) {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.MISSILES)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ Strings.game(GameString.INFINITE) + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherAmmoLeft.setText(
+			DianeStrings.subst(Strings.game(GameString.MISSILES), Strings.game(GameString.INFINITE)));
 	    } else {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.MISSILES)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ PartyInventory.getMissilesLeft() + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherAmmoLeft.setText(DianeStrings.subst(Strings.game(GameString.MISSILES),
+			Integer.toString(PartyInventory.getMissilesLeft())));
 	    }
 	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_STUNNERS) {
 	    if (this.getCheatStatus(GameLogic.CHEAT_STUNNERS)) {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.STUNNERS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ Strings.game(GameString.INFINITE) + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherAmmoLeft.setText(
+			DianeStrings.subst(Strings.game(GameString.STUNNERS), Strings.game(GameString.INFINITE)));
 	    } else {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.STUNNERS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ PartyInventory.getStunnersLeft() + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherAmmoLeft.setText(DianeStrings.subst(Strings.game(GameString.STUNNERS),
+			Integer.toString(PartyInventory.getStunnersLeft())));
 	    }
 	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_BLUE_LASERS) {
 	    if (this.getCheatStatus(GameLogic.CHEAT_BLUE_LASERS)) {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.BLUE_LASERS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ Strings.game(GameString.INFINITE) + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherAmmoLeft.setText(
+			DianeStrings.subst(Strings.game(GameString.BLUE_LASERS), Strings.game(GameString.INFINITE)));
 	    } else {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.BLUE_LASERS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ PartyInventory.getBlueLasersLeft() + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherAmmoLeft.setText(DianeStrings.subst(Strings.game(GameString.BLUE_LASERS),
+			Integer.toString(PartyInventory.getBlueLasersLeft())));
 	    }
 	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_DISRUPTORS) {
 	    if (this.getCheatStatus(GameLogic.CHEAT_DISRUPTORS)) {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.DISRUPTORS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ Strings.game(GameString.INFINITE) + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherAmmoLeft.setText(
+			DianeStrings.subst(Strings.game(GameString.DISRUPTORS), Strings.game(GameString.INFINITE)));
 	    } else {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.DISRUPTORS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ PartyInventory.getDisruptorsLeft() + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherAmmoLeft.setText(DianeStrings.subst(Strings.game(GameString.DISRUPTORS),
+			Integer.toString(PartyInventory.getDisruptorsLeft())));
 	    }
 	}
 	// Tools
 	if (this.otherToolMode == GameLogic.OTHER_TOOL_MODE_BOOSTS) {
 	    if (this.getCheatStatus(GameLogic.CHEAT_BOOSTS)) {
-		this.otherToolsLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.BOOSTS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ Strings.game(GameString.INFINITE) + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherToolsLeft.setText(
+			DianeStrings.subst(Strings.game(GameString.BOOSTS), Strings.game(GameString.INFINITE)));
 	    } else {
-		this.otherToolsLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.BOOSTS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ PartyInventory.getBoostsLeft() + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherToolsLeft.setText(DianeStrings.subst(Strings.game(GameString.BOOSTS),
+			Integer.toString(PartyInventory.getBoostsLeft())));
 	    }
 	} else if (this.otherToolMode == GameLogic.OTHER_TOOL_MODE_MAGNETS) {
 	    if (this.getCheatStatus(GameLogic.CHEAT_MAGNETS)) {
-		this.otherToolsLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.MAGNETS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ Strings.game(GameString.INFINITE) + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherToolsLeft.setText(
+			DianeStrings.subst(Strings.game(GameString.MAGNETS), Strings.game(GameString.INFINITE)));
 	    } else {
-		this.otherToolsLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.MAGNETS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ PartyInventory.getMagnetsLeft() + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherToolsLeft.setText(DianeStrings.subst(Strings.game(GameString.MAGNETS),
+			Integer.toString(PartyInventory.getMagnetsLeft())));
 	    }
 	}
 	// Ranges
 	if (this.otherRangeMode == GameLogic.OTHER_RANGE_MODE_BOMBS) {
 	    if (this.getCheatStatus(GameLogic.CHEAT_BOMBS)) {
 		this.otherRangesLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.BOMBS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ Strings.game(GameString.INFINITE) + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+			.setText(DianeStrings.subst(Strings.game(GameString.BOMBS), Strings.game(GameString.INFINITE)));
 	    } else {
-		this.otherRangesLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.BOMBS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ PartyInventory.getBombsLeft() + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherRangesLeft.setText(DianeStrings.subst(Strings.game(GameString.BOMBS),
+			Integer.toString(PartyInventory.getBombsLeft())));
 	    }
 	} else if (this.otherRangeMode == GameLogic.OTHER_RANGE_MODE_HEAT_BOMBS) {
 	    if (this.getCheatStatus(GameLogic.CHEAT_HEAT_BOMBS)) {
-		this.otherRangesLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.HEAT_BOMBS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ Strings.game(GameString.INFINITE) + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherRangesLeft.setText(
+			DianeStrings.subst(Strings.game(GameString.HEAT_BOMBS), Strings.game(GameString.INFINITE)));
 	    } else {
-		this.otherRangesLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.HEAT_BOMBS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ PartyInventory.getHeatBombsLeft() + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherRangesLeft.setText(DianeStrings.subst(Strings.game(GameString.HEAT_BOMBS),
+			Integer.toString(PartyInventory.getHeatBombsLeft())));
 	    }
 	} else if (this.otherRangeMode == GameLogic.OTHER_RANGE_MODE_ICE_BOMBS) {
 	    if (this.getCheatStatus(GameLogic.CHEAT_ICE_BOMBS)) {
-		this.otherRangesLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.ICE_BOMBS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ Strings.game(GameString.INFINITE) + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherRangesLeft.setText(
+			DianeStrings.subst(Strings.game(GameString.ICE_BOMBS), Strings.game(GameString.INFINITE)));
 	    } else {
-		this.otherRangesLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.ICE_BOMBS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ PartyInventory.getIceBombsLeft() + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+		this.otherRangesLeft.setText(DianeStrings.subst(Strings.game(GameString.ICE_BOMBS),
+			Integer.toString(PartyInventory.getIceBombsLeft())));
 	    }
 	}
     }
@@ -781,8 +740,8 @@ public final class GameLogic implements MenuSection {
 		}
 	    }
 	    this.updateScoreText();
-	    CommonDialogs.showDialog(Strings.game(GameString.AMMO_CHANGED) + LocaleConstants.COMMON_STRING_SPACE
-		    + GameLogic.OTHER_AMMO_CHOICES[this.otherAmmoMode] + LocaleConstants.COMMON_STRING_NOTL_PERIOD);
+	    CommonDialogs.showDialog(DianeStrings.subst(Strings.game(GameString.AMMO_CHANGED),
+		    GameLogic.OTHER_AMMO_CHOICES[this.otherAmmoMode]));
 	}
     }
 
@@ -798,8 +757,8 @@ public final class GameLogic implements MenuSection {
 		}
 	    }
 	    this.updateScoreText();
-	    CommonDialogs.showDialog(Strings.game(GameString.TOOL_CHANGED) + LocaleConstants.COMMON_STRING_SPACE
-		    + GameLogic.OTHER_TOOL_CHOICES[this.otherToolMode] + LocaleConstants.COMMON_STRING_NOTL_PERIOD);
+	    CommonDialogs.showDialog(DianeStrings.subst(Strings.game(GameString.TOOL_CHANGED),
+		    GameLogic.OTHER_TOOL_CHOICES[this.otherToolMode]));
 	}
     }
 
@@ -815,8 +774,8 @@ public final class GameLogic implements MenuSection {
 		}
 	    }
 	    this.updateScoreText();
-	    CommonDialogs.showDialog(Strings.game(GameString.RANGE_CHANGED) + LocaleConstants.COMMON_STRING_SPACE
-		    + GameLogic.OTHER_RANGE_CHOICES[this.otherRangeMode] + LocaleConstants.COMMON_STRING_NOTL_PERIOD);
+	    CommonDialogs.showDialog(DianeStrings.subst(Strings.game(GameString.RANGE_CHANGED),
+		    GameLogic.OTHER_RANGE_CHOICES[this.otherRangeMode]));
 	}
     }
 
@@ -884,61 +843,7 @@ public final class GameLogic implements MenuSection {
 	this.updatePlayer();
 	this.st.resetScore(app.getDungeonManager().getScoresFileName());
 	PartyInventory.resetInventory();
-	this.scoreMoves.setText(Strings.game(GameString.MOVES) + LocaleConstants.COMMON_STRING_COLON
-		+ LocaleConstants.COMMON_STRING_SPACE + LocaleConstants.COMMON_STRING_ZERO);
-	this.scoreShots.setText(Strings.game(GameString.SHOTS) + LocaleConstants.COMMON_STRING_COLON
-		+ LocaleConstants.COMMON_STRING_SPACE + LocaleConstants.COMMON_STRING_ZERO);
-	this.scoreOthers.setText(Strings.game(GameString.OTHERS) + LocaleConstants.COMMON_STRING_COLON
-		+ LocaleConstants.COMMON_STRING_SPACE + LocaleConstants.COMMON_STRING_ZERO);
-	if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_MISSILES) {
-	    if (this.getCheatStatus(GameLogic.CHEAT_MISSILES)) {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.MISSILES)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ Strings.game(GameString.INFINITE) + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
-	    } else {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.MISSILES)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ LocaleConstants.COMMON_STRING_ZERO + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
-	    }
-	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_STUNNERS) {
-	    if (this.getCheatStatus(GameLogic.CHEAT_STUNNERS)) {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.STUNNERS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ Strings.game(GameString.INFINITE) + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
-	    } else {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.STUNNERS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ LocaleConstants.COMMON_STRING_ZERO + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
-	    }
-	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_BLUE_LASERS) {
-	    if (this.getCheatStatus(GameLogic.CHEAT_BLUE_LASERS)) {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.BLUE_LASERS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ Strings.game(GameString.INFINITE) + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
-	    } else {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.BLUE_LASERS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ LocaleConstants.COMMON_STRING_ZERO + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
-	    }
-	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_DISRUPTORS) {
-	    if (this.getCheatStatus(GameLogic.CHEAT_DISRUPTORS)) {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.DISRUPTORS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ Strings.game(GameString.INFINITE) + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
-	    } else {
-		this.otherAmmoLeft
-			.setText(LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.DISRUPTORS)
-				+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-				+ LocaleConstants.COMMON_STRING_ZERO + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
-	    }
-	}
+	this.updateScoreText();
 	this.updateInfo();
 	this.redrawDungeon();
 	this.resumeAnimator();
@@ -1555,7 +1460,7 @@ public final class GameLogic implements MenuSection {
 	try {
 	    final int activeLevel = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getActiveLevel();
 	    final String levelFile = DungeonDiver7.getStuffBag().getDungeonManager().getLastUsedDungeon();
-	    final String filename = levelFile + LocaleConstants.COMMON_STRING_UNDERSCORE + activeLevel
+	    final String filename = levelFile + Strings.UNDERSCORE + activeLevel
 		    + Strings.fileExtension(FileExtension.SOLUTION);
 	    try (XDataReader file = new XDataReader(filename, Strings.fileType(FileType.SOLUTION))) {
 		this.gre = GameReplayEngine.readReplay(file);
@@ -1570,7 +1475,7 @@ public final class GameLogic implements MenuSection {
 	try {
 	    final int activeLevel = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getActiveLevel();
 	    final String levelFile = DungeonDiver7.getStuffBag().getDungeonManager().getLastUsedDungeon();
-	    final String filename = levelFile + LocaleConstants.COMMON_STRING_UNDERSCORE + activeLevel
+	    final String filename = levelFile + Strings.UNDERSCORE + activeLevel
 		    + Strings.fileExtension(FileExtension.SOLUTION);
 	    try (XDataWriter file = new XDataWriter(filename, Strings.fileType(FileType.SOLUTION))) {
 		this.gre.writeReplay(file);

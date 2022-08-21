@@ -709,12 +709,12 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     }
 
     public final String getBaseImageName() {
-	return LocaleLoader.loadString(LocaleConstants.IMAGE_STRINGS_FILE, this.getBaseID());
+	return Strings.objectImage(this.getBaseID());
     }
 
     private final String getLocalColorPrefix() {
 	if (this.hasColor()) {
-	    return Strings.color(this.color) + LocaleConstants.COMMON_STRING_SPACE;
+	    return Strings.color(this.color) + Strings.SPACE;
 	} else {
 	    return Strings.EMPTY;
 	}
@@ -722,7 +722,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 
     private final String getDirectionSuffix() {
 	if (this.hasDirection()) {
-	    return LocaleConstants.COMMON_STRING_SPACE + DianeStrings.directionSuffix(this.directions);
+	    return Strings.SPACE + DianeStrings.directionSuffix(this.directions);
 	} else {
 	    return Strings.EMPTY;
 	}
@@ -730,7 +730,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 
     private final String getFrameSuffix() {
 	if (this.isAnimated()) {
-	    return LocaleConstants.COMMON_STRING_SPACE + this.frameNumber;
+	    return Strings.SPACE + this.frameNumber;
 	} else {
 	    return Strings.EMPTY;
 	}

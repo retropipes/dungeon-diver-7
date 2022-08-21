@@ -29,7 +29,6 @@ import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 
 public class AboutDialog implements AboutHandler, MenuSection {
     // Fields
@@ -56,8 +55,8 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	EventHandler handler;
 	JLabel miniLabel;
 	handler = new EventHandler();
-	this.aboutFrame = new JFrame(Strings.dialog(DialogString.ABOUT) + LocaleConstants.COMMON_STRING_SPACE
-		+ Strings.untranslated(Untranslated.PROGRAM_NAME));
+	this.aboutFrame = new JFrame(DianeStrings.subst(Strings.dialog(DialogString.ABOUT),
+		Strings.untranslated(Untranslated.PROGRAM_NAME)));
 	final Image iconlogo = LogoLoader.getIconLogo();
 	this.aboutFrame.setIconImage(iconlogo);
 	aboutPane = new Container();

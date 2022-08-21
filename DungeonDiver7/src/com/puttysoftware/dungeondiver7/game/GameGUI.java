@@ -34,6 +34,7 @@ import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.DrawGrid;
+import com.puttysoftware.diane.strings.DianeStrings;
 import com.puttysoftware.diane.utilties.DirectionResolver;
 import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.Accelerators;
@@ -64,7 +65,6 @@ import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.TimeTravel;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -348,24 +348,12 @@ class GameGUI {
 	this.outputFrame.addWindowListener(handler);
 	this.outputFrame.addWindowFocusListener(fHandler);
 	this.outputPane.addMouseListener(handler);
-	this.scoreMoves = new JLabel(Strings.game(GameString.MOVES) + LocaleConstants.COMMON_STRING_COLON
-		+ LocaleConstants.COMMON_STRING_SPACE + LocaleConstants.COMMON_STRING_ZERO);
-	this.scoreShots = new JLabel(Strings.game(GameString.SHOTS) + LocaleConstants.COMMON_STRING_COLON
-		+ LocaleConstants.COMMON_STRING_SPACE + LocaleConstants.COMMON_STRING_ZERO);
-	this.scoreOthers = new JLabel(Strings.game(GameString.OTHERS) + LocaleConstants.COMMON_STRING_COLON
-		+ LocaleConstants.COMMON_STRING_SPACE + LocaleConstants.COMMON_STRING_ZERO);
-	this.otherAmmoLeft = new JLabel(
-		LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.MISSILES)
-			+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-			+ LocaleConstants.COMMON_STRING_ZERO + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
-	this.otherToolsLeft = new JLabel(
-		LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.BOOSTS)
-			+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-			+ LocaleConstants.COMMON_STRING_ZERO + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
-	this.otherRangesLeft = new JLabel(
-		LocaleConstants.COMMON_STRING_OPEN_PARENTHESES + Strings.game(GameString.BOMBS)
-			+ LocaleConstants.COMMON_STRING_COLON + LocaleConstants.COMMON_STRING_SPACE
-			+ LocaleConstants.COMMON_STRING_ZERO + LocaleConstants.COMMON_STRING_CLOSE_PARENTHESES);
+	this.scoreMoves = new JLabel(DianeStrings.subst(Strings.game(GameString.MOVES), Integer.toString(0)));
+	this.scoreShots = new JLabel(DianeStrings.subst(Strings.game(GameString.SHOTS), Integer.toString(0)));
+	this.scoreOthers = new JLabel(DianeStrings.subst(Strings.game(GameString.OTHERS), Integer.toString(0)));
+	this.otherAmmoLeft = new JLabel(DianeStrings.subst(Strings.game(GameString.MISSILES), Integer.toString(0)));
+	this.otherToolsLeft = new JLabel(DianeStrings.subst(Strings.game(GameString.BOOSTS), Integer.toString(0)));
+	this.otherRangesLeft = new JLabel(DianeStrings.subst(Strings.game(GameString.BOMBS), Integer.toString(0)));
 	this.scorePane = new Container();
 	this.scorePane.setLayout(new FlowLayout());
 	this.scorePane.add(this.scoreMoves);
@@ -374,7 +362,7 @@ class GameGUI {
 	this.scorePane.add(this.otherAmmoLeft);
 	this.scorePane.add(this.otherToolsLeft);
 	this.scorePane.add(this.otherRangesLeft);
-	this.levelInfo = new JLabel(LocaleConstants.COMMON_STRING_SPACE);
+	this.levelInfo = new JLabel(Strings.SPACE);
 	this.infoPane = new Container();
 	this.infoPane.setLayout(new FlowLayout());
 	this.infoPane.add(this.levelInfo);
