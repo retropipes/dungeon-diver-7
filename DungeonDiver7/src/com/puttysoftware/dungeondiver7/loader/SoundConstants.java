@@ -5,8 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.loader;
 
-import com.puttysoftware.dungeondiver7.locale.old.GlobalFile;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 
 public class SoundConstants {
     // Public Sound Constants
@@ -122,7 +121,6 @@ public class SoundConstants {
     public static final int ERA_CHANGE = 109;
     public static final int ERAS_ENABLED = 110;
     public static final int IDENTIFY = 111;
-    private static final String[] NAMES = LocaleLoader.loadAllGlobalStrings(GlobalFile.SOUND, 112);
 
     // Private constructor
     private SoundConstants() {
@@ -130,6 +128,6 @@ public class SoundConstants {
     }
 
     static String getSoundName(final int ID) {
-	return SoundConstants.NAMES[ID];
+	return Strings.sound(ID);
     }
 }

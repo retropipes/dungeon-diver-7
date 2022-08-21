@@ -217,6 +217,10 @@ public final class Strings {
     public static String slot(final Slot item) {
 	return ResourceBundle.getBundle("locale.slot", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
     }
+    
+    public static String sound(final int index) {
+	return ResourceBundle.getBundle("locale.sound", Strings.ACTIVE).getString(Integer.toString(index));
+    }
 
     public static String stat(final int index) {
 	return ResourceBundle.getBundle("locale.stat", Strings.ACTIVE).getString(Integer.toString(index));
