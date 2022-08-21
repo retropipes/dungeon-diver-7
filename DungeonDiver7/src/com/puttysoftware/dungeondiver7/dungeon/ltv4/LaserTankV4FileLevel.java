@@ -32,8 +32,8 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Water;
 import com.puttysoftware.dungeondiver7.locale.Colors;
 import com.puttysoftware.dungeondiver7.locale.Difficulty;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 
 class LaserTankV4FileLevel {
     // Fields
@@ -218,9 +218,7 @@ class LaserTankV4FileLevel {
 	    if (bytesRead != LaserTankV4FileLevel.NAME_SIZE) {
 		return null;
 	    }
-	    final String levelName = Charset
-		    .forName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			    LocaleConstants.NOTL_STRING_DEFAULT_CHARSET))
+	    final String levelName = Charset.forName(Strings.untranslated(Untranslated.DEFAULT_CHARSET))
 		    .decode(ByteBuffer.wrap(LaserTankV4FileLevel.name)).toString();
 	    a.setName(levelName);
 	    // Convert level hint
@@ -228,9 +226,7 @@ class LaserTankV4FileLevel {
 	    if (bytesRead != LaserTankV4FileLevel.HINT_SIZE) {
 		return null;
 	    }
-	    final String levelHint = Charset
-		    .forName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			    LocaleConstants.NOTL_STRING_DEFAULT_CHARSET))
+	    final String levelHint = Charset.forName(Strings.untranslated(Untranslated.DEFAULT_CHARSET))
 		    .decode(ByteBuffer.wrap(LaserTankV4FileLevel.hint)).toString();
 	    a.setHint(levelHint);
 	    // Convert level author
@@ -238,9 +234,7 @@ class LaserTankV4FileLevel {
 	    if (bytesRead != LaserTankV4FileLevel.AUTHOR_SIZE) {
 		return null;
 	    }
-	    final String levelAuthor = Charset
-		    .forName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			    LocaleConstants.NOTL_STRING_DEFAULT_CHARSET))
+	    final String levelAuthor = Charset.forName(Strings.untranslated(Untranslated.DEFAULT_CHARSET))
 		    .decode(ByteBuffer.wrap(LaserTankV4FileLevel.author)).toString();
 	    a.setAuthor(levelAuthor);
 	    // Convert level difficulty

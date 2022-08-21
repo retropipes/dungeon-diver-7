@@ -1,5 +1,6 @@
 package com.puttysoftware.dungeondiver7.locale;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -15,6 +16,7 @@ public final class Strings {
     public static final int ARMOR_TYPES_COUNT = 6;
     public static final int WEAPON_TYPES_COUNT = 6;
     public static final int COLOR_COUNT = 8;
+    private static final int CHEATS_COUNT = 25;
     private static final int DIFFICULTIES_COUNT = 5;
     private static final int LANGUAGES_COUNT = 1;
     public static final int SLOTS_COUNT = 12;
@@ -46,6 +48,14 @@ public final class Strings {
 	for (int index = 0; index < result.length; index++) {
 	    result[index] = ResourceBundle.getBundle("locale.armortype", Strings.ACTIVE)
 		    .getString(Integer.toString(index));
+	}
+	return result;
+    }
+
+    public static ArrayList<String> allCheats() {
+	ArrayList<String> result = new ArrayList<>();
+	for (int index = 0; index < Strings.CHEATS_COUNT; index++) {
+	    result.add(ResourceBundle.getBundle("locale.cheat", Strings.ACTIVE).getString(Integer.toString(index)));
 	}
 	return result;
     }
@@ -141,6 +151,10 @@ public final class Strings {
 
     public static String fileExtension(final FileExtension item) {
 	return ResourceBundle.getBundle("locale.file").getString(Integer.toString(item.ordinal()));
+    }
+
+    public static String fileType(final FileType item) {
+	return ResourceBundle.getBundle("locale.filetype").getString(Integer.toString(item.ordinal()));
     }
 
     public static String game(final GameString item) {

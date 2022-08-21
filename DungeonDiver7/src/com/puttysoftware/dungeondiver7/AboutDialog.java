@@ -30,7 +30,6 @@ import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 
 public class AboutDialog implements AboutHandler, MenuSection {
     // Fields
@@ -75,14 +74,14 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	logoPane.setLayout(new FlowLayout());
 	logoPane.add(miniLabel);
 	textPane.setLayout(new GridLayout(4, 1));
-	textPane.add(new JLabel(Strings.untranslated(Untranslated.PROGRAM_NAME) + LocaleConstants.COMMON_STRING_SPACE
-		+ Strings.dialog(DialogString.VERSION) + LocaleConstants.COMMON_STRING_SPACE + ver));
-	textPane.add(new JLabel(Strings.dialog(DialogString.AUTHOR)
-		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_AUTHOR_NAME)));
-	textPane.add(new JLabel(Strings.dialog(DialogString.WEB_SITE) + LocaleLoader
-		.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_GAME_WEB_URL)));
-	textPane.add(new JLabel(Strings.dialog(DialogString.BUG_REPORTS)
-		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_GAME_EMAIL)));
+	textPane.add(new JLabel(DianeStrings.subst(Strings.dialog(DialogString.VERSION),
+		Strings.untranslated(Untranslated.PROGRAM_NAME), ver)));
+	textPane.add(new JLabel(DianeStrings.subst(Strings.dialog(DialogString.AUTHOR),
+		Strings.untranslated(Untranslated.GAME_AUTHOR_NAME))));
+	textPane.add(new JLabel(DianeStrings.subst(Strings.dialog(DialogString.WEB_SITE),
+		Strings.untranslated(Untranslated.GAME_WEB_URL))));
+	textPane.add(new JLabel(DianeStrings.subst(Strings.dialog(DialogString.BUG_REPORTS),
+		Strings.untranslated(Untranslated.GAME_EMAIL))));
 	buttonPane.setLayout(new FlowLayout());
 	buttonPane.add(aboutOK);
 	aboutPane.add(logoPane, BorderLayout.WEST);

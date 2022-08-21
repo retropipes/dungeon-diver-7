@@ -23,8 +23,8 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Party;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.AlreadyDeadException;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -46,7 +46,7 @@ final class MLOTask extends Thread {
 
     // Constructors
     public MLOTask() {
-	this.setName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_MLOH_NAME));
+	this.setName(Strings.untranslated(Untranslated.MLOH_NAME));
 	this.setPriority(Thread.MIN_PRIORITY);
 	this.abort = false;
 	this.laserTrackers = new ArrayList<>();

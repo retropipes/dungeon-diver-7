@@ -19,17 +19,16 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Tunnel;
 import com.puttysoftware.dungeondiver7.locale.Colors;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.FileExtension;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class ImageLoader {
     public static final int MAX_WINDOW_SIZE = 700;
     private static final Color TRANSPARENT = new Color(200, 100, 100);
-    private static final String DEFAULT_LOAD_PATH = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-	    LocaleConstants.NOTL_STRING_GRAPHICS_PATH);
-    private static String LOAD_PATH = ImageLoader.DEFAULT_LOAD_PATH;
+    private static final String OBJECT_LOAD_PATH = Strings.untranslated(Untranslated.OBJECT_IMAGE_LOAD_PATH);
     private static Class<?> LOAD_CLASS = ImageLoader.class;
     private static Font DRAW_FONT = null;
     private static final String DRAW_FONT_FALLBACK = "Times-BOLD-14";
@@ -67,18 +66,14 @@ public class ImageLoader {
 		extraPath = "disabled/";
 	    }
 	    final String normalName = ImageLoader.normalizeName(name);
-	    final URL url = ImageLoader.LOAD_CLASS.getResource(ImageLoader.LOAD_PATH
-		    + LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			    LocaleConstants.NOTL_STRING_OBJECTS_SUBPATH)
-		    + extraPath + normalName + LocaleConstants.COMMON_STRING_NOTL_IMAGE_EXTENSION_PNG);
+	    final URL url = ImageLoader.LOAD_CLASS.getResource(
+		    ImageLoader.OBJECT_LOAD_PATH + extraPath + normalName + Strings.fileExtension(FileExtension.IMAGE));
 	    final BufferedImage image = ImageIO.read(url);
 	    final String customText = obj.getCustomText();
 	    if (useText && customText != null) {
 		if (ImageLoader.DRAW_FONT == null) {
-		    try (InputStream is = ImageLoader.class.getResourceAsStream(LocaleLoader
-			    .loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_FONT_PATH)
-			    + LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-				    LocaleConstants.NOTL_STRING_FONT_FILENAME))) {
+		    try (InputStream is = ImageLoader.class
+			    .getResourceAsStream(Strings.untranslated(Untranslated.FONT_LOAD_PATH))) {
 			final Font baseFont = Font.createFont(Font.TRUETYPE_FONT, is);
 			ImageLoader.DRAW_FONT = baseFont.deriveFont(ImageLoader.DRAW_SIZE);
 		    } catch (final Exception ex) {

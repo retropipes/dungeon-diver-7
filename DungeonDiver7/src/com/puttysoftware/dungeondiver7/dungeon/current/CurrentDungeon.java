@@ -25,16 +25,14 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Difficulty;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
+import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.file.AbstractPrefixIO;
 import com.puttysoftware.dungeondiver7.manager.file.AbstractSuffixIO;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DirectionRotator;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 import com.puttysoftware.dungeondiver7.utility.FileFormats;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
@@ -77,11 +75,8 @@ public class CurrentDungeon extends AbstractDungeon {
 	this.levelInfoList = new ArrayList<>();
 	final long random = new RandomLongRange(0, Long.MAX_VALUE).generate();
 	final String randomID = Long.toHexString(random);
-	this.basePath = System.getProperty(
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_TEMP_DIR))
-		+ File.separator + Strings.untranslated(Untranslated.PROGRAM_NAME) + File.separator + randomID
-		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_FOLDER);
+	this.basePath = System.getProperty(Strings.untranslated(Untranslated.TEMP_DIR)) + File.separator
+		+ Strings.untranslated(Untranslated.PROGRAM_NAME) + File.separator + randomID;
 	final File base = new File(this.basePath);
 	final boolean res = base.mkdirs();
 	if (!res) {
@@ -92,9 +87,8 @@ public class CurrentDungeon extends AbstractDungeon {
     // Methods
     @Override
     public String getDungeonTempMusicFolder() {
-	return this.basePath + File.separator
-		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_MUSIC_FOLDER)
-		+ File.separator;
+	return this.basePath + File.pathSeparator + Strings.untranslated(Untranslated.EXTERNAL_MUSIC_TEMP_FOLDER)
+		+ File.pathSeparator;
     }
 
     @Override
@@ -852,13 +846,9 @@ public class CurrentDungeon extends AbstractDungeon {
 	m.basePath = this.basePath;
 	int version = -1;
 	// Create metafile reader
-	try (FileIOReader metaReader = new XDataReader(
-		m.basePath + File.separator
-			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_METAFILE)
-			+ FileExtensions.getDungeonLevelExtensionWithPeriod(),
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ARENA))) {
+	try (FileIOReader metaReader = new XDataReader(m.basePath + File.separator
+		+ Strings.fileExtension(FileExtension.METAFILE) + Strings.fileExtension(FileExtension.LEVEL),
+		Strings.fileExtension(FileExtension.DUNGEON))) {
 	    // Read metafile
 	    version = m.readDungeonMetafileVersion(metaReader);
 	    if (FileFormats.isFormatVersionValidGeneration7(version)) {
@@ -897,26 +887,15 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     private FileIOReader getLevelReaderG5() throws IOException {
-	return new XDataReader(
-		this.basePath + File.separator
-			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL)
-			+ this.activeLevel + FileExtensions.getDungeonLevelExtensionWithPeriod(),
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL));
+	return new XDataReader(this.basePath + File.separator + Strings.fileExtension(FileExtension.LEVEL)
+		+ this.activeLevel + Strings.fileExtension(FileExtension.LEVEL),
+		Strings.fileExtension(FileExtension.LEVEL));
     }
 
     private FileIOReader getLevelReaderG6() throws IOException {
-	return new XDataReader(
-		this.basePath + File.separator
-			+ LocaleLoader.loadString(
-				LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL)
-			+ this.activeLevel
-			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ERA)
-			+ this.activeEra + FileExtensions.getDungeonLevelExtensionWithPeriod(),
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL));
+	return new XDataReader(this.basePath + File.separator + Strings.fileExtension(FileExtension.LEVEL)
+		+ this.activeLevel + Strings.fileExtension(FileExtension.ERA) + this.activeEra
+		+ Strings.fileExtension(FileExtension.LEVEL), Strings.fileExtension(FileExtension.LEVEL));
     }
 
     private int readDungeonMetafileVersion(final FileIOReader reader) throws IOException {
@@ -982,25 +961,16 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     private File getLevelFile(final int level, final int era) {
-	return new File(this.basePath + File.separator
-		+ LocaleLoader
-			.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL)
-		+ level
-		+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ERA)
-		+ era + FileExtensions.getDungeonLevelExtensionWithPeriod());
+	return new File(this.basePath + File.separator + Strings.fileExtension(FileExtension.LEVEL) + level
+		+ Strings.fileExtension(FileExtension.ERA) + era + Strings.fileExtension(FileExtension.LEVEL));
     }
 
     @Override
     public void writeDungeon() throws IOException {
 	// Create metafile writer
-	try (FileIOWriter metaWriter = new XDataWriter(
-		this.basePath + File.separator
-			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_METAFILE)
-			+ FileExtensions.getDungeonLevelExtensionWithPeriod(),
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ARENA))) {
+	try (FileIOWriter metaWriter = new XDataWriter(this.basePath + File.separator
+		+ Strings.fileExtension(FileExtension.METAFILE) + Strings.fileExtension(FileExtension.LEVEL),
+		Strings.fileExtension(FileExtension.DUNGEON))) {
 	    // Write metafile
 	    this.writeDungeonMetafile(metaWriter);
 	} catch (final IOException ioe) {
@@ -1016,16 +986,9 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     private FileIOWriter getLevelWriter() throws IOException {
-	return new XDataWriter(
-		this.basePath + File.separator
-			+ LocaleLoader.loadString(
-				LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL)
-			+ this.activeLevel
-			+ LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-				LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_ERA)
-			+ this.activeEra + FileExtensions.getDungeonLevelExtensionWithPeriod(),
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-			LocaleConstants.NOTL_STRING_DUNGEON_FORMAT_LEVEL));
+	return new XDataWriter(this.basePath + File.separator + Strings.fileExtension(FileExtension.LEVEL)
+		+ this.activeLevel + Strings.fileExtension(FileExtension.ERA) + this.activeEra
+		+ Strings.fileExtension(FileExtension.LEVEL), Strings.fileExtension(FileExtension.LEVEL));
     }
 
     private void writeDungeonMetafile(final FileIOWriter writer) throws IOException {

@@ -23,8 +23,7 @@ import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.utility.InvalidDungeonException;
 import com.puttysoftware.fileutils.ZipUtilities;
@@ -42,8 +41,7 @@ public class DungeonLoadTask extends Thread {
 	this.filename = file;
 	this.isSavedGame = saved;
 	this.dungeonProtected = protect;
-	this.setName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_NEW_AG_LOADER_NAME));
+	this.setName(Strings.untranslated(Untranslated.FILE_LOADER_NEW_NAME));
 	this.loadFrame = new JFrame(Strings.dialog(DialogString.LOADING));
 	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();

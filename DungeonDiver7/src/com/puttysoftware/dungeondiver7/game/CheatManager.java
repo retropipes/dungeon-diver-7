@@ -5,8 +5,6 @@
  */
 package com.puttysoftware.dungeondiver7.game;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -17,8 +15,6 @@ import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.fileutils.ResourceStreamReader;
 
 final class CheatManager {
     // Fields
@@ -34,24 +30,7 @@ final class CheatManager {
 
     // Methods
     private void loadCheatCache() {
-	try (InputStream is = CheatManager.class.getResourceAsStream(
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_CHEATS_PATH));
-		ResourceStreamReader rsr = new ResourceStreamReader(is)) {
-	    String line = Strings.EMPTY;
-	    while (line != null) {
-		line = rsr.readString();
-		if (line != null) {
-		    this.cheatCache.add(line);
-		    this.cheatCount++;
-		}
-	    }
-	    rsr.close();
-	    is.close();
-	} catch (final IOException e) {
-	    // Ignore
-	} catch (final NullPointerException e) {
-	    // Ignore
-	}
+	this.cheatCache.addAll(Strings.allCheats());
     }
 
     String enterCheat() {

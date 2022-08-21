@@ -20,8 +20,6 @@ import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.locale.Difficulty;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.file.AbstractPrefixIO;
 import com.puttysoftware.dungeondiver7.manager.file.AbstractSuffixIO;
 
@@ -43,9 +41,8 @@ public abstract class AbstractDungeon {
 
     // Static methods
     public static String getDungeonTempFolder() {
-	return System.getProperty(
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_TEMP_DIR))
-		+ File.separator + Strings.untranslated(Untranslated.PROGRAM_NAME);
+	return System.getProperty(Strings.untranslated(Untranslated.TEMP_DIR)) + File.separator
+		+ Strings.untranslated(Untranslated.PROGRAM_NAME);
     }
 
     public static int getMinLevels() {

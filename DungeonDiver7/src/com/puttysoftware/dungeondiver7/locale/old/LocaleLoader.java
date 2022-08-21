@@ -74,7 +74,7 @@ public class LocaleLoader {
 
     public static String loadString(final int fileID, final int strID) {
 	if (fileID < 0) {
-	    return LocaleLoader.loadLanguageString(-LocaleConstants.NOTL_STRINGS_FILE, strID);
+	    return LocaleLoader.loadLanguageString(-LocaleConstants.IMAGE_STRINGS_FILE, strID);
 	} else {
 	    if (LocaleLoader.STRING_CACHE == null) {
 		// Create string cache

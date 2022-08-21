@@ -8,8 +8,8 @@ package com.puttysoftware.dungeondiver7.game;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeonData;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
 class AnimationTask extends Thread {
@@ -18,8 +18,7 @@ class AnimationTask extends Thread {
 
     // Constructors
     public AnimationTask() {
-	this.setName(
-		LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_ANIMATOR_NAME));
+	this.setName(Strings.untranslated(Untranslated.ANIMATOR_NAME));
 	this.setPriority(Thread.MIN_PRIORITY);
     }
 

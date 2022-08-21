@@ -12,10 +12,10 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
+import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 import com.puttysoftware.fileutils.FilenameChecker;
 
 public class ReplayManager {
@@ -38,7 +38,7 @@ public class ReplayManager {
 	if (file != null && dir != null) {
 	    filename = dir + file;
 	    extension = ReplayManager.getExtension(filename);
-	    if (extension.equals(FileExtensions.getOldPlaybackExtension())) {
+	    if (extension.equals(Strings.fileExtension(FileExtension.OLD_REPLAY))) {
 		ReplayManager.loadFile(filename);
 	    } else {
 		CommonDialogs.showDialog(Strings.dialog(DialogString.NON_PLAYBACK_FILE));

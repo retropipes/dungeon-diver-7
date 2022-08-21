@@ -11,6 +11,8 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
+import com.puttysoftware.dungeondiver7.locale.FileExtension;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.names.Monsters;
 import com.puttysoftware.images.BufferedImageIcon;
 
@@ -31,7 +33,8 @@ public class BossImageManager {
 
     static BufferedImageIcon getUncachedImage(final String name) {
 	try {
-	    final URL url = BossImageManager.LOAD_CLASS.getResource(BossImageManager.LOAD_PATH + name + ".png");
+	    final URL url = BossImageManager.LOAD_CLASS
+		    .getResource(BossImageManager.LOAD_PATH + name + Strings.fileExtension(FileExtension.IMAGE));
 	    final BufferedImage image = ImageIO.read(url);
 	    return new BufferedImageIcon(image);
 	} catch (final IOException ie) {

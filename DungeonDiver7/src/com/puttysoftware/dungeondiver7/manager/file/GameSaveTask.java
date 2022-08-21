@@ -13,7 +13,8 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
-import com.puttysoftware.dungeondiver7.utility.FileExtensions;
+import com.puttysoftware.dungeondiver7.locale.FileExtension;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.fileutils.ZipUtilities;
 
 public class GameSaveTask extends Thread {
@@ -35,7 +36,7 @@ public class GameSaveTask extends Thread {
 	    // filename check
 	    final boolean hasExtension = GameSaveTask.hasExtension(this.filename);
 	    if (!hasExtension) {
-		this.filename += FileExtensions.getGameExtensionWithPeriod();
+		this.filename += Strings.fileExtension(FileExtension.SUSPEND);
 	    }
 	    final File mazeFile = new File(this.filename);
 	    final File tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");

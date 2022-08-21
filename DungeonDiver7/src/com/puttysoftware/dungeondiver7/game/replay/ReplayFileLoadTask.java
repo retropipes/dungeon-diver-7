@@ -20,8 +20,7 @@ import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 
 class ReplayFileLoadTask extends Thread {
     // Fields
@@ -32,8 +31,7 @@ class ReplayFileLoadTask extends Thread {
     ReplayFileLoadTask(final String file) {
 	JProgressBar loadBar;
 	this.filename = file;
-	this.setName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_PLAYBACK_LOADER_NAME));
+	this.setName(Strings.untranslated(Untranslated.REPLAY_LOADER_NAME));
 	this.loadFrame = new JFrame(Strings.dialog(DialogString.LOADING));
 	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();

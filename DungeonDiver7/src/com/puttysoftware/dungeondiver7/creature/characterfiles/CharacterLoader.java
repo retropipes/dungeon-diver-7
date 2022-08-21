@@ -12,7 +12,8 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.VersionException;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
-import com.puttysoftware.dungeondiver7.utility.FileExtensions;
+import com.puttysoftware.dungeondiver7.locale.FileExtension;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.fileio.FileIOException;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
@@ -22,7 +23,7 @@ import com.puttysoftware.fileio.XDataWriter;
 public class CharacterLoader {
     private static PartyMember loadCharacter(final String name) {
 	final String basePath = CharacterRegistration.getBasePath();
-	final String loadPath = basePath + File.separator + name + FileExtensions.getCharacterExtensionWithPeriod();
+	final String loadPath = basePath + File.separator + name + Strings.fileExtension(FileExtension.CHARACTER);
 	try (FileIOReader loader = new XDataReader(loadPath, "character")) {
 	    return PartyMember.read(loader);
 	} catch (VersionException | FileIOException e) {
@@ -57,8 +58,7 @@ public class CharacterLoader {
     public static void saveCharacter(final PartyMember character) {
 	final String basePath = CharacterRegistration.getBasePath();
 	final String name = character.getName();
-	final String characterFile = basePath + File.separator + name
-		+ FileExtensions.getCharacterExtensionWithPeriod();
+	final String characterFile = basePath + File.separator + name + Strings.fileExtension(FileExtension.CHARACTER);
 	try (FileIOWriter saver = new XDataWriter(characterFile, "character")) {
 	    character.write(saver);
 	} catch (final IOException e) {
@@ -68,8 +68,7 @@ public class CharacterLoader {
 
     static void deleteCharacter(final String name, final boolean showResults) {
 	final String basePath = CharacterRegistration.getBasePath();
-	final String characterFile = basePath + File.separator + name
-		+ FileExtensions.getCharacterExtensionWithPeriod();
+	final String characterFile = basePath + File.separator + name + Strings.fileExtension(FileExtension.CHARACTER);
 	final File toDelete = new File(characterFile);
 	if (toDelete.exists()) {
 	    final boolean success = toDelete.delete();

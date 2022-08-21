@@ -21,8 +21,7 @@ import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 
 public class LaserTankV4LoadTask extends Thread {
@@ -34,8 +33,7 @@ public class LaserTankV4LoadTask extends Thread {
     public LaserTankV4LoadTask(final String file) {
 	JProgressBar loadBar;
 	this.filename = file;
-	this.setName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_OLD_AG_LOADER_NAME));
+	this.setName(Strings.untranslated(Untranslated.FILE_LOADER_OLD_NAME));
 	this.loadFrame = new JFrame(Strings.dialog(DialogString.LOADING));
 	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();

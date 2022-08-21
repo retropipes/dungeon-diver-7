@@ -8,14 +8,15 @@ package com.puttysoftware.dungeondiver7.manager.file;
 import java.io.File;
 import java.io.FilenameFilter;
 
-import com.puttysoftware.dungeondiver7.utility.FileExtensions;
+import com.puttysoftware.dungeondiver7.locale.FileExtension;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 
 public class GameFinder implements FilenameFilter {
     @Override
     public boolean accept(final File f, final String s) {
 	final String extension = GameFinder.getExtension(s);
 	if (extension != null) {
-	    if (extension.equals(FileExtensions.getGameExtension())) {
+	    if (extension.equals(Strings.fileExtension(FileExtension.SUSPEND))) {
 		return true;
 	    } else {
 		return false;
@@ -28,7 +29,7 @@ public class GameFinder implements FilenameFilter {
 	String ext = null;
 	final int i = s.lastIndexOf('.');
 	if (i > 0 && i < s.length() - 1) {
-	    ext = s.substring(i + 1).toLowerCase();
+	    ext = s.substring(i).toLowerCase();
 	}
 	return ext;
     }

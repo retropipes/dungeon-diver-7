@@ -11,6 +11,8 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
+import com.puttysoftware.dungeondiver7.locale.FileExtension;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.old.GlobalFile;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.names.Zones;
@@ -30,7 +32,8 @@ public class ArmorImageManager {
 
     static BufferedImageIcon getUncachedImage(final String name) {
 	try {
-	    final URL url = ArmorImageManager.LOAD_CLASS.getResource(ArmorImageManager.LOAD_PATH + name + ".png");
+	    final URL url = ArmorImageManager.LOAD_CLASS
+		    .getResource(ArmorImageManager.LOAD_PATH + name + Strings.fileExtension(FileExtension.IMAGE));
 	    final BufferedImage image = ImageIO.read(url);
 	    return new BufferedImageIcon(image);
 	} catch (final IOException ie) {

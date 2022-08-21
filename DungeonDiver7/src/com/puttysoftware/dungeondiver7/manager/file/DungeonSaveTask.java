@@ -13,10 +13,11 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
+import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 import com.puttysoftware.fileutils.ZipUtilities;
 
 public class DungeonSaveTask extends Thread {
@@ -30,8 +31,7 @@ public class DungeonSaveTask extends Thread {
 	this.filename = file;
 	this.isSavedGame = saved;
 	this.saveProtected = protect;
-	this.setName(LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		LocaleConstants.NOTL_STRING_NEW_AG_SAVER_NAME));
+	this.setName(Strings.untranslated(Untranslated.FILE_SAVER_NEW_NAME));
     }
 
     @Override
@@ -42,9 +42,9 @@ public class DungeonSaveTask extends Thread {
 	final boolean hasExtension = DungeonSaveTask.hasExtension(this.filename);
 	if (!hasExtension) {
 	    if (this.isSavedGame) {
-		this.filename += FileExtensions.getGameExtensionWithPeriod();
+		this.filename += Strings.fileExtension(FileExtension.SUSPEND);
 	    } else {
-		this.filename += FileExtensions.getDungeonExtensionWithPeriod();
+		this.filename += Strings.fileExtension(FileExtension.DUNGEON);
 	    }
 	}
 	final File dungeonFile = new File(this.filename);

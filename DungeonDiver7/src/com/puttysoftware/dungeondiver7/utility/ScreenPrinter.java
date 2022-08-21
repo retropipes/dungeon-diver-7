@@ -30,8 +30,7 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 
 public class ScreenPrinter {
     private ScreenPrinter() {
@@ -45,8 +44,7 @@ public class ScreenPrinter {
 	    final BufferedImage bi = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_ARGB);
 	    c.paintComponents(bi.createGraphics());
 	    final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	    ImageIO.write(bi, LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-		    LocaleConstants.NOTL_STRING_IMAGE_FORMAT_PNG), baos);
+	    ImageIO.write(bi, Strings.untranslated(Untranslated.IMAGE_FORMAT_PNG), baos);
 	    final byte[] data = baos.toByteArray();
 	    final ByteArrayInputStream bais = new ByteArrayInputStream(data);
 	    final PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();

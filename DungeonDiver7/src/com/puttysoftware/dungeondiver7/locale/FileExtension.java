@@ -5,5 +5,18 @@ public enum FileExtension {
     SOUND,
     FONT,
     MUSIC,
-    PREFS
+    PREFS,
+    METAFILE,
+    DUNGEON,
+    LEVEL,
+    OLD_LEVEL,
+    OLD_REPLAY,
+    ERA,
+    CHARACTER,
+    REGISTRY,
+    SOLUTION,
+    SCORES,
+    INTERNAL_DATA,
+    PROTECTED_DUNGEON,
+    SUSPEND
 }

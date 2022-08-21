@@ -10,7 +10,8 @@ import java.io.IOException;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.caste.CasteConstants;
-import com.puttysoftware.dungeondiver7.utility.FileExtensions;
+import com.puttysoftware.dungeondiver7.locale.FileExtension;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.fileutils.ResourceStreamReader;
 
 public class CasteDescriptionManager {
@@ -18,7 +19,7 @@ public class CasteDescriptionManager {
 	final String name = CasteConstants.CASTE_NAMES[c].toLowerCase();
 	try (final ResourceStreamReader rsr = new ResourceStreamReader(
 		CasteDescriptionManager.class.getResourceAsStream(
-			"/assets/descriptions/caste/" + name + FileExtensions.getInternalDataExtensionWithPeriod()))) {
+			"/assets/descriptions/caste/" + name + Strings.fileExtension(FileExtension.INTERNAL_DATA)))) {
 	    // Fetch description
 	    final String desc = rsr.readString();
 	    return desc;

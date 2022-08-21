@@ -8,14 +8,15 @@ package com.puttysoftware.dungeondiver7.creature.characterfiles;
 import java.io.File;
 import java.io.FilenameFilter;
 
-import com.puttysoftware.dungeondiver7.utility.FileExtensions;
+import com.puttysoftware.dungeondiver7.locale.FileExtension;
+import com.puttysoftware.dungeondiver7.locale.Strings;
 
 class CharacterFilter implements FilenameFilter {
     @Override
     public boolean accept(final File dir, final String name) {
 	final String ext = CharacterFilter.getExtension(name);
 	if (ext != null) {
-	    if (ext.equals(FileExtensions.getCharacterExtension())) {
+	    if (ext.equals(Strings.fileExtension(FileExtension.CHARACTER))) {
 		return true;
 	    } else {
 		return false;
@@ -29,7 +30,7 @@ class CharacterFilter implements FilenameFilter {
 	String ext = null;
 	final int i = s.lastIndexOf('.');
 	if (i > 0 && i < s.length() - 1) {
-	    ext = s.substring(i + 1).toLowerCase();
+	    ext = s.substring(i).toLowerCase();
 	}
 	return ext;
     }

@@ -38,18 +38,18 @@ import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
+import com.puttysoftware.dungeondiver7.locale.FileExtension;
+import com.puttysoftware.dungeondiver7.locale.FileType;
 import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.AlreadyDeadException;
 import com.puttysoftware.dungeondiver7.utility.CustomDialogs;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
-import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 import com.puttysoftware.dungeondiver7.utility.GameActions;
 import com.puttysoftware.dungeondiver7.utility.InvalidDungeonException;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
@@ -1556,9 +1556,8 @@ public final class GameLogic implements MenuSection {
 	    final int activeLevel = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getActiveLevel();
 	    final String levelFile = DungeonDiver7.getStuffBag().getDungeonManager().getLastUsedDungeon();
 	    final String filename = levelFile + LocaleConstants.COMMON_STRING_UNDERSCORE + activeLevel
-		    + FileExtensions.getSolutionExtensionWithPeriod();
-	    try (XDataReader file = new XDataReader(filename,
-		    LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_SOLUTION))) {
+		    + Strings.fileExtension(FileExtension.SOLUTION);
+	    try (XDataReader file = new XDataReader(filename, Strings.fileType(FileType.SOLUTION))) {
 		this.gre = GameReplayEngine.readReplay(file);
 	    }
 	    return true;
@@ -1572,9 +1571,8 @@ public final class GameLogic implements MenuSection {
 	    final int activeLevel = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getActiveLevel();
 	    final String levelFile = DungeonDiver7.getStuffBag().getDungeonManager().getLastUsedDungeon();
 	    final String filename = levelFile + LocaleConstants.COMMON_STRING_UNDERSCORE + activeLevel
-		    + FileExtensions.getSolutionExtensionWithPeriod();
-	    try (XDataWriter file = new XDataWriter(filename,
-		    LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE, LocaleConstants.NOTL_STRING_SOLUTION))) {
+		    + Strings.fileExtension(FileExtension.SOLUTION);
+	    try (XDataWriter file = new XDataWriter(filename, Strings.fileType(FileType.SOLUTION))) {
 		this.gre.writeReplay(file);
 	    }
 	} catch (final IOException ioe) {

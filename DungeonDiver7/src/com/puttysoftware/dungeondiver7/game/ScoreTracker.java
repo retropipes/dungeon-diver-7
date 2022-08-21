@@ -11,12 +11,11 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.scores.SavedScoreManager;
 import com.puttysoftware.diane.scores.ScoreManager;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
-import com.puttysoftware.dungeondiver7.utility.FileExtensions;
 
 class ScoreTracker {
     // Fields
@@ -25,18 +24,6 @@ class ScoreTracker {
     private long shots;
     private long others;
     private boolean trackScores;
-    private static final String MAC_PREFIX = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-	    LocaleConstants.NOTL_STRING_DIRECTORY_UNIX_HOME);
-    private static final String WIN_PREFIX = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-	    LocaleConstants.NOTL_STRING_DIRECTORY_WINDOWS_APPDATA);
-    private static final String UNIX_PREFIX = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-	    LocaleConstants.NOTL_STRING_DIRECTORY_UNIX_HOME);
-    private static final String MAC_DIR = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-	    LocaleConstants.NOTL_STRING_DIRECTORY_SCORES_MAC);
-    private static final String WIN_DIR = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-	    LocaleConstants.NOTL_STRING_DIRECTORY_SCORES_WINDOWS);
-    private static final String UNIX_DIR = LocaleLoader.loadString(LocaleConstants.NOTL_STRINGS_FILE,
-	    LocaleConstants.NOTL_STRING_DIRECTORY_SCORES_UNIX);
 
     // Constructors
     public ScoreTracker() {
@@ -170,27 +157,35 @@ class ScoreTracker {
 	final String osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
 	if (osName.indexOf(Strings.untranslated(Untranslated.MACOS)) != -1) {
 	    // Mac OS X
-	    return System.getenv(ScoreTracker.MAC_PREFIX);
+	    return System.getenv(Strings.untranslated(Untranslated.UNIX_HOME));
 	} else if (osName.indexOf(Strings.untranslated(Untranslated.WINDOWS)) != -1) {
 	    // Windows
-	    return System.getenv(ScoreTracker.WIN_PREFIX);
+	    return System.getenv(Strings.untranslated(Untranslated.WINDOWS_SUPPORT));
 	} else {
 	    // Other - assume UNIX-like
-	    return System.getenv(ScoreTracker.UNIX_PREFIX);
+	    return System.getenv(Strings.untranslated(Untranslated.UNIX_HOME));
 	}
     }
 
     private static String getScoreDirectory() {
 	final String osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
+	String base;
 	if (osName.indexOf(Strings.untranslated(Untranslated.MACOS)) != -1) {
 	    // Mac OS X
-	    return ScoreTracker.MAC_DIR;
+	    base = Strings.untranslated(Untranslated.MACOS_SUPPORT);
 	} else if (osName.indexOf(Strings.untranslated(Untranslated.WINDOWS)) != -1) {
 	    // Windows
-	    return ScoreTracker.WIN_DIR;
+	    base = Strings.EMPTY;
 	} else {
 	    // Other - assume UNIX-like
-	    return ScoreTracker.UNIX_DIR;
+	    base = Strings.untranslated(Untranslated.UNIX_SUPPORT);
+	}
+	if (base != Strings.EMPTY) {
+	    return base + File.pathSeparator + Strings.untranslated(Untranslated.COMPANY_SUBFOLDER) + File.pathSeparator
+		    + Strings.untranslated(Untranslated.PROGRAM_NAME);
+	} else {
+	    return Strings.untranslated(Untranslated.COMPANY_SUBFOLDER) + File.pathSeparator
+		    + Strings.untranslated(Untranslated.PROGRAM_NAME);
 	}
     }
 
@@ -201,7 +196,7 @@ class ScoreTracker {
 	b.append(filename);
 	b.append(LocaleConstants.COMMON_STRING_UNDERSCORE);
 	b.append(DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getActiveLevel() + 1);
-	b.append(FileExtensions.getScoresExtensionWithPeriod());
+	b.append(Strings.fileExtension(FileExtension.SCORES));
 	return new File(b.toString());
     }
 }
