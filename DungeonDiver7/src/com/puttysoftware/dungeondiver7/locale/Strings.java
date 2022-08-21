@@ -12,6 +12,9 @@ import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
 public final class Strings {
     public static final String EMPTY = "";
+    public static final String BETA = "b";
+    public static final String VERSION = "V";
+    public static final String VERSION_DELIM = ".";
     private static final String NAMED_DELIM = "$$";
     public static final int ARMOR_TYPES_COUNT = 6;
     public static final int WEAPON_TYPES_COUNT = 6;

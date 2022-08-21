@@ -16,8 +16,6 @@ import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.fileutils.ZipUtilities;
 
 public class DungeonSaveTask extends Thread {
@@ -82,11 +80,9 @@ public class DungeonSaveTask extends Thread {
 	    DungeonDiver7.logError(ex);
 	}
 	if (this.isSavedGame) {
-	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
-		    LocaleConstants.MESSAGE_STRING_GAME_SAVED));
+	    DungeonDiver7.getStuffBag().showMessage(Strings.dialog(DialogString.GAME_SUSPENDED));
 	} else {
-	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
-		    LocaleConstants.MESSAGE_STRING_DUNGEON_SAVED));
+	    DungeonDiver7.getStuffBag().showMessage(Strings.dialog(DialogString.DUNGEON_SAVED));
 	}
 	app.getDungeonManager().handleDeferredSuccess(success, false, null);
     }

@@ -20,8 +20,6 @@ import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.shop.Shop;
@@ -206,24 +204,21 @@ public final class StuffBag {
 
     private static String getVersionString() {
 	if (StuffBag.isBetaModeEnabled()) {
-	    return Strings.EMPTY + StuffBag.VERSION_MAJOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD
-		    + StuffBag.VERSION_MINOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX
-		    + LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE, LocaleConstants.MESSAGE_STRING_BETA)
-		    + StuffBag.VERSION_BETA;
+	    return Strings.VERSION + StuffBag.VERSION_MAJOR + Strings.VERSION_DELIM + StuffBag.VERSION_MINOR
+		    + Strings.VERSION_DELIM + StuffBag.VERSION_BUGFIX + Strings.BETA + StuffBag.VERSION_BETA;
 	} else {
-	    return Strings.EMPTY + StuffBag.VERSION_MAJOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD
-		    + StuffBag.VERSION_MINOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX;
+	    return Strings.VERSION + StuffBag.VERSION_MAJOR + Strings.VERSION_DELIM + StuffBag.VERSION_MINOR
+		    + Strings.VERSION_DELIM + StuffBag.VERSION_BUGFIX;
 	}
     }
 
     public static String getLogoVersionString() {
 	if (StuffBag.isBetaModeEnabled()) {
-	    return Strings.EMPTY + StuffBag.VERSION_MAJOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD
-		    + StuffBag.VERSION_MINOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX
-		    + LocaleConstants.COMMON_STRING_BETA_SHORT + StuffBag.VERSION_BETA;
+	    return Strings.VERSION + StuffBag.VERSION_MAJOR + Strings.VERSION_DELIM + StuffBag.VERSION_MINOR
+		    + Strings.VERSION_DELIM + StuffBag.VERSION_BUGFIX + Strings.BETA + StuffBag.VERSION_BETA;
 	} else {
-	    return Strings.EMPTY + StuffBag.VERSION_MAJOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD
-		    + StuffBag.VERSION_MINOR + LocaleConstants.COMMON_STRING_NOTL_PERIOD + StuffBag.VERSION_BUGFIX;
+	    return Strings.VERSION + StuffBag.VERSION_MAJOR + Strings.VERSION_DELIM + StuffBag.VERSION_MINOR
+		    + Strings.VERSION_DELIM + StuffBag.VERSION_BUGFIX;
 	}
     }
 

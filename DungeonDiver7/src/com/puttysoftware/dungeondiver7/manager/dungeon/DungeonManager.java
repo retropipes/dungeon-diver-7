@@ -24,8 +24,6 @@ import com.puttysoftware.dungeondiver7.locale.EditorString;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleConstants;
-import com.puttysoftware.dungeondiver7.locale.old.LocaleLoader;
 import com.puttysoftware.dungeondiver7.manager.file.DungeonLoadTask;
 import com.puttysoftware.dungeondiver7.manager.file.DungeonSaveTask;
 import com.puttysoftware.dungeondiver7.manager.file.GameFinder;
@@ -479,11 +477,9 @@ public final class DungeonManager {
 
     private static void saveDungeonFile(final String filename, final boolean isSavedGame, final boolean protect) {
 	if (isSavedGame) {
-	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
-		    LocaleConstants.MESSAGE_STRING_SAVING_GAME));
+	    DungeonDiver7.getStuffBag().showMessage(Strings.dialog(DialogString.SUSPENDING_GAME));
 	} else {
-	    DungeonDiver7.getStuffBag().showMessage(LocaleLoader.loadString(LocaleConstants.MESSAGE_STRINGS_FILE,
-		    LocaleConstants.MESSAGE_STRING_SAVING_ARENA));
+	    DungeonDiver7.getStuffBag().showMessage(Strings.dialog(DialogString.SAVING_DUNGEON));
 	}
 	final DungeonSaveTask xst = new DungeonSaveTask(filename, isSavedGame, protect);
 	xst.start();
