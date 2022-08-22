@@ -26,8 +26,8 @@ import com.puttysoftware.dungeondiver7.locale.Untranslated;
 
 public class PrefsManager {
     // Fields
-    private final static PrefsFileManager storeMgr = new PrefsFileManager();
-    private final static PrefsGUIManager guiMgr = new PrefsGUIManager();
+    private static PrefsFileManager storeMgr;
+    private static PrefsGUIManager guiMgr;
     private final static int FALLBACK_LANGUAGE = 0;
     private final static EditorLayout DEFAULT_EDITOR_LAYOUT = EditorLayout.VERTICAL;
     private static final int BATTLE_SPEED = 1000;
@@ -45,6 +45,11 @@ public class PrefsManager {
     }
 
     // Methods
+    public static void init() {
+	PrefsManager.storeMgr = new PrefsFileManager();
+	PrefsManager.guiMgr = new PrefsGUIManager();
+    }
+
     public static int getBattleSpeed() {
 	return PrefsManager.BATTLE_SPEED;
     }

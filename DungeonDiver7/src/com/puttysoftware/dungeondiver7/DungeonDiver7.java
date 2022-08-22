@@ -81,6 +81,7 @@ public class DungeonDiver7 {
 	    CommonDialogs.setDefaultTitle(DungeonDiver7.PROGRAM_NAME);
 	    CommonDialogs.setIcon(LogoLoader.getMicroLogo());
 	    // Initialize preferences
+	    PrefsManager.init();
 	    PrefsManager.readPrefs();
 	    // Register platform hooks
 	    i.setAboutHandler(DungeonDiver7.stuffBag.getAboutDialog());
