@@ -192,6 +192,10 @@ public final class Strings {
     public static String monsterzone(final int zoneID, final int monID) {
 	return DianeStrings.subst(Strings.group(Group.PAIR), Strings.zone(zoneID), Strings.monster(monID));
     }
+    
+    public static String music(final Music item) {
+	return ResourceBundle.getBundle("locale.music", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
+    }
 
     public static String namedSubst(final String orig, final NamedSubst param, final String value) {
 	return orig.replace(Strings.NAMED_DELIM + param.toString() + Strings.NAMED_DELIM, value);

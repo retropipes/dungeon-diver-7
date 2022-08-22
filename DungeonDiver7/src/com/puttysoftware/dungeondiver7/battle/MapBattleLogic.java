@@ -29,10 +29,10 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.effect.Effect;
-import com.puttysoftware.dungeondiver7.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.locale.Music;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.spell.SpellCaster;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -81,7 +81,7 @@ public class MapBattleLogic extends AbstractBattle {
 	if (MusicLoader.isMusicPlaying()) {
 	    MusicLoader.stopMusic();
 	}
-	MusicLoader.playMusic(MusicConstants.MUSIC_BATTLE);
+	MusicLoader.playMusic(Music.BATTLE);
 	this.doBattleInternal();
     }
 
@@ -91,7 +91,7 @@ public class MapBattleLogic extends AbstractBattle {
 	if (MusicLoader.isMusicPlaying()) {
 	    MusicLoader.stopMusic();
 	}
-	MusicLoader.playMusic(MusicConstants.MUSIC_BOSS);
+	MusicLoader.playMusic(Music.BOSS);
 	this.doBattleInternal();
     }
 
@@ -101,7 +101,7 @@ public class MapBattleLogic extends AbstractBattle {
 	if (MusicLoader.isMusicPlaying()) {
 	    MusicLoader.stopMusic();
 	}
-	MusicLoader.playMusic(MusicConstants.MUSIC_BOSS);
+	MusicLoader.playMusic(Music.BOSS);
 	this.doBattleInternal();
     }
 

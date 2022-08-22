@@ -13,6 +13,7 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.editor.ExternalMusic;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
+import com.puttysoftware.dungeondiver7.locale.Music;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 
@@ -35,8 +36,8 @@ public class MusicLoader {
 	return OggPlayer.loadLoopedResource(modFile);
     }
 
-    public static void playMusic(final int musicID) {
-	MusicLoader.CURRENT_MUSIC = MusicLoader.getMusic(MusicConstants.getMusicName(musicID));
+    public static void playMusic(final Music musicID) {
+	MusicLoader.CURRENT_MUSIC = MusicLoader.getMusic(Strings.music(musicID));
 	if (MusicLoader.CURRENT_MUSIC != null) {
 	    // Play the music
 	    MusicLoader.CURRENT_MUSIC.play();

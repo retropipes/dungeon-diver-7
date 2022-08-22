@@ -51,7 +51,6 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.game.replay.ReplayManager;
 import com.puttysoftware.dungeondiver7.loader.ImageCompositor;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
-import com.puttysoftware.dungeondiver7.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
@@ -60,6 +59,7 @@ import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Difficulty;
 import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
+import com.puttysoftware.dungeondiver7.locale.Music;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.TimeTravel;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
@@ -189,9 +189,9 @@ class GameGUI {
 	}
 	final var zoneID = PartyManager.getParty().getZone();
 	if (zoneID == AbstractDungeon.getMaxLevels() - 1) {
-	    MusicLoader.playMusic(MusicConstants.MUSIC_LAIR);
+	    MusicLoader.playMusic(Music.LAIR);
 	} else {
-	    MusicLoader.playMusic(MusicConstants.MUSIC_DUNGEON);
+	    MusicLoader.playMusic(Music.DUNGEON);
 	}
 	this.showOutputCommon();
     }

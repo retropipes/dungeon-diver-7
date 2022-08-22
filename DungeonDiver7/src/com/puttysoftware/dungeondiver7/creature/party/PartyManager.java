@@ -19,8 +19,8 @@ import com.puttysoftware.dungeondiver7.creature.caste.CasteManager;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterLoader;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterRegistration;
 import com.puttysoftware.dungeondiver7.creature.gender.GenderManager;
-import com.puttysoftware.dungeondiver7.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
+import com.puttysoftware.dungeondiver7.locale.Music;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
 
@@ -41,7 +41,7 @@ public class PartyManager {
 	if (MusicLoader.isMusicPlaying()) {
 	    MusicLoader.stopMusic();
 	}
-	MusicLoader.playMusic(MusicConstants.MUSIC_CREATE);
+	MusicLoader.playMusic(Music.CREATE);
 	PartyManager.party = new Party();
 	var mem = 0;
 	final var pickMembers = CharacterLoader.loadAllRegisteredCharacters();

@@ -13,11 +13,11 @@ import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.item.EquipmentFactory;
 import com.puttysoftware.dungeondiver7.loader.ArmorImageManager;
-import com.puttysoftware.dungeondiver7.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.loader.WeaponImageManager;
+import com.puttysoftware.dungeondiver7.locale.Music;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.images.BufferedImageIcon;
 
@@ -83,19 +83,18 @@ public class Shop {
 	if (MusicLoader.isMusicPlaying()) {
 	    MusicLoader.stopMusic();
 	}
+	MusicLoader.playMusic(Music.SHOP);
 	if (this.type == ShopType.ARMOR || this.type == ShopType.WEAPONS) {
-	    MusicLoader.playMusic(MusicConstants.MUSIC_FORGE);
 	    this.imageUI.showShop();
 	} else {
-	    MusicLoader.playMusic(MusicConstants.MUSIC_SHOP);
 	    this.defaultUI.showShop();
 	}
 	MusicLoader.stopMusic();
 	final var zoneID = PartyManager.getParty().getZone();
 	if (zoneID == AbstractDungeon.getMaxLevels() - 1) {
-	    MusicLoader.playMusic(MusicConstants.MUSIC_LAIR);
+	    MusicLoader.playMusic(Music.VOLCANO);
 	} else {
-	    MusicLoader.playMusic(MusicConstants.MUSIC_DUNGEON);
+	    MusicLoader.playMusic(Music.DUNGEON);
 	}
     }
 
