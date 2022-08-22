@@ -264,7 +264,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     }
 
     private final boolean hasDirection() {
-	return this.directions != Directions.INVALID && this.directions != Directions.NONE;
+	return this.directions != null && this.directions != Directions.INVALID && this.directions != Directions.NONE;
     }
 
     public final int getMaterial() {
@@ -293,7 +293,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     }
 
     private final boolean hasColor() {
-	return this.color != Colors.NONE;
+	return this.color != null && this.color != Colors.NONE;
     }
 
     private final void toggleColor() {
