@@ -13,25 +13,23 @@ import javax.imageio.ImageIO;
 
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.images.BufferedImageIcon;
 
-public class AvatarImageManager {
-    private static final String DEFAULT_LOAD_PATH = "/assets/images/avatars/";
-    private static String LOAD_PATH = AvatarImageManager.DEFAULT_LOAD_PATH;
-    private static Class<?> LOAD_CLASS = AvatarImageManager.class;
-    private static final String[] INTERNAL_GENDER_NAMES = { "male/", "female/" };
+public class EffectImageManager {
+    private static Class<?> LOAD_CLASS = EffectImageManager.class;
 
-    public static BufferedImageIcon getImage(final int genderID, final int hairID, final int skinID) {
+    public static BufferedImageIcon getImage(final int imageID) {
 	// Get it from the cache
-	final String name = AvatarImageManager.INTERNAL_GENDER_NAMES[genderID] + Integer.toString(hairID)
-		+ Integer.toString(skinID);
-	return AvatarImageCache.getCachedImage(name);
+	final String name = EffectImageConstants.getEffectImageName(imageID);
+	return EffectImageCache.getCachedImage(name);
     }
 
     static BufferedImageIcon getUncachedImage(final String name) {
 	try {
-	    final URL url = AvatarImageManager.LOAD_CLASS
-		    .getResource(AvatarImageManager.LOAD_PATH + name + Strings.fileExtension(FileExtension.IMAGE));
+	    final URL url = EffectImageManager.LOAD_CLASS
+		    .getResource(Strings.untranslated(Untranslated.EFFECT_IMAGE_LOAD_PATH) + name
+			    + Strings.fileExtension(FileExtension.IMAGE));
 	    final BufferedImage image = ImageIO.read(url);
 	    return new BufferedImageIcon(image);
 	} catch (final IOException ie) {

@@ -16,6 +16,7 @@ import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.editor.ExternalMusic;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 
 public class MusicLoader {
     // Fields
@@ -23,8 +24,6 @@ public class MusicLoader {
     private static OggPlayer CURRENT_MUSIC;
     private static OggPlayer CURRENT_EXTERNAL_MUSIC;
     private static ExternalMusic gameExternalMusic;
-    private static final String DEFAULT_LOAD_PATH = "/asset/music/";
-    private static String LOAD_PATH = MusicLoader.DEFAULT_LOAD_PATH;
     private static Class<?> LOAD_CLASS = MusicLoader.class;
 
     // Constructors
@@ -33,8 +32,8 @@ public class MusicLoader {
     }
 
     private static OggPlayer getMusic(final String filename) {
-	final URL modFile = MusicLoader.LOAD_CLASS
-		.getResource(MusicLoader.LOAD_PATH + filename + Strings.fileExtension(FileExtension.MUSIC));
+	final URL modFile = MusicLoader.LOAD_CLASS.getResource(Strings.untranslated(Untranslated.MUSIC_LOAD_PATH)
+		+ filename + Strings.fileExtension(FileExtension.MUSIC));
 	return OggPlayer.loadLoopedResource(modFile);
     }
 

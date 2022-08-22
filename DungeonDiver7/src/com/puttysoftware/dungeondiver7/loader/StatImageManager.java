@@ -13,11 +13,10 @@ import javax.imageio.ImageIO;
 
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class StatImageManager {
-    private static final String DEFAULT_LOAD_PATH = "/assets/images/stats/";
-    private static String LOAD_PATH = StatImageManager.DEFAULT_LOAD_PATH;
     private static Class<?> LOAD_CLASS = StatImageManager.class;
 
     public static BufferedImageIcon getImage(final int imageID) {
@@ -29,7 +28,8 @@ public class StatImageManager {
     static BufferedImageIcon getUncachedImage(final String name) {
 	try {
 	    final URL url = StatImageManager.LOAD_CLASS
-		    .getResource(StatImageManager.LOAD_PATH + name + Strings.fileExtension(FileExtension.IMAGE));
+		    .getResource(Strings.untranslated(Untranslated.STAT_IMAGE_LOAD_PATH) + name
+			    + Strings.fileExtension(FileExtension.IMAGE));
 	    final BufferedImage image = ImageIO.read(url);
 	    return new BufferedImageIcon(image);
 	} catch (final IOException ie) {

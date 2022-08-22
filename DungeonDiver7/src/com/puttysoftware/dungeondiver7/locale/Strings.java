@@ -149,6 +149,10 @@ public final class Strings {
     public static String editor(final EditorString item) {
 	return ResourceBundle.getBundle("locale.editor", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
     }
+    
+    public static String effectImage(final int index) {
+	return ResourceBundle.getBundle("locale.effectimage").getString(Integer.toString(index));
+    }
 
     public static String error(final ErrorString item) {
 	return ResourceBundle.getBundle("locale.error", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
@@ -217,13 +221,17 @@ public final class Strings {
     public static String slot(final Slot item) {
 	return ResourceBundle.getBundle("locale.slot", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
     }
-    
+
     public static String sound(final int index) {
 	return ResourceBundle.getBundle("locale.sound", Strings.ACTIVE).getString(Integer.toString(index));
     }
 
     public static String stat(final int index) {
 	return ResourceBundle.getBundle("locale.stat", Strings.ACTIVE).getString(Integer.toString(index));
+    }
+    
+    public static String statusImage(final int index) {
+	return ResourceBundle.getBundle("locale.statusimage").getString(Integer.toString(index));
     }
 
     public static String timeTravel(final TimeTravel item) {

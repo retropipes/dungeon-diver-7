@@ -28,7 +28,6 @@ import com.puttysoftware.images.BufferedImageIcon;
 public class ImageLoader {
     public static final int MAX_WINDOW_SIZE = 700;
     private static final Color TRANSPARENT = new Color(200, 100, 100);
-    private static final String OBJECT_LOAD_PATH = Strings.untranslated(Untranslated.OBJECT_IMAGE_LOAD_PATH);
     private static Class<?> LOAD_CLASS = ImageLoader.class;
     private static Font DRAW_FONT = null;
     private static final String DRAW_FONT_FALLBACK = "Times-BOLD-14";
@@ -66,8 +65,8 @@ public class ImageLoader {
 		extraPath = "disabled/";
 	    }
 	    final String normalName = ImageLoader.normalizeName(name);
-	    final URL url = ImageLoader.LOAD_CLASS.getResource(
-		    ImageLoader.OBJECT_LOAD_PATH + extraPath + normalName + Strings.fileExtension(FileExtension.IMAGE));
+	    final URL url = ImageLoader.LOAD_CLASS.getResource(Strings.untranslated(Untranslated.OBJECT_IMAGE_LOAD_PATH)
+		    + extraPath + normalName + Strings.fileExtension(FileExtension.IMAGE));
 	    final BufferedImage image = ImageIO.read(url);
 	    final String customText = obj.getCustomText();
 	    if (useText && customText != null) {

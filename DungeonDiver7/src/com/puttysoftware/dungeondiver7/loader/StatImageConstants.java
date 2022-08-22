@@ -5,6 +5,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.loader;
 
+import com.puttysoftware.dungeondiver7.locale.Strings;
+
 public class StatImageConstants {
     public static final int STAT_IMAGE_ATTACK = 0;
     public static final int STAT_IMAGE_DEFENSE = 1;
@@ -14,9 +16,8 @@ public class StatImageConstants {
     public static final int STAT_IMAGE_NAME = 7;
     public static final int STAT_IMAGE_XP = 2;
     public static final int STAT_IMAGE_LEVEL = 4;
-    private static final String[] STAT_IMAGE_NAMES = ImageDataManager.getStatGraphicsData();
 
     static String getStatImageName(final int ID) {
-	return StatImageConstants.STAT_IMAGE_NAMES[ID];
+	return Strings.statusImage(ID);
     }
 }

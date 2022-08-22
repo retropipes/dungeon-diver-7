@@ -14,8 +14,6 @@ import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 
 public class SoundLoader {
-    private static final String DEFAULT_LOAD_PATH = Strings.untranslated(Untranslated.SOUND_LOAD_PATH);
-    private static String LOAD_PATH = SoundLoader.DEFAULT_LOAD_PATH;
     private static Class<?> LOAD_CLASS = SoundLoader.class;
 
     private SoundLoader() {
@@ -25,8 +23,8 @@ public class SoundLoader {
     private static WAVPlayer getSound(final int soundID) {
 	try {
 	    final String filename = SoundConstants.getSoundName(soundID);
-	    final URL url = SoundLoader.LOAD_CLASS.getResource(
-		    SoundLoader.LOAD_PATH + filename.toLowerCase() + Strings.fileExtension(FileExtension.SOUND));
+	    final URL url = SoundLoader.LOAD_CLASS.getResource(Strings.untranslated(Untranslated.SOUND_LOAD_PATH)
+		    + filename.toLowerCase() + Strings.fileExtension(FileExtension.SOUND));
 	    return WAVPlayer.loadResource(url);
 	} catch (final NullPointerException np) {
 	    return null;

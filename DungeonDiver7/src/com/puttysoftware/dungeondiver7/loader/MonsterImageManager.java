@@ -13,12 +13,11 @@ import javax.imageio.ImageIO;
 
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.names.Monsters;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class MonsterImageManager {
-    private static final String DEFAULT_LOAD_PATH = "/assets/images/monsters/";
-    private static String LOAD_PATH = MonsterImageManager.DEFAULT_LOAD_PATH;
     private static Class<?> LOAD_CLASS = MonsterImageManager.class;
 
     public static BufferedImageIcon getImage(final int zoneID, final int monID) {
@@ -30,7 +29,7 @@ public class MonsterImageManager {
     static BufferedImageIcon getUncachedImage(final String name) {
 	try {
 	    final URL url = MonsterImageManager.LOAD_CLASS
-		    .getResource(MonsterImageManager.LOAD_PATH + name + Strings.fileExtension(FileExtension.IMAGE));
+		    .getResource(Strings.untranslated(Untranslated.MONSTER_IMAGE_LOAD_PATH) + name + Strings.fileExtension(FileExtension.IMAGE));
 	    final BufferedImage image = ImageIO.read(url);
 	    return new BufferedImageIcon(image);
 	} catch (final IOException ie) {

@@ -10,8 +10,11 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import com.puttysoftware.ack.AvatarConstructionKit;
+import com.puttysoftware.ack.AvatarImageModel;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.ListWithDescDialog;
+import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.caste.Caste;
 import com.puttysoftware.dungeondiver7.creature.caste.CasteManager;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterLoader;
@@ -120,10 +123,10 @@ public class PartyManager {
 	}
     }
 
-    public static PartyMember getNewPCInstance(final int c, final int g, final String n) {
+    public static PartyMember getNewPCInstance(final int c, final int g, final String n, final String aid) {
 	final Caste caste = CasteManager.getCaste(c);
 	final Gender gender = GenderManager.getGender(g);
-	return new PartyMember(caste, gender, n);
+	return new PartyMember(caste, gender, n, aid);
     }
 
     public static void updatePostKill() {
@@ -138,7 +141,16 @@ public class PartyManager {
 	    if (caste != null) {
 		final Gender gender = GenderManager.selectGender();
 		if (gender != null) {
-		    return new PartyMember(caste, gender, name);
+		    AvatarImageModel avatar = null;
+		    try {
+			avatar = AvatarConstructionKit.constructAvatar();
+		    } catch (IOException e) {
+			DungeonDiver7.logError(e);
+		    }
+		    if (avatar != null) {
+			String aid = avatar.getAvatarImageID();
+			return new PartyMember(caste, gender, name, aid);
+		    }
 		}
 	    }
 	}

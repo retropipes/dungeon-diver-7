@@ -7,6 +7,8 @@ package com.puttysoftware.dungeondiver7.creature.party;
 
 import java.io.IOException;
 
+import com.puttysoftware.ack.AvatarConstructionKit;
+import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.VersionException;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
@@ -15,7 +17,6 @@ import com.puttysoftware.dungeondiver7.creature.caste.CasteManager;
 import com.puttysoftware.dungeondiver7.creature.gender.Gender;
 import com.puttysoftware.dungeondiver7.dungeon.current.GenerateDungeonTask;
 import com.puttysoftware.dungeondiver7.item.ItemInventory;
-import com.puttysoftware.dungeondiver7.loader.AvatarImageManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.spell.SpellBook;
 import com.puttysoftware.dungeondiver7.utility.FileFormats;
@@ -34,16 +35,14 @@ public class PartyMember extends AbstractCreature {
     private int permanentHP;
     private int permanentMP;
     private int kills;
-    private final int hairID;
-    private final int skinID;
+    private final String avatarID;
     private static final int START_GOLD = 0;
     private static final double BASE_COEFF = 10.0;
 
     // Constructors
-    PartyMember(final Caste c, final Gender g, final String n) {
+    PartyMember(final Caste c, final Gender g, final String n, final String aid) {
 	super(0);
-	this.hairID = 0;
-	this.skinID = 0;
+	this.avatarID = aid;
 	this.name = n;
 	this.caste = c;
 	this.gender = g;
@@ -260,7 +259,8 @@ public class PartyMember extends AbstractCreature {
 	    known[x] = worldFile.readBoolean();
 	}
 	final String n = worldFile.readString();
-	final PartyMember pm = PartyManager.getNewPCInstance(c, g, n);
+	final String aid = worldFile.readString();
+	final PartyMember pm = PartyManager.getNewPCInstance(c, g, n, aid);
 	pm.setStrength(strength);
 	pm.setBlock(block);
 	pm.setAgility(agility);
@@ -308,12 +308,18 @@ public class PartyMember extends AbstractCreature {
 	    worldFile.writeBoolean(this.getSpellBook().isSpellKnown(x));
 	}
 	worldFile.writeString(this.getName());
+	worldFile.writeString(this.avatarID);
 	this.getItems().writeItemInventory(worldFile);
     }
 
     @Override
     protected BufferedImageIcon getInitialImage() {
-	return AvatarImageManager.getImage(this.getGender().getGenderID(), this.hairID, this.skinID);
+	try {
+	    return AvatarConstructionKit.constructFromAvatarID(this.avatarID).generateAvatarImage();
+	} catch (IOException e) {
+	    DungeonDiver7.logError(e);
+	    return null;
+	}
     }
 
     @Override
