@@ -46,7 +46,7 @@ public abstract class AbstractTrap extends AbstractDungeonObject {
     public boolean shouldGenerateObject(final AbstractDungeon maze, final int row, final int col, final int level,
 	    final int layer) {
 	// Generate all traps at 25% rate
-	final RandomRange reject = new RandomRange(1, 100);
+	final var reject = new RandomRange(1, 100);
 	return reject.generate() < 25;
     }
 }

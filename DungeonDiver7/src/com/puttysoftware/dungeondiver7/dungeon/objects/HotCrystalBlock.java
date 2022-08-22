@@ -20,7 +20,6 @@ import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 public class HotCrystalBlock extends AbstractReactionWall {
     // Constructors
     public HotCrystalBlock() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.setMaterial(Materials.FIRE);
     }
@@ -34,17 +33,17 @@ public class HotCrystalBlock extends AbstractReactionWall {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ShotTypes.DISRUPTOR) {
+	}
+	if (laserType == ShotTypes.DISRUPTOR) {
 	    // Disrupt hot crystal block
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedHotCrystalBlock(), locX, locY, locZ, this.getLayer());
-	    return Directions.NONE;
 	} else {
 	    // Stop laser
 	    SoundLoader.playSound(SoundConstants.LASER_DIE);
-	    return Directions.NONE;
 	}
+	return Directions.NONE;
     }
 
     @Override
@@ -55,19 +54,17 @@ public class HotCrystalBlock extends AbstractReactionWall {
 	    // Destroy hot crystal block
 	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
-	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE) {
-	    // Do nothing
-	    return true;
-	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE) {
+	}
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE
+		|| RangeTypes.getMaterialForRangeType(rangeType) != Materials.ICE) {
+	} else {
 	    // Freeze crystal block
 	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
-	    return true;
-	} else {
-	    // Do nothing
-	    return true;
 	}
+	// Do nothing
+	return true;
     }
 
     @Override

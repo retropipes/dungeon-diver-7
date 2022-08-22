@@ -151,7 +151,7 @@ public abstract class AbstractDungeonData implements Cloneable {
     public abstract void tickTimers(final AbstractDungeon dungeon);
 
     protected final int normalizeRow(final int row) {
-	int fR = row;
+	var fR = row;
 	if (fR < 0) {
 	    fR += this.getRows();
 	    while (fR < 0) {
@@ -167,7 +167,7 @@ public abstract class AbstractDungeonData implements Cloneable {
     }
 
     protected final int normalizeColumn(final int column) {
-	int fC = column;
+	var fC = column;
 	if (fC < 0) {
 	    fC += this.getColumns();
 	    while (fC < 0) {
@@ -183,7 +183,7 @@ public abstract class AbstractDungeonData implements Cloneable {
     }
 
     protected final int normalizeFloor(final int floor) {
-	int fF = floor;
+	var fF = floor;
 	if (fF < 0) {
 	    fF += this.getFloors();
 	    while (fF < 0) {

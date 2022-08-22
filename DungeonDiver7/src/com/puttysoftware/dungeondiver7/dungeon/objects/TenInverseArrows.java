@@ -12,7 +12,6 @@ import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 public class TenInverseArrows extends AbstractInventoryModifier {
     // Constructors
     public TenInverseArrows() {
-	super();
     }
 
     @Override

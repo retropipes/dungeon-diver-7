@@ -14,11 +14,11 @@ import com.puttysoftware.fileutils.ResourceStreamReader;
 
 public class MusicDataManager {
     public static String[] getMusicData() {
-	try (final ResourceStreamReader rsr = new ResourceStreamReader(
+	try (final var rsr = new ResourceStreamReader(
 		MusicDataManager.class.getResourceAsStream("/assets/data/music/music.txt"))) {
 	    // Fetch data
-	    final ArrayList<String> rawData = new ArrayList<>();
-	    String line = "";
+	    final var rawData = new ArrayList<String>();
+	    var line = "";
 	    while (line != null) {
 		line = rsr.readString();
 		if (line != null) {

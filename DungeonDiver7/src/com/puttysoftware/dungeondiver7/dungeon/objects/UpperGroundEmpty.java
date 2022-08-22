@@ -12,7 +12,6 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public class UpperGroundEmpty extends AbstractPassThroughObject {
     // Constructors
     public UpperGroundEmpty() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_EMPTY_SPACE);
     }
 

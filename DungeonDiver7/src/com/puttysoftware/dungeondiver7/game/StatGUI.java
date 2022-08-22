@@ -11,12 +11,9 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import com.puttysoftware.dungeondiver7.creature.party.Party;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 import com.puttysoftware.dungeondiver7.loader.StatImageManager;
 import com.puttysoftware.dungeondiver7.locale.StatusImage;
-import com.puttysoftware.images.BufferedImageIcon;
 
 class StatGUI {
     // Fields
@@ -40,9 +37,9 @@ class StatGUI {
     }
 
     void updateStats() {
-	final Party party = PartyManager.getParty();
+	final var party = PartyManager.getParty();
 	if (party != null) {
-	    final PartyMember pc = party.getLeader();
+	    final var pc = party.getLeader();
 	    if (pc != null) {
 		this.hpLabel.setText(pc.getHPString());
 		this.mpLabel.setText(pc.getMPString());
@@ -75,19 +72,19 @@ class StatGUI {
     }
 
     void updateImages() {
-	final BufferedImageIcon hpImage = StatImageManager.load(StatusImage.HEALTH);
+	final var hpImage = StatImageManager.load(StatusImage.HEALTH);
 	this.hpLabel.setIcon(hpImage);
-	final BufferedImageIcon mpImage = StatImageManager.load(StatusImage.MAGIC);
+	final var mpImage = StatImageManager.load(StatusImage.MAGIC);
 	this.mpLabel.setIcon(mpImage);
-	final BufferedImageIcon goldImage = StatImageManager.load(StatusImage.MONEY);
+	final var goldImage = StatImageManager.load(StatusImage.MONEY);
 	this.goldLabel.setIcon(goldImage);
-	final BufferedImageIcon attackImage = StatImageManager.load(StatusImage.MELEE_ATTACK);
+	final var attackImage = StatImageManager.load(StatusImage.MELEE_ATTACK);
 	this.attackLabel.setIcon(attackImage);
-	final BufferedImageIcon defenseImage = StatImageManager.load(StatusImage.DEFENSE);
+	final var defenseImage = StatImageManager.load(StatusImage.DEFENSE);
 	this.defenseLabel.setIcon(defenseImage);
-	final BufferedImageIcon xpImage = StatImageManager.load(StatusImage.EXPERIENCE);
+	final var xpImage = StatImageManager.load(StatusImage.EXPERIENCE);
 	this.xpLabel.setIcon(xpImage);
-	final BufferedImageIcon levelImage = StatImageManager.load(StatusImage.CREATURE_LEVEL);
+	final var levelImage = StatImageManager.load(StatusImage.CREATURE_LEVEL);
 	this.levelLabel.setIcon(levelImage);
     }
 }

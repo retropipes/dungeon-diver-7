@@ -8,8 +8,6 @@ package com.puttysoftware.dungeondiver7.loader;
 import java.io.File;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
-import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.editor.ExternalMusic;
 
 public class ExternalMusicLoadTask extends Thread {
@@ -26,8 +24,8 @@ public class ExternalMusicLoadTask extends Thread {
     // Methods
     @Override
     public void run() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
-	final AbstractDungeon a = app.getDungeonManager().getDungeon();
+	final var app = DungeonDiver7.getStuffBag();
+	final var a = app.getDungeonManager().getDungeon();
 	try {
 	    this.gameExternalMusic = new ExternalMusic();
 	    this.gameExternalMusic.setName(ExternalMusicLoadTask.getFileNameOnly(this.filename));
@@ -40,7 +38,7 @@ public class ExternalMusicLoadTask extends Thread {
 
     private static String getFileNameOnly(final String s) {
 	String fno = null;
-	final int i = s.lastIndexOf(File.separatorChar);
+	final var i = s.lastIndexOf(File.separatorChar);
 	if (i > 0 && i < s.length() - 1) {
 	    fno = s.substring(i + 1);
 	} else {

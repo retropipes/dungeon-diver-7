@@ -14,11 +14,11 @@ import com.puttysoftware.fileutils.ResourceStreamReader;
 
 public class ImageDataManager {
     public static String[] getObjectGraphicsData() {
-	try (final ResourceStreamReader rsr = new ResourceStreamReader(
+	try (final var rsr = new ResourceStreamReader(
 		ImageDataManager.class.getResourceAsStream("/assets/data/images/objects.txt"))) {
 	    // Fetch data
-	    final ArrayList<String> rawData = new ArrayList<>();
-	    String line = "";
+	    final var rawData = new ArrayList<String>();
+	    var line = "";
 	    while (line != null) {
 		line = rsr.readString();
 		if (line != null) {
@@ -33,11 +33,11 @@ public class ImageDataManager {
     }
 
     public static String[] getStatGraphicsData() {
-	try (final ResourceStreamReader rsr = new ResourceStreamReader(
+	try (final var rsr = new ResourceStreamReader(
 		ImageDataManager.class.getResourceAsStream("/assets/data/images/stats.txt"))) {
 	    // Fetch data
-	    final ArrayList<String> rawData = new ArrayList<>();
-	    String line = "";
+	    final var rawData = new ArrayList<String>();
+	    var line = "";
 	    while (line != null) {
 		line = rsr.readString();
 		if (line != null) {

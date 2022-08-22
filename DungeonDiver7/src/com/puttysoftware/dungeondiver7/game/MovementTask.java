@@ -7,9 +7,7 @@ package com.puttysoftware.dungeondiver7.game;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
@@ -80,9 +78,9 @@ final class MovementTask extends Thread {
     }
 
     void fireStepActions() {
-	final AbstractDungeon m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	final int px = m.getPlayerLocationX(0);
-	final int py = m.getPlayerLocationY(0);
+	final var m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var px = m.getPlayerLocationX(0);
+	final var py = m.getPlayerLocationY(0);
 	m.updateVisibleSquares(px, py, 0);
 	m.tickTimers();
 	this.gui.updateStats();
@@ -90,13 +88,13 @@ final class MovementTask extends Thread {
     }
 
     private void updatePositionRelative(final int dirX, final int dirY) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
-	final AbstractDungeon m = app.getDungeonManager().getDungeon();
-	int px = m.getPlayerLocationX(0);
-	int py = m.getPlayerLocationY(0);
-	int pz = 0;
-	final int fX = dirX;
-	final int fY = dirY;
+	final var app = DungeonDiver7.getStuffBag();
+	final var m = app.getDungeonManager().getDungeon();
+	var px = m.getPlayerLocationX(0);
+	var py = m.getPlayerLocationY(0);
+	final var pz = 0;
+	final var fX = dirX;
+	final var fY = dirY;
 	this.proceed = false;
 	AbstractDungeonObject below = null;
 	AbstractDungeonObject nextBelow = null;
@@ -187,25 +185,24 @@ final class MovementTask extends Thread {
 
     private static boolean checkSolid(final AbstractDungeonObject inside, final AbstractDungeonObject below,
 	    final AbstractDungeonObject nextBelow, final AbstractDungeonObject nextAbove) {
-	final boolean insideSolid = inside.isSolid();
-	final boolean belowSolid = below.isSolid();
-	final boolean nextBelowSolid = nextBelow.isSolid();
-	final boolean nextAboveSolid = nextAbove.isSolid();
+	final var insideSolid = inside.isSolid();
+	final var belowSolid = below.isSolid();
+	final var nextBelowSolid = nextBelow.isSolid();
+	final var nextAboveSolid = nextAbove.isSolid();
 	if (insideSolid || belowSolid || nextBelowSolid || nextAboveSolid) {
 	    return false;
-	} else {
-	    return true;
 	}
+	return true;
     }
 
     private static void fireMoveFailedActions(final int x, final int y, final AbstractDungeonObject inside,
 	    final AbstractDungeonObject below, final AbstractDungeonObject nextBelow,
 	    final AbstractDungeonObject nextAbove) {
-	final boolean insideSolid = inside.isSolid();
-	final boolean belowSolid = below.isSolid();
-	final boolean nextBelowSolid = nextBelow.isSolid();
-	final boolean nextAboveSolid = nextAbove.isSolid();
-	int z = 0;
+	final var insideSolid = inside.isSolid();
+	final var belowSolid = below.isSolid();
+	final var nextBelowSolid = nextBelow.isSolid();
+	final var nextAboveSolid = nextAbove.isSolid();
+	final var z = 0;
 	if (insideSolid) {
 	    inside.moveFailedAction(x, y, z);
 	}
@@ -221,8 +218,8 @@ final class MovementTask extends Thread {
     }
 
     private void updatePositionAbsolute(final int x, final int y) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
-	final AbstractDungeon m = app.getDungeonManager().getDungeon();
+	final var app = DungeonDiver7.getStuffBag();
+	final var m = app.getDungeonManager().getDungeon();
 	try {
 	    m.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS).preMoveAction(true, x, y);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
@@ -242,8 +239,8 @@ final class MovementTask extends Thread {
 			DungeonConstants.LAYER_LOWER_OBJECTS);
 		app.getDungeonManager().setDirty(true);
 		this.saved.postMoveAction(x, y, 0);
-		final int px = m.getPlayerLocationX(0);
-		final int py = m.getPlayerLocationY(0);
+		final var px = m.getPlayerLocationX(0);
+		final var py = m.getPlayerLocationY(0);
 		m.updateVisibleSquares(px, py, 0);
 		this.redrawDungeon();
 	    }

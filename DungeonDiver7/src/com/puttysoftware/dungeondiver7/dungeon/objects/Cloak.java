@@ -7,7 +7,6 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractAttribute;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
@@ -18,7 +17,6 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public class Cloak extends AbstractAttribute {
     // Constructors
     public Cloak() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_CLOAK);
     }
 
@@ -35,7 +33,7 @@ public class Cloak extends AbstractAttribute {
     @Override
     public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	app.getGameLogic();
 	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	SoundLoader.playSound(SoundConstants.DISCOVER);
@@ -44,7 +42,7 @@ public class Cloak extends AbstractAttribute {
 
     @Override
     public void postMoveAction(final int locX, final int locY, final int locZ) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	app.getGameLogic();
 	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	SoundLoader.playSound(SoundConstants.DISCOVER);
@@ -52,7 +50,7 @@ public class Cloak extends AbstractAttribute {
 
     @Override
     public void moveFailedAction(final int locX, final int locY, final int locZ) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	app.getGameLogic();
 	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	SoundLoader.playSound(SoundConstants.DISCOVER);

@@ -27,8 +27,7 @@ public class ObjectImageConstants {
     static String getObjectImageName(final int ID) {
 	if (ID == ObjectImageConstants.NONE) {
 	    return Strings.EMPTY;
-	} else {
-	    return Strings.objectImage(ID);
 	}
+	return Strings.objectImage(ID);
     }
 }

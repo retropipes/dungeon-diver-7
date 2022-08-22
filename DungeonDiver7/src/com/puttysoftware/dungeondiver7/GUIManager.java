@@ -5,9 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7;
 
-import java.awt.Container;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.desktop.QuitEvent;
 import java.awt.desktop.QuitHandler;
 import java.awt.desktop.QuitResponse;
@@ -35,7 +33,6 @@ import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.CleanupTask;
 import com.puttysoftware.dungeondiver7.utility.ScreenPrinter;
-import com.puttysoftware.images.BufferedImageIcon;
 
 public class GUIManager implements MenuSection, QuitHandler {
     // Fields
@@ -46,10 +43,10 @@ public class GUIManager implements MenuSection, QuitHandler {
 
     // Constructors
     public GUIManager() {
-	final CloseHandler cHandler = new CloseHandler();
-	final FocusHandler fHandler = new FocusHandler();
+	final var cHandler = new CloseHandler();
+	final var fHandler = new FocusHandler();
 	this.guiFrame = new JFrame(Strings.untranslated(Untranslated.PROGRAM_NAME));
-	final Container guiPane = this.guiFrame.getContentPane();
+	final var guiPane = this.guiFrame.getContentPane();
 	this.guiFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.guiFrame.setLayout(new GridLayout(1, 1));
 	this.logoLabel = new JLabel(Strings.EMPTY, null, SwingConstants.CENTER);
@@ -65,13 +62,12 @@ public class GUIManager implements MenuSection, QuitHandler {
     JFrame getGUIFrame() {
 	if (this.guiFrame.isVisible()) {
 	    return this.guiFrame;
-	} else {
-	    return null;
 	}
+	return null;
     }
 
     public void showGUI() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	app.setInGUI();
 	this.guiFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
 	this.guiFrame.setVisible(true);
@@ -80,7 +76,7 @@ public class GUIManager implements MenuSection, QuitHandler {
     }
 
     public void attachMenus() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	this.guiFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
 	app.getMenuManager().checkFlags();
     }
@@ -90,17 +86,17 @@ public class GUIManager implements MenuSection, QuitHandler {
     }
 
     void updateLogo() {
-	final BufferedImageIcon logo = LogoLoader.getLogo();
+	final var logo = LogoLoader.getLogo();
 	this.logoLabel.setIcon(logo);
-	final Image iconlogo = LogoLoader.getIconLogo();
+	final var iconlogo = LogoLoader.getIconLogo();
 	this.guiFrame.setIconImage(iconlogo);
 	this.guiFrame.pack();
     }
 
     public boolean quitHandler() {
-	final DungeonManager mm = DungeonDiver7.getStuffBag().getDungeonManager();
-	boolean saved = true;
-	int status = JOptionPane.DEFAULT_OPTION;
+	final var mm = DungeonDiver7.getStuffBag().getDungeonManager();
+	var saved = true;
+	var status = JOptionPane.DEFAULT_OPTION;
 	if (mm.getDirty()) {
 	    status = DungeonManager.showSaveDialog();
 	    if (status == JOptionPane.YES_OPTION) {
@@ -178,7 +174,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 	}
     }
 
-    private class MenuHandler implements ActionListener {
+    private static class MenuHandler implements ActionListener {
 	public MenuHandler() {
 	    // Do nothing
 	}
@@ -187,9 +183,9 @@ public class GUIManager implements MenuSection, QuitHandler {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		final StuffBag app = DungeonDiver7.getStuffBag();
-		boolean loaded = false;
-		final String cmd = e.getActionCommand();
+		final var app = DungeonDiver7.getStuffBag();
+		var loaded = false;
+		final var cmd = e.getActionCommand();
 		if (cmd.equals(Strings.menu(Menu.NEW))) {
 		    loaded = app.getEditor().newDungeon();
 		    app.getDungeonManager().setLoaded(loaded);
@@ -204,8 +200,8 @@ public class GUIManager implements MenuSection, QuitHandler {
 		    if (app.getMode() == StuffBag.STATUS_EDITOR) {
 			app.getEditor().handleCloseWindow();
 		    } else if (app.getMode() == StuffBag.STATUS_GAME) {
-			boolean saved = true;
-			int status = 0;
+			var saved = true;
+			var status = 0;
 			if (app.getDungeonManager().getDirty()) {
 			    status = DungeonManager.showSaveDialog();
 			    if (status == JOptionPane.YES_OPTION) {
@@ -250,11 +246,9 @@ public class GUIManager implements MenuSection, QuitHandler {
 		    if (app.getGUIManager().quitHandler()) {
 			System.exit(0);
 		    }
-		} else if (cmd.equals(Strings.menu(Menu.QUIT))) {
-		    // Quit program
-		    if (app.getGUIManager().quitHandler()) {
-			System.exit(0);
-		    }
+		} else // Quit program
+		if (cmd.equals(Strings.menu(Menu.QUIT)) && app.getGUIManager().quitHandler()) {
+		    System.exit(0);
 		}
 		app.getMenuManager().checkFlags();
 	    } catch (final Exception ex) {
@@ -295,8 +289,8 @@ public class GUIManager implements MenuSection, QuitHandler {
 
     @Override
     public JMenu createCommandsMenu() {
-	final MenuHandler mhandler = new MenuHandler();
-	final JMenu fileMenu = new JMenu(Strings.menu(Menu.FILE));
+	final var mhandler = new MenuHandler();
+	final var fileMenu = new JMenu(Strings.menu(Menu.FILE));
 	this.fileNew = new JMenuItem(Strings.menu(Menu.NEW));
 	this.fileOpen = new JMenuItem(Strings.menu(Menu.OPEN));
 	this.fileOpenDefault = new JMenuItem(Strings.menu(Menu.OPEN_DEFAULT));
@@ -360,7 +354,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 
     @Override
     public void enableLoadedCommands() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	if (app.getMode() == StuffBag.STATUS_GUI) {
 	    this.fileClose.setEnabled(false);
 	    this.fileSaveAs.setEnabled(false);
@@ -394,8 +388,8 @@ public class GUIManager implements MenuSection, QuitHandler {
     }
 
     @Override
-    public void handleQuitRequestWith(QuitEvent e, QuitResponse response) {
-	boolean quitOK = this.quitHandler();
+    public void handleQuitRequestWith(final QuitEvent e, final QuitResponse response) {
+	final var quitOK = this.quitHandler();
 	if (quitOK) {
 	    response.performQuit();
 	} else {

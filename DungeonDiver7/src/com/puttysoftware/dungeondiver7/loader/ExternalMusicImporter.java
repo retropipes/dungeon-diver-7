@@ -23,9 +23,9 @@ public class ExternalMusicImporter {
     private static File destFile;
 
     public static void importMusic(final File source) {
-	final String basePath = ExternalMusicImporter.getMusicBasePath();
-	final String musicfilename = IDGenerator.generateRandomFilename() + getExtension(source);
-	final File dest = new File(basePath + File.separator + musicfilename);
+	final var basePath = ExternalMusicImporter.getMusicBasePath();
+	final var musicfilename = IDGenerator.generateRandomFilename() + ExternalMusicImporter.getExtension(source);
+	final var dest = new File(basePath + File.separator + musicfilename);
 	ExternalMusicImporter.destFile = dest;
 	try {
 	    if (!dest.getParentFile().exists()) {
@@ -45,35 +45,35 @@ public class ExternalMusicImporter {
     }
 
     private static String getDirPrefix() {
-	final String osName = System.getProperty("os.name");
+	final var osName = System.getProperty("os.name");
 	if (osName.indexOf("Mac OS X") != -1) {
 	    // Mac OS X
 	    return System.getenv(ExternalMusicImporter.MAC_PREFIX);
-	} else if (osName.indexOf("Windows") != -1) {
+	}
+	if (osName.indexOf("Windows") != -1) {
 	    // Windows
 	    return System.getenv(ExternalMusicImporter.WIN_PREFIX);
-	} else {
-	    // Other - assume UNIX-like
-	    return System.getenv(ExternalMusicImporter.UNIX_PREFIX);
 	}
+	// Other - assume UNIX-like
+	return System.getenv(ExternalMusicImporter.UNIX_PREFIX);
     }
 
     private static String getMusicDirectory() {
-	final String osName = System.getProperty("os.name");
+	final var osName = System.getProperty("os.name");
 	if (osName.indexOf("Mac OS X") != -1) {
 	    // Mac OS X
 	    return ExternalMusicImporter.MAC_SOUND_DIR;
-	} else if (osName.indexOf("Windows") != -1) {
+	}
+	if (osName.indexOf("Windows") != -1) {
 	    // Windows
 	    return ExternalMusicImporter.WIN_SOUND_DIR;
-	} else {
-	    // Other - assume UNIX-like
-	    return ExternalMusicImporter.UNIX_SOUND_DIR;
 	}
+	// Other - assume UNIX-like
+	return ExternalMusicImporter.UNIX_SOUND_DIR;
     }
 
     public static String getMusicBasePath() {
-	final StringBuilder b = new StringBuilder();
+	final var b = new StringBuilder();
 	b.append(ExternalMusicImporter.getDirPrefix());
 	b.append(ExternalMusicImporter.getMusicDirectory());
 	return b.toString();
@@ -81,8 +81,8 @@ public class ExternalMusicImporter {
 
     private static String getExtension(final File f) {
 	String ext = null;
-	final String s = f.getName();
-	final int i = s.lastIndexOf('.');
+	final var s = f.getName();
+	final var i = s.lastIndexOf('.');
 	if (i > 0 && i < s.length() - 1) {
 	    ext = s.substring(i).toLowerCase();
 	}

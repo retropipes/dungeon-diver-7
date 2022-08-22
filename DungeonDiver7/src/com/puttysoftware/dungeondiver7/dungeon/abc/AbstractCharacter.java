@@ -86,20 +86,19 @@ public abstract class AbstractCharacter extends AbstractDungeonObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = super.hashCode();
-	result = prime * result + this.characterNumber;
-	return result;
+	final var prime = 31;
+	final var result = super.hashCode();
+	return prime * result + this.characterNumber;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -107,14 +106,8 @@ public abstract class AbstractCharacter extends AbstractDungeonObject {
 	if (this == obj) {
 	    return true;
 	}
-	if (!super.equals(obj)) {
-	    return false;
-	}
-	if (!(obj instanceof AbstractCharacter)) {
-	    return false;
-	}
-	final AbstractCharacter other = (AbstractCharacter) obj;
-	if (this.characterNumber != other.characterNumber) {
+	if (!super.equals(obj) || !(obj instanceof final AbstractCharacter other)
+		|| this.characterNumber != other.characterNumber) {
 	    return false;
 	}
 	return true;

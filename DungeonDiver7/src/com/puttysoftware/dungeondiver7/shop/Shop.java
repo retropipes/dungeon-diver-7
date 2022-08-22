@@ -10,9 +10,7 @@ import javax.swing.JOptionPane;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.ListWithImageDialog;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
-import com.puttysoftware.dungeondiver7.item.Equipment;
 import com.puttysoftware.dungeondiver7.item.EquipmentFactory;
 import com.puttysoftware.dungeondiver7.loader.ArmorImageManager;
 import com.puttysoftware.dungeondiver7.loader.MusicConstants;
@@ -43,7 +41,6 @@ public class Shop {
 
     // Constructors
     public Shop(final ShopType shopType) {
-	super();
 	this.defaultUI = new ShopDialogGUI();
 	this.imageUI = new ShopImageDialogGUI();
 	this.type = shopType;
@@ -60,25 +57,22 @@ public class Shop {
     }
 
     static int getRegenerationCost(final int x, final int y, final int z) {
-	final int diff = z - y;
+	final var diff = z - y;
 	if (diff == 0) {
 	    return 0;
-	} else {
-	    final int cost = (int) (Math.log(x) / Math.log(2) * diff);
-	    if (cost < 1) {
-		return 1;
-	    } else {
-		return cost;
-	    }
 	}
+	final var cost = (int) (Math.log(x) / Math.log(2) * diff);
+	if (cost < 1) {
+	    return 1;
+	}
+	return cost;
     }
 
     static int getSpellCost(final int i) {
 	if (i == -1) {
 	    return 0;
-	} else {
-	    return 20 * i * i + 20;
 	}
+	return 20 * i * i + 20;
     }
 
     String getShopNameFromType() {
@@ -97,7 +91,7 @@ public class Shop {
 	    this.defaultUI.showShop();
 	}
 	MusicLoader.stopMusic();
-	int zoneID = PartyManager.getParty().getZone();
+	final var zoneID = PartyManager.getParty().getZone();
 	if (zoneID == AbstractDungeon.getMaxLevels() - 1) {
 	    MusicLoader.playMusic(MusicConstants.MUSIC_LAIR);
 	} else {
@@ -116,7 +110,7 @@ public class Shop {
 	    Shop.this.choices = null;
 	    Shop.this.result = null;
 	    Shop.this.cost = 0;
-	    boolean valid = this.shopStage1();
+	    var valid = this.shopStage1();
 	    if (valid) {
 		valid = this.shopStage2();
 	    }
@@ -135,7 +129,7 @@ public class Shop {
 	    // Stage 1
 	    // Play enter shop sound
 	    SoundLoader.playSound(SoundConstants.SHOP);
-	    final PartyMember playerCharacter = PartyManager.getParty().getLeader();
+	    final var playerCharacter = PartyManager.getParty().getLeader();
 	    if (Shop.this.type == ShopType.HEALER || Shop.this.type == ShopType.REGENERATOR) {
 		Shop.this.choices = new String[10];
 		int x;
@@ -158,26 +152,25 @@ public class Shop {
 
 	private boolean shopStage2() {
 	    // Stage 2
-	    final PartyMember playerCharacter = PartyManager.getParty().getLeader();
+	    final var playerCharacter = PartyManager.getParty().getLeader();
 	    // Check
 	    if (Shop.this.type == ShopType.HEALER && playerCharacter.getCurrentHP() == playerCharacter.getMaximumHP()) {
 		CommonDialogs.showDialog("You don't need healing.");
 		return false;
-	    } else if (Shop.this.type == ShopType.REGENERATOR
+	    }
+	    if (Shop.this.type == ShopType.REGENERATOR
 		    && playerCharacter.getCurrentMP() == playerCharacter.getMaximumMP()) {
 		CommonDialogs.showDialog("You don't need regeneration.");
 		return false;
-	    } else if (Shop.this.type == ShopType.SPELLS && playerCharacter.getSpellBook()
+	    }
+	    if (Shop.this.type == ShopType.SPELLS && playerCharacter.getSpellBook()
 		    .getSpellsKnownCount() == playerCharacter.getSpellBook().getMaximumSpellsKnownCount()) {
 		CommonDialogs.showDialog("There are no more spells to learn.");
 		return false;
 	    }
 	    Shop.this.result = CommonDialogs.showInputDialog("Select", Shop.this.getShopNameFromType(),
 		    Shop.this.choices, Shop.this.choices[Shop.this.defaultChoice]);
-	    if (Shop.this.result == null) {
-		return false;
-	    }
-	    if (Shop.this.index == -1) {
+	    if (Shop.this.result == null || Shop.this.index == -1) {
 		return false;
 	    }
 	    Shop.this.index = 0;
@@ -195,7 +188,7 @@ public class Shop {
 
 	private boolean shopStage3() {
 	    // Stage 3
-	    final PartyMember playerCharacter = PartyManager.getParty().getLeader();
+	    final var playerCharacter = PartyManager.getParty().getLeader();
 	    Shop.this.cost = 0;
 	    if (Shop.this.type == ShopType.HEALER) {
 		Shop.this.cost = Shop.getHealingCost(playerCharacter.getLevel(), playerCharacter.getCurrentHP(),
@@ -207,7 +200,7 @@ public class Shop {
 		Shop.this.cost = Shop.getSpellCost(Shop.this.index);
 	    }
 	    // Confirm
-	    final int stage4Confirm = CommonDialogs.showConfirmDialog(
+	    final var stage4Confirm = CommonDialogs.showConfirmDialog(
 		    "This will cost " + Shop.this.cost + " Gold. Are you sure?", Shop.this.getShopNameFromType());
 	    if (stage4Confirm == JOptionPane.NO_OPTION || stage4Confirm == JOptionPane.CLOSED_OPTION) {
 		return false;
@@ -217,7 +210,7 @@ public class Shop {
 
 	private boolean shopStage4() {
 	    // Stage 4
-	    final PartyMember playerCharacter = PartyManager.getParty().getLeader();
+	    final var playerCharacter = PartyManager.getParty().getLeader();
 	    if (playerCharacter.getGold() < Shop.this.cost) {
 		CommonDialogs.showErrorDialog("Not Enough Gold!", Shop.this.getShopNameFromType());
 		return false;
@@ -227,7 +220,7 @@ public class Shop {
 
 	private void shopStage5() {
 	    // Stage 5
-	    final PartyMember playerCharacter = PartyManager.getParty().getLeader();
+	    final var playerCharacter = PartyManager.getParty().getLeader();
 	    // Play transact sound
 	    SoundLoader.playSound(SoundConstants.TRANSACT);
 	    if (Shop.this.type == ShopType.HEALER) {
@@ -256,7 +249,7 @@ public class Shop {
 	    Shop.this.choices = null;
 	    Shop.this.result = null;
 	    Shop.this.cost = 0;
-	    boolean valid = this.shopStage1();
+	    var valid = this.shopStage1();
 	    if (valid) {
 		valid = this.shopStage2();
 	    }
@@ -275,25 +268,24 @@ public class Shop {
 	    // Stage 1
 	    // Play enter shop sound
 	    SoundLoader.playSound(SoundConstants.SHOP);
-	    final int zoneID = PartyManager.getParty().getZone();
+	    final var zoneID = PartyManager.getParty().getZone();
 	    if (Shop.this.type == ShopType.WEAPONS) {
 		Shop.this.imageChoices = new BufferedImageIcon[Strings.WEAPON_TYPES_COUNT];
-		for (int i = 0; i < Strings.WEAPON_TYPES_COUNT; i++) {
+		for (var i = 0; i < Strings.WEAPON_TYPES_COUNT; i++) {
 		    Shop.this.imageChoices[i] = WeaponImageManager.getImage(i, zoneID);
 		}
 		Shop.this.typeChoices = Strings.allWeaponTypes();
-		Shop.this.typeDefault = 0;
 	    } else if (Shop.this.type == ShopType.ARMOR) {
 		Shop.this.imageChoices = new BufferedImageIcon[Strings.ARMOR_TYPES_COUNT];
-		for (int i = 0; i < Strings.ARMOR_TYPES_COUNT; i++) {
+		for (var i = 0; i < Strings.ARMOR_TYPES_COUNT; i++) {
 		    Shop.this.imageChoices[i] = ArmorImageManager.getImage(i, zoneID);
 		}
 		Shop.this.typeChoices = Strings.allArmorTypes();
-		Shop.this.typeDefault = 0;
 	    } else {
 		// Invalid shop type
 		return false;
 	    }
+	    Shop.this.typeDefault = 0;
 	    if (Shop.this.typeChoices != null) {
 		Shop.this.typeResult = ListWithImageDialog.showDialog("Select Type", Shop.this.getShopNameFromType(),
 			Shop.this.typeChoices[Shop.this.typeDefault], Shop.this.typeChoices,
@@ -329,7 +321,7 @@ public class Shop {
 	    Shop.this.cost = 0;
 	    Shop.this.cost = Shop.getEquipmentCost(Shop.this.index);
 	    // Confirm
-	    final int stage4Confirm = CommonDialogs.showConfirmDialog(
+	    final var stage4Confirm = CommonDialogs.showConfirmDialog(
 		    "This will cost " + Shop.this.cost + " Gold. Are you sure?", Shop.this.getShopNameFromType());
 	    if (stage4Confirm == JOptionPane.NO_OPTION || stage4Confirm == JOptionPane.CLOSED_OPTION) {
 		return false;
@@ -339,7 +331,7 @@ public class Shop {
 
 	private boolean shopStage4() {
 	    // Stage 4
-	    final PartyMember playerCharacter = PartyManager.getParty().getLeader();
+	    final var playerCharacter = PartyManager.getParty().getLeader();
 	    if (playerCharacter.getGold() < Shop.this.cost) {
 		CommonDialogs.showErrorDialog("Not Enough Gold!", Shop.this.getShopNameFromType());
 		return false;
@@ -349,16 +341,16 @@ public class Shop {
 
 	private void shopStage5() {
 	    // Stage 5
-	    final PartyMember playerCharacter = PartyManager.getParty().getLeader();
+	    final var playerCharacter = PartyManager.getParty().getLeader();
 	    // Play transact sound
 	    SoundLoader.playSound(SoundConstants.TRANSACT);
 	    if (Shop.this.type == ShopType.WEAPONS) {
 		playerCharacter.offsetGold(-Shop.this.cost);
-		final Equipment bought = EquipmentFactory.createWeapon(Shop.this.index, Shop.this.typeIndex);
+		final var bought = EquipmentFactory.createWeapon(Shop.this.index, Shop.this.typeIndex);
 		playerCharacter.getItems().equip(playerCharacter, bought, true);
 	    } else if (Shop.this.type == ShopType.ARMOR) {
 		playerCharacter.offsetGold(-Shop.this.cost);
-		final Equipment bought = EquipmentFactory.createArmor(Shop.this.index, Shop.this.typeIndex);
+		final var bought = EquipmentFactory.createArmor(Shop.this.index, Shop.this.typeIndex);
 		playerCharacter.getItems().equip(playerCharacter, bought, true);
 	    }
 	}

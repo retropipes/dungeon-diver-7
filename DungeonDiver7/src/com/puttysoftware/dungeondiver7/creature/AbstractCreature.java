@@ -6,6 +6,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.creature;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import com.puttysoftware.dungeondiver7.ai.AbstractMapAIRoutine;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
@@ -46,7 +47,7 @@ public abstract class AbstractCreature {
     protected AbstractCreature(final int tid) {
 	this.teamID = tid;
 	this.stats = new Statistic[StatConstants.MAX_STORED_STATS];
-	for (int x = 0; x < StatConstants.MAX_STORED_STATS; x++) {
+	for (var x = 0; x < StatConstants.MAX_STORED_STATS; x++) {
 	    this.stats[x] = new Statistic();
 	}
 	this.stats[StatConstants.STAT_CURRENT_HP].setHasMax(true);
@@ -128,16 +129,15 @@ public abstract class AbstractCreature {
     public boolean checkLevelUp() {
 	if (this.toNextLevel != null) {
 	    return this.experience >= this.getToNextLevelValue();
-	} else {
-	    return false;
 	}
+	return false;
     }
 
     public final void cullInactiveEffects() {
 	int x;
 	for (x = 0; x < this.effectList.length; x++) {
 	    try {
-		final Effect e = this.get(x);
+		final var e = this.get(x);
 		if (e != null && !e.isActive()) {
 		    this.set(x, null);
 		}
@@ -168,22 +168,18 @@ public abstract class AbstractCreature {
     }
 
     public final void extendEffect(final Effect e, final int rounds) {
-	final int index = this.indexOf(e);
+	final var index = this.indexOf(e);
 	if (index != -1) {
 	    this.get(index).extendEffect(rounds);
 	}
     }
 
     private void fixStatValue(final int stat) {
-	if (this.getHasStatMin(stat)) {
-	    if (this.getStat(stat) < this.getStatMin(stat)) {
-		this.setStatFixed(stat, this.getStatMin(stat));
-	    }
+	if (this.getHasStatMin(stat) && this.getStat(stat) < this.getStatMin(stat)) {
+	    this.setStatFixed(stat, this.getStatMin(stat));
 	}
-	if (this.getHasStatMax(stat)) {
-	    if (this.getStat(stat) > this.getStat(this.getStatMax(stat))) {
-		this.setStatFixed(stat, this.getStat(this.getStatMax(stat)));
-	    }
+	if (this.getHasStatMax(stat) && this.getStat(stat) > this.getStat(this.getStatMax(stat))) {
+	    this.setStatFixed(stat, this.getStat(this.getStatMax(stat)));
 	}
     }
 
@@ -192,20 +188,20 @@ public abstract class AbstractCreature {
     }
 
     public int getMapBattleActionsPerRound() {
-	final int value = (int) Math.sqrt(Math.ceil(
+	final var value = (int) Math.sqrt(Math.ceil(
 		this.getEffectedStat(StatConstants.STAT_SPEED) * StatConstants.FACTOR_SPEED_MAP_ACTIONS_PER_ROUND));
 	return Math.max(1, Math.min(AbstractCreature.ACTION_CAP, value));
     }
 
     public int getWindowBattleActionsPerRound() {
-	final int value = (int) Math.sqrt(Math.ceil(
+	final var value = (int) Math.sqrt(Math.ceil(
 		this.getEffectedStat(StatConstants.STAT_SPEED) * StatConstants.FACTOR_SPEED_WINDOW_ACTIONS_PER_ROUND));
 	return Math.max(1, Math.min(AbstractCreature.ACTION_CAP, value));
     }
 
     public static void computeActionCap(final int rows, final int cols) {
-	final int avg = (rows + cols) / 2;
-	final int mult = (int) Math.sqrt(avg);
+	final var avg = (rows + cols) / 2;
+	final var mult = (int) Math.sqrt(avg);
 	final double temp = avg * mult;
 	AbstractCreature.ACTION_CAP = (int) (Math.round(temp / 10.0) * 10.0);
     }
@@ -220,10 +216,10 @@ public abstract class AbstractCreature {
 
     public final String getAllCurrentEffectMessages() {
 	int x;
-	final StringBuilder sb = new StringBuilder(Effect.getNullMessage());
+	final var sb = new StringBuilder(Effect.getNullMessage());
 	for (x = 0; x < this.effectList.length; x++) {
 	    try {
-		Effect e = this.get(x);
+		final var e = this.get(x);
 		if (e != null) {
 		    sb.append(e.getCurrentMessage());
 		    sb.append("\n");
@@ -232,7 +228,7 @@ public abstract class AbstractCreature {
 		// Do nothing
 	    }
 	}
-	String s = sb.toString();
+	var s = sb.toString();
 	// Strip final newline character, if it exists
 	if (!s.equals(Effect.getNullMessage())) {
 	    s = s.substring(0, s.length() - 1);
@@ -260,10 +256,10 @@ public abstract class AbstractCreature {
 
     public final String getCompleteEffectString() {
 	int x;
-	String s = "";
+	var s = "";
 	for (x = 0; x < this.effectList.length; x++) {
 	    try {
-		Effect e = this.get(x);
+		final var e = this.get(x);
 		if (e != null) {
 		    s += e.getEffectString() + "\n";
 		}
@@ -283,7 +279,7 @@ public abstract class AbstractCreature {
 	c = 0;
 	for (x = 0; x < this.effectList.length; x++) {
 	    try {
-		final Effect e = this.get(x);
+		final var e = this.get(x);
 		if (e != null && e.isActive()) {
 		    c++;
 		}
@@ -297,8 +293,8 @@ public abstract class AbstractCreature {
     public final String[] getCompleteEffectStringArray() {
 	int x, z;
 	z = this.getActiveEffectCount();
-	final String[] s = new String[z];
-	int counter = 0;
+	final var s = new String[z];
+	var counter = 0;
 	for (x = 0; x < z; x++) {
 	    if (this.effectList[x] != null) {
 		s[counter] = this.effectList[x].getEffectString();
@@ -327,7 +323,7 @@ public abstract class AbstractCreature {
 	p = this.getStat(stat);
 	for (x = 0; x < this.effectList.length; x++) {
 	    try {
-		final Effect e = this.get(x);
+		final var e = this.get(x);
 		if (e != null) {
 		    p *= e.getEffect(Effect.EFFECT_MULTIPLY, stat);
 		}
@@ -337,7 +333,7 @@ public abstract class AbstractCreature {
 	}
 	for (x = 0; x < this.effectList.length; x++) {
 	    try {
-		final Effect e = this.get(x);
+		final var e = this.get(x);
 		if (e != null) {
 		    s += e.getEffect(Effect.EFFECT_ADD, stat);
 		}
@@ -349,12 +345,12 @@ public abstract class AbstractCreature {
     }
 
     public final int getEvade() {
-	final int chance = StatConstants.EVADE_BASE;
-	final double agilityContrib = Math.max(0, this.getEffectedStat(StatConstants.STAT_AGILITY))
+	final var chance = StatConstants.EVADE_BASE;
+	final var agilityContrib = Math.max(0, this.getEffectedStat(StatConstants.STAT_AGILITY))
 		* StatConstants.FACTOR_AGILITY_EVADE;
-	final double luckContrib = Math.max(0, this.getEffectedStat(StatConstants.STAT_LUCK))
+	final var luckContrib = Math.max(0, this.getEffectedStat(StatConstants.STAT_LUCK))
 		* StatConstants.FACTOR_LUCK_EVADE;
-	final int modifier = (int) Math.round(agilityContrib + luckContrib);
+	final var modifier = (int) Math.round(agilityContrib + luckContrib);
 	return Math.min(chance + modifier, StatConstants.EVADE_MAX);
     }
 
@@ -367,12 +363,12 @@ public abstract class AbstractCreature {
     }
 
     public final int getHit() {
-	final int chance = StatConstants.HIT_BASE;
-	final double strengthContrib = Math.max(0, this.getEffectedStat(StatConstants.STAT_STRENGTH))
+	final var chance = StatConstants.HIT_BASE;
+	final var strengthContrib = Math.max(0, this.getEffectedStat(StatConstants.STAT_STRENGTH))
 		* StatConstants.FACTOR_STRENGTH_HIT;
-	final double luckContrib = Math.max(0, this.getEffectedStat(StatConstants.STAT_LUCK))
+	final var luckContrib = Math.max(0, this.getEffectedStat(StatConstants.STAT_LUCK))
 		* StatConstants.FACTOR_LUCK_HIT;
-	final int modifier = (int) Math.round(strengthContrib + luckContrib);
+	final var modifier = (int) Math.round(strengthContrib + luckContrib);
 	return Math.min(chance + modifier, StatConstants.HIT_MAX);
     }
 
@@ -532,23 +528,20 @@ public abstract class AbstractCreature {
     }
 
     public final long getToNextLevelValue() {
-	if (this.toNextLevel != null) {
-	    if (this.getLevel() == AbstractCreature.getMaximumLevel()) {
-		return this.getExperience();
-	    } else {
-		return this.toNextLevel.evaluate(this.getLevel() + 1);
-	    }
-	} else {
+	if (this.toNextLevel == null) {
 	    return 0;
 	}
+	if (this.getLevel() == AbstractCreature.getMaximumLevel()) {
+	    return this.getExperience();
+	}
+	return this.toNextLevel.evaluate(this.getLevel() + 1);
     }
 
     private long getMaximumExperience() {
 	if (this.toNextLevel != null) {
 	    return this.toNextLevel.evaluate(AbstractCreature.getMaximumLevel());
-	} else {
-	    return Long.MAX_VALUE;
 	}
+	return Long.MAX_VALUE;
     }
 
     public final double getEffectedAttack() {
@@ -583,16 +576,16 @@ public abstract class AbstractCreature {
     }
 
     public final void healPercentage(final int percent) {
-	int fP = percent;
+	var fP = percent;
 	if (fP > AbstractCreature.FULL_HEAL_PERCENTAGE) {
 	    fP = AbstractCreature.FULL_HEAL_PERCENTAGE;
 	}
 	if (fP < 0) {
 	    fP = 0;
 	}
-	final double fPMultiplier = fP / (double) AbstractCreature.FULL_HEAL_PERCENTAGE;
-	final int difference = this.getEffectedMaximumHP() - this.getCurrentHP();
-	int modValue = (int) (difference * fPMultiplier);
+	final var fPMultiplier = fP / (double) AbstractCreature.FULL_HEAL_PERCENTAGE;
+	final var difference = this.getEffectedMaximumHP() - this.getCurrentHP();
+	var modValue = (int) (difference * fPMultiplier);
 	if (modValue <= 0) {
 	    modValue = 1;
 	}
@@ -603,13 +596,12 @@ public abstract class AbstractCreature {
     private final int indexOf(final Effect e) {
 	int x;
 	for (x = 0; x < this.effectList.length; x++) {
-	    final Effect le = this.get(x);
-	    if (le != null) {
-		if (e.equals(le)) {
-		    return x;
-		}
-	    } else {
+	    final var le = this.get(x);
+	    if (le == null) {
 		return -1;
+	    }
+	    if (e.equals(le)) {
+		return x;
 	    }
 	}
 	return -1;
@@ -620,12 +612,11 @@ public abstract class AbstractCreature {
     }
 
     public final boolean isEffectActive(final Effect e) {
-	final int index = this.indexOf(e);
+	final var index = this.indexOf(e);
 	if (index != -1) {
 	    return this.get(index).isActive();
-	} else {
-	    return false;
 	}
+	return false;
     }
 
     public final void levelUp() {
@@ -678,17 +669,17 @@ public abstract class AbstractCreature {
     }
 
     public final void offsetExperiencePercentage(final int percentage) {
-	int fixedPercentage = percentage;
+	var fixedPercentage = percentage;
 	if (fixedPercentage > 100) {
 	    fixedPercentage = 100;
 	} else if (fixedPercentage < -100) {
 	    fixedPercentage = -100;
 	}
 	if (fixedPercentage > 0) {
-	    final long adjustment = this.experience * fixedPercentage / 100;
+	    final var adjustment = this.experience * fixedPercentage / 100;
 	    this.offsetExperience(adjustment);
 	} else if (fixedPercentage < 0) {
-	    final long adjustment = this.experience * -fixedPercentage / 100;
+	    final var adjustment = this.experience * -fixedPercentage / 100;
 	    this.offsetExperience(-adjustment);
 	}
     }
@@ -699,17 +690,17 @@ public abstract class AbstractCreature {
     }
 
     public final void offsetGoldPercentage(final int percentage) {
-	int fixedPercentage = percentage;
+	var fixedPercentage = percentage;
 	if (fixedPercentage > 100) {
 	    fixedPercentage = 100;
 	} else if (fixedPercentage < -100) {
 	    fixedPercentage = -100;
 	}
 	if (fixedPercentage > 0) {
-	    final int adjustment = this.getGold() * fixedPercentage / 100;
+	    final var adjustment = this.getGold() * fixedPercentage / 100;
 	    this.offsetExperience(adjustment);
 	} else if (fixedPercentage < 0) {
-	    final int adjustment = this.getGold() * -fixedPercentage / 100;
+	    final var adjustment = this.getGold() * -fixedPercentage / 100;
 	    this.offsetGold(-adjustment);
 	}
     }
@@ -759,16 +750,16 @@ public abstract class AbstractCreature {
     }
 
     public final void regeneratePercentage(final int percent) {
-	int fP = percent;
+	var fP = percent;
 	if (fP > AbstractCreature.FULL_HEAL_PERCENTAGE) {
 	    fP = AbstractCreature.FULL_HEAL_PERCENTAGE;
 	}
 	if (fP < 0) {
 	    fP = 0;
 	}
-	final double fPMultiplier = fP / (double) AbstractCreature.FULL_HEAL_PERCENTAGE;
-	final int difference = this.getMaximumMP() - this.getCurrentMP();
-	int modValue = (int) (difference * fPMultiplier);
+	final var fPMultiplier = fP / (double) AbstractCreature.FULL_HEAL_PERCENTAGE;
+	final var difference = this.getMaximumMP() - this.getCurrentMP();
+	var modValue = (int) (difference * fPMultiplier);
 	if (modValue <= 0) {
 	    modValue = 1;
 	}
@@ -847,7 +838,7 @@ public abstract class AbstractCreature {
     private final void setStat(final int stat, final int value) {
 	int dynValue;
 	if (this.stats[stat].getDynamism() != 0) {
-	    final RandomRange r = new RandomRange(-this.stats[stat].getDynamism(), this.stats[stat].getDynamism());
+	    final var r = new RandomRange(-this.stats[stat].getDynamism(), this.stats[stat].getDynamism());
 	    dynValue = value + r.generate();
 	} else {
 	    dynValue = value;
@@ -887,7 +878,7 @@ public abstract class AbstractCreature {
 	int x;
 	for (x = 0; x < this.effectList.length; x++) {
 	    try {
-		Effect e = this.get(x);
+		final var e = this.get(x);
 		if (e != null) {
 		    e.useEffect(this);
 		}
@@ -898,8 +889,8 @@ public abstract class AbstractCreature {
     }
 
     public final String getFightingWhatString() {
-	final String enemyName = this.getName();
-	final boolean vowel = this.isFirstLetterVowel(enemyName);
+	final var enemyName = this.getName();
+	final var vowel = this.isFirstLetterVowel(enemyName);
 	String fightingWhat = null;
 	if (vowel) {
 	    fightingWhat = "You're fighting an " + enemyName;
@@ -910,19 +901,18 @@ public abstract class AbstractCreature {
     }
 
     protected boolean isFirstLetterVowel(final String s) {
-	final String firstLetter = s.substring(0, 1);
+	final var firstLetter = s.substring(0, 1);
 	if (firstLetter.equalsIgnoreCase("A") || firstLetter.equalsIgnoreCase("E") || firstLetter.equalsIgnoreCase("I")
 		|| firstLetter.equalsIgnoreCase("O") || firstLetter.equalsIgnoreCase("U")) {
 	    return true;
-	} else {
-	    return false;
 	}
+	return false;
     }
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = super.hashCode();
+	final var prime = 31;
+	var result = super.hashCode();
 	result = prime * result + Arrays.hashCode(this.effectList);
 	result = prime * result + (int) (this.experience ^ this.experience >>> 32);
 	result = prime * result + (this.items == null ? 0 : this.items.hashCode());
@@ -937,44 +927,15 @@ public abstract class AbstractCreature {
 	if (this == obj) {
 	    return true;
 	}
-	if (!super.equals(obj)) {
+	if (!super.equals(obj) || !(obj instanceof final AbstractCreature other)
+		|| !Arrays.equals(this.effectList, other.effectList) || this.experience != other.experience) {
 	    return false;
 	}
-	if (!(obj instanceof AbstractCreature)) {
+	if (!Objects.equals(this.items, other.items) || !Objects.equals(this.spellsKnown, other.spellsKnown)
+		|| !Arrays.equals(this.stats, other.stats) || this.teamID != other.teamID) {
 	    return false;
 	}
-	final AbstractCreature other = (AbstractCreature) obj;
-	if (!Arrays.equals(this.effectList, other.effectList)) {
-	    return false;
-	}
-	if (this.experience != other.experience) {
-	    return false;
-	}
-	if (this.items == null) {
-	    if (other.items != null) {
-		return false;
-	    }
-	} else if (!this.items.equals(other.items)) {
-	    return false;
-	}
-	if (this.spellsKnown == null) {
-	    if (other.spellsKnown != null) {
-		return false;
-	    }
-	} else if (!this.spellsKnown.equals(other.spellsKnown)) {
-	    return false;
-	}
-	if (!Arrays.equals(this.stats, other.stats)) {
-	    return false;
-	}
-	if (this.teamID != other.teamID) {
-	    return false;
-	}
-	if (this.toNextLevel == null) {
-	    if (other.toNextLevel != null) {
-		return false;
-	    }
-	} else if (!this.toNextLevel.equals(other.toNextLevel)) {
+	if (!Objects.equals(this.toNextLevel, other.toNextLevel)) {
 	    return false;
 	}
 	return true;

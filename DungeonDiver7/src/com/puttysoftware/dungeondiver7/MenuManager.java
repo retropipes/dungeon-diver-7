@@ -43,7 +43,7 @@ public class MenuManager implements MenuSection {
     }
 
     public void initMenus() {
-	final JMenu menu = this.createCommandsMenu();
+	final var menu = this.createCommandsMenu();
 	this.attachAccelerators(this.accel);
 	this.setInitialState();
 	this.mainMenuBar.add(menu);
@@ -56,7 +56,7 @@ public class MenuManager implements MenuSection {
 
     public void registerModeManager(final MenuSection mgr) {
 	this.modeMgrs.add(mgr);
-	final JMenu menu = mgr.createCommandsMenu();
+	final var menu = mgr.createCommandsMenu();
 	mgr.attachAccelerators(this.accel);
 	mgr.setInitialState();
 	this.mainMenuBar.add(menu);
@@ -83,7 +83,7 @@ public class MenuManager implements MenuSection {
     }
 
     public void checkFlags() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	if (app.getDungeonManager().getLoaded()) {
 	    for (final MenuSection mgr : this.modeMgrs) {
 		mgr.enableLoadedCommands();
@@ -113,11 +113,11 @@ public class MenuManager implements MenuSection {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		final StuffBag app = DungeonDiver7.getStuffBag();
-		final String cmd = e.getActionCommand();
+		final var app = DungeonDiver7.getStuffBag();
+		final var cmd = e.getActionCommand();
 		if (cmd.equals(Strings.menu(Menu.PLAY_DUNGEON))) {
 		    // Play the current dungeon
-		    final boolean proceed = app.getGameLogic().newGame();
+		    final var proceed = app.getGameLogic().newGame();
 		    if (proceed) {
 			app.exitCurrentMode();
 			app.getGameLogic().playDungeon();
@@ -156,8 +156,8 @@ public class MenuManager implements MenuSection {
 
     @Override
     public JMenu createCommandsMenu() {
-	final EventHandler mhandler = new EventHandler();
-	final JMenu playMenu = new JMenu(Strings.menu(Menu.PLAY));
+	final var mhandler = new EventHandler();
+	final var playMenu = new JMenu(Strings.menu(Menu.PLAY));
 	this.playPlay = new JMenuItem(Strings.menu(Menu.PLAY_DUNGEON));
 	this.playEdit = new JMenuItem(Strings.menu(Menu.EDIT_DUNGEON));
 	this.playToggleAccelerators = new JCheckBoxMenuItem(Strings.menu(Menu.USE_CLASSIC_ACCELERATORS));
@@ -178,7 +178,7 @@ public class MenuManager implements MenuSection {
 
     @Override
     public void enableLoadedCommands() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	if (app.getDungeonManager().getDungeon().doesPlayerExist(0)) {
 	    this.playPlay.setEnabled(true);
 	} else {

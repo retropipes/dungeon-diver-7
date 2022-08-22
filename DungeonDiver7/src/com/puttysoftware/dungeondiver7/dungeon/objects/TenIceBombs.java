@@ -12,7 +12,6 @@ import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 public class TenIceBombs extends AbstractInventoryModifier {
     // Constructors
     public TenIceBombs() {
-	super();
     }
 
     @Override

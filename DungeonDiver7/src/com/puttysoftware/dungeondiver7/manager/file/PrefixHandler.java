@@ -16,8 +16,8 @@ public class PrefixHandler implements AbstractPrefixIO {
 
     @Override
     public int readPrefix(final FileIOReader reader) throws IOException {
-	final byte formatVer = PrefixHandler.readFormatVersion(reader);
-	final boolean res = PrefixHandler.checkFormatVersion(formatVer);
+	final var formatVer = PrefixHandler.readFormatVersion(reader);
+	final var res = PrefixHandler.checkFormatVersion(formatVer);
 	if (!res) {
 	    throw new IOException("Unsupported maze format version: " + formatVer);
 	}

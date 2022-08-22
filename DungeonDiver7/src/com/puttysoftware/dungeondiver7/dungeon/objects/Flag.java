@@ -11,7 +11,6 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractPassThroughObject;
 public class Flag extends AbstractPassThroughObject {
     // Constructors
     public Flag() {
-	super();
 	this.setFrameNumber(1);
     }
 

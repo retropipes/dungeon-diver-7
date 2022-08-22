@@ -36,7 +36,6 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.locale.Colors;
 import com.puttysoftware.dungeondiver7.locale.Difficulty;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
@@ -54,7 +53,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     // Properties
     private DungeonDataStorage data;
     private DungeonDataStorage virtualData;
-    private FlagStorage visionData;
+    private final FlagStorage visionData;
     private FlagStorage dirtyData;
     private DungeonDataStorage savedState;
     private int foundX, foundY;
@@ -99,7 +98,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public CurrentDungeonData clone() {
 	try {
-	    final CurrentDungeonData copy = new CurrentDungeonData();
+	    final var copy = new CurrentDungeonData();
 	    copy.data = (DungeonDataStorage) this.data.clone();
 	    copy.savedState = (DungeonDataStorage) this.savedState.clone();
 	    return copy;
@@ -112,14 +111,14 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public void updateMonsterPosition(final AbstractDungeon dungeon, final Directions move, final int xLoc,
 	    final int yLoc, final AbstractMovingObject monster, final int pi) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
-	final int[] dirMove = DirectionResolver.unresolve(move);
-	final int pLocX = dungeon.getPlayerLocationX(pi);
-	final int pLocY = dungeon.getPlayerLocationY(pi);
+	final var app = DungeonDiver7.getStuffBag();
+	final var dirMove = DirectionResolver.unresolve(move);
+	final var pLocX = dungeon.getPlayerLocationX(pi);
+	final var pLocY = dungeon.getPlayerLocationY(pi);
 	try {
-	    final AbstractDungeonObject there = this.getCell(dungeon, xLoc + dirMove[0], yLoc + dirMove[1], 0,
+	    final var there = this.getCell(dungeon, xLoc + dirMove[0], yLoc + dirMove[1], 0,
 		    DungeonConstants.LAYER_LOWER_OBJECTS);
-	    final AbstractDungeonObject ground = this.getCell(dungeon, xLoc + dirMove[0], yLoc + dirMove[1], 0,
+	    final var ground = this.getCell(dungeon, xLoc + dirMove[0], yLoc + dirMove[1], 0,
 		    DungeonConstants.LAYER_LOWER_GROUND);
 	    if (!there.isSolid() && !(there instanceof AbstractMovingObject)) {
 		if (AbstractDungeon.radialScan(xLoc, yLoc, 0, pLocX, pLocY)) {
@@ -156,7 +155,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public void postBattle(final AbstractDungeon dungeon, final AbstractMovingObject m, final int xLoc, final int yLoc,
 	    final boolean player) {
-	final AbstractDungeonObject saved = m.getSavedObject();
+	final var saved = m.getSavedObject();
 	if (!player) {
 	    this.setCell(dungeon, saved, xLoc, yLoc, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	}
@@ -164,13 +163,12 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     private void generateOneMonster(final AbstractDungeon dungeon) {
-	final RandomRange row = new RandomRange(0, this.getRows() - 1);
-	final RandomRange column = new RandomRange(0, this.getColumns() - 1);
+	final var row = new RandomRange(0, this.getRows() - 1);
+	final var column = new RandomRange(0, this.getColumns() - 1);
 	int randomRow, randomColumn;
 	randomRow = row.generate();
 	randomColumn = column.generate();
-	AbstractDungeonObject currObj = this.getCell(dungeon, randomRow, randomColumn, 0,
-		DungeonConstants.LAYER_LOWER_OBJECTS);
+	var currObj = this.getCell(dungeon, randomRow, randomColumn, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	if (!currObj.isSolid()) {
 	    final AbstractMovingObject m = new MonsterTile();
 	    m.setSavedObject(currObj);
@@ -189,9 +187,9 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public boolean isCellDirty(final AbstractDungeon dungeon, final int row, final int col, final int floor) {
-	int fR = row;
-	int fC = col;
-	int fF = floor;
+	var fR = row;
+	var fC = col;
+	var fF = floor;
 	if (dungeon.isVerticalWraparoundEnabled()) {
 	    fC = this.normalizeColumn(fC);
 	}
@@ -207,9 +205,9 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public AbstractDungeonObject getCell(final AbstractDungeon dungeon, final int row, final int col, final int floor,
 	    final int layer) {
-	int fR = row;
-	int fC = col;
-	int fF = floor;
+	var fR = row;
+	var fC = col;
+	var fF = floor;
 	if (dungeon.isVerticalWraparoundEnabled()) {
 	    fC = this.normalizeColumn(fC);
 	}
@@ -225,9 +223,9 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public AbstractDungeonObject getVirtualCell(final AbstractDungeon dungeon, final int row, final int col,
 	    final int floor, final int layer) {
-	int fR = row;
-	int fC = col;
-	int fF = floor;
+	var fR = row;
+	var fC = col;
+	var fF = floor;
 	if (dungeon.isVerticalWraparoundEnabled()) {
 	    fC = this.normalizeColumn(fC);
 	}
@@ -257,16 +255,14 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public int[] findPlayer(final AbstractDungeon dungeon, final int number) {
-	final Party t = new Party(number);
+	final var t = new Party(number);
 	int y, x, z;
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
-		    final AbstractDungeonObject mo = this.getCell(dungeon, y, x, z, t.getLayer());
-		    if (mo != null) {
-			if (t.equals(mo)) {
-			    return new int[] { y, x, z };
-			}
+		    final var mo = this.getCell(dungeon, y, x, z, t.getLayer());
+		    if (mo != null && t.equals(mo)) {
+			return new int[] { y, x, z };
 		    }
 		}
 	    }
@@ -276,7 +272,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public void tickTimers(final AbstractDungeon dungeon, final int floor, final int actionType) {
-	int floorFix = floor;
+	var floorFix = floor;
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    floorFix = this.normalizeFloor(floorFix);
 	}
@@ -287,26 +283,23 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (x = 0; x < this.getColumns(); x++) {
 		for (y = 0; y < this.getRows(); y++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			final AbstractDungeonObject mo = this.getCell(dungeon, y, x, floorFix, w);
-			if (mo != null) {
-			    if (z == Directions.NORTH.ordinal()) {
-				// Handle objects waiting for a tunnel to open
-				if (mo instanceof AbstractMovableObject) {
-				    final AbstractMovableObject gmo = (AbstractMovableObject) mo;
-				    final AbstractDungeonObject saved = gmo.getSavedObject();
-				    if (saved instanceof AbstractTunnel) {
-					final Colors color = saved.getColor();
-					if (gmo.waitingOnTunnel() && !AbstractTunnel.tunnelsFull(color)) {
-					    gmo.setWaitingOnTunnel(false);
-					    saved.pushIntoAction(gmo, y, x, floorFix);
-					}
-					if (AbstractTunnel.tunnelsFull(color)) {
-					    gmo.setWaitingOnTunnel(true);
-					}
+			final var mo = this.getCell(dungeon, y, x, floorFix, w);
+			if (mo != null && z == Directions.NORTH.ordinal()) {
+			    // Handle objects waiting for a tunnel to open
+			    if (mo instanceof final AbstractMovableObject gmo) {
+				final var saved = gmo.getSavedObject();
+				if (saved instanceof AbstractTunnel) {
+				    final var color = saved.getColor();
+				    if (gmo.waitingOnTunnel() && !AbstractTunnel.tunnelsFull(color)) {
+					gmo.setWaitingOnTunnel(false);
+					saved.pushIntoAction(gmo, y, x, floorFix);
+				    }
+				    if (AbstractTunnel.tunnelsFull(color)) {
+					gmo.setWaitingOnTunnel(true);
 				    }
 				}
-				mo.tickTimer(y, x, actionType);
 			    }
+			    mo.tickTimer(y, x, actionType);
 			}
 		    }
 		}
@@ -321,10 +314,10 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    // Anti Players are fooled by disguises
 	    return;
 	}
-	final ArrowTurret template = new ArrowTurret();
-	int enemyLocX = enemyLocXIn;
-	int enemyLocY = enemyLocYIn;
-	int floor = floorIn;
+	final var template = new ArrowTurret();
+	var enemyLocX = enemyLocXIn;
+	var enemyLocY = enemyLocYIn;
+	var floor = floorIn;
 	if (dungeon.isVerticalWraparoundEnabled()) {
 	    enemyLocX = this.normalizeColumn(enemyLocX);
 	}
@@ -334,40 +327,40 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    floor = this.normalizeFloor(floor);
 	}
-	final boolean scanE = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Directions.EAST);
+	final var scanE = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Directions.EAST);
 	if (scanE) {
 	    try {
-		final ArrowTurret at = (ArrowTurret) this.getCell(dungeon, this.foundX, this.foundY, floor,
+		final var at = (ArrowTurret) this.getCell(dungeon, this.foundX, this.foundY, floor,
 			template.getLayer());
 		at.kill(this.foundX, this.foundY);
 	    } catch (final ClassCastException cce) {
 		// Ignore
 	    }
 	}
-	final boolean scanW = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Directions.WEST);
+	final var scanW = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Directions.WEST);
 	if (scanW) {
 	    try {
-		final ArrowTurret at = (ArrowTurret) this.getCell(dungeon, this.foundX, this.foundY, floor,
+		final var at = (ArrowTurret) this.getCell(dungeon, this.foundX, this.foundY, floor,
 			template.getLayer());
 		at.kill(this.foundX, this.foundY);
 	    } catch (final ClassCastException cce) {
 		// Ignore
 	    }
 	}
-	final boolean scanS = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Directions.SOUTH);
+	final var scanS = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Directions.SOUTH);
 	if (scanS) {
 	    try {
-		final ArrowTurret at = (ArrowTurret) this.getCell(dungeon, this.foundX, this.foundY, floor,
+		final var at = (ArrowTurret) this.getCell(dungeon, this.foundX, this.foundY, floor,
 			template.getLayer());
 		at.kill(this.foundX, this.foundY);
 	    } catch (final ClassCastException cce) {
 		// Ignore
 	    }
 	}
-	final boolean scanN = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Directions.NORTH);
+	final var scanN = this.linearScan(dungeon, enemyLocX, enemyLocY, floor, Directions.NORTH);
 	if (scanN) {
 	    try {
-		final ArrowTurret at = (ArrowTurret) this.getCell(dungeon, this.foundX, this.foundY, floor,
+		final var at = (ArrowTurret) this.getCell(dungeon, this.foundX, this.foundY, floor,
 			template.getLayer());
 		at.kill(this.foundX, this.foundY);
 	    } catch (final ClassCastException cce) {
@@ -381,11 +374,14 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    final Directions dir) {
 	if (dir == Directions.EAST) {
 	    return this.linearScanMagnetic(dungeon, centerX, centerY, floor, Directions.EAST);
-	} else if (dir == Directions.WEST) {
+	}
+	if (dir == Directions.WEST) {
 	    return this.linearScanMagnetic(dungeon, centerX, centerY, floor, Directions.WEST);
-	} else if (dir == Directions.SOUTH) {
+	}
+	if (dir == Directions.SOUTH) {
 	    return this.linearScanMagnetic(dungeon, centerX, centerY, floor, Directions.SOUTH);
-	} else if (dir == Directions.NORTH) {
+	}
+	if (dir == Directions.NORTH) {
 	    return this.linearScanMagnetic(dungeon, centerX, centerY, floor, Directions.NORTH);
 	}
 	return 0;
@@ -395,9 +391,9 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     public boolean linearScan(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
 	    final Directions d) {
 	// Perform the scan
-	int xFix = xIn;
-	int yFix = yIn;
-	int zFix = zIn;
+	var xFix = xIn;
+	var yFix = yIn;
+	var zFix = zIn;
 	if (dungeon.isVerticalWraparoundEnabled()) {
 	    xFix = this.normalizeColumn(xFix);
 	}
@@ -412,114 +408,108 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    final AbstractDungeonObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
-	    } else {
-		for (u = yFix - 1; u >= 0; u--) {
-		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			try {
-			    final AbstractDungeonObject obj = this.getCell(dungeon, xFix, u, zFix, w);
-			    if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
-				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
-				final Directions invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
-				if (d == invert) {
-				    this.foundX = xFix;
-				    this.foundY = u;
-				    return true;
-				}
+	    }
+	    for (u = yFix - 1; u >= 0; u--) {
+		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		    try {
+			final var obj = this.getCell(dungeon, xFix, u, zFix, w);
+			if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
+			    final var unres = DirectionResolver.unresolve(obj.getDirection());
+			    final var invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
+			    if (d == invert) {
+				this.foundX = xFix;
+				this.foundY = u;
+				return true;
 			    }
-			    if (obj.isSolid()) {
-				return false;
-			    }
-			} catch (final ArrayIndexOutOfBoundsException aioobe) {
+			}
+			if (obj.isSolid()) {
 			    return false;
 			}
+		    } catch (final ArrayIndexOutOfBoundsException aioobe) {
+			return false;
 		    }
 		}
 	    }
 	    return false;
-	} else if (d == Directions.SOUTH) {
+	}
+	if (d == Directions.SOUTH) {
 	    final AbstractDungeonObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
-	    } else {
-		for (u = yFix + 1; u < 24; u++) {
-		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			try {
-			    final AbstractDungeonObject obj = this.getCell(dungeon, xFix, u, zFix, w);
-			    if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
-				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
-				final Directions invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
-				if (d == invert) {
-				    this.foundX = xFix;
-				    this.foundY = u;
-				    return true;
-				}
+	    }
+	    for (u = yFix + 1; u < 24; u++) {
+		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		    try {
+			final var obj = this.getCell(dungeon, xFix, u, zFix, w);
+			if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
+			    final var unres = DirectionResolver.unresolve(obj.getDirection());
+			    final var invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
+			    if (d == invert) {
+				this.foundX = xFix;
+				this.foundY = u;
+				return true;
 			    }
-			    if (obj.isSolid()) {
-				return false;
-			    }
-			} catch (final ArrayIndexOutOfBoundsException aioobe) {
+			}
+			if (obj.isSolid()) {
 			    return false;
 			}
+		    } catch (final ArrayIndexOutOfBoundsException aioobe) {
+			return false;
 		    }
 		}
 	    }
-	    return false;
 	} else if (d == Directions.WEST) {
 	    final AbstractDungeonObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
-	    } else {
-		for (u = xFix - 1; u >= 0; u--) {
-		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			try {
-			    final AbstractDungeonObject obj = this.getCell(dungeon, u, yFix, zFix, w);
-			    if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
-				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
-				final Directions invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
-				if (d == invert) {
-				    this.foundX = u;
-				    this.foundY = yFix;
-				    return true;
-				}
+	    }
+	    for (u = xFix - 1; u >= 0; u--) {
+		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		    try {
+			final var obj = this.getCell(dungeon, u, yFix, zFix, w);
+			if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
+			    final var unres = DirectionResolver.unresolve(obj.getDirection());
+			    final var invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
+			    if (d == invert) {
+				this.foundX = u;
+				this.foundY = yFix;
+				return true;
 			    }
-			    if (obj.isSolid()) {
-				return false;
-			    }
-			} catch (final ArrayIndexOutOfBoundsException aioobe) {
+			}
+			if (obj.isSolid()) {
 			    return false;
 			}
+		    } catch (final ArrayIndexOutOfBoundsException aioobe) {
+			return false;
 		    }
 		}
 	    }
-	    return false;
 	} else if (d == Directions.EAST) {
 	    final AbstractDungeonObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
-	    } else {
-		for (u = xFix + 1; u < 24; u++) {
-		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			try {
-			    final AbstractDungeonObject obj = this.getCell(dungeon, u, yFix, zFix, w);
-			    if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
-				final int[] unres = DirectionResolver.unresolve(obj.getDirection());
-				final Directions invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
-				if (d == invert) {
-				    this.foundX = u;
-				    this.foundY = yFix;
-				    return true;
-				}
+	    }
+	    for (u = xFix + 1; u < 24; u++) {
+		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		    try {
+			final var obj = this.getCell(dungeon, u, yFix, zFix, w);
+			if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
+			    final var unres = DirectionResolver.unresolve(obj.getDirection());
+			    final var invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
+			    if (d == invert) {
+				this.foundX = u;
+				this.foundY = yFix;
+				return true;
 			    }
-			    if (obj.isSolid()) {
-				return false;
-			    }
-			} catch (final ArrayIndexOutOfBoundsException aioobe) {
+			}
+			if (obj.isSolid()) {
 			    return false;
 			}
+		    } catch (final ArrayIndexOutOfBoundsException aioobe) {
+			return false;
 		    }
 		}
 	    }
-	    return false;
 	}
 	return false;
     }
@@ -528,9 +518,9 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     public int linearScanMagnetic(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
 	    final Directions d) {
 	// Perform the scan
-	int xFix = xIn;
-	int yFix = yIn;
-	int zFix = zIn;
+	var xFix = xIn;
+	var yFix = yIn;
+	var zFix = zIn;
 	if (dungeon.isVerticalWraparoundEnabled()) {
 	    xFix = this.normalizeColumn(xFix);
 	}
@@ -545,7 +535,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (u = yFix - 1; u >= 0; u--) {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
-			final AbstractDungeonObject obj = this.getCell(dungeon, xFix, u, zFix, w);
+			final var obj = this.getCell(dungeon, xFix, u, zFix, w);
 			if (obj.getMaterial() == Materials.MAGNETIC) {
 			    return yFix - u - 1;
 			}
@@ -558,11 +548,12 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		}
 	    }
 	    return 0;
-	} else if (d == Directions.SOUTH) {
+	}
+	if (d == Directions.SOUTH) {
 	    for (u = yFix + 1; u < 24; u++) {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
-			final AbstractDungeonObject obj = this.getCell(dungeon, xFix, u, zFix, w);
+			final var obj = this.getCell(dungeon, xFix, u, zFix, w);
 			if (obj.getMaterial() == Materials.MAGNETIC) {
 			    return u - yFix - 1;
 			}
@@ -574,12 +565,11 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    }
 		}
 	    }
-	    return 0;
 	} else if (d == Directions.WEST) {
 	    for (u = xFix - 1; u >= 0; u--) {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
-			final AbstractDungeonObject obj = this.getCell(dungeon, u, yFix, zFix, w);
+			final var obj = this.getCell(dungeon, u, yFix, zFix, w);
 			if (obj.getMaterial() == Materials.MAGNETIC) {
 			    return xFix - u - 1;
 			}
@@ -591,12 +581,11 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    }
 		}
 	    }
-	    return 0;
 	} else if (d == Directions.EAST) {
 	    for (u = xFix + 1; u < 24; u++) {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
-			final AbstractDungeonObject obj = this.getCell(dungeon, u, yFix, zFix, w);
+			final var obj = this.getCell(dungeon, u, yFix, zFix, w);
 			if (obj.getMaterial() == Materials.MAGNETIC) {
 			    return u - xFix - 1;
 			}
@@ -608,7 +597,6 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    }
 		}
 	    }
-	    return 0;
 	}
 	return 0;
     }
@@ -616,12 +604,12 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public int[] findObject(final AbstractDungeon dungeon, final int z, final String targetName) {
 	// Perform the scan
-	for (int x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
-	    for (int y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
-		for (int w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
+	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+		for (var w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
-			final AbstractDungeonObject obj = this.getCell(dungeon, x, y, z, w);
-			final String testName = obj.getBaseName();
+			final var obj = this.getCell(dungeon, x, y, z, w);
+			final var testName = obj.getBaseName();
 			if (testName.equals(targetName)) {
 			    return new int[] { x, y };
 			}
@@ -637,9 +625,9 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public int[] circularScan(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn, final int r,
 	    final String targetName, final boolean moved) {
-	int xFix = xIn;
-	int yFix = yIn;
-	int zFix = zIn;
+	var xFix = xIn;
+	var yFix = yIn;
+	var zFix = zIn;
 	if (dungeon.isVerticalWraparoundEnabled()) {
 	    xFix = this.normalizeColumn(xFix);
 	}
@@ -656,17 +644,13 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (v = yFix - r; v <= yFix + r; v++) {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
-			final AbstractDungeonObject obj = this.getCell(dungeon, v, u, zFix, w);
-			final AbstractDungeonObject savedObj = obj.getSavedObject();
+			final var obj = this.getCell(dungeon, v, u, zFix, w);
+			final var savedObj = obj.getSavedObject();
 			String testName;
-			if (obj.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
-			    if (moved) {
-				testName = obj.getImageName();
-			    } else {
-				testName = savedObj.getImageName();
-			    }
-			} else {
+			if (!obj.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || moved) {
 			    testName = obj.getImageName();
+			} else {
+			    testName = savedObj.getImageName();
 			}
 			if (testName.equals(targetName)) {
 			    return new int[] { v, u, zFix };
@@ -683,9 +667,9 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public int[] circularScanTunnel(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
 	    final int r, final int tx, final int ty, final AbstractTunnel target, final boolean moved) {
-	int xFix = xIn;
-	int yFix = yIn;
-	int zFix = zIn;
+	var xFix = xIn;
+	var yFix = yIn;
+	var zFix = zIn;
 	if (dungeon.isVerticalWraparoundEnabled()) {
 	    xFix = this.normalizeColumn(xFix);
 	}
@@ -704,8 +688,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    continue;
 		}
 		if (v >= 0 && v < AbstractDungeonData.MIN_ROWS && u >= 0 && u < AbstractDungeonData.MIN_COLUMNS) {
-		    final AbstractDungeonObject obj = this.getCell(dungeon, v, u, zFix, w);
-		    final AbstractDungeonObject savedObj = obj.getSavedObject();
+		    final var obj = this.getCell(dungeon, v, u, zFix, w);
+		    final var savedObj = obj.getSavedObject();
 		    AbstractDungeonObject test;
 		    if (obj.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
 			test = savedObj;
@@ -724,9 +708,9 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public void circularScanRange(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
 	    final int r, final int rangeType, final int forceUnits) {
-	int xFix = xIn;
-	int yFix = yIn;
-	int zFix = zIn;
+	var xFix = xIn;
+	var yFix = yIn;
+	var zFix = zIn;
 	if (dungeon.isVerticalWraparoundEnabled()) {
 	    xFix = this.normalizeColumn(xFix);
 	}
@@ -759,10 +743,10 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public boolean circularScanPlayer(final AbstractDungeon dungeon, final int x, final int y, final int z,
 	    final int r) {
-	final int[] tankLoc = DungeonDiver7.getStuffBag().getGameLogic().getPlayerLocation();
-	int fX = x;
-	int fY = y;
-	int fZ = z;
+	final var tankLoc = DungeonDiver7.getStuffBag().getGameLogic().getPlayerLocation();
+	var fX = x;
+	var fY = y;
+	var fZ = z;
 	if (dungeon.isVerticalWraparoundEnabled()) {
 	    fX = this.normalizeColumn(fX);
 	}
@@ -772,22 +756,21 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    fZ = this.normalizeFloor(fZ);
 	}
-	final int tx = tankLoc[0];
-	final int ty = tankLoc[1];
-	final int tz = tankLoc[2];
+	final var tx = tankLoc[0];
+	final var ty = tankLoc[1];
+	final var tz = tankLoc[2];
 	return fZ == tz && Math.abs(fX - tx) <= r && Math.abs(fY - ty) <= r;
     }
 
     @Override
     public void fullScanKillPlayers(final AbstractDungeon dungeon) {
 	// Perform the scan
-	for (int x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
-	    for (int y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
-		for (int z = 0; z < this.getFloors(); z++) {
-		    final AbstractDungeonObject obj = this.getCell(dungeon, y, x, z,
-			    DungeonConstants.LAYER_LOWER_OBJECTS);
+	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
+	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+		for (var z = 0; z < this.getFloors(); z++) {
+		    final var obj = this.getCell(dungeon, y, x, z, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    if (obj instanceof ArrowTurret) {
-			final DeadArrowTurret dat = new DeadArrowTurret();
+			final var dat = new DeadArrowTurret();
 			dat.setSavedObject(obj.getSavedObject());
 			dat.setDirection(obj.getDirection());
 			GameLogic.morph(dat, y, x, z, DungeonConstants.LAYER_LOWER_OBJECTS);
@@ -800,11 +783,10 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public void fullScanFreezeGround(final AbstractDungeon dungeon) {
 	// Perform the scan
-	for (int x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
-	    for (int y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
-		for (int z = 0; z < this.getFloors(); z++) {
-		    final AbstractDungeonObject obj = this.getCell(dungeon, y, x, z,
-			    DungeonConstants.LAYER_LOWER_GROUND);
+	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
+	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+		for (var z = 0; z < this.getFloors(); z++) {
+		    final var obj = this.getCell(dungeon, y, x, z, DungeonConstants.LAYER_LOWER_GROUND);
 		    if (!(obj instanceof Ground)) {
 			DungeonDiver7.getStuffBag().getGameLogic();
 			// Freeze the ground
@@ -819,34 +801,30 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public void fullScanAllButtonOpen(final AbstractDungeon dungeon, final int zIn, final AbstractButton source) {
 	// Perform the scan
-	int zFix = zIn;
+	var zFix = zIn;
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    zFix = this.normalizeFloor(zFix);
 	}
-	boolean flag = true;
-	for (int x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
+	var flag = true;
+	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
 	    if (!flag) {
 		break;
 	    }
-	    for (int y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
 		if (!flag) {
 		    break;
 		}
-		final AbstractDungeonObject obj = this.getCell(dungeon, y, x, zFix, source.getLayer());
-		if (obj instanceof AbstractButton) {
-		    final AbstractButton button = (AbstractButton) obj;
-		    if (source.boundButtonDoorEquals(button)) {
-			if (!button.isTriggered()) {
-			    flag = false;
-			}
-		    }
+		final var obj = this.getCell(dungeon, y, x, zFix, source.getLayer());
+		if (obj instanceof final AbstractButton button && source.boundButtonDoorEquals(button)
+			&& !button.isTriggered()) {
+		    flag = false;
 		}
 	    }
 	}
 	if (flag) {
 	    // Scan said OK to proceed
-	    final int dx = source.getDoorX();
-	    final int dy = source.getDoorY();
+	    final var dx = source.getDoorX();
+	    final var dy = source.getDoorY();
 	    if (!(this.getCell(dungeon, dx, dy, zFix, source.getLayer()) instanceof Ground)) {
 		this.setCell(dungeon, new Ground(), dx, dy, zFix, source.getLayer());
 		SoundLoader.playSound(SoundConstants.DOOR_OPENS);
@@ -857,34 +835,30 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public void fullScanAllButtonClose(final AbstractDungeon dungeon, final int zIn, final AbstractButton source) {
 	// Perform the scan
-	int zFix = zIn;
+	var zFix = zIn;
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    zFix = this.normalizeFloor(zFix);
 	}
-	boolean flag = !source.isTriggered();
-	for (int x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
+	var flag = !source.isTriggered();
+	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
 	    if (flag) {
 		break;
 	    }
-	    for (int y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
 		if (flag) {
 		    break;
 		}
-		final AbstractDungeonObject obj = this.getCell(dungeon, y, x, zFix, source.getLayer());
-		if (obj instanceof AbstractButton) {
-		    final AbstractButton button = (AbstractButton) obj;
-		    if (source.boundButtonDoorEquals(button)) {
-			if (!button.isTriggered()) {
-			    flag = true;
-			}
-		    }
+		final var obj = this.getCell(dungeon, y, x, zFix, source.getLayer());
+		if (obj instanceof final AbstractButton button && source.boundButtonDoorEquals(button)
+			&& !button.isTriggered()) {
+		    flag = true;
 		}
 	    }
 	}
 	if (flag) {
 	    // Scan said OK to proceed
-	    final int dx = source.getDoorX();
-	    final int dy = source.getDoorY();
+	    final var dx = source.getDoorX();
+	    final var dy = source.getDoorY();
 	    if (!this.getCell(dungeon, dx, dy, zFix, source.getLayer()).getClass()
 		    .equals(source.getButtonDoor().getClass())) {
 		this.setCell(dungeon, source.getButtonDoor(), dx, dy, zFix, source.getLayer());
@@ -897,31 +871,26 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     public void fullScanButtonBind(final AbstractDungeon dungeon, final int dx, final int dy, final int zIn,
 	    final AbstractButtonDoor source) {
 	// Perform the scan
-	int z = zIn;
+	var z = zIn;
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    z = this.normalizeFloor(z);
 	}
-	for (int x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
-	    for (int y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
-		final AbstractDungeonObject obj = this.getCell(dungeon, x, y, z, source.getLayer());
-		if (obj instanceof AbstractButton) {
-		    final AbstractButton button = (AbstractButton) obj;
-		    if (source.getClass().equals(button.getButtonDoor().getClass())) {
-			button.setDoorX(dx);
-			button.setDoorY(dy);
-			button.setTriggered(false);
-		    }
+	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
+	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+		final var obj = this.getCell(dungeon, x, y, z, source.getLayer());
+		if (obj instanceof final AbstractButton button
+			&& source.getClass().equals(button.getButtonDoor().getClass())) {
+		    button.setDoorX(dx);
+		    button.setDoorY(dy);
+		    button.setTriggered(false);
 		}
 	    }
 	}
-	for (int x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
-	    for (int y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
-		final AbstractDungeonObject obj = this.getCell(dungeon, x, y, z, source.getLayer());
-		if (obj instanceof AbstractButtonDoor) {
-		    final AbstractButtonDoor door = (AbstractButtonDoor) obj;
-		    if (source.getClass().equals(door.getClass())) {
-			this.setCell(dungeon, new Ground(), x, y, z, source.getLayer());
-		    }
+	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
+	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+		final var obj = this.getCell(dungeon, x, y, z, source.getLayer());
+		if (obj instanceof final AbstractButtonDoor door && source.getClass().equals(door.getClass())) {
+		    this.setCell(dungeon, new Ground(), x, y, z, source.getLayer());
 		}
 	    }
 	}
@@ -931,20 +900,18 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     public void fullScanButtonCleanup(final AbstractDungeon dungeon, final int px, final int py, final int zIn,
 	    final AbstractButton button) {
 	// Perform the scan
-	int zFix = zIn;
+	var zFix = zIn;
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    zFix = this.normalizeFloor(zFix);
 	}
-	for (int x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
-	    for (int y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
+	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
 		if (x == px && y == py) {
 		    continue;
 		}
-		final AbstractDungeonObject obj = this.getCell(dungeon, x, y, zFix, button.getLayer());
-		if (obj instanceof AbstractButton) {
-		    if (((AbstractButton) obj).boundButtonDoorEquals(button)) {
-			this.setCell(dungeon, new Ground(), x, y, zFix, button.getLayer());
-		    }
+		final var obj = this.getCell(dungeon, x, y, zFix, button.getLayer());
+		if (obj instanceof AbstractButton && ((AbstractButton) obj).boundButtonDoorEquals(button)) {
+		    this.setCell(dungeon, new Ground(), x, y, zFix, button.getLayer());
 		}
 	    }
 	}
@@ -954,19 +921,16 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     public void fullScanFindButtonLostDoor(final AbstractDungeon dungeon, final int zIn,
 	    final AbstractButtonDoor door) {
 	// Perform the scan
-	int zFix = zIn;
+	var zFix = zIn;
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    zFix = this.normalizeFloor(zFix);
 	}
-	for (int x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
-	    for (int y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
-		final AbstractDungeonObject obj = this.getCell(dungeon, x, y, zFix, door.getLayer());
-		if (obj instanceof AbstractButton) {
-		    final AbstractButton button = (AbstractButton) obj;
-		    if (button.boundToSameButtonDoor(door)) {
-			button.setTriggered(true);
-			return;
-		    }
+	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
+	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+		final var obj = this.getCell(dungeon, x, y, zFix, door.getLayer());
+		if (obj instanceof final AbstractButton button && button.boundToSameButtonDoor(door)) {
+		    button.setTriggered(true);
+		    return;
 		}
 	    }
 	}
@@ -975,9 +939,9 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public void setCell(final AbstractDungeon dungeon, final AbstractDungeonObject mo, final int row, final int col,
 	    final int floor, final int layer) {
-	int fR = row;
-	int fC = col;
-	int fF = floor;
+	var fR = row;
+	var fC = col;
+	var fF = floor;
 	if (dungeon.isVerticalWraparoundEnabled()) {
 	    fC = this.normalizeColumn(fC);
 	}
@@ -993,9 +957,9 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public void markAsDirty(final AbstractDungeon dungeon, final int row, final int col, final int floor) {
-	int fR = row;
-	int fC = col;
-	int fF = floor;
+	var fR = row;
+	var fC = col;
+	var fF = floor;
 	if (dungeon.isVerticalWraparoundEnabled()) {
 	    fC = this.normalizeColumn(fC);
 	}
@@ -1011,9 +975,9 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public void setVirtualCell(final AbstractDungeon dungeon, final AbstractDungeonObject mo, final int row,
 	    final int col, final int floor, final int layer) {
-	int fR = row;
-	int fC = col;
-	int fF = floor;
+	var fR = row;
+	var fC = col;
+	var fF = floor;
 	if (dungeon.isVerticalWraparoundEnabled()) {
 	    fC = this.normalizeColumn(fC);
 	}
@@ -1029,15 +993,15 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public void setAllDirtyFlags() {
-	for (int floor = 0; floor < this.getFloors(); floor++) {
+	for (var floor = 0; floor < this.getFloors(); floor++) {
 	    this.setDirtyFlags(floor);
 	}
     }
 
     @Override
     public void clearDirtyFlags(final int floor) {
-	for (int row = 0; row < this.getRows(); row++) {
-	    for (int col = 0; col < this.getColumns(); col++) {
+	for (var row = 0; row < this.getRows(); row++) {
+	    for (var col = 0; col < this.getColumns(); col++) {
 		this.dirtyData.setCell(false, col, row, floor);
 	    }
 	}
@@ -1045,8 +1009,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public void setDirtyFlags(final int floor) {
-	for (int row = 0; row < this.getRows(); row++) {
-	    for (int col = 0; col < this.getColumns(); col++) {
+	for (var row = 0; row < this.getRows(); row++) {
+	    for (var col = 0; col < this.getColumns(); col++) {
 		this.dirtyData.setCell(true, col, row, floor);
 	    }
 	}
@@ -1054,10 +1018,10 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public void clearVirtualGrid(final AbstractDungeon dungeon) {
-	for (int row = 0; row < this.getRows(); row++) {
-	    for (int col = 0; col < this.getColumns(); col++) {
-		for (int floor = 0; floor < this.getFloors(); floor++) {
-		    for (int layer = 0; layer < DungeonConstants.NUM_VIRTUAL_LAYERS; layer++) {
+	for (var row = 0; row < this.getRows(); row++) {
+	    for (var col = 0; col < this.getColumns(); col++) {
+		for (var floor = 0; floor < this.getFloors(); floor++) {
+		    for (var layer = 0; layer < DungeonConstants.NUM_VIRTUAL_LAYERS; layer++) {
 			this.setVirtualCell(dungeon, new Empty(), row, col, floor, layer);
 		    }
 		}
@@ -1067,8 +1031,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public void resetVisibleSquares(final int floor) {
-	for (int row = 0; row < this.getRows(); row++) {
-	    for (int col = 0; col < this.getColumns(); col++) {
+	for (var row = 0; row < this.getRows(); row++) {
+	    for (var col = 0; col < this.getColumns(); col++) {
 		this.visionData.setCell(false, row, col, floor);
 	    }
 	}
@@ -1077,8 +1041,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     @Override
     public void updateVisibleSquares(final AbstractDungeon dungeon, final int xp, final int yp, final int zp) {
 	if ((this.visionMode | VisionModes.EXPLORE) == this.visionMode) {
-	    for (int x = xp - this.visionModeExploreRadius; x <= xp + this.visionModeExploreRadius; x++) {
-		for (int y = yp - this.visionModeExploreRadius; y <= yp + this.visionModeExploreRadius; y++) {
+	    for (var x = xp - this.visionModeExploreRadius; x <= xp + this.visionModeExploreRadius; x++) {
+		for (var y = yp - this.visionModeExploreRadius; y <= yp + this.visionModeExploreRadius; y++) {
 		    int fx, fy;
 		    if (dungeon.isHorizontalWraparoundEnabled()) {
 			fx = this.normalizeColumn(x);
@@ -1090,7 +1054,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    } else {
 			fy = y;
 		    }
-		    boolean alreadyVisible = false;
+		    var alreadyVisible = false;
 		    try {
 			alreadyVisible = this.visionData.getCell(fx, fy);
 		    } catch (final ArrayIndexOutOfBoundsException aioobe) {
@@ -1123,20 +1087,11 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    final int y2, final int zp) {
 	if (this.visionMode == VisionModes.NONE) {
 	    return true;
-	} else {
-	    boolean result = false;
-	    if ((this.visionMode | VisionModes.EXPLORE) == this.visionMode) {
-		result = result || this.isSquareVisibleExplore(dungeon, x2, y2);
-		if (result && (this.visionMode | VisionModes.LOS) == this.visionMode) {
-		    if (this.areCoordsInBounds(dungeon, x1, y1, x2, y2)) {
-			// In bounds
-			result = result || this.isSquareVisibleLOS(dungeon, x1, y1, x2, y2, zp);
-		    } else {
-			// Out of bounds
-			result = result && this.isSquareVisibleLOS(dungeon, x1, y1, x2, y2, zp);
-		    }
-		}
-	    } else {
+	}
+	var result = false;
+	if ((this.visionMode | VisionModes.EXPLORE) == this.visionMode) {
+	    result = result || this.isSquareVisibleExplore(dungeon, x2, y2);
+	    if (result && (this.visionMode | VisionModes.LOS) == this.visionMode) {
 		if (this.areCoordsInBounds(dungeon, x1, y1, x2, y2)) {
 		    // In bounds
 		    result = result || this.isSquareVisibleLOS(dungeon, x1, y1, x2, y2, zp);
@@ -1145,8 +1100,14 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		    result = result && this.isSquareVisibleLOS(dungeon, x1, y1, x2, y2, zp);
 		}
 	    }
-	    return result;
+	} else if (this.areCoordsInBounds(dungeon, x1, y1, x2, y2)) {
+	    // In bounds
+	    result = result || this.isSquareVisibleLOS(dungeon, x1, y1, x2, y2, zp);
+	} else {
+	    // Out of bounds
+	    result = result && this.isSquareVisibleLOS(dungeon, x1, y1, x2, y2, zp);
 	}
+	return result;
     }
 
     private boolean areCoordsInBounds(final AbstractDungeon dungeon, final int x1, final int y1, final int x2,
@@ -1196,8 +1157,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	fx2 = x2;
 	fy1 = y1;
 	fy2 = y2;
-	final int dx = Math.abs(fx2 - fx1);
-	final int dy = Math.abs(fy2 - fy1);
+	final var dx = Math.abs(fx2 - fx1);
+	final var dy = Math.abs(fy2 - fy1);
 	int sx, sy;
 	if (fx1 < fx2) {
 	    sx = 1;
@@ -1209,7 +1170,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	} else {
 	    sy = -1;
 	}
-	int err = dx - dy;
+	var err = dx - dy;
 	int e2;
 	do {
 	    if (fx1 == fx2 && fy1 == fy2) {
@@ -1217,13 +1178,10 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    }
 	    // Does object block LOS?
 	    try {
-		final AbstractDungeonObject obj = this.getCell(dungeon, fx1, fy1, zp,
-			DungeonConstants.LAYER_LOWER_OBJECTS);
-		if (obj.isSightBlocking()) {
-		    // This object blocks LOS
-		    if (fx1 != x1 || fy1 != y1) {
-			return false;
-		    }
+		final var obj = this.getCell(dungeon, fx1, fy1, zp, DungeonConstants.LAYER_LOWER_OBJECTS);
+		// This object blocks LOS
+		if (obj.isSightBlocking() && (fx1 != x1 || fy1 != y1)) {
+		    return false;
 		}
 	    } catch (final ArrayIndexOutOfBoundsException aioobe) {
 		// Void blocks LOS
@@ -1306,14 +1264,14 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public void resize(final AbstractDungeon dungeon, final int zIn, final AbstractDungeonObject nullFill) {
-	final int x = AbstractDungeonData.MIN_ROWS;
-	final int y = AbstractDungeonData.MIN_COLUMNS;
-	int z = zIn;
+	final var x = AbstractDungeonData.MIN_ROWS;
+	final var y = AbstractDungeonData.MIN_COLUMNS;
+	var z = zIn;
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    z = this.normalizeFloor(z);
 	}
 	// Allocate temporary storage array
-	final DungeonDataStorage tempStorage = new DungeonDataStorage(y, x, z, DungeonConstants.NUM_LAYERS);
+	final var tempStorage = new DungeonDataStorage(y, x, z, DungeonConstants.NUM_LAYERS);
 	// Copy existing maze into temporary array
 	int u, v, w, t;
 	for (u = 0; u < y; u++) {
@@ -1341,10 +1299,10 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public void resizeSavedState(final int z, final AbstractDungeonObject nullFill) {
-	final int x = AbstractDungeonData.MIN_ROWS;
-	final int y = AbstractDungeonData.MIN_COLUMNS;
+	final var x = AbstractDungeonData.MIN_ROWS;
+	final var y = AbstractDungeonData.MIN_COLUMNS;
 	// Allocate temporary storage array
-	final DungeonDataStorage tempStorage = new DungeonDataStorage(y, x, z, DungeonConstants.NUM_LAYERS);
+	final var tempStorage = new DungeonDataStorage(y, x, z, DungeonConstants.NUM_LAYERS);
 	// Copy existing maze into temporary array
 	int u, v, w, t;
 	for (u = 0; u < y; u++) {
@@ -1377,12 +1335,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 			if (this.getCell(dungeon, y, x, z, w) == null) {
 			    if (w == DungeonConstants.LAYER_LOWER_GROUND) {
 				this.setCell(dungeon, fill1, y, x, z, w);
-			    } else if (w == DungeonConstants.LAYER_LOWER_OBJECTS && was16) {
-				if (x >= 16 || y >= 16) {
-				    this.setCell(dungeon, fill2, y, x, z, w);
-				} else {
-				    this.setCell(dungeon, new Empty(), y, x, z, w);
-				}
+			    } else if (w == DungeonConstants.LAYER_LOWER_OBJECTS && was16 && (x >= 16 || y >= 16)) {
+				this.setCell(dungeon, fill2, y, x, z, w);
 			    } else {
 				this.setCell(dungeon, new Empty(), y, x, z, w);
 			    }
@@ -1421,8 +1375,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			final AbstractDungeonObject mo = this.getCell(dungeon, y, x, 0,
-				DungeonConstants.LAYER_LOWER_OBJECTS);
+			final var mo = this.getCell(dungeon, y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 			if (mo != null) {
 			    mo.tickTimer(y, x, 0);
 			}
@@ -1453,26 +1406,24 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     public AbstractDungeonData readData(final AbstractDungeon dungeon, final FileIOReader reader,
 	    final int formatVersion) throws IOException {
 	if (FileFormats.isFormatVersionValidGeneration1(formatVersion)) {
-	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG1(dungeon, reader, formatVersion);
-	    return tempData;
-	} else if (FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
-	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG2(dungeon, reader, formatVersion);
-	    return tempData;
-	} else if (FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
-	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG3(dungeon, reader, formatVersion);
-	    return tempData;
-	} else if (FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
-	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG4(dungeon, reader, formatVersion);
-	    return tempData;
-	} else if (FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
-	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG5(dungeon, reader, formatVersion);
-	    return tempData;
-	} else if (FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
-	    final CurrentDungeonData tempData = CurrentDungeonData.readDataG6(dungeon, reader, formatVersion);
-	    return tempData;
-	} else {
-	    throw new IOException(Strings.error(ErrorString.UNKNOWN_FILE_FORMAT));
+	    return CurrentDungeonData.readDataG1(dungeon, reader, formatVersion);
 	}
+	if (FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
+	    return CurrentDungeonData.readDataG2(dungeon, reader, formatVersion);
+	}
+	if (FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
+	    return CurrentDungeonData.readDataG3(dungeon, reader, formatVersion);
+	}
+	if (FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
+	    return CurrentDungeonData.readDataG4(dungeon, reader, formatVersion);
+	}
+	if (FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
+	    return CurrentDungeonData.readDataG5(dungeon, reader, formatVersion);
+	}
+	if (FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
+	    return CurrentDungeonData.readDataG6(dungeon, reader, formatVersion);
+	}
+	throw new IOException(Strings.error(ErrorString.UNKNOWN_FILE_FORMAT));
     }
 
     private static CurrentDungeonData readDataG1(final AbstractDungeon dungeon, final FileIOReader reader,
@@ -1481,11 +1432,11 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeonSizeX = reader.readInt();
 	dungeonSizeY = reader.readInt();
 	dungeonSizeZ = reader.readInt();
-	final CurrentDungeonData lt = new CurrentDungeonData();
+	final var lt = new CurrentDungeonData();
 	for (x = 0; x < dungeonSizeX; x++) {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
-		    final AbstractDungeonObject obj = DungeonDiver7.getStuffBag().getObjects().readV2(reader, ver);
+		    final var obj = DungeonDiver7.getStuffBag().getObjects().readV2(reader, ver);
 		    lt.setCell(dungeon, obj, y, x, z, obj.getLayer());
 		}
 	    }
@@ -1493,13 +1444,13 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeon.setStartColumn(0, reader.readInt());
 	dungeon.setStartRow(0, reader.readInt());
 	dungeon.setStartFloor(0, reader.readInt());
-	final boolean horzWrap = reader.readBoolean();
+	final var horzWrap = reader.readBoolean();
 	if (horzWrap) {
 	    dungeon.enableHorizontalWraparound();
 	} else {
 	    dungeon.disableHorizontalWraparound();
 	}
-	final boolean vertWrap = reader.readBoolean();
+	final var vertWrap = reader.readBoolean();
 	if (vertWrap) {
 	    dungeon.enableVerticalWraparound();
 	} else {
@@ -1523,12 +1474,12 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeonSizeX = reader.readInt();
 	dungeonSizeY = reader.readInt();
 	dungeonSizeZ = reader.readInt();
-	final CurrentDungeonData lt = new CurrentDungeonData();
+	final var lt = new CurrentDungeonData();
 	lt.resize(dungeon, dungeonSizeZ, new Ground());
 	for (x = 0; x < dungeonSizeX; x++) {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
-		    final AbstractDungeonObject obj = DungeonDiver7.getStuffBag().getObjects().readV2(reader, ver);
+		    final var obj = DungeonDiver7.getStuffBag().getObjects().readV2(reader, ver);
 		    lt.setCell(dungeon, obj, y, x, z, obj.getLayer());
 		}
 	    }
@@ -1536,19 +1487,19 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeon.setStartColumn(0, reader.readInt());
 	dungeon.setStartRow(0, reader.readInt());
 	dungeon.setStartFloor(0, reader.readInt());
-	final boolean horzWrap = reader.readBoolean();
+	final var horzWrap = reader.readBoolean();
 	if (horzWrap) {
 	    dungeon.enableHorizontalWraparound();
 	} else {
 	    dungeon.disableHorizontalWraparound();
 	}
-	final boolean vertWrap = reader.readBoolean();
+	final var vertWrap = reader.readBoolean();
 	if (vertWrap) {
 	    dungeon.enableVerticalWraparound();
 	} else {
 	    dungeon.disableVerticalWraparound();
 	}
-	final boolean thirdWrap = reader.readBoolean();
+	final var thirdWrap = reader.readBoolean();
 	if (thirdWrap) {
 	    dungeon.enableThirdDimensionWraparound();
 	} else {
@@ -1571,12 +1522,12 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeonSizeX = reader.readInt();
 	dungeonSizeY = reader.readInt();
 	dungeonSizeZ = reader.readInt();
-	final CurrentDungeonData lt = new CurrentDungeonData();
+	final var lt = new CurrentDungeonData();
 	lt.resize(dungeon, dungeonSizeZ, new Ground());
 	for (x = 0; x < dungeonSizeX; x++) {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
-		    final AbstractDungeonObject obj = DungeonDiver7.getStuffBag().getObjects().readV3(reader, ver);
+		    final var obj = DungeonDiver7.getStuffBag().getObjects().readV3(reader, ver);
 		    lt.setCell(dungeon, obj, y, x, z, obj.getLayer());
 		}
 	    }
@@ -1584,19 +1535,19 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeon.setStartColumn(0, reader.readInt());
 	dungeon.setStartRow(0, reader.readInt());
 	dungeon.setStartFloor(0, reader.readInt());
-	final boolean horzWrap = reader.readBoolean();
+	final var horzWrap = reader.readBoolean();
 	if (horzWrap) {
 	    dungeon.enableHorizontalWraparound();
 	} else {
 	    dungeon.disableHorizontalWraparound();
 	}
-	final boolean vertWrap = reader.readBoolean();
+	final var vertWrap = reader.readBoolean();
 	if (vertWrap) {
 	    dungeon.enableVerticalWraparound();
 	} else {
 	    dungeon.disableVerticalWraparound();
 	}
-	final boolean thirdWrap = reader.readBoolean();
+	final var thirdWrap = reader.readBoolean();
 	if (thirdWrap) {
 	    dungeon.enableThirdDimensionWraparound();
 	} else {
@@ -1619,12 +1570,12 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeonSizeX = reader.readInt();
 	dungeonSizeY = reader.readInt();
 	dungeonSizeZ = reader.readInt();
-	final CurrentDungeonData lt = new CurrentDungeonData();
+	final var lt = new CurrentDungeonData();
 	lt.resize(dungeon, dungeonSizeZ, new Ground());
 	for (x = 0; x < dungeonSizeX; x++) {
 	    for (y = 0; y < dungeonSizeY; y++) {
 		for (z = 0; z < dungeonSizeZ; z++) {
-		    final AbstractDungeonObject obj = DungeonDiver7.getStuffBag().getObjects().readV4(reader, ver);
+		    final var obj = DungeonDiver7.getStuffBag().getObjects().readV4(reader, ver);
 		    lt.setCell(dungeon, obj, y, x, z, obj.getLayer());
 		}
 	    }
@@ -1632,19 +1583,19 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeon.setStartColumn(0, reader.readInt());
 	dungeon.setStartRow(0, reader.readInt());
 	dungeon.setStartFloor(0, reader.readInt());
-	final boolean horzWrap = reader.readBoolean();
+	final var horzWrap = reader.readBoolean();
 	if (horzWrap) {
 	    dungeon.enableHorizontalWraparound();
 	} else {
 	    dungeon.disableHorizontalWraparound();
 	}
-	final boolean vertWrap = reader.readBoolean();
+	final var vertWrap = reader.readBoolean();
 	if (vertWrap) {
 	    dungeon.enableVerticalWraparound();
 	} else {
 	    dungeon.disableVerticalWraparound();
 	}
-	final boolean thirdWrap = reader.readBoolean();
+	final var thirdWrap = reader.readBoolean();
 	if (thirdWrap) {
 	    dungeon.enableThirdDimensionWraparound();
 	} else {
@@ -1667,7 +1618,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeonSizeX = reader.readInt();
 	dungeonSizeY = reader.readInt();
 	dungeonSizeZ = reader.readInt();
-	final CurrentDungeonData lt = new CurrentDungeonData();
+	final var lt = new CurrentDungeonData();
 	lt.resize(dungeon, dungeonSizeZ, new Ground());
 	for (x = 0; x < dungeonSizeX; x++) {
 	    for (y = 0; y < dungeonSizeY; y++) {
@@ -1681,19 +1632,19 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeon.setStartColumn(0, reader.readInt());
 	dungeon.setStartRow(0, reader.readInt());
 	dungeon.setStartFloor(0, reader.readInt());
-	final boolean horzWrap = reader.readBoolean();
+	final var horzWrap = reader.readBoolean();
 	if (horzWrap) {
 	    dungeon.enableHorizontalWraparound();
 	} else {
 	    dungeon.disableHorizontalWraparound();
 	}
-	final boolean vertWrap = reader.readBoolean();
+	final var vertWrap = reader.readBoolean();
 	if (vertWrap) {
 	    dungeon.enableVerticalWraparound();
 	} else {
 	    dungeon.disableVerticalWraparound();
 	}
-	final boolean thirdWrap = reader.readBoolean();
+	final var thirdWrap = reader.readBoolean();
 	if (thirdWrap) {
 	    dungeon.enableThirdDimensionWraparound();
 	} else {
@@ -1716,7 +1667,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	dungeonSizeX = reader.readInt();
 	dungeonSizeY = reader.readInt();
 	dungeonSizeZ = reader.readInt();
-	final CurrentDungeonData lt = new CurrentDungeonData();
+	final var lt = new CurrentDungeonData();
 	lt.resize(dungeon, dungeonSizeZ, new Ground());
 	for (x = 0; x < dungeonSizeX; x++) {
 	    for (y = 0; y < dungeonSizeY; y++) {
@@ -1752,9 +1703,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public void readSavedState(final FileIOReader reader, final int formatVersion) throws IOException {
-	if (FileFormats.isFormatVersionValidGeneration1(formatVersion)) {
-	    this.readSavedStateG2(reader, formatVersion);
-	} else if (FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
+	if (FileFormats.isFormatVersionValidGeneration1(formatVersion)
+		|| FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
 	    this.readSavedStateG2(reader, formatVersion);
 	} else if (FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
 	    this.readSavedStateG3(reader, formatVersion);
@@ -1949,7 +1899,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	// Public methods
 	public void undo() {
 	    if (!this.undoHistory.isEmpty()) {
-		final HistoryEntry entry = this.undoHistory.pop();
+		final var entry = this.undoHistory.pop();
 		this.image = entry.getImage();
 		this.whatWas = entry.getWhatWas();
 	    } else {
@@ -1960,7 +1910,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
 	public void redo() {
 	    if (!this.redoHistory.isEmpty()) {
-		final HistoryEntry entry = this.redoHistory.pop();
+		final var entry = this.redoHistory.pop();
 		this.image = entry.getImage();
 		this.whatWas = entry.getWhatWas();
 	    } else {
@@ -2034,7 +1984,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    }
 
 	    public void push(final DungeonDataStorage i, final HistoryStatus hww) {
-		final HistoryEntry newEntry = new HistoryEntry(i, hww);
+		final var newEntry = new HistoryEntry(i, hww);
 		this.stack.addFirst(newEntry);
 	    }
 

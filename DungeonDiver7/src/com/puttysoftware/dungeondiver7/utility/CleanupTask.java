@@ -17,7 +17,7 @@ public class CleanupTask {
 
     public static void cleanUp() {
 	try {
-	    final File dirToDelete = new File(AbstractDungeon.getDungeonTempFolder());
+	    final var dirToDelete = new File(AbstractDungeon.getDungeonTempFolder());
 	    DirectoryUtilities.removeDirectory(dirToDelete);
 	} catch (final Throwable t) {
 	    // Ignore

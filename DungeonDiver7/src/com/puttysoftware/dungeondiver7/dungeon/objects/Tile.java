@@ -11,7 +11,6 @@ import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 public class Tile extends AbstractGround {
     // Constructors
     public Tile() {
-	super();
     }
 
     @Override

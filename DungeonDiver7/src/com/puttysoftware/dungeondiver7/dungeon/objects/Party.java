@@ -8,7 +8,6 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
-import com.puttysoftware.dungeondiver7.editor.DungeonEditor;
 
 public class Party extends AbstractCharacter {
     // Constructors
@@ -24,7 +23,7 @@ public class Party extends AbstractCharacter {
 
     @Override
     public void editorPlaceHook(final int x, final int y, final int z) {
-	final DungeonEditor me = DungeonDiver7.getStuffBag().getEditor();
+	final var me = DungeonDiver7.getStuffBag().getEditor();
 	me.setPlayerLocation();
     }
 

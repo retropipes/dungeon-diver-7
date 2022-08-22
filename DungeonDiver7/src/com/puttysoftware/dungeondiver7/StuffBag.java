@@ -38,7 +38,7 @@ public final class StuffBag {
     private GUIManager guiMgr;
     private int mode, formerMode;
     private final DungeonObjects objects;
-    private Shop weapons, armor, healer, regenerator, spells;
+    private final Shop weapons, armor, healer, regenerator, spells;
     private MapBattleLogic battle;
     private static final int VERSION_MAJOR = 17;
     private static final int VERSION_MINOR = 0;
@@ -121,12 +121,18 @@ public final class StuffBag {
     }
 
     void exitCurrentMode() {
-	if (this.mode == StuffBag.STATUS_GUI) {
+	switch (this.mode) {
+	case StuffBag.STATUS_GUI:
 	    this.getGUIManager().hideGUI();
-	} else if (this.mode == StuffBag.STATUS_GAME) {
+	    break;
+	case StuffBag.STATUS_GAME:
 	    this.getGameLogic().exitGame();
-	} else if (this.mode == StuffBag.STATUS_EDITOR) {
+	    break;
+	case StuffBag.STATUS_EDITOR:
 	    this.getEditor().exitEditor();
+	    break;
+	default:
+	    break;
 	}
     }
 
@@ -206,37 +212,38 @@ public final class StuffBag {
 	if (StuffBag.isBetaModeEnabled()) {
 	    return Strings.VERSION + StuffBag.VERSION_MAJOR + Strings.VERSION_DELIM + StuffBag.VERSION_MINOR
 		    + Strings.VERSION_DELIM + StuffBag.VERSION_BUGFIX + Strings.BETA + StuffBag.VERSION_BETA;
-	} else {
-	    return Strings.VERSION + StuffBag.VERSION_MAJOR + Strings.VERSION_DELIM + StuffBag.VERSION_MINOR
-		    + Strings.VERSION_DELIM + StuffBag.VERSION_BUGFIX;
 	}
+	return Strings.VERSION + StuffBag.VERSION_MAJOR + Strings.VERSION_DELIM + StuffBag.VERSION_MINOR
+		+ Strings.VERSION_DELIM + StuffBag.VERSION_BUGFIX;
     }
 
     public static String getLogoVersionString() {
 	if (StuffBag.isBetaModeEnabled()) {
 	    return Strings.VERSION + StuffBag.VERSION_MAJOR + Strings.VERSION_DELIM + StuffBag.VERSION_MINOR
 		    + Strings.VERSION_DELIM + StuffBag.VERSION_BUGFIX + Strings.BETA + StuffBag.VERSION_BETA;
-	} else {
-	    return Strings.VERSION + StuffBag.VERSION_MAJOR + Strings.VERSION_DELIM + StuffBag.VERSION_MINOR
-		    + Strings.VERSION_DELIM + StuffBag.VERSION_BUGFIX;
 	}
+	return Strings.VERSION + StuffBag.VERSION_MAJOR + Strings.VERSION_DELIM + StuffBag.VERSION_MINOR
+		+ Strings.VERSION_DELIM + StuffBag.VERSION_BUGFIX;
     }
 
     public JFrame getOutputFrame() {
 	try {
 	    if (this.getMode() == StuffBag.STATUS_PREFS) {
 		return PrefsManager.getPrefFrame();
-	    } else if (this.getMode() == StuffBag.STATUS_GUI) {
-		return this.getGUIManager().getGUIFrame();
-	    } else if (this.getMode() == StuffBag.STATUS_GAME) {
-		return this.getGameLogic().getOutputFrame();
-	    } else if (this.getMode() == StuffBag.STATUS_EDITOR) {
-		return this.getEditor().getOutputFrame();
-	    } else if (this.getMode() == StuffBag.STATUS_BATTLE) {
-		return this.getBattle().getOutputFrame();
-	    } else {
-		return null;
 	    }
+	    if (this.getMode() == StuffBag.STATUS_GUI) {
+		return this.getGUIManager().getGUIFrame();
+	    }
+	    if (this.getMode() == StuffBag.STATUS_GAME) {
+		return this.getGameLogic().getOutputFrame();
+	    }
+	    if (this.getMode() == StuffBag.STATUS_EDITOR) {
+		return this.getEditor().getOutputFrame();
+	    }
+	    if (this.getMode() == StuffBag.STATUS_BATTLE) {
+		return this.getBattle().getOutputFrame();
+	    }
+	    return null;
 	} catch (final NullPointerException npe) {
 	    return null;
 	}

@@ -15,7 +15,6 @@ import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 public class RedKey extends AbstractKey {
     // Constructors
     public RedKey() {
-	super();
     }
 
     // Scriptability

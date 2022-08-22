@@ -19,7 +19,6 @@ import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 public class WoodenWall extends AbstractWall {
     // Constructors
     public WoodenWall() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.setMaterial(Materials.WOODEN);
     }
@@ -27,27 +26,29 @@ public class WoodenWall extends AbstractWall {
     @Override
     public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	if (laserType == ShotTypes.DISRUPTOR) {
+	switch (laserType) {
+	case ShotTypes.DISRUPTOR:
 	    // Disrupt wooden wall
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedWoodenWall(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ShotTypes.MISSILE) {
+	case ShotTypes.MISSILE:
 	    // Destroy wooden wall
 	    SoundLoader.playSound(SoundConstants.BOOM);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ShotTypes.STUNNER) {
+	case ShotTypes.STUNNER: {
 	    // Freeze wooden wall
 	    SoundLoader.playSound(SoundConstants.FROZEN);
-	    final IcyWall iw = new IcyWall();
+	    final var iw = new IcyWall();
 	    iw.setPreviousState(this);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(iw, locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else {
+	}
+	default:
 	    // Stop laser
 	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
@@ -64,7 +65,7 @@ public class WoodenWall extends AbstractWall {
 	case Materials.FIRE:
 	    return new Ground();
 	case Materials.ICE:
-	    final IcyWall iw = new IcyWall();
+	    final var iw = new IcyWall();
 	    iw.setPreviousState(this);
 	    return iw;
 	default:

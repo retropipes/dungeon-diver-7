@@ -20,15 +20,17 @@ class CasteLoader {
     static Caste loadCaste(final String name) {
 	if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_ANNIHILATOR])) {
 	    return new Annihilator();
-	} else if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_BUFFER])) {
-	    return new Buffer();
-	} else if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_CURER])) {
-	    return new Curer();
-	} else if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_DEBUFFER])) {
-	    return new Debuffer();
-	} else {
-	    // Invalid caste name
-	    return null;
 	}
+	if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_BUFFER])) {
+	    return new Buffer();
+	}
+	if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_CURER])) {
+	    return new Curer();
+	}
+	if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_DEBUFFER])) {
+	    return new Debuffer();
+	}
+	// Invalid caste name
+	return null;
     }
 }

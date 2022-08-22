@@ -27,14 +27,13 @@ public class MetallicMirror extends AbstractMovableObject {
     @Override
     public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	final Directions dir = DirectionResolver.resolveInvert(dirX, dirY);
+	final var dir = DirectionResolver.resolveInvert(dirX, dirY);
 	if (AbstractDungeonObject.hitReflectiveSide(dir)) {
 	    // Reflect laser
 	    return this.getDirection();
-	} else {
-	    // Move mirror
-	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
+	// Move mirror
+	return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
     }
 
     @Override
@@ -42,30 +41,34 @@ public class MetallicMirror extends AbstractMovableObject {
 	    final int laserType) {
 	// Finish reflecting laser
 	SoundLoader.playSound(SoundConstants.REFLECT);
-	final Directions oldlaser = DirectionResolver.resolveInvert(locX, locY);
-	final Directions currdir = this.getDirection();
+	final var oldlaser = DirectionResolver.resolveInvert(locX, locY);
+	final var currdir = this.getDirection();
 	if (oldlaser == Directions.NORTH) {
 	    if (currdir == Directions.NORTHWEST) {
 		return Directions.WEST;
-	    } else if (currdir == Directions.NORTHEAST) {
+	    }
+	    if (currdir == Directions.NORTHEAST) {
 		return Directions.EAST;
 	    }
 	} else if (oldlaser == Directions.SOUTH) {
 	    if (currdir == Directions.SOUTHWEST) {
 		return Directions.WEST;
-	    } else if (currdir == Directions.SOUTHEAST) {
+	    }
+	    if (currdir == Directions.SOUTHEAST) {
 		return Directions.EAST;
 	    }
 	} else if (oldlaser == Directions.WEST) {
 	    if (currdir == Directions.SOUTHWEST) {
 		return Directions.SOUTH;
-	    } else if (currdir == Directions.NORTHWEST) {
+	    }
+	    if (currdir == Directions.NORTHWEST) {
 		return Directions.NORTH;
 	    }
 	} else if (oldlaser == Directions.EAST) {
 	    if (currdir == Directions.SOUTHEAST) {
 		return Directions.SOUTH;
-	    } else if (currdir == Directions.NORTHEAST) {
+	    }
+	    if (currdir == Directions.NORTHEAST) {
 		return Directions.NORTH;
 	    }
 	}

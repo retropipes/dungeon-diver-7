@@ -5,7 +5,6 @@
  */
 package com.puttysoftware.dungeondiver7.editor;
 
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -80,40 +79,36 @@ public abstract class GenericObjectEditor extends GenericEditor {
 	this.nameLabels = new JLabel[this.abCols];
 	this.entryFields = new JTextField[this.abCols];
 	this.entryLists = new ArrayList<>(this.abCols);
-	for (int x = 0; x < this.abCols; x++) {
+	for (var x = 0; x < this.abCols; x++) {
 	    this.entryLists.add(x, new JComboBox<>(new String[] {}));
 	}
 	this.actionButtons = new JButton[this.abRows - 2][this.abCols];
 	// Grid rows
-	for (int x = 0; x < this.abCols; x++) {
+	for (var x = 0; x < this.abCols; x++) {
 	    // Create controls
 	    this.nameLabels[x] = new JLabel();
 	    this.guiNameLabelProperties(this.nameLabels[x], x);
-	    final boolean entryType = this.guiEntryType(x);
+	    final var entryType = this.guiEntryType(x);
 	    if (entryType == GenericObjectEditor.ENTRY_TYPE_LIST) {
 		this.entryLists.set(x, new JComboBox<>(this.guiEntryListItems(x)));
 		this.guiEntryListProperties(this.entryLists.get(x), x);
 		if (this.isReadOnly()) {
 		    this.entryLists.get(x).setEnabled(false);
-		} else {
-		    if (this.autoStore) {
-			this.entryLists.get(x).setName(Integer.toString(x));
-			this.entryLists.get(x).addFocusListener(this.handler);
-		    }
+		} else if (this.autoStore) {
+		    this.entryLists.get(x).setName(Integer.toString(x));
+		    this.entryLists.get(x).addFocusListener(this.handler);
 		}
 	    } else if (entryType == GenericObjectEditor.ENTRY_TYPE_TEXT) {
 		this.entryFields[x] = new JTextField();
 		this.guiEntryFieldProperties(this.entryFields[x], x);
 		if (this.isReadOnly()) {
 		    this.entryFields[x].setEnabled(false);
-		} else {
-		    if (this.autoStore) {
-			this.entryFields[x].setName(Integer.toString(x));
-			this.entryFields[x].addFocusListener(this.handler);
-		    }
+		} else if (this.autoStore) {
+		    this.entryFields[x].setName(Integer.toString(x));
+		    this.entryFields[x].addFocusListener(this.handler);
 		}
 	    }
-	    for (int y = 0; y < this.abRows - 2; y++) {
+	    for (var y = 0; y < this.abRows - 2; y++) {
 		this.actionButtons[y][x] = new JButton();
 		this.guiActionButtonProperties(this.actionButtons[y][x], x, y);
 		this.actionButtons[y][x].setActionCommand(this.guiActionButtonActionCommand(x, y));
@@ -130,7 +125,7 @@ public abstract class GenericObjectEditor extends GenericEditor {
 	    } else if (entryType == GenericObjectEditor.ENTRY_TYPE_TEXT) {
 		outputPane.add(this.entryFields[x]);
 	    }
-	    for (int y = 0; y < this.abRows - 2; y++) {
+	    for (var y = 0; y < this.abRows - 2; y++) {
 		outputPane.add(this.actionButtons[y][x]);
 	    }
 	}
@@ -173,17 +168,17 @@ public abstract class GenericObjectEditor extends GenericEditor {
 
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-	    final GenericObjectEditor ge = GenericObjectEditor.this;
+	    final var ge = GenericObjectEditor.this;
 	    try {
-		final String cmd = e.getActionCommand().substring(0, ge.actionCmdLen);
-		final int num = Integer.parseInt(e.getActionCommand().substring(ge.actionCmdLen));
+		final var cmd = e.getActionCommand().substring(0, ge.actionCmdLen);
+		final var num = Integer.parseInt(e.getActionCommand().substring(ge.actionCmdLen));
 		ge.handleButtonClick(cmd, num);
 		if (ge.autoStore) {
 		    if (ge.guiEntryType(num) == GenericObjectEditor.ENTRY_TYPE_LIST) {
-			final JComboBox<String> list = ge.getEntryList(num);
+			final var list = ge.getEntryList(num);
 			ge.autoStoreEntryListValue(list, num);
 		    } else if (ge.guiEntryType(num) == GenericObjectEditor.ENTRY_TYPE_TEXT) {
-			final JTextField entry = ge.getEntryField(num);
+			final var entry = ge.getEntryField(num);
 			ge.autoStoreEntryFieldValue(entry, num);
 		    }
 		}
@@ -201,17 +196,17 @@ public abstract class GenericObjectEditor extends GenericEditor {
 
 	@Override
 	public void focusLost(final FocusEvent fe) {
-	    final GenericObjectEditor ge = GenericObjectEditor.this;
+	    final var ge = GenericObjectEditor.this;
 	    try {
-		final Component comp = fe.getComponent();
+		final var comp = fe.getComponent();
 		if (comp.getClass().equals(JTextField.class)) {
-		    final JTextField entry = (JTextField) comp;
-		    final int num = Integer.parseInt(entry.getName());
+		    final var entry = (JTextField) comp;
+		    final var num = Integer.parseInt(entry.getName());
 		    ge.autoStoreEntryFieldValue(entry, num);
 		} else if (comp.getClass().equals(JComboBox.class)) {
 		    @SuppressWarnings("unchecked")
-		    final JComboBox<String> list = (JComboBox<String>) comp;
-		    final int num = Integer.parseInt(list.getName());
+		    final var list = (JComboBox<String>) comp;
+		    final var num = Integer.parseInt(list.getName());
 		    ge.autoStoreEntryListValue(list, num);
 		}
 	    } catch (final NumberFormatException nfe) {

@@ -31,7 +31,7 @@ class ReplayFileLoader {
 	    ReplayFileLoader.author = new byte[ReplayFileLoader.AUTHOR_SIZE];
 	    ReplayFileLoader.lnum = new byte[ReplayFileLoader.LNUM_SIZE];
 	    ReplayFileLoader.rawsize = new byte[ReplayFileLoader.RAWSIZE_SIZE];
-	    int bytesread = file.read(ReplayFileLoader.lname, 0, ReplayFileLoader.LNAME_SIZE);
+	    var bytesread = file.read(ReplayFileLoader.lname, 0, ReplayFileLoader.LNAME_SIZE);
 	    if (bytesread != ReplayFileLoader.LNAME_SIZE) {
 		return false;
 	    }

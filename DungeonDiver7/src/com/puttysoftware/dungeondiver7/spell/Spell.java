@@ -5,6 +5,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.spell;
 
+import java.util.Objects;
+
 import com.puttysoftware.dungeondiver7.battle.BattleTarget;
 import com.puttysoftware.dungeondiver7.effect.Effect;
 
@@ -17,7 +19,6 @@ public class Spell {
 
     // Constructors
     public Spell() {
-	super();
 	this.effect = null;
 	this.cost = 0;
 	this.target = null;
@@ -25,7 +26,6 @@ public class Spell {
     }
 
     public Spell(final Effect newEffect, final int newCost, final BattleTarget newTarget, final int sfx) {
-	super();
 	this.effect = newEffect;
 	this.cost = newCost;
 	this.target = newTarget;
@@ -50,12 +50,7 @@ public class Spell {
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + this.cost;
-	result = prime * result + (this.effect == null ? 0 : this.effect.hashCode());
-	result = prime * result + this.soundEffect;
-	return prime * result + (this.target == null ? 0 : this.target.hashCode());
+	return Objects.hash(this.cost, this.effect, this.soundEffect, this.target);
     }
 
     @Override
@@ -63,27 +58,11 @@ public class Spell {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null) {
+	if (obj == null || !(obj instanceof final Spell other) || this.cost != other.cost
+		|| !Objects.equals(this.effect, other.effect)) {
 	    return false;
 	}
-	if (!(obj instanceof Spell)) {
-	    return false;
-	}
-	final Spell other = (Spell) obj;
-	if (this.cost != other.cost) {
-	    return false;
-	}
-	if (this.effect == null) {
-	    if (other.effect != null) {
-		return false;
-	    }
-	} else if (!this.effect.equals(other.effect)) {
-	    return false;
-	}
-	if (this.soundEffect != other.soundEffect) {
-	    return false;
-	}
-	if (this.target != other.target) {
+	if (this.soundEffect != other.soundEffect || this.target != other.target) {
 	    return false;
 	}
 	return true;

@@ -37,14 +37,13 @@ class ScoreTracker {
     boolean checkScore() {
 	if (this.trackScores) {
 	    return this.ssMgr.checkScore(new long[] { this.moves, this.shots, this.others });
-	} else {
-	    return false;
 	}
+	return false;
     }
 
     void commitScore() {
 	if (this.trackScores) {
-	    final boolean result = this.ssMgr.addScore(new long[] { this.moves, this.shots, this.others });
+	    final var result = this.ssMgr.addScore(new long[] { this.moves, this.shots, this.others });
 	    if (result) {
 		this.ssMgr.viewTable();
 	    }
@@ -100,16 +99,16 @@ class ScoreTracker {
 	}
 	if (this.trackScores) {
 	    // Make sure the needed directories exist first
-	    final File sf = ScoreTracker.getScoresFile(filename);
-	    final File parent = new File(sf.getParent());
+	    final var sf = ScoreTracker.getScoresFile(filename);
+	    final var parent = new File(sf.getParent());
 	    if (!parent.exists()) {
-		final boolean success = parent.mkdirs();
+		final var success = parent.mkdirs();
 		if (!success) {
 		    this.trackScores = false;
 		}
 	    }
 	    if (this.trackScores) {
-		final String scoresFile = sf.getAbsolutePath();
+		final var scoresFile = sf.getAbsolutePath();
 		this.ssMgr = new SavedScoreManager(3, 10, ScoreManager.SORT_ORDER_DESCENDING, 10000L,
 			Strings.untranslated(Untranslated.PROGRAM_NAME) + Strings.SPACE
 				+ Strings.game(GameString.SCORES),
@@ -153,21 +152,21 @@ class ScoreTracker {
     }
 
     private static String getScoreDirPrefix() {
-	final String osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
+	final var osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
 	if (osName.indexOf(Strings.untranslated(Untranslated.MACOS)) != -1) {
 	    // Mac OS X
 	    return System.getenv(Strings.untranslated(Untranslated.UNIX_HOME));
-	} else if (osName.indexOf(Strings.untranslated(Untranslated.WINDOWS)) != -1) {
+	}
+	if (osName.indexOf(Strings.untranslated(Untranslated.WINDOWS)) != -1) {
 	    // Windows
 	    return System.getenv(Strings.untranslated(Untranslated.WINDOWS_SUPPORT));
-	} else {
-	    // Other - assume UNIX-like
-	    return System.getenv(Strings.untranslated(Untranslated.UNIX_HOME));
 	}
+	// Other - assume UNIX-like
+	return System.getenv(Strings.untranslated(Untranslated.UNIX_HOME));
     }
 
     private static String getScoreDirectory() {
-	final String osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
+	final var osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
 	String base;
 	if (osName.indexOf(Strings.untranslated(Untranslated.MACOS)) != -1) {
 	    // Mac OS X
@@ -182,14 +181,13 @@ class ScoreTracker {
 	if (base != Strings.EMPTY) {
 	    return base + File.pathSeparator + Strings.untranslated(Untranslated.COMPANY_SUBFOLDER) + File.pathSeparator
 		    + Strings.untranslated(Untranslated.PROGRAM_NAME);
-	} else {
-	    return Strings.untranslated(Untranslated.COMPANY_SUBFOLDER) + File.pathSeparator
-		    + Strings.untranslated(Untranslated.PROGRAM_NAME);
 	}
+	return Strings.untranslated(Untranslated.COMPANY_SUBFOLDER) + File.pathSeparator
+		+ Strings.untranslated(Untranslated.PROGRAM_NAME);
     }
 
     private static File getScoresFile(final String filename) {
-	final StringBuilder b = new StringBuilder();
+	final var b = new StringBuilder();
 	b.append(ScoreTracker.getScoreDirPrefix());
 	b.append(ScoreTracker.getScoreDirectory());
 	b.append(filename);

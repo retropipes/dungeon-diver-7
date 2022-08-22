@@ -9,7 +9,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -46,8 +45,7 @@ public class Importer {
 	    if (!support.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
 		return false;
 	    }
-	    final boolean copySupported = (TransferHandler.COPY
-		    & support.getSourceDropActions()) == TransferHandler.COPY;
+	    final var copySupported = (TransferHandler.COPY & support.getSourceDropActions()) == TransferHandler.COPY;
 	    if (!copySupported) {
 		return false;
 	    }
@@ -60,15 +58,13 @@ public class Importer {
 	    if (!this.canImport(support)) {
 		return false;
 	    }
-	    final Transferable t = support.getTransferable();
+	    final var t = support.getTransferable();
 	    try {
-		final Object o = t.getTransferData(DataFlavor.javaFileListFlavor);
-		if (o instanceof List<?>) {
-		    final List<?> l = (List<?>) o;
+		final var o = t.getTransferData(DataFlavor.javaFileListFlavor);
+		if (o instanceof final List<?> l) {
 		    for (final Object o2 : l) {
-			if (o2 instanceof File) {
-			    final File f = (File) o2;
-			    final String ext = this.getExtension(f);
+			if (o2 instanceof final File f) {
+			    final var ext = this.getExtension(f);
 			    if (ext.equalsIgnoreCase("mod") || ext.equalsIgnoreCase("s3m")
 				    || ext.equalsIgnoreCase("xm")) {
 				// Import External Music
@@ -87,17 +83,15 @@ public class Importer {
 		    }
 		}
 		return true;
-	    } catch (final UnsupportedFlavorException e) {
-		return false;
-	    } catch (final IOException e) {
+	    } catch (final UnsupportedFlavorException | IOException e) {
 		return false;
 	    }
 	}
 
 	private String getExtension(final File f) {
 	    String ext = null;
-	    final String s = f.getName();
-	    final int i = s.lastIndexOf('.');
+	    final var s = f.getName();
+	    final var i = s.lastIndexOf('.');
 	    if (i > 0 && i < s.length() - 1) {
 		ext = s.substring(i + 1).toLowerCase();
 	    }

@@ -7,10 +7,8 @@ package com.puttysoftware.dungeondiver7.spell;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.battle.BattleTarget;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.effect.Effect;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 
 public class SpellCaster {
@@ -23,9 +21,9 @@ public class SpellCaster {
     }
 
     public static boolean selectAndCastSpell(final AbstractCreature caster) {
-	boolean result = false;
+	var result = false;
 	SpellCaster.NO_SPELLS_FLAG = false;
-	final Spell s = SpellCaster.selectSpell(caster);
+	final var s = SpellCaster.selectSpell(caster);
 	if (s != null) {
 	    result = SpellCaster.castSpell(s, caster);
 	    if (!result && !SpellCaster.NO_SPELLS_FLAG) {
@@ -37,70 +35,63 @@ public class SpellCaster {
     }
 
     public static boolean castSpell(final Spell cast, final AbstractCreature caster) {
-	if (cast != null) {
-	    final int casterMP = caster.getCurrentMP();
-	    final int cost = cast.getCost();
-	    if (casterMP >= cost) {
-		// Cast Spell
-		caster.drain(cost);
-		final Effect b = cast.getEffect();
-		// Play spell's associated sound effect, if it has one
-		final int snd = cast.getSound();
-		SoundLoader.playSound(snd);
-		b.resetEffect();
-		final AbstractCreature target = SpellCaster.resolveTarget(cast, caster.getTeamID());
-		if (target.isEffectActive(b)) {
-		    target.extendEffect(b, b.getInitialRounds());
-		} else {
-		    b.restoreEffect();
-		    target.applyEffect(b);
-		}
-		return true;
-	    } else {
-		// Not enough MP
-		return false;
-	    }
-	} else {
+	if (cast == null) {
 	    return false;
 	}
+	final var casterMP = caster.getCurrentMP();
+	final var cost = cast.getCost();
+	if (casterMP < cost) {
+	    // Not enough MP
+	    return false;
+	}
+	// Cast Spell
+	caster.drain(cost);
+	final var b = cast.getEffect();
+	// Play spell's associated sound effect, if it has one
+	final var snd = cast.getSound();
+	SoundLoader.playSound(snd);
+	b.resetEffect();
+	final var target = SpellCaster.resolveTarget(cast, caster.getTeamID());
+	if (target.isEffectActive(b)) {
+	    target.extendEffect(b, b.getInitialRounds());
+	} else {
+	    b.restoreEffect();
+	    target.applyEffect(b);
+	}
+	return true;
     }
 
     private static Spell selectSpell(final AbstractCreature caster) {
-	final SpellBook book = caster.getSpellBook();
-	if (book != null) {
-	    final String[] names = book.getAllSpellNames();
-	    final String[] displayNames = book.getAllSpellNamesWithCosts();
-	    if (names != null && displayNames != null) {
-		// Play casting spell sound
-		String dialogResult = null;
-		dialogResult = CommonDialogs.showInputDialog("Select a Spell to Cast", "Select Spell", displayNames,
-			displayNames[0]);
-		if (dialogResult != null) {
-		    int index;
-		    for (index = 0; index < displayNames.length; index++) {
-			if (dialogResult.equals(displayNames[index])) {
-			    break;
-			}
-		    }
-		    return book.getSpellByName(names[index]);
-		} else {
-		    return null;
-		}
-	    } else {
-		SpellCaster.NO_SPELLS_FLAG = true;
-		CommonDialogs.showErrorDialog("You try to cast a spell, but realize you don't know any!",
-			"Select Spell");
-		return null;
-	    }
-	} else {
+	final var book = caster.getSpellBook();
+	if (book == null) {
 	    SpellCaster.NO_SPELLS_FLAG = true;
 	    CommonDialogs.showErrorDialog("You try to cast a spell, but realize you don't know any!", "Select Spell");
 	    return null;
 	}
+	final var names = book.getAllSpellNames();
+	final var displayNames = book.getAllSpellNamesWithCosts();
+	if (names == null || displayNames == null) {
+	    SpellCaster.NO_SPELLS_FLAG = true;
+	    CommonDialogs.showErrorDialog("You try to cast a spell, but realize you don't know any!", "Select Spell");
+	    return null;
+	}
+	// Play casting spell sound
+	final var dialogResult = CommonDialogs.showInputDialog("Select a Spell to Cast", "Select Spell", displayNames,
+		displayNames[0]);
+	if (dialogResult == null) {
+	    return null;
+	}
+	int index;
+	for (index = 0; index < displayNames.length; index++) {
+	    if (dialogResult.equals(displayNames[index])) {
+		break;
+	    }
+	}
+	return book.getSpellByName(names[index]);
     }
 
     private static AbstractCreature resolveTarget(final Spell cast, final int teamID) {
-	final BattleTarget target = cast.getTarget();
+	final var target = cast.getTarget();
 	switch (target) {
 	case SELF:
 	    if (teamID == AbstractCreature.TEAM_PARTY) {

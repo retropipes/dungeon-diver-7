@@ -8,7 +8,6 @@ package com.puttysoftware.dungeondiver7.battle.reward;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.battle.BattleResult;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 
@@ -23,7 +22,7 @@ class BossBattleRewards {
 
     // Methods
     public static void doRewards(final BattleResult br) {
-	final PartyMember player = PartyManager.getParty().getLeader();
+	final var player = PartyManager.getParty().getLeader();
 	player.healAndRegenerateFully();
 	if (br == BattleResult.LOST) {
 	    player.offsetExperiencePercentage(-10);

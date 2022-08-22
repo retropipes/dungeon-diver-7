@@ -18,7 +18,6 @@ import com.puttysoftware.dungeondiver7.creature.gender.Gender;
 import com.puttysoftware.dungeondiver7.dungeon.current.GenerateDungeonTask;
 import com.puttysoftware.dungeondiver7.item.ItemInventory;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.spell.SpellBook;
 import com.puttysoftware.dungeondiver7.utility.FileFormats;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
@@ -63,8 +62,8 @@ public class PartyMember extends AbstractCreature {
 	this.healAndRegenerateFully();
 	this.setGold(PartyMember.START_GOLD);
 	this.setExperience(0L);
-	final PolyTable nextLevelEquation = new PolyTable(3, 1, 0, true);
-	final double value = PartyMember.BASE_COEFF;
+	final var nextLevelEquation = new PolyTable(3, 1, 0, true);
+	final var value = PartyMember.BASE_COEFF;
 	nextLevelEquation.setCoefficient(1, value);
 	nextLevelEquation.setCoefficient(2, value);
 	nextLevelEquation.setCoefficient(3, value);
@@ -97,8 +96,8 @@ public class PartyMember extends AbstractCreature {
 	this.setGold(newGold);
 	this.setLoad(newLoad);
 	this.setExperience(newExperience);
-	final SpellBook book = CasteManager.getSpellBookByID(bookID);
-	for (int x = 0; x < known.length; x++) {
+	final var book = CasteManager.getSpellBookByID(bookID);
+	for (var x = 0; x < known.length; x++) {
 	    if (known[x]) {
 		book.learnSpellByID(x);
 	    }
@@ -121,21 +120,24 @@ public class PartyMember extends AbstractCreature {
 
     @Override
     public int getSpeed() {
-	final int difficulty = PrefsManager.getGameDifficulty();
-	final int base = this.getBaseSpeed();
+	final var difficulty = PrefsManager.getGameDifficulty();
+	final var base = this.getBaseSpeed();
 	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_FASTEST);
-	} else if (difficulty == PrefsManager.DIFFICULTY_EASY) {
+	}
+	if (difficulty == PrefsManager.DIFFICULTY_EASY) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_FAST);
-	} else if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
-	    return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
-	} else if (difficulty == PrefsManager.DIFFICULTY_HARD) {
-	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOW);
-	} else if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
-	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOWEST);
-	} else {
+	}
+	if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
 	}
+	if (difficulty == PrefsManager.DIFFICULTY_HARD) {
+	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOW);
+	}
+	if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
+	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOWEST);
+	}
+	return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
     }
 
     public void initPostKill(final Caste c, final Gender g) {
@@ -154,8 +156,8 @@ public class PartyMember extends AbstractCreature {
 	this.setGold(PartyMember.START_GOLD);
 	this.setExperience(0L);
 	this.getItems().resetInventory();
-	final PolyTable nextLevelEquation = new PolyTable(3, 1, 0, true);
-	final double value = PartyMember.BASE_COEFF;
+	final var nextLevelEquation = new PolyTable(3, 1, 0, true);
+	final var value = PartyMember.BASE_COEFF;
 	nextLevelEquation.setCoefficient(1, value);
 	nextLevelEquation.setCoefficient(2, value);
 	nextLevelEquation.setCoefficient(3, value);
@@ -232,35 +234,35 @@ public class PartyMember extends AbstractCreature {
 	if (version < FileFormats.CHARACTER_2) {
 	    throw new VersionException("Invalid character version found: " + version);
 	}
-	final int k = worldFile.readInt();
-	final int pAtk = worldFile.readInt();
-	final int pDef = worldFile.readInt();
-	final int pHP = worldFile.readInt();
-	final int pMP = worldFile.readInt();
-	final int strength = worldFile.readInt();
-	final int block = worldFile.readInt();
-	final int agility = worldFile.readInt();
-	final int vitality = worldFile.readInt();
-	final int intelligence = worldFile.readInt();
-	final int luck = worldFile.readInt();
-	final int lvl = worldFile.readInt();
-	final int cHP = worldFile.readInt();
-	final int cMP = worldFile.readInt();
-	final int gld = worldFile.readInt();
-	final int apr = worldFile.readInt();
-	final int spr = worldFile.readInt();
-	final int load = worldFile.readInt();
-	final long exp = worldFile.readLong();
-	final int c = worldFile.readInt();
-	final int g = worldFile.readInt();
-	final int max = worldFile.readInt();
-	final boolean[] known = new boolean[max];
-	for (int x = 0; x < max; x++) {
+	final var k = worldFile.readInt();
+	final var pAtk = worldFile.readInt();
+	final var pDef = worldFile.readInt();
+	final var pHP = worldFile.readInt();
+	final var pMP = worldFile.readInt();
+	final var strength = worldFile.readInt();
+	final var block = worldFile.readInt();
+	final var agility = worldFile.readInt();
+	final var vitality = worldFile.readInt();
+	final var intelligence = worldFile.readInt();
+	final var luck = worldFile.readInt();
+	final var lvl = worldFile.readInt();
+	final var cHP = worldFile.readInt();
+	final var cMP = worldFile.readInt();
+	final var gld = worldFile.readInt();
+	final var apr = worldFile.readInt();
+	final var spr = worldFile.readInt();
+	final var load = worldFile.readInt();
+	final var exp = worldFile.readLong();
+	final var c = worldFile.readInt();
+	final var g = worldFile.readInt();
+	final var max = worldFile.readInt();
+	final var known = new boolean[max];
+	for (var x = 0; x < max; x++) {
 	    known[x] = worldFile.readBoolean();
 	}
-	final String n = worldFile.readString();
-	final String aid = worldFile.readString();
-	final PartyMember pm = PartyManager.getNewPCInstance(c, g, n, aid);
+	final var n = worldFile.readString();
+	final var aid = worldFile.readString();
+	final var pm = PartyManager.getNewPCInstance(c, g, n, aid);
 	pm.setStrength(strength);
 	pm.setBlock(block);
 	pm.setAgility(agility);
@@ -302,9 +304,9 @@ public class PartyMember extends AbstractCreature {
 	worldFile.writeLong(this.getExperience());
 	worldFile.writeInt(this.getCaste().getCasteID());
 	worldFile.writeInt(this.getGender().getGenderID());
-	final int max = this.getSpellBook().getSpellCount();
+	final var max = this.getSpellBook().getSpellCount();
 	worldFile.writeInt(max);
-	for (int x = 0; x < max; x++) {
+	for (var x = 0; x < max; x++) {
 	    worldFile.writeBoolean(this.getSpellBook().isSpellKnown(x));
 	}
 	worldFile.writeString(this.getName());
@@ -316,7 +318,7 @@ public class PartyMember extends AbstractCreature {
     protected BufferedImageIcon getInitialImage() {
 	try {
 	    return AvatarConstructionKit.constructFromAvatarID(this.avatarID).generateAvatarImage();
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    DungeonDiver7.logError(e);
 	    return null;
 	}

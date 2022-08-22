@@ -29,7 +29,7 @@ class GameReplayEngine {
     // Public methods
     void redo() {
 	if (!this.redoHistory.isEmpty()) {
-	    final Link entry = this.redoHistory.pop();
+	    final var entry = this.redoHistory.pop();
 	    this.isLaser = entry.laser;
 	    this.destX = entry.coordX;
 	    this.destY = entry.coordY;
@@ -65,7 +65,7 @@ class GameReplayEngine {
     }
 
     static GameReplayEngine readReplay(final XDataReader reader) throws IOException {
-	final GameReplayEngine gre = new GameReplayEngine();
+	final var gre = new GameReplayEngine();
 	gre.redoHistory = LinkStack.read(reader);
 	return gre;
     }
@@ -90,11 +90,11 @@ class GameReplayEngine {
 	}
 
 	public static Link read(final XDataReader reader) throws IOException {
-	    final boolean l = reader.readBoolean();
-	    final int x = reader.readInt();
-	    final int y = reader.readInt();
-	    final boolean hasNextLink = reader.readBoolean();
-	    final Link link = new Link(l, x, y);
+	    final var l = reader.readBoolean();
+	    final var x = reader.readInt();
+	    final var y = reader.readInt();
+	    final var hasNextLink = reader.readBoolean();
+	    final var link = new Link(l, x, y);
 	    link.hasNext = hasNextLink;
 	    return link;
 	}
@@ -120,16 +120,16 @@ class GameReplayEngine {
 	}
 
 	public void insertFirst(final boolean l, final int x, final int y) {
-	    final Link newLink = new Link(l, x, y);
+	    final var newLink = new Link(l, x, y);
 	    newLink.next = this.first;
 	    this.first = newLink;
 	}
 
 	private void reverse() {
-	    Link current = this.first;
+	    var current = this.first;
 	    this.first = null;
 	    while (current != null) {
-		final Link save = current;
+		final var save = current;
 		current = current.next;
 		save.next = this.first;
 		this.first = save;
@@ -145,16 +145,16 @@ class GameReplayEngine {
 	}
 
 	public Link deleteFirst() {
-	    final Link temp = this.first;
+	    final var temp = this.first;
 	    this.first = this.first.next;
 	    return temp;
 	}
 
 	public static LinkList read(final XDataReader reader) throws IOException {
-	    final boolean hasData = reader.readBoolean();
-	    final LinkList ll = new LinkList();
+	    final var hasData = reader.readBoolean();
+	    final var ll = new LinkList();
 	    if (hasData) {
-		Link curr = Link.read(reader);
+		var curr = Link.read(reader);
 		Link prev;
 		ll.insertNext(null, curr);
 		while (curr.hasNext) {
@@ -172,7 +172,7 @@ class GameReplayEngine {
 		writer.writeBoolean(false);
 	    } else {
 		writer.writeBoolean(true);
-		Link node = this.first;
+		var node = this.first;
 		while (node != null) {
 		    node.write(writer);
 		    node = node.next;
@@ -202,7 +202,7 @@ class GameReplayEngine {
 	}
 
 	public static LinkStack read(final XDataReader reader) throws IOException {
-	    final LinkStack ls = new LinkStack();
+	    final var ls = new LinkStack();
 	    ls.theList = LinkList.read(reader);
 	    return ls;
 	}

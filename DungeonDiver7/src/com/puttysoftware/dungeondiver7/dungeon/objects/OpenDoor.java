@@ -15,7 +15,6 @@ import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 public class OpenDoor extends AbstractPassThroughObject {
     // Constructors
     public OpenDoor() {
-	super();
     }
 
     @Override
@@ -42,7 +41,7 @@ public class OpenDoor extends AbstractPassThroughObject {
     @Override
     public void interactAction() {
 	SoundLoader.playSound(SoundConstants.DOOR_CLOSES);
-	final GameLogic glm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var glm = DungeonDiver7.getStuffBag().getGameLogic();
 	GameLogic.morph(new ClosedDoor());
 	glm.redrawDungeon();
     }

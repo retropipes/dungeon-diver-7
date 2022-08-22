@@ -8,7 +8,6 @@ package com.puttysoftware.dungeondiver7.editor;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
@@ -18,7 +17,6 @@ import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 
@@ -45,7 +43,7 @@ public abstract class GenericEditor {
 
     // Methods
     public final void edit() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	app.getGUIManager().hideGUI();
 	// Create the managers
 	if (this.objectChanged) {
@@ -67,22 +65,21 @@ public abstract class GenericEditor {
 	if (this.usesImporter()) {
 	    this.newObjectOptions();
 	    return true;
-	} else {
-	    boolean success = true;
-	    if (this.newObjectOptions()) {
-		success = this.newObjectCreate();
-		if (success) {
-		    this.saveObject();
-		    this.objectChanged = true;
-		}
-		return success;
-	    }
-	    return false;
 	}
+	var success = true;
+	if (this.newObjectOptions()) {
+	    success = this.newObjectCreate();
+	    if (success) {
+		this.saveObject();
+		this.objectChanged = true;
+	    }
+	    return success;
+	}
+	return false;
     }
 
     public final void showOutput() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	this.outputFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
 	this.outputFrame.setVisible(true);
 	this.outputFrame.pack();
@@ -97,9 +94,8 @@ public abstract class GenericEditor {
     public final JFrame getOutputFrame() {
 	if (this.outputFrame != null && this.outputFrame.isVisible()) {
 	    return this.outputFrame;
-	} else {
-	    return null;
 	}
+	return null;
     }
 
     public final boolean isReadOnly() {
@@ -158,7 +154,7 @@ public abstract class GenericEditor {
 	}
 	this.messageLabel = new JLabel(" ");
 	this.outputFrame = new JFrame(this.getEditorSource());
-	final Image iconlogo = LogoLoader.getIconLogo();
+	final var iconlogo = LogoLoader.getIconLogo();
 	this.outputFrame.setIconImage(iconlogo);
 	this.outputPane = new Container();
 	this.borderPane = new Container();
@@ -169,7 +165,7 @@ public abstract class GenericEditor {
 	this.borderPane.add(this.outputPane, BorderLayout.CENTER);
 	this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
 	this.outputFrame.setResizable(false);
-	final WindowListener wl = this.guiHookWindow();
+	final var wl = this.guiHookWindow();
 	if (wl != null) {
 	    this.outputFrame.addWindowListener(wl);
 	}

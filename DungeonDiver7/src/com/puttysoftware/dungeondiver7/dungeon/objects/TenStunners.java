@@ -12,7 +12,6 @@ import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 public class TenStunners extends AbstractInventoryModifier {
     // Constructors
     public TenStunners() {
-	super();
     }
 
     @Override

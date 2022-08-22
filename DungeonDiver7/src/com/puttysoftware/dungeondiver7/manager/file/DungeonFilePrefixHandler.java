@@ -18,8 +18,8 @@ public class DungeonFilePrefixHandler implements AbstractPrefixIO {
 
     @Override
     public int readPrefix(final FileIOReader reader) throws IOException {
-	final byte formatVer = DungeonFilePrefixHandler.readFormatVersion(reader);
-	final boolean res = DungeonFilePrefixHandler.checkFormatVersion(formatVer);
+	final var formatVer = DungeonFilePrefixHandler.readFormatVersion(reader);
+	final var res = DungeonFilePrefixHandler.checkFormatVersion(formatVer);
 	if (!res) {
 	    throw new IOException(Strings.error(ErrorString.UNKNOWN_FILE_FORMAT));
 	}
@@ -38,9 +38,8 @@ public class DungeonFilePrefixHandler implements AbstractPrefixIO {
     private static boolean checkFormatVersion(final byte version) {
 	if (version > DungeonFilePrefixHandler.FORMAT_VERSION) {
 	    return false;
-	} else {
-	    return true;
 	}
+	return true;
     }
 
     private static void writeFormatVersion(final FileIOWriter writer) throws IOException {

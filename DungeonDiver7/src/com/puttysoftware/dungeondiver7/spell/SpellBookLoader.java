@@ -19,15 +19,16 @@ public class SpellBookLoader {
 
     // Methods
     public static SpellBook loadSpellBook(final int sbid) {
-	if (sbid == CasteConstants.CASTE_ANNIHILATOR) {
+	switch (sbid) {
+	case CasteConstants.CASTE_ANNIHILATOR:
 	    return new AnnihilatorSpellBook();
-	} else if (sbid == CasteConstants.CASTE_BUFFER) {
+	case CasteConstants.CASTE_BUFFER:
 	    return new BufferSpellBook();
-	} else if (sbid == CasteConstants.CASTE_CURER) {
+	case CasteConstants.CASTE_CURER:
 	    return new CurerSpellBook();
-	} else if (sbid == CasteConstants.CASTE_DEBUFFER) {
+	case CasteConstants.CASTE_DEBUFFER:
 	    return new DebufferSpellBook();
-	} else {
+	default:
 	    // Invalid caste name
 	    return null;
 	}

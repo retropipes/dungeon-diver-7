@@ -10,7 +10,6 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractAttribute;
 public class Darkness extends AbstractAttribute {
     // Constructors
     public Darkness() {
-	super();
     }
 
     @Override

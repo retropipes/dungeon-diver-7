@@ -6,6 +6,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.effect;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
@@ -36,7 +37,6 @@ public class Effect {
 
     // Constructors
     public Effect() {
-	super();
 	this.name = "Un-named";
 	this.messages = new String[Effect.MAX_MESSAGES];
 	this.effect = new double[Effect.MAX_EFFECT_TYPES][StatConstants.MAX_STATS];
@@ -70,7 +70,6 @@ public class Effect {
     }
 
     public Effect(final String effectName, final int newRounds) {
-	super();
 	this.name = effectName;
 	this.messages = new String[Effect.MAX_MESSAGES];
 	this.effect = new double[Effect.MAX_EFFECT_TYPES][StatConstants.MAX_STATS];
@@ -105,8 +104,8 @@ public class Effect {
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = 1;
+	final var prime = 31;
+	var result = 1;
 	result = prime * result + Arrays.hashCode(this.effect);
 	long temp;
 	result = prime * result + Arrays.hashCode(this.effectDecayRate);
@@ -125,42 +124,18 @@ public class Effect {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null) {
+	if (obj == null || !(obj instanceof final Effect other) || !Arrays.equals(this.effect, other.effect)
+		|| !Arrays.equals(this.effectDecayRate, other.effectDecayRate)) {
 	    return false;
 	}
-	if (!(obj instanceof Effect)) {
+	if (Double.doubleToLongBits(this.effectScaleFactor) != Double.doubleToLongBits(other.effectScaleFactor)
+		|| this.effectScaleStat != other.effectScaleStat
+		|| !Arrays.equals(this.initialEffect, other.initialEffect)
+		|| this.initialRounds != other.initialRounds) {
 	    return false;
 	}
-	final Effect other = (Effect) obj;
-	if (!Arrays.equals(this.effect, other.effect)) {
-	    return false;
-	}
-	if (!Arrays.equals(this.effectDecayRate, other.effectDecayRate)) {
-	    return false;
-	}
-	if (Double.doubleToLongBits(this.effectScaleFactor) != Double.doubleToLongBits(other.effectScaleFactor)) {
-	    return false;
-	}
-	if (this.effectScaleStat != other.effectScaleStat) {
-	    return false;
-	}
-	if (!Arrays.equals(this.initialEffect, other.initialEffect)) {
-	    return false;
-	}
-	if (this.initialRounds != other.initialRounds) {
-	    return false;
-	}
-	if (!Arrays.equals(this.messages, other.messages)) {
-	    return false;
-	}
-	if (this.name == null) {
-	    if (other.name != null) {
-		return false;
-	    }
-	} else if (!this.name.equals(other.name)) {
-	    return false;
-	}
-	if (this.rounds != other.rounds) {
+	if (!Arrays.equals(this.messages, other.messages) || !Objects.equals(this.name, other.name)
+		|| this.rounds != other.rounds) {
 	    return false;
 	}
 	return true;
@@ -173,29 +148,24 @@ public class Effect {
     public String getEffectString() {
 	if (this.name.equals("")) {
 	    return "";
-	} else {
-	    if (this.areRoundsInfinite()) {
-		return this.name;
-	    } else {
-		return this.name + " (" + this.rounds + " Rounds Left)";
-	    }
 	}
+	if (this.areRoundsInfinite()) {
+	    return this.name;
+	}
+	return this.name + " (" + this.rounds + " Rounds Left)";
     }
 
     public String getCurrentMessage() {
-	String msg = Effect.getNullMessage();
-	if (this.rounds == this.initialRounds - 1) {
-	    if (!this.messages[Effect.MESSAGE_INITIAL].equals(Effect.getNullMessage())) {
-		msg += this.messages[Effect.MESSAGE_INITIAL] + "\n";
-	    }
+	var msg = Effect.getNullMessage();
+	if (this.rounds == this.initialRounds - 1
+		&& !this.messages[Effect.MESSAGE_INITIAL].equals(Effect.getNullMessage())) {
+	    msg += this.messages[Effect.MESSAGE_INITIAL] + "\n";
 	}
 	if (!this.messages[Effect.MESSAGE_SUBSEQUENT].equals(Effect.getNullMessage())) {
 	    msg += this.messages[Effect.MESSAGE_SUBSEQUENT] + "\n";
 	}
-	if (this.rounds == 0) {
-	    if (!this.messages[Effect.MESSAGE_WEAR_OFF].equals(Effect.getNullMessage())) {
-		msg += this.messages[Effect.MESSAGE_WEAR_OFF] + "\n";
-	    }
+	if (this.rounds == 0 && !this.messages[Effect.MESSAGE_WEAR_OFF].equals(Effect.getNullMessage())) {
+	    msg += this.messages[Effect.MESSAGE_WEAR_OFF] + "\n";
 	}
 	// Strip final newline character, if it exists
 	if (!msg.equals(Effect.getNullMessage())) {
@@ -233,9 +203,8 @@ public class Effect {
     public boolean isActive() {
 	if (this.areRoundsInfinite()) {
 	    return true;
-	} else {
-	    return this.rounds > 0;
 	}
+	return this.rounds > 0;
     }
 
     public void resetEffect() {
@@ -248,10 +217,10 @@ public class Effect {
     }
 
     public void useEffect(final AbstractCreature target) {
-	final double hpAddEffect = this.getEffect(Effect.EFFECT_ADD, StatConstants.STAT_CURRENT_HP);
-	final double mpAddEffect = this.getEffect(Effect.EFFECT_ADD, StatConstants.STAT_CURRENT_MP);
-	final double hpMultEffect = this.getEffect(Effect.EFFECT_MULTIPLY, StatConstants.STAT_CURRENT_HP);
-	final double mpMultEffect = this.getEffect(Effect.EFFECT_MULTIPLY, StatConstants.STAT_CURRENT_MP);
+	final var hpAddEffect = this.getEffect(Effect.EFFECT_ADD, StatConstants.STAT_CURRENT_HP);
+	final var mpAddEffect = this.getEffect(Effect.EFFECT_ADD, StatConstants.STAT_CURRENT_MP);
+	final var hpMultEffect = this.getEffect(Effect.EFFECT_MULTIPLY, StatConstants.STAT_CURRENT_HP);
+	final var mpMultEffect = this.getEffect(Effect.EFFECT_MULTIPLY, StatConstants.STAT_CURRENT_MP);
 	if (hpAddEffect < 0) {
 	    if (target.isAlive()) {
 		target.doDamage((int) -hpAddEffect);
@@ -268,7 +237,7 @@ public class Effect {
 	}
 	if (hpMultEffect < 1) {
 	    if (target.isAlive()) {
-		final double damage = hpMultEffect;
+		final var damage = hpMultEffect;
 		boolean max;
 		if (this.effectScaleStat == StatConstants.STAT_MAXIMUM_HP) {
 		    max = true;
@@ -319,12 +288,12 @@ public class Effect {
     }
 
     public void scaleEffect(final int type, final AbstractCreature scaleTo) {
-	for (int stat = 0; stat < StatConstants.MAX_STATS; stat++) {
-	    final double base = this.effect[type][stat];
-	    final int scst = this.effectScaleStat;
+	for (var stat = 0; stat < StatConstants.MAX_STATS; stat++) {
+	    final var base = this.effect[type][stat];
+	    final var scst = this.effectScaleStat;
 	    if (scst != StatConstants.STAT_NONE) {
-		final double factor = this.effectScaleFactor;
-		final int scstVal = scaleTo.getStat(scst);
+		final var factor = this.effectScaleFactor;
+		final var scstVal = scaleTo.getStat(scst);
 		this.effect[type][stat] = scstVal * base * factor;
 	    }
 	}
@@ -367,15 +336,15 @@ public class Effect {
     }
 
     private void decayEffect() {
-	double currVal = 0.0;
-	for (int stat = 0; stat < StatConstants.MAX_STATS; stat++) {
+	var currVal = 0.0;
+	for (var stat = 0; stat < StatConstants.MAX_STATS; stat++) {
 	    currVal = 0.0;
-	    for (int type = 0; type < Effect.MAX_EFFECT_TYPES; type++) {
+	    for (var type = 0; type < Effect.MAX_EFFECT_TYPES; type++) {
 		currVal += this.getEffect(type, stat);
 	    }
-	    for (int type = 0; type < Effect.MAX_EFFECT_TYPES; type++) {
-		boolean keepGoing = true;
-		final double currDecay = this.getDecayRate(type, stat);
+	    for (var type = 0; type < Effect.MAX_EFFECT_TYPES; type++) {
+		var keepGoing = true;
+		final var currDecay = this.getDecayRate(type, stat);
 		if (currDecay == 0) {
 		    keepGoing = false;
 		}
@@ -396,8 +365,8 @@ public class Effect {
 		    modVal = currVal;
 		}
 		if (keepGoing) {
-		    final int scst = this.effectScaleStat;
-		    final double factor = this.effectScaleFactor;
+		    final var scst = this.effectScaleStat;
+		    final var factor = this.effectScaleFactor;
 		    this.modifyEffect(type, stat, modVal, factor, scst);
 		}
 	    }

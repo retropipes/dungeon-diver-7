@@ -22,14 +22,14 @@ public class RCLGenerator {
     }
 
     public static Container generateRowColumnLabels() {
-	final Container outerOutputPane = new Container();
+	final var outerOutputPane = new Container();
 	outerOutputPane.setLayout(new BorderLayout());
-	final Container rowsPane = new Container();
+	final var rowsPane = new Container();
 	rowsPane.setLayout(new BoxLayout(rowsPane, BoxLayout.Y_AXIS));
 	// Generate row labels
 	rowsPane.add(Box.createVerticalGlue());
-	for (int r = 1; r <= AbstractDungeon.getMinRows(); r++) {
-	    final JLabel j = new JLabel(Integer.toString(r));
+	for (var r = 1; r <= AbstractDungeon.getMinRows(); r++) {
+	    final var j = new JLabel(Integer.toString(r));
 	    j.setLabelFor(null);
 	    j.setHorizontalAlignment(SwingConstants.RIGHT);
 	    j.setVerticalAlignment(SwingConstants.CENTER);
@@ -38,12 +38,12 @@ public class RCLGenerator {
 		rowsPane.add(Box.createVerticalGlue());
 	    }
 	}
-	final Container columnsPane = new Container();
+	final var columnsPane = new Container();
 	columnsPane.setLayout(new BoxLayout(columnsPane, BoxLayout.X_AXIS));
 	// Generate column labels
 	columnsPane.add(Box.createHorizontalGlue());
-	for (int c = 1; c <= AbstractDungeon.getMinColumns(); c++) {
-	    final JLabel j = new JLabel(Character.toString((char) (c + 64)));
+	for (var c = 1; c <= AbstractDungeon.getMinColumns(); c++) {
+	    final var j = new JLabel(Character.toString((char) (c + 64)));
 	    j.setLabelFor(null);
 	    j.setHorizontalAlignment(SwingConstants.CENTER);
 	    j.setVerticalAlignment(SwingConstants.BOTTOM);

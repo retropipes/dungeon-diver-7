@@ -18,7 +18,6 @@ import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 public class MagneticWall extends AbstractWall {
     // Constructors
     public MagneticWall() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.setMaterial(Materials.MAGNETIC);
     }
@@ -32,10 +31,9 @@ public class MagneticWall extends AbstractWall {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedMagneticWall(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else {
-	    // Stop laser
-	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
+	// Stop laser
+	return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
     }
 
     @Override

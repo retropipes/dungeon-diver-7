@@ -36,7 +36,6 @@ import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.images.BufferedImageIcon;
 
 class MapBattleGUI {
     // Fields
@@ -98,24 +97,24 @@ class MapBattleGUI {
 	if (this.battleFrame.isVisible()) {
 	    int x, y;
 	    int xFix, yFix;
-	    final int xView = this.vwMgr.getViewingWindowLocationX();
-	    final int yView = this.vwMgr.getViewingWindowLocationY();
-	    final int xlView = this.vwMgr.getLowerRightViewingWindowLocationX();
-	    final int ylView = this.vwMgr.getLowerRightViewingWindowLocationY();
+	    final var xView = this.vwMgr.getViewingWindowLocationX();
+	    final var yView = this.vwMgr.getViewingWindowLocationY();
+	    final var xlView = this.vwMgr.getLowerRightViewingWindowLocationX();
+	    final var ylView = this.vwMgr.getLowerRightViewingWindowLocationY();
 	    for (x = xView; x <= xlView; x++) {
 		for (y = yView; y <= ylView; y++) {
 		    xFix = x - xView;
 		    yFix = y - yView;
 		    try {
-			final BufferedImageIcon icon1 = bd.getBattleDungeon()
-				.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND).battleRenderHook();
-			final BufferedImageIcon icon2 = bd.getBattleDungeon()
-				.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS).battleRenderHook();
+			final var icon1 = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND)
+				.battleRenderHook();
+			final var icon2 = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS)
+				.battleRenderHook();
 			this.drawGrid.setImageCell(
 				ImageCompositor.getCompositeImage(icon1, icon2, BattleImageManager.getGraphicSize()),
 				xFix, yFix);
 		    } catch (final ArrayIndexOutOfBoundsException ae) {
-			final Wall wall = new Wall();
+			final var wall = new Wall();
 			this.drawGrid.setImageCell(wall.battleRenderHook(), xFix, yFix);
 		    }
 		}
@@ -131,15 +130,15 @@ class MapBattleGUI {
 	if (this.battleFrame.isVisible()) {
 	    try {
 		int xFix, yFix;
-		final int xView = this.vwMgr.getViewingWindowLocationX();
-		final int yView = this.vwMgr.getViewingWindowLocationY();
+		final var xView = this.vwMgr.getViewingWindowLocationX();
+		final var yView = this.vwMgr.getViewingWindowLocationY();
 		xFix = y - xView;
 		yFix = x - yView;
-		final BufferedImageIcon icon1 = bd.getBattleDungeon()
-			.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_GROUND).battleRenderHook();
-		final BufferedImageIcon icon2 = bd.getBattleDungeon()
-			.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS).battleRenderHook();
-		final BufferedImageIcon icon3 = obj3.battleRenderHook();
+		final var icon1 = bd.getBattleDungeon().getCell(x, y, 0, DungeonConstants.LAYER_LOWER_GROUND)
+			.battleRenderHook();
+		final var icon2 = bd.getBattleDungeon().getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS)
+			.battleRenderHook();
+		final var icon3 = obj3.battleRenderHook();
 		this.drawGrid.setImageCell(ImageCompositor.getVirtualCompositeImage(icon1, icon2, icon3,
 			BattleImageManager.getGraphicSize()), xFix, yFix);
 		this.battlePane.repaint();
@@ -156,9 +155,9 @@ class MapBattleGUI {
     }
 
     private void setUpGUI() {
-	final EventHandler handler = new EventHandler();
-	final Container borderPane = new Container();
-	final Container buttonPane = new Container();
+	final var handler = new EventHandler();
+	final var borderPane = new Container();
+	final var buttonPane = new Container();
 	borderPane.setLayout(new BorderLayout());
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);
@@ -203,8 +202,8 @@ class MapBattleGUI {
 	this.battleFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.battleFrame.setResizable(false);
 	this.drawGrid = new DrawGrid(MapBattleViewingWindowManager.getViewingWindowSize());
-	for (int x = 0; x < MapBattleViewingWindowManager.getViewingWindowSize(); x++) {
-	    for (int y = 0; y < MapBattleViewingWindowManager.getViewingWindowSize(); y++) {
+	for (var x = 0; x < MapBattleViewingWindowManager.getViewingWindowSize(); x++) {
+	    for (var y = 0; y < MapBattleViewingWindowManager.getViewingWindowSize(); y++) {
 		final AbstractDungeonObject dark = new Darkness();
 		this.drawGrid.setImageCell(dark.battleRenderHook(), x, y);
 	    }
@@ -251,8 +250,8 @@ class MapBattleGUI {
 		if (e.getSource() instanceof JButton) {
 		    SoundLoader.playSound(SoundConstants.CLICK);
 		}
-		final String cmd = e.getActionCommand();
-		final AbstractBattle b = DungeonDiver7.getStuffBag().getBattle();
+		final var cmd = e.getActionCommand();
+		final var b = DungeonDiver7.getStuffBag().getBattle();
 		// Do Player Actions
 		if (cmd.equals("Cast Spell") || cmd.equals("c")) {
 		    // Cast Spell
@@ -297,15 +296,13 @@ class MapBattleGUI {
 		    if (e.isMetaDown()) {
 			return;
 		    }
-		} else {
-		    if (e.isControlDown()) {
-			return;
-		    }
+		} else if (e.isControlDown()) {
+		    return;
 		}
-		final AbstractBattle bl = DungeonDiver7.getStuffBag().getBattle();
-		final MapBattleGUI bg = MapBattleGUI.this;
+		final var bl = DungeonDiver7.getStuffBag().getBattle();
+		final var bg = MapBattleGUI.this;
 		if (bg.eventHandlersOn) {
-		    final int keyCode = e.getKeyCode();
+		    final var keyCode = e.getKeyCode();
 		    switch (keyCode) {
 		    case KeyEvent.VK_NUMPAD4:
 		    case KeyEvent.VK_LEFT:
@@ -346,7 +343,7 @@ class MapBattleGUI {
 		    case KeyEvent.VK_NUMPAD5:
 		    case KeyEvent.VK_S:
 			// Confirm before attacking self
-			final int res = CommonDialogs.showConfirmDialog("Are you sure you want to attack yourself?",
+			final var res = CommonDialogs.showConfirmDialog("Are you sure you want to attack yourself?",
 				"Battle");
 			if (res == JOptionPane.YES_OPTION) {
 			    bl.updatePosition(0, 0);

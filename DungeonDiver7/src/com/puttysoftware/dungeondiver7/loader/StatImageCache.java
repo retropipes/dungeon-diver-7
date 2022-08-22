@@ -16,7 +16,7 @@ public class StatImageCache {
     // Methods
     static BufferedImageIcon getCachedImage(final String name) {
 	if (!StatImageCache.isInCache(name)) {
-	    final BufferedImageIcon bii = StatImageManager.getUncachedImage(name);
+	    final var bii = StatImageManager.getUncachedImage(name);
 	    StatImageCache.addToCache(name, bii);
 	}
 	for (final CacheEntry element : StatImageCache.cache) {
@@ -28,8 +28,8 @@ public class StatImageCache {
     }
 
     private static void expandCache() {
-	final CacheEntry[] tempCache = new CacheEntry[StatImageCache.cache.length + StatImageCache.CACHE_INCREMENT];
-	for (int x = 0; x < StatImageCache.CACHE_SIZE; x++) {
+	final var tempCache = new CacheEntry[StatImageCache.cache.length + StatImageCache.CACHE_INCREMENT];
+	for (var x = 0; x < StatImageCache.CACHE_SIZE; x++) {
 	    tempCache[x] = StatImageCache.cache[x];
 	}
 	StatImageCache.cache = tempCache;
@@ -50,7 +50,7 @@ public class StatImageCache {
 	if (StatImageCache.cache == null) {
 	    StatImageCache.cache = new CacheEntry[StatImageCache.CACHE_INCREMENT];
 	}
-	for (int x = 0; x < StatImageCache.CACHE_SIZE; x++) {
+	for (var x = 0; x < StatImageCache.CACHE_SIZE; x++) {
 	    if (name.equals(StatImageCache.cache[x].getName())) {
 		return true;
 	    }

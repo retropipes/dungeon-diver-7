@@ -61,17 +61,17 @@ class LaserTankV4FileLevel {
 	    LaserTankV4FileLevel.hint = new byte[LaserTankV4FileLevel.HINT_SIZE];
 	    LaserTankV4FileLevel.author = new byte[LaserTankV4FileLevel.AUTHOR_SIZE];
 	    LaserTankV4FileLevel.difficulty = new byte[LaserTankV4FileLevel.DIFFICULTY_SIZE];
-	    final CurrentDungeonData t = new CurrentDungeonData();
+	    final var t = new CurrentDungeonData();
 	    // Convert object byte map
-	    int bytesRead = file.read(LaserTankV4FileLevel.objects, 0, LaserTankV4FileLevel.OBJECTS_SIZE);
+	    var bytesRead = file.read(LaserTankV4FileLevel.objects, 0, LaserTankV4FileLevel.OBJECTS_SIZE);
 	    if (bytesRead != LaserTankV4FileLevel.OBJECTS_SIZE) {
 		return null;
 	    }
-	    for (int x = 0; x < 16; x++) {
-		for (int y = 0; y < 16; y++) {
-		    final int z = x * 16 + y;
+	    for (var x = 0; x < 16; x++) {
+		for (var y = 0; y < 16; y++) {
+		    final var z = x * 16 + y;
 		    AbstractDungeonObject ao = null;
-		    final byte b = LaserTankV4FileLevel.objects[z];
+		    final var b = LaserTankV4FileLevel.objects[z];
 		    switch (b) {
 		    case 0:
 			ao = new Ground();
@@ -218,7 +218,7 @@ class LaserTankV4FileLevel {
 	    if (bytesRead != LaserTankV4FileLevel.NAME_SIZE) {
 		return null;
 	    }
-	    final String levelName = Charset.forName(Strings.untranslated(Untranslated.DEFAULT_CHARSET))
+	    final var levelName = Charset.forName(Strings.untranslated(Untranslated.DEFAULT_CHARSET))
 		    .decode(ByteBuffer.wrap(LaserTankV4FileLevel.name)).toString();
 	    a.setName(levelName);
 	    // Convert level hint
@@ -226,7 +226,7 @@ class LaserTankV4FileLevel {
 	    if (bytesRead != LaserTankV4FileLevel.HINT_SIZE) {
 		return null;
 	    }
-	    final String levelHint = Charset.forName(Strings.untranslated(Untranslated.DEFAULT_CHARSET))
+	    final var levelHint = Charset.forName(Strings.untranslated(Untranslated.DEFAULT_CHARSET))
 		    .decode(ByteBuffer.wrap(LaserTankV4FileLevel.hint)).toString();
 	    a.setHint(levelHint);
 	    // Convert level author
@@ -234,7 +234,7 @@ class LaserTankV4FileLevel {
 	    if (bytesRead != LaserTankV4FileLevel.AUTHOR_SIZE) {
 		return null;
 	    }
-	    final String levelAuthor = Charset.forName(Strings.untranslated(Untranslated.DEFAULT_CHARSET))
+	    final var levelAuthor = Charset.forName(Strings.untranslated(Untranslated.DEFAULT_CHARSET))
 		    .decode(ByteBuffer.wrap(LaserTankV4FileLevel.author)).toString();
 	    a.setAuthor(levelAuthor);
 	    // Convert level difficulty
@@ -242,7 +242,7 @@ class LaserTankV4FileLevel {
 	    if (bytesRead != LaserTankV4FileLevel.DIFFICULTY_SIZE) {
 		return null;
 	    }
-	    final int tempDiff = LaserTankV4FileLevel.toInt(LaserTankV4FileLevel.difficulty);
+	    final var tempDiff = LaserTankV4FileLevel.toInt(LaserTankV4FileLevel.difficulty);
 	    switch (tempDiff) {
 	    case 1:
 		a.setDifficulty(Difficulty.KIDS);

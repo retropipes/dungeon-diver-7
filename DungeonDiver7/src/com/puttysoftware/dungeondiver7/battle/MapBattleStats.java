@@ -15,7 +15,6 @@ import javax.swing.SwingConstants;
 import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
 import com.puttysoftware.dungeondiver7.loader.StatImageManager;
 import com.puttysoftware.dungeondiver7.locale.StatusImage;
-import com.puttysoftware.images.BufferedImageIcon;
 
 public class MapBattleStats {
     // Fields
@@ -61,15 +60,15 @@ public class MapBattleStats {
     }
 
     private void updateIcons() {
-	final BufferedImageIcon nameImage = StatImageManager.load(StatusImage.CREATURE_ID);
+	final var nameImage = StatImageManager.load(StatusImage.CREATURE_ID);
 	this.nameLabel.setIcon(nameImage);
-	final BufferedImageIcon hpImage = StatImageManager.load(StatusImage.HEALTH);
+	final var hpImage = StatImageManager.load(StatusImage.HEALTH);
 	this.hpLabel.setIcon(hpImage);
-	final BufferedImageIcon mpImage = StatImageManager.load(StatusImage.MAGIC);
+	final var mpImage = StatImageManager.load(StatusImage.MAGIC);
 	this.mpLabel.setIcon(mpImage);
-	final BufferedImageIcon attImage = StatImageManager.load(StatusImage.MELEE_ATTACK);
+	final var attImage = StatImageManager.load(StatusImage.MELEE_ATTACK);
 	this.attLabel.setIcon(attImage);
-	final BufferedImageIcon defImage = StatImageManager.load(StatusImage.DEFENSE);
+	final var defImage = StatImageManager.load(StatusImage.DEFENSE);
 	this.defLabel.setIcon(defImage);
     }
 }

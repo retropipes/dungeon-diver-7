@@ -11,7 +11,6 @@ import java.io.IOException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
@@ -29,17 +28,17 @@ public class GameSaveTask extends Thread {
 
     @Override
     public void run() {
-	boolean success = true;
-	final String sg = "Game";
+	var success = true;
+	final var sg = "Game";
 	try {
-	    final StuffBag app = DungeonDiver7.getStuffBag();
+	    final var app = DungeonDiver7.getStuffBag();
 	    // filename check
-	    final boolean hasExtension = GameSaveTask.hasExtension(this.filename);
+	    final var hasExtension = GameSaveTask.hasExtension(this.filename);
 	    if (!hasExtension) {
 		this.filename += Strings.fileExtension(FileExtension.SUSPEND);
 	    }
-	    final File mazeFile = new File(this.filename);
-	    final File tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
+	    final var mazeFile = new File(this.filename);
+	    final var tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
 	    // Set prefix handler
 	    app.getDungeonManager().getDungeon().setPrefixHandler(new PrefixHandler());
 	    // Set suffix handler
@@ -48,7 +47,7 @@ public class GameSaveTask extends Thread {
 	    ZipUtilities.zipDirectory(new File(app.getDungeonManager().getDungeon().getBasePath()), tempLock);
 	    // Lock the file
 	    GameFileManager.save(tempLock, mazeFile);
-	    final boolean delSuccess = tempLock.delete();
+	    final var delSuccess = tempLock.delete();
 	    if (!delSuccess) {
 		throw new IOException("Failed to delete temporary file!");
 	    }
@@ -65,14 +64,13 @@ public class GameSaveTask extends Thread {
 
     private static boolean hasExtension(final String s) {
 	String ext = null;
-	final int i = s.lastIndexOf('.');
+	final var i = s.lastIndexOf('.');
 	if (i > 0 && i < s.length() - 1) {
 	    ext = s.substring(i + 1).toLowerCase();
 	}
 	if (ext == null) {
 	    return false;
-	} else {
-	    return true;
 	}
+	return true;
     }
 }

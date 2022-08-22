@@ -92,14 +92,14 @@ public class Party {
 
     static Party read(final FileIOReader worldFile) throws IOException {
 	worldFile.readInt();
-	final int lid = worldFile.readInt();
-	final int apc = worldFile.readInt();
-	final int lvl = worldFile.readInt();
-	final Party pty = new Party();
+	final var lid = worldFile.readInt();
+	final var apc = worldFile.readInt();
+	final var lvl = worldFile.readInt();
+	final var pty = new Party();
 	pty.leaderID = lid;
 	pty.activePCs = apc;
 	pty.zone = lvl;
-	final boolean present = worldFile.readBoolean();
+	final var present = worldFile.readBoolean();
 	if (present) {
 	    pty.members = PartyMember.read(worldFile);
 	}

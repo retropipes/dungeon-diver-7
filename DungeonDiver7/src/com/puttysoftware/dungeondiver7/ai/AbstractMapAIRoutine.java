@@ -5,6 +5,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.ai;
 
+import java.util.Objects;
+
 import com.puttysoftware.dungeondiver7.spell.Spell;
 
 public abstract class AbstractMapAIRoutine {
@@ -52,12 +54,7 @@ public abstract class AbstractMapAIRoutine {
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + (this.lastResult ? 1231 : 1237);
-	result = prime * result + this.moveX;
-	result = prime * result + this.moveY;
-	return prime * result + (this.spell == null ? 0 : this.spell.hashCode());
+	return Objects.hash(this.lastResult, this.moveX, this.moveY, this.spell);
     }
 
     @Override
@@ -65,27 +62,11 @@ public abstract class AbstractMapAIRoutine {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null) {
+	if (obj == null || !(obj instanceof final AbstractMapAIRoutine other) || this.lastResult != other.lastResult
+		|| this.moveX != other.moveX) {
 	    return false;
 	}
-	if (!(obj instanceof AbstractMapAIRoutine)) {
-	    return false;
-	}
-	final AbstractMapAIRoutine other = (AbstractMapAIRoutine) obj;
-	if (this.lastResult != other.lastResult) {
-	    return false;
-	}
-	if (this.moveX != other.moveX) {
-	    return false;
-	}
-	if (this.moveY != other.moveY) {
-	    return false;
-	}
-	if (this.spell == null) {
-	    if (other.spell != null) {
-		return false;
-	    }
-	} else if (!this.spell.equals(other.spell)) {
+	if (this.moveY != other.moveY || !Objects.equals(this.spell, other.spell)) {
 	    return false;
 	}
 	return true;

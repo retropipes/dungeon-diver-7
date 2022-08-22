@@ -10,7 +10,6 @@ import com.puttysoftware.diane.utilties.Directions;
 public abstract class AbstractReactionWall extends AbstractWall {
     // Constructors
     protected AbstractReactionWall() {
-	super();
     }
 
     @Override
@@ -18,9 +17,8 @@ public abstract class AbstractReactionWall extends AbstractWall {
 	    final int dirY, final int laserType, final int forceUnits) {
 	if (forceUnits >= this.getMinimumReactionForce()) {
 	    return this.laserEnteredActionHook(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-	} else {
-	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
+	return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
     }
 
     @Override
@@ -28,9 +26,8 @@ public abstract class AbstractReactionWall extends AbstractWall {
 	    final int rangeType, final int forceUnits) {
 	if (forceUnits >= this.getMinimumReactionForce()) {
 	    return this.rangeActionHook(locX, locY, locZ, dirX, dirY, rangeType, forceUnits);
-	} else {
-	    return super.rangeAction(locX, locY, locZ, dirX, dirY, rangeType, forceUnits);
 	}
+	return super.rangeAction(locX, locY, locZ, dirX, dirY, rangeType, forceUnits);
     }
 
     public abstract Directions laserEnteredActionHook(int locX, int locY, int locZ, int dirX, int dirY, int laserType,

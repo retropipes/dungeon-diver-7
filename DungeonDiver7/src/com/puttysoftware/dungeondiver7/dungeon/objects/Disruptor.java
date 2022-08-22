@@ -10,7 +10,6 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTransientObject;
 public class Disruptor extends AbstractTransientObject {
     // Constructors
     public Disruptor() {
-	super();
     }
 
     @Override

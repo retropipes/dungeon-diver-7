@@ -11,12 +11,10 @@ import com.puttysoftware.dungeondiver7.locale.Colors;
 public class Tunnel extends AbstractTunnel {
     // Constructors
     public Tunnel() {
-	super();
 	this.setColor(Colors.GRAY);
     }
 
     public Tunnel(final Colors color) {
-	super();
 	this.setColor(color);
     }
 

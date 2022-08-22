@@ -16,7 +16,6 @@ import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
@@ -56,16 +55,16 @@ public class DungeonLoadTask extends Thread {
     @Override
     public void run() {
 	this.loadFrame.setVisible(true);
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	if (this.isSavedGame) {
 	    app.getGameLogic().setSavedGameFlag(true);
 	} else {
 	    app.getGameLogic().setSavedGameFlag(false);
 	}
 	try {
-	    final File dungeonFile = new File(this.filename);
-	    final File tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
-	    AbstractDungeon gameDungeon = DungeonManager.createDungeon();
+	    final var dungeonFile = new File(this.filename);
+	    final var tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
+	    var gameDungeon = DungeonManager.createDungeon();
 	    if (this.dungeonProtected) {
 		// Attempt to unprotect the file
 		DungeonProtectionWrapper.unprotect(dungeonFile, tempLock);
@@ -97,7 +96,7 @@ public class DungeonLoadTask extends Thread {
 		throw new InvalidDungeonException(Strings.error(ErrorString.UNKNOWN_OBJECT));
 	    }
 	    app.getDungeonManager().setDungeon(gameDungeon);
-	    final boolean playerExists = gameDungeon.doesPlayerExist(0);
+	    final var playerExists = gameDungeon.doesPlayerExist(0);
 	    if (playerExists) {
 		app.getGameLogic().getPlayerManager().resetPlayerLocation();
 	    }
@@ -105,8 +104,8 @@ public class DungeonLoadTask extends Thread {
 		gameDungeon.save();
 	    }
 	    // Final cleanup
-	    final String lum = app.getDungeonManager().getLastUsedDungeon();
-	    final String lug = app.getDungeonManager().getLastUsedGame();
+	    final var lum = app.getDungeonManager().getLastUsedDungeon();
+	    final var lug = app.getDungeonManager().getLastUsedGame();
 	    app.getDungeonManager().clearLastUsedFilenames();
 	    if (this.isSavedGame) {
 		app.getDungeonManager().setLastUsedGame(lug);

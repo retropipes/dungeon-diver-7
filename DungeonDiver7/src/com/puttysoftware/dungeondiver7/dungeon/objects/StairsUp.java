@@ -6,7 +6,6 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTeleport;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
@@ -14,18 +13,17 @@ import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 public class StairsUp extends AbstractTeleport {
     // Constructors
     public StairsUp() {
-	super();
     }
 
     @Override
     public int getDestinationFloor() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	return app.getGameLogic().getPlayerManager().getPlayerLocationZ() + 1;
     }
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	app.getGameLogic().updatePositionAbsoluteNoEvents(this.getDestinationFloor());
 	SoundLoader.playSound(SoundConstants.UP);
     }

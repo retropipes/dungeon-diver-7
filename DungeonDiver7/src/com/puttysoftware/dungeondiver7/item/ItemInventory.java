@@ -8,6 +8,7 @@ package com.puttysoftware.dungeondiver7.item;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
 
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
@@ -19,7 +20,7 @@ import com.puttysoftware.fileio.FileIOWriter;
 
 public class ItemInventory {
     // Properties
-    private Equipment[] equipment;
+    private final Equipment[] equipment;
 
     // Constructors
     public ItemInventory() {
@@ -45,7 +46,7 @@ public class ItemInventory {
     }
 
     public int getWeaponHitSound(final AbstractCreature pc) {
-	Equipment weapon = this.equipment[Slot.WEAPON.ordinal()];
+	final var weapon = this.equipment[Slot.WEAPON.ordinal()];
 	if (weapon != null) {
 	    return weapon.getHitSound();
 	}
@@ -56,9 +57,9 @@ public class ItemInventory {
     }
 
     public String[] generateEquipmentStringArray() {
-	final String[] result = new String[this.equipment.length];
+	final var result = new String[this.equipment.length];
 	StringBuilder sb;
-	for (int x = 0; x < result.length - 1; x++) {
+	for (var x = 0; x < result.length - 1; x++) {
 	    sb = new StringBuilder();
 	    sb.append(Strings.slot(x));
 	    sb.append(": ");
@@ -76,7 +77,7 @@ public class ItemInventory {
     }
 
     public int getTotalPower() {
-	int total = 0;
+	var total = 0;
 	if (this.equipment[Slot.WEAPON.ordinal()] != null) {
 	    total += this.equipment[Slot.WEAPON.ordinal()].getPotency();
 	}
@@ -84,7 +85,7 @@ public class ItemInventory {
     }
 
     public int getTotalAbsorb() {
-	int total = 0;
+	var total = 0;
 	if (this.equipment[Slot.HEAD.ordinal()] != null) {
 	    total += this.equipment[Slot.HEAD.ordinal()].getPotency();
 	}
@@ -107,8 +108,8 @@ public class ItemInventory {
     }
 
     public int getTotalEquipmentWeight() {
-	int total = 0;
-	for (int x = 0; x < Strings.SLOTS_COUNT; x++) {
+	var total = 0;
+	for (var x = 0; x < Strings.SLOTS_COUNT; x++) {
 	    if (this.equipment[x] != null) {
 		total += this.equipment[x].getWeight();
 	    }
@@ -117,9 +118,9 @@ public class ItemInventory {
     }
 
     public static ItemInventory readItemInventory(final FileIOReader dr) throws IOException {
-	final ItemInventory ii = new ItemInventory();
-	for (int x = 0; x < ii.equipment.length; x++) {
-	    final Equipment ei = Equipment.readEquipment(dr);
+	final var ii = new ItemInventory();
+	for (var x = 0; x < ii.equipment.length; x++) {
+	    final var ei = Equipment.readEquipment(dr);
 	    if (ei != null) {
 		ii.equipment[x] = ei;
 	    }
@@ -139,9 +140,7 @@ public class ItemInventory {
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	final int result = 1;
-	return prime * result + Arrays.hashCode(this.equipment);
+	return Objects.hash(Arrays.hashCode(this.equipment));
     }
 
     @Override
@@ -149,14 +148,8 @@ public class ItemInventory {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null) {
-	    return false;
-	}
-	if (!(obj instanceof ItemInventory)) {
-	    return false;
-	}
-	final ItemInventory other = (ItemInventory) obj;
-	if (!Arrays.equals(this.equipment, other.equipment)) {
+	if (obj == null || !(obj instanceof final ItemInventory other)
+		|| !Arrays.equals(this.equipment, other.equipment)) {
 	    return false;
 	}
 	return true;

@@ -14,20 +14,16 @@ import com.puttysoftware.dungeondiver7.locale.Strings;
 public class GameFinder implements FilenameFilter {
     @Override
     public boolean accept(final File f, final String s) {
-	final String extension = GameFinder.getExtension(s);
-	if (extension != null) {
-	    if (extension.equals(Strings.fileExtension(FileExtension.SUSPEND))) {
-		return true;
-	    } else {
-		return false;
-	    }
+	final var extension = GameFinder.getExtension(s);
+	if (extension != null && extension.equals(Strings.fileExtension(FileExtension.SUSPEND))) {
+	    return true;
 	}
 	return false;
     }
 
     private static String getExtension(final String s) {
 	String ext = null;
-	final int i = s.lastIndexOf('.');
+	final var i = s.lastIndexOf('.');
 	if (i > 0 && i < s.length() - 1) {
 	    ext = s.substring(i).toLowerCase();
 	}

@@ -12,7 +12,7 @@ public class Zones {
     }
 
     public static final String getZoneNumber(final int ID) {
-	final String tempZoneID = Integer.toString(ID);
+	final var tempZoneID = Integer.toString(ID);
 	String zoneID;
 	if (tempZoneID.length() == 1) {
 	    zoneID = "0" + tempZoneID;

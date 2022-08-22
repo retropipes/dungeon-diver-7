@@ -11,9 +11,7 @@ import java.util.ConcurrentModificationException;
 import com.puttysoftware.diane.utilties.DirectionResolver;
 import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
-import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeonData;
@@ -58,7 +56,7 @@ final class MLOTask extends Thread {
     @Override
     public void run() {
 	try {
-	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	    gm.clearDead();
 	    this.doMovementLasersObjects();
 	    // Check auto-move flag
@@ -78,7 +76,7 @@ final class MLOTask extends Thread {
     }
 
     void activateMovement(final int zx, final int zy) {
-	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	if (zx == 2 || zy == 2 || zx == -2 || zy == -2) {
 	    // Boosting
 	    SoundLoader.playSound(SoundConstants.BOOST);
@@ -90,10 +88,10 @@ final class MLOTask extends Thread {
 	} else if (zx == 3 || zy == 3 || zx == -3 || zy == -3) {
 	    // Using a Magnet
 	    gm.updateScore(0, 0, 1);
-	    final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	    final int px = gm.getPlayerManager().getPlayerLocationX();
-	    final int py = gm.getPlayerManager().getPlayerLocationY();
-	    final int pz = gm.getPlayerManager().getPlayerLocationZ();
+	    final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	    final var px = gm.getPlayerManager().getPlayerLocationX();
+	    final var py = gm.getPlayerManager().getPlayerLocationY();
+	    final var pz = gm.getPlayerManager().getPlayerLocationZ();
 	    if (zx == 3) {
 		this.sx = a.checkForMagnetic(pz, px, py, Directions.EAST);
 		this.sy = 0;
@@ -134,7 +132,7 @@ final class MLOTask extends Thread {
     }
 
     void activateFrozenMovement(final int zx, final int zy) {
-	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	// Moving under the influence of a Frost Field
 	this.frozen = true;
 	MLOTask.freezePlayer();
@@ -154,7 +152,7 @@ final class MLOTask extends Thread {
 
     void activateObjects(final int zx, final int zy, final int pushX, final int pushY,
 	    final AbstractMovableObject gmo) {
-	final MovingObjectTracker tracker = new MovingObjectTracker();
+	final var tracker = new MovingObjectTracker();
 	tracker.activateObject(zx, zy, pushX, pushY, gmo);
 	this.objectTrackers.add(tracker);
     }
@@ -169,18 +167,18 @@ final class MLOTask extends Thread {
 
     void activateLasers(final int zx, final int zy, final int zox, final int zoy, final int zlt,
 	    final AbstractDungeonObject zshooter) {
-	final MovingLaserTracker tracker = new MovingLaserTracker();
+	final var tracker = new MovingLaserTracker();
 	tracker.activateLasers(zx, zy, zox, zoy, zlt, zshooter);
 	this.laserTrackers.add(tracker);
     }
 
     private void doMovementLasersObjects() {
 	synchronized (CurrentDungeonData.LOCK_OBJECT) {
-	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-	    final PlayerLocationManager plMgr = gm.getPlayerManager();
-	    final int pz = plMgr.getPlayerLocationZ();
+	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	    final var plMgr = gm.getPlayerManager();
+	    final var pz = plMgr.getPlayerLocationZ();
 	    this.loopCheck = true;
-	    AbstractDungeonObject[] objs = new AbstractDungeonObject[4];
+	    var objs = new AbstractDungeonObject[4];
 	    objs[DungeonConstants.LAYER_LOWER_GROUND] = new Wall();
 	    objs[DungeonConstants.LAYER_UPPER_GROUND] = new Wall();
 	    objs[DungeonConstants.LAYER_LOWER_OBJECTS] = new Wall();
@@ -212,13 +210,9 @@ final class MLOTask extends Thread {
 		    if (this.abort) {
 			break;
 		    }
-		    int actionType = 0;
-		    if (this.move) {
-			if (!this.magnet && Math.abs(this.sx) <= 1 && Math.abs(this.sy) <= 1) {
-			    actionType = GameActions.MOVE;
-			} else {
-			    actionType = GameActions.NON_MOVE;
-			}
+		    var actionType = 0;
+		    if (this.move && !this.magnet && Math.abs(this.sx) <= 1 && Math.abs(this.sy) <= 1) {
+			actionType = GameActions.MOVE;
 		    } else {
 			actionType = GameActions.NON_MOVE;
 		    }
@@ -274,8 +268,8 @@ final class MLOTask extends Thread {
 			this.loopCheck = true;
 		    }
 		    DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().tickTimers(pz, actionType);
-		    final int px = plMgr.getPlayerLocationX();
-		    final int py = plMgr.getPlayerLocationY();
+		    final var px = plMgr.getPlayerLocationX();
+		    final var py = plMgr.getPlayerLocationY();
 		    DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().checkForEnemies(pz, px, py,
 			    DungeonDiver7.getStuffBag().getGameLogic().getPlayer());
 		    // Delay
@@ -295,24 +289,23 @@ final class MLOTask extends Thread {
 		}
 	    } while (!this.abort
 		    && (this.loopCheck || this.areLaserTrackersChecking() || this.areObjectTrackersChecking()));
-	    if (objs[DungeonConstants.LAYER_LOWER_GROUND].killsOnMove()) {
-		// Check cheats
-		if (!gm.getCheatStatus(GameLogic.CHEAT_SWIMMING)) {
-		    gm.gameOver();
-		}
+	    // Check cheats
+	    if (objs[DungeonConstants.LAYER_LOWER_GROUND].killsOnMove()
+		    && !gm.getCheatStatus(GameLogic.CHEAT_SWIMMING)) {
+		gm.gameOver();
 	    }
 	}
     }
 
     private boolean canMoveThere() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
-	final GameLogic gm = app.getGameLogic();
-	final PlayerLocationManager plMgr = gm.getPlayerManager();
-	final int px = plMgr.getPlayerLocationX();
-	final int py = plMgr.getPlayerLocationY();
-	final int pz = plMgr.getPlayerLocationZ();
-	final int pw = DungeonConstants.LAYER_UPPER_OBJECTS;
-	final AbstractDungeon m = app.getDungeonManager().getDungeon();
+	final var app = DungeonDiver7.getStuffBag();
+	final var gm = app.getGameLogic();
+	final var plMgr = gm.getPlayerManager();
+	final var px = plMgr.getPlayerLocationX();
+	final var py = plMgr.getPlayerLocationY();
+	final var pz = plMgr.getPlayerLocationZ();
+	final var pw = DungeonConstants.LAYER_UPPER_OBJECTS;
+	final var m = app.getDungeonManager().getDungeon();
 	AbstractDungeonObject lgo = null;
 	AbstractDungeonObject ugo = null;
 	AbstractDungeonObject loo = null;
@@ -340,14 +333,14 @@ final class MLOTask extends Thread {
     }
 
     private AbstractDungeonObject[] doMovementOnce() {
-	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-	final PlayerLocationManager plMgr = gm.getPlayerManager();
-	int px = plMgr.getPlayerLocationX();
-	int py = plMgr.getPlayerLocationY();
-	final int pz = plMgr.getPlayerLocationZ();
-	final int pw = DungeonConstants.LAYER_UPPER_OBJECTS;
-	final StuffBag app = DungeonDiver7.getStuffBag();
-	final AbstractDungeon m = app.getDungeonManager().getDungeon();
+	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var plMgr = gm.getPlayerManager();
+	var px = plMgr.getPlayerLocationX();
+	var py = plMgr.getPlayerLocationY();
+	final var pz = plMgr.getPlayerLocationZ();
+	final var pw = DungeonConstants.LAYER_UPPER_OBJECTS;
+	final var app = DungeonDiver7.getStuffBag();
+	final var m = app.getDungeonManager().getDungeon();
 	this.proceed = true;
 	this.mover = false;
 	AbstractDungeonObject lgo = null;
@@ -396,8 +389,8 @@ final class MLOTask extends Thread {
 		    loo.postMoveAction(px, py, pz);
 		    uoo.postMoveAction(px, py, pz);
 		    if (ugo.isOfType(DungeonObjectTypes.TYPE_MOVER)) {
-			final Directions dir = ugo.getDirection();
-			final int[] unres = DirectionResolver.unresolve(dir);
+			final var dir = ugo.getDirection();
+			final var unres = DirectionResolver.unresolve(dir);
 			this.sx = unres[0];
 			this.sy = unres[1];
 			this.mover = true;
@@ -430,8 +423,8 @@ final class MLOTask extends Thread {
 		    uoo.moveFailedAction(plMgr.getPlayerLocationX() + this.sx, plMgr.getPlayerLocationY() + this.sy,
 			    plMgr.getPlayerLocationZ());
 		    if (gm.getPlayer().getSavedObject().isOfType(DungeonObjectTypes.TYPE_MOVER)) {
-			final Directions dir = gm.getPlayer().getSavedObject().getDirection();
-			final int[] unres = DirectionResolver.unresolve(dir);
+			final var dir = gm.getPlayer().getSavedObject().getDirection();
+			final var unres = DirectionResolver.unresolve(dir);
 			this.sx = unres[0];
 			this.sy = unres[1];
 			this.mover = true;
@@ -480,13 +473,13 @@ final class MLOTask extends Thread {
     }
 
     private boolean checkLoopCondition(final boolean zproceed) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
-	final GameLogic gm = app.getGameLogic();
-	final PlayerLocationManager plMgr = gm.getPlayerManager();
-	final int px = plMgr.getPlayerLocationX();
-	final int py = plMgr.getPlayerLocationY();
-	final int pz = plMgr.getPlayerLocationZ();
-	final AbstractDungeon m = app.getDungeonManager().getDungeon();
+	final var app = DungeonDiver7.getStuffBag();
+	final var gm = app.getGameLogic();
+	final var plMgr = gm.getPlayerManager();
+	final var px = plMgr.getPlayerLocationX();
+	final var py = plMgr.getPlayerLocationY();
+	final var pz = plMgr.getPlayerLocationZ();
+	final var m = app.getDungeonManager().getDungeon();
 	AbstractDungeonObject lgo = null;
 	AbstractDungeonObject ugo = null;
 	try {
@@ -507,13 +500,13 @@ final class MLOTask extends Thread {
     }
 
     private static void freezePlayer() {
-	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-	final AbstractCharacter tank = gm.getPlayer();
-	final Directions dir = tank.getDirection();
-	final int px = gm.getPlayerManager().getPlayerLocationX();
-	final int py = gm.getPlayerManager().getPlayerLocationY();
-	final int pz = gm.getPlayerManager().getPlayerLocationZ();
-	final FrozenParty ft = new FrozenParty(dir, tank.getNumber());
+	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var tank = gm.getPlayer();
+	final var dir = tank.getDirection();
+	final var px = gm.getPlayerManager().getPlayerLocationX();
+	final var py = gm.getPlayerManager().getPlayerLocationY();
+	final var pz = gm.getPlayerManager().getPlayerLocationZ();
+	final var ft = new FrozenParty(dir, tank.getNumber());
 	ft.setSavedObject(tank.getSavedObject());
 	GameLogic.morph(ft, px, py, pz, ft.getLayer());
 	gm.updatePlayer();
@@ -522,13 +515,13 @@ final class MLOTask extends Thread {
     private void defrostPlayer() {
 	if (this.frozen) {
 	    this.frozen = false;
-	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-	    final AbstractCharacter tank = gm.getPlayer();
-	    final Directions dir = tank.getDirection();
-	    final int px = gm.getPlayerManager().getPlayerLocationX();
-	    final int py = gm.getPlayerManager().getPlayerLocationY();
-	    final int pz = gm.getPlayerManager().getPlayerLocationZ();
-	    final Party t = new Party(dir, tank.getNumber());
+	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	    final var tank = gm.getPlayer();
+	    final var dir = tank.getDirection();
+	    final var px = gm.getPlayerManager().getPlayerLocationX();
+	    final var py = gm.getPlayerManager().getPlayerLocationY();
+	    final var pz = gm.getPlayerManager().getPlayerLocationZ();
+	    final var t = new Party(dir, tank.getNumber());
 	    t.setSavedObject(tank.getSavedObject());
 	    GameLogic.morph(t, px, py, pz, t.getLayer());
 	    gm.updatePlayer();
@@ -537,29 +530,27 @@ final class MLOTask extends Thread {
     }
 
     private static boolean checkSolid(final AbstractDungeonObject next) {
-	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	// Check cheats
 	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
 	    return true;
-	} else {
-	    return !next.isConditionallySolid();
 	}
+	return !next.isConditionallySolid();
     }
 
     static boolean checkSolid(final int zx, final int zy) {
-	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-	final AbstractDungeonObject next = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(zx, zy,
+	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var next = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(zx, zy,
 		gm.getPlayerManager().getPlayerLocationZ(), DungeonConstants.LAYER_LOWER_OBJECTS);
 	// Check cheats
 	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
 	    return true;
-	} else {
-	    return !next.isConditionallySolid();
 	}
+	return !next.isConditionallySolid();
     }
 
     private boolean areObjectTrackersTracking() {
-	boolean result = false;
+	var result = false;
 	for (final MovingObjectTracker tracker : this.objectTrackers) {
 	    if (tracker.isTracking()) {
 		result = true;
@@ -569,7 +560,7 @@ final class MLOTask extends Thread {
     }
 
     private boolean areObjectTrackersChecking() {
-	boolean result = false;
+	var result = false;
 	for (final MovingObjectTracker tracker : this.objectTrackers) {
 	    if (tracker.isChecking()) {
 		result = true;
@@ -579,7 +570,7 @@ final class MLOTask extends Thread {
     }
 
     private boolean areLaserTrackersChecking() {
-	boolean result = false;
+	var result = false;
 	for (final MovingLaserTracker tracker : this.laserTrackers) {
 	    if (tracker.isChecking()) {
 		result = true;
@@ -589,30 +580,24 @@ final class MLOTask extends Thread {
     }
 
     private void cullTrackers() {
-	final MovingObjectTracker[] tempArray1 = this.objectTrackers
-		.toArray(new MovingObjectTracker[this.objectTrackers.size()]);
+	final var tempArray1 = this.objectTrackers.toArray(new MovingObjectTracker[this.objectTrackers.size()]);
 	this.objectTrackers.clear();
 	for (final MovingObjectTracker tracker : tempArray1) {
-	    if (tracker != null) {
-		if (tracker.isTracking()) {
-		    this.objectTrackers.add(tracker);
-		}
+	    if (tracker != null && tracker.isTracking()) {
+		this.objectTrackers.add(tracker);
 	    }
 	}
-	final MovingLaserTracker[] tempArray2 = this.laserTrackers
-		.toArray(new MovingLaserTracker[this.laserTrackers.size()]);
+	final var tempArray2 = this.laserTrackers.toArray(new MovingLaserTracker[this.laserTrackers.size()]);
 	this.laserTrackers.clear();
 	for (final MovingLaserTracker tracker : tempArray2) {
-	    if (tracker != null) {
-		if (tracker.isTracking()) {
-		    this.laserTrackers.add(tracker);
-		}
+	    if (tracker != null && tracker.isTracking()) {
+		this.laserTrackers.add(tracker);
 	    }
 	}
     }
 
     private static int normalizeRow(final int row, final int rows) {
-	int fR = row;
+	var fR = row;
 	if (fR < 0) {
 	    fR += rows;
 	    while (fR < 0) {
@@ -628,7 +613,7 @@ final class MLOTask extends Thread {
     }
 
     private static int normalizeColumn(final int column, final int columns) {
-	int fC = column;
+	var fC = column;
 	if (fC < 0) {
 	    fC += columns;
 	    while (fC < 0) {

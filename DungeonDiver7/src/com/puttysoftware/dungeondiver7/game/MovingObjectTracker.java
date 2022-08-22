@@ -6,10 +6,7 @@
 package com.puttysoftware.dungeondiver7.game;
 
 import com.puttysoftware.diane.utilties.DirectionResolver;
-import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
-import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractJumpObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
@@ -57,26 +54,23 @@ final class MovingObjectTracker {
 
     void trackPart2() {
 	try {
-	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-	    final PlayerLocationManager plMgr = gm.getPlayerManager();
-	    final int pz = plMgr.getPlayerLocationZ();
+	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	    final var plMgr = gm.getPlayerManager();
+	    final var pz = plMgr.getPlayerLocationZ();
 	    if (this.objectMoving) {
 		// Make objects pushed into ice move 2 squares first time
-		if (this.objectCheck && this.objectNewlyActivated) {
-		    if (!this.belowLower.hasFriction() || !this.belowUpper.hasFriction()) {
-			this.doObjectOnce();
-			this.objectCheck = !this.belowLower.hasFriction() || !this.belowUpper.hasFriction();
-		    }
+		if (this.objectCheck && this.objectNewlyActivated
+			&& (!this.belowLower.hasFriction() || !this.belowUpper.hasFriction())) {
+		    this.doObjectOnce();
+		    this.objectCheck = !this.belowLower.hasFriction() || !this.belowUpper.hasFriction();
 		}
 	    } else {
 		this.objectCheck = false;
 		// Check for moving object stopped on thin ice
-		if (this.movingObj != null) {
-		    if (gm.isDelayedDecayActive() && gm.isRemoteDecayActive()) {
-			gm.doRemoteDelayedDecay(this.movingObj);
-			this.belowUpper.pushIntoAction(this.movingObj, this.objCumX, this.objCumY, pz);
-			this.belowLower.pushIntoAction(this.movingObj, this.objCumX, this.objCumY, pz);
-		    }
+		if (this.movingObj != null && gm.isDelayedDecayActive() && gm.isRemoteDecayActive()) {
+		    gm.doRemoteDelayedDecay(this.movingObj);
+		    this.belowUpper.pushIntoAction(this.movingObj, this.objCumX, this.objCumY, pz);
+		    this.belowLower.pushIntoAction(this.movingObj, this.objCumX, this.objCumY, pz);
 		}
 	    }
 	} catch (final ArrayIndexOutOfBoundsException aioobe) {
@@ -97,9 +91,9 @@ final class MovingObjectTracker {
     }
 
     void activateObject(final int zx, final int zy, final int pushX, final int pushY, final AbstractMovableObject gmo) {
-	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-	final PlayerLocationManager plMgr = gm.getPlayerManager();
-	final int pz = plMgr.getPlayerLocationZ();
+	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var plMgr = gm.getPlayerManager();
+	final var pz = plMgr.getPlayerLocationZ();
 	this.objIncX = pushX - zx;
 	this.objIncY = pushY - zy;
 	if (gmo instanceof AbstractJumpObject) {
@@ -146,16 +140,16 @@ final class MovingObjectTracker {
     }
 
     private void doNormalObjectOnce() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
-	final AbstractDungeon m = app.getDungeonManager().getDungeon();
-	final GameLogic gm = app.getGameLogic();
-	final int pz = gm.getPlayerManager().getPlayerLocationZ();
+	final var app = DungeonDiver7.getStuffBag();
+	final var m = app.getDungeonManager().getDungeon();
+	final var gm = app.getGameLogic();
+	final var pz = gm.getPlayerManager().getPlayerLocationZ();
 	try {
 	    if (gm.isDelayedDecayActive() && gm.isRemoteDecayActive()) {
 		gm.doRemoteDelayedDecay(this.movingObj);
 	    }
-	    final AbstractDungeonObject oldSave = this.movingObj.getSavedObject();
-	    final AbstractDungeonObject saved = m.getCell(this.objCumX + this.objIncX * this.objMultX,
+	    final var oldSave = this.movingObj.getSavedObject();
+	    final var saved = m.getCell(this.objCumX + this.objIncX * this.objMultX,
 		    this.objCumY + this.objIncY * this.objMultY, pz, this.movingObj.getLayer());
 	    this.belowUpper = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
 		    this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
@@ -171,55 +165,47 @@ final class MovingObjectTracker {
 		this.movingObj.setSavedObject(saved);
 		m.setCell(this.movingObj, this.objCumX + this.objIncX * this.objMultX,
 			this.objCumY + this.objIncY * this.objMultY, pz, this.movingObj.getLayer());
-		boolean stopObj = this.belowLower.pushIntoAction(this.movingObj,
+		var stopObj = this.belowLower.pushIntoAction(this.movingObj,
 			this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz);
-		final boolean temp1 = this.belowUpper.pushIntoAction(this.movingObj,
+		final var temp1 = this.belowUpper.pushIntoAction(this.movingObj,
 			this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz);
 		if (!temp1) {
 		    stopObj = false;
 		}
-		final boolean temp2 = saved.pushIntoAction(this.movingObj, this.objCumX + this.objIncX * this.objMultX,
+		final var temp2 = saved.pushIntoAction(this.movingObj, this.objCumX + this.objIncX * this.objMultX,
 			this.objCumY + this.objIncY * this.objMultY, pz);
 		if (!temp2) {
 		    stopObj = false;
 		}
 		this.objectMoving = stopObj;
 		this.objectCheck = stopObj;
-		final int oldObjIncX = this.objIncX;
-		final int oldObjIncY = this.objIncY;
+		final var oldObjIncX = this.objIncX;
+		final var oldObjIncY = this.objIncY;
 		if (this.belowUpper == null || this.belowLower == null) {
 		    this.objectCheck = false;
+		} else if (this.movingObj.isOfType(DungeonObjectTypes.TYPE_ICY)) {
+		    // Handle icy objects
+		    this.objectCheck = true;
+		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_ANTI_MOVER)
+			&& this.movingObj.isOfType(DungeonObjectTypes.TYPE_ANTI)
+			|| this.belowUpper.isOfType(DungeonObjectTypes.TYPE_BOX_MOVER)
+				&& this.movingObj.isOfType(DungeonObjectTypes.TYPE_BOX)) {
+		    // Handle anti-tank on anti-tank mover
+		    final var dir = this.belowUpper.getDirection();
+		    final var unres = DirectionResolver.unresolve(dir);
+		    this.objIncX = unres[0];
+		    this.objIncY = unres[1];
+		    this.objectCheck = true;
+		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_MIRROR_MOVER)
+			&& this.movingObj.isOfType(DungeonObjectTypes.TYPE_MOVABLE_MIRROR)) {
+		    // Handle mirror on mirror mover
+		    final var dir = this.belowUpper.getDirection();
+		    final var unres = DirectionResolver.unresolve(dir);
+		    this.objIncX = unres[0];
+		    this.objIncY = unres[1];
+		    this.objectCheck = true;
 		} else {
-		    if (this.movingObj.isOfType(DungeonObjectTypes.TYPE_ICY)) {
-			// Handle icy objects
-			this.objectCheck = true;
-		    } else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_ANTI_MOVER)
-			    && this.movingObj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
-			// Handle anti-tank on anti-tank mover
-			final Directions dir = this.belowUpper.getDirection();
-			final int[] unres = DirectionResolver.unresolve(dir);
-			this.objIncX = unres[0];
-			this.objIncY = unres[1];
-			this.objectCheck = true;
-		    } else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_BOX_MOVER)
-			    && this.movingObj.isOfType(DungeonObjectTypes.TYPE_BOX)) {
-			// Handle box on box mover
-			final Directions dir = this.belowUpper.getDirection();
-			final int[] unres = DirectionResolver.unresolve(dir);
-			this.objIncX = unres[0];
-			this.objIncY = unres[1];
-			this.objectCheck = true;
-		    } else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_MIRROR_MOVER)
-			    && this.movingObj.isOfType(DungeonObjectTypes.TYPE_MOVABLE_MIRROR)) {
-			// Handle mirror on mirror mover
-			final Directions dir = this.belowUpper.getDirection();
-			final int[] unres = DirectionResolver.unresolve(dir);
-			this.objIncX = unres[0];
-			this.objIncY = unres[1];
-			this.objectCheck = true;
-		    } else {
-			this.objectCheck = !this.belowLower.hasFriction() || !this.belowUpper.hasFriction();
-		    }
+		    this.objectCheck = !this.belowLower.hasFriction() || !this.belowUpper.hasFriction();
 		}
 		if (this.objIncX != oldObjIncX || this.objIncY != oldObjIncY) {
 		    this.objCumX += oldObjIncX;
@@ -248,10 +234,10 @@ final class MovingObjectTracker {
     }
 
     private void doJumpObjectOnce(final AbstractJumpObject jumper) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
-	final AbstractDungeon m = app.getDungeonManager().getDungeon();
-	final GameLogic gm = app.getGameLogic();
-	final int pz = gm.getPlayerManager().getPlayerLocationZ();
+	final var app = DungeonDiver7.getStuffBag();
+	final var m = app.getDungeonManager().getDungeon();
+	final var gm = app.getGameLogic();
+	final var pz = gm.getPlayerManager().getPlayerLocationZ();
 	try {
 	    this.jumpOnMover = false;
 	    this.objMultX = jumper.getActualJumpCols();
@@ -259,8 +245,8 @@ final class MovingObjectTracker {
 	    if (gm.isDelayedDecayActive() && gm.isRemoteDecayActive()) {
 		gm.doRemoteDelayedDecay(jumper);
 	    }
-	    final AbstractDungeonObject oldSave = jumper.getSavedObject();
-	    final AbstractDungeonObject saved = m.getCell(this.objCumX + this.objIncX * this.objMultX,
+	    final var oldSave = jumper.getSavedObject();
+	    final var saved = m.getCell(this.objCumX + this.objIncX * this.objMultX,
 		    this.objCumY + this.objIncY * this.objMultY, pz, jumper.getLayer());
 	    this.belowUpper = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
 		    this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
@@ -275,56 +261,54 @@ final class MovingObjectTracker {
 		jumper.setSavedObject(saved);
 		m.setCell(jumper, this.objCumX + this.objIncX * this.objMultX,
 			this.objCumY + this.objIncY * this.objMultY, pz, jumper.getLayer());
-		boolean stopObj = this.belowLower.pushIntoAction(this.movingObj,
+		var stopObj = this.belowLower.pushIntoAction(this.movingObj,
 			this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz);
-		final boolean temp1 = this.belowUpper.pushIntoAction(this.movingObj,
+		final var temp1 = this.belowUpper.pushIntoAction(this.movingObj,
 			this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz);
 		if (!temp1) {
 		    stopObj = false;
 		}
-		final boolean temp2 = saved.pushIntoAction(this.movingObj, this.objCumX + this.objIncX * this.objMultX,
+		final var temp2 = saved.pushIntoAction(this.movingObj, this.objCumX + this.objIncX * this.objMultX,
 			this.objCumY + this.objIncY * this.objMultY, pz);
 		if (!temp2) {
 		    stopObj = false;
 		}
 		this.objectMoving = stopObj;
 		this.objectCheck = stopObj;
-		final int oldObjIncX = this.objIncX;
-		final int oldObjIncY = this.objIncY;
+		final var oldObjIncX = this.objIncX;
+		final var oldObjIncY = this.objIncY;
 		if (this.belowUpper == null || this.belowLower == null) {
 		    this.objectCheck = false;
+		} else if (jumper.isOfType(DungeonObjectTypes.TYPE_ICY)) {
+		    // Handle icy objects
+		    this.objectCheck = true;
+		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_ANTI_MOVER)
+			&& jumper.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
+		    // Handle anti-tank on anti-tank mover
+		    final var dir = this.belowUpper.getDirection();
+		    final var unres = DirectionResolver.unresolve(dir);
+		    this.objIncX = unres[0];
+		    this.objIncY = unres[1];
+		    this.objectCheck = true;
+		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_BOX_MOVER)
+			&& jumper.isOfType(DungeonObjectTypes.TYPE_BOX)) {
+		    // Handle box on box mover
+		    this.jumpOnMover = true;
+		    final var dir = this.belowUpper.getDirection();
+		    final var unres = DirectionResolver.unresolve(dir);
+		    this.objIncX = unres[0];
+		    this.objIncY = unres[1];
+		    this.objectCheck = true;
+		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_MIRROR_MOVER)
+			&& this.movingObj.isOfType(DungeonObjectTypes.TYPE_MOVABLE_MIRROR)) {
+		    // Handle mirror on mirror mover
+		    final var dir = this.belowUpper.getDirection();
+		    final var unres = DirectionResolver.unresolve(dir);
+		    this.objIncX = unres[0];
+		    this.objIncY = unres[1];
+		    this.objectCheck = true;
 		} else {
-		    if (jumper.isOfType(DungeonObjectTypes.TYPE_ICY)) {
-			// Handle icy objects
-			this.objectCheck = true;
-		    } else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_ANTI_MOVER)
-			    && jumper.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
-			// Handle anti-tank on anti-tank mover
-			final Directions dir = this.belowUpper.getDirection();
-			final int[] unres = DirectionResolver.unresolve(dir);
-			this.objIncX = unres[0];
-			this.objIncY = unres[1];
-			this.objectCheck = true;
-		    } else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_BOX_MOVER)
-			    && jumper.isOfType(DungeonObjectTypes.TYPE_BOX)) {
-			// Handle box on box mover
-			this.jumpOnMover = true;
-			final Directions dir = this.belowUpper.getDirection();
-			final int[] unres = DirectionResolver.unresolve(dir);
-			this.objIncX = unres[0];
-			this.objIncY = unres[1];
-			this.objectCheck = true;
-		    } else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_MIRROR_MOVER)
-			    && this.movingObj.isOfType(DungeonObjectTypes.TYPE_MOVABLE_MIRROR)) {
-			// Handle mirror on mirror mover
-			final Directions dir = this.belowUpper.getDirection();
-			final int[] unres = DirectionResolver.unresolve(dir);
-			this.objIncX = unres[0];
-			this.objIncY = unres[1];
-			this.objectCheck = true;
-		    } else {
-			this.objectCheck = !this.belowLower.hasFriction() || !this.belowUpper.hasFriction();
-		    }
+		    this.objectCheck = !this.belowLower.hasFriction() || !this.belowUpper.hasFriction();
 		}
 		if (this.objIncX != oldObjIncX || this.objIncY != oldObjIncY) {
 		    if (this.jumpOnMover) {
@@ -334,14 +318,12 @@ final class MovingObjectTracker {
 			this.objCumX += oldObjIncX * this.objMultX;
 			this.objCumY += oldObjIncY * this.objMultY;
 		    }
+		} else if (this.jumpOnMover) {
+		    this.objCumX += this.objIncX;
+		    this.objCumY += this.objIncY;
 		} else {
-		    if (this.jumpOnMover) {
-			this.objCumX += this.objIncX;
-			this.objCumY += this.objIncY;
-		    } else {
-			this.objCumX += this.objIncX * this.objMultX;
-			this.objCumY += this.objIncY * this.objMultY;
-		    }
+		    this.objCumX += this.objIncX * this.objMultX;
+		    this.objCumY += this.objIncY * this.objMultY;
 		}
 		app.getDungeonManager().setDirty(true);
 	    } else {
@@ -363,15 +345,10 @@ final class MovingObjectTracker {
     }
 
     private static boolean checkSolid(final AbstractDungeonObject next) {
-	final boolean nextSolid = next.isConditionallySolid();
-	if (nextSolid) {
-	    if (next.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
-		return true;
-	    } else {
-		return false;
-	    }
-	} else {
+	final var nextSolid = next.isConditionallySolid();
+	if (!nextSolid || next.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
 	    return true;
 	}
+	return false;
     }
 }

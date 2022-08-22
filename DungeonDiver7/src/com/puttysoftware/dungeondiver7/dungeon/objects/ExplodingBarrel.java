@@ -8,7 +8,6 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.diane.utilties.DirectionResolver;
 import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
@@ -24,7 +23,6 @@ public class ExplodingBarrel extends AbstractReactionWall {
 
     // Constructors
     public ExplodingBarrel() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_BARREL);
 	this.setMaterial(Materials.WOODEN);
 	this.destroyed = false;
@@ -36,7 +34,7 @@ public class ExplodingBarrel extends AbstractReactionWall {
 	// Boom!
 	SoundLoader.playSound(SoundConstants.BOOM);
 	// Did tank die?
-	final boolean dead = this.laserEnteredActionInnerP1(locX, locY, locZ, false);
+	final var dead = this.laserEnteredActionInnerP1(locX, locY, locZ, false);
 	if (dead) {
 	    // Kill tank
 	    DungeonDiver7.getStuffBag().getGameLogic().gameOver();
@@ -46,10 +44,9 @@ public class ExplodingBarrel extends AbstractReactionWall {
 	if (laserType == ShotTypes.POWER) {
 	    // Laser keeps going
 	    return DirectionResolver.resolve(dirX, dirY);
-	} else {
-	    // Laser stops
-	    return Directions.NONE;
 	}
+	// Laser stops
+	return Directions.NONE;
     }
 
     @Override
@@ -58,7 +55,7 @@ public class ExplodingBarrel extends AbstractReactionWall {
 	// Boom!
 	SoundLoader.playSound(SoundConstants.BOOM);
 	// Did tank die?
-	final boolean dead = this.laserEnteredActionInnerP1(locX + dirX, locY + dirY, locZ, false);
+	final var dead = this.laserEnteredActionInnerP1(locX + dirX, locY + dirY, locZ, false);
 	if (dead) {
 	    // Kill tank
 	    DungeonDiver7.getStuffBag().getGameLogic().gameOver();
@@ -70,8 +67,8 @@ public class ExplodingBarrel extends AbstractReactionWall {
     }
 
     private boolean laserEnteredActionInnerP1(final int locX, final int locY, final int locZ, final boolean oldDead) {
-	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	boolean dead = oldDead;
+	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	var dead = oldDead;
 	// Check if this barrel's been destroyed already
 	if (this.destroyed) {
 	    return dead;
@@ -83,22 +80,22 @@ public class ExplodingBarrel extends AbstractReactionWall {
 	// Set destroyed status
 	this.destroyed = true;
 	// Check for nearby exploding barrels and blow them up too
-	final boolean boom2 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
+	final var boom2 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
 		.getCell(locX, locY - 1, locZ, this.getLayer()).getClass().equals(ExplodingBarrel.class);
 	if (boom2) {
 	    return this.laserEnteredActionInnerP1(locX, locY - 1, locZ, dead);
 	}
-	final boolean boom4 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
+	final var boom4 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
 		.getCell(locX - 1, locY, locZ, this.getLayer()).getClass().equals(ExplodingBarrel.class);
 	if (boom4) {
 	    return this.laserEnteredActionInnerP1(locX - 1, locY, locZ, dead);
 	}
-	final boolean boom6 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
+	final var boom6 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
 		.getCell(locX + 1, locY, locZ, this.getLayer()).getClass().equals(ExplodingBarrel.class);
 	if (boom6) {
 	    return this.laserEnteredActionInnerP1(locX + 1, locY, locZ, dead);
 	}
-	final boolean boom8 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
+	final var boom8 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
 		.getCell(locX, locY + 1, locZ, this.getLayer()).getClass().equals(ExplodingBarrel.class);
 	if (boom8) {
 	    return this.laserEnteredActionInnerP1(locX, locY + 1, locZ, dead);
@@ -113,7 +110,7 @@ public class ExplodingBarrel extends AbstractReactionWall {
 	GameLogic.morph(new Empty(), locX, locY, locZ, locW);
 	// Check for nearby exploding barrels and blow them up too
 	try {
-	    final boolean boom2 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
+	    final var boom2 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
 		    .getCell(locX, locY - 1, locZ, locW).getClass().equals(ExplodingBarrel.class);
 	    if (boom2) {
 		ExplodingBarrel.laserEnteredActionInnerP2(locX, locY - 1, locZ, locW);
@@ -122,7 +119,7 @@ public class ExplodingBarrel extends AbstractReactionWall {
 	    // Ignore
 	}
 	try {
-	    final boolean boom4 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
+	    final var boom4 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
 		    .getCell(locX - 1, locY, locZ, locW).getClass().equals(ExplodingBarrel.class);
 	    if (boom4) {
 		ExplodingBarrel.laserEnteredActionInnerP2(locX - 1, locY, locZ, locW);
@@ -131,7 +128,7 @@ public class ExplodingBarrel extends AbstractReactionWall {
 	    // Ignore
 	}
 	try {
-	    final boolean boom6 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
+	    final var boom6 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
 		    .getCell(locX + 1, locY, locZ, locW).getClass().equals(ExplodingBarrel.class);
 	    if (boom6) {
 		ExplodingBarrel.laserEnteredActionInnerP2(locX + 1, locY, locZ, locW);
@@ -140,7 +137,7 @@ public class ExplodingBarrel extends AbstractReactionWall {
 	    // Ignore
 	}
 	try {
-	    final boolean boom8 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
+	    final var boom8 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
 		    .getCell(locX, locY + 1, locZ, locW).getClass().equals(ExplodingBarrel.class);
 	    if (boom8) {
 		ExplodingBarrel.laserEnteredActionInnerP2(locX, locY + 1, locZ, locW);

@@ -14,7 +14,6 @@ import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 public class KillSkull extends AbstractSpell {
     // Constructors
     public KillSkull() {
-	super();
     }
 
     // Scriptability

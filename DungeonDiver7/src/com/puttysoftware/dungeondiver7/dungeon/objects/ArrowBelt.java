@@ -14,7 +14,6 @@ import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 public class ArrowBelt extends AbstractSpell {
     // Constructors
     public ArrowBelt() {
-	super();
     }
 
     // Scriptability

@@ -11,8 +11,7 @@ public class SlotUtils {
     public static Slot getArmorSlotForType(final int armorType) {
 	if (armorType >= Slot.WEAPON.ordinal()) {
 	    return Slot.values()[armorType + 1];
-	} else {
-	    return Slot.values()[armorType];
 	}
+	return Slot.values()[armorType];
     }
 }

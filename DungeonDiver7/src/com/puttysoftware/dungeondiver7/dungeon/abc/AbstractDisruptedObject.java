@@ -10,7 +10,6 @@ import com.puttysoftware.dungeondiver7.utility.GameActions;
 public abstract class AbstractDisruptedObject extends AbstractPassThroughObject {
     // Constructors
     protected AbstractDisruptedObject() {
-	super();
     }
 
     @Override

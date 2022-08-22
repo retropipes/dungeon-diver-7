@@ -7,7 +7,6 @@ package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
@@ -36,32 +35,26 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 	if (this.flip) {
 	    if (this.dir2X == 0) {
 		return this.jumpCols * this.dir1X;
-	    } else {
-		return this.jumpCols * this.dir2X;
 	    }
-	} else {
-	    if (this.dir2Y == 0) {
-		return this.jumpRows * this.dir1Y;
-	    } else {
-		return this.jumpRows * this.dir2Y;
-	    }
+	    return this.jumpCols * this.dir2X;
 	}
+	if (this.dir2Y == 0) {
+	    return this.jumpRows * this.dir1Y;
+	}
+	return this.jumpRows * this.dir2Y;
     }
 
     public int getActualJumpCols() {
 	if (this.flip) {
 	    if (this.dir2Y == 0) {
 		return this.jumpRows * this.dir1Y;
-	    } else {
-		return this.jumpRows * this.dir2Y;
 	    }
-	} else {
-	    if (this.dir2X == 0) {
-		return this.jumpCols * this.dir1X;
-	    } else {
-		return this.jumpCols * this.dir2X;
-	    }
+	    return this.jumpRows * this.dir2Y;
 	}
+	if (this.dir2X == 0) {
+	    return this.jumpCols * this.dir1X;
+	}
+	return this.jumpCols * this.dir2X;
     }
 
     public final int getJumpRows() {
@@ -83,39 +76,36 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
     @Override
     public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
-	final int px = app.getGameLogic().getPlayerManager().getPlayerLocationX();
-	final int py = app.getGameLogic().getPlayerManager().getPlayerLocationY();
+	final var app = DungeonDiver7.getStuffBag();
+	final var px = app.getGameLogic().getPlayerManager().getPlayerLocationX();
+	final var py = app.getGameLogic().getPlayerManager().getPlayerLocationY();
 	if (forceUnits > this.getMinimumReactionForce() && this.jumpRows == 0 && this.jumpCols == 0) {
 	    this.pushCrushAction(locX, locY, locZ);
 	    return Directions.NONE;
-	} else {
-	    if (this.jumpShot) {
-		this.jumpShot = false;
-		this.dir2X = (int) Math.signum(px - locX);
-		this.dir2Y = (int) Math.signum(py - locY);
-		if (this.dir1X != 0 && this.dir2X != 0 || this.dir1Y != 0 && this.dir2Y != 0) {
-		    SoundLoader.playSound(SoundConstants.LASER_DIE);
-		    return Directions.NONE;
-		} else {
-		    if (this.dir1X == 0 && this.dir2X == 1 && this.dir1Y == -1 && this.dir2Y == 0
-			    || this.dir1X == 0 && this.dir2X == -1 && this.dir1Y == 1 && this.dir2Y == 0
-			    || this.dir1X == 1 && this.dir2X == 0 && this.dir1Y == 0 && this.dir2Y == -1
-			    || this.dir1X == -1 && this.dir2X == 0 && this.dir1Y == 0 && this.dir2Y == 1) {
-			this.flip = true;
-		    } else {
-			this.flip = false;
-		    }
-		    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-		}
-	    } else {
-		this.jumpShot = true;
-		this.dir1X = (int) Math.signum(px - locX);
-		this.dir1Y = (int) Math.signum(py - locY);
-		SoundLoader.playSound(SoundConstants.PREPARE);
-		return Directions.NONE;
-	    }
 	}
+	if (!this.jumpShot) {
+	    this.jumpShot = true;
+	    this.dir1X = (int) Math.signum(px - locX);
+	    this.dir1Y = (int) Math.signum(py - locY);
+	    SoundLoader.playSound(SoundConstants.PREPARE);
+	    return Directions.NONE;
+	}
+	this.jumpShot = false;
+	this.dir2X = (int) Math.signum(px - locX);
+	this.dir2Y = (int) Math.signum(py - locY);
+	if (this.dir1X != 0 && this.dir2X != 0 || this.dir1Y != 0 && this.dir2Y != 0) {
+	    SoundLoader.playSound(SoundConstants.LASER_DIE);
+	    return Directions.NONE;
+	}
+	if (this.dir1X == 0 && this.dir2X == 1 && this.dir1Y == -1 && this.dir2Y == 0
+		|| this.dir1X == 0 && this.dir2X == -1 && this.dir1Y == 1 && this.dir2Y == 0
+		|| this.dir1X == 1 && this.dir2X == 0 && this.dir1Y == 0 && this.dir2Y == -1
+		|| this.dir1X == -1 && this.dir2X == 0 && this.dir1Y == 0 && this.dir2Y == 1) {
+	    this.flip = true;
+	} else {
+	    this.flip = false;
+	}
+	return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
     }
 
     @Override
@@ -126,8 +116,8 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = super.hashCode();
+	final var prime = 31;
+	var result = super.hashCode();
 	result = prime * result + this.jumpCols;
 	return prime * result + this.jumpRows;
     }
@@ -137,17 +127,8 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 	if (this == obj) {
 	    return true;
 	}
-	if (!super.equals(obj)) {
-	    return false;
-	}
-	if (!(obj instanceof AbstractJumpObject)) {
-	    return false;
-	}
-	final AbstractJumpObject other = (AbstractJumpObject) obj;
-	if (this.jumpCols != other.jumpCols) {
-	    return false;
-	}
-	if (this.jumpRows != other.jumpRows) {
+	if (!super.equals(obj) || !(obj instanceof final AbstractJumpObject other) || this.jumpCols != other.jumpCols
+		|| this.jumpRows != other.jumpRows) {
 	    return false;
 	}
 	return true;
@@ -155,7 +136,7 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 
     @Override
     public AbstractJumpObject clone() {
-	final AbstractJumpObject copy = (AbstractJumpObject) super.clone();
+	final var copy = (AbstractJumpObject) super.clone();
 	copy.jumpRows = this.jumpRows;
 	copy.jumpCols = this.jumpCols;
 	return copy;
@@ -167,20 +148,16 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
     }
 
     public final void jumpSound(final boolean success) {
-	if (success) {
-	    if (this.jumpRows == 0 && this.jumpCols == 0) {
-		SoundLoader.playSound(SoundConstants.LASER_DIE);
-	    } else {
-		SoundLoader.playSound(SoundConstants.JUMPING);
-	    }
-	} else {
+	if (!success || this.jumpRows == 0 && this.jumpCols == 0) {
 	    SoundLoader.playSound(SoundConstants.LASER_DIE);
+	} else {
+	    SoundLoader.playSound(SoundConstants.JUMPING);
 	}
     }
 
     @Override
     public String getCustomText() {
-	final StringBuilder sb = new StringBuilder();
+	final var sb = new StringBuilder();
 	sb.append(this.jumpCols);
 	sb.append(",");
 	sb.append(this.jumpRows);

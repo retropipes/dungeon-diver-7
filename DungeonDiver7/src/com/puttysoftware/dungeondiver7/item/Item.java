@@ -6,6 +6,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.item;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
@@ -19,7 +20,6 @@ public class Item {
 
     // Constructors
     public Item(final String itemName, final int buyFor, final int grams, final int power) {
-	super();
 	this.name = itemName;
 	this.buyPrice = buyFor;
 	this.weight = grams;
@@ -27,7 +27,6 @@ public class Item {
     }
 
     protected Item(final Item i) {
-	super();
 	this.name = i.getName();
 	this.buyPrice = i.buyPrice;
 	this.weight = i.weight;
@@ -42,12 +41,7 @@ public class Item {
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + this.buyPrice;
-	result = prime * result + (this.name == null ? 0 : this.name.hashCode());
-	result = prime * result + this.potency;
-	return prime * result + this.weight;
+	return Objects.hash(this.buyPrice, this.name, this.potency, this.weight);
     }
 
     @Override
@@ -55,27 +49,12 @@ public class Item {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null) {
+	if (obj == null || this.getClass() != obj.getClass()) {
 	    return false;
 	}
-	if (this.getClass() != obj.getClass()) {
-	    return false;
-	}
-	final Item other = (Item) obj;
-	if (this.buyPrice != other.buyPrice) {
-	    return false;
-	}
-	if (this.name == null) {
-	    if (other.name != null) {
-		return false;
-	    }
-	} else if (!this.name.equals(other.name)) {
-	    return false;
-	}
-	if (this.potency != other.potency) {
-	    return false;
-	}
-	if (this.weight != other.weight) {
+	final var other = (Item) obj;
+	if (this.buyPrice != other.buyPrice || !Objects.equals(this.name, other.name) || this.potency != other.potency
+		|| this.weight != other.weight) {
 	    return false;
 	}
 	return true;
@@ -98,14 +77,14 @@ public class Item {
     }
 
     protected static Item readItem(final FileIOReader dr) throws IOException {
-	final String itemName = dr.readString();
+	final var itemName = dr.readString();
 	if (itemName.equals("null")) {
 	    // Abort
 	    return null;
 	}
-	final int buyFor = dr.readInt();
-	final int grams = dr.readInt();
-	final int power = dr.readInt();
+	final var buyFor = dr.readInt();
+	final var grams = dr.readInt();
+	final var power = dr.readInt();
 	return new Item(itemName, buyFor, grams, power);
     }
 

@@ -17,7 +17,7 @@ import com.puttysoftware.storage.NumberStorage;
 
 public final class DungeonLevelInfo {
     // Properties
-    private NumberStorage playerStartData;
+    private final NumberStorage playerStartData;
     private NumberStorage playerLocationData;
     private NumberStorage savedPlayerLocationData;
     private boolean horizontalWraparoundEnabled;
@@ -47,7 +47,7 @@ public final class DungeonLevelInfo {
 	this.moveShootAllowed = false;
     }
 
-    public DungeonLevelInfo(DungeonLevelInfo source) {
+    public DungeonLevelInfo(final DungeonLevelInfo source) {
 	this.playerStartData = new NumberStorage(source.playerStartData);
 	this.horizontalWraparoundEnabled = source.horizontalWraparoundEnabled;
 	this.verticalWraparoundEnabled = source.verticalWraparoundEnabled;
@@ -125,7 +125,7 @@ public final class DungeonLevelInfo {
     }
 
     public boolean doesPlayerStartExist(final int pi) {
-	for (int y = 0; y < DungeonConstants.PLAYER_DIMS; y++) {
+	for (var y = 0; y < DungeonConstants.PLAYER_DIMS; y++) {
 	    if (this.playerStartData.getCell(y, pi) == -1) {
 		return false;
 	    }
@@ -170,7 +170,7 @@ public final class DungeonLevelInfo {
     }
 
     public boolean doesPlayerLocationExist(final int pi) {
-	for (int y = 0; y < DungeonConstants.PLAYER_DIMS; y++) {
+	for (var y = 0; y < DungeonConstants.PLAYER_DIMS; y++) {
 	    if (this.playerLocationData.getCell(y, pi) == -1) {
 		return false;
 	    }
@@ -244,7 +244,7 @@ public final class DungeonLevelInfo {
     }
 
     public static DungeonLevelInfo readLevelInfo(final FileIOReader reader) throws IOException {
-	final DungeonLevelInfo li = new DungeonLevelInfo();
+	final var li = new DungeonLevelInfo();
 	int x, y;
 	for (y = 0; y < 3; y++) {
 	    for (x = 0; x < DungeonConstants.NUM_PLAYERS; x++) {

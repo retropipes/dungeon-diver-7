@@ -6,7 +6,6 @@
 package com.puttysoftware.dungeondiver7.game;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeonData;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
@@ -25,19 +24,19 @@ class AnimationTask extends Thread {
     @Override
     public void run() {
 	try {
-	    final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	    final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	    while (!this.stop) {
-		final int pz = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
-		final int maxX = a.getRows();
-		final int maxY = a.getColumns();
-		final int maxW = DungeonConstants.NUM_LAYERS;
-		for (int x = 0; x < maxX; x++) {
-		    for (int y = 0; y < maxY; y++) {
-			for (int w = 0; w < maxW; w++) {
+		final var pz = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
+		final var maxX = a.getRows();
+		final var maxY = a.getColumns();
+		final var maxW = DungeonConstants.NUM_LAYERS;
+		for (var x = 0; x < maxX; x++) {
+		    for (var y = 0; y < maxY; y++) {
+			for (var w = 0; w < maxW; w++) {
 			    synchronized (CurrentDungeonData.LOCK_OBJECT) {
-				final int oldFN = a.getCell(x, y, pz, w).getFrameNumber();
+				final var oldFN = a.getCell(x, y, pz, w).getFrameNumber();
 				a.getCell(x, y, pz, w).toggleFrameNumber();
-				final int newFN = a.getCell(x, y, pz, w).getFrameNumber();
+				final var newFN = a.getCell(x, y, pz, w).getFrameNumber();
 				if (oldFN != newFN) {
 				    a.markAsDirty(x, y, pz);
 				}

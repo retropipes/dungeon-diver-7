@@ -20,7 +20,6 @@ import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 public class IcyCrystalBlock extends AbstractReactionWall {
     // Constructors
     public IcyCrystalBlock() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.setMaterial(Materials.ICE);
     }
@@ -34,21 +33,21 @@ public class IcyCrystalBlock extends AbstractReactionWall {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ShotTypes.DISRUPTOR) {
+	}
+	if (laserType == ShotTypes.DISRUPTOR) {
 	    // Disrupt icy crystal block
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
-	    final DisruptedIcyCrystalBlock dicb = new DisruptedIcyCrystalBlock();
+	    final var dicb = new DisruptedIcyCrystalBlock();
 	    if (this.hasPreviousState()) {
 		dicb.setPreviousState(this.getPreviousState());
 	    }
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(dicb, locX, locY, locZ, this.getLayer());
-	    return Directions.NONE;
 	} else {
 	    // Stop laser
 	    SoundLoader.playSound(SoundConstants.LASER_DIE);
-	    return Directions.NONE;
 	}
+	return Directions.NONE;
     }
 
     @Override
@@ -59,19 +58,15 @@ public class IcyCrystalBlock extends AbstractReactionWall {
 	    // Destroy icy crystal block
 	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
-	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE) {
+	}
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE) {
 	    // Heat up crystal block
 	    SoundLoader.playSound(SoundConstants.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
-	    return true;
 	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE) {
-	    // Do nothing
-	    return true;
-	} else {
-	    // Do nothing
-	    return true;
 	}
+	return true;
     }
 
     @Override

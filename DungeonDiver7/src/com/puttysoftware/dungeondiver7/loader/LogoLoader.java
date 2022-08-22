@@ -7,12 +7,8 @@ package com.puttysoftware.dungeondiver7.loader;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 
@@ -37,21 +33,20 @@ public class LogoLoader {
 
     public static BufferedImageIcon getLogo() {
 	try {
-	    final URL url = LogoLoader.LOAD_CLASS.getResource(Strings.untranslated(Untranslated.LOGO_IMAGE_LOAD_PATH));
-	    final BufferedImage image = ImageIO.read(url);
+	    final var url = LogoLoader.LOAD_CLASS.getResource(Strings.untranslated(Untranslated.LOGO_IMAGE_LOAD_PATH));
+	    final var image = ImageIO.read(url);
 	    if (LogoLoader.LOGO_DRAW_FONT == null) {
-		try (InputStream is = LogoLoader.class
-			.getResourceAsStream(Strings.untranslated(Untranslated.FONT_LOAD_PATH))) {
-		    final Font baseFont = Font.createFont(Font.TRUETYPE_FONT, is);
+		try (var is = LogoLoader.class.getResourceAsStream(Strings.untranslated(Untranslated.FONT_LOAD_PATH))) {
+		    final var baseFont = Font.createFont(Font.TRUETYPE_FONT, is);
 		    LogoLoader.LOGO_DRAW_FONT = baseFont.deriveFont((float) 18);
 		} catch (final Exception ex) {
 		    LogoLoader.LOGO_DRAW_FONT = Font.decode(LogoLoader.LOGO_DRAW_FONT_FALLBACK);
 		}
 	    }
-	    final Graphics2D g2 = image.createGraphics();
+	    final var g2 = image.createGraphics();
 	    g2.setFont(LogoLoader.LOGO_DRAW_FONT);
 	    g2.setColor(Color.yellow);
-	    final String logoVer = StuffBag.getLogoVersionString();
+	    final var logoVer = StuffBag.getLogoVersionString();
 	    g2.drawString(logoVer,
 		    LogoLoader.LOGO_DRAW_HORZ
 			    + (LogoLoader.LOGO_DRAW_HORZ_MAX - logoVer.length()) * LogoLoader.LOGO_DRAW_HORZ_PCO,
@@ -65,9 +60,9 @@ public class LogoLoader {
 
     public static BufferedImageIcon getMiniatureLogo() {
 	try {
-	    final URL url = LogoLoader.LOAD_CLASS
+	    final var url = LogoLoader.LOAD_CLASS
 		    .getResource(Strings.untranslated(Untranslated.MINILOGO_IMAGE_LOAD_PATH));
-	    final BufferedImage image = ImageIO.read(url);
+	    final var image = ImageIO.read(url);
 	    return new BufferedImageIcon(image);
 	} catch (final IOException ie) {
 	    DungeonDiver7.logWarningDirectly(ie);
@@ -77,9 +72,9 @@ public class LogoLoader {
 
     public static BufferedImageIcon getMicroLogo() {
 	try {
-	    final URL url = LogoLoader.LOAD_CLASS
+	    final var url = LogoLoader.LOAD_CLASS
 		    .getResource(Strings.untranslated(Untranslated.MICROLOGO_IMAGE_LOAD_PATH));
-	    final BufferedImage image = ImageIO.read(url);
+	    final var image = ImageIO.read(url);
 	    return new BufferedImageIcon(image);
 	} catch (final IOException ie) {
 	    DungeonDiver7.logWarningDirectly(ie);
@@ -89,9 +84,9 @@ public class LogoLoader {
 
     public static Image getIconLogo() {
 	try {
-	    final URL url = LogoLoader.LOAD_CLASS
+	    final var url = LogoLoader.LOAD_CLASS
 		    .getResource(Strings.untranslated(Untranslated.ICONLOGO_IMAGE_LOAD_PATH));
-	    final BufferedImage image = ImageIO.read(url);
+	    final var image = ImageIO.read(url);
 	    return new BufferedImageIcon(image);
 	} catch (final IOException ie) {
 	    DungeonDiver7.logWarningDirectly(ie);

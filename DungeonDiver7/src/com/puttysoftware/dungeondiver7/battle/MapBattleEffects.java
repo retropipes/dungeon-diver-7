@@ -32,11 +32,11 @@ public class MapBattleEffects {
     }
 
     public void updateEffects(final BattleCharacter bc) {
-	final int count = bc.getTemplate().getActiveEffectCount();
+	final var count = bc.getTemplate().getActiveEffectCount();
 	if (count > 0) {
 	    this.setUpGUI(count);
-	    final String[] es = bc.getTemplate().getCompleteEffectStringArray();
-	    for (int x = 0; x < count; x++) {
+	    final var es = bc.getTemplate().getCompleteEffectStringArray();
+	    for (var x = 0; x < count; x++) {
 		this.effectLabels[x].setText(es[x]);
 	    }
 	}
@@ -47,7 +47,7 @@ public class MapBattleEffects {
 	this.effectsPane.removeAll();
 	this.effectsPane.setLayout(new GridLayout(count, 1));
 	this.effectLabels = new JLabel[count];
-	for (int x = 0; x < count; x++) {
+	for (var x = 0; x < count; x++) {
 	    this.effectLabels[x] = new JLabel(" ");
 	}
     }

@@ -8,7 +8,6 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.diane.utilties.DirectionResolver;
 import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
@@ -37,33 +36,28 @@ public class MagneticMirror extends AbstractMovableObject {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else {
-	    final Directions dir = DirectionResolver.resolveInvert(dirX, dirY);
-	    if (AbstractDungeonObject.hitReflectiveSide(dir)) {
-		// Reflect laser
-		return this.getDirection();
-	    } else {
-		// Move mirror
-		final StuffBag app = DungeonDiver7.getStuffBag();
-		final AbstractDungeonObject mo = app.getDungeonManager().getDungeon().getCell(locX - dirX, locY - dirY,
-			locZ, this.getLayer());
-		if (laserType == ShotTypes.BLUE && mo != null
-			&& (mo.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mo.isSolid())) {
-		    app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
-		    this.playSoundHook();
-		} else if (mo != null && (mo.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mo.isSolid())) {
-		    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
-		    this.playSoundHook();
-		} else {
-		    if (laserType == ShotTypes.MISSILE) {
-			SoundLoader.playSound(SoundConstants.BOOM);
-		    } else {
-			return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-		    }
-		}
-		return Directions.NONE;
-	    }
 	}
+	final var dir = DirectionResolver.resolveInvert(dirX, dirY);
+	if (AbstractDungeonObject.hitReflectiveSide(dir)) {
+	    // Reflect laser
+	    return this.getDirection();
+	}
+	// Move mirror
+	final var app = DungeonDiver7.getStuffBag();
+	final var mo = app.getDungeonManager().getDungeon().getCell(locX - dirX, locY - dirY, locZ, this.getLayer());
+	if (laserType == ShotTypes.BLUE && mo != null
+		&& (mo.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mo.isSolid())) {
+	    app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
+	    this.playSoundHook();
+	} else if (mo != null && (mo.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mo.isSolid())) {
+	    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
+	    this.playSoundHook();
+	} else if (laserType == ShotTypes.MISSILE) {
+	    SoundLoader.playSound(SoundConstants.BOOM);
+	} else {
+	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
+	}
+	return Directions.NONE;
     }
 
     @Override
@@ -71,30 +65,34 @@ public class MagneticMirror extends AbstractMovableObject {
 	    final int laserType) {
 	// Finish reflecting laser
 	SoundLoader.playSound(SoundConstants.REFLECT);
-	final Directions oldlaser = DirectionResolver.resolveInvert(locX, locY);
-	final Directions currdir = this.getDirection();
+	final var oldlaser = DirectionResolver.resolveInvert(locX, locY);
+	final var currdir = this.getDirection();
 	if (oldlaser == Directions.NORTH) {
 	    if (currdir == Directions.NORTHWEST) {
 		return Directions.WEST;
-	    } else if (currdir == Directions.NORTHEAST) {
+	    }
+	    if (currdir == Directions.NORTHEAST) {
 		return Directions.EAST;
 	    }
 	} else if (oldlaser == Directions.SOUTH) {
 	    if (currdir == Directions.SOUTHWEST) {
 		return Directions.WEST;
-	    } else if (currdir == Directions.SOUTHEAST) {
+	    }
+	    if (currdir == Directions.SOUTHEAST) {
 		return Directions.EAST;
 	    }
 	} else if (oldlaser == Directions.WEST) {
 	    if (currdir == Directions.SOUTHWEST) {
 		return Directions.SOUTH;
-	    } else if (currdir == Directions.NORTHWEST) {
+	    }
+	    if (currdir == Directions.NORTHWEST) {
 		return Directions.NORTH;
 	    }
 	} else if (oldlaser == Directions.EAST) {
 	    if (currdir == Directions.SOUTHEAST) {
 		return Directions.SOUTH;
-	    } else if (currdir == Directions.NORTHEAST) {
+	    }
+	    if (currdir == Directions.NORTHEAST) {
 		return Directions.NORTH;
 	    }
 	}

@@ -12,7 +12,6 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public class PartyMover extends AbstractMover {
     // Constructors
     public PartyMover() {
-	super();
 	this.setDirection(Directions.NORTH);
 	this.setFrameNumber(1);
 	this.type.set(DungeonObjectTypes.TYPE_MOVER);

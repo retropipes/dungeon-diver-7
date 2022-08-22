@@ -15,11 +15,9 @@ import com.puttysoftware.ack.AvatarImageModel;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.ListWithDescDialog;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.creature.caste.Caste;
 import com.puttysoftware.dungeondiver7.creature.caste.CasteManager;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterLoader;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterRegistration;
-import com.puttysoftware.dungeondiver7.creature.gender.Gender;
 import com.puttysoftware.dungeondiver7.creature.gender.GenderManager;
 import com.puttysoftware.dungeondiver7.loader.MusicConstants;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
@@ -31,7 +29,7 @@ public class PartyManager {
     private static Party party;
     private static int bank = 0;
     private static final int PARTY_SIZE = 1;
-    private final static String[] buttonNames = new String[] { "Done", "Create", "Pick" };
+    private final static String[] buttonNames = { "Done", "Create", "Pick" };
 
     // Constructors
     private PartyManager() {
@@ -45,9 +43,9 @@ public class PartyManager {
 	}
 	MusicLoader.playMusic(MusicConstants.MUSIC_CREATE);
 	PartyManager.party = new Party();
-	int mem = 0;
-	final PartyMember[] pickMembers = CharacterLoader.loadAllRegisteredCharacters();
-	for (int x = 0; x < PartyManager.PARTY_SIZE; x++) {
+	var mem = 0;
+	final var pickMembers = CharacterLoader.loadAllRegisteredCharacters();
+	for (var x = 0; x < PartyManager.PARTY_SIZE; x++) {
 	    PartyMember pc = null;
 	    if (pickMembers == null) {
 		// No characters registered - must create one
@@ -57,7 +55,7 @@ public class PartyManager {
 		    CharacterLoader.saveCharacter(pc);
 		}
 	    } else {
-		final int response = CommonDialogs.showCustomDialog("Pick, Create, or Done?", "Create Party",
+		final var response = CommonDialogs.showCustomDialog("Pick, Create, or Done?", "Create Party",
 			PartyManager.buttonNames, PartyManager.buttonNames[2]);
 		if (response == 2) {
 		    pc = PartyManager.pickOnePartyMemberCreate(pickMembers);
@@ -105,9 +103,9 @@ public class PartyManager {
     }
 
     public static void loadGameHook(final FileIOReader partyFile) throws IOException {
-	final boolean containsPCData = partyFile.readBoolean();
+	final var containsPCData = partyFile.readBoolean();
 	if (containsPCData) {
-	    final int gib = partyFile.readInt();
+	    final var gib = partyFile.readInt();
 	    PartyManager.setGoldInBank(gib);
 	    PartyManager.party = Party.read(partyFile);
 	}
@@ -124,31 +122,31 @@ public class PartyManager {
     }
 
     public static PartyMember getNewPCInstance(final int c, final int g, final String n, final String aid) {
-	final Caste caste = CasteManager.getCaste(c);
-	final Gender gender = GenderManager.getGender(g);
+	final var caste = CasteManager.getCaste(c);
+	final var gender = GenderManager.getGender(g);
 	return new PartyMember(caste, gender, n, aid);
     }
 
     public static void updatePostKill() {
-	final PartyMember leader = PartyManager.getParty().getLeader();
+	final var leader = PartyManager.getParty().getLeader();
 	leader.initPostKill(leader.getCaste(), leader.getGender());
     }
 
     private static PartyMember createNewPC(final JFrame owner) {
-	final String name = CommonDialogs.showTextInputDialog("Character Name", "Create Character");
+	final var name = CommonDialogs.showTextInputDialog("Character Name", "Create Character");
 	if (name != null) {
-	    final Caste caste = CasteManager.selectCaste(owner);
+	    final var caste = CasteManager.selectCaste(owner);
 	    if (caste != null) {
-		final Gender gender = GenderManager.selectGender();
+		final var gender = GenderManager.selectGender();
 		if (gender != null) {
 		    AvatarImageModel avatar = null;
 		    try {
 			avatar = AvatarConstructionKit.constructAvatar();
-		    } catch (IOException e) {
+		    } catch (final IOException e) {
 			DungeonDiver7.logError(e);
 		    }
 		    if (avatar != null) {
-			String aid = avatar.getAvatarImageID();
+			final var aid = avatar.getAvatarImageID();
 			return new PartyMember(caste, gender, name, aid);
 		    }
 		}
@@ -163,15 +161,15 @@ public class PartyManager {
     }
 
     private static String[] buildNameList(final PartyMember[] members) {
-	final String[] tempNames = new String[1];
-	int nnc = 0;
-	for (int x = 0; x < tempNames.length; x++) {
+	final var tempNames = new String[1];
+	var nnc = 0;
+	for (var x = 0; x < tempNames.length; x++) {
 	    if (members != null) {
 		tempNames[x] = members[x].getName();
 		nnc++;
 	    }
 	}
-	final String[] names = new String[nnc];
+	final var names = new String[nnc];
 	nnc = 0;
 	for (final String tempName : tempNames) {
 	    if (tempName != null) {
@@ -183,18 +181,17 @@ public class PartyManager {
     }
 
     private static PartyMember pickOnePartyMemberCreate(final PartyMember[] members) {
-	final String[] pickNames = PartyManager.buildNameList(members);
-	final String response = CommonDialogs.showInputDialog("Pick 1 Party Member", "Create Party", pickNames,
+	final var pickNames = PartyManager.buildNameList(members);
+	final var response = CommonDialogs.showInputDialog("Pick 1 Party Member", "Create Party", pickNames,
 		pickNames[0]);
-	if (response != null) {
-	    for (final PartyMember member : members) {
-		if (member.getName().equals(response)) {
-		    return member;
-		}
-	    }
-	    return null;
-	} else {
+	if (response == null) {
 	    return null;
 	}
+	for (final PartyMember member : members) {
+	    if (member.getName().equals(response)) {
+		return member;
+	    }
+	}
+	return null;
     }
 }

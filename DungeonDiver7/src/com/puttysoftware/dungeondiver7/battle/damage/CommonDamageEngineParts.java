@@ -19,7 +19,7 @@ class CommonDamageEngineParts {
     }
 
     static boolean didSpecial(final int aSpecial) {
-	final int rSpecial = new RandomRange(0, 10000).generate();
+	final var rSpecial = new RandomRange(0, 10000).generate();
 	return rSpecial < aSpecial;
     }
 

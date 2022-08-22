@@ -15,8 +15,6 @@ import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
-import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
@@ -48,20 +46,20 @@ public class LaserTankV4LoadTask extends Thread {
     @Override
     public void run() {
 	this.loadFrame.setVisible(true);
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	app.getGameLogic().setSavedGameFlag(false);
-	try (FileInputStream dungeonFile = new FileInputStream(this.filename)) {
-	    final AbstractDungeon gameDungeon = DungeonManager.createDungeon();
+	try (var dungeonFile = new FileInputStream(this.filename)) {
+	    final var gameDungeon = DungeonManager.createDungeon();
 	    LaserTankV4File.loadOldFile(gameDungeon, dungeonFile);
 	    dungeonFile.close();
 	    app.getDungeonManager().setDungeon(gameDungeon);
-	    final boolean playerExists = gameDungeon.doesPlayerExist(0);
+	    final var playerExists = gameDungeon.doesPlayerExist(0);
 	    if (playerExists) {
 		app.getGameLogic().getPlayerManager().resetPlayerLocation();
 	    }
 	    gameDungeon.save();
 	    // Final cleanup
-	    final String lum = app.getDungeonManager().getLastUsedDungeon();
+	    final var lum = app.getDungeonManager().getLastUsedDungeon();
 	    app.getDungeonManager().clearLastUsedFilenames();
 	    app.getDungeonManager().setLastUsedDungeon(lum);
 	    app.updateLevelInfoList();

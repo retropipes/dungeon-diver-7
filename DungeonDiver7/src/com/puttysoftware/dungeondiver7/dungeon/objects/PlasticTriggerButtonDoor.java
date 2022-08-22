@@ -11,7 +11,6 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class PlasticTriggerButtonDoor extends AbstractTriggerButtonDoor {
     // Constructors
     public PlasticTriggerButtonDoor() {
-	super();
 	this.setMaterial(Materials.PLASTIC);
     }
 

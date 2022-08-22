@@ -18,7 +18,6 @@ import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 public class Bricks extends AbstractReactionWall {
     // Constructors
     public Bricks() {
-	super();
 	this.setMaterial(Materials.PLASTIC);
     }
 
@@ -31,10 +30,9 @@ public class Bricks extends AbstractReactionWall {
 	if (laserType == ShotTypes.POWER) {
 	    // Laser keeps going
 	    return DirectionResolver.resolve(dirX, dirY);
-	} else {
-	    // Laser stops
-	    return Directions.NONE;
 	}
+	// Laser stops
+	return Directions.NONE;
     }
 
     @Override

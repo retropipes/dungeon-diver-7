@@ -5,9 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.loader;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 
@@ -22,16 +20,16 @@ public class StatImageManager {
 
     public static BufferedImageIcon load(final StatusImage image) {
 	// Get it from the cache
-	final String name = Strings.statusImage(image);
+	final var name = Strings.statusImage(image);
 	return StatImageCache.getCachedImage(name);
     }
 
     static BufferedImageIcon getUncachedImage(final String name) {
 	try {
-	    final URL url = StatImageManager.LOAD_CLASS
+	    final var url = StatImageManager.LOAD_CLASS
 		    .getResource(Strings.untranslated(Untranslated.STAT_IMAGE_LOAD_PATH) + name
 			    + Strings.fileExtension(FileExtension.IMAGE));
-	    final BufferedImage image = ImageIO.read(url);
+	    final var image = ImageIO.read(url);
 	    return new BufferedImageIcon(image);
 	} catch (final IOException ie) {
 	    return null;

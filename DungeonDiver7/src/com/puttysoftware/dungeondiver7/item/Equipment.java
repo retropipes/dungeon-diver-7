@@ -36,8 +36,8 @@ public class Equipment extends Item {
     // Methods
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = super.hashCode();
+	final var prime = 31;
+	var result = super.hashCode();
 	result = prime * result + this.slotUsed.ordinal();
 	return prime * result + this.materialID;
     }
@@ -47,17 +47,8 @@ public class Equipment extends Item {
 	if (this == obj) {
 	    return true;
 	}
-	if (!super.equals(obj)) {
-	    return false;
-	}
-	if (!(obj instanceof Equipment)) {
-	    return false;
-	}
-	final Equipment other = (Equipment) obj;
-	if (this.slotUsed != other.slotUsed) {
-	    return false;
-	}
-	if (this.materialID != other.materialID) {
+	if (!super.equals(obj) || !(obj instanceof final Equipment other) || this.slotUsed != other.slotUsed
+		|| this.materialID != other.materialID) {
 	    return false;
 	}
 	return true;
@@ -76,14 +67,14 @@ public class Equipment extends Item {
     }
 
     static Equipment readEquipment(final FileIOReader dr) throws IOException {
-	final Item i = Item.readItem(dr);
+	final var i = Item.readItem(dr);
 	if (i == null) {
 	    // Abort
 	    return null;
 	}
-	final int matID = dr.readInt();
-	final Slot slot = Slot.values()[dr.readInt()];
-	final int hs = dr.readInt();
+	final var matID = dr.readInt();
+	final var slot = Slot.values()[dr.readInt()];
+	final var hs = dr.readInt();
 	return new Equipment(i.getName(), i.getBuyPrice(), i.getWeight(), i.getPotency(), slot, matID, hs);
     }
 

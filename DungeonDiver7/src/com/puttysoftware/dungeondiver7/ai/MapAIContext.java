@@ -8,7 +8,6 @@ package com.puttysoftware.dungeondiver7.ai;
 import java.awt.Point;
 
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
-import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
@@ -38,9 +37,9 @@ public class MapAIContext {
 
     // Methods
     public void updateContext(final AbstractDungeon arena) {
-	for (int x = 0; x < this.apCosts.length; x++) {
-	    for (int y = 0; y < this.apCosts[x].length; y++) {
-		final AbstractDungeonObject obj = arena.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	for (var x = 0; x < this.apCosts.length; x++) {
+	    for (var y = 0; y < this.apCosts[x].length; y++) {
+		final var obj = arena.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		if (obj.isSolid()) {
 		    this.apCosts[x][y] = MapAIContext.CANNOT_MOVE_THERE;
 		} else {
@@ -48,11 +47,10 @@ public class MapAIContext {
 		}
 	    }
 	}
-	for (int x = 0; x < this.creatureLocations.length; x++) {
-	    for (int y = 0; y < this.creatureLocations[x].length; y++) {
-		final AbstractDungeonObject obj = arena.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
-		if (obj instanceof BattleCharacter) {
-		    final BattleCharacter bc = (BattleCharacter) obj;
+	for (var x = 0; x < this.creatureLocations.length; x++) {
+	    for (var y = 0; y < this.creatureLocations[x].length; y++) {
+		final var obj = arena.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		if (obj instanceof final BattleCharacter bc) {
 		    this.creatureLocations[x][y] = bc.getTeamID();
 		} else {
 		    this.creatureLocations[x][y] = MapAIContext.NOTHING_THERE;
@@ -70,8 +68,8 @@ public class MapAIContext {
     }
 
     Point isEnemyNearby(final int minRadius, final int maxRadius) {
-	int fMinR = minRadius;
-	int fMaxR = maxRadius;
+	var fMinR = minRadius;
+	var fMaxR = maxRadius;
 	if (fMaxR > MapAIContext.MAXIMUM_RADIUS) {
 	    fMaxR = MapAIContext.MAXIMUM_RADIUS;
 	}
@@ -84,8 +82,8 @@ public class MapAIContext {
 	if (fMinR < MapAIContext.MINIMUM_RADIUS) {
 	    fMinR = MapAIContext.MINIMUM_RADIUS;
 	}
-	final int x = this.aiContext.getX();
-	final int y = this.aiContext.getY();
+	final var x = this.aiContext.getX();
+	final var y = this.aiContext.getY();
 	int u, v;
 	for (u = x - fMaxR; u <= x + fMaxR; u++) {
 	    for (v = y - fMaxR; v <= y + fMaxR; v++) {
@@ -105,10 +103,10 @@ public class MapAIContext {
     }
 
     Point runAway() {
-	final int fMinR = MapAIContext.MAXIMUM_RADIUS;
-	final int fMaxR = MapAIContext.MAXIMUM_RADIUS;
-	final int x = this.aiContext.getX();
-	final int y = this.aiContext.getY();
+	final var fMinR = MapAIContext.MAXIMUM_RADIUS;
+	final var fMaxR = MapAIContext.MAXIMUM_RADIUS;
+	final var x = this.aiContext.getX();
+	final var y = this.aiContext.getY();
 	int u, v;
 	for (u = x - fMaxR; u <= x + fMaxR; u++) {
 	    for (v = y - fMaxR; v <= y + fMaxR; v++) {

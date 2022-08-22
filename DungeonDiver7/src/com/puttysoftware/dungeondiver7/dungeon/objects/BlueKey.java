@@ -15,7 +15,6 @@ import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 public class BlueKey extends AbstractKey {
     // Constructors
     public BlueKey() {
-	super();
     }
 
     // Scriptability

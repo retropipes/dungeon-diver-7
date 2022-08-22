@@ -23,7 +23,6 @@ public class DisruptedWall extends AbstractDisruptedObject {
 
     // Constructors
     public DisruptedWall() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.disruptionLeft = DisruptedWall.DISRUPTION_START;
 	this.activateTimer(1);
@@ -31,7 +30,6 @@ public class DisruptedWall extends AbstractDisruptedObject {
     }
 
     DisruptedWall(final int disruption) {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.disruptionLeft = disruption;
 	this.activateTimer(1);
@@ -47,16 +45,16 @@ public class DisruptedWall extends AbstractDisruptedObject {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedHotWall(this.disruptionLeft), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ShotTypes.STUNNER) {
+	}
+	if (laserType == ShotTypes.STUNNER) {
 	    // Freeze wall
 	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedIcyWall(this.disruptionLeft), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else {
-	    // Stop laser
-	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
+	// Stop laser
+	return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
     }
 
     @Override
@@ -64,7 +62,7 @@ public class DisruptedWall extends AbstractDisruptedObject {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
 	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
-	    final int z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
+	    final var z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Wall(), locX, locY, z, this.getLayer());
 	} else {
@@ -81,7 +79,7 @@ public class DisruptedWall extends AbstractDisruptedObject {
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
 	case Materials.ICE:
-	    final DisruptedIcyWall diw = new DisruptedIcyWall(this.disruptionLeft);
+	    final var diw = new DisruptedIcyWall(this.disruptionLeft);
 	    diw.setPreviousState(this);
 	    return diw;
 	case Materials.FIRE:

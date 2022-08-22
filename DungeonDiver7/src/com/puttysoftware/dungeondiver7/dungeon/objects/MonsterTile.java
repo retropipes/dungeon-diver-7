@@ -23,7 +23,7 @@ public class MonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public void postMoveAction(final int dirX, final int dirY, int dirZ) {
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	if (DungeonDiver7.getStuffBag().getMode() != StuffBag.STATUS_BATTLE) {
 	    DungeonDiver7.getStuffBag().getBattle().doBattle();
 	    DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().postBattle(this, dirX, dirY, true);
@@ -33,8 +33,8 @@ public class MonsterTile extends AbstractMovingObject {
     @Override
     public void timerExpiredAction(final int dirX, final int dirY) {
 	// Move the monster
-	final RandomRange r = new RandomRange(0, 7);
-	final Directions move = Directions.values()[r.generate()];
+	final var r = new RandomRange(0, 7);
+	final var move = Directions.values()[r.generate()];
 	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().updateMonsterPosition(move, dirX, dirY, this, 0);
 	this.activateTimer(1);
     }
@@ -64,35 +64,31 @@ public class MonsterTile extends AbstractMovingObject {
 	    final int layer) {
 	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return false;
-	} else {
-	    return super.shouldGenerateObject(dungeon, row, col, level, layer);
 	}
+	return super.shouldGenerateObject(dungeon, row, col, level, layer);
     }
 
     @Override
     public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
 	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
-	} else {
-	    return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(), 1.0 / 2.2);
 	}
+	return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(), 1.0 / 2.2);
     }
 
     @Override
     public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
 	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
-	} else {
-	    return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(), 1.0 / 1.8);
 	}
+	return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(), 1.0 / 1.8);
     }
 
     @Override
     public boolean isRequired(final AbstractDungeon dungeon) {
 	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return false;
-	} else {
-	    return true;
 	}
+	return true;
     }
 }

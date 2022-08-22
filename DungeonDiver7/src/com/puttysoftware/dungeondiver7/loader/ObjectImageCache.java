@@ -16,7 +16,7 @@ public class ObjectImageCache {
     // Methods
     static BufferedImageIcon getCachedImage(final String name, final String baseName) {
 	if (!ObjectImageCache.isInCache(name)) {
-	    final BufferedImageIcon bii = ObjectImageManager.getUncachedImage(baseName);
+	    final var bii = ObjectImageManager.getUncachedImage(baseName);
 	    ObjectImageCache.addToCache(name, bii);
 	}
 	for (final CacheEntry element : ObjectImageCache.cache) {
@@ -28,8 +28,8 @@ public class ObjectImageCache {
     }
 
     private static void expandCache() {
-	final CacheEntry[] tempCache = new CacheEntry[ObjectImageCache.cache.length + ObjectImageCache.CACHE_INCREMENT];
-	for (int x = 0; x < ObjectImageCache.CACHE_SIZE; x++) {
+	final var tempCache = new CacheEntry[ObjectImageCache.cache.length + ObjectImageCache.CACHE_INCREMENT];
+	for (var x = 0; x < ObjectImageCache.CACHE_SIZE; x++) {
 	    tempCache[x] = ObjectImageCache.cache[x];
 	}
 	ObjectImageCache.cache = tempCache;
@@ -50,7 +50,7 @@ public class ObjectImageCache {
 	if (ObjectImageCache.cache == null) {
 	    ObjectImageCache.cache = new CacheEntry[ObjectImageCache.CACHE_INCREMENT];
 	}
-	for (int x = 0; x < ObjectImageCache.CACHE_SIZE; x++) {
+	for (var x = 0; x < ObjectImageCache.CACHE_SIZE; x++) {
 	    if (name.equals(ObjectImageCache.cache[x].getName())) {
 		return true;
 	    }

@@ -21,29 +21,29 @@ import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 public class MirrorCrystalBlock extends AbstractReactionWall {
     // Constructors
     public MirrorCrystalBlock() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
     }
 
     @Override
     public Directions laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
 	    final int dirY, final int laserType, final int forceUnits) {
-	if (laserType == ShotTypes.MISSILE) {
+	switch (laserType) {
+	case ShotTypes.MISSILE:
 	    // Destroy mirror crystal block
 	    SoundLoader.playSound(SoundConstants.BOOM);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ShotTypes.BLUE) {
+	case ShotTypes.BLUE:
 	    // Pass laser through
 	    return DirectionResolver.resolve(dirX, dirY);
-	} else if (laserType == ShotTypes.DISRUPTOR) {
+	case ShotTypes.DISRUPTOR:
 	    // Disrupt mirror crystal block
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedMirrorCrystalBlock(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else {
+	default:
 	    // Reflect laser
 	    return DirectionResolver.resolveInvert(dirX, dirY);
 	}
@@ -63,22 +63,19 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
 	    // Destroy mirror crystal block
 	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
-	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE) {
+	}
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE) {
 	    // Heat up mirror crystal block
 	    SoundLoader.playSound(SoundConstants.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
-	    return true;
 	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE) {
 	    // Freeze mirror crystal block
 	    SoundLoader.playSound(SoundConstants.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
-	    return true;
-	} else {
-	    // Do nothing
-	    return true;
 	}
+	return true;
     }
 
     @Override
@@ -95,7 +92,7 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
 	case Materials.ICE:
-	    final IcyCrystalBlock icb = new IcyCrystalBlock();
+	    final var icb = new IcyCrystalBlock();
 	    icb.setPreviousState(this);
 	    return icb;
 	case Materials.FIRE:

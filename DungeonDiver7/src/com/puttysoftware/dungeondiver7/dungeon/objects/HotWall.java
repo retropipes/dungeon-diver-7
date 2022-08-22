@@ -19,7 +19,6 @@ import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 public class HotWall extends AbstractWall {
     // Constructors
     public HotWall() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.setMaterial(Materials.FIRE);
     }
@@ -33,16 +32,16 @@ public class HotWall extends AbstractWall {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedHotWall(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ShotTypes.STUNNER) {
+	}
+	if (laserType == ShotTypes.STUNNER) {
 	    // Cool off hot wall
 	    SoundLoader.playSound(SoundConstants.COOL_OFF);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Wall(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else {
-	    // Stop laser
-	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
+	// Stop laser
+	return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
     }
 
     @Override

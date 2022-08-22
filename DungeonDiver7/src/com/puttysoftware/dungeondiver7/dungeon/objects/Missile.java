@@ -10,7 +10,6 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTransientObject;
 public class Missile extends AbstractTransientObject {
     // Constructors
     public Missile() {
-	super();
     }
 
     @Override

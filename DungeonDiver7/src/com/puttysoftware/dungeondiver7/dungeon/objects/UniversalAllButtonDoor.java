@@ -11,7 +11,6 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class UniversalAllButtonDoor extends AbstractAllButtonDoor {
     // Constructors
     public UniversalAllButtonDoor() {
-	super();
 	this.setMaterial(Materials.DEFAULT);
     }
 

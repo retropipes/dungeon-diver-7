@@ -10,7 +10,6 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public abstract class AbstractAllButtonDoor extends AbstractButtonDoor {
     // Constructors
     protected AbstractAllButtonDoor() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_ALL_BUTTON_DOOR);
     }
 }

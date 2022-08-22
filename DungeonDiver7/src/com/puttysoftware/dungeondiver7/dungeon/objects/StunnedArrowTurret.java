@@ -28,7 +28,7 @@ public class StunnedArrowTurret extends AbstractMovableObject {
 
     @Override
     public AbstractDungeonObject clone() {
-	final StunnedArrowTurret copy = (StunnedArrowTurret) super.clone();
+	final var copy = (StunnedArrowTurret) super.clone();
 	copy.stunnedLeft = this.stunnedLeft;
 	return copy;
     }
@@ -40,8 +40,8 @@ public class StunnedArrowTurret extends AbstractMovableObject {
 	    SoundLoader.playSound(SoundConstants.STUN_OFF);
 	    this.activateTimer(1);
 	} else if (this.stunnedLeft == 0) {
-	    final int z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
-	    final ArrowTurret at = new ArrowTurret();
+	    final var z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
+	    final var at = new ArrowTurret();
 	    at.setSavedObject(this.getSavedObject());
 	    at.setDirection(this.getDirection());
 	    DungeonDiver7.getStuffBag().getGameLogic();

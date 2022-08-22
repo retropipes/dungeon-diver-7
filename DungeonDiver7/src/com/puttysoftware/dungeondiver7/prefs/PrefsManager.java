@@ -96,7 +96,7 @@ public class PrefsManager {
     }
 
     public static void setLanguageID(final int value) {
-	final int oldValue = PrefsManager.getLanguageID();
+	final var oldValue = PrefsManager.getLanguageID();
 	PrefsManager.storeMgr.setInteger(Strings.prefKey(PrefKey.ACTIVE_LANGUAGE), value);
 	if (oldValue != value) {
 	    Strings.changeLanguage(Locale.getDefault());
@@ -236,21 +236,21 @@ public class PrefsManager {
     }
 
     private static String getPrefsDirPrefix() {
-	final String osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
+	final var osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
 	if (osName.indexOf(Strings.untranslated(Untranslated.MACOS)) != -1) {
 	    // Mac OS X
 	    return System.getenv(Strings.untranslated(Untranslated.UNIX_HOME));
-	} else if (osName.indexOf(Strings.untranslated(Untranslated.WINDOWS)) != -1) {
+	}
+	if (osName.indexOf(Strings.untranslated(Untranslated.WINDOWS)) != -1) {
 	    // Windows
 	    return System.getenv(Strings.untranslated(Untranslated.WINDOWS_SUPPORT));
-	} else {
-	    // Other - assume UNIX-like
-	    return System.getenv(Strings.untranslated(Untranslated.UNIX_HOME));
 	}
+	// Other - assume UNIX-like
+	return System.getenv(Strings.untranslated(Untranslated.UNIX_HOME));
     }
 
     private static String getPrefsDirectory() {
-	final String osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
+	final var osName = System.getProperty(Strings.untranslated(Untranslated.OS_NAME));
 	String base;
 	if (osName.indexOf(Strings.untranslated(Untranslated.MACOS)) != -1) {
 	    // Mac OS X
@@ -265,10 +265,9 @@ public class PrefsManager {
 	if (base != Strings.EMPTY) {
 	    return base + File.pathSeparator + Strings.untranslated(Untranslated.COMPANY_SUBFOLDER) + File.pathSeparator
 		    + Strings.untranslated(Untranslated.PROGRAM_NAME);
-	} else {
-	    return Strings.untranslated(Untranslated.COMPANY_SUBFOLDER) + File.pathSeparator
-		    + Strings.untranslated(Untranslated.PROGRAM_NAME);
 	}
+	return Strings.untranslated(Untranslated.COMPANY_SUBFOLDER) + File.pathSeparator
+		+ Strings.untranslated(Untranslated.PROGRAM_NAME);
     }
 
     private static String getPrefsFileExtension() {
@@ -280,7 +279,7 @@ public class PrefsManager {
     }
 
     private static String getPrefsFile() {
-	final StringBuilder b = new StringBuilder();
+	final var b = new StringBuilder();
 	b.append(PrefsManager.getPrefsDirPrefix());
 	b.append(PrefsManager.getPrefsDirectory());
 	b.append(PrefsManager.getPrefsFileName());
@@ -289,7 +288,7 @@ public class PrefsManager {
     }
 
     public static void writePrefs() {
-	try (BufferedOutputStream buf = new BufferedOutputStream(new FileOutputStream(PrefsManager.getPrefsFile()))) {
+	try (var buf = new BufferedOutputStream(new FileOutputStream(PrefsManager.getPrefsFile()))) {
 	    PrefsManager.storeMgr.saveStore(buf);
 	} catch (final IOException io) {
 	    // Ignore
@@ -297,7 +296,7 @@ public class PrefsManager {
     }
 
     public static void readPrefs() {
-	try (BufferedInputStream buf = new BufferedInputStream(new FileInputStream(PrefsManager.getPrefsFile()))) {
+	try (var buf = new BufferedInputStream(new FileInputStream(PrefsManager.getPrefsFile()))) {
 	    // Read new preferences
 	    PrefsManager.storeMgr.loadStore(buf);
 	} catch (final IOException io) {

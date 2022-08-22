@@ -10,7 +10,6 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTransientObject;
 public class PowerArrow extends AbstractTransientObject {
     // Constructors
     public PowerArrow() {
-	super();
     }
 
     @Override

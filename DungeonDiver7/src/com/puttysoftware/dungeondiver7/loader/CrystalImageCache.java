@@ -16,7 +16,7 @@ public class CrystalImageCache {
     // Methods
     static BufferedImageIcon getCachedImage(final String name) {
 	if (!CrystalImageCache.isInCache(name)) {
-	    final BufferedImageIcon bii = CrystalImageManager.getUncachedImage(name);
+	    final var bii = CrystalImageManager.getUncachedImage(name);
 	    CrystalImageCache.addToCache(name, bii);
 	}
 	for (final CacheEntry element : CrystalImageCache.cache) {
@@ -28,9 +28,8 @@ public class CrystalImageCache {
     }
 
     private static void expandCache() {
-	final CacheEntry[] tempCache = new CacheEntry[CrystalImageCache.cache.length
-		+ CrystalImageCache.CACHE_INCREMENT];
-	for (int x = 0; x < CrystalImageCache.CACHE_SIZE; x++) {
+	final var tempCache = new CacheEntry[CrystalImageCache.cache.length + CrystalImageCache.CACHE_INCREMENT];
+	for (var x = 0; x < CrystalImageCache.CACHE_SIZE; x++) {
 	    tempCache[x] = CrystalImageCache.cache[x];
 	}
 	CrystalImageCache.cache = tempCache;
@@ -51,7 +50,7 @@ public class CrystalImageCache {
 	if (CrystalImageCache.cache == null) {
 	    CrystalImageCache.cache = new CacheEntry[CrystalImageCache.CACHE_INCREMENT];
 	}
-	for (int x = 0; x < CrystalImageCache.CACHE_SIZE; x++) {
+	for (var x = 0; x < CrystalImageCache.CACHE_SIZE; x++) {
 	    if (name.equals(CrystalImageCache.cache[x].getName())) {
 		return true;
 	    }

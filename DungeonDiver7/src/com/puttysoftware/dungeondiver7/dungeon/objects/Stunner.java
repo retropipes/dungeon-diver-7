@@ -10,7 +10,6 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTransientObject;
 public class Stunner extends AbstractTransientObject {
     // Constructors
     public Stunner() {
-	super();
     }
 
     @Override

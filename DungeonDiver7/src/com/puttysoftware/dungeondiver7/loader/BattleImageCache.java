@@ -16,7 +16,7 @@ public class BattleImageCache {
     // Methods
     static BufferedImageIcon getCachedImage(final String name, final String baseName) {
 	if (!BattleImageCache.isInCache(name)) {
-	    final BufferedImageIcon bii = BattleImageManager.getUncachedImage(baseName);
+	    final var bii = BattleImageManager.getUncachedImage(baseName);
 	    BattleImageCache.addToCache(name, bii);
 	}
 	for (final CacheEntry element : BattleImageCache.cache) {
@@ -28,8 +28,8 @@ public class BattleImageCache {
     }
 
     private static void expandCache() {
-	final CacheEntry[] tempCache = new CacheEntry[BattleImageCache.cache.length + BattleImageCache.CACHE_INCREMENT];
-	for (int x = 0; x < BattleImageCache.CACHE_SIZE; x++) {
+	final var tempCache = new CacheEntry[BattleImageCache.cache.length + BattleImageCache.CACHE_INCREMENT];
+	for (var x = 0; x < BattleImageCache.CACHE_SIZE; x++) {
 	    tempCache[x] = BattleImageCache.cache[x];
 	}
 	BattleImageCache.cache = tempCache;
@@ -50,7 +50,7 @@ public class BattleImageCache {
 	if (BattleImageCache.cache == null) {
 	    BattleImageCache.cache = new CacheEntry[BattleImageCache.CACHE_INCREMENT];
 	}
-	for (int x = 0; x < BattleImageCache.CACHE_SIZE; x++) {
+	for (var x = 0; x < BattleImageCache.CACHE_SIZE; x++) {
 	    if (name.equals(BattleImageCache.cache[x].getName())) {
 		return true;
 	    }

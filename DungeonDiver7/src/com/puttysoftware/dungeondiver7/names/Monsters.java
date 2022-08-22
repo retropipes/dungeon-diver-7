@@ -14,7 +14,7 @@ public class Monsters {
     }
 
     public static final String getImageFilename(final int ID) {
-	final String tempMonID = Integer.toString(ID);
+	final var tempMonID = Integer.toString(ID);
 	String monID;
 	if (tempMonID.length() == 1) {
 	    monID = "0" + tempMonID;

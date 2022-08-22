@@ -6,7 +6,6 @@
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
@@ -29,14 +28,14 @@ public abstract class AbstractButtonDoor extends AbstractDungeonObject {
 
     @Override
     public void editorPlaceHook(final int x, final int y, final int z) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	app.getDungeonManager().getDungeon().fullScanButtonBind(x, y, z, this);
 	app.getEditor().redrawEditor();
     }
 
     @Override
     public void editorRemoveHook(final int x, final int y, final int z) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	app.getDungeonManager().getDungeon().fullScanFindButtonLostDoor(z, this);
 	app.getEditor().redrawEditor();
     }

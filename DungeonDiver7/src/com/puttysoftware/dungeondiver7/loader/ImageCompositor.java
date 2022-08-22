@@ -15,46 +15,44 @@ public class ImageCompositor {
 
     public static BufferedImageIcon getCompositeImage(final BufferedImageIcon icon1, final BufferedImageIcon icon2,
 	    final int imageSize) {
-	final BufferedImageIcon result = new BufferedImageIcon(icon2);
-	if (icon1 != null && icon2 != null) {
-	    for (int x = 0; x < imageSize; x++) {
-		for (int y = 0; y < imageSize; y++) {
-		    final int pixel = icon2.getRGB(x, y);
-		    final Color c = new Color(pixel, true);
-		    if (c.getAlpha() == ImageCompositor.TRANSPARENT) {
-			result.setRGB(x, y, icon1.getRGB(x, y));
-		    }
-		}
-	    }
-	    return result;
-	} else {
+	final var result = new BufferedImageIcon(icon2);
+	if (icon1 == null || icon2 == null) {
 	    return null;
 	}
+	for (var x = 0; x < imageSize; x++) {
+	    for (var y = 0; y < imageSize; y++) {
+		final var pixel = icon2.getRGB(x, y);
+		final var c = new Color(pixel, true);
+		if (c.getAlpha() == ImageCompositor.TRANSPARENT) {
+		    result.setRGB(x, y, icon1.getRGB(x, y));
+		}
+	    }
+	}
+	return result;
     }
 
     public static BufferedImageIcon getVirtualCompositeImage(final BufferedImageIcon icon1,
 	    final BufferedImageIcon icon2, final BufferedImageIcon icon3, final int imageSize) {
-	final BufferedImageIcon icon4 = ImageCompositor.getCompositeImage(icon1, icon2, imageSize);
-	final BufferedImageIcon result = new BufferedImageIcon(icon3);
-	if (icon3 != null && icon4 != null) {
-	    for (int x = 0; x < imageSize; x++) {
-		for (int y = 0; y < imageSize; y++) {
-		    final int pixel = icon3.getRGB(x, y);
-		    final Color c = new Color(pixel, true);
-		    if (c.getAlpha() == ImageCompositor.TRANSPARENT) {
-			result.setRGB(x, y, icon4.getRGB(x, y));
-		    }
-		}
-	    }
-	    return result;
-	} else {
+	final var icon4 = ImageCompositor.getCompositeImage(icon1, icon2, imageSize);
+	final var result = new BufferedImageIcon(icon3);
+	if (icon3 == null || icon4 == null) {
 	    return null;
 	}
+	for (var x = 0; x < imageSize; x++) {
+	    for (var y = 0; y < imageSize; y++) {
+		final var pixel = icon3.getRGB(x, y);
+		final var c = new Color(pixel, true);
+		if (c.getAlpha() == ImageCompositor.TRANSPARENT) {
+		    result.setRGB(x, y, icon4.getRGB(x, y));
+		}
+	    }
+	}
+	return result;
     }
 
     public static String normalizeName(final String name) {
-	final StringBuilder sb = new StringBuilder(name);
-	for (int x = 0; x < sb.length(); x++) {
+	final var sb = new StringBuilder(name);
+	for (var x = 0; x < sb.length(); x++) {
 	    if (!Character.isLetter(sb.charAt(x)) && !Character.isDigit(sb.charAt(x))) {
 		sb.setCharAt(x, '_');
 	    }

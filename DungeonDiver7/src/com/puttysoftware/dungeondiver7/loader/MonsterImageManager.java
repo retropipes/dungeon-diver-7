@@ -5,9 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.loader;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 
@@ -22,15 +20,16 @@ public class MonsterImageManager {
 
     public static BufferedImageIcon getImage(final int zoneID, final int monID) {
 	// Get it from the cache
-	final String name = Monsters.getImageFilename(monID);
+	final var name = Monsters.getImageFilename(monID);
 	return MonsterImageCache.getCachedImage(name);
     }
 
     static BufferedImageIcon getUncachedImage(final String name) {
 	try {
-	    final URL url = MonsterImageManager.LOAD_CLASS
-		    .getResource(Strings.untranslated(Untranslated.MONSTER_IMAGE_LOAD_PATH) + name + Strings.fileExtension(FileExtension.IMAGE));
-	    final BufferedImage image = ImageIO.read(url);
+	    final var url = MonsterImageManager.LOAD_CLASS
+		    .getResource(Strings.untranslated(Untranslated.MONSTER_IMAGE_LOAD_PATH) + name
+			    + Strings.fileExtension(FileExtension.IMAGE));
+	    final var image = ImageIO.read(url);
 	    return new BufferedImageIcon(image);
 	} catch (final IOException ie) {
 	    return null;

@@ -15,7 +15,6 @@ import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.GameString;
@@ -46,9 +45,9 @@ class ReplayFileLoadTask extends Thread {
     @Override
     public void run() {
 	this.loadFrame.setVisible(true);
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	app.getGameLogic().setSavedGameFlag(false);
-	try (FileInputStream dungeonFile = new FileInputStream(this.filename)) {
+	try (var dungeonFile = new FileInputStream(this.filename)) {
 	    ReplayFile.loadLPB(dungeonFile);
 	    dungeonFile.close();
 	} catch (final FileNotFoundException fnfe) {

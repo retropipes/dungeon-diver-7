@@ -24,14 +24,13 @@ public class DeadArrowTurret extends AbstractMovableObject {
     public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	DungeonDiver7.getStuffBag().getGameLogic().haltMovingObjects();
-	if (laserType == ShotTypes.MISSILE) {
-	    // Destroy
-	    SoundLoader.playSound(SoundConstants.BOOM);
-	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.getSavedObject(), locX, locY, locZ, this.getLayer());
-	} else {
+	if (laserType != ShotTypes.MISSILE) {
 	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
+	// Destroy
+	SoundLoader.playSound(SoundConstants.BOOM);
+	DungeonDiver7.getStuffBag().getGameLogic();
+	GameLogic.morph(this.getSavedObject(), locX, locY, locZ, this.getLayer());
 	return Directions.NONE;
     }
 

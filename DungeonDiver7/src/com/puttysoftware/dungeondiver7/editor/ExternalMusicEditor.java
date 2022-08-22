@@ -16,7 +16,6 @@ import javax.swing.JMenu;
 import javax.swing.JTextField;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.loader.ExternalMusicImporter;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.locale.EditorString;
@@ -49,7 +48,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 	new Thread() {
 	    @Override
 	    public void run() {
-		final StuffBag app = DungeonDiver7.getStuffBag();
+		final var app = DungeonDiver7.getStuffBag();
 		Importer.showImporter(ExternalMusicEditor.this.getOutputFrame(), app.getMenuManager().getMainMenuBar());
 		while (Importer.isImporterVisible()) {
 		    // Wait
@@ -67,7 +66,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 
     @Override
     protected boolean newObjectCreate() {
-	final File file = ExternalMusicImporter.getDestinationFile();
+	final var file = ExternalMusicImporter.getDestinationFile();
 	if (file != null) {
 	    this.cachedExternalMusic.setName(file.getName());
 	    this.cachedExternalMusic.setPath(file.getParent() + File.separator);
@@ -143,25 +142,32 @@ public class ExternalMusicEditor extends GenericObjectEditor {
     @Override
     protected void guiActionButtonProperties(final JButton actBtn, final int row, final int col) {
 	if (actBtn != null) {
-	    if (col == 0) {
+	    switch (col) {
+	    case 0:
 		actBtn.setText(Strings.editor(EditorString.MUSIC_PLAY));
-	    } else if (col == 1) {
+		break;
+	    case 1:
 		actBtn.setText(Strings.editor(EditorString.MUSIC_STOP));
-	    } else if (col == 2) {
+		break;
+	    case 2:
 		actBtn.setText(Strings.editor(EditorString.MUSIC_MODIFY));
+		break;
+	    default:
+		break;
 	    }
 	}
     }
 
     @Override
     protected String guiActionButtonActionCommand(final int row, final int col) {
-	if (col == 0) {
+	switch (col) {
+	case 0:
 	    return "pl" + row;
-	} else if (col == 1) {
+	case 1:
 	    return "st" + row;
-	} else if (col == 2) {
+	case 2:
 	    return "md" + row;
-	} else {
+	default:
 	    // Invalid
 	    return null;
 	}

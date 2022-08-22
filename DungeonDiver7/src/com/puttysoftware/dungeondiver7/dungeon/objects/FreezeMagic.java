@@ -14,7 +14,6 @@ import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 public class FreezeMagic extends AbstractSpell {
     // Constructors
     public FreezeMagic() {
-	super();
     }
 
     // Scriptability

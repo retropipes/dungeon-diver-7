@@ -61,7 +61,6 @@ public class CurrentDungeon extends AbstractDungeon {
 
     // Constructors
     public CurrentDungeon() throws IOException {
-	super();
 	this.dungeonData = null;
 	this.clipboard = null;
 	this.levelCount = 0;
@@ -73,12 +72,12 @@ public class CurrentDungeon extends AbstractDungeon {
 	this.moveShootAllowed = false;
 	this.levelInfoData = new ArrayList<>();
 	this.levelInfoList = new ArrayList<>();
-	final long random = new RandomLongRange(0, Long.MAX_VALUE).generate();
-	final String randomID = Long.toHexString(random);
+	final var random = new RandomLongRange(0, Long.MAX_VALUE).generate();
+	final var randomID = Long.toHexString(random);
 	this.basePath = System.getProperty(Strings.untranslated(Untranslated.TEMP_DIR)) + File.separator
 		+ Strings.untranslated(Untranslated.PROGRAM_NAME) + File.separator + randomID;
-	final File base = new File(this.basePath);
-	final boolean res = base.mkdirs();
+	final var base = new File(this.basePath);
+	final var res = base.mkdirs();
 	if (!res) {
 	    throw new IOException(Strings.error(ErrorString.TEMP_DIR));
 	}
@@ -93,67 +92,67 @@ public class CurrentDungeon extends AbstractDungeon {
 
     @Override
     public Directions computeFinalBossMoveDirection(final int locX, final int locY, final int locZ, final int pi) {
-	int px = this.getPlayerLocationX(pi);
-	int py = this.getPlayerLocationY(pi);
-	int relX = px - locX;
-	int relY = py - locY;
-	int moveX = 0;
-	int moveY = 0;
+	final var px = this.getPlayerLocationX(pi);
+	final var py = this.getPlayerLocationY(pi);
+	final var relX = px - locX;
+	final var relY = py - locY;
+	var moveX = 0;
+	var moveY = 0;
 	if (relX != 0) {
 	    moveX = relX / Math.abs(relX);
 	}
 	if (relY != 0) {
 	    moveY = relY / Math.abs(relY);
 	}
-	boolean canMove = !this.getCell(locX + moveX, locY + moveY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+	final var canMove = !this.getCell(locX + moveX, locY + moveY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove) {
 	    return DirectionResolver.resolve(moveX, moveY);
 	}
-	int moveX1L = DirectionRotator.rotate45LeftX(moveX, moveY);
-	int moveY1L = DirectionRotator.rotate45LeftY(moveX, moveY);
-	boolean canMove1L = !this.getCell(locX + moveX1L, locY + moveY1L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+	final var moveX1L = DirectionRotator.rotate45LeftX(moveX, moveY);
+	final var moveY1L = DirectionRotator.rotate45LeftY(moveX, moveY);
+	final var canMove1L = !this.getCell(locX + moveX1L, locY + moveY1L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove1L) {
 	    return DirectionResolver.resolve(moveX1L, moveY1L);
 	}
-	int moveX1R = DirectionRotator.rotate45RightX(moveX, moveY);
-	int moveY1R = DirectionRotator.rotate45RightY(moveX, moveY);
-	boolean canMove1R = !this.getCell(locX + moveX1R, locY + moveY1R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+	final var moveX1R = DirectionRotator.rotate45RightX(moveX, moveY);
+	final var moveY1R = DirectionRotator.rotate45RightY(moveX, moveY);
+	final var canMove1R = !this.getCell(locX + moveX1R, locY + moveY1R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove1R) {
 	    return DirectionResolver.resolve(moveX1R, moveY1R);
 	}
-	int moveX2L = DirectionRotator.rotate45LeftX(moveX1L, moveY1L);
-	int moveY2L = DirectionRotator.rotate45LeftY(moveX1L, moveY1L);
-	boolean canMove2L = !this.getCell(locX + moveX2L, locY + moveY2L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+	final var moveX2L = DirectionRotator.rotate45LeftX(moveX1L, moveY1L);
+	final var moveY2L = DirectionRotator.rotate45LeftY(moveX1L, moveY1L);
+	final var canMove2L = !this.getCell(locX + moveX2L, locY + moveY2L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove2L) {
 	    return DirectionResolver.resolve(moveX2L, moveY2L);
 	}
-	int moveX2R = DirectionRotator.rotate45RightX(moveX1R, moveY1R);
-	int moveY2R = DirectionRotator.rotate45RightY(moveX1R, moveY1R);
-	boolean canMove2R = !this.getCell(locX + moveX2R, locY + moveY2R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+	final var moveX2R = DirectionRotator.rotate45RightX(moveX1R, moveY1R);
+	final var moveY2R = DirectionRotator.rotate45RightY(moveX1R, moveY1R);
+	final var canMove2R = !this.getCell(locX + moveX2R, locY + moveY2R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove2R) {
 	    return DirectionResolver.resolve(moveX2R, moveY2R);
 	}
-	int moveX3L = DirectionRotator.rotate45LeftX(moveX2L, moveY2L);
-	int moveY3L = DirectionRotator.rotate45LeftY(moveX2L, moveY2L);
-	boolean canMove3L = !this.getCell(locX + moveX3L, locY + moveY3L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+	final var moveX3L = DirectionRotator.rotate45LeftX(moveX2L, moveY2L);
+	final var moveY3L = DirectionRotator.rotate45LeftY(moveX2L, moveY2L);
+	final var canMove3L = !this.getCell(locX + moveX3L, locY + moveY3L, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove3L) {
 	    return DirectionResolver.resolve(moveX3L, moveY3L);
 	}
-	int moveX3R = DirectionRotator.rotate45RightX(moveX2R, moveY2R);
-	int moveY3R = DirectionRotator.rotate45RightY(moveX2R, moveY2R);
-	boolean canMove3R = !this.getCell(locX + moveX3R, locY + moveY3R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
+	final var moveX3R = DirectionRotator.rotate45RightX(moveX2R, moveY2R);
+	final var moveY3R = DirectionRotator.rotate45RightY(moveX2R, moveY2R);
+	final var canMove3R = !this.getCell(locX + moveX3R, locY + moveY3R, locZ, DungeonConstants.LAYER_LOWER_OBJECTS)
 		.isSolid();
 	if (canMove3R) {
 	    return DirectionResolver.resolve(moveX3R, moveY3R);
 	}
-	int moveX4 = DirectionRotator.rotate45LeftX(moveX3L, moveY3L);
-	int moveY4 = DirectionRotator.rotate45LeftY(moveX3L, moveY3L);
+	final var moveX4 = DirectionRotator.rotate45LeftX(moveX3L, moveY3L);
+	final var moveY4 = DirectionRotator.rotate45LeftY(moveX3L, moveY3L);
 	return DirectionResolver.resolve(moveX4, moveY4);
     }
 
@@ -298,9 +297,9 @@ public class CurrentDungeon extends AbstractDungeon {
 
     @Override
     public void generateLevelInfoList() {
-	final int saveLevel = this.getActiveLevel();
-	final ArrayList<String> tempStorage = new ArrayList<>();
-	for (int x = 0; x < this.levelCount; x++) {
+	final var saveLevel = this.getActiveLevel();
+	final var tempStorage = new ArrayList<String>();
+	for (var x = 0; x < this.levelCount; x++) {
 	    this.switchLevel(x);
 	    tempStorage.add(this.generateCurrentLevelInfo());
 	}
@@ -338,7 +337,7 @@ public class CurrentDungeon extends AbstractDungeon {
     protected void switchInternal(final int level, final int era) {
 	if (this.activeLevel != level || this.activeEra != era || this.dungeonData == null) {
 	    if (this.dungeonData != null) {
-		try (FileIOWriter writer = this.getLevelWriter()) {
+		try (var writer = this.getLevelWriter()) {
 		    // Save old level
 		    this.writeDungeonLevel(writer);
 		    writer.close();
@@ -348,7 +347,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	    }
 	    this.activeLevel = level;
 	    this.activeEra = era;
-	    try (FileIOReader reader = this.getLevelReaderG6()) {
+	    try (var reader = this.getLevelReaderG6()) {
 		// Load new level
 		this.readDungeonLevel(reader);
 		reader.close();
@@ -409,107 +408,99 @@ public class CurrentDungeon extends AbstractDungeon {
 	    this.dungeonData = this.clipboard.clone();
 	    this.levelCount++;
 	    return true;
-	} else {
-	    return false;
 	}
+	return false;
     }
 
     @Override
     public boolean addLevel() {
-	if (this.levelCount < AbstractDungeon.MAX_LEVELS) {
-	    if (this.dungeonData != null) {
-		try (FileIOWriter writer = this.getLevelWriter()) {
-		    // Save old level
-		    this.writeDungeonLevel(writer);
-		    writer.close();
-		} catch (final IOException io) {
-		    // Ignore
-		}
-	    }
-	    // Add all eras for the new level
-	    final int saveEra = this.activeEra;
-	    this.dungeonData = new CurrentDungeonData();
-	    for (int e = 0; e < AbstractDungeon.ERA_COUNT; e++) {
-		this.switchEra(e);
-		this.dungeonData = new CurrentDungeonData();
-	    }
-	    this.switchEra(saveEra);
-	    // Clean up
-	    this.levelCount++;
-	    this.activeLevel = this.levelCount - 1;
-	    this.levelInfoData.add(new DungeonLevelInfo());
-	    this.levelInfoList.add(this.generateCurrentLevelInfo());
-	    return true;
-	} else {
+	if (this.levelCount >= AbstractDungeon.MAX_LEVELS) {
 	    return false;
 	}
+	if (this.dungeonData != null) {
+	    try (var writer = this.getLevelWriter()) {
+		// Save old level
+		this.writeDungeonLevel(writer);
+		writer.close();
+	    } catch (final IOException io) {
+		// Ignore
+	    }
+	}
+	// Add all eras for the new level
+	final var saveEra = this.activeEra;
+	this.dungeonData = new CurrentDungeonData();
+	for (var e = 0; e < AbstractDungeon.ERA_COUNT; e++) {
+	    this.switchEra(e);
+	    this.dungeonData = new CurrentDungeonData();
+	}
+	this.switchEra(saveEra);
+	// Clean up
+	this.levelCount++;
+	this.activeLevel = this.levelCount - 1;
+	this.levelInfoData.add(new DungeonLevelInfo());
+	this.levelInfoList.add(this.generateCurrentLevelInfo());
+	return true;
     }
 
     @Override
     public boolean addFixedSizeLevel(final int rows, final int cols, final int floors) {
-	if (this.levelCount < AbstractDungeon.MAX_LEVELS) {
-	    if (this.dungeonData != null) {
-		try (FileIOWriter writer = this.getLevelWriter()) {
-		    // Save old level
-		    this.writeDungeonLevel(writer);
-		    writer.close();
-		} catch (final IOException io) {
-		    // Ignore
-		}
-	    }
-	    // Add all eras for the new level
-	    final int saveEra = this.activeEra;
-	    this.dungeonData = new CurrentDungeonData(rows, cols, floors);
-	    for (int e = 0; e < AbstractDungeon.ERA_COUNT; e++) {
-		this.switchEra(e);
-		this.dungeonData = new CurrentDungeonData();
-	    }
-	    this.switchEra(saveEra);
-	    // Clean up
-	    this.levelCount++;
-	    this.activeLevel = this.levelCount - 1;
-	    this.levelInfoData.add(new DungeonLevelInfo());
-	    this.levelInfoList.add(this.generateCurrentLevelInfo());
-	    return true;
-	} else {
+	if (this.levelCount >= AbstractDungeon.MAX_LEVELS) {
 	    return false;
 	}
+	if (this.dungeonData != null) {
+	    try (var writer = this.getLevelWriter()) {
+		// Save old level
+		this.writeDungeonLevel(writer);
+		writer.close();
+	    } catch (final IOException io) {
+		// Ignore
+	    }
+	}
+	// Add all eras for the new level
+	final var saveEra = this.activeEra;
+	this.dungeonData = new CurrentDungeonData(rows, cols, floors);
+	for (var e = 0; e < AbstractDungeon.ERA_COUNT; e++) {
+	    this.switchEra(e);
+	    this.dungeonData = new CurrentDungeonData();
+	}
+	this.switchEra(saveEra);
+	// Clean up
+	this.levelCount++;
+	this.activeLevel = this.levelCount - 1;
+	this.levelInfoData.add(new DungeonLevelInfo());
+	this.levelInfoList.add(this.generateCurrentLevelInfo());
+	return true;
     }
 
     @Override
     protected boolean removeActiveLevel() {
-	if (this.levelCount > 1) {
-	    if (this.activeLevel >= 0 && this.activeLevel <= this.levelCount) {
-		this.dungeonData = null;
-		// Delete all files corresponding to current level
-		for (int e = 0; e < AbstractDungeon.ERA_COUNT; e++) {
-		    final boolean res = this.getLevelFile(this.activeLevel, e).delete();
-		    if (!res) {
-			return false;
-		    }
-		}
-		// Shift all higher-numbered levels down
-		for (int x = this.activeLevel; x < this.levelCount - 1; x++) {
-		    for (int e = 0; e < AbstractDungeon.ERA_COUNT; e++) {
-			final File sourceLocation = this.getLevelFile(x + 1, e);
-			final File targetLocation = this.getLevelFile(x, e);
-			try {
-			    FileUtilities.moveFile(sourceLocation, targetLocation);
-			} catch (final IOException io) {
-			    // Ignore
-			}
-		    }
-		}
-		this.levelCount--;
-		this.levelInfoData.remove(this.activeLevel);
-		this.levelInfoList.remove(this.activeLevel);
-		return true;
-	    } else {
-		return false;
-	    }
-	} else {
+	if (this.levelCount <= 1 || this.activeLevel < 0 || this.activeLevel > this.levelCount) {
 	    return false;
 	}
+	this.dungeonData = null;
+	// Delete all files corresponding to current level
+	for (var e = 0; e < AbstractDungeon.ERA_COUNT; e++) {
+	    final var res = this.getLevelFile(this.activeLevel, e).delete();
+	    if (!res) {
+		return false;
+	    }
+	}
+	// Shift all higher-numbered levels down
+	for (var x = this.activeLevel; x < this.levelCount - 1; x++) {
+	    for (var e = 0; e < AbstractDungeon.ERA_COUNT; e++) {
+		final var sourceLocation = this.getLevelFile(x + 1, e);
+		final var targetLocation = this.getLevelFile(x, e);
+		try {
+		    FileUtilities.moveFile(sourceLocation, targetLocation);
+		} catch (final IOException io) {
+		    // Ignore
+		}
+	    }
+	}
+	this.levelCount--;
+	this.levelInfoData.remove(this.activeLevel);
+	this.levelInfoList.remove(this.activeLevel);
+	return true;
     }
 
     @Override
@@ -764,7 +755,7 @@ public class CurrentDungeon extends AbstractDungeon {
 
     @Override
     public void fillDefault() {
-	final AbstractDungeonObject fill = PrefsManager.getEditorDefaultFill();
+	final var fill = PrefsManager.getEditorDefaultFill();
 	this.dungeonData.fill(this, fill);
     }
 
@@ -838,13 +829,13 @@ public class CurrentDungeon extends AbstractDungeon {
 
     @Override
     public CurrentDungeon readDungeon() throws IOException {
-	final CurrentDungeon m = new CurrentDungeon();
+	final var m = new CurrentDungeon();
 	// Attach handlers
 	m.setPrefixHandler(this.prefixHandler);
 	m.setSuffixHandler(this.suffixHandler);
 	// Make base paths the same
 	m.basePath = this.basePath;
-	int version = -1;
+	var version = -1;
 	// Create metafile reader
 	try (FileIOReader metaReader = new XDataReader(m.basePath + File.separator
 		+ Strings.fileExtension(FileExtension.METAFILE) + Strings.fileExtension(FileExtension.LEVEL),
@@ -866,7 +857,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
 	if (!FileFormats.isLevelListStored(version)) {
 	    // Create data reader
-	    try (FileIOReader dataReader = m.getLevelReaderG5()) {
+	    try (var dataReader = m.getLevelReaderG5()) {
 		// Read data
 		m.readDungeonLevel(dataReader, version);
 	    } catch (final IOException ioe) {
@@ -876,7 +867,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	    m.generateLevelInfoList();
 	} else {
 	    // Create data reader
-	    try (FileIOReader dataReader = m.getLevelReaderG6()) {
+	    try (var dataReader = m.getLevelReaderG6()) {
 		// Read data
 		m.readDungeonLevel(dataReader, version);
 	    } catch (final IOException ioe) {
@@ -899,7 +890,7 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     private int readDungeonMetafileVersion(final FileIOReader reader) throws IOException {
-	int ver = FileFormats.DUNGEON_LATEST;
+	var ver = FileFormats.DUNGEON_LATEST;
 	if (this.prefixHandler != null) {
 	    ver = this.prefixHandler.readPrefix(reader);
 	}
@@ -927,7 +918,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	this.levelCount = reader.readInt();
 	this.musicFilename = reader.readString();
 	this.moveShootAllowed = reader.readBoolean();
-	for (int l = 0; l < this.levelCount; l++) {
+	for (var l = 0; l < this.levelCount; l++) {
 	    this.levelInfoData.add(DungeonLevelInfo.readLevelInfo(reader));
 	    this.levelInfoList.add(reader.readString());
 	}
@@ -942,7 +933,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	this.startEra = reader.readInt();
 	this.musicFilename = reader.readString();
 	this.moveShootAllowed = reader.readBoolean();
-	for (int l = 0; l < this.levelCount; l++) {
+	for (var l = 0; l < this.levelCount; l++) {
 	    this.levelInfoData.add(DungeonLevelInfo.readLevelInfo(reader));
 	    this.levelInfoList.add(reader.readString());
 	}
@@ -977,7 +968,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	    throw ioe;
 	}
 	// Create data writer
-	try (FileIOWriter dataWriter = this.getLevelWriter()) {
+	try (var dataWriter = this.getLevelWriter()) {
 	    // Write data
 	    this.writeDungeonLevel(dataWriter);
 	} catch (final IOException ioe) {
@@ -1000,7 +991,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	writer.writeInt(this.startEra);
 	writer.writeString(this.musicFilename);
 	writer.writeBoolean(this.moveShootAllowed);
-	for (int l = 0; l < this.levelCount; l++) {
+	for (var l = 0; l < this.levelCount; l++) {
 	    this.levelInfoData.get(l).writeLevelInfo(writer);
 	    writer.writeString(this.levelInfoList.get(l));
 	}

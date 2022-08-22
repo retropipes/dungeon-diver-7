@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.BitSet;
+import java.util.Objects;
 
 import com.puttysoftware.diane.strings.DianeStrings;
 import com.puttysoftware.diane.utilties.DirectionResolver;
@@ -160,8 +161,8 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = 1;
+	final var prime = 31;
+	var result = 1;
 	result = prime * result + (this.friction ? 1231 : 1237);
 	result = prime * result + this.initialTimerValue;
 	result = prime * result + (this.pushable ? 1231 : 1237);
@@ -180,42 +181,15 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null) {
+	if (obj == null || !(obj instanceof final AbstractDungeonObject other) || this.friction != other.friction
+		|| this.initialTimerValue != other.initialTimerValue) {
 	    return false;
 	}
-	if (!(obj instanceof AbstractDungeonObject)) {
+	if (this.pushable != other.pushable || this.solid != other.solid || !Objects.equals(this.type, other.type)
+		|| this.directions != other.directions) {
 	    return false;
 	}
-	final AbstractDungeonObject other = (AbstractDungeonObject) obj;
-	if (this.friction != other.friction) {
-	    return false;
-	}
-	if (this.initialTimerValue != other.initialTimerValue) {
-	    return false;
-	}
-	if (this.pushable != other.pushable) {
-	    return false;
-	}
-	if (this.solid != other.solid) {
-	    return false;
-	}
-	if (this.type == null) {
-	    if (other.type != null) {
-		return false;
-	    }
-	} else if (!this.type.equals(other.type)) {
-	    return false;
-	}
-	if (this.directions != other.directions) {
-	    return false;
-	}
-	if (this.color != other.color) {
-	    return false;
-	}
-	if (this.material != other.material) {
-	    return false;
-	}
-	if (this.blocksLOS != other.blocksLOS) {
+	if (this.color != other.color || this.material != other.material || this.blocksLOS != other.blocksLOS) {
 	    return false;
 	}
 	return true;
@@ -324,8 +298,9 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 
     private final void toggleColor() {
 	if (this.hasColor()) {
-	    int oldColorValue = this.color.ordinal();
-	    int newColorValue = oldColorValue++;
+	    var oldColorValue = this.color.ordinal();
+	    final var newColorValue = oldColorValue;
+	    oldColorValue++;
 	    Colors newColor;
 	    if (newColorValue >= Strings.COLOR_COUNT) {
 		newColor = Colors.GRAY;
@@ -355,9 +330,8 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     public boolean isSolidInBattle() {
 	if (this.enabledInBattle()) {
 	    return this.isSolid();
-	} else {
-	    return false;
 	}
+	return false;
     }
 
     public boolean isSightBlocking() {
@@ -446,12 +420,12 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (this.hasDirection()) {
 	    this.toggleDirection();
 	    return this;
-	} else if (this.hasColor()) {
+	}
+	if (this.hasColor()) {
 	    this.toggleColor();
 	    return this;
-	} else {
-	    return null;
 	}
+	return null;
     }
 
     /**
@@ -530,14 +504,12 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     }
 
     public final void tickTimer(final int dirX, final int dirY, final int actionType) {
-	if (this.timerActive) {
-	    if (this.acceptTick(actionType)) {
-		this.timerValue--;
-		if (this.timerValue == 0) {
-		    this.timerActive = false;
-		    this.initialTimerValue = 0;
-		    this.timerExpiredAction(dirX, dirY);
-		}
+	if (this.timerActive && this.acceptTick(actionType)) {
+	    this.timerValue--;
+	    if (this.timerValue == 0) {
+		this.timerActive = false;
+		this.initialTimerValue = 0;
+		this.timerExpiredAction(dirX, dirY);
 	    }
 	}
     }
@@ -580,7 +552,8 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
-	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE
+	}
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE
 		&& (this.getMaterial() == Materials.METALLIC || this.getMaterial() == Materials.WOODEN
 			|| this.getMaterial() == Materials.PLASTIC)
 		&& this.changesToOnExposure(Materials.ICE) != null) {
@@ -589,22 +562,25 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
-	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE
-		&& this.getMaterial() == Materials.ICE && this.changesToOnExposure(Materials.FIRE) != null) {
+	}
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE && this.getMaterial() == Materials.ICE
+		&& this.changesToOnExposure(Materials.FIRE) != null) {
 	    // Melt icy object
 	    SoundLoader.playSound(SoundConstants.DEFROST);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
-	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE
-		&& this.getMaterial() == Materials.FIRE && this.changesToOnExposure(Materials.ICE) != null) {
+	}
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE && this.getMaterial() == Materials.FIRE
+		&& this.changesToOnExposure(Materials.ICE) != null) {
 	    // Cool hot object
 	    SoundLoader.playSound(SoundConstants.COOL_OFF);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
-	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE
-		&& this.getMaterial() == Materials.METALLIC && this.changesToOnExposure(Materials.FIRE) != null) {
+	}
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE && this.getMaterial() == Materials.METALLIC
+		&& this.changesToOnExposure(Materials.FIRE) != null) {
 	    // Melt metal object
 	    SoundLoader.playSound(SoundConstants.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
@@ -627,42 +603,38 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      */
     public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	if (this.isSolid()) {
-	    if (forceUnits > this.getMinimumReactionForce() && this.canMove()) {
-		try {
-		    final AbstractDungeonObject nextObj = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
-			    .getCell(locX + dirX, locY + dirY, locZ, this.getLayer());
-		    final AbstractDungeonObject nextObj2 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
-			    .getCell(locX + dirX * 2, locY + dirY * 2, locZ, this.getLayer());
-		    if (this instanceof AbstractMovableObject && nextObj != null
-			    && nextObj instanceof AbstractMovableObject && nextObj.canMove()
-			    && (nextObj2 != null && !nextObj2.isConditionallySolid() || forceUnits > 2)) {
-			// Move BOTH this object and the one in front of it
-			final AbstractMovableObject gmo = (AbstractMovableObject) this;
-			final AbstractMovableObject gmo2 = (AbstractMovableObject) nextObj;
-			DungeonDiver7.getStuffBag().getGameLogic().updatePushedPositionLater(locX, locY, dirX, dirY,
-				gmo, locX + dirX, locY + dirY, gmo2, laserType,
-				forceUnits - Math.max(1, this.getMinimumReactionForce()));
-		    } else {
-			// Object crushed by impact
-			this.pushCrushAction(locX, locY, locZ);
-		    }
-		} catch (final ArrayIndexOutOfBoundsException aioob) {
+	if (!this.isSolid()) {
+	    return DirectionResolver.resolve(dirX, dirY);
+	}
+	if (forceUnits > this.getMinimumReactionForce() && this.canMove()) {
+	    try {
+		final var nextObj = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(locX + dirX,
+			locY + dirY, locZ, this.getLayer());
+		final var nextObj2 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
+			.getCell(locX + dirX * 2, locY + dirY * 2, locZ, this.getLayer());
+		if (this instanceof final AbstractMovableObject gmo
+			&& nextObj instanceof final AbstractMovableObject gmo2 && nextObj.canMove()
+			&& (nextObj2 != null && !nextObj2.isConditionallySolid() || forceUnits > 2)) {
+		    DungeonDiver7.getStuffBag().getGameLogic().updatePushedPositionLater(locX, locY, dirX, dirY, gmo,
+			    locX + dirX, locY + dirY, gmo2, laserType,
+			    forceUnits - Math.max(1, this.getMinimumReactionForce()));
+		} else {
 		    // Object crushed by impact
 		    this.pushCrushAction(locX, locY, locZ);
 		}
-	    } else {
-		final AbstractDungeonObject adj = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
-			.getCell(locX - dirX, locY - dirY, locZ, this.getLayer());
-		if (adj != null && !adj.rangeAction(locX - 2 * dirX, locY - 2 * dirY, locZ, dirX, dirY,
-			ShotTypes.getRangeTypeForLaserType(laserType), 1)) {
-		    SoundLoader.playSound(SoundConstants.LASER_DIE);
-		}
+	    } catch (final ArrayIndexOutOfBoundsException aioob) {
+		// Object crushed by impact
+		this.pushCrushAction(locX, locY, locZ);
 	    }
-	    return Directions.NONE;
 	} else {
-	    return DirectionResolver.resolve(dirX, dirY);
+	    final var adj = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(locX - dirX,
+		    locY - dirY, locZ, this.getLayer());
+	    if (adj != null && !adj.rangeAction(locX - 2 * dirX, locY - 2 * dirY, locZ, dirX, dirY,
+		    ShotTypes.getRangeTypeForLaserType(laserType), 1)) {
+		SoundLoader.playSound(SoundConstants.LASER_DIE);
+	    }
 	}
+	return Directions.NONE;
     }
 
     /**
@@ -713,45 +685,42 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     private final String getLocalColorPrefix() {
 	if (this.hasColor()) {
 	    return Strings.color(this.color) + Strings.SPACE;
-	} else {
-	    return Strings.EMPTY;
 	}
+	return Strings.EMPTY;
     }
 
     private final String getDirectionSuffix() {
 	if (this.hasDirection()) {
 	    return Strings.SPACE + DianeStrings.directionSuffix(this.directions);
-	} else {
-	    return Strings.EMPTY;
 	}
+	return Strings.EMPTY;
     }
 
     private final String getFrameSuffix() {
 	if (this.isAnimated()) {
 	    return Strings.SPACE + this.frameNumber;
-	} else {
-	    return Strings.EMPTY;
 	}
+	return Strings.EMPTY;
     }
 
     public static final int getImbuedRangeForce(final int material) {
 	if (material == Materials.PLASTIC) {
 	    return AbstractDungeonObject.PLASTIC_MINIMUM_REACTION_FORCE;
-	} else if (material == Materials.METALLIC) {
-	    return AbstractDungeonObject.METAL_MINIMUM_REACTION_FORCE;
-	} else {
-	    return AbstractDungeonObject.DEFAULT_MINIMUM_REACTION_FORCE;
 	}
+	if (material == Materials.METALLIC) {
+	    return AbstractDungeonObject.METAL_MINIMUM_REACTION_FORCE;
+	}
+	return AbstractDungeonObject.DEFAULT_MINIMUM_REACTION_FORCE;
     }
 
     public final int getMinimumReactionForce() {
 	if (this.material == Materials.PLASTIC) {
 	    return AbstractDungeonObject.PLASTIC_MINIMUM_REACTION_FORCE;
-	} else if (this.material == Materials.METALLIC) {
-	    return AbstractDungeonObject.METAL_MINIMUM_REACTION_FORCE;
-	} else {
-	    return AbstractDungeonObject.DEFAULT_MINIMUM_REACTION_FORCE;
 	}
+	if (this.material == Materials.METALLIC) {
+	    return AbstractDungeonObject.METAL_MINIMUM_REACTION_FORCE;
+	}
+	return AbstractDungeonObject.DEFAULT_MINIMUM_REACTION_FORCE;
     }
 
     public boolean canMove() {
@@ -781,9 +750,8 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     public int getBattleBaseID() {
 	if (this.enabledInBattle()) {
 	    return this.getBaseID();
-	} else {
-	    return ObjectImageConstants.NONE;
 	}
+	return ObjectImageConstants.NONE;
     }
 
     public boolean enabledInBattle() {
@@ -843,37 +811,26 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	    final int layer) {
 	if (layer == DungeonConstants.LAYER_LOWER_OBJECTS) {
 	    // Handle object layer
-	    if (!this.isOfType(DungeonObjectTypes.TYPE_PASS_THROUGH)) {
-		// Limit generation of other objects to 20%, unless required
-		if (this.isRequired(dungeon)) {
-		    return true;
-		} else {
-		    final RandomRange r = new RandomRange(1, 100);
-		    if (r.generate() <= 20) {
-			return true;
-		    } else {
-			return false;
-		    }
-		}
-	    } else {
-		// Generate pass-through objects at 100%
+	    // Limit generation of other objects to 20%, unless required
+	    if (this.isOfType(DungeonObjectTypes.TYPE_PASS_THROUGH) || this.isRequired(dungeon)) {
 		return true;
 	    }
-	} else {
-	    // Handle ground layer
-	    if (this.isOfType(DungeonObjectTypes.TYPE_FIELD)) {
-		// Limit generation of fields to 20%
-		final RandomRange r = new RandomRange(1, 100);
-		if (r.generate() <= 20) {
-		    return true;
-		} else {
-		    return false;
-		}
-	    } else {
-		// Generate other ground at 100%
+	    final var r = new RandomRange(1, 100);
+	    if (r.generate() <= 20) {
 		return true;
 	    }
+	    return false;
 	}
+	if (!this.isOfType(DungeonObjectTypes.TYPE_FIELD)) {
+	    // Generate other ground at 100%
+	    return true;
+	}
+	// Limit generation of fields to 20%
+	final var r = new RandomRange(1, 100);
+	if (r.generate() <= 20) {
+	    return true;
+	}
+	return false;
     }
 
     @Override
@@ -893,7 +850,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 
     public final void write(final FileIOWriter writer) throws IOException {
 	writer.writeString(this.getIdentifier());
-	final int cc = this.getCustomFormat();
+	final var cc = this.getCustomFormat();
 	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 	    writer.writeInt(this.directions.ordinal());
 	    writer.writeInt(this.color.ordinal());
@@ -901,8 +858,8 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	} else {
 	    writer.writeInt(this.directions.ordinal());
 	    writer.writeInt(this.color.ordinal());
-	    for (int x = 0; x < cc; x++) {
-		final int cx = this.getCustomProperty(x + 1);
+	    for (var x = 0; x < cc; x++) {
+		final var cx = this.getCustomProperty(x + 1);
 		writer.writeInt(cx);
 	    }
 	}
@@ -910,139 +867,127 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 
     public final AbstractDungeonObject readV2(final FileIOReader reader, final String ident, final int ver)
 	    throws IOException {
-	if (ident.equals(this.getIdentifier())) {
-	    final int cc = this.getCustomFormat();
-	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-		this.directions = Directions.values()[reader.readInt()];
-		reader.readInt();
-		this.color = Colors.values()[reader.readInt()];
-		return this.readHookV2(reader, ver);
-	    } else {
-		this.directions = Directions.values()[reader.readInt()];
-		this.color = Colors.values()[reader.readInt()];
-		for (int x = 0; x < cc; x++) {
-		    final int cx = reader.readInt();
-		    this.setCustomProperty(x + 1, cx);
-		}
-	    }
-	    return this;
-	} else {
+	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
+	final var cc = this.getCustomFormat();
+	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+	    this.directions = Directions.values()[reader.readInt()];
+	    reader.readInt();
+	    this.color = Colors.values()[reader.readInt()];
+	    return this.readHookV2(reader, ver);
+	}
+	this.directions = Directions.values()[reader.readInt()];
+	this.color = Colors.values()[reader.readInt()];
+	for (var x = 0; x < cc; x++) {
+	    final var cx = reader.readInt();
+	    this.setCustomProperty(x + 1, cx);
+	}
+	return this;
     }
 
     public final AbstractDungeonObject readV3(final FileIOReader reader, final String ident, final int ver)
 	    throws IOException {
-	if (ident.equals(this.getIdentifier())) {
-	    final int cc = this.getCustomFormat();
-	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-		this.directions = Directions.values()[reader.readInt()];
-		this.color = Colors.values()[reader.readInt()];
-		// Discard material
-		reader.readInt();
-		return this.readHookV3(reader, ver);
-	    } else {
-		this.directions = Directions.values()[reader.readInt()];
-		this.color = Colors.values()[reader.readInt()];
-		// Discard material
-		reader.readInt();
-		for (int x = 0; x < cc; x++) {
-		    final int cx = reader.readInt();
-		    this.setCustomProperty(x + 1, cx);
-		}
-	    }
-	    return this;
-	} else {
+	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
+	final var cc = this.getCustomFormat();
+	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+	    this.directions = Directions.values()[reader.readInt()];
+	    this.color = Colors.values()[reader.readInt()];
+	    // Discard material
+	    reader.readInt();
+	    return this.readHookV3(reader, ver);
+	}
+	this.directions = Directions.values()[reader.readInt()];
+	this.color = Colors.values()[reader.readInt()];
+	// Discard material
+	reader.readInt();
+	for (var x = 0; x < cc; x++) {
+	    final var cx = reader.readInt();
+	    this.setCustomProperty(x + 1, cx);
+	}
+	return this;
     }
 
     public final AbstractDungeonObject readV4(final FileIOReader reader, final String ident, final int ver)
 	    throws IOException {
-	if (ident.equals(this.getIdentifier())) {
-	    final int cc = this.getCustomFormat();
-	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-		this.directions = Directions.values()[reader.readInt()];
-		this.color = Colors.values()[reader.readInt()];
-		return this.readHookV4(reader, ver);
-	    } else {
-		this.directions = Directions.values()[reader.readInt()];
-		this.color = Colors.values()[reader.readInt()];
-		for (int x = 0; x < cc; x++) {
-		    final int cx = reader.readInt();
-		    this.setCustomProperty(x + 1, cx);
-		}
-	    }
-	    return this;
-	} else {
+	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
+	final var cc = this.getCustomFormat();
+	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+	    this.directions = Directions.values()[reader.readInt()];
+	    this.color = Colors.values()[reader.readInt()];
+	    return this.readHookV4(reader, ver);
+	}
+	this.directions = Directions.values()[reader.readInt()];
+	this.color = Colors.values()[reader.readInt()];
+	for (var x = 0; x < cc; x++) {
+	    final var cx = reader.readInt();
+	    this.setCustomProperty(x + 1, cx);
+	}
+	return this;
     }
 
     public final AbstractDungeonObject readV5(final FileIOReader reader, final String ident, final int ver)
 	    throws IOException {
-	if (ident.equals(this.getIdentifier())) {
-	    final int cc = this.getCustomFormat();
-	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-		this.directions = Directions.values()[reader.readInt()];
-		this.color = Colors.values()[reader.readInt()];
-		return this.readHookV5(reader, ver);
-	    } else {
-		this.directions = Directions.values()[reader.readInt()];
-		this.color = Colors.values()[reader.readInt()];
-		for (int x = 0; x < cc; x++) {
-		    final int cx = reader.readInt();
-		    this.setCustomProperty(x + 1, cx);
-		}
-	    }
-	    return this;
-	} else {
+	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
+	final var cc = this.getCustomFormat();
+	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+	    this.directions = Directions.values()[reader.readInt()];
+	    this.color = Colors.values()[reader.readInt()];
+	    return this.readHookV5(reader, ver);
+	}
+	this.directions = Directions.values()[reader.readInt()];
+	this.color = Colors.values()[reader.readInt()];
+	for (var x = 0; x < cc; x++) {
+	    final var cx = reader.readInt();
+	    this.setCustomProperty(x + 1, cx);
+	}
+	return this;
     }
 
     public final AbstractDungeonObject readV6(final FileIOReader reader, final String ident, final int ver)
 	    throws IOException {
-	if (ident.equals(this.getIdentifier())) {
-	    final int cc = this.getCustomFormat();
-	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-		this.directions = Directions.values()[reader.readInt()];
-		this.color = Colors.values()[reader.readInt()];
-		return this.readHookV6(reader, ver);
-	    } else {
-		this.directions = Directions.values()[reader.readInt()];
-		this.color = Colors.values()[reader.readInt()];
-		for (int x = 0; x < cc; x++) {
-		    final int cx = reader.readInt();
-		    this.setCustomProperty(x + 1, cx);
-		}
-	    }
-	    return this;
-	} else {
+	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
+	final var cc = this.getCustomFormat();
+	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+	    this.directions = Directions.values()[reader.readInt()];
+	    this.color = Colors.values()[reader.readInt()];
+	    return this.readHookV6(reader, ver);
+	}
+	this.directions = Directions.values()[reader.readInt()];
+	this.color = Colors.values()[reader.readInt()];
+	for (var x = 0; x < cc; x++) {
+	    final var cx = reader.readInt();
+	    this.setCustomProperty(x + 1, cx);
+	}
+	return this;
     }
 
     public final AbstractDungeonObject readV7(final FileIOReader reader, final String ident, final int ver)
 	    throws IOException {
-	if (ident.equals(this.getIdentifier())) {
-	    final int cc = this.getCustomFormat();
-	    if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-		this.directions = Directions.values()[reader.readInt()];
-		this.color = Colors.values()[reader.readInt()];
-		return this.readHookV7(reader, ver);
-	    } else {
-		this.directions = Directions.values()[reader.readInt()];
-		this.color = Colors.values()[reader.readInt()];
-		for (int x = 0; x < cc; x++) {
-		    final int cx = reader.readInt();
-		    this.setCustomProperty(x + 1, cx);
-		}
-	    }
-	    return this;
-	} else {
+	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
+	final var cc = this.getCustomFormat();
+	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+	    this.directions = Directions.values()[reader.readInt()];
+	    this.color = Colors.values()[reader.readInt()];
+	    return this.readHookV7(reader, ver);
+	}
+	this.directions = Directions.values()[reader.readInt()];
+	this.color = Colors.values()[reader.readInt()];
+	for (var x = 0; x < cc; x++) {
+	    final var cx = reader.readInt();
+	    this.setCustomProperty(x + 1, cx);
+	}
+	return this;
     }
 
     /**

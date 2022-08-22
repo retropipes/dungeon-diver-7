@@ -6,13 +6,11 @@
 package com.puttysoftware.dungeondiver7.loader;
 
 import java.io.File;
-import java.net.URL;
 import java.nio.BufferUnderflowException;
 
 import com.puttysoftware.audio.ogg.OggPlayer;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.editor.ExternalMusic;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
@@ -32,7 +30,7 @@ public class MusicLoader {
     }
 
     private static OggPlayer getMusic(final String filename) {
-	final URL modFile = MusicLoader.LOAD_CLASS.getResource(Strings.untranslated(Untranslated.MUSIC_LOAD_PATH)
+	final var modFile = MusicLoader.LOAD_CLASS.getResource(Strings.untranslated(Untranslated.MUSIC_LOAD_PATH)
 		+ filename + Strings.fileExtension(FileExtension.MUSIC));
 	return OggPlayer.loadLoopedResource(modFile);
     }
@@ -71,7 +69,7 @@ public class MusicLoader {
 		MusicLoader.EXTERNAL_LOAD_PATH = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
 			.getDungeonTempMusicFolder();
 	    }
-	    final OggPlayer mmod = OggPlayer.loadLoopedFile(MusicLoader.EXTERNAL_LOAD_PATH + filename);
+	    final var mmod = OggPlayer.loadLoopedFile(MusicLoader.EXTERNAL_LOAD_PATH + filename);
 	    MusicLoader.CURRENT_EXTERNAL_MUSIC = mmod;
 	    return mmod;
 	} catch (final NullPointerException np) {
@@ -80,24 +78,22 @@ public class MusicLoader {
     }
 
     public static boolean isExternalMusicPlaying() {
-	if (MusicLoader.CURRENT_EXTERNAL_MUSIC != null) {
-	    if (MusicLoader.CURRENT_EXTERNAL_MUSIC.isPlaying()) {
-		return true;
-	    }
+	if (MusicLoader.CURRENT_EXTERNAL_MUSIC != null && MusicLoader.CURRENT_EXTERNAL_MUSIC.isPlaying()) {
+	    return true;
 	}
 	return false;
     }
 
     public static void playExternalMusic() {
-	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	final OggPlayer mmod = MusicLoader.getExternalMusic(a.getMusicFilename());
+	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var mmod = MusicLoader.getExternalMusic(a.getMusicFilename());
 	if (mmod != null) {
 	    mmod.play();
 	}
     }
 
     public static void loadPlayExternalMusic(final String filename) {
-	final OggPlayer mmod = MusicLoader.getExternalMusic(filename);
+	final var mmod = MusicLoader.getExternalMusic(filename);
 	if (mmod != null) {
 	    MusicLoader.CURRENT_EXTERNAL_MUSIC = mmod;
 	    mmod.play();
@@ -127,13 +123,12 @@ public class MusicLoader {
     }
 
     public static void loadExternalMusic() {
-	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	final ExternalMusicLoadTask ellt = new ExternalMusicLoadTask(
-		a.getDungeonTempMusicFolder() + a.getMusicFilename());
+	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var ellt = new ExternalMusicLoadTask(a.getDungeonTempMusicFolder() + a.getMusicFilename());
 	ellt.start();
 	// Wait
 	if (ellt.isAlive()) {
-	    boolean waiting = true;
+	    var waiting = true;
 	    while (waiting) {
 		try {
 		    ellt.join();
@@ -146,25 +141,25 @@ public class MusicLoader {
     }
 
     public static void deleteExternalMusicFile() {
-	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	final File file = new File(a.getDungeonTempMusicFolder() + a.getMusicFilename());
+	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var file = new File(a.getDungeonTempMusicFolder() + a.getMusicFilename());
 	file.delete();
     }
 
     public static void saveExternalMusic() {
 	// Write external music
-	final File extMusicDir = new File(
+	final var extMusicDir = new File(
 		DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getDungeonTempMusicFolder());
 	if (!extMusicDir.exists()) {
-	    final boolean res = extMusicDir.mkdirs();
+	    final var res = extMusicDir.mkdirs();
 	    if (!res) {
 		CommonDialogs.showErrorDialog("Save External Music Failed!", "External Music Editor");
 		return;
 	    }
 	}
-	final String filename = MusicLoader.gameExternalMusic.getName();
-	final String filepath = MusicLoader.gameExternalMusic.getPath();
-	final ExternalMusicSaveTask esst = new ExternalMusicSaveTask(filepath, filename);
+	final var filename = MusicLoader.gameExternalMusic.getName();
+	final var filepath = MusicLoader.gameExternalMusic.getPath();
+	final var esst = new ExternalMusicSaveTask(filepath, filename);
 	esst.start();
     }
 }

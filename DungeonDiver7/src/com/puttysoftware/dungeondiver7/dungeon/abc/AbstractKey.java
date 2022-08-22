@@ -11,7 +11,6 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public abstract class AbstractKey extends AbstractDungeonObject {
     // Constructors
     protected AbstractKey() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_KEY);
     }
 

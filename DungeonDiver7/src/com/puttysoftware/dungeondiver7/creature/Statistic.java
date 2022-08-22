@@ -5,6 +5,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.creature;
 
+import java.util.Objects;
+
 class Statistic {
     // Fields
     private int value;
@@ -79,14 +81,7 @@ class Statistic {
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + this.dynamism;
-	result = prime * result + (this.hasMax ? 1231 : 1237);
-	result = prime * result + (this.hasMin ? 1231 : 1237);
-	result = prime * result + this.maxID;
-	result = prime * result + this.minVal;
-	return prime * result + this.value;
+	return Objects.hash(this.dynamism, this.hasMax, this.hasMin, this.maxID, this.minVal, this.value);
     }
 
     @Override
@@ -94,29 +89,12 @@ class Statistic {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null) {
+	if (obj == null || !(obj instanceof final Statistic other) || this.dynamism != other.dynamism
+		|| this.hasMax != other.hasMax) {
 	    return false;
 	}
-	if (!(obj instanceof Statistic)) {
-	    return false;
-	}
-	final Statistic other = (Statistic) obj;
-	if (this.dynamism != other.dynamism) {
-	    return false;
-	}
-	if (this.hasMax != other.hasMax) {
-	    return false;
-	}
-	if (this.hasMin != other.hasMin) {
-	    return false;
-	}
-	if (this.maxID != other.maxID) {
-	    return false;
-	}
-	if (this.minVal != other.minVal) {
-	    return false;
-	}
-	if (this.value != other.value) {
+	if (this.hasMin != other.hasMin || this.maxID != other.maxID || this.minVal != other.minVal
+		|| this.value != other.value) {
 	    return false;
 	}
 	return true;

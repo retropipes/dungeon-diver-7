@@ -23,35 +23,37 @@ public abstract class AbstractDamageEngine {
     public abstract boolean weaponFumble();
 
     public static AbstractDamageEngine getPlayerInstance() {
-	final int difficulty = PrefsManager.getGameDifficulty();
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
+	final var difficulty = PrefsManager.getGameDifficulty();
+	switch (difficulty) {
+	case PrefsManager.DIFFICULTY_VERY_EASY:
 	    return new VeryEasyDamageEngine();
-	} else if (difficulty == PrefsManager.DIFFICULTY_EASY) {
+	case PrefsManager.DIFFICULTY_EASY:
 	    return new EasyDamageEngine();
-	} else if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
+	case PrefsManager.DIFFICULTY_NORMAL:
 	    return new NormalDamageEngine();
-	} else if (difficulty == PrefsManager.DIFFICULTY_HARD) {
+	case PrefsManager.DIFFICULTY_HARD:
 	    return new HardDamageEngine();
-	} else if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
+	case PrefsManager.DIFFICULTY_VERY_HARD:
 	    return new VeryHardDamageEngine();
-	} else {
+	default:
 	    return new NormalDamageEngine();
 	}
     }
 
     public static AbstractDamageEngine getEnemyInstance() {
-	final int difficulty = PrefsManager.getGameDifficulty();
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
+	final var difficulty = PrefsManager.getGameDifficulty();
+	switch (difficulty) {
+	case PrefsManager.DIFFICULTY_VERY_EASY:
 	    return new VeryHardDamageEngine();
-	} else if (difficulty == PrefsManager.DIFFICULTY_EASY) {
+	case PrefsManager.DIFFICULTY_EASY:
 	    return new HardDamageEngine();
-	} else if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
+	case PrefsManager.DIFFICULTY_NORMAL:
 	    return new NormalDamageEngine();
-	} else if (difficulty == PrefsManager.DIFFICULTY_HARD) {
+	case PrefsManager.DIFFICULTY_HARD:
 	    return new EasyDamageEngine();
-	} else if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
+	case PrefsManager.DIFFICULTY_VERY_HARD:
 	    return new VeryEasyDamageEngine();
-	} else {
+	default:
 	    return new NormalDamageEngine();
 	}
     }

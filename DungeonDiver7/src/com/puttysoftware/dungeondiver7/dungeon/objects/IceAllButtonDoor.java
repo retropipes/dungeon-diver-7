@@ -11,7 +11,6 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class IceAllButtonDoor extends AbstractAllButtonDoor {
     // Constructors
     public IceAllButtonDoor() {
-	super();
 	this.setMaterial(Materials.ICE);
     }
 

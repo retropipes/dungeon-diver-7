@@ -78,7 +78,7 @@ public abstract class AbstractDungeon {
     }
 
     public static AbstractDungeon getTemporaryBattleCopy() throws IOException {
-	final CurrentDungeon temp = new CurrentDungeon();
+	final var temp = new CurrentDungeon();
 	temp.addFixedSizeLevel(DungeonDiver7.getBattleDungeonSize(), DungeonDiver7.getBattleDungeonSize(), 1);
 	temp.fillDefault();
 	return temp;
@@ -144,9 +144,9 @@ public abstract class AbstractDungeon {
     public abstract int getActiveEra();
 
     public final boolean switchToNextLevelWithDifficulty(final int[] difficulty) {
-	boolean keepGoing = true;
+	var keepGoing = true;
 	while (keepGoing) {
-	    final int diff = this.getDifficulty().ordinal();
+	    final var diff = this.getDifficulty().ordinal();
 	    for (final int element : difficulty) {
 		if (diff - 1 == element) {
 		    keepGoing = false;
@@ -165,9 +165,9 @@ public abstract class AbstractDungeon {
     }
 
     public final boolean switchToPreviousLevelWithDifficulty(final int[] difficulty) {
-	boolean keepGoing = true;
+	var keepGoing = true;
 	while (keepGoing) {
-	    final int diff = this.getDifficulty().ordinal();
+	    final var diff = this.getDifficulty().ordinal();
 	    for (final int element : difficulty) {
 		if (diff - 1 == element) {
 		    keepGoing = false;
@@ -220,25 +220,23 @@ public abstract class AbstractDungeon {
     public abstract boolean addFixedSizeLevel(final int rows, final int cols, final int floors);
 
     public final boolean removeLevel(final int num) {
-	final int saveLevel = this.getActiveLevel();
+	final var saveLevel = this.getActiveLevel();
 	this.switchLevel(num);
-	final boolean success = this.removeActiveLevel();
+	final var success = this.removeActiveLevel();
 	if (success) {
 	    if (saveLevel == 0) {
 		// Was at first level
 		this.switchLevel(0);
+	    } else // Was at level other than first
+	    if (saveLevel > num) {
+		// Saved level was shifted down
+		this.switchLevel(saveLevel - 1);
+	    } else if (saveLevel < num) {
+		// Saved level was NOT shifted down
+		this.switchLevel(saveLevel);
 	    } else {
-		// Was at level other than first
-		if (saveLevel > num) {
-		    // Saved level was shifted down
-		    this.switchLevel(saveLevel - 1);
-		} else if (saveLevel < num) {
-		    // Saved level was NOT shifted down
-		    this.switchLevel(saveLevel);
-		} else {
-		    // Saved level was deleted
-		    this.switchLevel(0);
-		}
+		// Saved level was deleted
+		this.switchLevel(0);
 	    }
 	} else {
 	    this.switchLevel(saveLevel);

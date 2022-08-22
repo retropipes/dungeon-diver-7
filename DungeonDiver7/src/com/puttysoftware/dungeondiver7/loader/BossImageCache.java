@@ -16,7 +16,7 @@ public class BossImageCache {
     // Methods
     static BufferedImageIcon getCachedImage(final String name) {
 	if (!BossImageCache.isInCache(name)) {
-	    final BufferedImageIcon bii = BossImageManager.getUncachedImage(name);
+	    final var bii = BossImageManager.getUncachedImage(name);
 	    BossImageCache.addToCache(name, bii);
 	}
 	for (final CacheEntry element : BossImageCache.cache) {
@@ -28,8 +28,8 @@ public class BossImageCache {
     }
 
     private static void expandCache() {
-	final CacheEntry[] tempCache = new CacheEntry[BossImageCache.cache.length + BossImageCache.CACHE_INCREMENT];
-	for (int x = 0; x < BossImageCache.CACHE_SIZE; x++) {
+	final var tempCache = new CacheEntry[BossImageCache.cache.length + BossImageCache.CACHE_INCREMENT];
+	for (var x = 0; x < BossImageCache.CACHE_SIZE; x++) {
 	    tempCache[x] = BossImageCache.cache[x];
 	}
 	BossImageCache.cache = tempCache;
@@ -50,7 +50,7 @@ public class BossImageCache {
 	if (BossImageCache.cache == null) {
 	    BossImageCache.cache = new CacheEntry[BossImageCache.CACHE_INCREMENT];
 	}
-	for (int x = 0; x < BossImageCache.CACHE_SIZE; x++) {
+	for (var x = 0; x < BossImageCache.CACHE_SIZE; x++) {
 	    if (name.equals(BossImageCache.cache[x].getName())) {
 		return true;
 	    }

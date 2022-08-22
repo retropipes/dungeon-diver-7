@@ -16,7 +16,7 @@ public class WeaponImageCache {
     // Methods
     static BufferedImageIcon getCachedImage(final String name) {
 	if (!WeaponImageCache.isInCache(name)) {
-	    final BufferedImageIcon bii = WeaponImageManager.getUncachedImage(name);
+	    final var bii = WeaponImageManager.getUncachedImage(name);
 	    WeaponImageCache.addToCache(name, bii);
 	}
 	for (final CacheEntry element : WeaponImageCache.cache) {
@@ -28,8 +28,8 @@ public class WeaponImageCache {
     }
 
     private static void expandCache() {
-	final CacheEntry[] tempCache = new CacheEntry[WeaponImageCache.cache.length + WeaponImageCache.CACHE_INCREMENT];
-	for (int x = 0; x < WeaponImageCache.CACHE_SIZE; x++) {
+	final var tempCache = new CacheEntry[WeaponImageCache.cache.length + WeaponImageCache.CACHE_INCREMENT];
+	for (var x = 0; x < WeaponImageCache.CACHE_SIZE; x++) {
 	    tempCache[x] = WeaponImageCache.cache[x];
 	}
 	WeaponImageCache.cache = tempCache;
@@ -50,7 +50,7 @@ public class WeaponImageCache {
 	if (WeaponImageCache.cache == null) {
 	    WeaponImageCache.cache = new CacheEntry[WeaponImageCache.CACHE_INCREMENT];
 	}
-	for (int x = 0; x < WeaponImageCache.CACHE_SIZE; x++) {
+	for (var x = 0; x < WeaponImageCache.CACHE_SIZE; x++) {
 	    if (name.equals(WeaponImageCache.cache[x].getName())) {
 		return true;
 	    }

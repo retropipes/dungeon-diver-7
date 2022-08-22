@@ -15,7 +15,6 @@ import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 public class GreenKey extends AbstractKey {
     // Constructors
     public GreenKey() {
-	super();
     }
 
     // Scriptability

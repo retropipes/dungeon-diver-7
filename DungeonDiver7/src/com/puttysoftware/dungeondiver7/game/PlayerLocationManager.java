@@ -6,7 +6,6 @@
 package com.puttysoftware.dungeondiver7.game;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.storage.NumberStorage;
 
@@ -62,13 +61,13 @@ public final class PlayerLocationManager {
     }
 
     public void resetPlayerLocation() {
-	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	for (int pi = 0; pi < DungeonConstants.NUM_PLAYERS; pi++) {
-	    final int[] found = a.findPlayer(pi);
+	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	for (var pi = 0; pi < DungeonConstants.NUM_PLAYERS; pi++) {
+	    final var found = a.findPlayer(pi);
 	    if (found != null) {
-		final int valX = found[0];
-		final int valY = found[1];
-		final int valZ = found[2];
+		final var valX = found[0];
+		final var valY = found[1];
+		final var valZ = found[2];
 		this.initPlayerLocation(valX, valY, valZ, pi);
 	    }
 	}
@@ -95,15 +94,15 @@ public final class PlayerLocationManager {
     }
 
     public void togglePlayerInstance() {
-	boolean doesNotExist = true;
+	var doesNotExist = true;
 	while (doesNotExist) {
 	    this.playerInstance++;
 	    if (this.playerInstance >= DungeonConstants.NUM_PLAYERS) {
 		this.playerInstance = 0;
 	    }
-	    final int px = this.getPlayerLocationX();
-	    final int py = this.getPlayerLocationY();
-	    final int pz = this.getPlayerLocationZ();
+	    final var px = this.getPlayerLocationX();
+	    final var py = this.getPlayerLocationY();
+	    final var pz = this.getPlayerLocationZ();
 	    if (px != -1 && py != -1 && pz != -1) {
 		doesNotExist = false;
 	    }

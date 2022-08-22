@@ -11,7 +11,6 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public abstract class AbstractSpell extends AbstractDungeonObject {
     // Constructors
     protected AbstractSpell() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_SPELL);
     }
 

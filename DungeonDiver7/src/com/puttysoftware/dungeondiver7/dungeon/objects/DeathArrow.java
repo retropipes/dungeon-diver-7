@@ -10,7 +10,6 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTransientObject;
 public class DeathArrow extends AbstractTransientObject {
     // Constructors
     public DeathArrow() {
-	super();
     }
 
     @Override

@@ -8,7 +8,6 @@ package com.puttysoftware.dungeondiver7.game;
 import com.puttysoftware.diane.utilties.DirectionResolver;
 import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTransientObject;
@@ -55,7 +54,7 @@ final class MovingLaserTracker {
 
     void activateLasers(final int zx, final int zy, final int zox, final int zoy, final int zlt,
 	    final AbstractDungeonObject zshooter) {
-	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	this.shooter = zshooter;
 	this.ox = zox;
 	this.oy = zoy;
@@ -64,7 +63,8 @@ final class MovingLaserTracker {
 	this.cumY = zy;
 	this.incX = zx;
 	this.incY = zy;
-	if (this.lt == ShotTypes.GREEN) {
+	switch (this.lt) {
+	case ShotTypes.GREEN:
 	    if (this.shooter instanceof PowerfulParty) {
 		this.lt = ShotTypes.POWER;
 		SoundLoader.playSound(SoundConstants.POWER_LASER);
@@ -82,13 +82,15 @@ final class MovingLaserTracker {
 	    }
 	    this.laser = true;
 	    this.res = true;
-	} else if (this.lt == ShotTypes.RED) {
+	    break;
+	case ShotTypes.RED:
 	    if (!gm.getCheatStatus(GameLogic.CHEAT_INVINCIBLE)) {
 		SoundLoader.playSound(SoundConstants.ANTI_FIRE);
 		this.laser = true;
 		this.res = true;
 	    }
-	} else if (this.lt == ShotTypes.MISSILE) {
+	    break;
+	case ShotTypes.MISSILE:
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, true, false, false, false, false, false, false, false, false);
 	    PartyInventory.fireMissile();
@@ -99,7 +101,8 @@ final class MovingLaserTracker {
 	    }
 	    this.laser = true;
 	    this.res = true;
-	} else if (this.lt == ShotTypes.STUNNER) {
+	    break;
+	case ShotTypes.STUNNER:
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, false, true, false, false, false, false, false, false, false);
 	    PartyInventory.fireStunner();
@@ -110,7 +113,8 @@ final class MovingLaserTracker {
 	    }
 	    this.laser = true;
 	    this.res = true;
-	} else if (this.lt == ShotTypes.BLUE) {
+	    break;
+	case ShotTypes.BLUE:
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, false, false, false, false, true, false, false, false, false);
 	    PartyInventory.fireBlueLaser();
@@ -121,7 +125,8 @@ final class MovingLaserTracker {
 	    }
 	    this.laser = true;
 	    this.res = true;
-	} else if (this.lt == ShotTypes.DISRUPTOR) {
+	    break;
+	case ShotTypes.DISRUPTOR:
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, false, false, false, false, false, true, false, false, false);
 	    PartyInventory.fireDisruptor();
@@ -132,6 +137,9 @@ final class MovingLaserTracker {
 	    }
 	    this.laser = true;
 	    this.res = true;
+	    break;
+	default:
+	    break;
 	}
     }
 
@@ -142,14 +150,14 @@ final class MovingLaserTracker {
     }
 
     boolean trackPart2(final int nsx, final int nsy, final boolean nMover) {
-	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-	int sx = nsx;
-	int sy = nsy;
-	boolean mover = nMover;
+	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	var sx = nsx;
+	var sy = nsy;
+	var mover = nMover;
 	if (!this.res && this.laser) {
 	    if (gm.getPlayer().getSavedObject().isOfType(DungeonObjectTypes.TYPE_MOVER)) {
-		final Directions dir = gm.getPlayer().getSavedObject().getDirection();
-		final int[] unres = DirectionResolver.unresolve(dir);
+		final var dir = gm.getPlayer().getSavedObject().getDirection();
+		final var unres = DirectionResolver.unresolve(dir);
 		sx = unres[0];
 		sy = unres[1];
 		mover = true;
@@ -163,9 +171,9 @@ final class MovingLaserTracker {
     }
 
     void clearLastLaser() {
-	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-	final PlayerLocationManager plMgr = gm.getPlayerManager();
-	final int pz = plMgr.getPlayerLocationZ();
+	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var plMgr = gm.getPlayerManager();
+	final var pz = plMgr.getPlayerLocationZ();
 	if (this.laser) {
 	    // Clear last laser
 	    try {
@@ -184,14 +192,14 @@ final class MovingLaserTracker {
     }
 
     private void doLasersOnce(final boolean tracking) {
-	final Ground g = new Ground();
-	final StuffBag app = DungeonDiver7.getStuffBag();
-	final GameLogic gm = app.getGameLogic();
-	final PlayerLocationManager plMgr = app.getGameLogic().getPlayerManager();
-	final int px = plMgr.getPlayerLocationX();
-	final int py = plMgr.getPlayerLocationY();
-	final int pz = plMgr.getPlayerLocationZ();
-	final AbstractDungeon m = app.getDungeonManager().getDungeon();
+	final var g = new Ground();
+	final var app = DungeonDiver7.getStuffBag();
+	final var gm = app.getGameLogic();
+	final var plMgr = app.getGameLogic().getPlayerManager();
+	final var px = plMgr.getPlayerLocationX();
+	final var py = plMgr.getPlayerLocationY();
+	final var pz = plMgr.getPlayerLocationZ();
+	final var m = app.getDungeonManager().getDungeon();
 	AbstractDungeonObject lol = null;
 	AbstractDungeonObject lou = null;
 	try {
@@ -207,16 +215,16 @@ final class MovingLaserTracker {
 	    Directions laserDir;
 	    this.l = MovingLaserTracker.createLaserForType(this.lt);
 	    if (this.lt == ShotTypes.MISSILE) {
-		final Directions suffix = DirectionResolver.resolve(this.incX, this.incY);
+		final var suffix = DirectionResolver.resolve(this.incX, this.incY);
 		this.l.setDirection(suffix);
 	    } else if (this.lt == ShotTypes.STUNNER || this.lt == ShotTypes.DISRUPTOR) {
 		// Do nothing
 	    } else {
-		final Directions suffix = DirectionResolver.resolveHV(this.incX, this.incY);
+		final var suffix = DirectionResolver.resolveHV(this.incX, this.incY);
 		this.l.setDirection(suffix);
 	    }
-	    final int oldincX = this.incX;
-	    final int oldincY = this.incY;
+	    final var oldincX = this.incX;
+	    final var oldincY = this.incY;
 	    try {
 		if (lol.doLasersPassThrough() && lou.doLasersPassThrough()) {
 		    m.setVirtualCell(this.l, this.ox + this.cumX, this.oy + this.cumY, pz, this.l.getLayer());
@@ -230,14 +238,14 @@ final class MovingLaserTracker {
 	    } catch (final ArrayIndexOutOfBoundsException aioobe) {
 		// Ignore
 	    }
-	    final Directions oldLaserDir = this.l.getDirection();
+	    final var oldLaserDir = this.l.getDirection();
 	    laserDir = oldLaserDir;
-	    final boolean laserKill = this.ox + this.cumX == px && this.oy + this.cumY == py;
+	    final var laserKill = this.ox + this.cumX == px && this.oy + this.cumY == py;
 	    if (laserKill) {
 		gm.gameOver();
 		return;
 	    }
-	    Directions dir = lou.laserEnteredAction(this.ox + this.cumX, this.oy + this.cumY, pz, this.incX, this.incY,
+	    var dir = lou.laserEnteredAction(this.ox + this.cumX, this.oy + this.cumY, pz, this.incX, this.incY,
 		    this.lt, this.l.getForceUnitsImbued());
 	    if (dir != Directions.NONE) {
 		dir = lol.laserEnteredAction(this.ox + this.cumX, this.oy + this.cumY, pz, this.incX, this.incY,
@@ -254,8 +262,8 @@ final class MovingLaserTracker {
 		return;
 	    }
 	    resolved = DirectionResolver.unresolve(dir);
-	    int resX = resolved[0];
-	    int resY = resolved[1];
+	    var resX = resolved[0];
+	    var resY = resolved[1];
 	    laserDir = DirectionResolver.resolveHV(resX, resY);
 	    this.l.setDirection(laserDir);
 	    this.incX = resX;
@@ -337,7 +345,7 @@ final class MovingLaserTracker {
     }
 
     private static int normalizeRow(final int row, final int rows) {
-	int fR = row;
+	var fR = row;
 	if (fR < 0) {
 	    fR += rows;
 	    while (fR < 0) {
@@ -353,7 +361,7 @@ final class MovingLaserTracker {
     }
 
     private static int normalizeColumn(final int column, final int columns) {
-	int fC = column;
+	var fC = column;
 	if (fC < 0) {
 	    fC += columns;
 	    while (fC < 0) {
@@ -369,14 +377,14 @@ final class MovingLaserTracker {
     }
 
     private static boolean canMoveThere(final int sx, final int sy) {
-	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-	final PlayerLocationManager plMgr = gm.getPlayerManager();
-	final int px = plMgr.getPlayerLocationX();
-	final int py = plMgr.getPlayerLocationY();
-	final int pz = plMgr.getPlayerLocationZ();
-	final StuffBag app = DungeonDiver7.getStuffBag();
-	final AbstractDungeon m = app.getDungeonManager().getDungeon();
-	boolean zproceed = true;
+	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var plMgr = gm.getPlayerManager();
+	final var px = plMgr.getPlayerLocationX();
+	final var py = plMgr.getPlayerLocationY();
+	final var pz = plMgr.getPlayerLocationZ();
+	final var app = DungeonDiver7.getStuffBag();
+	final var m = app.getDungeonManager().getDungeon();
+	var zproceed = true;
 	AbstractDungeonObject zo = null;
 	try {
 	    try {
@@ -401,21 +409,15 @@ final class MovingLaserTracker {
     }
 
     private static boolean checkSolid(final AbstractDungeonObject next) {
-	final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	// Check cheats
 	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
 	    return true;
-	} else {
-	    final boolean nextSolid = next.isConditionallySolid();
-	    if (nextSolid) {
-		if (next.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
-		    return true;
-		} else {
-		    return false;
-		}
-	    } else {
-		return true;
-	    }
 	}
+	final var nextSolid = next.isConditionallySolid();
+	if (!nextSolid || next.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
+	    return true;
+	}
+	return false;
     }
 }

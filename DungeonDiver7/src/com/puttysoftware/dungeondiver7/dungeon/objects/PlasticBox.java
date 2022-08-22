@@ -34,7 +34,7 @@ public class PlasticBox extends AbstractMovableObject {
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
 	case Materials.ICE:
-	    final IcyBox ib = new IcyBox();
+	    final var ib = new IcyBox();
 	    ib.setPreviousState(this);
 	    return ib;
 	case Materials.FIRE:

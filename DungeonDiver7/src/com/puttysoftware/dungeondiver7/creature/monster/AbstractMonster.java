@@ -5,6 +5,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.creature.monster;
 
+import java.util.Objects;
+
 import com.puttysoftware.dungeondiver7.ai.AbstractMapAIRoutine;
 import com.puttysoftware.dungeondiver7.ai.MapAIRoutinePicker;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
@@ -37,7 +39,7 @@ public abstract class AbstractMonster extends AbstractCreature {
     // Methods
     protected void configureDefaults() {
 	this.monID = RandomRange.generate(0, 99);
-	final int zoneID = PartyManager.getParty().getZone();
+	final var zoneID = PartyManager.getParty().getZone();
 	this.type = Monsters.getType(zoneID, this.monID);
     }
 
@@ -63,28 +65,29 @@ public abstract class AbstractMonster extends AbstractCreature {
 
     @Override
     protected final int getInitialPerfectBonusGold() {
-	final int tough = this.getToughness();
-	final int min = tough * AbstractMonster.PERFECT_GOLD_MIN;
-	final int max = tough * AbstractMonster.PERFECT_GOLD_MAX;
-	final RandomRange r = new RandomRange(min, max);
+	final var tough = this.getToughness();
+	final var min = tough * AbstractMonster.PERFECT_GOLD_MIN;
+	final var max = tough * AbstractMonster.PERFECT_GOLD_MAX;
+	final var r = new RandomRange(min, max);
 	return (int) (r.generate() * this.adjustForLevelDifference());
     }
 
     @Override
     public int getSpeed() {
-	final int difficulty = PrefsManager.getGameDifficulty();
-	final int base = this.getBaseSpeed();
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
+	final var difficulty = PrefsManager.getGameDifficulty();
+	final var base = this.getBaseSpeed();
+	switch (difficulty) {
+	case PrefsManager.DIFFICULTY_VERY_EASY:
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOWEST);
-	} else if (difficulty == PrefsManager.DIFFICULTY_EASY) {
+	case PrefsManager.DIFFICULTY_EASY:
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOW);
-	} else if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
+	case PrefsManager.DIFFICULTY_NORMAL:
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
-	} else if (difficulty == PrefsManager.DIFFICULTY_HARD) {
+	case PrefsManager.DIFFICULTY_HARD:
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_FAST);
-	} else if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
+	case PrefsManager.DIFFICULTY_VERY_HARD:
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_FASTEST);
-	} else {
+	default:
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
 	}
     }
@@ -113,8 +116,8 @@ public abstract class AbstractMonster extends AbstractCreature {
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	final int result = super.hashCode();
+	final var prime = 31;
+	final var result = super.hashCode();
 	return prime * result + (this.type == null ? 0 : this.type.hashCode());
     }
 
@@ -123,18 +126,8 @@ public abstract class AbstractMonster extends AbstractCreature {
 	if (this == obj) {
 	    return true;
 	}
-	if (!super.equals(obj)) {
-	    return false;
-	}
-	if (!(obj instanceof AbstractMonster)) {
-	    return false;
-	}
-	final AbstractMonster other = (AbstractMonster) obj;
-	if (this.type == null) {
-	    if (other.type != null) {
-		return false;
-	    }
-	} else if (!this.type.equals(other.type)) {
+	if (!super.equals(obj) || !(obj instanceof final AbstractMonster other)
+		|| !Objects.equals(this.type, other.type)) {
 	    return false;
 	}
 	return true;

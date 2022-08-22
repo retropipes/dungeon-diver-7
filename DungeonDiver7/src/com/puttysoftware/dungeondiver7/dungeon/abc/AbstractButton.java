@@ -5,8 +5,9 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
+import java.util.Objects;
+
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
@@ -30,13 +31,12 @@ public abstract class AbstractButton extends AbstractDungeonObject {
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = super.hashCode();
+	final var prime = 31;
+	var result = super.hashCode();
 	result = prime * result + (this.buttonDoor == null ? 0 : this.buttonDoor.hashCode());
 	result = prime * result + this.doorX;
 	result = prime * result + this.doorY;
-	result = prime * result + (this.triggered ? 1231 : 1237);
-	return result;
+	return prime * result + (this.triggered ? 1231 : 1237);
     }
 
     @Override
@@ -44,27 +44,11 @@ public abstract class AbstractButton extends AbstractDungeonObject {
 	if (this == obj) {
 	    return true;
 	}
-	if (!super.equals(obj)) {
+	if (!super.equals(obj) || !(obj instanceof final AbstractButton other)
+		|| !Objects.equals(this.buttonDoor, other.buttonDoor) || this.doorX != other.doorX) {
 	    return false;
 	}
-	if (!(obj instanceof AbstractButton)) {
-	    return false;
-	}
-	final AbstractButton other = (AbstractButton) obj;
-	if (this.buttonDoor == null) {
-	    if (other.buttonDoor != null) {
-		return false;
-	    }
-	} else if (!this.buttonDoor.equals(other.buttonDoor)) {
-	    return false;
-	}
-	if (this.doorX != other.doorX) {
-	    return false;
-	}
-	if (this.doorY != other.doorY) {
-	    return false;
-	}
-	if (this.triggered != other.triggered) {
+	if (this.doorY != other.doorY || this.triggered != other.triggered) {
 	    return false;
 	}
 	return true;
@@ -72,7 +56,7 @@ public abstract class AbstractButton extends AbstractDungeonObject {
 
     @Override
     public AbstractButton clone() {
-	final AbstractButton copy = (AbstractButton) super.clone();
+	final var copy = (AbstractButton) super.clone();
 	copy.triggered = this.triggered;
 	copy.doorX = this.doorX;
 	copy.doorY = this.doorY;
@@ -143,8 +127,8 @@ public abstract class AbstractButton extends AbstractDungeonObject {
 
     @Override
     public void editorPlaceHook(final int x, final int y, final int z) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
-	final int[] loc = app.getDungeonManager().getDungeon().findObject(z, this.getButtonDoor().getBaseName());
+	final var app = DungeonDiver7.getStuffBag();
+	final var loc = app.getDungeonManager().getDungeon().findObject(z, this.getButtonDoor().getBaseName());
 	if (loc != null) {
 	    this.setDoorX(loc[0]);
 	    this.setDoorY(loc[1]);
@@ -196,7 +180,7 @@ public abstract class AbstractButton extends AbstractDungeonObject {
 	    this.doorY = value;
 	    break;
 	case 3:
-	    this.triggered = value == 1 ? true : false;
+	    this.triggered = value == 1;
 	    break;
 	default:
 	    break;

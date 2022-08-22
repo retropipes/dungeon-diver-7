@@ -10,7 +10,6 @@ import java.io.FileNotFoundException;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
@@ -34,10 +33,10 @@ public class DungeonSaveTask extends Thread {
 
     @Override
     public void run() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
-	boolean success = true;
+	final var app = DungeonDiver7.getStuffBag();
+	var success = true;
 	// filename check
-	final boolean hasExtension = DungeonSaveTask.hasExtension(this.filename);
+	final var hasExtension = DungeonSaveTask.hasExtension(this.filename);
 	if (!hasExtension) {
 	    if (this.isSavedGame) {
 		this.filename += Strings.fileExtension(FileExtension.SUSPEND);
@@ -45,8 +44,8 @@ public class DungeonSaveTask extends Thread {
 		this.filename += Strings.fileExtension(FileExtension.DUNGEON);
 	    }
 	}
-	final File dungeonFile = new File(this.filename);
-	final File tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
+	final var dungeonFile = new File(this.filename);
+	final var tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
 	try {
 	    // Set prefix handler
 	    app.getDungeonManager().getDungeon().setPrefixHandler(new DungeonFilePrefixHandler());
@@ -89,14 +88,13 @@ public class DungeonSaveTask extends Thread {
 
     private static boolean hasExtension(final String s) {
 	String ext = null;
-	final int i = s.lastIndexOf('.');
+	final var i = s.lastIndexOf('.');
 	if (i > 0 && i < s.length() - 1) {
 	    ext = s.substring(i + 1).toLowerCase();
 	}
 	if (ext == null) {
 	    return false;
-	} else {
-	    return true;
 	}
+	return true;
     }
 }

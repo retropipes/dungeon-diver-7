@@ -23,7 +23,6 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
 
     // Constructors
     public DisruptedIcyWall() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.disruptionLeft = DisruptedIcyWall.DISRUPTION_START;
 	this.activateTimer(1);
@@ -31,7 +30,6 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
     }
 
     DisruptedIcyWall(final int disruption) {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.disruptionLeft = disruption;
 	this.activateTimer(1);
@@ -41,20 +39,19 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
     @Override
     public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	if (laserType == ShotTypes.MISSILE) {
-	    // Defrost icy wall
-	    SoundLoader.playSound(SoundConstants.DEFROST);
-	    final DisruptedWall dw = new DisruptedWall();
-	    if (this.hasPreviousState()) {
-		dw.setPreviousState(this.getPreviousState());
-	    }
-	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(dw, locX, locY, locZ, this.getLayer());
-	    return Directions.NONE;
-	} else {
+	if (laserType != ShotTypes.MISSILE) {
 	    // Stop laser
 	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
+	// Defrost icy wall
+	SoundLoader.playSound(SoundConstants.DEFROST);
+	final var dw = new DisruptedWall();
+	if (this.hasPreviousState()) {
+	    dw.setPreviousState(this.getPreviousState());
+	}
+	DungeonDiver7.getStuffBag().getGameLogic();
+	GameLogic.morph(dw, locX, locY, locZ, this.getLayer());
+	return Directions.NONE;
     }
 
     @Override
@@ -62,8 +59,8 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
 	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
-	    final int z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
-	    final IcyWall iw = new IcyWall();
+	    final var z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
+	    final var iw = new IcyWall();
 	    if (this.hasPreviousState()) {
 		iw.setPreviousState(this.getPreviousState());
 	    }

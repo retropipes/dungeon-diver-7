@@ -11,7 +11,6 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class FireAllButtonDoor extends AbstractAllButtonDoor {
     // Constructors
     public FireAllButtonDoor() {
-	super();
 	this.setMaterial(Materials.FIRE);
     }
 

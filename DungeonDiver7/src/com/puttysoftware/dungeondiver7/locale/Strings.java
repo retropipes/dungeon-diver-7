@@ -48,8 +48,8 @@ public final class Strings {
     }
 
     public static String[] allArmorTypes() {
-	String[] result = new String[Strings.ARMOR_TYPES_COUNT];
-	for (int index = 0; index < result.length; index++) {
+	final var result = new String[Strings.ARMOR_TYPES_COUNT];
+	for (var index = 0; index < result.length; index++) {
 	    result[index] = ResourceBundle.getBundle("locale.armortype", Strings.ACTIVE)
 		    .getString(Integer.toString(index));
 	}
@@ -57,16 +57,16 @@ public final class Strings {
     }
 
     public static ArrayList<String> allCheats() {
-	ArrayList<String> result = new ArrayList<>();
-	for (int index = 0; index < Strings.CHEATS_COUNT; index++) {
+	final var result = new ArrayList<String>();
+	for (var index = 0; index < Strings.CHEATS_COUNT; index++) {
 	    result.add(ResourceBundle.getBundle("locale.cheat", Strings.ACTIVE).getString(Integer.toString(index)));
 	}
 	return result;
     }
 
     public static String[] allDifficulties() {
-	String[] result = new String[Strings.DIFFICULTIES_COUNT];
-	for (int index = 0; index < result.length; index++) {
+	final var result = new String[Strings.DIFFICULTIES_COUNT];
+	for (var index = 0; index < result.length; index++) {
 	    result[index] = ResourceBundle.getBundle("locale.difficulty", Strings.ACTIVE)
 		    .getString(Integer.toString(index));
 	}
@@ -74,8 +74,8 @@ public final class Strings {
     }
 
     public static String[] allEditorLayouts() {
-	String[] result = new String[Strings.EDITOR_LAYOUTS_COUNT];
-	for (int index = 0; index < result.length; index++) {
+	final var result = new String[Strings.EDITOR_LAYOUTS_COUNT];
+	for (var index = 0; index < result.length; index++) {
 	    result[index] = ResourceBundle.getBundle("locale.editorlayout", Strings.ACTIVE)
 		    .getString(Integer.toString(index));
 	}
@@ -83,8 +83,8 @@ public final class Strings {
     }
 
     public static String[] allLanguages() {
-	String[] result = new String[Strings.LANGUAGES_COUNT];
-	for (int index = 0; index < result.length; index++) {
+	final var result = new String[Strings.LANGUAGES_COUNT];
+	for (var index = 0; index < result.length; index++) {
 	    result[index] = ResourceBundle.getBundle("locale.language", Strings.ACTIVE)
 		    .getString(Integer.toString(index));
 	}
@@ -92,16 +92,16 @@ public final class Strings {
     }
 
     public static String[] allSlots() {
-	String[] result = new String[Strings.SLOTS_COUNT];
-	for (int index = 0; index < result.length; index++) {
+	final var result = new String[Strings.SLOTS_COUNT];
+	for (var index = 0; index < result.length; index++) {
 	    result[index] = ResourceBundle.getBundle("locale.slot", Strings.ACTIVE).getString(Integer.toString(index));
 	}
 	return result;
     }
 
     public static String[] allWeaponTypes() {
-	String[] result = new String[Strings.WEAPON_TYPES_COUNT];
-	for (int index = 0; index < result.length; index++) {
+	final var result = new String[Strings.WEAPON_TYPES_COUNT];
+	for (var index = 0; index < result.length; index++) {
 	    result[index] = ResourceBundle.getBundle("locale.weapontype", Strings.ACTIVE)
 		    .getString(Integer.toString(index));
 	}

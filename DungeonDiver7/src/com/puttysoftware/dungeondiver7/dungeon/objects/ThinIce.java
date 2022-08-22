@@ -41,7 +41,7 @@ public class ThinIce extends AbstractGround {
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
 	case Materials.ICE:
-	    final Ice i = new Ice();
+	    final var i = new Ice();
 	    i.setPreviousState(this);
 	    return i;
 	case Materials.FIRE:

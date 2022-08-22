@@ -14,7 +14,6 @@ import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 public class PowerBolt extends AbstractField {
     // Constructors
     public PowerBolt() {
-	super();
     }
 
     @Override

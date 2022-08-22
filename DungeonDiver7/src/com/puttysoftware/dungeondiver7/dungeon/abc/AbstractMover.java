@@ -10,7 +10,6 @@ import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 public abstract class AbstractMover extends AbstractGround {
     // Constructors
     protected AbstractMover() {
-	super();
     }
 
     protected AbstractMover(final boolean hasFriction) {

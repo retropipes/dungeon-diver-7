@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -49,7 +48,6 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Darkness;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Player;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
-import com.puttysoftware.dungeondiver7.editor.DungeonEditor;
 import com.puttysoftware.dungeondiver7.game.replay.ReplayManager;
 import com.puttysoftware.dungeondiver7.loader.ImageCompositor;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
@@ -71,7 +69,6 @@ import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 import com.puttysoftware.dungeondiver7.utility.RCLGenerator;
 import com.puttysoftware.dungeondiver7.utility.ShotTypes;
-import com.puttysoftware.images.BufferedImageIcon;
 
 class GameGUI {
     // Fields
@@ -120,14 +117,14 @@ class GameGUI {
     boolean newGame() {
 	DungeonDiver7.getStuffBag().getObjects().enableAllObjects();
 	this.difficultyList.clearSelection();
-	final int[] retVal = GameGUI.getEnabledDifficulties();
+	final var retVal = GameGUI.getEnabledDifficulties();
 	this.difficultyList.setSelectedIndices(retVal);
 	this.difficultyFrame.setVisible(true);
 	return this.newGameResult;
     }
 
     static int[] getEnabledDifficulties() {
-	final ArrayList<Integer> temp = new ArrayList<>();
+	final var temp = new ArrayList<Integer>();
 	if (PrefsManager.isKidsDifficultyEnabled()) {
 	    temp.add(Integer.valueOf(Difficulty.KIDS.ordinal()));
 	}
@@ -143,10 +140,10 @@ class GameGUI {
 	if (PrefsManager.isDeadlyDifficultyEnabled()) {
 	    temp.add(Integer.valueOf(Difficulty.DEADLY.ordinal()));
 	}
-	final Integer[] temp2 = temp.toArray(new Integer[temp.size()]);
-	final int[] retVal = new int[temp2.length];
-	for (int x = 0; x < temp2.length; x++) {
-	    retVal[x] = temp2[x].intValue();
+	final var temp2 = temp.toArray(new Integer[temp.size()]);
+	final var retVal = new int[temp2.length];
+	for (var x = 0; x < temp2.length; x++) {
+	    retVal[x] = temp2[x];
 	}
 	return retVal;
     }
@@ -190,7 +187,7 @@ class GameGUI {
 	if (MusicLoader.isMusicPlaying()) {
 	    MusicLoader.stopMusic();
 	}
-	int zoneID = PartyManager.getParty().getZone();
+	final var zoneID = PartyManager.getParty().getZone();
 	if (zoneID == AbstractDungeon.getMaxLevels() - 1) {
 	    MusicLoader.playMusic(MusicConstants.MUSIC_LAIR);
 	} else {
@@ -204,7 +201,7 @@ class GameGUI {
     }
 
     private void showOutputCommon() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	if (!this.outputFrame.isVisible()) {
 	    this.outputFrame.setVisible(true);
 	    this.outputFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
@@ -238,8 +235,8 @@ class GameGUI {
     public void redrawDungeon() {
 	// Draw the maze, if it is visible
 	if (this.outputFrame.isVisible()) {
-	    final StuffBag app = DungeonDiver7.getStuffBag();
-	    final AbstractDungeon m = app.getDungeonManager().getDungeon();
+	    final var app = DungeonDiver7.getStuffBag();
+	    final var m = app.getDungeonManager().getDungeon();
 	    int x, y, u, v;
 	    int xFix, yFix;
 	    boolean visible;
@@ -255,13 +252,13 @@ class GameGUI {
 		    visible = app.getDungeonManager().getDungeon().isSquareVisible(u, v, y, x, 0);
 		    try {
 			if (visible) {
-			    final AbstractDungeonObject obj1 = m.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND);
-			    final AbstractDungeonObject obj2 = m.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
-			    final BufferedImageIcon img1 = obj1.gameRenderHook(y, x);
-			    final BufferedImageIcon img2 = obj2.gameRenderHook(y, x);
+			    final var obj1 = m.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND);
+			    final var obj2 = m.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+			    final var img1 = obj1.gameRenderHook(y, x);
+			    final var img2 = obj2.gameRenderHook(y, x);
 			    if (u == y && v == x) {
 				final AbstractDungeonObject obj3 = new Player();
-				final BufferedImageIcon img3 = obj3.gameRenderHook(y, x);
+				final var img3 = obj3.gameRenderHook(y, x);
 				this.drawGrid.setImageCell(ImageCompositor.getVirtualCompositeImage(img1, img2, img3,
 					ImageCompositor.getGraphicSize()), xFix, yFix);
 			    } else {
@@ -301,8 +298,8 @@ class GameGUI {
     }
 
     private static void checkMenus() {
-	final DungeonEditor edit = DungeonDiver7.getStuffBag().getEditor();
-	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var edit = DungeonDiver7.getStuffBag().getEditor();
+	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	if (a.tryUndo()) {
 	    edit.enableUndo();
 	} else {
@@ -316,13 +313,13 @@ class GameGUI {
     }
 
     private void setUpGUI() {
-	final EventHandler handler = new EventHandler();
+	final var handler = new EventHandler();
 	this.borderPane = new Container();
 	this.borderPane.setLayout(new BorderLayout());
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);
 	this.outputFrame = new JFrame("Chrystalz");
-	final Image iconlogo = StuffBag.getIconLogo();
+	final var iconlogo = StuffBag.getIconLogo();
 	this.outputFrame.setIconImage(iconlogo);
 	this.drawGrid = new DrawGrid(PrefsManager.getViewingWindowSize());
 	this.outputPane = new GameDraw(this.drawGrid);
@@ -332,7 +329,7 @@ class GameGUI {
 	this.outputFrame.addKeyListener(handler);
 	this.outputFrame.addWindowListener(handler);
 	// Pasted code
-	final FocusHandler fHandler = new FocusHandler();
+	final var fHandler = new FocusHandler();
 	this.borderPane = new Container();
 	this.borderPane.setLayout(new BorderLayout());
 	this.outputFrame = new JFrame(Strings.untranslated(Untranslated.PROGRAM_NAME));
@@ -382,15 +379,15 @@ class GameGUI {
 
     private void setUpDifficultyDialog() {
 	// Set up Difficulty Dialog
-	final DifficultyEventHandler dhandler = new DifficultyEventHandler();
+	final var dhandler = new DifficultyEventHandler();
 	this.difficultyFrame = new JDialog(DungeonDiver7.getStuffBag().getOutputFrame(),
 		Strings.game(GameString.SELECT_DIFFICULTY));
-	final Container difficultyPane = new Container();
-	final Container listPane = new Container();
-	final Container buttonPane = new Container();
+	final var difficultyPane = new Container();
+	final var listPane = new Container();
+	final var buttonPane = new Container();
 	this.difficultyList = new JList<>(Strings.allDifficulties());
-	final JButton okButton = new JButton(Strings.dialog(DialogString.OK_BUTTON));
-	final JButton cancelButton = new JButton(Strings.dialog(DialogString.CANCEL_BUTTON));
+	final var okButton = new JButton(Strings.dialog(DialogString.OK_BUTTON));
+	final var cancelButton = new JButton(Strings.dialog(DialogString.CANCEL_BUTTON));
 	buttonPane.setLayout(new FlowLayout());
 	buttonPane.add(okButton);
 	buttonPane.add(cancelButton);
@@ -448,7 +445,7 @@ class GameGUI {
     }
 
     public void attachMenus() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	this.outputFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
 	app.getMenuManager().checkFlags();
     }
@@ -512,8 +509,8 @@ class GameGUI {
     }
 
     public JMenu createCommandsMenu() {
-	final MenuHandler mhandler = new MenuHandler();
-	final JMenu gameMenu = new JMenu(Strings.menu(Menu.GAME));
+	final var mhandler = new MenuHandler();
+	final var gameMenu = new JMenu(Strings.menu(Menu.GAME));
 	this.gameTimeTravelSubMenu = new JMenu(Strings.menu(Menu.TIME_TRAVEL));
 	this.gameNewGame = new JMenuItem(Strings.menu(Menu.NEW_GAME));
 	this.gameReset = new JMenuItem(Strings.menu(Menu.RESET_CURRENT_LEVEL));
@@ -619,19 +616,15 @@ class GameGUI {
 
 	@Override
 	public void keyPressed(final KeyEvent e) {
-	    if (GameGUI.this.eventFlag) {
-		if (!PrefsManager.oneMove()) {
-		    this.handleKeystrokes(e);
-		}
+	    if (GameGUI.this.eventFlag && !PrefsManager.oneMove()) {
+		this.handleKeystrokes(e);
 	    }
 	}
 
 	@Override
 	public void keyReleased(final KeyEvent e) {
-	    if (GameGUI.this.eventFlag) {
-		if (PrefsManager.oneMove()) {
-		    this.handleKeystrokes(e);
-		}
+	    if (GameGUI.this.eventFlag && PrefsManager.oneMove()) {
+		this.handleKeystrokes(e);
 	    }
 	}
 
@@ -641,57 +634,68 @@ class GameGUI {
 	}
 
 	private void handleKeystrokes(final KeyEvent e) {
-	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	    if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 		if (e.isAltDown() || e.isAltGraphDown() || e.isControlDown()) {
-		    if (gm.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_MISSILES) {
+		    switch (gm.otherAmmoMode) {
+		    case GameLogic.OTHER_AMMO_MODE_MISSILES:
 			this.handleMissiles();
-		    } else if (gm.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_STUNNERS) {
+			break;
+		    case GameLogic.OTHER_AMMO_MODE_STUNNERS:
 			this.handleStunners();
-		    } else if (gm.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_BLUE_LASERS) {
+			break;
+		    case GameLogic.OTHER_AMMO_MODE_BLUE_LASERS:
 			this.handleBlueLasers();
-		    } else if (gm.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_DISRUPTORS) {
+			break;
+		    case GameLogic.OTHER_AMMO_MODE_DISRUPTORS:
 			this.handleDisruptors();
+			break;
+		    default:
+			break;
 		    }
 		} else {
 		    this.handleLasers();
 		}
 	    } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 		if (e.isAltDown() || e.isAltGraphDown() || e.isControlDown()) {
-		    if (gm.otherRangeMode == GameLogic.OTHER_RANGE_MODE_BOMBS) {
+		    switch (gm.otherRangeMode) {
+		    case GameLogic.OTHER_RANGE_MODE_BOMBS:
 			this.handleBombs();
-		    } else if (gm.otherRangeMode == GameLogic.OTHER_RANGE_MODE_HEAT_BOMBS) {
+			break;
+		    case GameLogic.OTHER_RANGE_MODE_HEAT_BOMBS:
 			this.handleHeatBombs();
-		    } else if (gm.otherRangeMode == GameLogic.OTHER_RANGE_MODE_ICE_BOMBS) {
+			break;
+		    case GameLogic.OTHER_RANGE_MODE_ICE_BOMBS:
 			this.handleIceBombs();
+			break;
+		    default:
+			break;
 		    }
 		}
 	    } else {
-		final Directions currDir = gm.player.getDirection();
-		final Directions newDir = this.mapKeyToDirection(e);
+		final var currDir = gm.player.getDirection();
+		final var newDir = this.mapKeyToDirection(e);
 		if (currDir != newDir) {
 		    this.handleTurns(newDir);
-		} else {
-		    if (e.isAltDown() || e.isAltGraphDown() || e.isControlDown()) {
-			if (gm.otherToolMode == GameLogic.OTHER_TOOL_MODE_BOOSTS) {
-			    this.handleBoosts(e);
-			} else if (gm.otherToolMode == GameLogic.OTHER_TOOL_MODE_MAGNETS) {
-			    this.handleMagnets(e);
-			}
-		    } else {
-			this.handleMovement(e);
+		} else if (e.isAltDown() || e.isAltGraphDown() || e.isControlDown()) {
+		    if (gm.otherToolMode == GameLogic.OTHER_TOOL_MODE_BOOSTS) {
+			this.handleBoosts(e);
+		    } else if (gm.otherToolMode == GameLogic.OTHER_TOOL_MODE_MAGNETS) {
+			this.handleMagnets(e);
 		    }
+		} else {
+		    this.handleMovement(e);
 		}
 	    }
 	}
 
 	public void handleBoosts(final KeyEvent e) {
 	    try {
-		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+		final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 		if (!gm.getCheatStatus(GameLogic.CHEAT_BOOSTS) && PartyInventory.getBoostsLeft() > 0
 			|| gm.getCheatStatus(GameLogic.CHEAT_BOOSTS)) {
 		    PartyInventory.fireBoost();
-		    final int keyCode = e.getKeyCode();
+		    final var keyCode = e.getKeyCode();
 		    switch (keyCode) {
 		    case KeyEvent.VK_LEFT:
 			gm.updatePositionRelative(-2, 0);
@@ -718,11 +722,11 @@ class GameGUI {
 
 	public void handleMagnets(final KeyEvent e) {
 	    try {
-		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+		final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 		if (!gm.getCheatStatus(GameLogic.CHEAT_MAGNETS) && PartyInventory.getMagnetsLeft() > 0
 			|| gm.getCheatStatus(GameLogic.CHEAT_MAGNETS)) {
 		    PartyInventory.fireMagnet();
-		    final int keyCode = e.getKeyCode();
+		    final var keyCode = e.getKeyCode();
 		    switch (keyCode) {
 		    case KeyEvent.VK_LEFT:
 			gm.updatePositionRelative(-3, 0);
@@ -749,7 +753,7 @@ class GameGUI {
 
 	public void handleBombs() {
 	    try {
-		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+		final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 		if (!gm.getCheatStatus(GameLogic.CHEAT_BOMBS) && PartyInventory.getBombsLeft() > 0
 			|| gm.getCheatStatus(GameLogic.CHEAT_BOMBS)) {
 		    PartyInventory.fireBomb();
@@ -764,7 +768,7 @@ class GameGUI {
 
 	public void handleHeatBombs() {
 	    try {
-		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+		final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 		if (!gm.getCheatStatus(GameLogic.CHEAT_HEAT_BOMBS) && PartyInventory.getHeatBombsLeft() > 0
 			|| gm.getCheatStatus(GameLogic.CHEAT_HEAT_BOMBS)) {
 		    PartyInventory.fireHeatBomb();
@@ -779,7 +783,7 @@ class GameGUI {
 
 	public void handleIceBombs() {
 	    try {
-		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+		final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 		if (!gm.getCheatStatus(GameLogic.CHEAT_ICE_BOMBS) && PartyInventory.getIceBombsLeft() > 0
 			|| gm.getCheatStatus(GameLogic.CHEAT_ICE_BOMBS)) {
 		    PartyInventory.fireIceBomb();
@@ -794,8 +798,8 @@ class GameGUI {
 
 	public void handleTurns(final Directions dir) {
 	    try {
-		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-		boolean fired = false;
+		final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+		var fired = false;
 		switch (dir) {
 		case WEST:
 		    gm.player.setDirection(Directions.WEST);
@@ -840,10 +844,10 @@ class GameGUI {
 
 	public void handleLasers() {
 	    try {
-		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+		final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 		gm.setLaserType(ShotTypes.GREEN);
-		final int px = gm.getPlayerManager().getPlayerLocationX();
-		final int py = gm.getPlayerManager().getPlayerLocationY();
+		final var px = gm.getPlayerManager().getPlayerLocationX();
+		final var py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
@@ -852,10 +856,10 @@ class GameGUI {
 
 	public void handleMissiles() {
 	    try {
-		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+		final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 		gm.setLaserType(ShotTypes.MISSILE);
-		final int px = gm.getPlayerManager().getPlayerLocationX();
-		final int py = gm.getPlayerManager().getPlayerLocationY();
+		final var px = gm.getPlayerManager().getPlayerLocationX();
+		final var py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
@@ -864,10 +868,10 @@ class GameGUI {
 
 	public void handleStunners() {
 	    try {
-		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+		final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 		gm.setLaserType(ShotTypes.STUNNER);
-		final int px = gm.getPlayerManager().getPlayerLocationX();
-		final int py = gm.getPlayerManager().getPlayerLocationY();
+		final var px = gm.getPlayerManager().getPlayerLocationX();
+		final var py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
@@ -876,10 +880,10 @@ class GameGUI {
 
 	public void handleBlueLasers() {
 	    try {
-		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+		final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 		gm.setLaserType(ShotTypes.BLUE);
-		final int px = gm.getPlayerManager().getPlayerLocationX();
-		final int py = gm.getPlayerManager().getPlayerLocationY();
+		final var px = gm.getPlayerManager().getPlayerLocationX();
+		final var py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
@@ -888,10 +892,10 @@ class GameGUI {
 
 	public void handleDisruptors() {
 	    try {
-		final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
+		final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 		gm.setLaserType(ShotTypes.DISRUPTOR);
-		final int px = gm.getPlayerManager().getPlayerLocationX();
-		final int py = gm.getPlayerManager().getPlayerLocationY();
+		final var px = gm.getPlayerManager().getPlayerLocationX();
+		final var py = gm.getPlayerManager().getPlayerLocationY();
 		gm.fireLaser(px, py, gm.player);
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
@@ -899,18 +903,18 @@ class GameGUI {
 	}
 
 	public Directions mapMouseToDirection(final MouseEvent me) {
-	    final GameLogic gm = DungeonDiver7.getStuffBag().getGameLogic();
-	    final int x = me.getX();
-	    final int y = me.getY();
-	    final int px = gm.getPlayerManager().getPlayerLocationX();
-	    final int py = gm.getPlayerManager().getPlayerLocationY();
-	    final int destX = (int) Math.signum(x / ImageLoader.getGraphicSize() - px);
-	    final int destY = (int) Math.signum(y / ImageLoader.getGraphicSize() - py);
+	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	    final var x = me.getX();
+	    final var y = me.getY();
+	    final var px = gm.getPlayerManager().getPlayerLocationX();
+	    final var py = gm.getPlayerManager().getPlayerLocationY();
+	    final var destX = (int) Math.signum(x / ImageLoader.getGraphicSize() - px);
+	    final var destY = (int) Math.signum(y / ImageLoader.getGraphicSize() - py);
 	    return DirectionResolver.resolve(destX, destY);
 	}
 
 	public Directions mapKeyToDirection(final KeyEvent e) {
-	    final int keyCode = e.getKeyCode();
+	    final var keyCode = e.getKeyCode();
 	    switch (keyCode) {
 	    case KeyEvent.VK_LEFT:
 		return Directions.WEST;
@@ -927,8 +931,8 @@ class GameGUI {
 
 	public void handleMovement(final KeyEvent e) {
 	    try {
-		final GameLogic glm = DungeonDiver7.getStuffBag().getGameLogic();
-		final int keyCode = e.getKeyCode();
+		final var glm = DungeonDiver7.getStuffBag().getGameLogic();
+		final var keyCode = e.getKeyCode();
 		switch (keyCode) {
 		case KeyEvent.VK_LEFT:
 		    if (e.isShiftDown()) {
@@ -964,10 +968,10 @@ class GameGUI {
 		    }
 		    break;
 		case KeyEvent.VK_SPACE:
-		    final StuffBag app = DungeonDiver7.getStuffBag();
-		    final AbstractDungeon m = app.getDungeonManager().getDungeon();
-		    int px = m.getPlayerLocationX(0);
-		    int py = m.getPlayerLocationY(0);
+		    final var app = DungeonDiver7.getStuffBag();
+		    final var m = app.getDungeonManager().getDungeon();
+		    final var px = m.getPlayerLocationX(0);
+		    final var py = m.getPlayerLocationY(0);
 		    AbstractDungeonObject there = new Empty();
 		    try {
 			there = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
@@ -1034,9 +1038,9 @@ class GameGUI {
 	@Override
 	public void windowClosing(final WindowEvent we) {
 	    try {
-		final StuffBag app = DungeonDiver7.getStuffBag();
-		boolean success = false;
-		int status = 0;
+		final var app = DungeonDiver7.getStuffBag();
+		var success = false;
+		var status = 0;
 		if (app.getDungeonManager().getDirty()) {
 		    app.getDungeonManager();
 		    status = DungeonManager.showSaveDialog();
@@ -1091,34 +1095,32 @@ class GameGUI {
 	@Override
 	public void mouseClicked(final MouseEvent e) {
 	    try {
-		final GameLogic game = DungeonDiver7.getStuffBag().getGameLogic();
+		final var game = DungeonDiver7.getStuffBag().getGameLogic();
 		if (e.isShiftDown()) {
-		    final int x = e.getX();
-		    final int y = e.getY();
+		    final var x = e.getX();
+		    final var y = e.getY();
 		    game.identifyObject(x, y);
-		} else {
-		    if (e.getButton() == MouseEvent.BUTTON1) {
-			// Move
-			final Directions dir = this.mapMouseToDirection(e);
-			final Directions tankDir = game.player.getDirection();
-			if (tankDir != dir) {
-			    this.handleTurns(dir);
-			} else {
-			    final int x = e.getX();
-			    final int y = e.getY();
-			    final int px = game.getPlayerManager().getPlayerLocationX();
-			    final int py = game.getPlayerManager().getPlayerLocationY();
-			    final int destX = (int) Math.signum(x / ImageLoader.getGraphicSize() - px);
-			    final int destY = (int) Math.signum(y / ImageLoader.getGraphicSize() - py);
-			    game.updatePositionRelative(destX, destY);
-			}
-		    } else if (e.getButton() == MouseEvent.BUTTON2 || e.getButton() == MouseEvent.BUTTON3) {
-			// Fire Laser
-			game.setLaserType(ShotTypes.GREEN);
-			final int px = game.getPlayerManager().getPlayerLocationX();
-			final int py = game.getPlayerManager().getPlayerLocationY();
-			game.fireLaser(px, py, game.player);
+		} else if (e.getButton() == MouseEvent.BUTTON1) {
+		    // Move
+		    final var dir = this.mapMouseToDirection(e);
+		    final var tankDir = game.player.getDirection();
+		    if (tankDir != dir) {
+			this.handleTurns(dir);
+		    } else {
+			final var x = e.getX();
+			final var y = e.getY();
+			final var px = game.getPlayerManager().getPlayerLocationX();
+			final var py = game.getPlayerManager().getPlayerLocationY();
+			final var destX = (int) Math.signum(x / ImageLoader.getGraphicSize() - px);
+			final var destY = (int) Math.signum(y / ImageLoader.getGraphicSize() - py);
+			game.updatePositionRelative(destX, destY);
 		    }
+		} else if (e.getButton() == MouseEvent.BUTTON2 || e.getButton() == MouseEvent.BUTTON3) {
+		    // Fire Laser
+		    game.setLaserType(ShotTypes.GREEN);
+		    final var px = game.getPlayerManager().getPlayerLocationX();
+		    final var py = game.getPlayerManager().getPlayerLocationY();
+		    game.fireLaser(px, py, game.player);
 		}
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
@@ -1145,12 +1147,12 @@ class GameGUI {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		final StuffBag app = DungeonDiver7.getStuffBag();
-		final String cmd = e.getActionCommand();
-		final GameLogic game = app.getGameLogic();
-		final GameGUI gui = GameGUI.this;
+		final var app = DungeonDiver7.getStuffBag();
+		final var cmd = e.getActionCommand();
+		final var game = app.getGameLogic();
+		final var gui = GameGUI.this;
 		if (cmd.equals(Strings.menu(Menu.RESET_CURRENT_LEVEL))) {
-		    final int result = CommonDialogs.showConfirmDialog(Strings.menu(Menu.CONFIRM_RESET_CURRENT_LEVEL),
+		    final var result = CommonDialogs.showConfirmDialog(Strings.menu(Menu.CONFIRM_RESET_CURRENT_LEVEL),
 			    Strings.untranslated(Untranslated.PROGRAM_NAME));
 		    if (result == JOptionPane.YES_OPTION) {
 			game.abortAndWaitForMLOLoop();
@@ -1232,7 +1234,7 @@ class GameGUI {
 		    gui.gameEraDistantFuture.setSelected(true);
 		} else if (cmd.equals(Strings.menu(Menu.NEW_GAME))) {
 		    // Start a new game
-		    final boolean proceed = app.getGameLogic().newGame();
+		    final var proceed = app.getGameLogic().newGame();
 		    if (proceed) {
 			new GenerateDungeonTask(true).start();
 		    }
@@ -1244,7 +1246,7 @@ class GameGUI {
 		    CharacterRegistration.unregisterCharacter();
 		} else if (cmd.equals(Strings.menu(Menu.REMOVE_CHARACTER))) {
 		    // Confirm
-		    final int confirm = CommonDialogs
+		    final var confirm = CommonDialogs
 			    .showConfirmDialog("WARNING: This will DELETE the character from disk,\n"
 				    + "and CANNOT be undone! Proceed anyway?", "Remove Character");
 		    if (confirm == CommonDialogs.YES_OPTION) {
@@ -1306,8 +1308,8 @@ class GameGUI {
 
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-	    final String cmd = e.getActionCommand();
-	    final GameGUI gm = GameGUI.this;
+	    final var cmd = e.getActionCommand();
+	    final var gm = GameGUI.this;
 	    if (cmd.equals(Strings.dialog(DialogString.OK_BUTTON))) {
 		gm.difficultyDialogOKButtonClicked();
 	    } else {

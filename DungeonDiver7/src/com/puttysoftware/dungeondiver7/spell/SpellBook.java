@@ -6,6 +6,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.spell;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class SpellBook {
     // Fields
@@ -15,7 +16,6 @@ public class SpellBook {
 
     // Constructors
     protected SpellBook(final int numSpells, final boolean flag) {
-	super();
 	this.name = "No Name";
 	this.spells = new Spell[numSpells];
 	this.known = new boolean[numSpells];
@@ -48,7 +48,7 @@ public class SpellBook {
     }
 
     public final int getSpellsKnownCount() {
-	int k = 0;
+	var k = 0;
 	for (final boolean element : this.known) {
 	    if (element) {
 		k++;
@@ -62,27 +62,26 @@ public class SpellBook {
     }
 
     public final String[] getAllSpellsToLearnNames() {
-	final int numKnown = this.getSpellsKnownCount();
-	final int max = this.getMaximumSpellsKnownCount();
+	final var numKnown = this.getSpellsKnownCount();
+	final var max = this.getMaximumSpellsKnownCount();
 	if (numKnown == max) {
 	    return null;
-	} else {
-	    int counter = 0;
-	    final String[] res = new String[max - numKnown];
-	    for (int x = 0; x < this.spells.length; x++) {
-		if (!this.known[x]) {
-		    res[counter] = this.spells[x].getEffect().getName();
-		    counter++;
-		}
-	    }
-	    return res;
 	}
+	var counter = 0;
+	final var res = new String[max - numKnown];
+	for (var x = 0; x < this.spells.length; x++) {
+	    if (!this.known[x]) {
+		res[counter] = this.spells[x].getEffect().getName();
+		counter++;
+	    }
+	}
+	return res;
     }
 
     final Spell getSpellByName(final String sname) {
 	int x;
 	for (x = 0; x < this.spells.length; x++) {
-	    final String currName = this.spells[x].getEffect().getName();
+	    final var currName = this.spells[x].getEffect().getName();
 	    if (currName.equals(sname)) {
 		// Found it
 		return this.spells[x];
@@ -99,22 +98,22 @@ public class SpellBook {
     }
 
     public final void learnAllSpells() {
-	for (int x = 0; x < this.spells.length; x++) {
+	for (var x = 0; x < this.spells.length; x++) {
 	    this.known[x] = true;
 	}
     }
 
     private final void forgetAllSpells() {
-	for (int x = 0; x < this.spells.length; x++) {
+	for (var x = 0; x < this.spells.length; x++) {
 	    this.known[x] = false;
 	}
     }
 
     final String[] getAllSpellNames() {
 	int x;
-	int k = 0;
+	var k = 0;
 	String[] names;
-	final String[] tempnames = new String[this.spells.length];
+	final var tempnames = new String[this.spells.length];
 	for (x = 0; x < this.spells.length; x++) {
 	    if (this.known[x]) {
 		tempnames[x] = this.spells[x].getEffect().getName();
@@ -138,9 +137,9 @@ public class SpellBook {
 
     final String[] getAllSpellNamesWithCosts() {
 	int x;
-	int k = 0;
+	var k = 0;
 	String[] names;
-	final String[] tempnames = new String[this.spells.length];
+	final var tempnames = new String[this.spells.length];
 	for (x = 0; x < this.spells.length; x++) {
 	    if (this.known[x]) {
 		tempnames[x] = this.spells[x].getEffect().getName();
@@ -163,8 +162,8 @@ public class SpellBook {
 	    k = 0;
 	    for (x = 0; x < this.spells.length; x++) {
 		if (this.known[x]) {
-		    final int cost = this.spells[x].getCost();
-		    final String costStr = Integer.toString(cost);
+		    final var cost = this.spells[x].getCost();
+		    final var costStr = Integer.toString(cost);
 		    names[k] += " (" + costStr + " MP)";
 		    k++;
 		}
@@ -175,7 +174,7 @@ public class SpellBook {
 
     public final int[] getAllSpellCosts() {
 	int x;
-	int k = 0;
+	var k = 0;
 	int[] costs;
 	for (x = 0; x < this.spells.length; x++) {
 	    if (this.known[x]) {
@@ -200,7 +199,7 @@ public class SpellBook {
     public final int getSpellIDByName(final String sname) {
 	int x;
 	for (x = 0; x < this.spells.length; x++) {
-	    final String currName = this.spells[x].getEffect().getName();
+	    final var currName = this.spells[x].getEffect().getName();
 	    if (currName.equals(sname)) {
 		// Found it
 		return x;
@@ -216,11 +215,7 @@ public class SpellBook {
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + Arrays.hashCode(this.known);
-	result = prime * result + (this.name == null ? 0 : this.name.hashCode());
-	return prime * result + Arrays.hashCode(this.spells);
+	return Objects.hash(Arrays.hashCode(this.known), this.name, Arrays.hashCode(this.spells));
     }
 
     @Override
@@ -228,21 +223,8 @@ public class SpellBook {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null) {
-	    return false;
-	}
-	if (!(obj instanceof SpellBook)) {
-	    return false;
-	}
-	final SpellBook other = (SpellBook) obj;
-	if (!Arrays.equals(this.known, other.known)) {
-	    return false;
-	}
-	if (this.name == null) {
-	    if (other.name != null) {
-		return false;
-	    }
-	} else if (!this.name.equals(other.name)) {
+	if (obj == null || !(obj instanceof final SpellBook other) || !Arrays.equals(this.known, other.known)
+		|| !Objects.equals(this.name, other.name)) {
 	    return false;
 	}
 	if (!Arrays.equals(this.spells, other.spells)) {

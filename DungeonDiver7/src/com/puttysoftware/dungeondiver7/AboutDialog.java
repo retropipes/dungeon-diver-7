@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.desktop.AboutEvent;
 import java.awt.desktop.AboutHandler;
 import java.awt.event.ActionEvent;
@@ -57,7 +56,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	handler = new EventHandler();
 	this.aboutFrame = new JFrame(DianeStrings.subst(Strings.dialog(DialogString.ABOUT),
 		Strings.untranslated(Untranslated.PROGRAM_NAME)));
-	final Image iconlogo = LogoLoader.getIconLogo();
+	final var iconlogo = LogoLoader.getIconLogo();
 	this.aboutFrame.setIconImage(iconlogo);
 	aboutPane = new Container();
 	textPane = new Container();
@@ -101,8 +100,8 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		final AboutDialog ad = AboutDialog.this;
-		final String cmd = e.getActionCommand();
+		final var ad = AboutDialog.this;
+		final var cmd = e.getActionCommand();
 		if (cmd.equals(Strings.dialog(DialogString.OK_BUTTON))) {
 		    ad.hideAboutDialog();
 		}
@@ -112,7 +111,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	}
     }
 
-    private class MenuHandler implements ActionListener {
+    private static class MenuHandler implements ActionListener {
 	public MenuHandler() {
 	    // Do nothing
 	}
@@ -121,8 +120,8 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		final StuffBag app = DungeonDiver7.getStuffBag();
-		final String cmd = e.getActionCommand();
+		final var app = DungeonDiver7.getStuffBag();
+		final var cmd = e.getActionCommand();
 		if (cmd.equals(DianeStrings.subst(Strings.menu(Menu.ABOUT_PROGRAM),
 			Strings.untranslated(Untranslated.PROGRAM_NAME)))) {
 		    app.getAboutDialog().showAboutDialog();
@@ -155,8 +154,8 @@ public class AboutDialog implements AboutHandler, MenuSection {
 
     @Override
     public JMenu createCommandsMenu() {
-	final MenuHandler mhandler = new MenuHandler();
-	final JMenu helpMenu = new JMenu(Strings.menu(Menu.HELP));
+	final var mhandler = new MenuHandler();
+	final var helpMenu = new JMenu(Strings.menu(Menu.HELP));
 	this.helpAbout = new JMenuItem(
 		DianeStrings.subst(Strings.menu(Menu.ABOUT_PROGRAM), Strings.untranslated(Untranslated.PROGRAM_NAME)));
 	this.helpHelp = new JMenuItem(
@@ -197,7 +196,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
     }
 
     @Override
-    public void handleAbout(AboutEvent e) {
+    public void handleAbout(final AboutEvent e) {
 	this.showAboutDialog();
     }
 }

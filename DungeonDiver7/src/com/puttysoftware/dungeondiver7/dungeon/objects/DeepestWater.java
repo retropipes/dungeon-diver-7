@@ -6,7 +6,6 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractGround;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
@@ -19,7 +18,6 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class DeepestWater extends AbstractGround {
     // Constructors
     public DeepestWater() {
-	super();
 	this.setFrameNumber(1);
 	this.setMaterial(Materials.WOODEN);
     }
@@ -27,7 +25,7 @@ public class DeepestWater extends AbstractGround {
     // Scriptability
     @Override
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	app.getGameLogic();
 	// Get rid of pushed object
 	GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
@@ -58,7 +56,7 @@ public class DeepestWater extends AbstractGround {
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
 	case Materials.ICE:
-	    final Ice i = new Ice();
+	    final var i = new Ice();
 	    i.setPreviousState(this);
 	    return i;
 	case Materials.FIRE:

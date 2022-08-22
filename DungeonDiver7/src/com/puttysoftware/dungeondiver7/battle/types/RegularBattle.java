@@ -14,7 +14,6 @@ class RegularBattle extends AbstractBattleType {
 
     // Constructors
     public RegularBattle() {
-	super();
 	this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance());
     }
 

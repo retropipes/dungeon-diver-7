@@ -10,9 +10,7 @@ import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.utility.ImageColors;
@@ -28,7 +26,7 @@ public class LevelLoadTask extends Thread {
 	this.setName("Level Loader");
 	this.loadFrame = new JFrame("Loading...");
 	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
-	final JProgressBar loadBar = new JProgressBar();
+	final var loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	this.loadFrame.getContentPane().add(loadBar);
 	this.loadFrame.setResizable(false);
@@ -41,8 +39,8 @@ public class LevelLoadTask extends Thread {
     public void run() {
 	try {
 	    this.loadFrame.setVisible(true);
-	    final StuffBag app = DungeonDiver7.getStuffBag();
-	    final AbstractDungeon gameDungeon = app.getDungeonManager().getDungeon();
+	    final var app = DungeonDiver7.getStuffBag();
+	    final var gameDungeon = app.getDungeonManager().getDungeon();
 	    app.getGameLogic().disableEvents();
 	    gameDungeon.switchLevelOffset(this.level);
 	    PartyManager.getParty().offsetZone(this.level);

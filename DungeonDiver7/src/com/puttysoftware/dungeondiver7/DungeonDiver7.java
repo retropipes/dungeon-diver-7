@@ -52,7 +52,7 @@ public class DungeonDiver7 {
     }
 
     public static int getDungeonLevelSize(final int zoneID) {
-	return DungeonDiver7.DUNGEON_BASE_SIZE + (zoneID * DungeonDiver7.DUNGEON_SIZE_INCREMENT);
+	return DungeonDiver7.DUNGEON_BASE_SIZE + zoneID * DungeonDiver7.DUNGEON_SIZE_INCREMENT;
     }
 
     public static int getBattleDungeonSize() {
@@ -73,7 +73,7 @@ public class DungeonDiver7 {
 		System.exit(1);
 	    }
 	    // Integrate with host platform
-	    Integration i = new Integration();
+	    final var i = new Integration();
 	    i.configureLookAndFeel();
 	    // Create and initialize application
 	    DungeonDiver7.stuffBag = new StuffBag();

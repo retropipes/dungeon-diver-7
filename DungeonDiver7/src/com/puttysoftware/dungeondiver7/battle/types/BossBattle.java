@@ -14,7 +14,6 @@ class BossBattle extends AbstractBattleType {
 
     // Constructors
     public BossBattle() {
-	super();
 	this.boss = true;
 	this.monster = new BattleCharacter(MonsterFactory.getNewBossInstance());
     }

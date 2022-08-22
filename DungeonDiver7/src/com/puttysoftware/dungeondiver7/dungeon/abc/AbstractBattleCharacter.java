@@ -6,6 +6,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
+import java.util.Objects;
+
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
@@ -85,9 +87,8 @@ public abstract class AbstractBattleCharacter extends AbstractDungeonObject {
     public final String getTeamString() {
 	if (this.getTemplate().getTeamID() == 0) {
 	    return "Team: Party";
-	} else {
-	    return "Team: Enemies " + this.getTemplate().getTeamID();
 	}
+	return "Team: Enemies " + this.getTemplate().getTeamID();
     }
 
     public final boolean isActive() {
@@ -209,8 +210,8 @@ public abstract class AbstractBattleCharacter extends AbstractDungeonObject {
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = super.hashCode();
+	final var prime = 31;
+	var result = super.hashCode();
 	result = prime * result + this.actionCounter;
 	result = prime * result + this.attackCounter;
 	result = prime * result + (this.isActive ? 1231 : 1237);
@@ -223,30 +224,12 @@ public abstract class AbstractBattleCharacter extends AbstractDungeonObject {
 	if (this == obj) {
 	    return true;
 	}
-	if (!super.equals(obj)) {
+	if (!super.equals(obj) || !(obj instanceof final AbstractBattleCharacter other)
+		|| this.actionCounter != other.actionCounter || this.attackCounter != other.attackCounter) {
 	    return false;
 	}
-	if (!(obj instanceof AbstractBattleCharacter)) {
-	    return false;
-	}
-	final AbstractBattleCharacter other = (AbstractBattleCharacter) obj;
-	if (this.actionCounter != other.actionCounter) {
-	    return false;
-	}
-	if (this.attackCounter != other.attackCounter) {
-	    return false;
-	}
-	if (this.isActive != other.isActive) {
-	    return false;
-	}
-	if (this.spellCounter != other.spellCounter) {
-	    return false;
-	}
-	if (this.template == null) {
-	    if (other.template != null) {
-		return false;
-	    }
-	} else if (!this.template.equals(other.template)) {
+	if (this.isActive != other.isActive || this.spellCounter != other.spellCounter
+		|| !Objects.equals(this.template, other.template)) {
 	    return false;
 	}
 	return true;

@@ -8,7 +8,6 @@ package com.puttysoftware.dungeondiver7.dungeon.abc;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.shop.Shop;
 import com.puttysoftware.dungeondiver7.shop.ShopType;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
@@ -32,7 +31,7 @@ public abstract class AbstractShop extends AbstractDungeonObject {
 
     @Override
     public void interactAction() {
-	final Shop shop = DungeonDiver7.getStuffBag().getShopByType(this.shopType);
+	final var shop = DungeonDiver7.getStuffBag().getShopByType(this.shopType);
 	if (shop != null) {
 	    shop.showShop();
 	}

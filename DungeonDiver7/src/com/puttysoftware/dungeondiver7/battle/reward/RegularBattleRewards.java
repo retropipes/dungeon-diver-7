@@ -7,7 +7,6 @@ package com.puttysoftware.dungeondiver7.battle.reward;
 
 import com.puttysoftware.dungeondiver7.battle.BattleResult;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 
 class RegularBattleRewards {
     // Fields
@@ -25,7 +24,7 @@ class RegularBattleRewards {
     }
 
     private static void processGold(final BattleResult br, final int baseGold) {
-	final PartyMember player = PartyManager.getParty().getLeader();
+	final var player = PartyManager.getParty().getLeader();
 	if (br == BattleResult.WON || br == BattleResult.PERFECT) {
 	    player.offsetGold(baseGold);
 	} else if (br == BattleResult.LOST || br == BattleResult.ANNIHILATED) {
@@ -34,7 +33,7 @@ class RegularBattleRewards {
     }
 
     private static void processExp(final BattleResult br, final long baseExp) {
-	final PartyMember player = PartyManager.getParty().getLeader();
+	final var player = PartyManager.getParty().getLeader();
 	if (br == BattleResult.PERFECT) {
 	    player.offsetExperience(baseExp * 6 / 5);
 	} else if (br == BattleResult.LOST) {

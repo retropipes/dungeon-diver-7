@@ -19,7 +19,6 @@ import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 public class IcyWall extends AbstractWall {
     // Constructors
     public IcyWall() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.setMaterial(Materials.ICE);
     }
@@ -30,29 +29,29 @@ public class IcyWall extends AbstractWall {
 	if (laserType == ShotTypes.DISRUPTOR) {
 	    // Disrupt icy wall
 	    SoundLoader.playSound(SoundConstants.DISRUPTED);
-	    final DisruptedIcyWall diw = new DisruptedIcyWall();
+	    final var diw = new DisruptedIcyWall();
 	    if (this.hasPreviousState()) {
 		diw.setPreviousState(this.getPreviousState());
 	    }
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(diw, locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ShotTypes.MISSILE) {
-	    // Defrost icy wall
-	    SoundLoader.playSound(SoundConstants.DEFROST);
-	    AbstractDungeonObject ao;
-	    if (this.hasPreviousState()) {
-		ao = this.getPreviousState();
-	    } else {
-		ao = new Wall();
-	    }
-	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(ao, locX, locY, locZ, this.getLayer());
-	    return Directions.NONE;
-	} else {
+	}
+	if (laserType != ShotTypes.MISSILE) {
 	    // Stop laser
 	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
+	// Defrost icy wall
+	SoundLoader.playSound(SoundConstants.DEFROST);
+	AbstractDungeonObject ao;
+	if (this.hasPreviousState()) {
+	    ao = this.getPreviousState();
+	} else {
+	    ao = new Wall();
+	}
+	DungeonDiver7.getStuffBag().getGameLogic();
+	GameLogic.morph(ao, locX, locY, locZ, this.getLayer());
+	return Directions.NONE;
     }
 
     @Override

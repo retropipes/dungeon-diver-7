@@ -10,7 +10,6 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTransientObject;
 public class InverseArrow extends AbstractTransientObject {
     // Constructors
     public InverseArrow() {
-	super();
     }
 
     @Override

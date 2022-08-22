@@ -10,7 +10,6 @@ import com.puttysoftware.dungeondiver7.utility.GameActions;
 public abstract class AbstractReactionDisruptedObject extends AbstractReactionPassThroughObject {
     // Constructors
     protected AbstractReactionDisruptedObject() {
-	super();
     }
 
     @Override

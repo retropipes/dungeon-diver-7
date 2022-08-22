@@ -10,9 +10,7 @@ import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
@@ -31,7 +29,7 @@ public class GenerateDungeonTask extends Thread {
 	this.setName("Level Generator");
 	this.generateFrame = new JFrame("Generating...");
 	this.generateFrame.setIconImage(LogoLoader.getIconLogo());
-	final JProgressBar loadBar = new JProgressBar();
+	final var loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	this.generateFrame.getContentPane().add(loadBar);
 	this.generateFrame.setResizable(false);
@@ -44,10 +42,10 @@ public class GenerateDungeonTask extends Thread {
     public void run() {
 	try {
 	    this.generateFrame.setVisible(true);
-	    final StuffBag app = DungeonDiver7.getStuffBag();
-	    int zoneID = PartyManager.getParty().getZone();
-	    int dungeonSize = DungeonDiver7.getDungeonLevelSize(zoneID);
-	    AbstractDungeon gameDungeon = app.getDungeonManager().getDungeon();
+	    final var app = DungeonDiver7.getStuffBag();
+	    final var zoneID = PartyManager.getParty().getZone();
+	    final var dungeonSize = DungeonDiver7.getDungeonLevelSize(zoneID);
+	    var gameDungeon = app.getDungeonManager().getDungeon();
 	    if (!this.scratch) {
 		app.getGameLogic().disableEvents();
 	    } else {
@@ -56,8 +54,8 @@ public class GenerateDungeonTask extends Thread {
 	    }
 	    gameDungeon.addFixedSizeLevel(dungeonSize, dungeonSize, 1);
 	    DungeonGenerator.fillRandomly(gameDungeon);
-	    final RandomRange rR = new RandomRange(0, dungeonSize - 1);
-	    final RandomRange rC = new RandomRange(0, dungeonSize - 1);
+	    final var rR = new RandomRange(0, dungeonSize - 1);
+	    final var rC = new RandomRange(0, dungeonSize - 1);
 	    if (this.scratch) {
 		int startR, startC;
 		do {
@@ -67,7 +65,7 @@ public class GenerateDungeonTask extends Thread {
 		gameDungeon.setStartRow(startR, 0);
 		gameDungeon.setStartColumn(startC, 0);
 		app.getDungeonManager().setLoaded(true);
-		final boolean playerExists = gameDungeon.doesPlayerExist(0);
+		final var playerExists = gameDungeon.doesPlayerExist(0);
 		if (playerExists) {
 		    gameDungeon.setPlayerToStart();
 		    app.getGameLogic().resetViewingWindow();

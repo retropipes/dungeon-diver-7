@@ -6,7 +6,6 @@
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractGround;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
@@ -18,25 +17,23 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class Lava extends AbstractGround {
     // Constructors
     public Lava() {
-	super();
 	this.setMaterial(Materials.FIRE);
     }
 
     // Scriptability
     @Override
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	if (pushed instanceof IcyBox) {
 	    app.getGameLogic();
 	    GameLogic.morph(new Ground(), x, y, z, this.getLayer());
 	    SoundLoader.playSound(SoundConstants.COOL_OFF);
 	    return true;
-	} else {
-	    app.getGameLogic();
-	    GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
-	    SoundLoader.playSound(SoundConstants.MELT);
-	    return false;
 	}
+	app.getGameLogic();
+	GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
+	SoundLoader.playSound(SoundConstants.MELT);
+	return false;
     }
 
     @Override

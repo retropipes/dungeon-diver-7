@@ -18,7 +18,6 @@ import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 public class RotaryMirror extends AbstractReactionWall {
     // Constructors
     public RotaryMirror() {
-	super();
 	this.setDirection(Directions.NORTHEAST);
 	this.setDiagonalOnly(true);
     }
@@ -32,18 +31,16 @@ public class RotaryMirror extends AbstractReactionWall {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else {
-	    final Directions dir = DirectionResolver.resolveInvert(dirX, dirY);
-	    if (AbstractDungeonObject.hitReflectiveSide(dir)) {
-		// Reflect laser
-		return this.getDirection();
-	    } else {
-		// Rotate mirror
-		this.toggleDirection();
-		SoundLoader.playSound(SoundConstants.ROTATE);
-		return Directions.NONE;
-	    }
 	}
+	final var dir = DirectionResolver.resolveInvert(dirX, dirY);
+	if (AbstractDungeonObject.hitReflectiveSide(dir)) {
+	    // Reflect laser
+	    return this.getDirection();
+	}
+	// Rotate mirror
+	this.toggleDirection();
+	SoundLoader.playSound(SoundConstants.ROTATE);
+	return Directions.NONE;
     }
 
     @Override
@@ -51,30 +48,34 @@ public class RotaryMirror extends AbstractReactionWall {
 	    final int laserType) {
 	// Finish reflecting laser
 	SoundLoader.playSound(SoundConstants.REFLECT);
-	final Directions oldlaser = DirectionResolver.resolveInvert(locX, locY);
-	final Directions currdir = this.getDirection();
+	final var oldlaser = DirectionResolver.resolveInvert(locX, locY);
+	final var currdir = this.getDirection();
 	if (oldlaser == Directions.NORTH) {
 	    if (currdir == Directions.NORTHWEST) {
 		return Directions.WEST;
-	    } else if (currdir == Directions.NORTHEAST) {
+	    }
+	    if (currdir == Directions.NORTHEAST) {
 		return Directions.EAST;
 	    }
 	} else if (oldlaser == Directions.SOUTH) {
 	    if (currdir == Directions.SOUTHWEST) {
 		return Directions.WEST;
-	    } else if (currdir == Directions.SOUTHEAST) {
+	    }
+	    if (currdir == Directions.SOUTHEAST) {
 		return Directions.EAST;
 	    }
 	} else if (oldlaser == Directions.WEST) {
 	    if (currdir == Directions.SOUTHWEST) {
 		return Directions.SOUTH;
-	    } else if (currdir == Directions.NORTHWEST) {
+	    }
+	    if (currdir == Directions.NORTHWEST) {
 		return Directions.NORTH;
 	    }
 	} else if (oldlaser == Directions.EAST) {
 	    if (currdir == Directions.SOUTHEAST) {
 		return Directions.SOUTH;
-	    } else if (currdir == Directions.NORTHEAST) {
+	    }
+	    if (currdir == Directions.NORTHEAST) {
 		return Directions.NORTH;
 	    }
 	}

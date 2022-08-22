@@ -12,7 +12,6 @@ import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 public class TenHeatBombs extends AbstractInventoryModifier {
     // Constructors
     public TenHeatBombs() {
-	super();
     }
 
     @Override

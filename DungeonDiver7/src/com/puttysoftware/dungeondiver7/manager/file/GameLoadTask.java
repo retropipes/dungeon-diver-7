@@ -15,7 +15,6 @@ import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.VersionException;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
@@ -36,7 +35,7 @@ public class GameLoadTask extends Thread {
 	this.setName("Game Loader");
 	this.loadFrame = new JFrame("Loading...");
 	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
-	final JProgressBar loadBar = new JProgressBar();
+	final var loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	this.loadFrame.getContentPane().add(loadBar);
 	this.loadFrame.setResizable(false);
@@ -47,19 +46,19 @@ public class GameLoadTask extends Thread {
     // Methods
     @Override
     public void run() {
-	final String sg = "Game";
-	final File mazeFile = new File(this.filename);
+	final var sg = "Game";
+	final var mazeFile = new File(this.filename);
 	try {
 	    this.loadFrame.setVisible(true);
-	    final StuffBag app = DungeonDiver7.getStuffBag();
+	    final var app = DungeonDiver7.getStuffBag();
 	    int startW;
 	    app.getGameLogic().setSavedGameFlag(false);
-	    final File tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
-	    CurrentDungeon gameDungeon = new CurrentDungeon();
+	    final var tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
+	    var gameDungeon = new CurrentDungeon();
 	    // Unlock the file
 	    GameFileManager.load(mazeFile, tempLock);
 	    ZipUtilities.unzipDirectory(tempLock, new File(gameDungeon.getBasePath()));
-	    final boolean success = tempLock.delete();
+	    final var success = tempLock.delete();
 	    if (!success) {
 		throw new IOException("Failed to delete temporary file!");
 	    }
@@ -74,7 +73,7 @@ public class GameLoadTask extends Thread {
 	    app.getDungeonManager().setDungeon(gameDungeon);
 	    startW = gameDungeon.getStartLevel(0);
 	    gameDungeon.switchLevel(startW);
-	    final boolean playerExists = gameDungeon.doesPlayerExist(0);
+	    final var playerExists = gameDungeon.doesPlayerExist(0);
 	    if (playerExists) {
 		app.getDungeonManager().getDungeon().setPlayerToStart();
 		app.getGameLogic().resetViewingWindow();

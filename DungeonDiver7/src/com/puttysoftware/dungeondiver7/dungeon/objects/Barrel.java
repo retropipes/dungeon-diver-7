@@ -8,7 +8,6 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.diane.utilties.DirectionResolver;
 import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
@@ -21,7 +20,6 @@ import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 public class Barrel extends AbstractReactionWall {
     // Constructors
     public Barrel() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_BARREL);
 	this.setMaterial(Materials.WOODEN);
     }
@@ -29,14 +27,14 @@ public class Barrel extends AbstractReactionWall {
     @Override
     public Directions laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
 	    final int dirY, final int laserType, final int forceUnits) {
-	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	// Boom!
 	SoundLoader.playSound(SoundConstants.BARREL);
 	DungeonDiver7.getStuffBag().getGameLogic();
 	// Destroy barrel
 	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	// Check for tank in range of explosion
-	final boolean target = a.circularScanPlayer(locX, locY, locZ, 1);
+	final var target = a.circularScanPlayer(locX, locY, locZ, 1);
 	if (target) {
 	    // Kill tank
 	    DungeonDiver7.getStuffBag().getGameLogic().gameOver();
@@ -44,20 +42,19 @@ public class Barrel extends AbstractReactionWall {
 	if (laserType == ShotTypes.POWER) {
 	    // Laser keeps going
 	    return DirectionResolver.resolve(dirX, dirY);
-	} else {
-	    // Laser stops
-	    return Directions.NONE;
 	}
+	// Laser stops
+	return Directions.NONE;
     }
 
     @Override
     public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
-	final AbstractDungeon a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	// Boom!
 	SoundLoader.playSound(SoundConstants.BARREL);
 	// Check for tank in range of explosion
-	final boolean target = a.circularScanPlayer(locX + dirX, locY + dirY, locZ, 1);
+	final var target = a.circularScanPlayer(locX + dirX, locY + dirY, locZ, 1);
 	if (target) {
 	    // Kill tank
 	    DungeonDiver7.getStuffBag().getGameLogic().gameOver();

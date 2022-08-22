@@ -8,6 +8,6 @@ package com.puttysoftware.dungeondiver7.dungeon.current;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 
 public final class DungeonGenerator {
-    public static void fillRandomly(AbstractDungeon dungeon) {
+    public static void fillRandomly(final AbstractDungeon dungeon) {
     }
 }

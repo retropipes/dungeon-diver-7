@@ -8,7 +8,6 @@ package com.puttysoftware.dungeondiver7.editor;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -25,7 +24,6 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Difficulty;
@@ -64,7 +62,7 @@ class LevelPreferencesManager {
     }
 
     void setPrefs() {
-	final AbstractDungeon m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	if (this.horizontalWrap.isSelected()) {
 	    m.enableHorizontalWraparound();
 	} else {
@@ -88,7 +86,7 @@ class LevelPreferencesManager {
     }
 
     private void loadPrefs() {
-	final AbstractDungeon m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	this.horizontalWrap.setSelected(m.isHorizontalWraparoundEnabled());
 	this.verticalWrap.setSelected(m.isVerticalWraparoundEnabled());
 	this.thirdWrap.setSelected(m.isThirdDimensionWraparoundEnabled());
@@ -102,9 +100,9 @@ class LevelPreferencesManager {
     private void setUpGUI() {
 	Container mainPrefPane, contentPane, buttonPane;
 	JButton prefsOK, prefsCancel;
-	final EventHandler handler = new EventHandler();
+	final var handler = new EventHandler();
 	this.prefFrame = new JFrame(Strings.editor(EditorString.LEVEL_PREFERENCES));
-	final Image iconlogo = LogoLoader.getIconLogo();
+	final var iconlogo = LogoLoader.getIconLogo();
 	this.prefFrame.setIconImage(iconlogo);
 	mainPrefPane = new Container();
 	contentPane = new Container();
@@ -159,8 +157,8 @@ class LevelPreferencesManager {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		final LevelPreferencesManager lpm = LevelPreferencesManager.this;
-		final String cmd = e.getActionCommand();
+		final var lpm = LevelPreferencesManager.this;
+		final var cmd = e.getActionCommand();
 		if (cmd.equals(Strings.dialog(DialogString.OK_BUTTON))) {
 		    lpm.setPrefs();
 		    lpm.hidePrefs();
@@ -180,7 +178,7 @@ class LevelPreferencesManager {
 
 	@Override
 	public void windowClosing(final WindowEvent e) {
-	    final LevelPreferencesManager pm = LevelPreferencesManager.this;
+	    final var pm = LevelPreferencesManager.this;
 	    pm.hidePrefs();
 	}
 

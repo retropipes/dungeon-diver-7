@@ -58,41 +58,40 @@ public class ArrowTurret extends AbstractMovableObject {
     @Override
     public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
-	final Directions baseDir = this.getDirection();
+	final var baseDir = this.getDirection();
 	if (laserType == ShotTypes.MISSILE || laserType == ShotTypes.POWER) {
-	    final DeadArrowTurret dat = new DeadArrowTurret();
+	    final var dat = new DeadArrowTurret();
 	    dat.setSavedObject(this.getSavedObject());
 	    dat.setDirection(baseDir);
 	    GameLogic.morph(dat, locX, locY, locZ, this.getLayer());
 	    SoundLoader.playSound(SoundConstants.ANTI_DIE);
 	    return Directions.NONE;
-	} else if (laserType == ShotTypes.STUNNER) {
-	    final StunnedArrowTurret sat = new StunnedArrowTurret();
+	}
+	if (laserType == ShotTypes.STUNNER) {
+	    final var sat = new StunnedArrowTurret();
 	    sat.setSavedObject(this.getSavedObject());
 	    sat.setDirection(baseDir);
 	    GameLogic.morph(sat, locX, locY, locZ, this.getLayer());
 	    SoundLoader.playSound(SoundConstants.STUN);
 	    return Directions.NONE;
-	} else {
-	    final Directions sourceDir = DirectionResolver.resolveInvert(dirX, dirY);
-	    if (sourceDir == baseDir) {
-		final DeadArrowTurret dat = new DeadArrowTurret();
-		dat.setSavedObject(this.getSavedObject());
-		dat.setDirection(baseDir);
-		GameLogic.morph(dat, locX, locY, locZ, this.getLayer());
-		SoundLoader.playSound(SoundConstants.ANTI_DIE);
-		return Directions.NONE;
-	    } else {
-		return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-	    }
 	}
+	final var sourceDir = DirectionResolver.resolveInvert(dirX, dirY);
+	if (sourceDir == baseDir) {
+	    final var dat = new DeadArrowTurret();
+	    dat.setSavedObject(this.getSavedObject());
+	    dat.setDirection(baseDir);
+	    GameLogic.morph(dat, locX, locY, locZ, this.getLayer());
+	    SoundLoader.playSound(SoundConstants.ANTI_DIE);
+	    return Directions.NONE;
+	}
+	return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
     }
 
     @Override
     public void timerExpiredAction(final int locX, final int locY) {
 	if (this.getSavedObject().isOfType(DungeonObjectTypes.TYPE_ANTI_MOVER)) {
-	    final Directions moveDir = this.getSavedObject().getDirection();
-	    final int[] unres = DirectionResolver.unresolve(moveDir);
+	    final var moveDir = this.getSavedObject().getDirection();
+	    final var unres = DirectionResolver.unresolve(moveDir);
 	    if (GameLogic.canObjectMove(locX, locY, unres[0], unres[1])) {
 		if (this.autoMove) {
 		    this.autoMove = false;

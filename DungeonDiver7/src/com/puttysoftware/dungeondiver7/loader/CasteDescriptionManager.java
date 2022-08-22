@@ -16,13 +16,10 @@ import com.puttysoftware.fileutils.ResourceStreamReader;
 
 public class CasteDescriptionManager {
     public static String getCasteDescription(final int c) {
-	final String name = CasteConstants.CASTE_NAMES[c].toLowerCase();
-	try (final ResourceStreamReader rsr = new ResourceStreamReader(
-		CasteDescriptionManager.class.getResourceAsStream(
-			"/assets/descriptions/caste/" + name + Strings.fileExtension(FileExtension.INTERNAL_DATA)))) {
-	    // Fetch description
-	    final String desc = rsr.readString();
-	    return desc;
+	final var name = CasteConstants.CASTE_NAMES[c].toLowerCase();
+	try (final var rsr = new ResourceStreamReader(CasteDescriptionManager.class.getResourceAsStream(
+		"/assets/descriptions/caste/" + name + Strings.fileExtension(FileExtension.INTERNAL_DATA)))) {
+	    return rsr.readString();
 	} catch (final IOException e) {
 	    DungeonDiver7.logError(e);
 	    return null;

@@ -16,7 +16,7 @@ public class MonsterImageCache {
     // Methods
     static BufferedImageIcon getCachedImage(final String name) {
 	if (!MonsterImageCache.isInCache(name)) {
-	    final BufferedImageIcon bii = MonsterImageManager.getUncachedImage(name);
+	    final var bii = MonsterImageManager.getUncachedImage(name);
 	    MonsterImageCache.addToCache(name, bii);
 	}
 	for (final CacheEntry element : MonsterImageCache.cache) {
@@ -28,9 +28,8 @@ public class MonsterImageCache {
     }
 
     private static void expandCache() {
-	final CacheEntry[] tempCache = new CacheEntry[MonsterImageCache.cache.length
-		+ MonsterImageCache.CACHE_INCREMENT];
-	for (int x = 0; x < MonsterImageCache.CACHE_SIZE; x++) {
+	final var tempCache = new CacheEntry[MonsterImageCache.cache.length + MonsterImageCache.CACHE_INCREMENT];
+	for (var x = 0; x < MonsterImageCache.CACHE_SIZE; x++) {
 	    tempCache[x] = MonsterImageCache.cache[x];
 	}
 	MonsterImageCache.cache = tempCache;
@@ -51,7 +50,7 @@ public class MonsterImageCache {
 	if (MonsterImageCache.cache == null) {
 	    MonsterImageCache.cache = new CacheEntry[MonsterImageCache.CACHE_INCREMENT];
 	}
-	for (int x = 0; x < MonsterImageCache.CACHE_SIZE; x++) {
+	for (var x = 0; x < MonsterImageCache.CACHE_SIZE; x++) {
 	    if (name.equals(MonsterImageCache.cache[x].getName())) {
 		return true;
 	    }

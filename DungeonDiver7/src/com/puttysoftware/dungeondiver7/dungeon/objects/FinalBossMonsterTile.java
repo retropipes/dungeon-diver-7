@@ -5,7 +5,6 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
@@ -22,7 +21,7 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public void postMoveAction(final int dirX, final int dirY, int dirZ) {
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	if (DungeonDiver7.getStuffBag().getMode() != StuffBag.STATUS_BATTLE) {
 	    DungeonDiver7.getStuffBag().getBattle().doFinalBossBattle();
 	}
@@ -31,8 +30,8 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
     @Override
     public void timerExpiredAction(final int locX, final int locY) {
 	// Move the monster
-	AbstractDungeon dungeon = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	final Directions move = dungeon.computeFinalBossMoveDirection(locX, locY, 0, 0);
+	final var dungeon = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var move = dungeon.computeFinalBossMoveDirection(locX, locY, 0, 0);
 	dungeon.updateMonsterPosition(move, locX, locY, this, 0);
 	this.activateTimer(1);
     }
@@ -62,35 +61,31 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
 	    final int layer) {
 	if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
 	    return false;
-	} else {
-	    return super.shouldGenerateObject(dungeon, row, col, level, layer);
 	}
+	return super.shouldGenerateObject(dungeon, row, col, level, layer);
     }
 
     @Override
     public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
 	if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
-	} else {
-	    return 1;
 	}
+	return 1;
     }
 
     @Override
     public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
 	if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
-	} else {
-	    return 1;
 	}
+	return 1;
     }
 
     @Override
     public boolean isRequired(final AbstractDungeon dungeon) {
 	if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
 	    return false;
-	} else {
-	    return true;
 	}
+	return true;
     }
 }

@@ -13,7 +13,6 @@ import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 public class FrostField extends AbstractField {
     // Constructors
     public FrostField() {
-	super();
     }
 
     @Override

@@ -11,7 +11,6 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class MagneticPressureButtonDoor extends AbstractPressureButtonDoor {
     // Constructors
     public MagneticPressureButtonDoor() {
-	super();
 	this.setMaterial(Materials.MAGNETIC);
     }
 

@@ -8,7 +8,6 @@ package com.puttysoftware.dungeondiver7.game;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,7 +17,6 @@ import javax.swing.JPanel;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 
@@ -40,12 +38,12 @@ public class StatisticsViewer {
     // Methods
     public static void viewStatistics() {
 	StatisticsViewer.setUpGUI();
-	final PartyMember leader = PartyManager.getParty().getLeader();
+	final var leader = PartyManager.getParty().getLeader();
 	if (leader != null) {
-	    for (int x = 0; x < StatConstants.MAX_DISPLAY_STATS; x++) {
+	    for (var x = 0; x < StatConstants.MAX_DISPLAY_STATS; x++) {
 		final long value = leader.getStat(x);
 		if (x == StatConstants.STAT_HIT || x == StatConstants.STAT_EVADE) {
-		    final double fmtVal = value / 100.0;
+		    final var fmtVal = value / 100.0;
 		    StatisticsViewer.statisticsValues[x].setText(" " + Strings.stat(x) + ": " + fmtVal + "%  ");
 		} else {
 		    StatisticsViewer.statisticsValues[x].setText(" " + Strings.stat(x) + ": " + value + "  ");
@@ -61,7 +59,7 @@ public class StatisticsViewer {
     private static void setUpGUI() {
 	if (!StatisticsViewer.inited) {
 	    StatisticsViewer.statisticsFrame = new JFrame("Statistics");
-	    final Image iconlogo = LogoLoader.getIconLogo();
+	    final var iconlogo = LogoLoader.getIconLogo();
 	    StatisticsViewer.statisticsFrame.setIconImage(iconlogo);
 	    StatisticsViewer.statisticsPane = new JPanel();
 	    StatisticsViewer.statisticsPane.setLayout(new BorderLayout());
@@ -72,7 +70,7 @@ public class StatisticsViewer {
 	    StatisticsViewer.btnOK = new JButton("OK");
 	    StatisticsViewer.btnOK.addActionListener(e -> StatisticsViewer.statisticsFrame.setVisible(false));
 	    StatisticsViewer.statisticsValues = new JLabel[StatConstants.MAX_DISPLAY_STATS];
-	    for (int x = 0; x < StatConstants.MAX_DISPLAY_STATS; x++) {
+	    for (var x = 0; x < StatConstants.MAX_DISPLAY_STATS; x++) {
 		StatisticsViewer.statisticsValues[x] = new JLabel();
 		StatisticsViewer.contentPane.add(StatisticsViewer.statisticsValues[x]);
 	    }

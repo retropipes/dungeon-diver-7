@@ -10,7 +10,6 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractGround;
 public class Bridge extends AbstractGround {
     // Constructors
     public Bridge() {
-	super();
     }
 
     @Override

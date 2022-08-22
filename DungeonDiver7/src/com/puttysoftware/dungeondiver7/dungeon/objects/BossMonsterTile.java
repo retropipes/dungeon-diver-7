@@ -20,7 +20,7 @@ public class BossMonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public void postMoveAction(final int dirX, final int dirY, int dirZ) {
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	if (DungeonDiver7.getStuffBag().getMode() != StuffBag.STATUS_BATTLE) {
 	    DungeonDiver7.getStuffBag().getBattle().doBossBattle();
 	}
@@ -51,35 +51,31 @@ public class BossMonsterTile extends AbstractMovingObject {
 	    final int layer) {
 	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return false;
-	} else {
-	    return super.shouldGenerateObject(dungeon, row, col, level, layer);
 	}
+	return super.shouldGenerateObject(dungeon, row, col, level, layer);
     }
 
     @Override
     public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
 	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
-	} else {
-	    return 1;
 	}
+	return 1;
     }
 
     @Override
     public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
 	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
-	} else {
-	    return 1;
 	}
+	return 1;
     }
 
     @Override
     public boolean isRequired(final AbstractDungeon dungeon) {
 	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return false;
-	} else {
-	    return true;
 	}
+	return true;
     }
 }

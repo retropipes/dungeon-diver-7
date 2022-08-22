@@ -6,7 +6,6 @@
 package com.puttysoftware.dungeondiver7;
 
 import java.awt.BorderLayout;
-import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -42,7 +41,7 @@ class HelpManager {
 	if (!this.inited) {
 	    this.helpFrame = new JFrame(DianeStrings.subst(Strings.dialog(DialogString.HELP),
 		    Strings.untranslated(Untranslated.PROGRAM_NAME)));
-	    final Image iconlogo = LogoLoader.getIconLogo();
+	    final var iconlogo = LogoLoader.getIconLogo();
 	    this.helpFrame.setIconImage(iconlogo);
 	    this.helpFrame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 	    this.helpFrame.setLayout(new BorderLayout());

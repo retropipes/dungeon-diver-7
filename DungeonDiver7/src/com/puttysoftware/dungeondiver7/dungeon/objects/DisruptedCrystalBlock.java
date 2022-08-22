@@ -23,7 +23,6 @@ public class DisruptedCrystalBlock extends AbstractReactionDisruptedObject {
 
     // Constructors
     public DisruptedCrystalBlock() {
-	super();
 	this.disruptionLeft = DisruptedCrystalBlock.DISRUPTION_START;
 	this.activateTimer(1);
 	this.setMaterial(Materials.METALLIC);
@@ -38,13 +37,13 @@ public class DisruptedCrystalBlock extends AbstractReactionDisruptedObject {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	    return Directions.NONE;
-	} else if (laserType == ShotTypes.BLUE) {
+	}
+	if (laserType == ShotTypes.BLUE) {
 	    // Reflect laser
 	    return DirectionResolver.resolveInvert(dirX, dirY);
-	} else {
-	    // Pass laser through
-	    return DirectionResolver.resolve(dirX, dirY);
 	}
+	// Pass laser through
+	return DirectionResolver.resolve(dirX, dirY);
     }
 
     @Override
@@ -52,7 +51,7 @@ public class DisruptedCrystalBlock extends AbstractReactionDisruptedObject {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
 	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
-	    final int z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
+	    final var z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new CrystalBlock(), locX, locY, z, this.getLayer());
 	} else {
@@ -73,11 +72,9 @@ public class DisruptedCrystalBlock extends AbstractReactionDisruptedObject {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy disrupted crystal block
 	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
-	    return true;
-	} else {
-	    // Do nothing
-	    return true;
 	}
+	// Do nothing
+	return true;
     }
 
     @Override

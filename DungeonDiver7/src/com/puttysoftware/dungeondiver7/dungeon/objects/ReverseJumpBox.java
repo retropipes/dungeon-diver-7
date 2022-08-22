@@ -15,7 +15,6 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class ReverseJumpBox extends AbstractJumpObject {
     // Constructors
     public ReverseJumpBox() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_BOX);
 	this.setMaterial(Materials.STONE);
     }
@@ -44,7 +43,7 @@ public class ReverseJumpBox extends AbstractJumpObject {
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
 	case Materials.ICE:
-	    final IcyBox ib = new IcyBox();
+	    final var ib = new IcyBox();
 	    ib.setPreviousState(this);
 	    return ib;
 	case Materials.FIRE:

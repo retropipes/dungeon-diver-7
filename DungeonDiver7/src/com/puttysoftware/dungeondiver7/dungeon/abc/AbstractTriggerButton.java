@@ -6,7 +6,6 @@
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
@@ -22,7 +21,7 @@ public abstract class AbstractTriggerButton extends AbstractButton {
 
     @Override
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	if (this.isUniversal() || pushed.getMaterial() == this.getMaterial()) {
 	    SoundLoader.playSound(SoundConstants.BUTTON);
 	    if (this.isTriggered()) {

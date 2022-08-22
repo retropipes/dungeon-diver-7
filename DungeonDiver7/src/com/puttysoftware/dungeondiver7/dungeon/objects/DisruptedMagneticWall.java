@@ -20,7 +20,6 @@ public class DisruptedMagneticWall extends AbstractDisruptedObject {
 
     // Constructors
     public DisruptedMagneticWall() {
-	super();
 	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.disruptionLeft = DisruptedMagneticWall.DISRUPTION_START;
 	this.activateTimer(1);
@@ -32,7 +31,7 @@ public class DisruptedMagneticWall extends AbstractDisruptedObject {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
 	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
-	    final int z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
+	    final var z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new MagneticWall(), locX, locY, z, this.getLayer());
 	} else {

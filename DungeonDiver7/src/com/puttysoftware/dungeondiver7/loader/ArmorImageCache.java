@@ -16,7 +16,7 @@ public class ArmorImageCache {
     // Methods
     static BufferedImageIcon getCachedImage(final String name) {
 	if (!ArmorImageCache.isInCache(name)) {
-	    final BufferedImageIcon bii = ArmorImageManager.getUncachedImage(name);
+	    final var bii = ArmorImageManager.getUncachedImage(name);
 	    ArmorImageCache.addToCache(name, bii);
 	}
 	for (final CacheEntry element : ArmorImageCache.cache) {
@@ -28,8 +28,8 @@ public class ArmorImageCache {
     }
 
     private static void expandCache() {
-	final CacheEntry[] tempCache = new CacheEntry[ArmorImageCache.cache.length + ArmorImageCache.CACHE_INCREMENT];
-	for (int x = 0; x < ArmorImageCache.CACHE_SIZE; x++) {
+	final var tempCache = new CacheEntry[ArmorImageCache.cache.length + ArmorImageCache.CACHE_INCREMENT];
+	for (var x = 0; x < ArmorImageCache.CACHE_SIZE; x++) {
 	    tempCache[x] = ArmorImageCache.cache[x];
 	}
 	ArmorImageCache.cache = tempCache;
@@ -50,7 +50,7 @@ public class ArmorImageCache {
 	if (ArmorImageCache.cache == null) {
 	    ArmorImageCache.cache = new CacheEntry[ArmorImageCache.CACHE_INCREMENT];
 	}
-	for (int x = 0; x < ArmorImageCache.CACHE_SIZE; x++) {
+	for (var x = 0; x < ArmorImageCache.CACHE_SIZE; x++) {
 	    if (name.equals(ArmorImageCache.cache[x].getName())) {
 		return true;
 	    }

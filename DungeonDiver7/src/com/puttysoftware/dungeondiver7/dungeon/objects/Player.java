@@ -14,7 +14,6 @@ import com.puttysoftware.images.BufferedImageIcon;
 public class Player extends AbstractCharacter {
     // Constructors
     public Player() {
-	super();
     }
 
     @Override

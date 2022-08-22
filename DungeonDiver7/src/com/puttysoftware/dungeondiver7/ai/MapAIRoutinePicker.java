@@ -15,19 +15,22 @@ public final class MapAIRoutinePicker {
 
     // Methods
     public static AbstractMapAIRoutine getNextRoutine() {
-	final int difficulty = PrefsManager.getGameDifficulty();
+	final var difficulty = PrefsManager.getGameDifficulty();
 	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
 	    return new VeryEasyMapAIRoutine();
-	} else if (difficulty == PrefsManager.DIFFICULTY_EASY) {
+	}
+	if (difficulty == PrefsManager.DIFFICULTY_EASY) {
 	    return new EasyMapAIRoutine();
-	} else if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
-	    return new NormalMapAIRoutine();
-	} else if (difficulty == PrefsManager.DIFFICULTY_HARD) {
-	    return new HardMapAIRoutine();
-	} else if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
-	    return new VeryHardMapAIRoutine();
-	} else {
+	}
+	if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
 	    return new NormalMapAIRoutine();
 	}
+	if (difficulty == PrefsManager.DIFFICULTY_HARD) {
+	    return new HardMapAIRoutine();
+	}
+	if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
+	    return new VeryHardMapAIRoutine();
+	}
+	return new NormalMapAIRoutine();
     }
 }

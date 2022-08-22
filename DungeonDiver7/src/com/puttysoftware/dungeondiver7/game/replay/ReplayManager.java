@@ -10,7 +10,6 @@ import java.io.File;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.GameString;
@@ -26,11 +25,10 @@ public class ReplayManager {
 
     // Methods
     public static void loadLPB() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	String filename, extension, file, dir;
-	final String lastOpen = PrefsManager.getLastDirOpen();
-	final FileDialog fd = new FileDialog(app.getOutputFrame(), Strings.game(GameString.LOAD_PLAYBACK),
-		FileDialog.LOAD);
+	final var lastOpen = PrefsManager.getLastDirOpen();
+	final var fd = new FileDialog(app.getOutputFrame(), Strings.game(GameString.LOAD_PLAYBACK), FileDialog.LOAD);
 	fd.setDirectory(lastOpen);
 	fd.setVisible(true);
 	file = fd.getFile();
@@ -52,14 +50,14 @@ public class ReplayManager {
 	    CommonDialogs.showErrorDialog(Strings.dialog(DialogString.ILLEGAL_CHARACTERS),
 		    Strings.dialog(DialogString.LOAD));
 	} else {
-	    final ReplayFileLoadTask lpblt = new ReplayFileLoadTask(filename);
+	    final var lpblt = new ReplayFileLoadTask(filename);
 	    lpblt.start();
 	}
     }
 
     private static String getExtension(final String s) {
 	String ext = null;
-	final int i = s.lastIndexOf('.');
+	final var i = s.lastIndexOf('.');
 	if (i > 0 && i < s.length() - 1) {
 	    ext = s.substring(i + 1).toLowerCase();
 	}
@@ -68,7 +66,7 @@ public class ReplayManager {
 
     private static String getNameWithoutExtension(final String s) {
 	String ext = null;
-	final int i = s.lastIndexOf('.');
+	final var i = s.lastIndexOf('.');
 	if (i > 0 && i < s.length() - 1) {
 	    ext = s.substring(0, i);
 	} else {
@@ -79,7 +77,7 @@ public class ReplayManager {
 
     private static String getFileNameOnly(final String s) {
 	String fno = null;
-	final int i = s.lastIndexOf(File.separatorChar);
+	final var i = s.lastIndexOf(File.separatorChar);
 	if (i > 0 && i < s.length() - 1) {
 	    fno = s.substring(i + 1);
 	} else {

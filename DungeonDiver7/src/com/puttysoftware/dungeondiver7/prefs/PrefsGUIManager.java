@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -67,36 +66,47 @@ class PrefsGUIManager {
     public JFrame getPrefFrame() {
 	if (this.prefFrame != null && this.prefFrame.isVisible()) {
 	    return this.prefFrame;
-	} else {
-	    return null;
 	}
+	return null;
     }
 
     public void showPrefs() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	app.setInPrefs();
 	this.prefFrame.setVisible(true);
-	final int formerMode = app.getFormerMode();
-	if (formerMode == StuffBag.STATUS_GUI) {
+	final var formerMode = app.getFormerMode();
+	switch (formerMode) {
+	case StuffBag.STATUS_GUI:
 	    app.getGUIManager().hideGUI();
-	} else if (formerMode == StuffBag.STATUS_GAME) {
+	    break;
+	case StuffBag.STATUS_GAME:
 	    app.getGameLogic().hideOutput();
-	} else if (formerMode == StuffBag.STATUS_EDITOR) {
+	    break;
+	case StuffBag.STATUS_EDITOR:
 	    app.getEditor().hideOutput();
+	    break;
+	default:
+	    break;
 	}
     }
 
     void hidePrefs() {
-	final StuffBag app = DungeonDiver7.getStuffBag();
+	final var app = DungeonDiver7.getStuffBag();
 	this.prefFrame.setVisible(false);
 	PrefsManager.writePrefs();
-	final int formerMode = app.getFormerMode();
-	if (formerMode == StuffBag.STATUS_GUI) {
+	final var formerMode = app.getFormerMode();
+	switch (formerMode) {
+	case StuffBag.STATUS_GUI:
 	    app.getGUIManager().showGUI();
-	} else if (formerMode == StuffBag.STATUS_GAME) {
+	    break;
+	case StuffBag.STATUS_GAME:
 	    app.getGameLogic().showOutput();
-	} else if (formerMode == StuffBag.STATUS_EDITOR) {
+	    break;
+	case StuffBag.STATUS_EDITOR:
 	    app.getEditor().showOutput();
+	    break;
+	default:
+	    break;
 	}
     }
 
@@ -133,15 +143,15 @@ class PrefsGUIManager {
     }
 
     private void setUpGUI() {
-	final EventHandler handler = new EventHandler();
+	final var handler = new EventHandler();
 	this.prefFrame = new JFrame(Strings.prefs(PrefString.TITLE));
-	final Container mainPrefPane = new Container();
-	final Container buttonPane = new Container();
-	final Container settingsPane = new Container();
-	final JButton prefsOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
+	final var mainPrefPane = new Container();
+	final var buttonPane = new Container();
+	final var settingsPane = new Container();
+	final var prefsOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	prefsOK.setDefaultCapable(true);
 	this.prefFrame.getRootPane().setDefaultButton(prefsOK);
-	final JButton prefsCancel = new JButton(Strings.dialog(DialogString.CANCEL_BUTTON));
+	final var prefsCancel = new JButton(Strings.dialog(DialogString.CANCEL_BUTTON));
 	prefsCancel.setDefaultCapable(false);
 	this.sounds = new JCheckBox(Strings.prefs(PrefString.ENABLE_SOUNDS), true);
 	this.music = new JCheckBox(Strings.prefs(PrefString.ENABLE_MUSIC), true);
@@ -182,7 +192,7 @@ class PrefsGUIManager {
 	mainPrefPane.add(buttonPane, BorderLayout.SOUTH);
 	prefsOK.addActionListener(handler);
 	prefsCancel.addActionListener(handler);
-	final Image iconlogo = LogoLoader.getIconLogo();
+	final var iconlogo = LogoLoader.getIconLogo();
 	this.prefFrame.setIconImage(iconlogo);
 	this.prefFrame.pack();
     }
@@ -196,8 +206,8 @@ class PrefsGUIManager {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		final PrefsGUIManager pm = PrefsGUIManager.this;
-		final String cmd = e.getActionCommand();
+		final var pm = PrefsGUIManager.this;
+		final var cmd = e.getActionCommand();
 		if (cmd.equals(Strings.dialog(DialogString.OK_BUTTON))) {
 		    pm.setPrefs();
 		} else if (cmd.equals(Strings.dialog(DialogString.CANCEL_BUTTON))) {
@@ -215,7 +225,7 @@ class PrefsGUIManager {
 
 	@Override
 	public void windowClosing(final WindowEvent e) {
-	    final PrefsGUIManager pm = PrefsGUIManager.this;
+	    final var pm = PrefsGUIManager.this;
 	    pm.hidePrefs();
 	}
 

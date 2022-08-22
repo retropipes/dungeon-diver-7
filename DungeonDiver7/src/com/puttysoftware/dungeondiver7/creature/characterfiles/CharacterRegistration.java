@@ -30,21 +30,21 @@ public class CharacterRegistration {
     // Methods
     public static void registerCharacter() {
 	// Load character list
-	final String[] characterNameList = CharacterRegistration.getCharacterNameList();
-	final String[] characterNames = new File(CharacterRegistration.getBasePath()).list(new CharacterFilter());
+	final var characterNameList = CharacterRegistration.getCharacterNameList();
+	final var characterNames = new File(CharacterRegistration.getBasePath()).list(new CharacterFilter());
 	if (characterNames != null && characterNames.length > 0) {
 	    // Strip extension
-	    final int stripCount = Strings.fileExtension(FileExtension.CHARACTER).length();
-	    for (int x = 0; x < characterNames.length; x++) {
-		final String temp = characterNames[x];
+	    final var stripCount = Strings.fileExtension(FileExtension.CHARACTER).length();
+	    for (var x = 0; x < characterNames.length; x++) {
+		final var temp = characterNames[x];
 		characterNames[x] = temp.substring(0, temp.length() - stripCount);
 	    }
 	    // Pick character to register
-	    final String res = CommonDialogs.showInputDialog("Register Which Character?", "Register Character",
+	    final var res = CommonDialogs.showInputDialog("Register Which Character?", "Register Character",
 		    characterNames, characterNames[0]);
 	    if (res != null) {
 		// Verify that character is not already registered
-		boolean alreadyRegistered = false;
+		var alreadyRegistered = false;
 		if (characterNameList != null) {
 		    for (final String element : characterNameList) {
 			if (element.equalsIgnoreCase(res)) {
@@ -59,8 +59,8 @@ public class CharacterRegistration {
 			    + Strings.fileExtension(FileExtension.CHARACTER)).exists()) {
 			// Register it
 			if (CharacterRegistration.ANY_FOUND && characterNameList != null) {
-			    final String[] newCharacterList = new String[characterNameList.length + 1];
-			    for (int x = 0; x < newCharacterList.length; x++) {
+			    final var newCharacterList = new String[characterNameList.length + 1];
+			    for (var x = 0; x < newCharacterList.length; x++) {
 				if (x < characterNameList.length) {
 				    newCharacterList[x] = characterNameList[x];
 				} else {
@@ -69,7 +69,7 @@ public class CharacterRegistration {
 			    }
 			    CharacterRegistration.writeCharacterRegistry(newCharacterList);
 			} else {
-			    CharacterRegistration.writeCharacterRegistry(new String[] { res });
+			    CharacterRegistration.writeCharacterRegistry(res);
 			}
 		    } else {
 			CommonDialogs.showDialog("The character to register is not a valid character.");
@@ -85,19 +85,19 @@ public class CharacterRegistration {
 
     public static void unregisterCharacter() {
 	// Load character list
-	final String[] characterNameList = CharacterRegistration.getCharacterNameList();
+	final var characterNameList = CharacterRegistration.getCharacterNameList();
 	// Check for null list
 	if (characterNameList == null) {
 	    CommonDialogs.showTitledDialog("No Characters Registered!", "Unregister Character");
 	    return;
 	}
 	// Pick character to unregister
-	final String res = CommonDialogs.showInputDialog("Unregister Which Character?", "Unregister Character",
+	final var res = CommonDialogs.showInputDialog("Unregister Which Character?", "Unregister Character",
 		characterNameList, characterNameList[0]);
 	if (res != null) {
 	    // Find character index
-	    int index = -1;
-	    for (int x = 0; x < characterNameList.length; x++) {
+	    var index = -1;
+	    for (var x = 0; x < characterNameList.length; x++) {
 		if (characterNameList[x].equals(res)) {
 		    index = x;
 		    break;
@@ -107,9 +107,9 @@ public class CharacterRegistration {
 		// Unregister it
 		if (characterNameList.length > 1) {
 		    characterNameList[index] = null;
-		    final String[] newCharacterList = new String[characterNameList.length - 1];
-		    int offset = 0;
-		    for (int x = 0; x < characterNameList.length; x++) {
+		    final var newCharacterList = new String[characterNameList.length - 1];
+		    var offset = 0;
+		    for (var x = 0; x < characterNameList.length; x++) {
 			if (characterNameList[x] != null) {
 			    newCharacterList[x - offset] = characterNameList[x];
 			} else {
@@ -126,19 +126,19 @@ public class CharacterRegistration {
 
     public static void removeCharacter() {
 	// Load character list
-	final String[] characterNameList = CharacterRegistration.getCharacterNameList();
+	final var characterNameList = CharacterRegistration.getCharacterNameList();
 	// Check for null list
 	if (characterNameList == null) {
 	    CommonDialogs.showTitledDialog("No Characters Registered!", "Remove Character");
 	    return;
 	}
 	// Pick character to unregister
-	final String res = CommonDialogs.showInputDialog("Remove Which Character?", "Remove Character",
-		characterNameList, characterNameList[0]);
+	final var res = CommonDialogs.showInputDialog("Remove Which Character?", "Remove Character", characterNameList,
+		characterNameList[0]);
 	if (res != null) {
 	    // Find character index
-	    int index = -1;
-	    for (int x = 0; x < characterNameList.length; x++) {
+	    var index = -1;
+	    for (var x = 0; x < characterNameList.length; x++) {
 		if (characterNameList[x].equals(res)) {
 		    index = x;
 		    break;
@@ -148,9 +148,9 @@ public class CharacterRegistration {
 		// Unregister it
 		if (characterNameList.length > 1) {
 		    characterNameList[index] = null;
-		    final String[] newCharacterList = new String[characterNameList.length - 1];
-		    int offset = 0;
-		    for (int x = 0; x < characterNameList.length; x++) {
+		    final var newCharacterList = new String[characterNameList.length - 1];
+		    var offset = 0;
+		    for (var x = 0; x < characterNameList.length; x++) {
 			if (characterNameList[x] != null) {
 			    newCharacterList[x - offset] = characterNameList[x];
 			} else {
@@ -168,7 +168,7 @@ public class CharacterRegistration {
 
     public static void autoremoveCharacter(final String res) {
 	// Load character list
-	final String[] characterNameList = CharacterRegistration.getCharacterNameList();
+	final var characterNameList = CharacterRegistration.getCharacterNameList();
 	// Check for null list
 	if (characterNameList == null) {
 	    return;
@@ -176,8 +176,8 @@ public class CharacterRegistration {
 	// Pick character to unregister
 	if (res != null) {
 	    // Find character index
-	    int index = -1;
-	    for (int x = 0; x < characterNameList.length; x++) {
+	    var index = -1;
+	    for (var x = 0; x < characterNameList.length; x++) {
 		if (characterNameList[x].equals(res)) {
 		    index = x;
 		    break;
@@ -187,9 +187,9 @@ public class CharacterRegistration {
 		// Unregister it
 		if (characterNameList.length > 1) {
 		    characterNameList[index] = null;
-		    final String[] newCharacterList = new String[characterNameList.length - 1];
-		    int offset = 0;
-		    for (int x = 0; x < characterNameList.length; x++) {
+		    final var newCharacterList = new String[characterNameList.length - 1];
+		    var offset = 0;
+		    for (var x = 0; x < characterNameList.length; x++) {
 			if (characterNameList[x] != null) {
 			    newCharacterList[x - offset] = characterNameList[x];
 			} else {
@@ -206,42 +206,42 @@ public class CharacterRegistration {
     }
 
     private static String getDirPrefix() {
-	final String osName = System.getProperty("os.name");
+	final var osName = System.getProperty("os.name");
 	if (osName.indexOf("Mac OS X") != -1) {
 	    // Mac OS X
 	    return System.getenv(CharacterRegistration.MAC_PREFIX);
-	} else if (osName.indexOf("Windows") != -1) {
+	}
+	if (osName.indexOf("Windows") != -1) {
 	    // Windows
 	    return System.getenv(CharacterRegistration.WIN_PREFIX);
-	} else {
-	    // Other - assume UNIX-like
-	    return System.getenv(CharacterRegistration.UNIX_PREFIX);
 	}
+	// Other - assume UNIX-like
+	return System.getenv(CharacterRegistration.UNIX_PREFIX);
     }
 
     private static String getDirectory() {
-	final String osName = System.getProperty("os.name");
+	final var osName = System.getProperty("os.name");
 	if (osName.indexOf("Mac OS X") != -1) {
 	    // Mac OS X
 	    return CharacterRegistration.MAC_DIR;
-	} else if (osName.indexOf("Windows") != -1) {
+	}
+	if (osName.indexOf("Windows") != -1) {
 	    // Windows
 	    return CharacterRegistration.WIN_DIR;
-	} else {
-	    // Other - assume UNIX-like
-	    return CharacterRegistration.UNIX_DIR;
 	}
+	// Other - assume UNIX-like
+	return CharacterRegistration.UNIX_DIR;
     }
 
     static String getBasePath() {
-	final StringBuilder b = new StringBuilder();
+	final var b = new StringBuilder();
 	b.append(CharacterRegistration.getDirPrefix());
 	b.append(CharacterRegistration.getDirectory());
 	return b.toString();
     }
 
     static String[] getCharacterNameList() {
-	final ArrayList<String> registeredNames = CharacterRegistration.readCharacterRegistry();
+	final var registeredNames = CharacterRegistration.readCharacterRegistry();
 	CharacterRegistration.ANY_FOUND = false;
 	String[] characterList = null;
 	if (registeredNames.size() > 0) {
@@ -251,8 +251,8 @@ public class CharacterRegistration {
 	if (CharacterRegistration.ANY_FOUND) {
 	    registeredNames.trimToSize();
 	    characterList = new String[registeredNames.size()];
-	    for (int x = 0; x < registeredNames.size(); x++) {
-		final String name = registeredNames.get(x);
+	    for (var x = 0; x < registeredNames.size(); x++) {
+		final var name = registeredNames.get(x);
 		characterList[x] = name;
 	    }
 	}
@@ -261,10 +261,10 @@ public class CharacterRegistration {
 
     public static void autoregisterCharacter(final String name) {
 	// Load character list
-	final String[] characterNameList = CharacterRegistration.getCharacterNameList();
+	final var characterNameList = CharacterRegistration.getCharacterNameList();
 	if (name != null) {
 	    // Verify that character is not already registered
-	    boolean alreadyRegistered = false;
+	    var alreadyRegistered = false;
 	    if (characterNameList != null) {
 		for (final String element : characterNameList) {
 		    if (element.equalsIgnoreCase(name)) {
@@ -276,8 +276,8 @@ public class CharacterRegistration {
 	    if (!alreadyRegistered) {
 		// Register it
 		if (characterNameList != null) {
-		    final String[] newCharacterList = new String[characterNameList.length + 1];
-		    for (int x = 0; x < newCharacterList.length; x++) {
+		    final var newCharacterList = new String[characterNameList.length + 1];
+		    for (var x = 0; x < newCharacterList.length; x++) {
 			if (x < characterNameList.length) {
 			    newCharacterList[x] = characterNameList[x];
 			} else {
@@ -286,20 +286,20 @@ public class CharacterRegistration {
 		    }
 		    CharacterRegistration.writeCharacterRegistry(newCharacterList);
 		} else {
-		    CharacterRegistration.writeCharacterRegistry(new String[] { name });
+		    CharacterRegistration.writeCharacterRegistry(name);
 		}
 	    }
 	}
     }
 
     private static ArrayList<String> readCharacterRegistry() {
-	final String basePath = CharacterRegistration.getBasePath();
+	final var basePath = CharacterRegistration.getBasePath();
 	// Load character registry file
-	final ArrayList<String> registeredNames = new ArrayList<>();
-	try (FileInputStream fis = new FileInputStream(
+	final var registeredNames = new ArrayList<String>();
+	try (var fis = new FileInputStream(
 		basePath + File.separator + "CharacterRegistry" + Strings.fileExtension(FileExtension.REGISTRY));
-		ResourceStreamReader rsr = new ResourceStreamReader(fis)) {
-	    String input = "";
+		var rsr = new ResourceStreamReader(fis)) {
+	    var input = "";
 	    while (input != null) {
 		input = rsr.readString();
 		if (input != null) {
@@ -314,15 +314,15 @@ public class CharacterRegistration {
     }
 
     private static void writeCharacterRegistry(final String... newCharacterList) {
-	final String basePath = CharacterRegistration.getBasePath();
+	final var basePath = CharacterRegistration.getBasePath();
 	// Check if registry is writable
-	final File regFile = new File(
+	final var regFile = new File(
 		basePath + File.separator + "CharacterRegistry" + Strings.fileExtension(FileExtension.REGISTRY));
 	if (!regFile.exists()) {
 	    // Not writable, probably because needed folders don't exist
-	    final File regParent = regFile.getParentFile();
+	    final var regParent = regFile.getParentFile();
 	    if (!regParent.exists()) {
-		final boolean res = regParent.mkdirs();
+		final var res = regParent.mkdirs();
 		if (!res) {
 		    // Creating the needed folders failed, so abort
 		    return;
@@ -330,9 +330,9 @@ public class CharacterRegistration {
 	    }
 	}
 	// Save character registry file
-	try (BufferedWriter bw = new BufferedWriter(new FileWriter(regFile))) {
+	try (var bw = new BufferedWriter(new FileWriter(regFile))) {
 	    if (newCharacterList != null) {
-		for (int x = 0; x < newCharacterList.length; x++) {
+		for (var x = 0; x < newCharacterList.length; x++) {
 		    if (x != newCharacterList.length - 1) {
 			bw.write(newCharacterList[x] + "\n");
 		    } else {
