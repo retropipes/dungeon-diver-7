@@ -14,8 +14,8 @@ import javax.swing.SwingConstants;
 import com.puttysoftware.dungeondiver7.creature.party.Party;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
-import com.puttysoftware.dungeondiver7.loader.StatImageConstants;
 import com.puttysoftware.dungeondiver7.loader.StatImageManager;
+import com.puttysoftware.dungeondiver7.locale.StatusImage;
 import com.puttysoftware.images.BufferedImageIcon;
 
 class StatGUI {
@@ -75,19 +75,19 @@ class StatGUI {
     }
 
     void updateImages() {
-	final BufferedImageIcon hpImage = StatImageManager.getImage(StatImageConstants.STAT_IMAGE_HEALTH);
+	final BufferedImageIcon hpImage = StatImageManager.load(StatusImage.HEALTH);
 	this.hpLabel.setIcon(hpImage);
-	final BufferedImageIcon mpImage = StatImageManager.getImage(StatImageConstants.STAT_IMAGE_MAGIC);
+	final BufferedImageIcon mpImage = StatImageManager.load(StatusImage.MAGIC);
 	this.mpLabel.setIcon(mpImage);
-	final BufferedImageIcon goldImage = StatImageManager.getImage(StatImageConstants.STAT_IMAGE_GOLD);
+	final BufferedImageIcon goldImage = StatImageManager.load(StatusImage.MONEY);
 	this.goldLabel.setIcon(goldImage);
-	final BufferedImageIcon attackImage = StatImageManager.getImage(StatImageConstants.STAT_IMAGE_ATTACK);
+	final BufferedImageIcon attackImage = StatImageManager.load(StatusImage.MELEE_ATTACK);
 	this.attackLabel.setIcon(attackImage);
-	final BufferedImageIcon defenseImage = StatImageManager.getImage(StatImageConstants.STAT_IMAGE_DEFENSE);
+	final BufferedImageIcon defenseImage = StatImageManager.load(StatusImage.DEFENSE);
 	this.defenseLabel.setIcon(defenseImage);
-	final BufferedImageIcon xpImage = StatImageManager.getImage(StatImageConstants.STAT_IMAGE_XP);
+	final BufferedImageIcon xpImage = StatImageManager.load(StatusImage.EXPERIENCE);
 	this.xpLabel.setIcon(xpImage);
-	final BufferedImageIcon levelImage = StatImageManager.getImage(StatImageConstants.STAT_IMAGE_LEVEL);
+	final BufferedImageIcon levelImage = StatImageManager.load(StatusImage.CREATURE_LEVEL);
 	this.levelLabel.setIcon(levelImage);
     }
 }

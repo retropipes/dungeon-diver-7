@@ -149,7 +149,7 @@ public final class Strings {
     public static String editor(final EditorString item) {
 	return ResourceBundle.getBundle("locale.editor", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
     }
-    
+
     public static String effectImage(final int index) {
 	return ResourceBundle.getBundle("locale.effectimage").getString(Integer.toString(index));
     }
@@ -229,9 +229,9 @@ public final class Strings {
     public static String stat(final int index) {
 	return ResourceBundle.getBundle("locale.stat", Strings.ACTIVE).getString(Integer.toString(index));
     }
-    
-    public static String statusImage(final int index) {
-	return ResourceBundle.getBundle("locale.statusimage").getString(Integer.toString(index));
+
+    public static String statusImage(final StatusImage item) {
+	return ResourceBundle.getBundle("locale.statusimage").getString(Integer.toString(item.ordinal()));
     }
 
     public static String timeTravel(final TimeTravel item) {
