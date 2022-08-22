@@ -33,7 +33,6 @@ public final class Strings {
 
     public static void init() {
 	Strings.ACTIVE = Locale.getDefault();
-	Strings.activeLanguageChanged();
     }
 
     public static void changeLanguage(final Locale newLang) {
