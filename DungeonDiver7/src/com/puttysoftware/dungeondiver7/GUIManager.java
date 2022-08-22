@@ -26,7 +26,9 @@ import javax.swing.border.EmptyBorder;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.locale.Menu;
+import com.puttysoftware.dungeondiver7.locale.Music;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
@@ -70,6 +72,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 	final var app = DungeonDiver7.getStuffBag();
 	app.setInGUI();
 	this.guiFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
+	MusicLoader.playMusic(Music.TITLE);
 	this.guiFrame.setVisible(true);
 	this.guiFrame.pack();
 	app.getMenuManager().checkFlags();
@@ -83,6 +86,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 
     public void hideGUI() {
 	this.guiFrame.setVisible(false);
+	MusicLoader.stopMusic();
     }
 
     void updateLogo() {
