@@ -35,6 +35,7 @@ import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.CleanupTask;
 import com.puttysoftware.dungeondiver7.utility.ScreenPrinter;
+import com.puttysoftware.integration.Integration;
 
 public class GUIManager implements MenuSection, QuitHandler {
     // Fields
@@ -71,7 +72,7 @@ public class GUIManager implements MenuSection, QuitHandler {
     public void showGUI() {
 	final var app = DungeonDiver7.getStuffBag();
 	app.setInGUI();
-	this.guiFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
+	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
 	MusicLoader.playMusic(Music.TITLE);
 	this.guiFrame.setVisible(true);
 	this.guiFrame.pack();
@@ -80,7 +81,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 
     public void attachMenus() {
 	final var app = DungeonDiver7.getStuffBag();
-	this.guiFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
+	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
 	app.getMenuManager().checkFlags();
     }
 

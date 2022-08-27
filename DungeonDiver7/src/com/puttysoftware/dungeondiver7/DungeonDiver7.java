@@ -73,7 +73,7 @@ public class DungeonDiver7 {
 		System.exit(1);
 	    }
 	    // Integrate with host platform
-	    final var i = new Integration();
+	    final var i = Integration.integrate();
 	    i.configureLookAndFeel();
 	    // Create and initialize application
 	    DungeonDiver7.stuffBag = new StuffBag();

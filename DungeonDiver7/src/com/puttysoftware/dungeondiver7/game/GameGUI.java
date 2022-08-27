@@ -69,6 +69,7 @@ import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 import com.puttysoftware.dungeondiver7.utility.RCLGenerator;
 import com.puttysoftware.dungeondiver7.utility.ShotTypes;
+import com.puttysoftware.integration.Integration;
 
 class GameGUI {
     // Fields
@@ -204,7 +205,7 @@ class GameGUI {
 	final var app = DungeonDiver7.getStuffBag();
 	if (!this.outputFrame.isVisible()) {
 	    this.outputFrame.setVisible(true);
-	    this.outputFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
+	    Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
 	    if (this.deferredRedraw) {
 		this.deferredRedraw = false;
 		this.redrawDungeon();
@@ -446,7 +447,7 @@ class GameGUI {
 
     public void attachMenus() {
 	final var app = DungeonDiver7.getStuffBag();
-	this.outputFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
+	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
 	app.getMenuManager().checkFlags();
     }
 

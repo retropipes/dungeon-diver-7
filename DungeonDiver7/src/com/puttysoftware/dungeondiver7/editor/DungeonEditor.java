@@ -55,6 +55,7 @@ import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.RCLGenerator;
 import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.integration.Integration;
 import com.puttysoftware.picturepicker.PicturePicker;
 import com.puttysoftware.picturepicker.SXSPicturePicker;
 import com.puttysoftware.picturepicker.StackedPicturePicker;
@@ -791,7 +792,7 @@ public class DungeonEditor implements MenuSection {
 
     public void showOutput() {
 	final var app = DungeonDiver7.getStuffBag();
-	this.outputFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
+	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
 	app.getMenuManager().checkFlags();
 	this.outputFrame.setVisible(true);
 	this.outputFrame.pack();
@@ -799,7 +800,7 @@ public class DungeonEditor implements MenuSection {
 
     public void attachMenus() {
 	final var app = DungeonDiver7.getStuffBag();
-	this.outputFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
+	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
 	app.getMenuManager().checkFlags();
     }
 

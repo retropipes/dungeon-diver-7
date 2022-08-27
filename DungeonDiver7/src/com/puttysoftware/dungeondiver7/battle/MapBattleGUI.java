@@ -36,6 +36,7 @@ import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
+import com.puttysoftware.integration.Integration;
 
 class MapBattleGUI {
     // Fields
@@ -83,7 +84,7 @@ class MapBattleGUI {
 
     void showBattle() {
 	this.battleFrame.setVisible(true);
-	this.battleFrame.setJMenuBar(DungeonDiver7.getStuffBag().getMenuManager().getMainMenuBar());
+	Integration.integrate().setDefaultMenuBar(DungeonDiver7.getStuffBag().getMenuManager().getMainMenuBar());
     }
 
     void hideBattle() {

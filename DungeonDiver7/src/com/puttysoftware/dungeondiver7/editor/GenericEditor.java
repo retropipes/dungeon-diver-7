@@ -19,6 +19,7 @@ import javax.swing.WindowConstants;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.integration.Integration;
 
 public abstract class GenericEditor {
     // Fields
@@ -80,7 +81,7 @@ public abstract class GenericEditor {
 
     public final void showOutput() {
 	final var app = DungeonDiver7.getStuffBag();
-	this.outputFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
+	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
 	this.outputFrame.setVisible(true);
 	this.outputFrame.pack();
     }

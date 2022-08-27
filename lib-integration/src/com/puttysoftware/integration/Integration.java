@@ -29,6 +29,7 @@ import javax.swing.UIManager;
 
 public class Integration {
     // Fields
+    private static Integration instance;
     private final Desktop desktop;
     private final boolean supported;
     private final boolean macOS;
@@ -36,7 +37,7 @@ public class Integration {
     private final boolean otherOS;
 
     // Constructor
-    public Integration() {
+    private Integration() {
 	this.supported = Desktop.isDesktopSupported();
 	if (this.supported) {
 	    this.desktop = Desktop.getDesktop();
@@ -57,6 +58,13 @@ public class Integration {
 	    this.windows = false;
 	    this.otherOS = true;
 	}
+    }
+    
+    public static Integration integrate() {
+	if (Integration.instance == null) {
+	    Integration.instance = new Integration();
+	}
+	return Integration.instance;
     }
 
     public final boolean isMacOS() {

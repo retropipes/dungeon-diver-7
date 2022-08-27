@@ -28,6 +28,7 @@ import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.loader.ExternalMusicImporter;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
+import com.puttysoftware.integration.Integration;
 
 public class Importer {
     // Fields
@@ -71,7 +72,7 @@ public class Importer {
 				ExternalMusicImporter.importMusic(f);
 				Importer.guiFrame.setVisible(false);
 				Importer.sourceFrame.setVisible(true);
-				Importer.sourceFrame.setJMenuBar(Importer.sourceMenus);
+				Integration.integrate().setDefaultMenuBar(Importer.sourceMenus);
 			    } else {
 				// Unknown file type
 				CommonDialogs.showDialog(Strings.dialog(DialogString.IMPORT_FAILED_FILE_TYPE));
@@ -108,7 +109,7 @@ public class Importer {
 	public void windowClosing(final WindowEvent we) {
 	    Importer.guiFrame.setVisible(false);
 	    Importer.sourceFrame.setVisible(true);
-	    Importer.sourceFrame.setJMenuBar(Importer.sourceMenus);
+	    Integration.integrate().setDefaultMenuBar(Importer.sourceMenus);
 	}
     }
 
@@ -136,7 +137,7 @@ public class Importer {
 	Importer.sourceFrame = source;
 	Importer.sourceMenus = menus;
 	Importer.sourceFrame.setVisible(false);
-	Importer.guiFrame.setJMenuBar(menus);
+	Integration.integrate().setDefaultMenuBar(menus);
 	Importer.guiFrame.setVisible(true);
     }
 
