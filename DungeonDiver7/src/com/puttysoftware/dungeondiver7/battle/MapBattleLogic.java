@@ -33,7 +33,7 @@ import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.Music;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.spell.SpellCaster;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.randomrange.RandomRange;
@@ -1051,7 +1051,7 @@ public class MapBattleLogic extends AbstractBattle {
 		    if (!message.equals(Effect.getNullMessage())) {
 			this.setStatusMessage(message);
 			try {
-			    Thread.sleep(PrefsManager.getBattleSpeed());
+			    Thread.sleep(Prefs.getBattleSpeed());
 			} catch (final InterruptedException ie) {
 			    // Ignore
 			}

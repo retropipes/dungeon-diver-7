@@ -6,7 +6,7 @@
 package com.puttysoftware.dungeondiver7.game;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 
 class ReplayTask extends Thread {
     // Constructors
@@ -22,7 +22,7 @@ class ReplayTask extends Thread {
 	    result = gm.replayLastMove();
 	    // Delay, for animation purposes
 	    try {
-		Thread.sleep(PrefsManager.getReplaySpeed());
+		Thread.sleep(Prefs.getReplaySpeed());
 	    } catch (final InterruptedException ie) {
 		// Ignore
 	    }

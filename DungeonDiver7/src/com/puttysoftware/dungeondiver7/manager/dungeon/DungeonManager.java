@@ -28,7 +28,7 @@ import com.puttysoftware.dungeondiver7.manager.file.DungeonSaveTask;
 import com.puttysoftware.dungeondiver7.manager.file.GameFinder;
 import com.puttysoftware.dungeondiver7.manager.file.GameLoadTask;
 import com.puttysoftware.dungeondiver7.manager.file.GameSaveTask;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.CleanupTask;
 import com.puttysoftware.fileutils.FilenameChecker;
 
@@ -267,7 +267,7 @@ public final class DungeonManager {
     }
 
     public boolean loadDungeon() {
-	return this.loadDungeonImpl(PrefsManager.getLastDirOpen());
+	return this.loadDungeonImpl(Prefs.getLastDirOpen());
     }
 
     public boolean loadDungeonDefault() {
@@ -302,7 +302,7 @@ public final class DungeonManager {
 	    file = fd.getFile();
 	    dir = fd.getDirectory();
 	    if (file != null && dir != null) {
-		PrefsManager.setLastDirOpen(dir);
+		Prefs.setLastDirOpen(dir);
 		filename = dir + file;
 		extension = DungeonManager.getExtension(filename);
 		if (extension.equals(Strings.fileExtension(FileExtension.DUNGEON))) {
@@ -400,7 +400,7 @@ public final class DungeonManager {
 	var filename = Strings.EMPTY;
 	var fileOnly = Strings.EMPTY;
 	String extension, file, dir;
-	final var lastSave = PrefsManager.getLastDirSave();
+	final var lastSave = Prefs.getLastDirSave();
 	final var fd = new FileDialog(app.getOutputFrame(), Strings.dialog(DialogString.SAVE), FileDialog.SAVE);
 	fd.setDirectory(lastSave);
 	while (!FilenameChecker.isFilenameOK(fileOnly)) {
@@ -417,7 +417,7 @@ public final class DungeonManager {
 		CommonDialogs.showErrorDialog(Strings.dialog(DialogString.ILLEGAL_CHARACTERS),
 			Strings.dialog(DialogString.SAVE));
 	    } else {
-		PrefsManager.setLastDirSave(dir);
+		Prefs.setLastDirSave(dir);
 		if (app.getMode() == StuffBag.STATUS_GAME) {
 		    if (extension != null) {
 			if (!extension.equals(Strings.fileExtension(FileExtension.SUSPEND))) {

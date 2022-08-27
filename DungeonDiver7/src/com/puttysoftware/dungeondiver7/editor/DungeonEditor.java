@@ -51,7 +51,7 @@ import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.TimeTravel;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.RCLGenerator;
 import com.puttysoftware.images.BufferedImageIcon;
@@ -103,9 +103,9 @@ public class DungeonEditor implements MenuSection {
 	final var objectList = DungeonDiver7.getStuffBag().getObjects();
 	this.names = objectList.getAllNamesOnLayer(DungeonConstants.LAYER_LOWER_GROUND);
 	this.objects = objectList.getAllObjectsOnLayer(DungeonConstants.LAYER_LOWER_GROUND,
-		PrefsManager.getEditorShowAllObjects());
+		Prefs.getEditorShowAllObjects());
 	this.editorAppearances = objectList.getAllEditorAppearancesOnLayer(DungeonConstants.LAYER_LOWER_GROUND,
-		PrefsManager.getEditorShowAllObjects());
+		Prefs.getEditorShowAllObjects());
 	this.objectsEnabled = objectList.getObjectEnabledStatuses(DungeonConstants.LAYER_LOWER_GROUND);
 	this.dungeonChanged = true;
 	this.eme = new ExternalMusicEditor();
@@ -399,11 +399,11 @@ public class DungeonEditor implements MenuSection {
     void editObject(final int x, final int y) {
 	final var app = DungeonDiver7.getStuffBag();
 	var currentObjectIndex = 0;
-	if (PrefsManager.getEditorLayout() == EditorLayout.VERTICAL) {
+	if (Prefs.getEditorLayout() == EditorLayout.VERTICAL) {
 	    currentObjectIndex = this.oldPicker.getPicked();
-	} else if (PrefsManager.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
+	} else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
 	    currentObjectIndex = this.newPicker11.getPicked();
-	} else if (PrefsManager.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
+	} else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
 	    currentObjectIndex = this.newPicker12.getPicked();
 	}
 	final var xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
@@ -962,15 +962,15 @@ public class DungeonEditor implements MenuSection {
 	    final var objectList = DungeonDiver7.getStuffBag().getObjects();
 	    this.names = objectList.getAllNamesOnLayer(this.elMgr.getEditorLocationW());
 	    this.objects = objectList.getAllObjectsOnLayer(this.elMgr.getEditorLocationW(),
-		    PrefsManager.getEditorShowAllObjects());
+		    Prefs.getEditorShowAllObjects());
 	    this.editorAppearances = objectList.getAllEditorAppearancesOnLayer(this.elMgr.getEditorLocationW(),
-		    PrefsManager.getEditorShowAllObjects());
+		    Prefs.getEditorShowAllObjects());
 	    this.objectsEnabled = objectList.getObjectEnabledStatuses(this.elMgr.getEditorLocationW());
-	    if (PrefsManager.getEditorLayout() == EditorLayout.VERTICAL) {
+	    if (Prefs.getEditorLayout() == EditorLayout.VERTICAL) {
 		this.updateOldPicker();
-	    } else if (PrefsManager.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
+	    } else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
 		this.updateNewPicker11();
-	    } else if (PrefsManager.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
+	    } else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
 		this.updateNewPicker12();
 	    }
 	    this.updatePickerLayout();
@@ -1009,11 +1009,11 @@ public class DungeonEditor implements MenuSection {
     }
 
     private void updatePickerLayout() {
-	if (PrefsManager.getEditorLayout() == EditorLayout.VERTICAL) {
+	if (Prefs.getEditorLayout() == EditorLayout.VERTICAL) {
 	    this.updateOldPickerLayout();
-	} else if (PrefsManager.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
+	} else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
 	    this.updateNewPicker11Layout();
-	} else if (PrefsManager.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
+	} else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
 	    this.updateNewPicker12Layout();
 	}
     }
@@ -1044,11 +1044,11 @@ public class DungeonEditor implements MenuSection {
 	    this.borderPane.removeAll();
 	    this.borderPane.add(this.outerOutputPane, BorderLayout.CENTER);
 	    this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
-	    if (PrefsManager.getEditorLayout() == EditorLayout.VERTICAL) {
+	    if (Prefs.getEditorLayout() == EditorLayout.VERTICAL) {
 		this.borderPane.add(this.oldPicker.getPicker(), BorderLayout.EAST);
-	    } else if (PrefsManager.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
+	    } else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
 		this.borderPane.add(this.newPicker11.getPicker(), BorderLayout.EAST);
-	    } else if (PrefsManager.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
+	    } else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
 		this.borderPane.add(this.newPicker12.getPicker(), BorderLayout.EAST);
 	    }
 	    this.borderPane.add(this.switcherPane, BorderLayout.SOUTH);

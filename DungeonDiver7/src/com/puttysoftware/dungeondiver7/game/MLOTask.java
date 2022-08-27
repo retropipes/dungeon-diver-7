@@ -23,7 +23,7 @@ import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.AlreadyDeadException;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
@@ -274,7 +274,7 @@ final class MLOTask extends Thread {
 			    DungeonDiver7.getStuffBag().getGameLogic().getPlayer());
 		    // Delay
 		    try {
-			Thread.sleep(PrefsManager.getActionSpeed());
+			Thread.sleep(Prefs.getActionSpeed());
 		    } catch (final InterruptedException ie) {
 			// Ignore
 		    }

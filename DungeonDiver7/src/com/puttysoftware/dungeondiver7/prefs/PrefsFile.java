@@ -10,12 +10,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
-class PrefsFileManager {
+class PrefsFile {
     // Fields
     private final Properties store;
 
     // Constructors
-    PrefsFileManager() {
+    PrefsFile() {
 	this.store = new Properties();
     }
 

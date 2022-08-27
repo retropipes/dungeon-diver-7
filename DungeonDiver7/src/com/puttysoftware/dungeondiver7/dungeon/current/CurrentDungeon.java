@@ -30,7 +30,7 @@ import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.manager.file.AbstractPrefixIO;
 import com.puttysoftware.dungeondiver7.manager.file.AbstractSuffixIO;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.DirectionRotator;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.FileFormats;
@@ -755,7 +755,7 @@ public class CurrentDungeon extends AbstractDungeon {
 
     @Override
     public void fillDefault() {
-	final var fill = PrefsManager.getEditorDefaultFill();
+	final var fill = Prefs.getEditorDefaultFill();
 	this.dungeonData.fill(this, fill);
     }
 

@@ -7,6 +7,8 @@ package com.puttysoftware.dungeondiver7;
 
 import javax.swing.KeyStroke;
 
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
+
 public abstract class Accelerators {
     public KeyStroke fileNewAccel, fileOpenAccel, fileCloseAccel, fileSaveAccel, fileSaveAsAccel, filePreferencesAccel,
 	    filePrintAccel, fileExitAccel;
@@ -18,5 +20,13 @@ public abstract class Accelerators {
 
     Accelerators() {
 	// Do nothing
+    }
+    
+    public static Accelerators getAcceleratorModel() {
+	if (Prefs.useClassicAccelerators()) {
+	    return new ClassicAccelerators();
+	} else {
+	    return new ModernAccelerators();
+	}
     }
 }

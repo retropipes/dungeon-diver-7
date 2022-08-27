@@ -11,8 +11,8 @@ import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
-import com.puttysoftware.dungeondiver7.prefs.PrefsRequestHandler;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
+import com.puttysoftware.dungeondiver7.prefs.PrefsRequest;
 import com.puttysoftware.integration.Integration;
 
 public class DungeonDiver7 {
@@ -81,11 +81,11 @@ public class DungeonDiver7 {
 	    CommonDialogs.setDefaultTitle(DungeonDiver7.PROGRAM_NAME);
 	    CommonDialogs.setIcon(LogoLoader.getMicroLogo());
 	    // Initialize preferences
-	    PrefsManager.init();
-	    PrefsManager.readPrefs();
+	    Prefs.init();
+	    Prefs.readPrefs();
 	    // Register platform hooks
 	    i.setAboutHandler(DungeonDiver7.stuffBag.getAboutDialog());
-	    i.setPreferencesHandler(new PrefsRequestHandler());
+	    i.setPreferencesHandler(new PrefsRequest());
 	    i.setQuitHandler(DungeonDiver7.stuffBag.getGUIManager());
 	    // Display GUI
 	    DungeonDiver7.stuffBag.getGUIManager().showGUI();

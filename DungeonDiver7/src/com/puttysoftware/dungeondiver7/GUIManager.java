@@ -32,7 +32,7 @@ import com.puttysoftware.dungeondiver7.locale.Music;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.CleanupTask;
 import com.puttysoftware.dungeondiver7.utility.ScreenPrinter;
 import com.puttysoftware.integration.Integration;
@@ -113,7 +113,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 	    }
 	}
 	if (saved) {
-	    PrefsManager.writePrefs();
+	    Prefs.writePrefs();
 	    // Run cleanup task
 	    CleanupTask.cleanUp();
 	}
@@ -243,7 +243,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 		    }
 		} else if (cmd.equals(Strings.menu(Menu.PREFERENCES))) {
 		    // Show preferences dialog
-		    PrefsManager.showPrefs();
+		    Prefs.showPrefs();
 		} else if (cmd.equals(Strings.menu(Menu.PRINT_GAME_WINDOW))) {
 		    ScreenPrinter.printBoard(app.getOutputFrame());
 		} else if (cmd.equals(Strings.menu(Menu.EXIT))) {

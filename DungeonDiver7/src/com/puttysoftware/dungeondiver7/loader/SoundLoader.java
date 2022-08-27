@@ -9,7 +9,7 @@ import com.puttysoftware.audio.wav.WAVPlayer;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 
 public class SoundLoader {
     private static Class<?> LOAD_CLASS = SoundLoader.class;
@@ -30,7 +30,7 @@ public class SoundLoader {
     }
 
     public static void playSound(final int soundID) {
-	if (PrefsManager.getSoundsEnabled()) {
+	if (Prefs.getSoundsEnabled()) {
 	    SoundLoader.getSound(soundID).play();
 	}
     }

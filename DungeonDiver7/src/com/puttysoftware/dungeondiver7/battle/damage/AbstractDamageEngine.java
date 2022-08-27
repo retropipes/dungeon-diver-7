@@ -6,7 +6,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.battle.damage;
 
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 
 public abstract class AbstractDamageEngine {
     // Methods
@@ -23,17 +23,17 @@ public abstract class AbstractDamageEngine {
     public abstract boolean weaponFumble();
 
     public static AbstractDamageEngine getPlayerInstance() {
-	final var difficulty = PrefsManager.getGameDifficulty();
+	final var difficulty = Prefs.getGameDifficulty();
 	switch (difficulty) {
-	case PrefsManager.DIFFICULTY_VERY_EASY:
+	case Prefs.DIFFICULTY_VERY_EASY:
 	    return new VeryEasyDamageEngine();
-	case PrefsManager.DIFFICULTY_EASY:
+	case Prefs.DIFFICULTY_EASY:
 	    return new EasyDamageEngine();
-	case PrefsManager.DIFFICULTY_NORMAL:
+	case Prefs.DIFFICULTY_NORMAL:
 	    return new NormalDamageEngine();
-	case PrefsManager.DIFFICULTY_HARD:
+	case Prefs.DIFFICULTY_HARD:
 	    return new HardDamageEngine();
-	case PrefsManager.DIFFICULTY_VERY_HARD:
+	case Prefs.DIFFICULTY_VERY_HARD:
 	    return new VeryHardDamageEngine();
 	default:
 	    return new NormalDamageEngine();
@@ -41,17 +41,17 @@ public abstract class AbstractDamageEngine {
     }
 
     public static AbstractDamageEngine getEnemyInstance() {
-	final var difficulty = PrefsManager.getGameDifficulty();
+	final var difficulty = Prefs.getGameDifficulty();
 	switch (difficulty) {
-	case PrefsManager.DIFFICULTY_VERY_EASY:
+	case Prefs.DIFFICULTY_VERY_EASY:
 	    return new VeryHardDamageEngine();
-	case PrefsManager.DIFFICULTY_EASY:
+	case Prefs.DIFFICULTY_EASY:
 	    return new HardDamageEngine();
-	case PrefsManager.DIFFICULTY_NORMAL:
+	case Prefs.DIFFICULTY_NORMAL:
 	    return new NormalDamageEngine();
-	case PrefsManager.DIFFICULTY_HARD:
+	case Prefs.DIFFICULTY_HARD:
 	    return new EasyDamageEngine();
-	case PrefsManager.DIFFICULTY_VERY_HARD:
+	case Prefs.DIFFICULTY_VERY_HARD:
 	    return new VeryEasyDamageEngine();
 	default:
 	    return new NormalDamageEngine();

@@ -29,7 +29,7 @@ import com.puttysoftware.dungeondiver7.locale.EditorLayout;
 import com.puttysoftware.dungeondiver7.locale.PrefString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 
-class PrefsGUIManager {
+class PrefsGUI {
     // Fields
     private JFrame prefFrame;
     private JCheckBox sounds;
@@ -46,7 +46,7 @@ class PrefsGUIManager {
     private static final int GRID_LENGTH = 14;
 
     // Constructors
-    PrefsGUIManager() {
+    PrefsGUI() {
 	this.setUpGUI();
 	this.setDefaultPrefs();
     }
@@ -57,9 +57,9 @@ class PrefsGUIManager {
 	if (this.prefFrame != null) {
 	    this.prefFrame.dispose();
 	}
-	PrefsGUIManager.DIFFICULTY_NAMES = Strings.allDifficulties();
+	PrefsGUI.DIFFICULTY_NAMES = Strings.allDifficulties();
 	this.setUpGUI();
-	PrefsManager.writePrefs();
+	Prefs.writePrefs();
 	this.loadPrefs();
     }
 
@@ -93,7 +93,7 @@ class PrefsGUIManager {
     void hidePrefs() {
 	final var app = DungeonDiver7.getStuffBag();
 	this.prefFrame.setVisible(false);
-	PrefsManager.writePrefs();
+	Prefs.writePrefs();
 	final var formerMode = app.getFormerMode();
 	switch (formerMode) {
 	case StuffBag.STATUS_GUI:
@@ -111,34 +111,34 @@ class PrefsGUIManager {
     }
 
     private void loadPrefs() {
-	this.enableAnimation.setSelected(PrefsManager.enableAnimation());
-	this.sounds.setSelected(PrefsManager.getSoundsEnabled());
-	this.music.setSelected(PrefsManager.getMusicEnabled());
-	this.checkUpdatesStartup.setSelected(PrefsManager.shouldCheckUpdatesAtStartup());
-	this.moveOneAtATime.setSelected(PrefsManager.oneMove());
-	this.actionDelay.setSelectedIndex(PrefsManager.getActionDelay());
-	this.languageList.setSelectedIndex(PrefsManager.getLanguageID());
-	this.editorLayoutList.setSelectedIndex(PrefsManager.getEditorLayout().ordinal());
-	this.editorShowAllObjects.setSelected(PrefsManager.getEditorShowAllObjects());
-	this.difficultyPicker.setSelectedIndex(PrefsManager.getGameDifficulty());
+	this.enableAnimation.setSelected(Prefs.enableAnimation());
+	this.sounds.setSelected(Prefs.getSoundsEnabled());
+	this.music.setSelected(Prefs.getMusicEnabled());
+	this.checkUpdatesStartup.setSelected(Prefs.shouldCheckUpdatesAtStartup());
+	this.moveOneAtATime.setSelected(Prefs.oneMove());
+	this.actionDelay.setSelectedIndex(Prefs.getActionDelay());
+	this.languageList.setSelectedIndex(Prefs.getLanguageID());
+	this.editorLayoutList.setSelectedIndex(Prefs.getEditorLayout().ordinal());
+	this.editorShowAllObjects.setSelected(Prefs.getEditorShowAllObjects());
+	this.difficultyPicker.setSelectedIndex(Prefs.getGameDifficulty());
     }
 
     void setPrefs() {
-	PrefsManager.setEnableAnimation(this.enableAnimation.isSelected());
-	PrefsManager.setSoundsEnabled(this.sounds.isSelected());
-	PrefsManager.setMusicEnabled(this.music.isSelected());
-	PrefsManager.setCheckUpdatesAtStartup(this.checkUpdatesStartup.isSelected());
-	PrefsManager.setOneMove(this.moveOneAtATime.isSelected());
-	PrefsManager.setActionDelay(this.actionDelay.getSelectedIndex());
-	PrefsManager.setLanguageID(this.languageList.getSelectedIndex());
-	PrefsManager.setEditorLayout(EditorLayout.values()[this.editorLayoutList.getSelectedIndex()]);
-	PrefsManager.setEditorShowAllObjects(this.editorShowAllObjects.isSelected());
-	PrefsManager.setGameDifficulty(this.difficultyPicker.getSelectedIndex());
+	Prefs.setEnableAnimation(this.enableAnimation.isSelected());
+	Prefs.setSoundsEnabled(this.sounds.isSelected());
+	Prefs.setMusicEnabled(this.music.isSelected());
+	Prefs.setCheckUpdatesAtStartup(this.checkUpdatesStartup.isSelected());
+	Prefs.setOneMove(this.moveOneAtATime.isSelected());
+	Prefs.setActionDelay(this.actionDelay.getSelectedIndex());
+	Prefs.setLanguageID(this.languageList.getSelectedIndex());
+	Prefs.setEditorLayout(EditorLayout.values()[this.editorLayoutList.getSelectedIndex()]);
+	Prefs.setEditorShowAllObjects(this.editorShowAllObjects.isSelected());
+	Prefs.setGameDifficulty(this.difficultyPicker.getSelectedIndex());
 	this.hidePrefs();
     }
 
     private void setDefaultPrefs() {
-	PrefsManager.readPrefs();
+	Prefs.readPrefs();
 	this.loadPrefs();
     }
 
@@ -164,13 +164,13 @@ class PrefsGUIManager {
 	this.languageList = new JComboBox<>(Strings.allLanguages());
 	this.editorLayoutList = new JComboBox<>(Strings.allEditorLayouts());
 	this.editorShowAllObjects = new JCheckBox(Strings.prefs(PrefString.SHOW_ALL_OBJECTS), true);
-	this.difficultyPicker = new JComboBox<>(PrefsGUIManager.DIFFICULTY_NAMES);
+	this.difficultyPicker = new JComboBox<>(PrefsGUI.DIFFICULTY_NAMES);
 	this.prefFrame.setContentPane(mainPrefPane);
 	this.prefFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.prefFrame.addWindowListener(handler);
 	mainPrefPane.setLayout(new BorderLayout());
 	this.prefFrame.setResizable(false);
-	settingsPane.setLayout(new GridLayout(PrefsGUIManager.GRID_LENGTH, 1));
+	settingsPane.setLayout(new GridLayout(PrefsGUI.GRID_LENGTH, 1));
 	settingsPane.add(this.sounds);
 	settingsPane.add(this.music);
 	settingsPane.add(this.enableAnimation);
@@ -206,7 +206,7 @@ class PrefsGUIManager {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		final var pm = PrefsGUIManager.this;
+		final var pm = PrefsGUI.this;
 		final var cmd = e.getActionCommand();
 		if (cmd.equals(Strings.dialog(DialogString.OK_BUTTON))) {
 		    pm.setPrefs();
@@ -225,7 +225,7 @@ class PrefsGUIManager {
 
 	@Override
 	public void windowClosing(final WindowEvent e) {
-	    final var pm = PrefsGUIManager.this;
+	    final var pm = PrefsGUI.this;
 	    pm.hidePrefs();
 	}
 

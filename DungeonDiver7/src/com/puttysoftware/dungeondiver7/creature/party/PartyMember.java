@@ -17,7 +17,7 @@ import com.puttysoftware.dungeondiver7.creature.caste.CasteManager;
 import com.puttysoftware.dungeondiver7.creature.gender.Gender;
 import com.puttysoftware.dungeondiver7.dungeon.current.GenerateDungeonTask;
 import com.puttysoftware.dungeondiver7.item.ItemInventory;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.FileFormats;
 import com.puttysoftware.fileio.FileIOReader;
 import com.puttysoftware.fileio.FileIOWriter;
@@ -120,21 +120,21 @@ public class PartyMember extends AbstractCreature {
 
     @Override
     public int getSpeed() {
-	final var difficulty = PrefsManager.getGameDifficulty();
+	final var difficulty = Prefs.getGameDifficulty();
 	final var base = this.getBaseSpeed();
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
+	if (difficulty == Prefs.DIFFICULTY_VERY_EASY) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_FASTEST);
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_EASY) {
+	if (difficulty == Prefs.DIFFICULTY_EASY) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_FAST);
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
+	if (difficulty == Prefs.DIFFICULTY_NORMAL) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_HARD) {
+	if (difficulty == Prefs.DIFFICULTY_HARD) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOW);
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
+	if (difficulty == Prefs.DIFFICULTY_VERY_HARD) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOWEST);
 	}
 	return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);

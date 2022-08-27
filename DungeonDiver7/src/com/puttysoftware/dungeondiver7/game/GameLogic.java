@@ -41,7 +41,7 @@ import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.AlreadyDeadException;
 import com.puttysoftware.dungeondiver7.utility.CustomDialogs;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
@@ -1536,7 +1536,7 @@ public final class GameLogic implements MenuSection {
 		m.updateVisibleSquares(px, py, 0);
 		this.showOutput();
 		// Start music
-		if (PrefsManager.getMusicEnabled()) {
+		if (Prefs.getMusicEnabled()) {
 		    MusicLoader.playExternalMusic();
 		}
 		app.getDungeonManager().getDungeon().setDirtyFlags(this.plMgr.getPlayerLocationZ());
@@ -1545,7 +1545,7 @@ public final class GameLogic implements MenuSection {
 		this.redrawDungeon();
 		this.replaying = false;
 		// Start animator, if enabled
-		if (PrefsManager.enableAnimation()) {
+		if (Prefs.enableAnimation()) {
 		    this.animator = new AnimationTask();
 		    this.animator.start();
 		}

@@ -6,7 +6,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.battle;
 
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 
 public class MapBattleViewingWindowManager {
     // Fields
@@ -66,7 +66,7 @@ public class MapBattleViewingWindowManager {
     }
 
     public static int getViewingWindowSize() {
-	return PrefsManager.getViewingWindowSize() * MapBattleViewingWindowManager.VIEWING_WINDOW_SIZE_MULTIPLIER
+	return Prefs.getViewingWindowSize() * MapBattleViewingWindowManager.VIEWING_WINDOW_SIZE_MULTIPLIER
 		+ MapBattleViewingWindowManager.VIEWING_WINDOW_SIZE_ADDITION;
     }
 }

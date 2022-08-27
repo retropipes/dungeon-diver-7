@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.creature.monster;
 
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.loader.MonsterImageManager;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.shop.Shop;
 import com.puttysoftware.images.BufferedImageIcon;
 import com.puttysoftware.randomrange.RandomLongRange;
@@ -115,17 +115,17 @@ class Monster extends AbstractMonster {
     }
 
     private static int getStatMultiplierForDifficulty() {
-	final var difficulty = PrefsManager.getGameDifficulty();
+	final var difficulty = Prefs.getGameDifficulty();
 	switch (difficulty) {
-	case PrefsManager.DIFFICULTY_VERY_EASY:
+	case Prefs.DIFFICULTY_VERY_EASY:
 	    return Monster.STAT_MULT_VERY_EASY;
-	case PrefsManager.DIFFICULTY_EASY:
+	case Prefs.DIFFICULTY_EASY:
 	    return Monster.STAT_MULT_EASY;
-	case PrefsManager.DIFFICULTY_NORMAL:
+	case Prefs.DIFFICULTY_NORMAL:
 	    return Monster.STAT_MULT_NORMAL;
-	case PrefsManager.DIFFICULTY_HARD:
+	case Prefs.DIFFICULTY_HARD:
 	    return Monster.STAT_MULT_HARD;
-	case PrefsManager.DIFFICULTY_VERY_HARD:
+	case Prefs.DIFFICULTY_VERY_HARD:
 	    return Monster.STAT_MULT_VERY_HARD;
 	default:
 	    return Monster.STAT_MULT_NORMAL;
@@ -133,17 +133,17 @@ class Monster extends AbstractMonster {
     }
 
     private static double getGoldMultiplierForDifficulty() {
-	final var difficulty = PrefsManager.getGameDifficulty();
+	final var difficulty = Prefs.getGameDifficulty();
 	switch (difficulty) {
-	case PrefsManager.DIFFICULTY_VERY_EASY:
+	case Prefs.DIFFICULTY_VERY_EASY:
 	    return Monster.GOLD_MULT_VERY_EASY;
-	case PrefsManager.DIFFICULTY_EASY:
+	case Prefs.DIFFICULTY_EASY:
 	    return Monster.GOLD_MULT_EASY;
-	case PrefsManager.DIFFICULTY_NORMAL:
+	case Prefs.DIFFICULTY_NORMAL:
 	    return Monster.GOLD_MULT_NORMAL;
-	case PrefsManager.DIFFICULTY_HARD:
+	case Prefs.DIFFICULTY_HARD:
 	    return Monster.GOLD_MULT_HARD;
-	case PrefsManager.DIFFICULTY_VERY_HARD:
+	case Prefs.DIFFICULTY_VERY_HARD:
 	    return Monster.GOLD_MULT_VERY_HARD;
 	default:
 	    return Monster.GOLD_MULT_NORMAL;
@@ -151,17 +151,17 @@ class Monster extends AbstractMonster {
     }
 
     private static double getExpMultiplierForDifficulty() {
-	final var difficulty = PrefsManager.getGameDifficulty();
+	final var difficulty = Prefs.getGameDifficulty();
 	switch (difficulty) {
-	case PrefsManager.DIFFICULTY_VERY_EASY:
+	case Prefs.DIFFICULTY_VERY_EASY:
 	    return Monster.EXP_MULT_VERY_EASY;
-	case PrefsManager.DIFFICULTY_EASY:
+	case Prefs.DIFFICULTY_EASY:
 	    return Monster.EXP_MULT_EASY;
-	case PrefsManager.DIFFICULTY_NORMAL:
+	case Prefs.DIFFICULTY_NORMAL:
 	    return Monster.EXP_MULT_NORMAL;
-	case PrefsManager.DIFFICULTY_HARD:
+	case Prefs.DIFFICULTY_HARD:
 	    return Monster.EXP_MULT_HARD;
-	case PrefsManager.DIFFICULTY_VERY_HARD:
+	case Prefs.DIFFICULTY_VERY_HARD:
 	    return Monster.EXP_MULT_VERY_HARD;
 	default:
 	    return Monster.EXP_MULT_NORMAL;

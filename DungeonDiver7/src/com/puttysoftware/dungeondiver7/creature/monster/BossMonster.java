@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.creature.monster;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.loader.BossImageManager;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.images.BufferedImageIcon;
 import com.puttysoftware.randomrange.RandomLongRange;
 import com.puttysoftware.randomrange.RandomRange;
@@ -105,40 +105,40 @@ class BossMonster extends AbstractMonster {
     }
 
     private static int getStatMultiplierForDifficulty() {
-	final var difficulty = PrefsManager.getGameDifficulty();
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
+	final var difficulty = Prefs.getGameDifficulty();
+	if (difficulty == Prefs.DIFFICULTY_VERY_EASY) {
 	    return BossMonster.STAT_MULT_VERY_EASY;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_EASY) {
+	if (difficulty == Prefs.DIFFICULTY_EASY) {
 	    return BossMonster.STAT_MULT_EASY;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
+	if (difficulty == Prefs.DIFFICULTY_NORMAL) {
 	    return BossMonster.STAT_MULT_NORMAL;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_HARD) {
+	if (difficulty == Prefs.DIFFICULTY_HARD) {
 	    return BossMonster.STAT_MULT_HARD;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
+	if (difficulty == Prefs.DIFFICULTY_VERY_HARD) {
 	    return BossMonster.STAT_MULT_VERY_HARD;
 	}
 	return BossMonster.STAT_MULT_NORMAL;
     }
 
     private static double getExpMultiplierForDifficulty() {
-	final var difficulty = PrefsManager.getGameDifficulty();
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
+	final var difficulty = Prefs.getGameDifficulty();
+	if (difficulty == Prefs.DIFFICULTY_VERY_EASY) {
 	    return BossMonster.EXP_MULT_VERY_EASY;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_EASY) {
+	if (difficulty == Prefs.DIFFICULTY_EASY) {
 	    return BossMonster.EXP_MULT_EASY;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
+	if (difficulty == Prefs.DIFFICULTY_NORMAL) {
 	    return BossMonster.EXP_MULT_NORMAL;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_HARD) {
+	if (difficulty == Prefs.DIFFICULTY_HARD) {
 	    return BossMonster.EXP_MULT_HARD;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
+	if (difficulty == Prefs.DIFFICULTY_VERY_HARD) {
 	    return BossMonster.EXP_MULT_VERY_HARD;
 	}
 	return BossMonster.EXP_MULT_NORMAL;

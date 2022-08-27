@@ -7,13 +7,13 @@ package com.puttysoftware.dungeondiver7.prefs;
 import java.awt.desktop.PreferencesEvent;
 import java.awt.desktop.PreferencesHandler;
 
-public class PrefsRequestHandler implements PreferencesHandler {
-    public PrefsRequestHandler() {
+public class PrefsRequest implements PreferencesHandler {
+    public PrefsRequest() {
 	// Do nothing
     }
 
     @Override
     public void handlePreferences(final PreferencesEvent pe) {
-	PrefsManager.showPrefs();
+	Prefs.showPrefs();
     }
 }

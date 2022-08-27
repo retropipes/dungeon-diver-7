@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import com.puttysoftware.diane.strings.DianeStrings;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 
 public final class Strings {
@@ -43,7 +43,7 @@ public final class Strings {
     public static void activeLanguageChanged() {
 	DungeonConstants.activeLanguageChanged();
 	DungeonDiver7.getStuffBag().activeLanguageChanged();
-	PrefsManager.activeLanguageChanged();
+	Prefs.activeLanguageChanged();
 	ImageLoader.activeLanguageChanged();
     }
 
@@ -192,7 +192,7 @@ public final class Strings {
     public static String monsterzone(final int zoneID, final int monID) {
 	return DianeStrings.subst(Strings.group(Group.PAIR), Strings.zone(zoneID), Strings.monster(monID));
     }
-    
+
     public static String music(final Music item) {
 	return ResourceBundle.getBundle("locale.music", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
     }

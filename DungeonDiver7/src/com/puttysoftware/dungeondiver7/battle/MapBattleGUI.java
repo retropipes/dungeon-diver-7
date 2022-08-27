@@ -34,7 +34,7 @@ import com.puttysoftware.dungeondiver7.loader.ImageCompositor;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.loader.SoundConstants;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.integration.Integration;
 
@@ -274,14 +274,14 @@ class MapBattleGUI {
 
 	@Override
 	public void keyPressed(final KeyEvent e) {
-	    if (!PrefsManager.oneMove()) {
+	    if (!Prefs.oneMove()) {
 		this.handleMovement(e);
 	    }
 	}
 
 	@Override
 	public void keyReleased(final KeyEvent e) {
-	    if (PrefsManager.oneMove()) {
+	    if (Prefs.oneMove()) {
 		this.handleMovement(e);
 	    }
 	}

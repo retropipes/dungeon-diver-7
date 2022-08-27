@@ -21,7 +21,7 @@ import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.shop.Shop;
 import com.puttysoftware.dungeondiver7.shop.ShopType;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjects;
@@ -229,7 +229,7 @@ public final class StuffBag {
     public JFrame getOutputFrame() {
 	try {
 	    if (this.getMode() == StuffBag.STATUS_PREFS) {
-		return PrefsManager.getPrefFrame();
+		return Prefs.getPrefFrame();
 	    }
 	    if (this.getMode() == StuffBag.STATUS_GUI) {
 		return this.getGUIManager().getGUIFrame();

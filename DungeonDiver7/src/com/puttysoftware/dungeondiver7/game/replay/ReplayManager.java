@@ -14,7 +14,7 @@ import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.fileutils.FilenameChecker;
 
 public class ReplayManager {
@@ -27,7 +27,7 @@ public class ReplayManager {
     public static void loadLPB() {
 	final var app = DungeonDiver7.getStuffBag();
 	String filename, extension, file, dir;
-	final var lastOpen = PrefsManager.getLastDirOpen();
+	final var lastOpen = Prefs.getLastDirOpen();
 	final var fd = new FileDialog(app.getOutputFrame(), Strings.game(GameString.LOAD_PLAYBACK), FileDialog.LOAD);
 	fd.setDirectory(lastOpen);
 	fd.setVisible(true);

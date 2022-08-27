@@ -10,7 +10,7 @@ import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.loader.BossImageManager;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.spell.SpellBook;
 import com.puttysoftware.images.BufferedImageIcon;
 import com.puttysoftware.randomrange.RandomRange;
@@ -55,21 +55,21 @@ public class FinalBossMonster extends AbstractMonster {
 
     @Override
     public int getSpeed() {
-	final var difficulty = PrefsManager.getGameDifficulty();
+	final var difficulty = Prefs.getGameDifficulty();
 	final var base = this.getBaseSpeed();
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
+	if (difficulty == Prefs.DIFFICULTY_VERY_EASY) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOWEST);
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_EASY) {
+	if (difficulty == Prefs.DIFFICULTY_EASY) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOW);
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
+	if (difficulty == Prefs.DIFFICULTY_NORMAL) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_HARD) {
+	if (difficulty == Prefs.DIFFICULTY_HARD) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_FAST);
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
+	if (difficulty == Prefs.DIFFICULTY_VERY_HARD) {
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_FASTEST);
 	}
 	return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
@@ -141,40 +141,40 @@ public class FinalBossMonster extends AbstractMonster {
     }
 
     private static int getStatMultiplierForDifficulty() {
-	final var difficulty = PrefsManager.getGameDifficulty();
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
+	final var difficulty = Prefs.getGameDifficulty();
+	if (difficulty == Prefs.DIFFICULTY_VERY_EASY) {
 	    return FinalBossMonster.STAT_MULT_VERY_EASY;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_EASY) {
+	if (difficulty == Prefs.DIFFICULTY_EASY) {
 	    return FinalBossMonster.STAT_MULT_EASY;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
+	if (difficulty == Prefs.DIFFICULTY_NORMAL) {
 	    return FinalBossMonster.STAT_MULT_NORMAL;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_HARD) {
+	if (difficulty == Prefs.DIFFICULTY_HARD) {
 	    return FinalBossMonster.STAT_MULT_HARD;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
+	if (difficulty == Prefs.DIFFICULTY_VERY_HARD) {
 	    return FinalBossMonster.STAT_MULT_VERY_HARD;
 	}
 	return FinalBossMonster.STAT_MULT_NORMAL;
     }
 
     private static int getMinimumStatForDifficulty() {
-	final var difficulty = PrefsManager.getGameDifficulty();
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_EASY) {
+	final var difficulty = Prefs.getGameDifficulty();
+	if (difficulty == Prefs.DIFFICULTY_VERY_EASY) {
 	    return FinalBossMonster.MINIMUM_STAT_VALUE_VERY_EASY;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_EASY) {
+	if (difficulty == Prefs.DIFFICULTY_EASY) {
 	    return FinalBossMonster.MINIMUM_STAT_VALUE_EASY;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_NORMAL) {
+	if (difficulty == Prefs.DIFFICULTY_NORMAL) {
 	    return FinalBossMonster.MINIMUM_STAT_VALUE_NORMAL;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_HARD) {
+	if (difficulty == Prefs.DIFFICULTY_HARD) {
 	    return FinalBossMonster.MINIMUM_STAT_VALUE_HARD;
 	}
-	if (difficulty == PrefsManager.DIFFICULTY_VERY_HARD) {
+	if (difficulty == Prefs.DIFFICULTY_VERY_HARD) {
 	    return FinalBossMonster.MINIMUM_STAT_VALUE_VERY_HARD;
 	}
 	return FinalBossMonster.MINIMUM_STAT_VALUE_NORMAL;

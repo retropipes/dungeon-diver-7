@@ -64,7 +64,7 @@ import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.TimeTravel;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 import com.puttysoftware.dungeondiver7.utility.RCLGenerator;
@@ -126,19 +126,19 @@ class GameGUI {
 
     static int[] getEnabledDifficulties() {
 	final var temp = new ArrayList<Integer>();
-	if (PrefsManager.isKidsDifficultyEnabled()) {
+	if (Prefs.isKidsDifficultyEnabled()) {
 	    temp.add(Integer.valueOf(Difficulty.KIDS.ordinal()));
 	}
-	if (PrefsManager.isEasyDifficultyEnabled()) {
+	if (Prefs.isEasyDifficultyEnabled()) {
 	    temp.add(Integer.valueOf(Difficulty.EASY.ordinal()));
 	}
-	if (PrefsManager.isMediumDifficultyEnabled()) {
+	if (Prefs.isMediumDifficultyEnabled()) {
 	    temp.add(Integer.valueOf(Difficulty.MEDIUM.ordinal()));
 	}
-	if (PrefsManager.isHardDifficultyEnabled()) {
+	if (Prefs.isHardDifficultyEnabled()) {
 	    temp.add(Integer.valueOf(Difficulty.HARD.ordinal()));
 	}
-	if (PrefsManager.isDeadlyDifficultyEnabled()) {
+	if (Prefs.isDeadlyDifficultyEnabled()) {
 	    temp.add(Integer.valueOf(Difficulty.DEADLY.ordinal()));
 	}
 	final var temp2 = temp.toArray(new Integer[temp.size()]);
@@ -322,7 +322,7 @@ class GameGUI {
 	this.outputFrame = new JFrame("Chrystalz");
 	final var iconlogo = StuffBag.getIconLogo();
 	this.outputFrame.setIconImage(iconlogo);
-	this.drawGrid = new DrawGrid(PrefsManager.getViewingWindowSize());
+	this.drawGrid = new DrawGrid(Prefs.getViewingWindowSize());
 	this.outputPane = new GameDraw(this.drawGrid);
 	this.outputFrame.setContentPane(this.borderPane);
 	this.outputFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -418,29 +418,29 @@ class GameGUI {
     void difficultyDialogOKButtonClicked() {
 	this.difficultyFrame.setVisible(false);
 	if (this.difficultyList.isSelectedIndex(Difficulty.KIDS.ordinal())) {
-	    PrefsManager.setKidsDifficultyEnabled(true);
+	    Prefs.setKidsDifficultyEnabled(true);
 	} else {
-	    PrefsManager.setKidsDifficultyEnabled(false);
+	    Prefs.setKidsDifficultyEnabled(false);
 	}
 	if (this.difficultyList.isSelectedIndex(Difficulty.EASY.ordinal())) {
-	    PrefsManager.setEasyDifficultyEnabled(true);
+	    Prefs.setEasyDifficultyEnabled(true);
 	} else {
-	    PrefsManager.setEasyDifficultyEnabled(false);
+	    Prefs.setEasyDifficultyEnabled(false);
 	}
 	if (this.difficultyList.isSelectedIndex(Difficulty.MEDIUM.ordinal())) {
-	    PrefsManager.setMediumDifficultyEnabled(true);
+	    Prefs.setMediumDifficultyEnabled(true);
 	} else {
-	    PrefsManager.setMediumDifficultyEnabled(false);
+	    Prefs.setMediumDifficultyEnabled(false);
 	}
 	if (this.difficultyList.isSelectedIndex(Difficulty.HARD.ordinal())) {
-	    PrefsManager.setHardDifficultyEnabled(true);
+	    Prefs.setHardDifficultyEnabled(true);
 	} else {
-	    PrefsManager.setHardDifficultyEnabled(false);
+	    Prefs.setHardDifficultyEnabled(false);
 	}
 	if (this.difficultyList.isSelectedIndex(Difficulty.DEADLY.ordinal())) {
-	    PrefsManager.setDeadlyDifficultyEnabled(true);
+	    Prefs.setDeadlyDifficultyEnabled(true);
 	} else {
-	    PrefsManager.setDeadlyDifficultyEnabled(false);
+	    Prefs.setDeadlyDifficultyEnabled(false);
 	}
 	this.newGameResult = true;
     }
@@ -617,14 +617,14 @@ class GameGUI {
 
 	@Override
 	public void keyPressed(final KeyEvent e) {
-	    if (GameGUI.this.eventFlag && !PrefsManager.oneMove()) {
+	    if (GameGUI.this.eventFlag && !Prefs.oneMove()) {
 		this.handleKeystrokes(e);
 	    }
 	}
 
 	@Override
 	public void keyReleased(final KeyEvent e) {
-	    if (GameGUI.this.eventFlag && PrefsManager.oneMove()) {
+	    if (GameGUI.this.eventFlag && Prefs.oneMove()) {
 		this.handleKeystrokes(e);
 	    }
 	}

@@ -16,7 +16,7 @@ import javax.swing.JMenuItem;
 
 import com.puttysoftware.dungeondiver7.locale.Menu;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 
 public class MenuManager implements MenuSection {
     // Fields
@@ -30,11 +30,7 @@ public class MenuManager implements MenuSection {
     public MenuManager() {
 	this.mainMenuBar = new JMenuBar();
 	this.modeMgrs = new ArrayList<>();
-	if (PrefsManager.useClassicAccelerators()) {
-	    this.accel = new ClassicAccelerators();
-	} else {
-	    this.accel = new ModernAccelerators();
-	}
+	this.accel = Accelerators.getAcceleratorModel();
     }
 
     // Methods
@@ -75,10 +71,10 @@ public class MenuManager implements MenuSection {
     void toggleAccelerators() {
 	if (this.accel instanceof ClassicAccelerators) {
 	    this.accel = new ModernAccelerators();
-	    PrefsManager.setClassicAccelerators(false);
+	    Prefs.setClassicAccelerators(false);
 	} else {
 	    this.accel = new ClassicAccelerators();
-	    PrefsManager.setClassicAccelerators(true);
+	    Prefs.setClassicAccelerators(true);
 	}
     }
 

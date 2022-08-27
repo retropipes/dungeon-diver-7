@@ -12,7 +12,7 @@ import com.puttysoftware.dungeondiver7.ai.MapAIRoutinePicker;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.names.Monsters;
-import com.puttysoftware.dungeondiver7.prefs.PrefsManager;
+import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.spell.SpellBook;
 import com.puttysoftware.randomrange.RandomRange;
 
@@ -74,18 +74,18 @@ public abstract class AbstractMonster extends AbstractCreature {
 
     @Override
     public int getSpeed() {
-	final var difficulty = PrefsManager.getGameDifficulty();
+	final var difficulty = Prefs.getGameDifficulty();
 	final var base = this.getBaseSpeed();
 	switch (difficulty) {
-	case PrefsManager.DIFFICULTY_VERY_EASY:
+	case Prefs.DIFFICULTY_VERY_EASY:
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOWEST);
-	case PrefsManager.DIFFICULTY_EASY:
+	case Prefs.DIFFICULTY_EASY:
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOW);
-	case PrefsManager.DIFFICULTY_NORMAL:
+	case Prefs.DIFFICULTY_NORMAL:
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
-	case PrefsManager.DIFFICULTY_HARD:
+	case Prefs.DIFFICULTY_HARD:
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_FAST);
-	case PrefsManager.DIFFICULTY_VERY_HARD:
+	case Prefs.DIFFICULTY_VERY_HARD:
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_FASTEST);
 	default:
 	    return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
