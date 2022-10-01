@@ -21,17 +21,11 @@ public final class MainWindow {
   private final JFrame frame;
   private JPanel content;
   private JPanel savedContent;
-  private boolean customUI;
 
-  private MainWindow(final boolean isCustom) {
+  private MainWindow() {
     super();
-    this.customUI = isCustom;
     this.frame = new JFrame();
-    if (isCustom) {
-      this.frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-    } else {
-      this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
-    }
+    this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
     this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     this.frame.setResizable(false);
     this.content = new JPanel();
@@ -45,15 +39,8 @@ public final class MainWindow {
   }
 
   public static MainWindow getOutputFrame() {
-    if (MainWindow.window == null || MainWindow.window.customUI) {
-      MainWindow.window = new MainWindow(false);
-    }
-    return MainWindow.window;
-  }
-
-  public static MainWindow getOutputFrame(final boolean isCustom) {
-    if (MainWindow.window == null || MainWindow.window.customUI != isCustom) {
-      MainWindow.window = new MainWindow(isCustom);
+    if (MainWindow.window == null) {
+      MainWindow.window = new MainWindow();
     }
     return MainWindow.window;
   }
