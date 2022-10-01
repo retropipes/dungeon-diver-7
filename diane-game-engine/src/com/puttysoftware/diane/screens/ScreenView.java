@@ -37,7 +37,7 @@ public abstract class ScreenView {
     if (!model.isCustomUI()) {
       this.theFrame.removeWindowListener(controllerRef.get());
     }
-    this.theFrame.restoreSaved();
+    this.theFrame.restoreSavedContent();
   }
 
   final void setUpView(final ScreenModel model) {

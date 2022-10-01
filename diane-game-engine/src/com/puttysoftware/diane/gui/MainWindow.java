@@ -12,6 +12,7 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.WindowConstants;
@@ -45,24 +46,46 @@ public final class MainWindow {
     return MainWindow.window;
   }
 
-  public void attachContent(final JPanel customContent) {
+  @Deprecated
+  /** Call setContent(JPanel) instead of this method. **/
+  public void setContentPane(final JPanel customContent) {
+    this.setContent(customContent);
+  }
+
+  public void setContent(final JPanel customContent) {
     this.content = customContent;
     this.frame.setContentPane(this.content);
   }
 
-  public void attachAndSave(final JPanel customContent) {
+  public void setAndSaveContent(final JPanel customContent) {
     this.savedContent = this.content;
     this.content = customContent;
     this.frame.setContentPane(this.content);
   }
 
-  public void restoreSaved() {
+  public void restoreSavedContent() {
     this.content = this.savedContent;
     this.frame.setContentPane(this.content);
   }
 
+  @Deprecated
+  /** Call setMenus(JMenuBar) instead of this method. **/
+  public void setJMenuBar(final JMenuBar menus) {
+    this.setMenus(menus);
+  }
+
+  public void setMenus(final JMenuBar menus) {
+    this.frame.setJMenuBar(menus);
+  }
+
   public void setTitle(final String title) {
     this.frame.setTitle(title);
+  }
+
+  @Deprecated
+  /** Call setSystemIcon(Image) instead of this method. **/
+  public void setIconImage(final Image icon) {
+    this.setSystemIcon(icon);
   }
 
   public void setSystemIcon(final Image icon) {
@@ -91,5 +114,12 @@ public final class MainWindow {
 
   public void setDefaultButton(final JButton defaultButton) {
     this.frame.getRootPane().setDefaultButton(defaultButton);
+  }
+
+  @SuppressWarnings("static-method")
+  @Deprecated(forRemoval = true)
+  /** Don't call this method. **/
+  public JRootPane getRootPane() {
+    throw new UnsupportedOperationException();
   }
 }
