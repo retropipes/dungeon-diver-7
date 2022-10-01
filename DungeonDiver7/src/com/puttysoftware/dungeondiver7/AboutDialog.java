@@ -6,7 +6,6 @@
 package com.puttysoftware.dungeondiver7;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.desktop.AboutEvent;
@@ -19,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
@@ -49,7 +49,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
     }
 
     private void setUpGUI(final String ver) {
-	Container aboutPane, textPane, buttonPane, logoPane;
+	JPanel aboutPane, textPane, buttonPane, logoPane;
 	JButton aboutOK;
 	EventHandler handler;
 	JLabel miniLabel;
@@ -58,10 +58,10 @@ public class AboutDialog implements AboutHandler, MenuSection {
 		Strings.untranslated(Untranslated.PROGRAM_NAME)));
 	final var iconlogo = LogoLoader.getIconLogo();
 	this.aboutFrame.setIconImage(iconlogo);
-	aboutPane = new Container();
-	textPane = new Container();
-	buttonPane = new Container();
-	logoPane = new Container();
+	aboutPane = new JPanel();
+	textPane = new JPanel();
+	buttonPane = new JPanel();
+	logoPane = new JPanel();
 	aboutOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	miniLabel = new JLabel(Strings.EMPTY, LogoLoader.getMiniatureLogo(), SwingConstants.LEFT);
 	miniLabel.setLabelFor(null);

@@ -5,7 +5,6 @@
  */
 package com.puttysoftware.dungeondiver7.utility;
 
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.datatransfer.DataFlavor;
@@ -19,6 +18,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.TransferHandler;
 import javax.swing.WindowConstants;
@@ -35,7 +35,7 @@ public class Importer {
     static JFrame guiFrame;
     static JFrame sourceFrame;
     static JMenuBar sourceMenus;
-    private static Container guiPane;
+    private static JPanel guiPane;
     private static JLabel logoLabel;
     private static boolean inited = false;
     private static TransferHandler handler = new TransferHandler() {
@@ -115,7 +115,8 @@ public class Importer {
 
     private static void init() {
 	Importer.guiFrame = new JFrame(Strings.dialog(DialogString.IMPORT_TITLE));
-	Importer.guiPane = Importer.guiFrame.getContentPane();
+	Importer.guiPane = new JPanel();
+	Importer.guiFrame.setContentPane(Importer.guiPane);
 	Importer.guiFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	Importer.guiFrame.addWindowListener(new CloseHandler());
 	Importer.guiFrame.setLayout(new GridLayout(1, 1));

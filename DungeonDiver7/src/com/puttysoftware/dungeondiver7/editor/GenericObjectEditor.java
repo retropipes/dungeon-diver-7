@@ -5,7 +5,6 @@
  */
 package com.puttysoftware.dungeondiver7.editor;
 
-import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
@@ -73,7 +73,7 @@ public abstract class GenericObjectEditor extends GenericEditor {
     protected abstract void autoStoreEntryListValue(JComboBox<String> list, int num);
 
     @Override
-    protected void setUpGUIHook(final Container outputPane) {
+    protected void setUpGUIHook(final JPanel outputPane) {
 	this.handler = new EventHandler();
 	outputPane.setLayout(new GridLayout(this.abCols, this.abRows));
 	this.nameLabels = new JLabel[this.abCols];
@@ -132,7 +132,7 @@ public abstract class GenericObjectEditor extends GenericEditor {
     }
 
     @Override
-    protected void reSetUpGUIHook(final Container outputPane) {
+    protected void reSetUpGUIHook(final JPanel outputPane) {
 	this.setUpGUIHook(outputPane);
     }
 

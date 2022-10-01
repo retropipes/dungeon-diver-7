@@ -5,10 +5,10 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.game;
 
-import java.awt.Container;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
@@ -17,7 +17,7 @@ import com.puttysoftware.dungeondiver7.locale.StatusImage;
 
 class StatGUI {
     // Fields
-    private Container statsPane;
+    private JPanel statsPane;
     private JLabel hpLabel;
     private JLabel mpLabel;
     private JLabel goldLabel;
@@ -32,7 +32,7 @@ class StatGUI {
     }
 
     // Methods
-    Container getStatsPane() {
+    JPanel getStatsPane() {
 	return this.statsPane;
     }
 
@@ -53,7 +53,7 @@ class StatGUI {
     }
 
     private void setUpGUI() {
-	this.statsPane = new Container();
+	this.statsPane = new JPanel();
 	this.statsPane.setLayout(new GridLayout(7, 1));
 	this.hpLabel = new JLabel("", null, SwingConstants.LEFT);
 	this.mpLabel = new JLabel("", null, SwingConstants.LEFT);

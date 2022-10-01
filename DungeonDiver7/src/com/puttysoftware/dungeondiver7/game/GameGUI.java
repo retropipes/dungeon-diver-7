@@ -6,7 +6,6 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.game;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -29,6 +28,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
@@ -74,7 +74,7 @@ import com.puttysoftware.integration.Integration;
 class GameGUI {
     // Fields
     private JFrame outputFrame;
-    private Container borderPane, scorePane, infoPane, outerOutputPane;
+    private JPanel borderPane, scorePane, infoPane, outerOutputPane;
     private JLabel messageLabel;
     private JLabel scoreMoves;
     private JLabel scoreShots;
@@ -315,7 +315,7 @@ class GameGUI {
 
     private void setUpGUI() {
 	final var handler = new EventHandler();
-	this.borderPane = new Container();
+	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);
@@ -331,7 +331,7 @@ class GameGUI {
 	this.outputFrame.addWindowListener(handler);
 	// Pasted code
 	final var fHandler = new FocusHandler();
-	this.borderPane = new Container();
+	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
 	this.outputFrame = new JFrame(Strings.untranslated(Untranslated.PROGRAM_NAME));
 	this.outputFrame.setIconImage(iconlogo);
@@ -352,7 +352,7 @@ class GameGUI {
 	this.otherAmmoLeft = new JLabel(DianeStrings.subst(Strings.game(GameString.MISSILES), Integer.toString(0)));
 	this.otherToolsLeft = new JLabel(DianeStrings.subst(Strings.game(GameString.BOOSTS), Integer.toString(0)));
 	this.otherRangesLeft = new JLabel(DianeStrings.subst(Strings.game(GameString.BOMBS), Integer.toString(0)));
-	this.scorePane = new Container();
+	this.scorePane = new JPanel();
 	this.scorePane.setLayout(new FlowLayout());
 	this.scorePane.add(this.scoreMoves);
 	this.scorePane.add(this.scoreShots);
@@ -361,7 +361,7 @@ class GameGUI {
 	this.scorePane.add(this.otherToolsLeft);
 	this.scorePane.add(this.otherRangesLeft);
 	this.levelInfo = new JLabel(Strings.SPACE);
-	this.infoPane = new Container();
+	this.infoPane = new JPanel();
 	this.infoPane.setLayout(new FlowLayout());
 	this.infoPane.add(this.levelInfo);
 	this.scoreMoves.setLabelFor(this.outputPane);
@@ -383,9 +383,9 @@ class GameGUI {
 	final var dhandler = new DifficultyEventHandler();
 	this.difficultyFrame = new JDialog(DungeonDiver7.getStuffBag().getOutputFrame(),
 		Strings.game(GameString.SELECT_DIFFICULTY));
-	final var difficultyPane = new Container();
-	final var listPane = new Container();
-	final var buttonPane = new Container();
+	final var difficultyPane = new JPanel();
+	final var listPane = new JPanel();
+	final var buttonPane = new JPanel();
 	this.difficultyList = new JList<>(Strings.allDifficulties());
 	final var okButton = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	final var cancelButton = new JButton(Strings.dialog(DialogString.CANCEL_BUTTON));

@@ -6,7 +6,6 @@
 package com.puttysoftware.dungeondiver7.editor;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +18,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -98,15 +98,15 @@ class LevelPreferencesManager {
     }
 
     private void setUpGUI() {
-	Container mainPrefPane, contentPane, buttonPane;
+	JPanel mainPrefPane, contentPane, buttonPane;
 	JButton prefsOK, prefsCancel;
 	final var handler = new EventHandler();
 	this.prefFrame = new JFrame(Strings.editor(EditorString.LEVEL_PREFERENCES));
 	final var iconlogo = LogoLoader.getIconLogo();
 	this.prefFrame.setIconImage(iconlogo);
-	mainPrefPane = new Container();
-	contentPane = new Container();
-	buttonPane = new Container();
+	mainPrefPane = new JPanel();
+	contentPane = new JPanel();
+	buttonPane = new JPanel();
 	prefsOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	prefsOK.setDefaultCapable(true);
 	this.prefFrame.getRootPane().setDefaultButton(prefsOK);

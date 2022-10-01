@@ -7,7 +7,6 @@ package com.puttysoftware.dungeondiver7.editor;
 
 import java.awt.Adjustable;
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -27,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JToggleButton;
 import javax.swing.WindowConstants;
@@ -63,7 +63,7 @@ import com.puttysoftware.picturepicker.StackedPicturePicker;
 public class DungeonEditor implements MenuSection {
     // Declarations
     private JFrame outputFrame;
-    private Container secondaryPane, borderPane, outerOutputPane, switcherPane;
+    private JPanel secondaryPane, borderPane, outerOutputPane, switcherPane;
     private EditorDraw outputPane;
     private JToggleButton lowerGround, upperGround, lowerObjects, upperObjects;
     private JLabel messageLabel;
@@ -848,8 +848,8 @@ public class DungeonEditor implements MenuSection {
 	final var iconlogo = LogoLoader.getIconLogo();
 	this.outputFrame.setIconImage(iconlogo);
 	this.outputPane = new EditorDraw();
-	this.secondaryPane = new Container();
-	this.borderPane = new Container();
+	this.secondaryPane = new JPanel();
+	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
 	this.outputFrame.setContentPane(this.borderPane);
 	this.outputFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -875,7 +875,7 @@ public class DungeonEditor implements MenuSection {
 	this.secondaryPane.addMouseMotionListener(this.mhandler);
 	this.outputFrame.addWindowListener(this.mhandler);
 	this.outputFrame.addWindowFocusListener(fHandler);
-	this.switcherPane = new Container();
+	this.switcherPane = new JPanel();
 	final var switcherHandler = new SwitcherHandler();
 	final var switcherGroup = new ButtonGroup();
 	this.lowerGround = new JToggleButton(Strings.editor(EditorString.LOWER_GROUND_LAYER));

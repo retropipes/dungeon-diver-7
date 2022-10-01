@@ -6,13 +6,13 @@
 package com.puttysoftware.dungeondiver7.editor;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
@@ -25,8 +25,8 @@ public abstract class GenericEditor {
     // Fields
     private final String source;
     private JFrame outputFrame;
-    private Container borderPane;
-    private Container outputPane;
+    private JPanel borderPane;
+    private JPanel outputPane;
     private JLabel messageLabel;
     private JScrollPane scrollPane;
     private boolean objectChanged;
@@ -136,9 +136,9 @@ public abstract class GenericEditor {
 
     protected abstract void saveObject();
 
-    protected abstract void setUpGUIHook(Container output);
+    protected abstract void setUpGUIHook(JPanel output);
 
-    protected abstract void reSetUpGUIHook(Container output);
+    protected abstract void reSetUpGUIHook(JPanel output);
 
     protected abstract WindowListener guiHookWindow();
 
@@ -157,8 +157,8 @@ public abstract class GenericEditor {
 	this.outputFrame = new JFrame(this.getEditorSource());
 	final var iconlogo = LogoLoader.getIconLogo();
 	this.outputFrame.setIconImage(iconlogo);
-	this.outputPane = new Container();
-	this.borderPane = new Container();
+	this.outputPane = new JPanel();
+	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
 	this.outputFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.setUpGUIHook(this.outputPane);

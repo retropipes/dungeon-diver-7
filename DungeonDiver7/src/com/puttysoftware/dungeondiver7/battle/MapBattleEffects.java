@@ -6,16 +6,16 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.battle;
 
-import java.awt.Container;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
 
 public class MapBattleEffects {
     // Fields
-    private Container effectsPane;
+    private JPanel effectsPane;
     private JLabel[] effectLabels;
 
     // Constructors
@@ -24,9 +24,9 @@ public class MapBattleEffects {
     }
 
     // Methods
-    public Container getEffectsPane() {
+    public JPanel getEffectsPane() {
 	if (this.effectsPane == null) {
-	    this.effectsPane = new Container();
+	    this.effectsPane = new JPanel();
 	}
 	return this.effectsPane;
     }

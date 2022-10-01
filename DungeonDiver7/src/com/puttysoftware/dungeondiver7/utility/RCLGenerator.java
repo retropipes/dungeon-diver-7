@@ -6,11 +6,11 @@
 package com.puttysoftware.dungeondiver7.utility;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
@@ -21,10 +21,10 @@ public class RCLGenerator {
 	// Do nothing
     }
 
-    public static Container generateRowColumnLabels() {
-	final var outerOutputPane = new Container();
+    public static JPanel generateRowColumnLabels() {
+	final var outerOutputPane = new JPanel();
 	outerOutputPane.setLayout(new BorderLayout());
-	final var rowsPane = new Container();
+	final var rowsPane = new JPanel();
 	rowsPane.setLayout(new BoxLayout(rowsPane, BoxLayout.Y_AXIS));
 	// Generate row labels
 	rowsPane.add(Box.createVerticalGlue());
@@ -38,7 +38,7 @@ public class RCLGenerator {
 		rowsPane.add(Box.createVerticalGlue());
 	    }
 	}
-	final var columnsPane = new Container();
+	final var columnsPane = new JPanel();
 	columnsPane.setLayout(new BoxLayout(columnsPane, BoxLayout.X_AXIS));
 	// Generate column labels
 	columnsPane.add(Box.createHorizontalGlue());

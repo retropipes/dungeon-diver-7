@@ -6,7 +6,6 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.battle;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
@@ -19,6 +18,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
@@ -157,8 +157,8 @@ class MapBattleGUI {
 
     private void setUpGUI() {
 	final var handler = new EventHandler();
-	final var borderPane = new Container();
-	final var buttonPane = new Container();
+	final var borderPane = new JPanel();
+	final var buttonPane = new JPanel();
 	borderPane.setLayout(new BorderLayout());
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);

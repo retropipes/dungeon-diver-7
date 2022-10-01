@@ -6,7 +6,6 @@
 package com.puttysoftware.dungeondiver7.prefs;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -19,6 +18,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
@@ -145,9 +145,9 @@ class PrefsGUI {
     private void setUpGUI() {
 	final var handler = new EventHandler();
 	this.prefFrame = new JFrame(Strings.prefs(PrefString.TITLE));
-	final var mainPrefPane = new Container();
-	final var buttonPane = new Container();
-	final var settingsPane = new Container();
+	final var mainPrefPane = new JPanel();
+	final var buttonPane = new JPanel();
+	final var settingsPane = new JPanel();
 	final var prefsOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	prefsOK.setDefaultCapable(true);
 	this.prefFrame.getRootPane().setDefaultButton(prefsOK);
