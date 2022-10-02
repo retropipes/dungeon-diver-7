@@ -18,116 +18,116 @@ import javax.swing.JRootPane;
 import javax.swing.WindowConstants;
 
 public final class MainWindow {
-  private static MainWindow window;
-  private final JFrame frame;
-  private JPanel content;
-  private JPanel savedContent;
+    private static MainWindow window;
+    private final JFrame frame;
+    private JPanel content;
+    private JPanel savedContent;
 
-  private MainWindow() {
-    super();
-    this.frame = new JFrame();
-    this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
-    this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-    this.frame.setResizable(false);
-    this.content = new JPanel();
-    this.savedContent = this.content;
-    this.frame.setContentPane(this.content);
-    this.frame.setVisible(true);
-  }
-
-  static JFrame owner() {
-    return MainWindow.getOutputFrame().frame;
-  }
-
-  JPanel content() {
-    return this.content;
-  }
-
-  public static MainWindow getOutputFrame() {
-    if (MainWindow.window == null) {
-      MainWindow.window = new MainWindow();
+    private MainWindow() {
+	super();
+	this.frame = new JFrame();
+	this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+	this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.frame.setResizable(false);
+	this.content = new JPanel();
+	this.savedContent = this.content;
+	this.frame.setContentPane(this.content);
+	this.frame.setVisible(true);
     }
-    return MainWindow.window;
-  }
 
-  @Deprecated
-  /** Call setContent(JPanel) instead of this method. **/
-  public void setContentPane(final JPanel customContent) {
-    this.setContent(customContent);
-  }
+    static JFrame owner() {
+	return MainWindow.getOutputFrame().frame;
+    }
 
-  public void setContent(final JPanel customContent) {
-    this.content = customContent;
-    this.frame.setContentPane(this.content);
-  }
+    JPanel content() {
+	return this.content;
+    }
 
-  public void setAndSaveContent(final JPanel customContent) {
-    this.savedContent = this.content;
-    this.content = customContent;
-    this.frame.setContentPane(this.content);
-  }
+    public static MainWindow getOutputFrame() {
+	if (MainWindow.window == null) {
+	    MainWindow.window = new MainWindow();
+	}
+	return MainWindow.window;
+    }
 
-  public void restoreSavedContent() {
-    this.content = this.savedContent;
-    this.frame.setContentPane(this.content);
-  }
+    @Deprecated
+    /** Call setContent(JPanel) instead of this method. **/
+    public void setContentPane(final JPanel customContent) {
+	this.setContent(customContent);
+    }
 
-  @Deprecated
-  /** Call setMenus(JMenuBar) instead of this method. **/
-  public void setJMenuBar(final JMenuBar menus) {
-    this.setMenus(menus);
-  }
+    public void setContent(final JPanel customContent) {
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+    }
 
-  public void setMenus(final JMenuBar menus) {
-    this.frame.setJMenuBar(menus);
-  }
+    public void setAndSaveContent(final JPanel customContent) {
+	this.savedContent = this.content;
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+    }
 
-  public void setTitle(final String title) {
-    this.frame.setTitle(title);
-  }
+    public void restoreSavedContent() {
+	this.content = this.savedContent;
+	this.frame.setContentPane(this.content);
+    }
 
-  @Deprecated
-  /** Call setSystemIcon(Image) instead of this method. **/
-  public void setIconImage(final Image icon) {
-    this.setSystemIcon(icon);
-  }
+    @Deprecated
+    /** Call setMenus(JMenuBar) instead of this method. **/
+    public void setJMenuBar(final JMenuBar menus) {
+	this.setMenus(menus);
+    }
 
-  public void setSystemIcon(final Image icon) {
-    this.frame.setIconImage(icon);
-  }
+    public void setMenus(final JMenuBar menus) {
+	this.frame.setJMenuBar(menus);
+    }
 
-  public void setDirty(final boolean newDirty) {
-    this.frame.getRootPane().putClientProperty("Window.documentModified", Boolean.valueOf(newDirty));
-  }
+    public void setTitle(final String title) {
+	this.frame.setTitle(title);
+    }
 
-  public void pack() {
-    this.frame.pack();
-  }
+    @Deprecated
+    /** Call setSystemIcon(Image) instead of this method. **/
+    public void setIconImage(final Image icon) {
+	this.setSystemIcon(icon);
+    }
 
-  public void addWindowListener(final WindowListener l) {
-    this.frame.addWindowListener(l);
-  }
+    public void setSystemIcon(final Image icon) {
+	this.frame.setIconImage(icon);
+    }
 
-  public void removeWindowListener(final WindowListener l) {
-    this.frame.removeWindowListener(l);
-  }
+    public void setDirty(final boolean newDirty) {
+	this.frame.getRootPane().putClientProperty("Window.documentModified", Boolean.valueOf(newDirty));
+    }
 
-  public void addKeyListener(final KeyListener l) {
-    this.frame.addKeyListener(l);
-  }
+    public void pack() {
+	this.frame.pack();
+    }
 
-  public void removeKeyListener(final KeyListener l) {
-    this.frame.removeKeyListener(l);
-  }
+    public void addWindowListener(final WindowListener l) {
+	this.frame.addWindowListener(l);
+    }
 
-  public void setDefaultButton(final JButton defaultButton) {
-    this.frame.getRootPane().setDefaultButton(defaultButton);
-  }
+    public void removeWindowListener(final WindowListener l) {
+	this.frame.removeWindowListener(l);
+    }
 
-  @SuppressWarnings("static-method")
-  @Deprecated(forRemoval = true)
-  /** Don't call this method. **/
-  public JRootPane getRootPane() {
-    throw new UnsupportedOperationException();
-  }
+    public void addKeyListener(final KeyListener l) {
+	this.frame.addKeyListener(l);
+    }
+
+    public void removeKeyListener(final KeyListener l) {
+	this.frame.removeKeyListener(l);
+    }
+
+    public void setDefaultButton(final JButton defaultButton) {
+	this.frame.getRootPane().setDefaultButton(defaultButton);
+    }
+
+    @SuppressWarnings("static-method")
+    @Deprecated(forRemoval = true)
+    /** Don't call this method. **/
+    public JRootPane getRootPane() {
+	throw new UnsupportedOperationException();
+    }
 }

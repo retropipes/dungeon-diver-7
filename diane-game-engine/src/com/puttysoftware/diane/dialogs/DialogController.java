@@ -10,31 +10,31 @@ import java.awt.event.ActionListener;
 import java.lang.ref.WeakReference;
 
 public abstract class DialogController implements ActionListener {
-  // Fields
-  private final DialogModel model;
-  private DialogView view;
+    // Fields
+    private final DialogModel model;
+    private DialogView view;
 
-  // Constructors
-  protected DialogController(final DialogModel dialogModel) {
-    super();
-    this.model = dialogModel;
-  }
-
-  // Methods
-  private void checkView() {
-    if (this.view == null) {
-      this.view = new DialogView();
-      this.view.setUpGUI(this.model, new WeakReference<>(this));
+    // Constructors
+    protected DialogController(final DialogModel dialogModel) {
+	super();
+	this.model = dialogModel;
     }
-  }
 
-  public final void showDialog() {
-    this.checkView();
-    this.view.showDialog(this.model);
-  }
+    // Methods
+    private void checkView() {
+	if (this.view == null) {
+	    this.view = new DialogView();
+	    this.view.setUpGUI(this.model, new WeakReference<>(this));
+	}
+    }
 
-  protected final void hideDialog() {
-    this.checkView();
-    this.view.hideDialog();
-  }
+    public final void showDialog() {
+	this.checkView();
+	this.view.showDialog(this.model);
+    }
+
+    protected final void hideDialog() {
+	this.checkView();
+	this.view.hideDialog();
+    }
 }

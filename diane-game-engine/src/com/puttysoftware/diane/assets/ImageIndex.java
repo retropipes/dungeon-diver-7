@@ -7,5 +7,5 @@
 package com.puttysoftware.diane.assets;
 
 public interface ImageIndex {
-  String getName();
+    String getName();
 }

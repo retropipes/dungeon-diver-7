@@ -10,33 +10,33 @@ import java.awt.event.WindowListener;
 import java.lang.ref.WeakReference;
 
 public abstract class ScreenController implements WindowListener {
-  // Fields
-  private final ScreenModel model;
-  private final ScreenView view;
-  private boolean viewReady;
+    // Fields
+    private final ScreenModel model;
+    private final ScreenView view;
+    private boolean viewReady;
 
-  // Constructors
-  protected ScreenController(final ScreenModel theModel, final ScreenView theView) {
-    super();
-    this.model = theModel;
-    this.view = theView;
-    this.viewReady = false;
-  }
-
-  // Methods
-  public final void showScreen() {
-    if (!this.viewReady) {
-      this.view.setUpView(this.model);
-      this.viewReady = true;
+    // Constructors
+    protected ScreenController(final ScreenModel theModel, final ScreenView theView) {
+	super();
+	this.model = theModel;
+	this.view = theView;
+	this.viewReady = false;
     }
-    this.view.showScreen(this.model, new WeakReference<>(this));
-  }
 
-  protected final void hideScreen() {
-    if (!this.viewReady) {
-      this.view.setUpView(this.model);
-      this.viewReady = true;
+    // Methods
+    public final void showScreen() {
+	if (!this.viewReady) {
+	    this.view.setUpView(this.model);
+	    this.viewReady = true;
+	}
+	this.view.showScreen(this.model, new WeakReference<>(this));
     }
-    this.view.hideScreen(this.model, new WeakReference<>(this));
-  }
+
+    protected final void hideScreen() {
+	if (!this.viewReady) {
+	    this.view.setUpView(this.model);
+	    this.viewReady = true;
+	}
+	this.view.hideScreen(this.model, new WeakReference<>(this));
+    }
 }
