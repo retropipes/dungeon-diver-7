@@ -69,7 +69,7 @@ public class GUIManager implements MenuSection, QuitHandler {
     public void showGUI() {
 	final var app = DungeonDiver7.getStuffBag();
 	app.setInGUI();
-	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
+	this.attachMenus();
 	MusicLoader.playMusic(Music.TITLE);
 	this.guiFrame.setVisible(true);
 	this.guiFrame.pack();
