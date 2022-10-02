@@ -3,6 +3,7 @@ package com.puttysoftware.diane.strings;
 import java.util.ResourceBundle;
 
 import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.utilties.ErrorString;
 
 public final class DianeStrings {
   private DianeStrings() {
@@ -14,6 +15,10 @@ public final class DianeStrings {
   
   public static String directionSuffix(final Directions item) {
     return ResourceBundle.getBundle("locale.diane.dirsuffix").getString(Integer.toString(item.ordinal()));
+  }
+  
+  public static String error(final ErrorString item) {
+    return ResourceBundle.getBundle("locale.diane.error").getString(Integer.toString(item.ordinal()));
   }
 
   public static String subst(final String orig, final String... values) {

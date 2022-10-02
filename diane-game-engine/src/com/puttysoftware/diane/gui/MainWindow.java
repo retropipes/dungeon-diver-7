@@ -39,6 +39,10 @@ public final class MainWindow {
     return MainWindow.getOutputFrame().frame;
   }
 
+  JPanel content() {
+    return this.content;
+  }
+
   public static MainWindow getOutputFrame() {
     if (MainWindow.window == null) {
       MainWindow.window = new MainWindow();
@@ -90,6 +94,10 @@ public final class MainWindow {
 
   public void setSystemIcon(final Image icon) {
     this.frame.setIconImage(icon);
+  }
+
+  public void setDirty(final boolean newDirty) {
+    this.frame.getRootPane().putClientProperty("Window.documentModified", Boolean.valueOf(newDirty));
   }
 
   public void pack() {
