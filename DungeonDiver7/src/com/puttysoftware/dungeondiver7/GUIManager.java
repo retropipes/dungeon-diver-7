@@ -12,7 +12,6 @@ import java.awt.desktop.QuitResponse;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
@@ -47,7 +46,6 @@ public class GUIManager implements MenuSection, QuitHandler {
     // Constructors
     public GUIManager() {
 	final var cHandler = new CloseHandler();
-	final var fHandler = new FocusHandler();
 	this.guiFrame = new JFrame(Strings.untranslated(Untranslated.PROGRAM_NAME));
 	final var guiPane = this.guiFrame.getContentPane();
 	this.guiFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -58,7 +56,6 @@ public class GUIManager implements MenuSection, QuitHandler {
 	guiPane.add(this.logoLabel);
 	this.guiFrame.setResizable(false);
 	this.guiFrame.addWindowListener(cHandler);
-	this.guiFrame.addWindowFocusListener(fHandler);
     }
 
     // Methods
@@ -159,22 +156,6 @@ public class GUIManager implements MenuSection, QuitHandler {
 
 	@Override
 	public void windowOpened(final WindowEvent arg0) {
-	    // Do nothing
-	}
-    }
-
-    private class FocusHandler implements WindowFocusListener {
-	public FocusHandler() {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowGainedFocus(final WindowEvent e) {
-	    GUIManager.this.attachMenus();
-	}
-
-	@Override
-	public void windowLostFocus(final WindowEvent e) {
 	    // Do nothing
 	}
     }
