@@ -8,25 +8,16 @@ package com.puttysoftware.diane.gui;
 
 import java.awt.Image;
 
-public final class ScreenModel {
+public class ScreenModel {
     // Fields
     private final String title;
     private final Image systemIcon;
-    private final boolean customUI;
 
-    // Constructors
-    public ScreenModel() {
-	super();
-	this.title = null;
-	this.systemIcon = null;
-	this.customUI = true;
-    }
-
+    // Constructor
     public ScreenModel(final String theTitle, final Image theSystemIcon) {
 	super();
 	this.title = theTitle;
 	this.systemIcon = theSystemIcon;
-	this.customUI = false;
     }
 
     // Methods
@@ -36,9 +27,5 @@ public final class ScreenModel {
 
     public final Image getSystemIcon() {
 	return this.systemIcon;
-    }
-
-    public final boolean isCustomUI() {
-	return this.customUI;
     }
 }

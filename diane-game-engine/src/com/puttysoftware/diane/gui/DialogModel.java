@@ -12,7 +12,7 @@ import java.util.List;
 
 import javax.swing.Icon;
 
-public final class DialogModel {
+public class DialogModel {
     // Fields
     private final String title;
     private final String actionButtonText;

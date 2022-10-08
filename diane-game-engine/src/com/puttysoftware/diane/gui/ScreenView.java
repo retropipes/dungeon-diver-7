@@ -23,26 +23,22 @@ public abstract class ScreenView {
 
     // Methods
     final void showScreen(final ScreenModel model, final WeakReference<ScreenController> controllerRef) {
-	if (!model.isCustomUI()) {
-	    this.theFrame.setAndSave(this.thePanel, model.getTitle());
-	    this.theFrame.setSystemIcon(model.getSystemIcon());
-	    this.theFrame.addWindowListener(controllerRef.get());
-	    this.theFrame.pack();
-	}
+	this.theFrame.setAndSave(this.thePanel, model.getTitle());
+	this.theFrame.setSystemIcon(model.getSystemIcon());
+	this.theFrame.addWindowListener(controllerRef.get());
+	this.theFrame.pack();
     }
 
     final void hideScreen(final ScreenModel model, final WeakReference<ScreenController> controllerRef) {
-	if (!model.isCustomUI()) {
-	    this.theFrame.removeWindowListener(controllerRef.get());
-	}
+	this.theFrame.removeWindowListener(controllerRef.get());
 	this.theFrame.restoreSaved();
     }
 
     final void setUpView(final ScreenModel model) {
 	this.thePanel = MainContentFactory.content();
-	this.thePanel = this.populateMainPanel(model);
+	this.populateMainPanel(model);
 	this.thePanel.setOpaque(true);
     }
 
-    protected abstract JPanel populateMainPanel(final ScreenModel model);
+    protected abstract void populateMainPanel(final ScreenModel model);
 }
