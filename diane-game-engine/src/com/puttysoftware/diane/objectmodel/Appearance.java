@@ -6,32 +6,32 @@
  */
 package com.puttysoftware.diane.objectmodel;
 
-import com.puttysoftware.diane.assets.ImageIndex;
+import com.puttysoftware.diane.assets.DianeImageIndex;
 import com.puttysoftware.diane.loaders.ColorReplaceRules;
 import com.puttysoftware.diane.loaders.ColorShader;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public abstract class Appearance {
     private final String cacheName;
-    private final ImageIndex whichImage;
+    private final DianeImageIndex whichImage;
     private final ColorShader shading;
     private final ColorReplaceRules replacements;
 
-    public Appearance(final String name, final ImageIndex imageIndex) {
+    public Appearance(final String name, final DianeImageIndex imageIndex) {
 	this.cacheName = name;
 	this.whichImage = imageIndex;
 	this.shading = null;
 	this.replacements = null;
     }
 
-    public Appearance(final String name, final ImageIndex imageIndex, final ColorShader shader) {
+    public Appearance(final String name, final DianeImageIndex imageIndex, final ColorShader shader) {
 	this.cacheName = name;
 	this.whichImage = imageIndex;
 	this.shading = shader;
 	this.replacements = null;
     }
 
-    public Appearance(final String name, final ImageIndex imageIndex, final ColorReplaceRules replaceRules) {
+    public Appearance(final String name, final DianeImageIndex imageIndex, final ColorReplaceRules replaceRules) {
 	this.cacheName = name;
 	this.whichImage = imageIndex;
 	this.shading = null;
@@ -42,7 +42,7 @@ public abstract class Appearance {
 	return this.cacheName;
     }
 
-    protected final ImageIndex getWhichImage() {
+    protected final DianeImageIndex getWhichImage() {
 	return this.whichImage;
     }
 

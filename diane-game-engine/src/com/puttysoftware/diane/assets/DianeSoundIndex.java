@@ -6,6 +6,8 @@
  */
 package com.puttysoftware.diane.assets;
 
-public interface ImageIndex {
-    String getName();
+import java.net.URL;
+
+public interface DianeSoundIndex {
+    URL getSoundURL();
 }

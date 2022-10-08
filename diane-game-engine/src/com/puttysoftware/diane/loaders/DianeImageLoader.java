@@ -15,10 +15,10 @@ import java.util.Objects;
 import javax.imageio.ImageIO;
 
 import com.puttysoftware.diane.Diane;
-import com.puttysoftware.diane.assets.ImageIndex;
+import com.puttysoftware.diane.assets.DianeImageIndex;
 import com.puttysoftware.images.BufferedImageIcon;
 
-public class ImageLoader {
+public class DianeImageLoader {
     static BufferedImageIcon loadUncached(final String name, final URL url) {
 	try {
 	    final BufferedImage image = ImageIO.read(url);
@@ -30,7 +30,7 @@ public class ImageLoader {
 	}
     }
 
-    public static BufferedImageIcon load(final ImageIndex image, final URL url) {
+    public static BufferedImageIcon load(final DianeImageIndex image, final URL url) {
 	return ImageCache.getCachedImage(image.getName(), url);
     }
 
@@ -51,7 +51,7 @@ public class ImageLoader {
 		}
 	    }
 	    // Not found: Add to cache
-	    final BufferedImageIcon newImage = ImageScaler.getScaledImage(ImageLoader.loadUncached(name, url));
+	    final BufferedImageIcon newImage = ImageScaler.getScaledImage(DianeImageLoader.loadUncached(name, url));
 	    final ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
 	    ImageCache.cache.add(newEntry);
 	    return newImage;
