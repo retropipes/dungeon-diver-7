@@ -11,21 +11,27 @@ import java.lang.ref.WeakReference;
 
 public abstract class DialogController implements ActionListener {
     // Fields
-    private final DialogModel model;
+    private DialogModel model;
     private DialogView view;
 
     // Constructors
-    protected DialogController(final DialogModel dialogModel) {
+    protected DialogController() {
 	super();
-	this.model = dialogModel;
     }
 
     // Methods
     private void checkView() {
+	if (this.model == null) {
+	    throw new IllegalStateException();
+	}
 	if (this.view == null) {
 	    this.view = new DialogView();
 	    this.view.setUpGUI(this.model, new WeakReference<>(this));
 	}
+    }
+
+    public final void setModel(final DialogModel dialogModel) {
+	this.model = dialogModel;
     }
 
     public final void showDialog() {
