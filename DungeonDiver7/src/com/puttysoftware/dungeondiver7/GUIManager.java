@@ -20,7 +20,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
@@ -40,6 +39,7 @@ import com.puttysoftware.integration.Integration;
 public class GUIManager implements MenuSection, QuitHandler {
     // Fields
     private final MainWindow mainWindow;
+    private final JPanel guiPane;
     private final JLabel logoLabel;
     private JMenuItem fileNew, fileOpen, fileOpenDefault, fileClose, fileSave, fileSaveAs, fileSaveAsProtected,
 	    filePrint, filePreferences, fileExit;
@@ -47,18 +47,14 @@ public class GUIManager implements MenuSection, QuitHandler {
     // Constructors
     public GUIManager() {
 	final var cHandler = new CloseHandler();
+	this.guiPane = new JPanel();
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainWindow.setTitle(Strings.untranslated(Untranslated.PROGRAM_NAME));
-	final var guiPane = new JPanel();
-	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	this.mainWindow.setLayout(new GridLayout(1, 1));
+	this.guiPane.setLayout(new GridLayout(1, 1));
 	this.logoLabel = new JLabel(Strings.EMPTY, null, SwingConstants.CENTER);
 	this.logoLabel.setLabelFor(null);
 	this.logoLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
-	guiPane.add(this.logoLabel);
-	this.mainWindow.setResizable(false);
+	this.guiPane.add(this.logoLabel);
 	this.mainWindow.addWindowListener(cHandler);
-	this.mainWindow.setAndSaveContent(guiPane);
     }
 
     // Methods
@@ -67,8 +63,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 	app.setInGUI();
 	this.attachMenus();
 	MusicLoader.playMusic(Music.TITLE);
-	this.mainWindow.setVisible(true);
-	this.mainWindow.pack();
+	this.mainWindow.setAndSave(this.guiPane, Strings.untranslated(Untranslated.PROGRAM_NAME));
 	app.getMenuManager().checkFlags();
     }
 
@@ -79,7 +74,7 @@ public class GUIManager implements MenuSection, QuitHandler {
     }
 
     public void hideGUI() {
-	this.mainWindow.setVisible(false);
+	this.mainWindow.restoreSaved();
 	MusicLoader.stopMusic();
     }
 
@@ -88,7 +83,6 @@ public class GUIManager implements MenuSection, QuitHandler {
 	this.logoLabel.setIcon(logo);
 	final var iconlogo = LogoLoader.getIconLogo();
 	this.mainWindow.setSystemIcon(iconlogo);
-	this.mainWindow.pack();
     }
 
     public boolean quitHandler() {

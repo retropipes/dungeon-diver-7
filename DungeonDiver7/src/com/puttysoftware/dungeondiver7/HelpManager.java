@@ -5,16 +5,8 @@
  */
 package com.puttysoftware.dungeondiver7;
 
-import java.awt.BorderLayout;
-
-import javax.swing.WindowConstants;
-
 import com.puttysoftware.diane.gui.MainWindow;
-import com.puttysoftware.diane.strings.DianeStrings;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
-import com.puttysoftware.dungeondiver7.locale.DialogString;
-import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.dungeondiver7.locale.Untranslated;
 
 class HelpManager {
     // Fields
@@ -30,7 +22,6 @@ class HelpManager {
     void showHelp() {
 	this.initHelp();
 	DungeonDiver7.getStuffBag().setInHelp();
-	this.mainWindow.setVisible(true);
     }
 
     void activeLanguageChanged() {
@@ -40,14 +31,8 @@ class HelpManager {
     private void initHelp() {
 	if (!this.inited) {
 	    this.mainWindow = MainWindow.mainWindow();
-	    this.mainWindow.setTitle(DianeStrings.subst(Strings.dialog(DialogString.HELP),
-		    Strings.untranslated(Untranslated.PROGRAM_NAME)));
 	    final var iconlogo = LogoLoader.getIconLogo();
 	    this.mainWindow.setSystemIcon(iconlogo);
-	    this.mainWindow.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-	    this.mainWindow.setLayout(new BorderLayout());
-	    this.mainWindow.pack();
-	    this.mainWindow.setResizable(false);
 	    this.inited = true;
 	}
     }

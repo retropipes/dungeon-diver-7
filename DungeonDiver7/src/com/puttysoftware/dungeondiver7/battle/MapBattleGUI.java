@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.DrawGrid;
@@ -41,6 +40,7 @@ import com.puttysoftware.integration.Integration;
 class MapBattleGUI {
     // Fields
     private MainWindow mainWindow;
+    private JPanel borderPane;
     private MapBattleDraw battlePane;
     private JLabel messageLabel;
     private final MapBattleViewingWindowManager vwMgr;
@@ -79,13 +79,13 @@ class MapBattleGUI {
     }
 
     void showBattle() {
-	this.mainWindow.setVisible(true);
 	Integration.integrate().setDefaultMenuBar(DungeonDiver7.getStuffBag().getMenuManager().getMainMenuBar());
+	this.mainWindow.setAndSave(this.borderPane, "Battle");
     }
 
     void hideBattle() {
 	if (this.mainWindow != null) {
-	    this.mainWindow.setVisible(false);
+	    this.mainWindow.restoreSaved();
 	}
     }
 
@@ -117,7 +117,6 @@ class MapBattleGUI {
 		}
 	    }
 	    this.battlePane.repaint();
-	    this.mainWindow.pack();
 	}
     }
 
@@ -142,7 +141,6 @@ class MapBattleGUI {
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
 		// Do nothing
 	    }
-	    this.mainWindow.pack();
 	}
     }
 
@@ -153,14 +151,12 @@ class MapBattleGUI {
 
     private void setUpGUI() {
 	final var handler = new EventHandler();
-	final var borderPane = new JPanel();
+	this.borderPane = new JPanel();
 	final var buttonPane = new JPanel();
-	borderPane.setLayout(new BorderLayout());
+	this.borderPane.setLayout(new BorderLayout());
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainWindow.setTitle("Battle");
-	this.mainWindow.setAndSaveContent(borderPane);
 	this.spell = new JButton("Cast Spell");
 	this.steal = new JButton("Steal");
 	this.drain = new JButton("Drain");
@@ -197,8 +193,6 @@ class MapBattleGUI {
 		"End Turn");
 	this.end.getActionMap().put("End Turn", handler);
 	this.mainWindow.setSystemIcon(LogoLoader.getIconLogo());
-	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	this.mainWindow.setResizable(false);
 	this.drawGrid = new DrawGrid(MapBattleViewingWindowManager.getViewingWindowSize());
 	for (var x = 0; x < MapBattleViewingWindowManager.getViewingWindowSize(); x++) {
 	    for (var y = 0; y < MapBattleViewingWindowManager.getViewingWindowSize(); y++) {
@@ -207,11 +201,11 @@ class MapBattleGUI {
 	    }
 	}
 	this.battlePane = new MapBattleDraw(this.drawGrid);
-	borderPane.add(this.battlePane, BorderLayout.CENTER);
-	borderPane.add(buttonPane, BorderLayout.WEST);
-	borderPane.add(this.messageLabel, BorderLayout.NORTH);
-	borderPane.add(this.bs.getStatsPane(), BorderLayout.EAST);
-	borderPane.add(this.be.getEffectsPane(), BorderLayout.SOUTH);
+	this.borderPane.add(this.battlePane, BorderLayout.CENTER);
+	this.borderPane.add(buttonPane, BorderLayout.WEST);
+	this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
+	this.borderPane.add(this.bs.getStatsPane(), BorderLayout.EAST);
+	this.borderPane.add(this.be.getEffectsPane(), BorderLayout.SOUTH);
 	this.mainWindow.addKeyListener(handler);
     }
 

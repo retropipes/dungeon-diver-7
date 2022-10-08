@@ -199,6 +199,7 @@ class GameGUI {
 
     private void showOutputCommon() {
 	final var app = DungeonDiver7.getStuffBag();
+	this.mainWindow.setAndSave(this.borderPane, Strings.untranslated(Untranslated.PROGRAM_NAME));
 	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
 	if (this.deferredRedraw) {
 	    this.deferredRedraw = false;
@@ -211,7 +212,7 @@ class GameGUI {
 
     public void hideOutput() {
 	if (this.mainWindow != null) {
-	    this.mainWindow.setVisible(false);
+	    this.mainWindow.restoreSaved();
 	}
     }
 
@@ -309,23 +310,19 @@ class GameGUI {
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainWindow.setTitle("Chrystalz");
 	final var iconlogo = StuffBag.getIconLogo();
 	this.mainWindow.setSystemIcon(iconlogo);
 	this.drawGrid = new DrawGrid(Prefs.getViewingWindowSize());
 	this.outputPane = new GameDraw(this.drawGrid);
-	this.mainWindow.setAndSaveContent(this.borderPane);
 	this.mainWindow.addKeyListener(handler);
 	this.mainWindow.addWindowListener(handler);
 	// Pasted code
 	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainWindow.setTitle(Strings.untranslated(Untranslated.PROGRAM_NAME));
 	this.mainWindow.setSystemIcon(iconlogo);
 	this.outerOutputPane = RCLGenerator.generateRowColumnLabels();
 	this.outputPane = new GameDraw();
-	this.mainWindow.setAndSaveContent(this.borderPane);
 	this.outputPane.setLayout(new GridLayout(GameViewingWindowManager.getFixedViewingWindowSizeX(),
 		GameViewingWindowManager.getFixedViewingWindowSizeY()));
 	this.mainWindow.addKeyListener(handler);

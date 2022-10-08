@@ -9,6 +9,8 @@ public final class DianeStrings {
     private DianeStrings() {
     }
 
+    public static final String EMPTY = "";
+
     public static String direction(final Directions item) {
 	return ResourceBundle.getBundle("locale.diane.direction").getString(Integer.toString(item.ordinal()));
     }

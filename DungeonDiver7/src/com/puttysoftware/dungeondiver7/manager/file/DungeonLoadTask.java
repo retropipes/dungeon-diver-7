@@ -12,7 +12,6 @@ import java.util.zip.ZipException;
 
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.MainWindow;
@@ -31,6 +30,7 @@ import com.puttysoftware.fileutils.ZipUtilities;
 public class DungeonLoadTask extends Thread {
     // Fields
     private final String filename;
+    private final JPanel loadContent;
     private final boolean isSavedGame;
     private final MainWindow mainWindow;
     private final boolean dungeonProtected;
@@ -43,22 +43,18 @@ public class DungeonLoadTask extends Thread {
 	this.dungeonProtected = protect;
 	this.setName(Strings.untranslated(Untranslated.FILE_LOADER_NEW_NAME));
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainWindow.setTitle(Strings.dialog(DialogString.LOADING));
 	this.mainWindow.setSystemIcon(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
-	var loadContent = new JPanel();
-	loadContent.add(loadBar);
-	this.mainWindow.setAndSaveContent(loadContent);
-	this.mainWindow.setResizable(false);
-	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	this.mainWindow.pack();
+	this.loadContent = new JPanel();
+	this.loadContent.add(loadBar);
+	
     }
 
     // Methods
     @Override
     public void run() {
-	this.mainWindow.setVisible(true);
+	this.mainWindow.setAndSave(this.loadContent, Strings.dialog(DialogString.LOADING));
 	final var app = DungeonDiver7.getStuffBag();
 	if (this.isSavedGame) {
 	    app.getGameLogic().setSavedGameFlag(true);
@@ -144,7 +140,7 @@ public class DungeonLoadTask extends Thread {
 	} catch (final Exception ex) {
 	    DungeonDiver7.logError(ex);
 	} finally {
-	    this.mainWindow.setVisible(false);
+	    this.mainWindow.restoreSaved();
 	}
     }
 }

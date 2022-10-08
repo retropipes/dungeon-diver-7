@@ -49,8 +49,7 @@ public class StatisticsViewer {
 		    StatisticsViewer.statisticsValues[x].setText(" " + Strings.stat(x) + ": " + value + "  ");
 		}
 	    }
-	    StatisticsViewer.mainWindow.pack();
-	    StatisticsViewer.mainWindow.setVisible(true);
+	    StatisticsViewer.mainWindow.setAndSave(StatisticsViewer.statisticsPane, "Statistics");
 	} else {
 	    CommonDialogs.showDialog("Nothing to display");
 	}
@@ -59,7 +58,6 @@ public class StatisticsViewer {
     private static void setUpGUI() {
 	if (!StatisticsViewer.inited) {
 	    StatisticsViewer.mainWindow = MainWindow.mainWindow();
-	    StatisticsViewer.mainWindow.setTitle("Statistics");
 	    final var iconlogo = LogoLoader.getIconLogo();
 	    StatisticsViewer.mainWindow.setSystemIcon(iconlogo);
 	    StatisticsViewer.statisticsPane = new JPanel();
@@ -69,7 +67,7 @@ public class StatisticsViewer {
 	    StatisticsViewer.buttonPane = new JPanel();
 	    StatisticsViewer.buttonPane.setLayout(new FlowLayout());
 	    StatisticsViewer.btnOK = new JButton("OK");
-	    StatisticsViewer.btnOK.addActionListener(e -> StatisticsViewer.mainWindow.setVisible(false));
+	    StatisticsViewer.btnOK.addActionListener(e -> StatisticsViewer.mainWindow.restoreSaved());
 	    StatisticsViewer.statisticsValues = new JLabel[StatConstants.MAX_DISPLAY_STATS];
 	    for (var x = 0; x < StatConstants.MAX_DISPLAY_STATS; x++) {
 		StatisticsViewer.statisticsValues[x] = new JLabel();
@@ -78,7 +76,6 @@ public class StatisticsViewer {
 	    StatisticsViewer.buttonPane.add(StatisticsViewer.btnOK);
 	    StatisticsViewer.statisticsPane.add(StatisticsViewer.contentPane, BorderLayout.CENTER);
 	    StatisticsViewer.statisticsPane.add(StatisticsViewer.buttonPane, BorderLayout.SOUTH);
-	    StatisticsViewer.mainWindow.setAndSaveContent(StatisticsViewer.statisticsPane);
 	    StatisticsViewer.inited = true;
 	}
     }

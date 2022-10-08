@@ -10,7 +10,6 @@ import java.awt.Image;
 
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.MainWindow;
@@ -246,20 +245,15 @@ public final class StuffBag {
 	MainWindow mainWindow;
 	JProgressBar loadBar;
 	mainWindow = MainWindow.mainWindow();
-	mainWindow.setTitle(Strings.dialog(DialogString.UPDATING_LEVEL_INFO));
 	mainWindow.setSystemIcon(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	loadBar.setPreferredSize(new Dimension(600, 20));
 	var loadContent = new JPanel();
 	loadContent.add(loadBar);
-	mainWindow.setAndSaveContent(loadContent);
-	mainWindow.setResizable(false);
-	mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	mainWindow.pack();
-	mainWindow.setVisible(true);
+	mainWindow.setAndSave(loadContent, Strings.dialog(DialogString.UPDATING_LEVEL_INFO));
 	this.getDungeonManager().getDungeon().generateLevelInfoList();
-	mainWindow.setVisible(false);
+	mainWindow.restoreSaved();
     }
 
     private static boolean isBetaModeEnabled() {

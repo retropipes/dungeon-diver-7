@@ -31,6 +31,7 @@ import com.puttysoftware.dungeondiver7.locale.Untranslated;
 public class AboutDialog implements AboutHandler, MenuSection {
     // Fields
     private MainWindow mainWindow;
+    private JPanel aboutPane;
     private JMenuItem helpAbout, helpHelp;
 
     // Constructors
@@ -40,25 +41,24 @@ public class AboutDialog implements AboutHandler, MenuSection {
 
     // Methods
     public void showAboutDialog() {
-	this.mainWindow.setVisible(true);
+	this.mainWindow.setAndSave(this.aboutPane, DianeStrings.subst(Strings.dialog(DialogString.ABOUT),
+		Strings.untranslated(Untranslated.PROGRAM_NAME)));
     }
 
     void hideAboutDialog() {
-	this.mainWindow.setVisible(false);
+	this.mainWindow.restoreSaved();
     }
 
     private void setUpGUI(final String ver) {
-	JPanel aboutPane, textPane, buttonPane, logoPane;
+	JPanel textPane, buttonPane, logoPane;
 	JButton aboutOK;
 	EventHandler handler;
 	JLabel miniLabel;
 	handler = new EventHandler();
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainWindow.setTitle(DianeStrings.subst(Strings.dialog(DialogString.ABOUT),
-		Strings.untranslated(Untranslated.PROGRAM_NAME)));
 	final var iconlogo = LogoLoader.getIconLogo();
 	this.mainWindow.setSystemIcon(iconlogo);
-	aboutPane = new JPanel();
+	this.aboutPane = new JPanel();
 	textPane = new JPanel();
 	buttonPane = new JPanel();
 	logoPane = new JPanel();
@@ -67,7 +67,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	miniLabel.setLabelFor(null);
 	aboutOK.setDefaultCapable(true);
 	this.mainWindow.setDefaultButton(aboutOK);
-	aboutPane.setLayout(new BorderLayout());
+	this.aboutPane.setLayout(new BorderLayout());
 	logoPane.setLayout(new FlowLayout());
 	logoPane.add(miniLabel);
 	textPane.setLayout(new GridLayout(4, 1));
@@ -81,12 +81,10 @@ public class AboutDialog implements AboutHandler, MenuSection {
 		Strings.untranslated(Untranslated.GAME_EMAIL))));
 	buttonPane.setLayout(new FlowLayout());
 	buttonPane.add(aboutOK);
-	aboutPane.add(logoPane, BorderLayout.WEST);
-	aboutPane.add(textPane, BorderLayout.CENTER);
-	aboutPane.add(buttonPane, BorderLayout.SOUTH);
+	this.aboutPane.add(logoPane, BorderLayout.WEST);
+	this.aboutPane.add(textPane, BorderLayout.CENTER);
+	this.aboutPane.add(buttonPane, BorderLayout.SOUTH);
 	aboutOK.addActionListener(handler);
-	this.mainWindow.setAndSaveContent(aboutPane);
-	this.mainWindow.pack();
     }
 
     private class EventHandler implements ActionListener {

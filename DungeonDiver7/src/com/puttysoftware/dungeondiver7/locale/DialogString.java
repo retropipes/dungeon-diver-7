@@ -41,5 +41,6 @@ public enum DialogString {
     SAVING_DUNGEON,
     SUSPENDING_GAME,
     DUNGEON_SAVED,
-    GAME_SUSPENDED
+    GAME_SUSPENDED,
+    GENERATING
 }

@@ -27,7 +27,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JToggleButton;
-import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.MainWindow;
@@ -297,9 +296,8 @@ public class DungeonEditor implements MenuSection {
 	} else if (w == DungeonConstants.LAYER_UPPER_OBJECTS) {
 	    this.redrawEditorGroundObjects();
 	}
-	this.mainWindow.pack();
-	this.mainWindow.setTitle(DianeStrings.subst(Strings.editor(EditorString.EDITOR_TITLE), Integer.toString(z + 1),
-		Integer.toString(u + 1), Strings.timeTravel(e)));
+	this.mainWindow.checkAndSetTitle(DianeStrings.subst(Strings.editor(EditorString.EDITOR_TITLE),
+		Integer.toString(z + 1), Integer.toString(u + 1), Strings.timeTravel(e)));
 	this.outputPane.repaint();
 	this.showOutput();
     }
@@ -793,8 +791,7 @@ public class DungeonEditor implements MenuSection {
 	final var app = DungeonDiver7.getStuffBag();
 	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
 	app.getMenuManager().checkFlags();
-	this.mainWindow.setVisible(true);
-	this.mainWindow.pack();
+	this.mainWindow.setAndSave(this.borderPane, Strings.editor(EditorString.EDITOR));
     }
 
     public void attachMenus() {
@@ -805,7 +802,7 @@ public class DungeonEditor implements MenuSection {
 
     public void hideOutput() {
 	if (this.mainWindow != null) {
-	    this.mainWindow.setVisible(false);
+	    this.mainWindow.restoreSaved();
 	}
     }
 
@@ -832,20 +829,16 @@ public class DungeonEditor implements MenuSection {
     private void setUpGUI() {
 	this.messageLabel = new JLabel(Strings.SPACE);
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainWindow.setTitle(Strings.editor(EditorString.EDITOR));
 	final var iconlogo = LogoLoader.getIconLogo();
 	this.mainWindow.setSystemIcon(iconlogo);
 	this.outputPane = new EditorDraw();
 	this.secondaryPane = new JPanel();
 	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
-	this.mainWindow.setAndSaveContent(this.borderPane);
-	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.messageLabel.setLabelFor(this.outputPane);
 	this.outerOutputPane = RCLGenerator.generateRowColumnLabels();
 	this.outerOutputPane.add(this.outputPane, BorderLayout.CENTER);
 	this.outputPane.setLayout(new GridLayout(1, 1));
-	this.mainWindow.setResizable(false);
 	this.secondaryPane.setLayout(new GridLayout(EditorViewingWindowManager.getViewingWindowSizeX(),
 		EditorViewingWindowManager.getViewingWindowSizeY()));
 	this.horzScroll = new JScrollBar(Adjustable.HORIZONTAL,
@@ -1039,7 +1032,6 @@ public class DungeonEditor implements MenuSection {
 		this.borderPane.add(this.newPicker12.getPicker(), BorderLayout.EAST);
 	    }
 	    this.borderPane.add(this.switcherPane, BorderLayout.SOUTH);
-	    this.mainWindow.pack();
 	}
     }
 

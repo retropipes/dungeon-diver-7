@@ -6,11 +6,8 @@
  */
 package com.puttysoftware.diane.gui;
 
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.LayoutManager;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowListener;
 
@@ -23,9 +20,12 @@ import javax.swing.JRootPane;
 import javax.swing.TransferHandler;
 import javax.swing.WindowConstants;
 
+import com.puttysoftware.diane.strings.DianeStrings;
+
 public final class MainWindow {
     private static MainWindow window;
     private final JFrame frame;
+    private String savedTitle;
     private JComponent content;
     private JComponent savedContent;
 
@@ -37,6 +37,7 @@ public final class MainWindow {
 	this.frame.setResizable(false);
 	this.content = new JPanel();
 	this.savedContent = this.content;
+	this.savedTitle = DianeStrings.EMPTY;
 	this.frame.setContentPane(this.content);
 	this.frame.setVisible(true);
     }
@@ -56,50 +57,32 @@ public final class MainWindow {
 	return MainWindow.window;
     }
 
-    @Deprecated
-    /** Call setContent(JComponent) instead of this method. **/
-    public void setContentPane(final JComponent customContent) {
-	this.setContent(customContent);
-    }
-
     public boolean checkContent(final JComponent customContent) {
 	return this.content.equals(customContent);
     }
 
-    public void setContent(final JComponent customContent) {
-	this.content = customContent;
-	this.frame.setContentPane(this.content);
-    }
-
-    public void setAndSaveContent(final JComponent customContent) {
+    public void setAndSave(final JComponent customContent, final String title) {
 	this.savedContent = this.content;
+	this.savedTitle = this.frame.getTitle();
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
+	this.frame.setTitle(title);
     }
 
-    public void restoreSavedContent() {
+    public void restoreSaved() {
 	this.content = this.savedContent;
 	this.frame.setContentPane(this.content);
+	this.frame.setTitle(this.savedTitle);
     }
 
-    @Deprecated
-    /** Call setMenus(JMenuBar) instead of this method. **/
-    public void setJMenuBar(final JMenuBar menus) {
-	this.setMenus(menus);
+    public void checkAndSetTitle(final String title) {
+	if (this.savedTitle != DianeStrings.EMPTY) {
+	    this.frame.setTitle(title);
+	}
     }
 
     public void setMenus(final JMenuBar menus) {
 	this.frame.setJMenuBar(menus);
-    }
-
-    public void setTitle(final String title) {
-	this.frame.setTitle(title);
-    }
-
-    @Deprecated
-    /** Call setSystemIcon(Image) instead of this method. **/
-    public void setIconImage(final Image icon) {
-	this.setSystemIcon(icon);
     }
 
     public void setSystemIcon(final Image icon) {
@@ -108,27 +91,6 @@ public final class MainWindow {
 
     public void setDirty(final boolean newDirty) {
 	this.frame.getRootPane().putClientProperty("Window.documentModified", Boolean.valueOf(newDirty));
-    }
-
-    @SuppressWarnings("static-method")
-    @Deprecated(forRemoval = true)
-    /** Don't call this method. **/
-    public Container getContentPane() {
-	throw new UnsupportedOperationException();
-    }
-
-    @SuppressWarnings("static-method")
-    @Deprecated
-    /** Don't call this method. **/
-    public void dispose() {
-	// Do nothing
-    }
-
-    @SuppressWarnings("static-method")
-    @Deprecated
-    /** Don't call this method. **/
-    public void pack() {
-	// Do nothing
     }
 
     public int getWidth() {
@@ -177,54 +139,5 @@ public final class MainWindow {
 
     public void setEnabled(final boolean value) {
 	this.frame.setEnabled(value);
-    }
-
-    @SuppressWarnings("static-method")
-    @Deprecated
-    /** Don't call this method. **/
-    public void paintComponents(final Graphics2D g) {
-	// Do nothing
-    }
-
-    @SuppressWarnings("static-method")
-    @Deprecated
-    /** Don't call this method. **/
-    public boolean isVisible() {
-	return true; // Always visible
-    }
-
-    @SuppressWarnings("static-method")
-    @Deprecated(forRemoval = true)
-    /** Don't call this method. **/
-    public JRootPane getRootPane() {
-	throw new UnsupportedOperationException();
-    }
-
-    @SuppressWarnings("static-method")
-    @Deprecated
-    /** Don't call this method. **/
-    public void setDefaultCloseOperation(final int operation) {
-	// Do nothing
-    }
-
-    @SuppressWarnings("static-method")
-    @Deprecated
-    /** Don't call this method. **/
-    public void setLayout(final LayoutManager layout) {
-	// Do nothing
-    }
-
-    @SuppressWarnings("static-method")
-    @Deprecated
-    /** Don't call this method. **/
-    public void setResizable(final boolean value) {
-	// Do nothing
-    }
-
-    @SuppressWarnings("static-method")
-    @Deprecated
-    /** Don't call this method. **/
-    public void setVisible(final boolean value) {
-	// Do nothing
     }
 }

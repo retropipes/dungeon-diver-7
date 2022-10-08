@@ -20,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
@@ -41,6 +40,7 @@ class LevelPreferencesManager {
     private JTextArea hint;
     private JComboBox<String> difficulty;
     private JCheckBox moveShoot;
+    private JPanel mainPrefPane;
 
     // Constructors
     public LevelPreferencesManager() {
@@ -51,11 +51,11 @@ class LevelPreferencesManager {
     void showPrefs() {
 	this.loadPrefs();
 	DungeonDiver7.getStuffBag().getEditor().disableOutput();
-	this.mainWindow.setVisible(true);
+	this.mainWindow.setAndSave(this.mainPrefPane, Strings.editor(EditorString.LEVEL_PREFERENCES));
     }
 
     void hidePrefs() {
-	this.mainWindow.setVisible(false);
+	this.mainWindow.restoreSaved();
 	DungeonDiver7.getStuffBag().getEditor().enableOutput();
 	DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	DungeonDiver7.getStuffBag().getEditor().redrawEditor();
@@ -98,14 +98,13 @@ class LevelPreferencesManager {
     }
 
     private void setUpGUI() {
-	JPanel mainPrefPane, contentPane, buttonPane;
+	JPanel contentPane, buttonPane;
 	JButton prefsOK, prefsCancel;
 	final var handler = new EventHandler();
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainWindow.setTitle(Strings.editor(EditorString.LEVEL_PREFERENCES));
 	final var iconlogo = LogoLoader.getIconLogo();
 	this.mainWindow.setSystemIcon(iconlogo);
-	mainPrefPane = new JPanel();
+	this.mainPrefPane = new JPanel();
 	contentPane = new JPanel();
 	buttonPane = new JPanel();
 	prefsOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
@@ -121,11 +120,8 @@ class LevelPreferencesManager {
 	this.hint = new JTextArea(8, 32);
 	this.difficulty = new JComboBox<>(Strings.allDifficulties());
 	this.moveShoot = new JCheckBox(Strings.editor(EditorString.ENABLE_MOVE_SHOOT), true);
-	this.mainWindow.setAndSaveContent(mainPrefPane);
-	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.mainWindow.addWindowListener(handler);
-	mainPrefPane.setLayout(new BorderLayout());
-	this.mainWindow.setResizable(false);
+	this.mainPrefPane.setLayout(new BorderLayout());
 	contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 	contentPane.add(this.horizontalWrap);
 	contentPane.add(this.verticalWrap);
@@ -142,11 +138,10 @@ class LevelPreferencesManager {
 	buttonPane.setLayout(new FlowLayout());
 	buttonPane.add(prefsOK);
 	buttonPane.add(prefsCancel);
-	mainPrefPane.add(contentPane, BorderLayout.CENTER);
-	mainPrefPane.add(buttonPane, BorderLayout.SOUTH);
+	this.mainPrefPane.add(contentPane, BorderLayout.CENTER);
+	this.mainPrefPane.add(buttonPane, BorderLayout.SOUTH);
 	prefsOK.addActionListener(handler);
 	prefsCancel.addActionListener(handler);
-	this.mainWindow.pack();
     }
 
     private class EventHandler implements ActionListener, WindowListener {

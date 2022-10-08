@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.TransferHandler;
-import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
@@ -66,7 +65,7 @@ public class Importer {
 				    || ext.equalsIgnoreCase("xm")) {
 				// Import External Music
 				ExternalMusicImporter.importMusic(f);
-				Importer.mainWindow.setVisible(false);
+				Importer.mainWindow.restoreSaved();
 			    } else {
 				// Unknown file type
 				CommonDialogs.showDialog(Strings.dialog(DialogString.IMPORT_FAILED_FILE_TYPE));
@@ -101,25 +100,20 @@ public class Importer {
 
 	@Override
 	public void windowClosing(final WindowEvent we) {
-	    Importer.mainWindow.setVisible(false);
+	    Importer.mainWindow.removeTransferHandler();
+	    Importer.mainWindow.restoreSaved();
 	}
     }
 
     private static void init() {
 	Importer.mainWindow = MainWindow.mainWindow();
-	Importer.mainWindow.setTitle(Strings.dialog(DialogString.IMPORT_TITLE));
 	Importer.guiPane = new JPanel();
-	Importer.mainWindow.setAndSaveContent(Importer.guiPane);
-	Importer.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	Importer.mainWindow.addWindowListener(new CloseHandler());
-	Importer.mainWindow.setLayout(new GridLayout(1, 1));
+	Importer.guiPane.setLayout(new GridLayout(1, 1));
 	Importer.logoLabel = new JLabel(Strings.dialog(DialogString.IMPORT_INSTRUCTIONS), null, SwingConstants.CENTER);
 	Importer.logoLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
 	Importer.logoLabel.setPreferredSize(new Dimension(500, 500));
 	Importer.guiPane.add(Importer.logoLabel);
-	Importer.mainWindow.setResizable(false);
-	Importer.mainWindow.setTransferHandler(Importer.handler);
-	Importer.mainWindow.pack();
 	Importer.inited = true;
     }
 
@@ -128,7 +122,8 @@ public class Importer {
 	if (!Importer.inited) {
 	    Importer.init();
 	}
-	Importer.mainWindow.setVisible(true);
+	Importer.mainWindow.setAndSave(Importer.guiPane, Strings.dialog(DialogString.IMPORT_TITLE));
+	Importer.mainWindow.setTransferHandler(Importer.handler);
     }
 
     public static boolean isImporterVisible() {

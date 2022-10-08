@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
@@ -82,13 +81,12 @@ public abstract class GenericEditor {
     public final void showOutput() {
 	final var app = DungeonDiver7.getStuffBag();
 	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
-	this.mainWindow.setVisible(true);
-	this.mainWindow.pack();
+	this.mainWindow.setAndSave(this.scrollPane, this.getEditorSource());
     }
 
     public final void hideOutput() {
 	if (this.mainWindow != null) {
-	    this.mainWindow.setVisible(false);
+	    this.mainWindow.restoreSaved();
 	}
     }
 
@@ -144,24 +142,19 @@ public abstract class GenericEditor {
     protected void setUpGUI() {
 	this.messageLabel = new JLabel(" ");
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainWindow.setTitle(this.getEditorSource());
 	final var iconlogo = LogoLoader.getIconLogo();
 	this.mainWindow.setSystemIcon(iconlogo);
 	this.outputPane = new JPanel();
 	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
-	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.setUpGUIHook(this.outputPane);
 	this.scrollPane = new JScrollPane(this.borderPane);
 	this.borderPane.add(this.outputPane, BorderLayout.CENTER);
 	this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
-	this.mainWindow.setResizable(false);
 	final var wl = this.guiHookWindow();
 	if (wl != null) {
 	    this.mainWindow.addWindowListener(wl);
 	}
-	this.mainWindow.setAndSaveContent(this.scrollPane);
-	this.mainWindow.pack();
 	if (this.mainWindow.getWidth() > ImageLoader.MAX_WINDOW_SIZE
 		|| this.mainWindow.getHeight() > ImageLoader.MAX_WINDOW_SIZE) {
 	    int pw, ph;

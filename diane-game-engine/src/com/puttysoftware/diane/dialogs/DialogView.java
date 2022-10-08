@@ -31,13 +31,12 @@ final class DialogView {
 
     // Methods
     void showDialog(final DialogModel model) {
-	this.theFrame.setAndSaveContent(this.thePane);
-	this.theFrame.setTitle(model.getTitle());
+	this.theFrame.setAndSave(this.thePane, model.getTitle());
 	this.theFrame.setSystemIcon(model.getSystemIcon());
     }
 
     void hideDialog() {
-	this.theFrame.restoreSavedContent();
+	this.theFrame.restoreSaved();
     }
 
     void setUpGUI(final DialogModel model, final WeakReference<DialogController> controllerRef) {

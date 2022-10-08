@@ -26,7 +26,7 @@ public abstract class ScreenView {
     // Methods
     final void showScreen(final ScreenModel model, final WeakReference<ScreenController> controllerRef) {
 	if (!model.isCustomUI()) {
-	    this.theFrame.setTitle(model.getTitle());
+	    this.theFrame.setAndSave(this.thePanel, model.getTitle());
 	    this.theFrame.setSystemIcon(model.getSystemIcon());
 	    this.theFrame.addWindowListener(controllerRef.get());
 	}
@@ -36,7 +36,7 @@ public abstract class ScreenView {
 	if (!model.isCustomUI()) {
 	    this.theFrame.removeWindowListener(controllerRef.get());
 	}
-	this.theFrame.restoreSavedContent();
+	this.theFrame.restoreSaved();
     }
 
     final void setUpView(final ScreenModel model) {
