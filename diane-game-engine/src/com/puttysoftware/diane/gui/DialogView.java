@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 final class DialogView {
     // Fields
     private final MainWindow theFrame;
-    private final JPanel thePane = MainContentFactory.content();
+    private JPanel thePane;
 
     // Constructors
     DialogView() {
@@ -46,6 +46,7 @@ final class DialogView {
 	final JLabel miniLabel = new JLabel("", model.getMainImage(), SwingConstants.LEFT);
 	miniLabel.setLabelFor(null);
 	theOK.setDefaultCapable(true);
+	this.thePane = MainContentFactory.content();
 	this.thePane.setLayout(new BorderLayout());
 	logoPane.setLayout(new FlowLayout());
 	logoPane.add(miniLabel);

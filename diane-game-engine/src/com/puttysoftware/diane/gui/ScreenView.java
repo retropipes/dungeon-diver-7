@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 public abstract class ScreenView {
     // Fields
     protected final MainWindow theFrame;
-    protected JPanel thePanel = MainContentFactory.content();
+    protected JPanel thePanel;
 
     // Constructors
     protected ScreenView() {
@@ -39,6 +39,7 @@ public abstract class ScreenView {
     }
 
     final void setUpView(final ScreenModel model) {
+	this.thePanel = MainContentFactory.content();
 	this.thePanel = this.populateMainPanel(model);
 	this.thePanel.setOpaque(true);
     }
