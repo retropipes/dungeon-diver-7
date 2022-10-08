@@ -4,7 +4,7 @@
  * Any questions should be directed to the author via email at:
  * support@puttysoftware.com
  */
-package com.puttysoftware.diane.dialogs;
+package com.puttysoftware.diane.gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -15,8 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
-import com.puttysoftware.diane.gui.MainWindow;
 
 final class DialogView {
     // Fields
@@ -33,6 +31,7 @@ final class DialogView {
     void showDialog(final DialogModel model) {
 	this.theFrame.setAndSave(this.thePane, model.getTitle());
 	this.theFrame.setSystemIcon(model.getSystemIcon());
+	this.theFrame.pack();
     }
 
     void hideDialog() {

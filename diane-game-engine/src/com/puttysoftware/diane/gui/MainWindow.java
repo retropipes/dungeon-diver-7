@@ -49,6 +49,10 @@ public final class MainWindow {
     JComponent content() {
 	return this.content;
     }
+    
+    void pack() {
+	this.frame.pack();
+    }
 
     public static MainWindow mainWindow() {
 	if (MainWindow.window == null) {

@@ -4,13 +4,11 @@
  * Any questions should be directed to the author via email at:
  * support@puttysoftware.com
  */
-package com.puttysoftware.diane.screens;
+package com.puttysoftware.diane.gui;
 
 import java.lang.ref.WeakReference;
 
 import javax.swing.JPanel;
-
-import com.puttysoftware.diane.gui.MainWindow;
 
 public abstract class ScreenView {
     // Fields
@@ -29,6 +27,7 @@ public abstract class ScreenView {
 	    this.theFrame.setAndSave(this.thePanel, model.getTitle());
 	    this.theFrame.setSystemIcon(model.getSystemIcon());
 	    this.theFrame.addWindowListener(controllerRef.get());
+	    this.theFrame.pack();
 	}
     }
 

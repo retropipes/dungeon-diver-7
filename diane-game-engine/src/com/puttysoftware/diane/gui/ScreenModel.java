@@ -4,7 +4,7 @@
  * Any questions should be directed to the author via email at:
  * support@puttysoftware.com
  */
-package com.puttysoftware.diane.screens;
+package com.puttysoftware.diane.gui;
 
 import java.awt.Image;
 
