@@ -34,7 +34,7 @@ class ReplayFileLoadTask extends Thread {
 	this.setName(Strings.untranslated(Untranslated.REPLAY_LOADER_NAME));
 	this.mainWindow = MainWindow.mainWindow();
 	this.mainWindow.setTitle(Strings.dialog(DialogString.LOADING));
-	this.mainWindow.setIconImage(LogoLoader.getIconLogo());
+	this.mainWindow.setSystemIcon(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	var loadContent = new JPanel();

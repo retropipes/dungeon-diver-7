@@ -30,7 +30,7 @@ public class GenerateDungeonTask extends Thread {
 	this.setName("Level Generator");
 	this.mainWindow = MainWindow.mainWindow();
 	this.mainWindow.setTitle("Generating...");
-	this.mainWindow.setIconImage(LogoLoader.getIconLogo());
+	this.mainWindow.setSystemIcon(LogoLoader.getIconLogo());
 	final var loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	var loadContent = new JPanel();

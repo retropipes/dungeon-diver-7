@@ -834,12 +834,12 @@ public class DungeonEditor implements MenuSection {
 	this.mainWindow = MainWindow.mainWindow();
 	this.mainWindow.setTitle(Strings.editor(EditorString.EDITOR));
 	final var iconlogo = LogoLoader.getIconLogo();
-	this.mainWindow.setIconImage(iconlogo);
+	this.mainWindow.setSystemIcon(iconlogo);
 	this.outputPane = new EditorDraw();
 	this.secondaryPane = new JPanel();
 	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
-	this.mainWindow.setContentPane(this.borderPane);
+	this.mainWindow.setAndSaveContent(this.borderPane);
 	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.messageLabel.setLabelFor(this.outputPane);
 	this.outerOutputPane = RCLGenerator.generateRowColumnLabels();

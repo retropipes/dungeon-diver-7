@@ -44,7 +44,7 @@ public class DungeonLoadTask extends Thread {
 	this.setName(Strings.untranslated(Untranslated.FILE_LOADER_NEW_NAME));
 	this.mainWindow = MainWindow.mainWindow();
 	this.mainWindow.setTitle(Strings.dialog(DialogString.LOADING));
-	this.mainWindow.setIconImage(LogoLoader.getIconLogo());
+	this.mainWindow.setSystemIcon(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	var loadContent = new JPanel();

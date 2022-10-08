@@ -27,7 +27,7 @@ public class LevelLoadTask extends Thread {
 	this.setName("Level Loader");
 	this.mainWindow = MainWindow.mainWindow();
 	this.mainWindow.setTitle("Loading...");
-	this.mainWindow.setIconImage(LogoLoader.getIconLogo());
+	this.mainWindow.setSystemIcon(LogoLoader.getIconLogo());
 	final var loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	var loadContent = new JPanel();

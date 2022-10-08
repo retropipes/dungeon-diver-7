@@ -109,7 +109,7 @@ public class Importer {
 	Importer.mainWindow = MainWindow.mainWindow();
 	Importer.mainWindow.setTitle(Strings.dialog(DialogString.IMPORT_TITLE));
 	Importer.guiPane = new JPanel();
-	Importer.mainWindow.setContentPane(Importer.guiPane);
+	Importer.mainWindow.setAndSaveContent(Importer.guiPane);
 	Importer.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	Importer.mainWindow.addWindowListener(new CloseHandler());
 	Importer.mainWindow.setLayout(new GridLayout(1, 1));

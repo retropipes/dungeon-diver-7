@@ -61,7 +61,7 @@ public class StatisticsViewer {
 	    StatisticsViewer.mainWindow = MainWindow.mainWindow();
 	    StatisticsViewer.mainWindow.setTitle("Statistics");
 	    final var iconlogo = LogoLoader.getIconLogo();
-	    StatisticsViewer.mainWindow.setIconImage(iconlogo);
+	    StatisticsViewer.mainWindow.setSystemIcon(iconlogo);
 	    StatisticsViewer.statisticsPane = new JPanel();
 	    StatisticsViewer.statisticsPane.setLayout(new BorderLayout());
 	    StatisticsViewer.contentPane = new JPanel();
@@ -78,7 +78,7 @@ public class StatisticsViewer {
 	    StatisticsViewer.buttonPane.add(StatisticsViewer.btnOK);
 	    StatisticsViewer.statisticsPane.add(StatisticsViewer.contentPane, BorderLayout.CENTER);
 	    StatisticsViewer.statisticsPane.add(StatisticsViewer.buttonPane, BorderLayout.SOUTH);
-	    StatisticsViewer.mainWindow.setContentPane(StatisticsViewer.statisticsPane);
+	    StatisticsViewer.mainWindow.setAndSaveContent(StatisticsViewer.statisticsPane);
 	    StatisticsViewer.inited = true;
 	}
     }

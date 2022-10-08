@@ -43,7 +43,7 @@ class HelpManager {
 	    this.mainWindow.setTitle(DianeStrings.subst(Strings.dialog(DialogString.HELP),
 		    Strings.untranslated(Untranslated.PROGRAM_NAME)));
 	    final var iconlogo = LogoLoader.getIconLogo();
-	    this.mainWindow.setIconImage(iconlogo);
+	    this.mainWindow.setSystemIcon(iconlogo);
 	    this.mainWindow.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 	    this.mainWindow.setLayout(new BorderLayout());
 	    this.mainWindow.pack();

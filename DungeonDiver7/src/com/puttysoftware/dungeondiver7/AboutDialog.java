@@ -57,7 +57,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	this.mainWindow.setTitle(DianeStrings.subst(Strings.dialog(DialogString.ABOUT),
 		Strings.untranslated(Untranslated.PROGRAM_NAME)));
 	final var iconlogo = LogoLoader.getIconLogo();
-	this.mainWindow.setIconImage(iconlogo);
+	this.mainWindow.setSystemIcon(iconlogo);
 	aboutPane = new JPanel();
 	textPane = new JPanel();
 	buttonPane = new JPanel();
@@ -85,7 +85,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	aboutPane.add(textPane, BorderLayout.CENTER);
 	aboutPane.add(buttonPane, BorderLayout.SOUTH);
 	aboutOK.addActionListener(handler);
-	this.mainWindow.setContentPane(aboutPane);
+	this.mainWindow.setAndSaveContent(aboutPane);
 	this.mainWindow.pack();
     }
 

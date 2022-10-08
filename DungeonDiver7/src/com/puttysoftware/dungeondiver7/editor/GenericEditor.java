@@ -146,7 +146,7 @@ public abstract class GenericEditor {
 	this.mainWindow = MainWindow.mainWindow();
 	this.mainWindow.setTitle(this.getEditorSource());
 	final var iconlogo = LogoLoader.getIconLogo();
-	this.mainWindow.setIconImage(iconlogo);
+	this.mainWindow.setSystemIcon(iconlogo);
 	this.outputPane = new JPanel();
 	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());

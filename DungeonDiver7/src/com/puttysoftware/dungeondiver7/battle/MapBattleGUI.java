@@ -160,7 +160,7 @@ class MapBattleGUI {
 	this.messageLabel.setOpaque(true);
 	this.mainWindow = MainWindow.mainWindow();
 	this.mainWindow.setTitle("Battle");
-	this.mainWindow.setContentPane(borderPane);
+	this.mainWindow.setAndSaveContent(borderPane);
 	this.spell = new JButton("Cast Spell");
 	this.steal = new JButton("Steal");
 	this.drain = new JButton("Drain");
@@ -196,7 +196,7 @@ class MapBattleGUI {
 	this.end.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_E, modKey),
 		"End Turn");
 	this.end.getActionMap().put("End Turn", handler);
-	this.mainWindow.setIconImage(LogoLoader.getIconLogo());
+	this.mainWindow.setSystemIcon(LogoLoader.getIconLogo());
 	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.mainWindow.setResizable(false);
 	this.drawGrid = new DrawGrid(MapBattleViewingWindowManager.getViewingWindowSize());

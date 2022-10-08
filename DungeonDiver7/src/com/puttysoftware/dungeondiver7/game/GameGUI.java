@@ -15,7 +15,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
@@ -312,22 +311,21 @@ class GameGUI {
 	this.mainWindow = MainWindow.mainWindow();
 	this.mainWindow.setTitle("Chrystalz");
 	final var iconlogo = StuffBag.getIconLogo();
-	this.mainWindow.setIconImage(iconlogo);
+	this.mainWindow.setSystemIcon(iconlogo);
 	this.drawGrid = new DrawGrid(Prefs.getViewingWindowSize());
 	this.outputPane = new GameDraw(this.drawGrid);
-	this.mainWindow.setContentPane(this.borderPane);
+	this.mainWindow.setAndSaveContent(this.borderPane);
 	this.mainWindow.addKeyListener(handler);
 	this.mainWindow.addWindowListener(handler);
 	// Pasted code
-	final var fHandler = new FocusHandler();
 	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
 	this.mainWindow = MainWindow.mainWindow();
 	this.mainWindow.setTitle(Strings.untranslated(Untranslated.PROGRAM_NAME));
-	this.mainWindow.setIconImage(iconlogo);
+	this.mainWindow.setSystemIcon(iconlogo);
 	this.outerOutputPane = RCLGenerator.generateRowColumnLabels();
 	this.outputPane = new GameDraw();
-	this.mainWindow.setContentPane(this.borderPane);
+	this.mainWindow.setAndSaveContent(this.borderPane);
 	this.outputPane.setLayout(new GridLayout(GameViewingWindowManager.getFixedViewingWindowSizeX(),
 		GameViewingWindowManager.getFixedViewingWindowSizeY()));
 	this.mainWindow.addKeyListener(handler);
@@ -1302,22 +1300,6 @@ class GameGUI {
 	    } else {
 		gm.difficultyDialogCancelButtonClicked();
 	    }
-	}
-    }
-
-    private class FocusHandler implements WindowFocusListener {
-	public FocusHandler() {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowGainedFocus(final WindowEvent e) {
-	    GameGUI.this.attachMenus();
-	}
-
-	@Override
-	public void windowLostFocus(final WindowEvent e) {
-	    // Do nothing
 	}
     }
 }

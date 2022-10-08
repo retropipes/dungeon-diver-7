@@ -155,7 +155,7 @@ class PrefsGUI {
 	this.editorLayoutList = new JComboBox<>(Strings.allEditorLayouts());
 	this.editorShowAllObjects = new JCheckBox(Strings.prefs(PrefString.SHOW_ALL_OBJECTS), true);
 	this.difficultyPicker = new JComboBox<>(PrefsGUI.DIFFICULTY_NAMES);
-	this.mainWindow.setContentPane(mainPrefPane);
+	this.mainWindow.setAndSaveContent(mainPrefPane);
 	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.mainWindow.addWindowListener(handler);
 	mainPrefPane.setLayout(new BorderLayout());
@@ -183,7 +183,7 @@ class PrefsGUI {
 	prefsOK.addActionListener(handler);
 	prefsCancel.addActionListener(handler);
 	final var iconlogo = LogoLoader.getIconLogo();
-	this.mainWindow.setIconImage(iconlogo);
+	this.mainWindow.setSystemIcon(iconlogo);
 	this.mainWindow.pack();
     }
 

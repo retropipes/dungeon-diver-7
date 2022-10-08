@@ -36,7 +36,7 @@ public class GameLoadTask extends Thread {
 	this.setName("Game Loader");
 	this.mainWindow = MainWindow.mainWindow();
 	this.mainWindow.setTitle("Loading...");
-	this.mainWindow.setIconImage(LogoLoader.getIconLogo());
+	this.mainWindow.setSystemIcon(LogoLoader.getIconLogo());
 	final var loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	final var loadContent = new JPanel();

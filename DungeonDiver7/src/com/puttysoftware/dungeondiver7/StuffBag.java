@@ -247,7 +247,7 @@ public final class StuffBag {
 	JProgressBar loadBar;
 	mainWindow = MainWindow.mainWindow();
 	mainWindow.setTitle(Strings.dialog(DialogString.UPDATING_LEVEL_INFO));
-	mainWindow.setIconImage(LogoLoader.getIconLogo());
+	mainWindow.setSystemIcon(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	loadBar.setPreferredSize(new Dimension(600, 20));

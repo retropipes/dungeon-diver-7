@@ -104,7 +104,7 @@ class LevelPreferencesManager {
 	this.mainWindow = MainWindow.mainWindow();
 	this.mainWindow.setTitle(Strings.editor(EditorString.LEVEL_PREFERENCES));
 	final var iconlogo = LogoLoader.getIconLogo();
-	this.mainWindow.setIconImage(iconlogo);
+	this.mainWindow.setSystemIcon(iconlogo);
 	mainPrefPane = new JPanel();
 	contentPane = new JPanel();
 	buttonPane = new JPanel();
@@ -121,7 +121,7 @@ class LevelPreferencesManager {
 	this.hint = new JTextArea(8, 32);
 	this.difficulty = new JComboBox<>(Strings.allDifficulties());
 	this.moveShoot = new JCheckBox(Strings.editor(EditorString.ENABLE_MOVE_SHOOT), true);
-	this.mainWindow.setContentPane(mainPrefPane);
+	this.mainWindow.setAndSaveContent(mainPrefPane);
 	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.mainWindow.addWindowListener(handler);
 	mainPrefPane.setLayout(new BorderLayout());
