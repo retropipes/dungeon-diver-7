@@ -5,7 +5,6 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.battle;
 
-import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 
 public abstract class AbstractBattle {
@@ -15,8 +14,6 @@ public abstract class AbstractBattle {
     }
 
     // Generic Methods
-    public abstract MainWindow getOutputFrame();
-
     public abstract void resetGUI();
 
     public abstract void doBattle();

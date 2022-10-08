@@ -12,7 +12,6 @@ import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.strings.DianeStrings;
 import com.puttysoftware.diane.utilties.DirectionResolver;
 import com.puttysoftware.dungeondiver7.Accelerators;
@@ -1173,7 +1172,6 @@ public final class GameLogic implements MenuSection {
     }
 
     public boolean newGame() {
-	final var owner = DungeonDiver7.getStuffBag().getOutputFrame();
 	final var guiResult = this.gui.newGame();
 	if (!guiResult) {
 	    // User cancelled
@@ -1469,10 +1467,6 @@ public final class GameLogic implements MenuSection {
 	} catch (final IOException ioe) {
 	    // Ignore
 	}
-    }
-
-    public MainWindow getOutputFrame() {
-	return this.gui.getOutputFrame();
     }
 
     public static void morph(final AbstractDungeonObject morphInto) {

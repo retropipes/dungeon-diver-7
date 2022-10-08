@@ -818,13 +818,6 @@ public class DungeonEditor implements MenuSection {
 	this.checkMenus();
     }
 
-    public MainWindow getOutputFrame() {
-	if (this.mainWindow != null && this.mainWindow.isVisible()) {
-	    return this.mainWindow;
-	}
-	return null;
-    }
-
     public void exitEditor() {
 	final var app = DungeonDiver7.getStuffBag();
 	// Hide the editor

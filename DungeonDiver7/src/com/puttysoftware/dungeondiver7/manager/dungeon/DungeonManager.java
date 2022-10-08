@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
@@ -125,7 +126,7 @@ public final class DungeonManager {
     public void setDirty(final boolean newDirty) {
 	final var app = DungeonDiver7.getStuffBag();
 	this.isDirty = newDirty;
-	final var frame = app.getOutputFrame();
+	final var frame = MainWindow.mainWindow();
 	if (frame != null) {
 	    frame.setDirty(newDirty);
 	}

@@ -181,10 +181,6 @@ class GameGUI {
 	this.deferredRedraw = true;
     }
 
-    public MainWindow getOutputFrame() {
-	return this.mainWindow;
-    }
-
     public void showOutput() {
 	if (MusicLoader.isMusicPlaying()) {
 	    MusicLoader.stopMusic();

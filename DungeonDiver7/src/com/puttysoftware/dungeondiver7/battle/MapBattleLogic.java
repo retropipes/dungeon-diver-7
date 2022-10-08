@@ -10,7 +10,6 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.ai.AbstractMapAIRoutine;
@@ -70,11 +69,6 @@ public class MapBattleLogic extends AbstractBattle {
     }
 
     // Methods
-    @Override
-    public MainWindow getOutputFrame() {
-	return this.battleGUI.getOutputFrame();
-    }
-
     @Override
     public void doBattle() {
 	this.battleType = AbstractBattleType.createBattle();

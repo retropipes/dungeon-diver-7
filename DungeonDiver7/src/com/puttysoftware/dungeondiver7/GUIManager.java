@@ -62,13 +62,6 @@ public class GUIManager implements MenuSection, QuitHandler {
     }
 
     // Methods
-    MainWindow getGUIFrame() {
-	if (this.mainWindow.isVisible()) {
-	    return this.mainWindow;
-	}
-	return null;
-    }
-
     public void showGUI() {
 	final var app = DungeonDiver7.getStuffBag();
 	app.setInGUI();

@@ -22,7 +22,6 @@ import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
-import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.shop.Shop;
 import com.puttysoftware.dungeondiver7.shop.ShopType;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjects;
@@ -225,29 +224,6 @@ public final class StuffBag {
 	}
 	return Strings.VERSION + StuffBag.VERSION_MAJOR + Strings.VERSION_DELIM + StuffBag.VERSION_MINOR
 		+ Strings.VERSION_DELIM + StuffBag.VERSION_BUGFIX;
-    }
-
-    public MainWindow getOutputFrame() {
-	try {
-	    if (this.getMode() == StuffBag.STATUS_PREFS) {
-		return Prefs.getPrefFrame();
-	    }
-	    if (this.getMode() == StuffBag.STATUS_GUI) {
-		return this.getGUIManager().getGUIFrame();
-	    }
-	    if (this.getMode() == StuffBag.STATUS_GAME) {
-		return this.getGameLogic().getOutputFrame();
-	    }
-	    if (this.getMode() == StuffBag.STATUS_EDITOR) {
-		return this.getEditor().getOutputFrame();
-	    }
-	    if (this.getMode() == StuffBag.STATUS_BATTLE) {
-		return this.getBattle().getOutputFrame();
-	    }
-	    return null;
-	} catch (final NullPointerException npe) {
-	    return null;
-	}
     }
 
     public static BufferedImageIcon getMicroLogo() {

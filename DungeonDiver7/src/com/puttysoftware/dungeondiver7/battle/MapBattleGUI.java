@@ -61,10 +61,6 @@ class MapBattleGUI {
     }
 
     // Methods
-    MainWindow getOutputFrame() {
-	return this.mainWindow;
-    }
-
     MapBattleViewingWindowManager getViewManager() {
 	return this.vwMgr;
     }
