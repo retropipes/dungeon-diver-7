@@ -62,6 +62,10 @@ public final class MainWindow {
 	this.setContent(customContent);
     }
 
+    public boolean checkContent(final JComponent customContent) {
+	return this.content.equals(customContent);
+    }
+
     public void setContent(final JComponent customContent) {
 	this.content = customContent;
 	this.frame.setContentPane(this.content);

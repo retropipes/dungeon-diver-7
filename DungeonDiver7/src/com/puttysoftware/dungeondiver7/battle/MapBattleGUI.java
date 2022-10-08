@@ -91,7 +91,7 @@ class MapBattleGUI {
 
     void redrawBattle(final MapBattleDefinitions bd) {
 	// Draw the battle, if it is visible
-	if (this.mainWindow.isVisible()) {
+	if (this.mainWindow.checkContent(this.battlePane)) {
 	    int x, y;
 	    int xFix, yFix;
 	    final var xView = this.vwMgr.getViewingWindowLocationX();
@@ -124,7 +124,7 @@ class MapBattleGUI {
     void redrawOneBattleSquare(final MapBattleDefinitions bd, final int x, final int y,
 	    final AbstractDungeonObject obj3) {
 	// Draw the battle, if it is visible
-	if (this.mainWindow.isVisible()) {
+	if (this.mainWindow.checkContent(this.battlePane)) {
 	    try {
 		int xFix, yFix;
 		final var xView = this.vwMgr.getViewingWindowLocationX();

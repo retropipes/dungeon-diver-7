@@ -92,13 +92,6 @@ public abstract class GenericEditor {
 	}
     }
 
-    public final MainWindow getOutputFrame() {
-	if (this.mainWindow != null && this.mainWindow.isVisible()) {
-	    return this.mainWindow;
-	}
-	return null;
-    }
-
     public final boolean isReadOnly() {
 	return this.readOnly;
     }

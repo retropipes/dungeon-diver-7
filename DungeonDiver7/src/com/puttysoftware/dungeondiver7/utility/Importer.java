@@ -135,6 +135,6 @@ public class Importer {
 	if (!Importer.inited) {
 	    Importer.init();
 	}
-	return Importer.mainWindow.isVisible();
+	return Importer.mainWindow.checkContent(Importer.guiPane);
     }
 }

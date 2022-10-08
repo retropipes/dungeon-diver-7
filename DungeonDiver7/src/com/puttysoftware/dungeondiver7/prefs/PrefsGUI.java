@@ -59,13 +59,6 @@ class PrefsGUI {
 	this.loadPrefs();
     }
 
-    public MainWindow getPrefFrame() {
-	if (this.mainWindow != null && this.mainWindow.isVisible()) {
-	    return this.mainWindow;
-	}
-	return null;
-    }
-
     public void showPrefs() {
 	final var app = DungeonDiver7.getStuffBag();
 	app.setInPrefs();
