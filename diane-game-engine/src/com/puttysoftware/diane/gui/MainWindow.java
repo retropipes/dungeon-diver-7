@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
-import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.TransferHandler;
 import javax.swing.WindowConstants;
@@ -35,8 +34,8 @@ public final class MainWindow {
 	this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
 	this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.frame.setResizable(false);
-	this.content = new JPanel();
-	this.savedContent = this.content;
+	this.content = MainContentFactory.content();
+	this.savedContent = MainContentFactory.content();
 	this.savedTitle = DianeStrings.EMPTY;
 	this.frame.setContentPane(this.content);
 	this.frame.setVisible(true);
@@ -49,7 +48,7 @@ public final class MainWindow {
     JComponent content() {
 	return this.content;
     }
-    
+
     void pack() {
 	this.frame.pack();
     }

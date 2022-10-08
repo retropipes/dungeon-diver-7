@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 public abstract class ScreenView {
     // Fields
     protected final MainWindow theFrame;
-    protected JPanel thePanel = new JPanel();
+    protected JPanel thePanel = MainContentFactory.content();
 
     // Constructors
     protected ScreenView() {

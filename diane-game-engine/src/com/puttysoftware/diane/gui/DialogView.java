@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 final class DialogView {
     // Fields
     private final MainWindow theFrame;
-    private final JPanel thePane = new JPanel();
+    private final JPanel thePane = MainContentFactory.content();
 
     // Constructors
     DialogView() {
