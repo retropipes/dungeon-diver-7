@@ -792,6 +792,7 @@ public class DungeonEditor implements MenuSection {
 	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
 	app.getMenuManager().checkFlags();
 	this.mainWindow.setAndSave(this.borderPane, Strings.editor(EditorString.EDITOR));
+	this.mainWindow.addWindowListener(this.mhandler);
     }
 
     public void attachMenus() {
@@ -802,6 +803,7 @@ public class DungeonEditor implements MenuSection {
 
     public void hideOutput() {
 	if (this.mainWindow != null) {
+	    this.mainWindow.removeWindowListener(this.mhandler);
 	    this.mainWindow.restoreSaved();
 	}
     }
@@ -854,7 +856,6 @@ public class DungeonEditor implements MenuSection {
 	this.outputPane.add(this.secondaryPane);
 	this.secondaryPane.addMouseListener(this.mhandler);
 	this.secondaryPane.addMouseMotionListener(this.mhandler);
-	this.mainWindow.addWindowListener(this.mhandler);
 	this.switcherPane = new JPanel();
 	final var switcherHandler = new SwitcherHandler();
 	final var switcherGroup = new ButtonGroup();

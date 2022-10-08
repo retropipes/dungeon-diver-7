@@ -32,6 +32,7 @@ import com.puttysoftware.dungeondiver7.locale.Strings;
 class LevelPreferencesManager {
     // Fields
     private MainWindow mainWindow;
+    private EventHandler handler;
     private JCheckBox horizontalWrap;
     private JCheckBox verticalWrap;
     private JCheckBox thirdWrap;
@@ -52,9 +53,11 @@ class LevelPreferencesManager {
 	this.loadPrefs();
 	DungeonDiver7.getStuffBag().getEditor().disableOutput();
 	this.mainWindow.setAndSave(this.mainPrefPane, Strings.editor(EditorString.LEVEL_PREFERENCES));
+	this.mainWindow.addWindowListener(this.handler);
     }
 
     void hidePrefs() {
+	this.mainWindow.removeWindowListener(this.handler);
 	this.mainWindow.restoreSaved();
 	DungeonDiver7.getStuffBag().getEditor().enableOutput();
 	DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
@@ -100,7 +103,7 @@ class LevelPreferencesManager {
     private void setUpGUI() {
 	JPanel contentPane, buttonPane;
 	JButton prefsOK, prefsCancel;
-	final var handler = new EventHandler();
+	this.handler = new EventHandler();
 	this.mainWindow = MainWindow.mainWindow();
 	final var iconlogo = LogoLoader.getIconLogo();
 	this.mainWindow.setSystemIcon(iconlogo);
@@ -120,7 +123,6 @@ class LevelPreferencesManager {
 	this.hint = new JTextArea(8, 32);
 	this.difficulty = new JComboBox<>(Strings.allDifficulties());
 	this.moveShoot = new JCheckBox(Strings.editor(EditorString.ENABLE_MOVE_SHOOT), true);
-	this.mainWindow.addWindowListener(handler);
 	this.mainPrefPane.setLayout(new BorderLayout());
 	contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 	contentPane.add(this.horizontalWrap);
@@ -140,8 +142,8 @@ class LevelPreferencesManager {
 	buttonPane.add(prefsCancel);
 	this.mainPrefPane.add(contentPane, BorderLayout.CENTER);
 	this.mainPrefPane.add(buttonPane, BorderLayout.SOUTH);
-	prefsOK.addActionListener(handler);
-	prefsCancel.addActionListener(handler);
+	prefsOK.addActionListener(this.handler);
+	prefsCancel.addActionListener(this.handler);
     }
 
     private class EventHandler implements ActionListener, WindowListener {

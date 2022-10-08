@@ -82,10 +82,18 @@ public abstract class GenericEditor {
 	final var app = DungeonDiver7.getStuffBag();
 	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
 	this.mainWindow.setAndSave(this.scrollPane, this.getEditorSource());
+	final var wl = this.guiHookWindow();
+	if (wl != null) {
+	    this.mainWindow.addWindowListener(wl);
+	}
     }
 
     public final void hideOutput() {
 	if (this.mainWindow != null) {
+	    final var wl = this.guiHookWindow();
+	    if (wl != null) {
+		this.mainWindow.removeWindowListener(wl);
+	    }
 	    this.mainWindow.restoreSaved();
 	}
     }
@@ -151,10 +159,6 @@ public abstract class GenericEditor {
 	this.scrollPane = new JScrollPane(this.borderPane);
 	this.borderPane.add(this.outputPane, BorderLayout.CENTER);
 	this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
-	final var wl = this.guiHookWindow();
-	if (wl != null) {
-	    this.mainWindow.addWindowListener(wl);
-	}
 	if (this.mainWindow.getWidth() > ImageLoader.MAX_WINDOW_SIZE
 		|| this.mainWindow.getHeight() > ImageLoader.MAX_WINDOW_SIZE) {
 	    int pw, ph;

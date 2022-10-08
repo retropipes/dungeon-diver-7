@@ -40,6 +40,7 @@ import com.puttysoftware.integration.Integration;
 class MapBattleGUI {
     // Fields
     private MainWindow mainWindow;
+    private EventHandler handler;
     private JPanel borderPane;
     private MapBattleDraw battlePane;
     private JLabel messageLabel;
@@ -81,10 +82,12 @@ class MapBattleGUI {
     void showBattle() {
 	Integration.integrate().setDefaultMenuBar(DungeonDiver7.getStuffBag().getMenuManager().getMainMenuBar());
 	this.mainWindow.setAndSave(this.borderPane, "Battle");
+	this.mainWindow.addKeyListener(this.handler);
     }
 
     void hideBattle() {
 	if (this.mainWindow != null) {
+	    this.mainWindow.removeKeyListener(this.handler);
 	    this.mainWindow.restoreSaved();
 	}
     }
@@ -150,7 +153,7 @@ class MapBattleGUI {
     }
 
     private void setUpGUI() {
-	final var handler = new EventHandler();
+	this.handler = new EventHandler();
 	this.borderPane = new JPanel();
 	final var buttonPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
@@ -170,10 +173,10 @@ class MapBattleGUI {
 	this.steal.setFocusable(false);
 	this.drain.setFocusable(false);
 	this.end.setFocusable(false);
-	this.spell.addActionListener(handler);
-	this.steal.addActionListener(handler);
-	this.drain.addActionListener(handler);
-	this.end.addActionListener(handler);
+	this.spell.addActionListener(this.handler);
+	this.steal.addActionListener(this.handler);
+	this.drain.addActionListener(this.handler);
+	this.end.addActionListener(this.handler);
 	int modKey;
 	if (System.getProperty("os.name").equalsIgnoreCase("Mac OS X")) {
 	    modKey = InputEvent.META_DOWN_MASK;
@@ -182,16 +185,16 @@ class MapBattleGUI {
 	}
 	this.spell.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_C, modKey),
 		"Cast Spell");
-	this.spell.getActionMap().put("Cast Spell", handler);
+	this.spell.getActionMap().put("Cast Spell", this.handler);
 	this.steal.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_T, modKey),
 		"Steal");
-	this.steal.getActionMap().put("Steal", handler);
+	this.steal.getActionMap().put("Steal", this.handler);
 	this.drain.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, modKey),
 		"Drain");
-	this.drain.getActionMap().put("Drain", handler);
+	this.drain.getActionMap().put("Drain", this.handler);
 	this.end.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_E, modKey),
 		"End Turn");
-	this.end.getActionMap().put("End Turn", handler);
+	this.end.getActionMap().put("End Turn", this.handler);
 	this.mainWindow.setSystemIcon(LogoLoader.getIconLogo());
 	this.drawGrid = new DrawGrid(MapBattleViewingWindowManager.getViewingWindowSize());
 	for (var x = 0; x < MapBattleViewingWindowManager.getViewingWindowSize(); x++) {
@@ -206,7 +209,6 @@ class MapBattleGUI {
 	this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
 	this.borderPane.add(this.bs.getStatsPane(), BorderLayout.EAST);
 	this.borderPane.add(this.be.getEffectsPane(), BorderLayout.SOUTH);
-	this.mainWindow.addKeyListener(handler);
     }
 
     void turnEventHandlersOff() {

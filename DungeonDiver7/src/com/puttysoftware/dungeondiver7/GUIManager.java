@@ -39,6 +39,7 @@ import com.puttysoftware.integration.Integration;
 public class GUIManager implements MenuSection, QuitHandler {
     // Fields
     private final MainWindow mainWindow;
+    private final CloseHandler cHandler;
     private final JPanel guiPane;
     private final JLabel logoLabel;
     private JMenuItem fileNew, fileOpen, fileOpenDefault, fileClose, fileSave, fileSaveAs, fileSaveAsProtected,
@@ -46,7 +47,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 
     // Constructors
     public GUIManager() {
-	final var cHandler = new CloseHandler();
+	this.cHandler = new CloseHandler();
 	this.guiPane = new JPanel();
 	this.mainWindow = MainWindow.mainWindow();
 	this.guiPane.setLayout(new GridLayout(1, 1));
@@ -54,7 +55,6 @@ public class GUIManager implements MenuSection, QuitHandler {
 	this.logoLabel.setLabelFor(null);
 	this.logoLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
 	this.guiPane.add(this.logoLabel);
-	this.mainWindow.addWindowListener(cHandler);
     }
 
     // Methods
@@ -64,6 +64,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 	this.attachMenus();
 	MusicLoader.playMusic(Music.TITLE);
 	this.mainWindow.setAndSave(this.guiPane, Strings.untranslated(Untranslated.PROGRAM_NAME));
+	this.mainWindow.addWindowListener(this.cHandler);
 	app.getMenuManager().checkFlags();
     }
 
@@ -74,6 +75,7 @@ public class GUIManager implements MenuSection, QuitHandler {
     }
 
     public void hideGUI() {
+	this.mainWindow.removeWindowListener(this.cHandler);
 	this.mainWindow.restoreSaved();
 	MusicLoader.stopMusic();
     }

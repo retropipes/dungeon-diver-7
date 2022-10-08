@@ -74,6 +74,7 @@ import com.puttysoftware.integration.Integration;
 class GameGUI {
     // Fields
     private MainWindow mainWindow;
+    private EventHandler handler;
     private JPanel borderPane, scorePane, infoPane, outerOutputPane;
     private JLabel messageLabel;
     private JLabel scoreMoves;
@@ -200,6 +201,9 @@ class GameGUI {
     private void showOutputCommon() {
 	final var app = DungeonDiver7.getStuffBag();
 	this.mainWindow.setAndSave(this.borderPane, Strings.untranslated(Untranslated.PROGRAM_NAME));
+	this.mainWindow.addKeyListener(this.handler);
+	this.mainWindow.addWindowListener(this.handler);
+	this.outputPane.addMouseListener(this.handler);
 	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
 	if (this.deferredRedraw) {
 	    this.deferredRedraw = false;
@@ -212,6 +216,9 @@ class GameGUI {
 
     public void hideOutput() {
 	if (this.mainWindow != null) {
+	    this.mainWindow.removeKeyListener(this.handler);
+	    this.mainWindow.removeWindowListener(this.handler);
+	    this.outputPane.removeMouseListener(this.handler);
 	    this.mainWindow.restoreSaved();
 	}
     }
@@ -304,7 +311,7 @@ class GameGUI {
     }
 
     private void setUpGUI() {
-	final var handler = new EventHandler();
+	this.handler = new EventHandler();
 	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
 	this.messageLabel = new JLabel(" ");
@@ -314,8 +321,6 @@ class GameGUI {
 	this.mainWindow.setSystemIcon(iconlogo);
 	this.drawGrid = new DrawGrid(Prefs.getViewingWindowSize());
 	this.outputPane = new GameDraw(this.drawGrid);
-	this.mainWindow.addKeyListener(handler);
-	this.mainWindow.addWindowListener(handler);
 	// Pasted code
 	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
@@ -325,9 +330,6 @@ class GameGUI {
 	this.outputPane = new GameDraw();
 	this.outputPane.setLayout(new GridLayout(GameViewingWindowManager.getFixedViewingWindowSizeX(),
 		GameViewingWindowManager.getFixedViewingWindowSizeY()));
-	this.mainWindow.addKeyListener(handler);
-	this.mainWindow.addWindowListener(handler);
-	this.outputPane.addMouseListener(handler);
 	this.scoreMoves = new JLabel(DianeStrings.subst(Strings.game(GameString.MOVES), Integer.toString(0)));
 	this.scoreShots = new JLabel(DianeStrings.subst(Strings.game(GameString.SHOTS), Integer.toString(0)));
 	this.scoreOthers = new JLabel(DianeStrings.subst(Strings.game(GameString.OTHERS), Integer.toString(0)));

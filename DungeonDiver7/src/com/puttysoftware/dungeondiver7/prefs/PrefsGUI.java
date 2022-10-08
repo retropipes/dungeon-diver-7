@@ -30,6 +30,7 @@ import com.puttysoftware.dungeondiver7.locale.Strings;
 class PrefsGUI {
     // Fields
     private MainWindow mainWindow;
+    private EventHandler handler;
     private JPanel mainPrefPane;
     private JCheckBox sounds;
     private JCheckBox music;
@@ -62,11 +63,13 @@ class PrefsGUI {
 	final var app = DungeonDiver7.getStuffBag();
 	app.setInPrefs();
 	this.mainWindow.setAndSave(this.mainPrefPane, Strings.prefs(PrefString.TITLE));
+	this.mainWindow.addWindowListener(this.handler);
     }
 
     void hidePrefs() {
 	final var app = DungeonDiver7.getStuffBag();
 	app.restoreFormerMode();
+	this.mainWindow.removeWindowListener(this.handler);
 	this.mainWindow.restoreSaved();
 	Prefs.writePrefs();
     }
@@ -104,7 +107,7 @@ class PrefsGUI {
     }
 
     private void setUpGUI() {
-	final var handler = new EventHandler();
+	this.handler = new EventHandler();
 	this.mainWindow = MainWindow.mainWindow();
 	this.mainPrefPane = new JPanel();
 	final var buttonPane = new JPanel();
@@ -126,8 +129,6 @@ class PrefsGUI {
 	this.editorLayoutList = new JComboBox<>(Strings.allEditorLayouts());
 	this.editorShowAllObjects = new JCheckBox(Strings.prefs(PrefString.SHOW_ALL_OBJECTS), true);
 	this.difficultyPicker = new JComboBox<>(PrefsGUI.DIFFICULTY_NAMES);
-	
-	this.mainWindow.addWindowListener(handler);
 	this.mainPrefPane.setLayout(new BorderLayout());
 	settingsPane.setLayout(new GridLayout(PrefsGUI.GRID_LENGTH, 1));
 	settingsPane.add(this.sounds);
@@ -149,8 +150,8 @@ class PrefsGUI {
 	buttonPane.add(prefsCancel);
 	this.mainPrefPane.add(settingsPane, BorderLayout.CENTER);
 	this.mainPrefPane.add(buttonPane, BorderLayout.SOUTH);
-	prefsOK.addActionListener(handler);
-	prefsCancel.addActionListener(handler);
+	prefsOK.addActionListener(this.handler);
+	prefsCancel.addActionListener(this.handler);
 	final var iconlogo = LogoLoader.getIconLogo();
 	this.mainWindow.setSystemIcon(iconlogo);
     }
