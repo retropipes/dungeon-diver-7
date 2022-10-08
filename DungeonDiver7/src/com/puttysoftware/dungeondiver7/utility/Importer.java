@@ -15,9 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.TransferHandler;
@@ -25,16 +23,14 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.loader.ExternalMusicImporter;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.integration.Integration;
 
 public class Importer {
     // Fields
-    static JFrame guiFrame;
-    static JFrame sourceFrame;
-    static JMenuBar sourceMenus;
+    static MainWindow mainWindow;
     private static JPanel guiPane;
     private static JLabel logoLabel;
     private static boolean inited = false;
@@ -70,9 +66,7 @@ public class Importer {
 				    || ext.equalsIgnoreCase("xm")) {
 				// Import External Music
 				ExternalMusicImporter.importMusic(f);
-				Importer.guiFrame.setVisible(false);
-				Importer.sourceFrame.setVisible(true);
-				Integration.integrate().setDefaultMenuBar(Importer.sourceMenus);
+				Importer.mainWindow.setVisible(false);
 			    } else {
 				// Unknown file type
 				CommonDialogs.showDialog(Strings.dialog(DialogString.IMPORT_FAILED_FILE_TYPE));
@@ -107,45 +101,40 @@ public class Importer {
 
 	@Override
 	public void windowClosing(final WindowEvent we) {
-	    Importer.guiFrame.setVisible(false);
-	    Importer.sourceFrame.setVisible(true);
-	    Integration.integrate().setDefaultMenuBar(Importer.sourceMenus);
+	    Importer.mainWindow.setVisible(false);
 	}
     }
 
     private static void init() {
-	Importer.guiFrame = new JFrame(Strings.dialog(DialogString.IMPORT_TITLE));
+	Importer.mainWindow = MainWindow.mainWindow();
+	Importer.mainWindow.setTitle(Strings.dialog(DialogString.IMPORT_TITLE));
 	Importer.guiPane = new JPanel();
-	Importer.guiFrame.setContentPane(Importer.guiPane);
-	Importer.guiFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	Importer.guiFrame.addWindowListener(new CloseHandler());
-	Importer.guiFrame.setLayout(new GridLayout(1, 1));
+	Importer.mainWindow.setContentPane(Importer.guiPane);
+	Importer.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	Importer.mainWindow.addWindowListener(new CloseHandler());
+	Importer.mainWindow.setLayout(new GridLayout(1, 1));
 	Importer.logoLabel = new JLabel(Strings.dialog(DialogString.IMPORT_INSTRUCTIONS), null, SwingConstants.CENTER);
 	Importer.logoLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
 	Importer.logoLabel.setPreferredSize(new Dimension(500, 500));
 	Importer.guiPane.add(Importer.logoLabel);
-	Importer.guiFrame.setResizable(false);
-	Importer.guiFrame.setTransferHandler(Importer.handler);
-	Importer.guiFrame.pack();
+	Importer.mainWindow.setResizable(false);
+	Importer.mainWindow.setTransferHandler(Importer.handler);
+	Importer.mainWindow.pack();
 	Importer.inited = true;
     }
 
     // Methods
-    public static void showImporter(final JFrame source, final JMenuBar menus) {
+    public static void showImporter() {
 	if (!Importer.inited) {
 	    Importer.init();
 	}
-	Importer.sourceFrame = source;
-	Importer.sourceMenus = menus;
-	Importer.sourceFrame.setVisible(false);
-	Integration.integrate().setDefaultMenuBar(menus);
-	Importer.guiFrame.setVisible(true);
+	Importer.mainWindow.setVisible(true);
     }
 
     public static boolean isImporterVisible() {
 	if (!Importer.inited) {
 	    Importer.init();
 	}
-	return Importer.guiFrame.isVisible();
+	return Importer.mainWindow.isVisible();
     }
 }

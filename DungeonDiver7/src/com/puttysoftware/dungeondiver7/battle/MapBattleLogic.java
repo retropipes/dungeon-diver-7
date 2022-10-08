@@ -7,10 +7,10 @@ package com.puttysoftware.dungeondiver7.battle;
 
 import java.io.IOException;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.ai.AbstractMapAIRoutine;
@@ -71,7 +71,7 @@ public class MapBattleLogic extends AbstractBattle {
 
     // Methods
     @Override
-    public JFrame getOutputFrame() {
+    public MainWindow getOutputFrame() {
 	return this.battleGUI.getOutputFrame();
     }
 
@@ -1117,9 +1117,6 @@ public class MapBattleLogic extends AbstractBattle {
 
     @Override
     public void resetGUI() {
-	// Destroy old GUI
-	this.battleGUI.getOutputFrame().dispose();
-	// Create new GUI
 	this.battleGUI = new MapBattleGUI();
     }
 

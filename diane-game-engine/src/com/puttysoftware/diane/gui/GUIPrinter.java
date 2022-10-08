@@ -29,9 +29,9 @@ public class GUIPrinter {
 	// Do nothing
     }
 
-    public static void printBoard() {
+    public static void printScreen() {
 	try {
-	    final var board = MainWindow.getOutputFrame().content();
+	    final var board = MainWindow.mainWindow().content();
 	    final var d = board.getPreferredSize();
 	    final var bi = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_ARGB);
 	    board.paintComponents(bi.createGraphics());

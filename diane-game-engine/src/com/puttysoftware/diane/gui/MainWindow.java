@@ -6,22 +6,28 @@
  */
 package com.puttysoftware.diane.gui;
 
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.LayoutManager;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
+import javax.swing.TransferHandler;
 import javax.swing.WindowConstants;
 
 public final class MainWindow {
     private static MainWindow window;
     private final JFrame frame;
-    private JPanel content;
-    private JPanel savedContent;
+    private JComponent content;
+    private JComponent savedContent;
 
     private MainWindow() {
 	super();
@@ -36,14 +42,14 @@ public final class MainWindow {
     }
 
     static JFrame owner() {
-	return MainWindow.getOutputFrame().frame;
+	return MainWindow.mainWindow().frame;
     }
 
-    JPanel content() {
+    JComponent content() {
 	return this.content;
     }
 
-    public static MainWindow getOutputFrame() {
+    public static MainWindow mainWindow() {
 	if (MainWindow.window == null) {
 	    MainWindow.window = new MainWindow();
 	}
@@ -51,17 +57,17 @@ public final class MainWindow {
     }
 
     @Deprecated
-    /** Call setContent(JPanel) instead of this method. **/
-    public void setContentPane(final JPanel customContent) {
+    /** Call setContent(JComponent) instead of this method. **/
+    public void setContentPane(final JComponent customContent) {
 	this.setContent(customContent);
     }
 
-    public void setContent(final JPanel customContent) {
+    public void setContent(final JComponent customContent) {
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
     }
 
-    public void setAndSaveContent(final JPanel customContent) {
+    public void setAndSaveContent(final JComponent customContent) {
 	this.savedContent = this.content;
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
@@ -100,8 +106,37 @@ public final class MainWindow {
 	this.frame.getRootPane().putClientProperty("Window.documentModified", Boolean.valueOf(newDirty));
     }
 
+    @SuppressWarnings("static-method")
+    @Deprecated(forRemoval = true)
+    /** Don't call this method. **/
+    public Container getContentPane() {
+	throw new UnsupportedOperationException();
+    }
+
+    @SuppressWarnings("static-method")
+    @Deprecated
+    /** Don't call this method. **/
+    public void dispose() {
+	// Do nothing
+    }
+
+    @SuppressWarnings("static-method")
+    @Deprecated
+    /** Don't call this method. **/
     public void pack() {
-	this.frame.pack();
+	// Do nothing
+    }
+
+    public int getWidth() {
+	return this.content.getWidth();
+    }
+
+    public int getHeight() {
+	return this.content.getHeight();
+    }
+
+    public Dimension getPreferredSize() {
+	return this.content.getPreferredSize();
     }
 
     public void addWindowListener(final WindowListener l) {
@@ -120,8 +155,38 @@ public final class MainWindow {
 	this.frame.removeKeyListener(l);
     }
 
+    public void setTransferHandler(final TransferHandler h) {
+	this.frame.setTransferHandler(h);
+    }
+
+    public void removeTransferHandler() {
+	this.frame.setTransferHandler(null);
+    }
+
     public void setDefaultButton(final JButton defaultButton) {
 	this.frame.getRootPane().setDefaultButton(defaultButton);
+    }
+
+    public boolean isEnabled() {
+	return this.frame.isEnabled();
+    }
+
+    public void setEnabled(final boolean value) {
+	this.frame.setEnabled(value);
+    }
+
+    @SuppressWarnings("static-method")
+    @Deprecated
+    /** Don't call this method. **/
+    public void paintComponents(final Graphics2D g) {
+	// Do nothing
+    }
+
+    @SuppressWarnings("static-method")
+    @Deprecated
+    /** Don't call this method. **/
+    public boolean isVisible() {
+	return true; // Always visible
     }
 
     @SuppressWarnings("static-method")
@@ -129,5 +194,33 @@ public final class MainWindow {
     /** Don't call this method. **/
     public JRootPane getRootPane() {
 	throw new UnsupportedOperationException();
+    }
+
+    @SuppressWarnings("static-method")
+    @Deprecated
+    /** Don't call this method. **/
+    public void setDefaultCloseOperation(final int operation) {
+	// Do nothing
+    }
+
+    @SuppressWarnings("static-method")
+    @Deprecated
+    /** Don't call this method. **/
+    public void setLayout(final LayoutManager layout) {
+	// Do nothing
+    }
+
+    @SuppressWarnings("static-method")
+    @Deprecated
+    /** Don't call this method. **/
+    public void setResizable(final boolean value) {
+	// Do nothing
+    }
+
+    @SuppressWarnings("static-method")
+    @Deprecated
+    /** Don't call this method. **/
+    public void setVisible(final boolean value) {
+	// Do nothing
     }
 }

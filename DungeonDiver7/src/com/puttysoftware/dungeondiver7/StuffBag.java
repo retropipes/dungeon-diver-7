@@ -8,11 +8,12 @@ package com.puttysoftware.dungeondiver7;
 import java.awt.Dimension;
 import java.awt.Image;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.battle.AbstractBattle;
 import com.puttysoftware.dungeondiver7.battle.MapBattleLogic;
 import com.puttysoftware.dungeondiver7.editor.DungeonEditor;
@@ -226,7 +227,7 @@ public final class StuffBag {
 		+ Strings.VERSION_DELIM + StuffBag.VERSION_BUGFIX;
     }
 
-    public JFrame getOutputFrame() {
+    public MainWindow getOutputFrame() {
 	try {
 	    if (this.getMode() == StuffBag.STATUS_PREFS) {
 		return Prefs.getPrefFrame();
@@ -266,20 +267,23 @@ public final class StuffBag {
     }
 
     public void updateLevelInfoList() {
-	JFrame loadFrame;
+	MainWindow mainWindow;
 	JProgressBar loadBar;
-	loadFrame = new JFrame(Strings.dialog(DialogString.UPDATING_LEVEL_INFO));
-	loadFrame.setIconImage(LogoLoader.getIconLogo());
+	mainWindow = MainWindow.mainWindow();
+	mainWindow.setTitle(Strings.dialog(DialogString.UPDATING_LEVEL_INFO));
+	mainWindow.setIconImage(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	loadBar.setPreferredSize(new Dimension(600, 20));
-	loadFrame.getContentPane().add(loadBar);
-	loadFrame.setResizable(false);
-	loadFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	loadFrame.pack();
-	loadFrame.setVisible(true);
+	var loadContent = new JPanel();
+	loadContent.add(loadBar);
+	mainWindow.setAndSaveContent(loadContent);
+	mainWindow.setResizable(false);
+	mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	mainWindow.pack();
+	mainWindow.setVisible(true);
 	this.getDungeonManager().getDungeon().generateLevelInfoList();
-	loadFrame.setVisible(false);
+	mainWindow.setVisible(false);
     }
 
     private static boolean isBetaModeEnabled() {

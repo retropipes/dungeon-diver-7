@@ -33,6 +33,7 @@ import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.DrawGrid;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.strings.DianeStrings;
 import com.puttysoftware.diane.utilties.DirectionResolver;
 import com.puttysoftware.diane.utilties.Directions;
@@ -73,7 +74,7 @@ import com.puttysoftware.integration.Integration;
 
 class GameGUI {
     // Fields
-    private JFrame outputFrame;
+    private MainWindow mainWindow;
     private JPanel borderPane, scorePane, infoPane, outerOutputPane;
     private JLabel messageLabel;
     private JLabel scoreMoves;
@@ -154,12 +155,12 @@ class GameGUI {
     }
 
     public void enableEvents() {
-	this.outputFrame.setEnabled(true);
+	this.mainWindow.setEnabled(true);
 	this.eventFlag = true;
     }
 
     public void disableEvents() {
-	this.outputFrame.setEnabled(false);
+	this.mainWindow.setEnabled(false);
 	this.eventFlag = false;
     }
 
@@ -180,8 +181,8 @@ class GameGUI {
 	this.deferredRedraw = true;
     }
 
-    public JFrame getOutputFrame() {
-	return this.outputFrame;
+    public MainWindow getOutputFrame() {
+	return this.mainWindow;
     }
 
     public void showOutput() {
@@ -203,22 +204,19 @@ class GameGUI {
 
     private void showOutputCommon() {
 	final var app = DungeonDiver7.getStuffBag();
-	if (!this.outputFrame.isVisible()) {
-	    this.outputFrame.setVisible(true);
-	    Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
-	    if (this.deferredRedraw) {
-		this.deferredRedraw = false;
-		this.redrawDungeon();
-	    }
-	    app.getMenuManager().checkFlags();
-	    GameGUI.checkMenus();
-	    this.updateStats();
+	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
+	if (this.deferredRedraw) {
+	    this.deferredRedraw = false;
+	    this.redrawDungeon();
 	}
+	app.getMenuManager().checkFlags();
+	GameGUI.checkMenus();
+	this.updateStats();
     }
 
     public void hideOutput() {
-	if (this.outputFrame != null) {
-	    this.outputFrame.setVisible(false);
+	if (this.mainWindow != null) {
+	    this.mainWindow.setVisible(false);
 	}
     }
 
@@ -234,58 +232,54 @@ class GameGUI {
     }
 
     public void redrawDungeon() {
-	// Draw the maze, if it is visible
-	if (this.outputFrame.isVisible()) {
-	    final var app = DungeonDiver7.getStuffBag();
-	    final var m = app.getDungeonManager().getDungeon();
-	    int x, y, u, v;
-	    int xFix, yFix;
-	    boolean visible;
-	    u = m.getPlayerLocationX(0);
-	    v = m.getPlayerLocationY(0);
-	    final AbstractDungeonObject wall = new Wall();
-	    for (x = this.vwMgr.getViewingWindowLocationX(); x <= this.vwMgr
-		    .getLowerRightViewingWindowLocationX(); x++) {
-		for (y = this.vwMgr.getViewingWindowLocationY(); y <= this.vwMgr
-			.getLowerRightViewingWindowLocationY(); y++) {
-		    xFix = x - this.vwMgr.getViewingWindowLocationX();
-		    yFix = y - this.vwMgr.getViewingWindowLocationY();
-		    visible = app.getDungeonManager().getDungeon().isSquareVisible(u, v, y, x, 0);
-		    try {
-			if (visible) {
-			    final var obj1 = m.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND);
-			    final var obj2 = m.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
-			    final var img1 = obj1.gameRenderHook(y, x);
-			    final var img2 = obj2.gameRenderHook(y, x);
-			    if (u == y && v == x) {
-				final AbstractDungeonObject obj3 = new Player();
-				final var img3 = obj3.gameRenderHook(y, x);
-				this.drawGrid.setImageCell(ImageCompositor.getVirtualCompositeImage(img1, img2, img3,
-					ImageCompositor.getGraphicSize()), xFix, yFix);
-			    } else {
-				this.drawGrid.setImageCell(
-					ImageCompositor.getCompositeImage(img1, img2, ImageCompositor.getGraphicSize()),
-					xFix, yFix);
-			    }
+	// Draw the maze
+	final var app = DungeonDiver7.getStuffBag();
+	final var m = app.getDungeonManager().getDungeon();
+	int x, y, u, v;
+	int xFix, yFix;
+	boolean visible;
+	u = m.getPlayerLocationX(0);
+	v = m.getPlayerLocationY(0);
+	final AbstractDungeonObject wall = new Wall();
+	for (x = this.vwMgr.getViewingWindowLocationX(); x <= this.vwMgr.getLowerRightViewingWindowLocationX(); x++) {
+	    for (y = this.vwMgr.getViewingWindowLocationY(); y <= this.vwMgr
+		    .getLowerRightViewingWindowLocationY(); y++) {
+		xFix = x - this.vwMgr.getViewingWindowLocationX();
+		yFix = y - this.vwMgr.getViewingWindowLocationY();
+		visible = app.getDungeonManager().getDungeon().isSquareVisible(u, v, y, x, 0);
+		try {
+		    if (visible) {
+			final var obj1 = m.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND);
+			final var obj2 = m.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+			final var img1 = obj1.gameRenderHook(y, x);
+			final var img2 = obj2.gameRenderHook(y, x);
+			if (u == y && v == x) {
+			    final AbstractDungeonObject obj3 = new Player();
+			    final var img3 = obj3.gameRenderHook(y, x);
+			    this.drawGrid.setImageCell(ImageCompositor.getVirtualCompositeImage(img1, img2, img3,
+				    ImageCompositor.getGraphicSize()), xFix, yFix);
 			} else {
 			    this.drawGrid.setImageCell(
-				    ObjectImageManager.getImage(GameGUI.DARK.getName(), GameGUI.DARK.getBaseID()), xFix,
-				    yFix);
+				    ImageCompositor.getCompositeImage(img1, img2, ImageCompositor.getGraphicSize()),
+				    xFix, yFix);
 			}
-		    } catch (final ArrayIndexOutOfBoundsException ae) {
-			this.drawGrid.setImageCell(wall.gameRenderHook(y, x), xFix, yFix);
+		    } else {
+			this.drawGrid.setImageCell(
+				ObjectImageManager.getImage(GameGUI.DARK.getName(), GameGUI.DARK.getBaseID()), xFix,
+				yFix);
 		    }
+		} catch (final ArrayIndexOutOfBoundsException ae) {
+		    this.drawGrid.setImageCell(wall.gameRenderHook(y, x), xFix, yFix);
 		}
 	    }
-	    if (this.knm) {
-		this.knm = false;
-	    } else {
-		this.setStatusMessage(" ");
-	    }
-	    this.outputPane.repaint();
-	    this.outputFrame.pack();
-	    this.showOutputAndKeepMusic();
 	}
+	if (this.knm) {
+	    this.knm = false;
+	} else {
+	    this.setStatusMessage(" ");
+	}
+	this.outputPane.repaint();
+	this.showOutputAndKeepMusic();
     }
 
     public void keepNextMessage() {
@@ -319,32 +313,29 @@ class GameGUI {
 	this.borderPane.setLayout(new BorderLayout());
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);
-	this.outputFrame = new JFrame("Chrystalz");
+	this.mainWindow = MainWindow.mainWindow();
+	this.mainWindow.setTitle("Chrystalz");
 	final var iconlogo = StuffBag.getIconLogo();
-	this.outputFrame.setIconImage(iconlogo);
+	this.mainWindow.setIconImage(iconlogo);
 	this.drawGrid = new DrawGrid(Prefs.getViewingWindowSize());
 	this.outputPane = new GameDraw(this.drawGrid);
-	this.outputFrame.setContentPane(this.borderPane);
-	this.outputFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	this.outputFrame.setResizable(false);
-	this.outputFrame.addKeyListener(handler);
-	this.outputFrame.addWindowListener(handler);
+	this.mainWindow.setContentPane(this.borderPane);
+	this.mainWindow.addKeyListener(handler);
+	this.mainWindow.addWindowListener(handler);
 	// Pasted code
 	final var fHandler = new FocusHandler();
 	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
-	this.outputFrame = new JFrame(Strings.untranslated(Untranslated.PROGRAM_NAME));
-	this.outputFrame.setIconImage(iconlogo);
+	this.mainWindow = MainWindow.mainWindow();
+	this.mainWindow.setTitle(Strings.untranslated(Untranslated.PROGRAM_NAME));
+	this.mainWindow.setIconImage(iconlogo);
 	this.outerOutputPane = RCLGenerator.generateRowColumnLabels();
 	this.outputPane = new GameDraw();
-	this.outputFrame.setContentPane(this.borderPane);
-	this.outputFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.mainWindow.setContentPane(this.borderPane);
 	this.outputPane.setLayout(new GridLayout(GameViewingWindowManager.getFixedViewingWindowSizeX(),
 		GameViewingWindowManager.getFixedViewingWindowSizeY()));
-	this.outputFrame.setResizable(false);
-	this.outputFrame.addKeyListener(handler);
-	this.outputFrame.addWindowListener(handler);
-	this.outputFrame.addWindowFocusListener(fHandler);
+	this.mainWindow.addKeyListener(handler);
+	this.mainWindow.addWindowListener(handler);
 	this.outputPane.addMouseListener(handler);
 	this.scoreMoves = new JLabel(DianeStrings.subst(Strings.game(GameString.MOVES), Integer.toString(0)));
 	this.scoreShots = new JLabel(DianeStrings.subst(Strings.game(GameString.SHOTS), Integer.toString(0)));
@@ -381,8 +372,7 @@ class GameGUI {
     private void setUpDifficultyDialog() {
 	// Set up Difficulty Dialog
 	final var dhandler = new DifficultyEventHandler();
-	this.difficultyFrame = new JDialog(DungeonDiver7.getStuffBag().getOutputFrame(),
-		Strings.game(GameString.SELECT_DIFFICULTY));
+	this.difficultyFrame = new JDialog((JFrame) null, Strings.game(GameString.SELECT_DIFFICULTY));
 	final var difficultyPane = new JPanel();
 	final var listPane = new JPanel();
 	final var buttonPane = new JPanel();

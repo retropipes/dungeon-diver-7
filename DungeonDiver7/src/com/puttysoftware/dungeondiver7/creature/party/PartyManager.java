@@ -37,7 +37,7 @@ public class PartyManager {
     }
 
     // Methods
-    public static boolean createParty(final JFrame owner) {
+    public static boolean createParty() {
 	if (MusicLoader.isMusicPlaying()) {
 	    MusicLoader.stopMusic();
 	}
@@ -49,7 +49,7 @@ public class PartyManager {
 	    PartyMember pc = null;
 	    if (pickMembers == null) {
 		// No characters registered - must create one
-		pc = PartyManager.createNewPC(owner);
+		pc = PartyManager.createNewPC();
 		if (pc != null) {
 		    CharacterRegistration.autoregisterCharacter(pc.getName());
 		    CharacterLoader.saveCharacter(pc);
@@ -60,7 +60,7 @@ public class PartyManager {
 		if (response == 2) {
 		    pc = PartyManager.pickOnePartyMemberCreate(pickMembers);
 		} else if (response == 1) {
-		    pc = PartyManager.createNewPC(owner);
+		    pc = PartyManager.createNewPC();
 		    if (pc != null) {
 			CharacterRegistration.autoregisterCharacter(pc.getName());
 			CharacterLoader.saveCharacter(pc);
@@ -132,10 +132,10 @@ public class PartyManager {
 	leader.initPostKill(leader.getCaste(), leader.getGender());
     }
 
-    private static PartyMember createNewPC(final JFrame owner) {
+    private static PartyMember createNewPC() {
 	final var name = CommonDialogs.showTextInputDialog("Character Name", "Create Character");
 	if (name != null) {
-	    final var caste = CasteManager.selectCaste(owner);
+	    final var caste = CasteManager.selectCaste();
 	    if (caste != null) {
 		final var gender = GenderManager.selectGender();
 		if (gender != null) {
@@ -155,9 +155,10 @@ public class PartyManager {
 	return null;
     }
 
-    public static String showCreationDialog(final JFrame owner, final String labelText, final String title,
-	    final String[] input, final String[] descriptions) {
-	return ListWithDescDialog.showDialog(owner, labelText, title, input, input[0], descriptions[0], descriptions);
+    public static String showCreationDialog(final String labelText, final String title, final String[] input,
+	    final String[] descriptions) {
+	return ListWithDescDialog.showDialog((JFrame) null, labelText, title, input, input[0], descriptions[0],
+		descriptions);
     }
 
     private static String[] buildNameList(final PartyMember[] members) {

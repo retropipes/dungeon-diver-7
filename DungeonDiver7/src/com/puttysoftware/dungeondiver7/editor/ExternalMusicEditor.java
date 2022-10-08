@@ -48,8 +48,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 	new Thread() {
 	    @Override
 	    public void run() {
-		final var app = DungeonDiver7.getStuffBag();
-		Importer.showImporter(ExternalMusicEditor.this.getOutputFrame(), app.getMenuManager().getMainMenuBar());
+		Importer.showImporter();
 		while (Importer.isImporterVisible()) {
 		    // Wait
 		    try {

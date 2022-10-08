@@ -14,16 +14,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.GUIPrinter;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.locale.Menu;
@@ -33,12 +35,11 @@ import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.CleanupTask;
-import com.puttysoftware.dungeondiver7.utility.ScreenPrinter;
 import com.puttysoftware.integration.Integration;
 
 public class GUIManager implements MenuSection, QuitHandler {
     // Fields
-    private final JFrame guiFrame;
+    private final MainWindow mainWindow;
     private final JLabel logoLabel;
     private JMenuItem fileNew, fileOpen, fileOpenDefault, fileClose, fileSave, fileSaveAs, fileSaveAsProtected,
 	    filePrint, filePreferences, fileExit;
@@ -46,22 +47,24 @@ public class GUIManager implements MenuSection, QuitHandler {
     // Constructors
     public GUIManager() {
 	final var cHandler = new CloseHandler();
-	this.guiFrame = new JFrame(Strings.untranslated(Untranslated.PROGRAM_NAME));
-	final var guiPane = this.guiFrame.getContentPane();
-	this.guiFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	this.guiFrame.setLayout(new GridLayout(1, 1));
+	this.mainWindow = MainWindow.mainWindow();
+	this.mainWindow.setTitle(Strings.untranslated(Untranslated.PROGRAM_NAME));
+	final var guiPane = new JPanel();
+	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.mainWindow.setLayout(new GridLayout(1, 1));
 	this.logoLabel = new JLabel(Strings.EMPTY, null, SwingConstants.CENTER);
 	this.logoLabel.setLabelFor(null);
 	this.logoLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
 	guiPane.add(this.logoLabel);
-	this.guiFrame.setResizable(false);
-	this.guiFrame.addWindowListener(cHandler);
+	this.mainWindow.setResizable(false);
+	this.mainWindow.addWindowListener(cHandler);
+	this.mainWindow.setAndSaveContent(guiPane);
     }
 
     // Methods
-    JFrame getGUIFrame() {
-	if (this.guiFrame.isVisible()) {
-	    return this.guiFrame;
+    MainWindow getGUIFrame() {
+	if (this.mainWindow.isVisible()) {
+	    return this.mainWindow;
 	}
 	return null;
     }
@@ -71,8 +74,8 @@ public class GUIManager implements MenuSection, QuitHandler {
 	app.setInGUI();
 	this.attachMenus();
 	MusicLoader.playMusic(Music.TITLE);
-	this.guiFrame.setVisible(true);
-	this.guiFrame.pack();
+	this.mainWindow.setVisible(true);
+	this.mainWindow.pack();
 	app.getMenuManager().checkFlags();
     }
 
@@ -83,7 +86,7 @@ public class GUIManager implements MenuSection, QuitHandler {
     }
 
     public void hideGUI() {
-	this.guiFrame.setVisible(false);
+	this.mainWindow.setVisible(false);
 	MusicLoader.stopMusic();
     }
 
@@ -91,8 +94,8 @@ public class GUIManager implements MenuSection, QuitHandler {
 	final var logo = LogoLoader.getLogo();
 	this.logoLabel.setIcon(logo);
 	final var iconlogo = LogoLoader.getIconLogo();
-	this.guiFrame.setIconImage(iconlogo);
-	this.guiFrame.pack();
+	this.mainWindow.setIconImage(iconlogo);
+	this.mainWindow.pack();
     }
 
     public boolean quitHandler() {
@@ -226,7 +229,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 		    // Show preferences dialog
 		    Prefs.showPrefs();
 		} else if (cmd.equals(Strings.menu(Menu.PRINT_GAME_WINDOW))) {
-		    ScreenPrinter.printBoard(app.getOutputFrame());
+		    GUIPrinter.printScreen();
 		} else if (cmd.equals(Strings.menu(Menu.EXIT))) {
 		    // Exit program
 		    if (app.getGUIManager().quitHandler()) {

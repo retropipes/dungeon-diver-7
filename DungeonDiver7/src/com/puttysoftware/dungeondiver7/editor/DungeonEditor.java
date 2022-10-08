@@ -15,13 +15,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -32,6 +30,7 @@ import javax.swing.JToggleButton;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.strings.DianeStrings;
 import com.puttysoftware.dungeondiver7.Accelerators;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
@@ -62,7 +61,7 @@ import com.puttysoftware.picturepicker.StackedPicturePicker;
 
 public class DungeonEditor implements MenuSection {
     // Declarations
-    private JFrame outputFrame;
+    private MainWindow mainWindow;
     private JPanel secondaryPane, borderPane, outerOutputPane, switcherPane;
     private EditorDraw outputPane;
     private JToggleButton lowerGround, upperGround, lowerObjects, upperObjects;
@@ -298,8 +297,8 @@ public class DungeonEditor implements MenuSection {
 	} else if (w == DungeonConstants.LAYER_UPPER_OBJECTS) {
 	    this.redrawEditorGroundObjects();
 	}
-	this.outputFrame.pack();
-	this.outputFrame.setTitle(DianeStrings.subst(Strings.editor(EditorString.EDITOR_TITLE), Integer.toString(z + 1),
+	this.mainWindow.pack();
+	this.mainWindow.setTitle(DianeStrings.subst(Strings.editor(EditorString.EDITOR_TITLE), Integer.toString(z + 1),
 		Integer.toString(u + 1), Strings.timeTravel(e)));
 	this.outputPane.repaint();
 	this.showOutput();
@@ -794,8 +793,8 @@ public class DungeonEditor implements MenuSection {
 	final var app = DungeonDiver7.getStuffBag();
 	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
 	app.getMenuManager().checkFlags();
-	this.outputFrame.setVisible(true);
-	this.outputFrame.pack();
+	this.mainWindow.setVisible(true);
+	this.mainWindow.pack();
     }
 
     public void attachMenus() {
@@ -805,23 +804,23 @@ public class DungeonEditor implements MenuSection {
     }
 
     public void hideOutput() {
-	if (this.outputFrame != null) {
-	    this.outputFrame.setVisible(false);
+	if (this.mainWindow != null) {
+	    this.mainWindow.setVisible(false);
 	}
     }
 
     void disableOutput() {
-	this.outputFrame.setEnabled(false);
+	this.mainWindow.setEnabled(false);
     }
 
     void enableOutput() {
-	this.outputFrame.setEnabled(true);
+	this.mainWindow.setEnabled(true);
 	this.checkMenus();
     }
 
-    public JFrame getOutputFrame() {
-	if (this.outputFrame != null && this.outputFrame.isVisible()) {
-	    return this.outputFrame;
+    public MainWindow getOutputFrame() {
+	if (this.mainWindow != null && this.mainWindow.isVisible()) {
+	    return this.mainWindow;
 	}
 	return null;
     }
@@ -838,26 +837,22 @@ public class DungeonEditor implements MenuSection {
     }
 
     private void setUpGUI() {
-	// Destroy the old GUI, if one exists
-	if (this.outputFrame != null) {
-	    this.outputFrame.dispose();
-	}
-	final var fHandler = new FocusHandler();
 	this.messageLabel = new JLabel(Strings.SPACE);
-	this.outputFrame = new JFrame(Strings.editor(EditorString.EDITOR));
+	this.mainWindow = MainWindow.mainWindow();
+	this.mainWindow.setTitle(Strings.editor(EditorString.EDITOR));
 	final var iconlogo = LogoLoader.getIconLogo();
-	this.outputFrame.setIconImage(iconlogo);
+	this.mainWindow.setIconImage(iconlogo);
 	this.outputPane = new EditorDraw();
 	this.secondaryPane = new JPanel();
 	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
-	this.outputFrame.setContentPane(this.borderPane);
-	this.outputFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.mainWindow.setContentPane(this.borderPane);
+	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.messageLabel.setLabelFor(this.outputPane);
 	this.outerOutputPane = RCLGenerator.generateRowColumnLabels();
 	this.outerOutputPane.add(this.outputPane, BorderLayout.CENTER);
 	this.outputPane.setLayout(new GridLayout(1, 1));
-	this.outputFrame.setResizable(false);
+	this.mainWindow.setResizable(false);
 	this.secondaryPane.setLayout(new GridLayout(EditorViewingWindowManager.getViewingWindowSizeX(),
 		EditorViewingWindowManager.getViewingWindowSizeY()));
 	this.horzScroll = new JScrollBar(Adjustable.HORIZONTAL,
@@ -873,8 +868,7 @@ public class DungeonEditor implements MenuSection {
 	this.outputPane.add(this.secondaryPane);
 	this.secondaryPane.addMouseListener(this.mhandler);
 	this.secondaryPane.addMouseMotionListener(this.mhandler);
-	this.outputFrame.addWindowListener(this.mhandler);
-	this.outputFrame.addWindowFocusListener(fHandler);
+	this.mainWindow.addWindowListener(this.mhandler);
 	this.switcherPane = new JPanel();
 	final var switcherHandler = new SwitcherHandler();
 	final var switcherGroup = new ButtonGroup();
@@ -1052,7 +1046,7 @@ public class DungeonEditor implements MenuSection {
 		this.borderPane.add(this.newPicker12.getPicker(), BorderLayout.EAST);
 	    }
 	    this.borderPane.add(this.switcherPane, BorderLayout.SOUTH);
-	    this.outputFrame.pack();
+	    this.mainWindow.pack();
 	}
     }
 
@@ -1319,22 +1313,6 @@ public class DungeonEditor implements MenuSection {
 
 	@Override
 	public void mouseExited(final MouseEvent e) {
-	    // Do nothing
-	}
-    }
-
-    private class FocusHandler implements WindowFocusListener {
-	public FocusHandler() {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowGainedFocus(final WindowEvent e) {
-	    DungeonEditor.this.attachMenus();
-	}
-
-	@Override
-	public void windowLostFocus(final WindowEvent e) {
 	    // Do nothing
 	}
     }

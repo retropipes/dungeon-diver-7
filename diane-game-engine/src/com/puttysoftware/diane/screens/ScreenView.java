@@ -20,7 +20,7 @@ public abstract class ScreenView {
     // Constructors
     protected ScreenView() {
 	super();
-	this.theFrame = MainWindow.getOutputFrame();
+	this.theFrame = MainWindow.mainWindow();
     }
 
     // Methods
@@ -30,7 +30,6 @@ public abstract class ScreenView {
 	    this.theFrame.setSystemIcon(model.getSystemIcon());
 	    this.theFrame.addWindowListener(controllerRef.get());
 	}
-	this.theFrame.pack();
     }
 
     final void hideScreen(final ScreenModel model, final WeakReference<ScreenController> controllerRef) {

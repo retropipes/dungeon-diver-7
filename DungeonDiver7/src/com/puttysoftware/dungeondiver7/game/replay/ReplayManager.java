@@ -8,6 +8,8 @@ package com.puttysoftware.dungeondiver7.game.replay;
 import java.awt.FileDialog;
 import java.io.File;
 
+import javax.swing.JFrame;
+
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
@@ -28,7 +30,7 @@ public class ReplayManager {
 	final var app = DungeonDiver7.getStuffBag();
 	String filename, extension, file, dir;
 	final var lastOpen = Prefs.getLastDirOpen();
-	final var fd = new FileDialog(app.getOutputFrame(), Strings.game(GameString.LOAD_PLAYBACK), FileDialog.LOAD);
+	final var fd = new FileDialog((JFrame) null, Strings.game(GameString.LOAD_PLAYBACK), FileDialog.LOAD);
 	fd.setDirectory(lastOpen);
 	fd.setVisible(true);
 	file = fd.getFile();

@@ -15,7 +15,6 @@ import java.awt.event.KeyListener;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,6 +23,7 @@ import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.DrawGrid;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.ai.AbstractMapAIRoutine;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
@@ -40,7 +40,7 @@ import com.puttysoftware.integration.Integration;
 
 class MapBattleGUI {
     // Fields
-    private JFrame battleFrame;
+    private MainWindow mainWindow;
     private MapBattleDraw battlePane;
     private JLabel messageLabel;
     private final MapBattleViewingWindowManager vwMgr;
@@ -61,8 +61,8 @@ class MapBattleGUI {
     }
 
     // Methods
-    JFrame getOutputFrame() {
-	return this.battleFrame;
+    MainWindow getOutputFrame() {
+	return this.mainWindow;
     }
 
     MapBattleViewingWindowManager getViewManager() {
@@ -83,19 +83,19 @@ class MapBattleGUI {
     }
 
     void showBattle() {
-	this.battleFrame.setVisible(true);
+	this.mainWindow.setVisible(true);
 	Integration.integrate().setDefaultMenuBar(DungeonDiver7.getStuffBag().getMenuManager().getMainMenuBar());
     }
 
     void hideBattle() {
-	if (this.battleFrame != null) {
-	    this.battleFrame.setVisible(false);
+	if (this.mainWindow != null) {
+	    this.mainWindow.setVisible(false);
 	}
     }
 
     void redrawBattle(final MapBattleDefinitions bd) {
 	// Draw the battle, if it is visible
-	if (this.battleFrame.isVisible()) {
+	if (this.mainWindow.isVisible()) {
 	    int x, y;
 	    int xFix, yFix;
 	    final var xView = this.vwMgr.getViewingWindowLocationX();
@@ -121,14 +121,14 @@ class MapBattleGUI {
 		}
 	    }
 	    this.battlePane.repaint();
-	    this.battleFrame.pack();
+	    this.mainWindow.pack();
 	}
     }
 
     void redrawOneBattleSquare(final MapBattleDefinitions bd, final int x, final int y,
 	    final AbstractDungeonObject obj3) {
 	// Draw the battle, if it is visible
-	if (this.battleFrame.isVisible()) {
+	if (this.mainWindow.isVisible()) {
 	    try {
 		int xFix, yFix;
 		final var xView = this.vwMgr.getViewingWindowLocationX();
@@ -146,7 +146,7 @@ class MapBattleGUI {
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
 		// Do nothing
 	    }
-	    this.battleFrame.pack();
+	    this.mainWindow.pack();
 	}
     }
 
@@ -162,8 +162,9 @@ class MapBattleGUI {
 	borderPane.setLayout(new BorderLayout());
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);
-	this.battleFrame = new JFrame("Battle");
-	this.battleFrame.setContentPane(borderPane);
+	this.mainWindow = MainWindow.mainWindow();
+	this.mainWindow.setTitle("Battle");
+	this.mainWindow.setContentPane(borderPane);
 	this.spell = new JButton("Cast Spell");
 	this.steal = new JButton("Steal");
 	this.drain = new JButton("Drain");
@@ -199,9 +200,9 @@ class MapBattleGUI {
 	this.end.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_E, modKey),
 		"End Turn");
 	this.end.getActionMap().put("End Turn", handler);
-	this.battleFrame.setIconImage(LogoLoader.getIconLogo());
-	this.battleFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	this.battleFrame.setResizable(false);
+	this.mainWindow.setIconImage(LogoLoader.getIconLogo());
+	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.mainWindow.setResizable(false);
 	this.drawGrid = new DrawGrid(MapBattleViewingWindowManager.getViewingWindowSize());
 	for (var x = 0; x < MapBattleViewingWindowManager.getViewingWindowSize(); x++) {
 	    for (var y = 0; y < MapBattleViewingWindowManager.getViewingWindowSize(); y++) {
@@ -215,7 +216,7 @@ class MapBattleGUI {
 	borderPane.add(this.messageLabel, BorderLayout.NORTH);
 	borderPane.add(this.bs.getStatsPane(), BorderLayout.EAST);
 	borderPane.add(this.be.getEffectsPane(), BorderLayout.SOUTH);
-	this.battleFrame.addKeyListener(handler);
+	this.mainWindow.addKeyListener(handler);
     }
 
     void turnEventHandlersOff() {

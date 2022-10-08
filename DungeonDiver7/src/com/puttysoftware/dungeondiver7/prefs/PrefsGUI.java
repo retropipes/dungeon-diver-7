@@ -16,11 +16,11 @@ import java.awt.event.WindowListener;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
@@ -31,7 +31,7 @@ import com.puttysoftware.dungeondiver7.locale.Strings;
 
 class PrefsGUI {
     // Fields
-    private JFrame prefFrame;
+    private MainWindow mainWindow;
     private JCheckBox sounds;
     private JCheckBox music;
     private JCheckBox checkUpdatesStartup;
@@ -53,19 +53,15 @@ class PrefsGUI {
 
     // Methods
     void activeLanguageChanged() {
-	// Dispose of old GUI
-	if (this.prefFrame != null) {
-	    this.prefFrame.dispose();
-	}
 	PrefsGUI.DIFFICULTY_NAMES = Strings.allDifficulties();
 	this.setUpGUI();
 	Prefs.writePrefs();
 	this.loadPrefs();
     }
 
-    public JFrame getPrefFrame() {
-	if (this.prefFrame != null && this.prefFrame.isVisible()) {
-	    return this.prefFrame;
+    public MainWindow getPrefFrame() {
+	if (this.mainWindow != null && this.mainWindow.isVisible()) {
+	    return this.mainWindow;
 	}
 	return null;
     }
@@ -73,7 +69,7 @@ class PrefsGUI {
     public void showPrefs() {
 	final var app = DungeonDiver7.getStuffBag();
 	app.setInPrefs();
-	this.prefFrame.setVisible(true);
+	this.mainWindow.setVisible(true);
 	final var formerMode = app.getFormerMode();
 	switch (formerMode) {
 	case StuffBag.STATUS_GUI:
@@ -92,7 +88,7 @@ class PrefsGUI {
 
     void hidePrefs() {
 	final var app = DungeonDiver7.getStuffBag();
-	this.prefFrame.setVisible(false);
+	this.mainWindow.setVisible(false);
 	Prefs.writePrefs();
 	final var formerMode = app.getFormerMode();
 	switch (formerMode) {
@@ -144,13 +140,14 @@ class PrefsGUI {
 
     private void setUpGUI() {
 	final var handler = new EventHandler();
-	this.prefFrame = new JFrame(Strings.prefs(PrefString.TITLE));
+	this.mainWindow = MainWindow.mainWindow();
+	this.mainWindow.setTitle(Strings.prefs(PrefString.TITLE));
 	final var mainPrefPane = new JPanel();
 	final var buttonPane = new JPanel();
 	final var settingsPane = new JPanel();
 	final var prefsOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	prefsOK.setDefaultCapable(true);
-	this.prefFrame.getRootPane().setDefaultButton(prefsOK);
+	this.mainWindow.setDefaultButton(prefsOK);
 	final var prefsCancel = new JButton(Strings.dialog(DialogString.CANCEL_BUTTON));
 	prefsCancel.setDefaultCapable(false);
 	this.sounds = new JCheckBox(Strings.prefs(PrefString.ENABLE_SOUNDS), true);
@@ -165,11 +162,11 @@ class PrefsGUI {
 	this.editorLayoutList = new JComboBox<>(Strings.allEditorLayouts());
 	this.editorShowAllObjects = new JCheckBox(Strings.prefs(PrefString.SHOW_ALL_OBJECTS), true);
 	this.difficultyPicker = new JComboBox<>(PrefsGUI.DIFFICULTY_NAMES);
-	this.prefFrame.setContentPane(mainPrefPane);
-	this.prefFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	this.prefFrame.addWindowListener(handler);
+	this.mainWindow.setContentPane(mainPrefPane);
+	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.mainWindow.addWindowListener(handler);
 	mainPrefPane.setLayout(new BorderLayout());
-	this.prefFrame.setResizable(false);
+	this.mainWindow.setResizable(false);
 	settingsPane.setLayout(new GridLayout(PrefsGUI.GRID_LENGTH, 1));
 	settingsPane.add(this.sounds);
 	settingsPane.add(this.music);
@@ -193,8 +190,8 @@ class PrefsGUI {
 	prefsOK.addActionListener(handler);
 	prefsCancel.addActionListener(handler);
 	final var iconlogo = LogoLoader.getIconLogo();
-	this.prefFrame.setIconImage(iconlogo);
-	this.prefFrame.pack();
+	this.mainWindow.setIconImage(iconlogo);
+	this.mainWindow.pack();
     }
 
     private class EventHandler implements ActionListener, WindowListener {

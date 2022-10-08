@@ -10,11 +10,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.zip.ZipException;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
@@ -31,7 +32,7 @@ public class DungeonLoadTask extends Thread {
     // Fields
     private final String filename;
     private final boolean isSavedGame;
-    private final JFrame loadFrame;
+    private final MainWindow mainWindow;
     private final boolean dungeonProtected;
 
     // Constructors
@@ -41,20 +42,23 @@ public class DungeonLoadTask extends Thread {
 	this.isSavedGame = saved;
 	this.dungeonProtected = protect;
 	this.setName(Strings.untranslated(Untranslated.FILE_LOADER_NEW_NAME));
-	this.loadFrame = new JFrame(Strings.dialog(DialogString.LOADING));
-	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
+	this.mainWindow = MainWindow.mainWindow();
+	this.mainWindow.setTitle(Strings.dialog(DialogString.LOADING));
+	this.mainWindow.setIconImage(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
-	this.loadFrame.getContentPane().add(loadBar);
-	this.loadFrame.setResizable(false);
-	this.loadFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	this.loadFrame.pack();
+	var loadContent = new JPanel();
+	loadContent.add(loadBar);
+	this.mainWindow.setAndSaveContent(loadContent);
+	this.mainWindow.setResizable(false);
+	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.mainWindow.pack();
     }
 
     // Methods
     @Override
     public void run() {
-	this.loadFrame.setVisible(true);
+	this.mainWindow.setVisible(true);
 	final var app = DungeonDiver7.getStuffBag();
 	if (this.isSavedGame) {
 	    app.getGameLogic().setSavedGameFlag(true);
@@ -140,7 +144,7 @@ public class DungeonLoadTask extends Thread {
 	} catch (final Exception ex) {
 	    DungeonDiver7.logError(ex);
 	} finally {
-	    this.loadFrame.setVisible(false);
+	    this.mainWindow.setVisible(false);
 	}
     }
 }

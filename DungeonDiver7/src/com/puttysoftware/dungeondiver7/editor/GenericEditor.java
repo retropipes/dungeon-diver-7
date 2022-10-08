@@ -9,13 +9,13 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.WindowListener;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
@@ -24,7 +24,7 @@ import com.puttysoftware.integration.Integration;
 public abstract class GenericEditor {
     // Fields
     private final String source;
-    private JFrame outputFrame;
+    private MainWindow mainWindow;
     private JPanel borderPane;
     private JPanel outputPane;
     private JLabel messageLabel;
@@ -82,19 +82,19 @@ public abstract class GenericEditor {
     public final void showOutput() {
 	final var app = DungeonDiver7.getStuffBag();
 	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
-	this.outputFrame.setVisible(true);
-	this.outputFrame.pack();
+	this.mainWindow.setVisible(true);
+	this.mainWindow.pack();
     }
 
     public final void hideOutput() {
-	if (this.outputFrame != null) {
-	    this.outputFrame.setVisible(false);
+	if (this.mainWindow != null) {
+	    this.mainWindow.setVisible(false);
 	}
     }
 
-    public final JFrame getOutputFrame() {
-	if (this.outputFrame != null && this.outputFrame.isVisible()) {
-	    return this.outputFrame;
+    public final MainWindow getOutputFrame() {
+	if (this.mainWindow != null && this.mainWindow.isVisible()) {
+	    return this.mainWindow;
 	}
 	return null;
     }
@@ -149,38 +149,35 @@ public abstract class GenericEditor {
     public abstract void redrawEditor();
 
     protected void setUpGUI() {
-	// Destroy the old GUI, if one exists
-	if (this.outputFrame != null) {
-	    this.outputFrame.dispose();
-	}
 	this.messageLabel = new JLabel(" ");
-	this.outputFrame = new JFrame(this.getEditorSource());
+	this.mainWindow = MainWindow.mainWindow();
+	this.mainWindow.setTitle(this.getEditorSource());
 	final var iconlogo = LogoLoader.getIconLogo();
-	this.outputFrame.setIconImage(iconlogo);
+	this.mainWindow.setIconImage(iconlogo);
 	this.outputPane = new JPanel();
 	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
-	this.outputFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.setUpGUIHook(this.outputPane);
 	this.scrollPane = new JScrollPane(this.borderPane);
 	this.borderPane.add(this.outputPane, BorderLayout.CENTER);
 	this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
-	this.outputFrame.setResizable(false);
+	this.mainWindow.setResizable(false);
 	final var wl = this.guiHookWindow();
 	if (wl != null) {
-	    this.outputFrame.addWindowListener(wl);
+	    this.mainWindow.addWindowListener(wl);
 	}
-	this.outputFrame.setContentPane(this.scrollPane);
-	this.outputFrame.pack();
-	if (this.outputFrame.getWidth() > ImageLoader.MAX_WINDOW_SIZE
-		|| this.outputFrame.getHeight() > ImageLoader.MAX_WINDOW_SIZE) {
+	this.mainWindow.setAndSaveContent(this.scrollPane);
+	this.mainWindow.pack();
+	if (this.mainWindow.getWidth() > ImageLoader.MAX_WINDOW_SIZE
+		|| this.mainWindow.getHeight() > ImageLoader.MAX_WINDOW_SIZE) {
 	    int pw, ph;
-	    if (this.outputFrame.getWidth() > ImageLoader.MAX_WINDOW_SIZE) {
+	    if (this.mainWindow.getWidth() > ImageLoader.MAX_WINDOW_SIZE) {
 		pw = ImageLoader.MAX_WINDOW_SIZE;
 	    } else {
 		pw = this.scrollPane.getWidth();
 	    }
-	    if (this.outputFrame.getHeight() > ImageLoader.MAX_WINDOW_SIZE) {
+	    if (this.mainWindow.getHeight() > ImageLoader.MAX_WINDOW_SIZE) {
 		ph = ImageLoader.MAX_WINDOW_SIZE;
 	    } else {
 		ph = this.scrollPane.getHeight();

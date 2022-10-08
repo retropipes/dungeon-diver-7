@@ -5,8 +5,6 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.creature.caste;
 
-import javax.swing.JFrame;
-
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.spell.SpellBook;
 import com.puttysoftware.dungeondiver7.spell.SpellBookLoader;
@@ -16,10 +14,10 @@ public class CasteManager {
     private static Caste[] CACHE;
     private static String[] DESC_CACHE;
 
-    public static Caste selectCaste(final JFrame owner) {
+    public static Caste selectCaste() {
 	CasteManager.createCache();
 	final var names = CasteConstants.CASTE_NAMES;
-	final var dialogResult = PartyManager.showCreationDialog(owner, "Select a Caste", "Create Character", names,
+	final var dialogResult = PartyManager.showCreationDialog("Select a Caste", "Create Character", names,
 		CasteManager.DESC_CACHE);
 	if (dialogResult == null) {
 	    return null;

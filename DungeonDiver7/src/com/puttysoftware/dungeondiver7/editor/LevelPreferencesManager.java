@@ -16,13 +16,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
@@ -32,7 +32,7 @@ import com.puttysoftware.dungeondiver7.locale.Strings;
 
 class LevelPreferencesManager {
     // Fields
-    private JFrame prefFrame;
+    private MainWindow mainWindow;
     private JCheckBox horizontalWrap;
     private JCheckBox verticalWrap;
     private JCheckBox thirdWrap;
@@ -51,11 +51,11 @@ class LevelPreferencesManager {
     void showPrefs() {
 	this.loadPrefs();
 	DungeonDiver7.getStuffBag().getEditor().disableOutput();
-	this.prefFrame.setVisible(true);
+	this.mainWindow.setVisible(true);
     }
 
     void hidePrefs() {
-	this.prefFrame.setVisible(false);
+	this.mainWindow.setVisible(false);
 	DungeonDiver7.getStuffBag().getEditor().enableOutput();
 	DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	DungeonDiver7.getStuffBag().getEditor().redrawEditor();
@@ -101,15 +101,16 @@ class LevelPreferencesManager {
 	JPanel mainPrefPane, contentPane, buttonPane;
 	JButton prefsOK, prefsCancel;
 	final var handler = new EventHandler();
-	this.prefFrame = new JFrame(Strings.editor(EditorString.LEVEL_PREFERENCES));
+	this.mainWindow = MainWindow.mainWindow();
+	this.mainWindow.setTitle(Strings.editor(EditorString.LEVEL_PREFERENCES));
 	final var iconlogo = LogoLoader.getIconLogo();
-	this.prefFrame.setIconImage(iconlogo);
+	this.mainWindow.setIconImage(iconlogo);
 	mainPrefPane = new JPanel();
 	contentPane = new JPanel();
 	buttonPane = new JPanel();
 	prefsOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	prefsOK.setDefaultCapable(true);
-	this.prefFrame.getRootPane().setDefaultButton(prefsOK);
+	this.mainWindow.setDefaultButton(prefsOK);
 	prefsCancel = new JButton(Strings.dialog(DialogString.CANCEL_BUTTON));
 	prefsCancel.setDefaultCapable(false);
 	this.horizontalWrap = new JCheckBox(Strings.editor(EditorString.ENABLE_HORIZONTAL_WRAP_AROUND), false);
@@ -120,11 +121,11 @@ class LevelPreferencesManager {
 	this.hint = new JTextArea(8, 32);
 	this.difficulty = new JComboBox<>(Strings.allDifficulties());
 	this.moveShoot = new JCheckBox(Strings.editor(EditorString.ENABLE_MOVE_SHOOT), true);
-	this.prefFrame.setContentPane(mainPrefPane);
-	this.prefFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	this.prefFrame.addWindowListener(handler);
+	this.mainWindow.setContentPane(mainPrefPane);
+	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.mainWindow.addWindowListener(handler);
 	mainPrefPane.setLayout(new BorderLayout());
-	this.prefFrame.setResizable(false);
+	this.mainWindow.setResizable(false);
 	contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 	contentPane.add(this.horizontalWrap);
 	contentPane.add(this.verticalWrap);
@@ -145,7 +146,7 @@ class LevelPreferencesManager {
 	mainPrefPane.add(buttonPane, BorderLayout.SOUTH);
 	prefsOK.addActionListener(handler);
 	prefsCancel.addActionListener(handler);
-	this.prefFrame.pack();
+	this.mainWindow.pack();
     }
 
     private class EventHandler implements ActionListener, WindowListener {

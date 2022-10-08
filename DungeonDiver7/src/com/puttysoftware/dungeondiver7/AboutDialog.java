@@ -14,14 +14,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
 
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.strings.DianeStrings;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
@@ -31,7 +30,7 @@ import com.puttysoftware.dungeondiver7.locale.Untranslated;
 
 public class AboutDialog implements AboutHandler, MenuSection {
     // Fields
-    private JFrame aboutFrame;
+    private MainWindow mainWindow;
     private JMenuItem helpAbout, helpHelp;
 
     // Constructors
@@ -41,11 +40,11 @@ public class AboutDialog implements AboutHandler, MenuSection {
 
     // Methods
     public void showAboutDialog() {
-	this.aboutFrame.setVisible(true);
+	this.mainWindow.setVisible(true);
     }
 
     void hideAboutDialog() {
-	this.aboutFrame.setVisible(false);
+	this.mainWindow.setVisible(false);
     }
 
     private void setUpGUI(final String ver) {
@@ -54,10 +53,11 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	EventHandler handler;
 	JLabel miniLabel;
 	handler = new EventHandler();
-	this.aboutFrame = new JFrame(DianeStrings.subst(Strings.dialog(DialogString.ABOUT),
+	this.mainWindow = MainWindow.mainWindow();
+	this.mainWindow.setTitle(DianeStrings.subst(Strings.dialog(DialogString.ABOUT),
 		Strings.untranslated(Untranslated.PROGRAM_NAME)));
 	final var iconlogo = LogoLoader.getIconLogo();
-	this.aboutFrame.setIconImage(iconlogo);
+	this.mainWindow.setIconImage(iconlogo);
 	aboutPane = new JPanel();
 	textPane = new JPanel();
 	buttonPane = new JPanel();
@@ -66,8 +66,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	miniLabel = new JLabel(Strings.EMPTY, LogoLoader.getMiniatureLogo(), SwingConstants.LEFT);
 	miniLabel.setLabelFor(null);
 	aboutOK.setDefaultCapable(true);
-	this.aboutFrame.getRootPane().setDefaultButton(aboutOK);
-	this.aboutFrame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+	this.mainWindow.setDefaultButton(aboutOK);
 	aboutPane.setLayout(new BorderLayout());
 	logoPane.setLayout(new FlowLayout());
 	logoPane.add(miniLabel);
@@ -85,10 +84,9 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	aboutPane.add(logoPane, BorderLayout.WEST);
 	aboutPane.add(textPane, BorderLayout.CENTER);
 	aboutPane.add(buttonPane, BorderLayout.SOUTH);
-	this.aboutFrame.setResizable(false);
 	aboutOK.addActionListener(handler);
-	this.aboutFrame.setContentPane(aboutPane);
-	this.aboutFrame.pack();
+	this.mainWindow.setContentPane(aboutPane);
+	this.mainWindow.pack();
     }
 
     private class EventHandler implements ActionListener {

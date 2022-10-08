@@ -5,10 +5,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.current;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
@@ -20,28 +21,31 @@ import com.puttysoftware.randomrange.RandomRange;
 
 public class GenerateDungeonTask extends Thread {
     // Fields
-    private final JFrame generateFrame;
+    private final MainWindow mainWindow;
     private final boolean scratch;
 
     // Constructors
     public GenerateDungeonTask(final boolean startFromScratch) {
 	this.scratch = startFromScratch;
 	this.setName("Level Generator");
-	this.generateFrame = new JFrame("Generating...");
-	this.generateFrame.setIconImage(LogoLoader.getIconLogo());
+	this.mainWindow = MainWindow.mainWindow();
+	this.mainWindow.setTitle("Generating...");
+	this.mainWindow.setIconImage(LogoLoader.getIconLogo());
 	final var loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
-	this.generateFrame.getContentPane().add(loadBar);
-	this.generateFrame.setResizable(false);
-	this.generateFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	this.generateFrame.pack();
+	var loadContent = new JPanel();
+	loadContent.add(loadBar);
+	this.mainWindow.setAndSaveContent(loadContent);
+	this.mainWindow.setResizable(false);
+	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.mainWindow.pack();
     }
 
     // Methods
     @Override
     public void run() {
 	try {
-	    this.generateFrame.setVisible(true);
+	    this.mainWindow.setVisible(true);
 	    final var app = DungeonDiver7.getStuffBag();
 	    final var zoneID = PartyManager.getParty().getZone();
 	    final var dungeonSize = DungeonDiver7.getDungeonLevelSize(zoneID);
@@ -94,7 +98,7 @@ public class GenerateDungeonTask extends Thread {
 	} catch (final Throwable t) {
 	    DungeonDiver7.logError(t);
 	} finally {
-	    this.generateFrame.setVisible(false);
+	    this.mainWindow.setVisible(false);
 	}
     }
 }

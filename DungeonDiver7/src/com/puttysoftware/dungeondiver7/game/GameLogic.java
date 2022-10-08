@@ -7,12 +7,12 @@ package com.puttysoftware.dungeondiver7.game;
 
 import java.io.IOException;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.strings.DianeStrings;
 import com.puttysoftware.diane.utilties.DirectionResolver;
 import com.puttysoftware.dungeondiver7.Accelerators;
@@ -1182,7 +1182,7 @@ public final class GameLogic implements MenuSection {
 	if (this.savedGameFlag && PartyManager.getParty() != null) {
 	    return true;
 	}
-	return PartyManager.createParty(owner);
+	return PartyManager.createParty();
     }
 
     void scheduleAutoMove() {
@@ -1471,7 +1471,7 @@ public final class GameLogic implements MenuSection {
 	}
     }
 
-    public JFrame getOutputFrame() {
+    public MainWindow getOutputFrame() {
 	return this.gui.getOutputFrame();
     }
 

@@ -10,11 +10,11 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
@@ -22,7 +22,7 @@ import com.puttysoftware.dungeondiver7.locale.Strings;
 
 public class StatisticsViewer {
     // Fields
-    static JFrame statisticsFrame;
+    static MainWindow mainWindow;
     private static JPanel statisticsPane;
     private static JPanel contentPane;
     private static JPanel buttonPane;
@@ -49,8 +49,8 @@ public class StatisticsViewer {
 		    StatisticsViewer.statisticsValues[x].setText(" " + Strings.stat(x) + ": " + value + "  ");
 		}
 	    }
-	    StatisticsViewer.statisticsFrame.pack();
-	    StatisticsViewer.statisticsFrame.setVisible(true);
+	    StatisticsViewer.mainWindow.pack();
+	    StatisticsViewer.mainWindow.setVisible(true);
 	} else {
 	    CommonDialogs.showDialog("Nothing to display");
 	}
@@ -58,9 +58,10 @@ public class StatisticsViewer {
 
     private static void setUpGUI() {
 	if (!StatisticsViewer.inited) {
-	    StatisticsViewer.statisticsFrame = new JFrame("Statistics");
+	    StatisticsViewer.mainWindow = MainWindow.mainWindow();
+	    StatisticsViewer.mainWindow.setTitle("Statistics");
 	    final var iconlogo = LogoLoader.getIconLogo();
-	    StatisticsViewer.statisticsFrame.setIconImage(iconlogo);
+	    StatisticsViewer.mainWindow.setIconImage(iconlogo);
 	    StatisticsViewer.statisticsPane = new JPanel();
 	    StatisticsViewer.statisticsPane.setLayout(new BorderLayout());
 	    StatisticsViewer.contentPane = new JPanel();
@@ -68,7 +69,7 @@ public class StatisticsViewer {
 	    StatisticsViewer.buttonPane = new JPanel();
 	    StatisticsViewer.buttonPane.setLayout(new FlowLayout());
 	    StatisticsViewer.btnOK = new JButton("OK");
-	    StatisticsViewer.btnOK.addActionListener(e -> StatisticsViewer.statisticsFrame.setVisible(false));
+	    StatisticsViewer.btnOK.addActionListener(e -> StatisticsViewer.mainWindow.setVisible(false));
 	    StatisticsViewer.statisticsValues = new JLabel[StatConstants.MAX_DISPLAY_STATS];
 	    for (var x = 0; x < StatConstants.MAX_DISPLAY_STATS; x++) {
 		StatisticsViewer.statisticsValues[x] = new JLabel();
@@ -77,7 +78,7 @@ public class StatisticsViewer {
 	    StatisticsViewer.buttonPane.add(StatisticsViewer.btnOK);
 	    StatisticsViewer.statisticsPane.add(StatisticsViewer.contentPane, BorderLayout.CENTER);
 	    StatisticsViewer.statisticsPane.add(StatisticsViewer.buttonPane, BorderLayout.SOUTH);
-	    StatisticsViewer.statisticsFrame.setContentPane(StatisticsViewer.statisticsPane);
+	    StatisticsViewer.mainWindow.setContentPane(StatisticsViewer.statisticsPane);
 	    StatisticsViewer.inited = true;
 	}
     }

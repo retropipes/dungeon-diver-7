@@ -26,7 +26,7 @@ final class DialogView {
     // Constructors
     DialogView() {
 	super();
-	this.theFrame = MainWindow.getOutputFrame();
+	this.theFrame = MainWindow.mainWindow();
     }
 
     // Methods
@@ -34,7 +34,6 @@ final class DialogView {
 	this.theFrame.setAndSaveContent(this.thePane);
 	this.theFrame.setTitle(model.getTitle());
 	this.theFrame.setSystemIcon(model.getSystemIcon());
-	this.theFrame.pack();
     }
 
     void hideDialog() {

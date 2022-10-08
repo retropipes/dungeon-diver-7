@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
@@ -126,7 +127,7 @@ public final class DungeonManager {
 	this.isDirty = newDirty;
 	final var frame = app.getOutputFrame();
 	if (frame != null) {
-	    frame.getRootPane().putClientProperty("Window.documentModified", Boolean.valueOf(newDirty));
+	    frame.setDirty(newDirty);
 	}
 	app.getMenuManager().checkFlags();
     }
@@ -281,11 +282,10 @@ public final class DungeonManager {
     }
 
     private boolean loadDungeonImpl(final String initialDirectory) {
-	final var app = DungeonDiver7.getStuffBag();
 	var status = 0;
 	var saved = true;
 	String filename, extension, file, dir;
-	final var fd = new FileDialog(app.getOutputFrame(), Strings.dialog(DialogString.LOAD), FileDialog.LOAD);
+	final var fd = new FileDialog((JFrame) null, Strings.dialog(DialogString.LOAD), FileDialog.LOAD);
 	fd.setDirectory(initialDirectory);
 	if (this.getDirty()) {
 	    status = DungeonManager.showSaveDialog();
@@ -401,7 +401,7 @@ public final class DungeonManager {
 	var fileOnly = Strings.EMPTY;
 	String extension, file, dir;
 	final var lastSave = Prefs.getLastDirSave();
-	final var fd = new FileDialog(app.getOutputFrame(), Strings.dialog(DialogString.SAVE), FileDialog.SAVE);
+	final var fd = new FileDialog((JFrame) null, Strings.dialog(DialogString.SAVE), FileDialog.SAVE);
 	fd.setDirectory(lastSave);
 	while (!FilenameChecker.isFilenameOK(fileOnly)) {
 	    fd.setVisible(true);

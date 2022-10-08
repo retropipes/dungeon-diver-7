@@ -13,8 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Locale;
 
-import javax.swing.JFrame;
-
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Ground;
@@ -225,7 +224,7 @@ public class Prefs {
 	Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_MUSIC), status);
     }
 
-    public static JFrame getPrefFrame() {
+    public static MainWindow getPrefFrame() {
 	return Prefs.gui.getPrefFrame();
     }
 

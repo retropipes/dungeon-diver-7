@@ -21,7 +21,7 @@ public abstract class Accelerators {
     Accelerators() {
 	// Do nothing
     }
-    
+
     public static Accelerators getAcceleratorModel() {
 	if (Prefs.useClassicAccelerators()) {
 	    return new ClassicAccelerators();

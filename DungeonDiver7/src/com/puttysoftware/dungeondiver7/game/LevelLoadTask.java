@@ -5,10 +5,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.game;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
@@ -17,28 +18,31 @@ import com.puttysoftware.dungeondiver7.utility.ImageColors;
 
 public class LevelLoadTask extends Thread {
     // Fields
-    private final JFrame loadFrame;
+    private final MainWindow mainWindow;
     private final int level;
 
     // Constructors
     public LevelLoadTask(final int offset) {
 	this.level = offset;
 	this.setName("Level Loader");
-	this.loadFrame = new JFrame("Loading...");
-	this.loadFrame.setIconImage(LogoLoader.getIconLogo());
+	this.mainWindow = MainWindow.mainWindow();
+	this.mainWindow.setTitle("Loading...");
+	this.mainWindow.setIconImage(LogoLoader.getIconLogo());
 	final var loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
-	this.loadFrame.getContentPane().add(loadBar);
-	this.loadFrame.setResizable(false);
-	this.loadFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	this.loadFrame.pack();
+	var loadContent = new JPanel();
+	loadContent.add(loadBar);
+	this.mainWindow.setAndSaveContent(loadContent);
+	this.mainWindow.setResizable(false);
+	this.mainWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.mainWindow.pack();
     }
 
     // Methods
     @Override
     public void run() {
 	try {
-	    this.loadFrame.setVisible(true);
+	    this.mainWindow.setVisible(true);
 	    final var app = DungeonDiver7.getStuffBag();
 	    final var gameDungeon = app.getDungeonManager().getDungeon();
 	    app.getGameLogic().disableEvents();
@@ -51,7 +55,7 @@ public class LevelLoadTask extends Thread {
 	} catch (final Exception ex) {
 	    DungeonDiver7.logError(ex);
 	} finally {
-	    this.loadFrame.setVisible(false);
+	    this.mainWindow.setVisible(false);
 	}
     }
 }
