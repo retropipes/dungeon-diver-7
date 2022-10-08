@@ -7,7 +7,6 @@ package com.puttysoftware.dungeondiver7.loader;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -82,7 +81,7 @@ public class LogoLoader {
 	}
     }
 
-    public static Image getIconLogo() {
+    public static BufferedImageIcon getIconLogo() {
 	try {
 	    final var url = LogoLoader.LOAD_CLASS
 		    .getResource(Strings.untranslated(Untranslated.ICONLOGO_IMAGE_LOAD_PATH));

@@ -12,7 +12,6 @@ import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
-import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
@@ -30,7 +29,6 @@ public class GenerateDungeonTask extends Thread {
     public GenerateDungeonTask(final boolean startFromScratch) {
 	this.scratch = startFromScratch;
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainWindow.setSystemIcon(LogoLoader.getIconLogo());
 	final var loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	this.loadContent = new JPanel();

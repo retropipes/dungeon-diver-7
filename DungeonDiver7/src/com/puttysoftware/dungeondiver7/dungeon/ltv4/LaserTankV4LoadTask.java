@@ -15,7 +15,6 @@ import javax.swing.JProgressBar;
 import com.puttysoftware.diane.gui.CommonDialogs;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
@@ -34,7 +33,6 @@ public class LaserTankV4LoadTask extends Thread {
 	this.filename = file;
 	this.setName(Strings.untranslated(Untranslated.FILE_LOADER_OLD_NAME));
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainWindow.setSystemIcon(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	this.loadContent = new JPanel();

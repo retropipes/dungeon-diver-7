@@ -32,7 +32,6 @@ public final class StuffBag {
     private GameLogic gameLogic;
     private DungeonManager dungeonMgr;
     private MenuManager menuMgr;
-    private HelpManager helpMgr;
     private DungeonEditor editor;
     private GUIManager guiMgr;
     private int mode, formerMode;
@@ -74,7 +73,6 @@ public final class StuffBag {
 	this.getMenuManager().registerModeManager(this.getEditor());
 	this.getMenuManager().registerModeManager(this.getAboutDialog());
 	// Fire hooks
-	this.getHelpManager().activeLanguageChanged();
 	this.getGameLogic().activeLanguageChanged();
 	this.getEditor().activeLanguageChanged();
     }
@@ -186,13 +184,6 @@ public final class StuffBag {
 	return this.dungeonMgr;
     }
 
-    HelpManager getHelpManager() {
-	if (this.helpMgr == null) {
-	    this.helpMgr = new HelpManager();
-	}
-	return this.helpMgr;
-    }
-
     public DungeonEditor getEditor() {
 	if (this.editor == null) {
 	    this.editor = new DungeonEditor();
@@ -245,7 +236,6 @@ public final class StuffBag {
 	MainWindow mainWindow;
 	JProgressBar loadBar;
 	mainWindow = MainWindow.mainWindow();
-	mainWindow.setSystemIcon(LogoLoader.getIconLogo());
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	loadBar.setPreferredSize(new Dimension(600, 20));

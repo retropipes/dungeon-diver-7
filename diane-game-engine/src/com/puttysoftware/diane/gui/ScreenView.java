@@ -24,7 +24,6 @@ public abstract class ScreenView {
     // Methods
     final void showScreen(final ScreenModel model, final WeakReference<ScreenController> controllerRef) {
 	this.theFrame.setAndSave(this.thePanel, model.getTitle());
-	this.theFrame.setSystemIcon(model.getSystemIcon());
 	this.theFrame.addWindowListener(controllerRef.get());
 	this.theFrame.pack();
     }
@@ -38,6 +37,10 @@ public abstract class ScreenView {
 	this.thePanel = MainContentFactory.content();
 	this.populateMainPanel(model);
 	this.thePanel.setOpaque(true);
+    }
+
+    JPanel content() {
+	return this.thePanel;
     }
 
     protected abstract void populateMainPanel(final ScreenModel model);

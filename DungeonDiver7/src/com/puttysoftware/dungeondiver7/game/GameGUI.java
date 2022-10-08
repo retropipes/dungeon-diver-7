@@ -38,7 +38,6 @@ import com.puttysoftware.diane.utilties.DirectionResolver;
 import com.puttysoftware.diane.utilties.Directions;
 import com.puttysoftware.dungeondiver7.Accelerators;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterRegistration;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
@@ -317,15 +316,12 @@ class GameGUI {
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);
 	this.mainWindow = MainWindow.mainWindow();
-	final var iconlogo = StuffBag.getIconLogo();
-	this.mainWindow.setSystemIcon(iconlogo);
 	this.drawGrid = new DrawGrid(Prefs.getViewingWindowSize());
 	this.outputPane = new GameDraw(this.drawGrid);
 	// Pasted code
 	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainWindow.setSystemIcon(iconlogo);
 	this.outerOutputPane = RCLGenerator.generateRowColumnLabels();
 	this.outputPane = new GameDraw();
 	this.outputPane.setLayout(new GridLayout(GameViewingWindowManager.getFixedViewingWindowSizeX(),

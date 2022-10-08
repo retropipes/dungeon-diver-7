@@ -32,7 +32,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
     // Fields
     private MainWindow mainWindow;
     private JPanel aboutPane;
-    private JMenuItem helpAbout, helpHelp;
+    private JMenuItem helpAbout;
 
     // Constructors
     AboutDialog(final String ver) {
@@ -56,8 +56,6 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	JLabel miniLabel;
 	handler = new EventHandler();
 	this.mainWindow = MainWindow.mainWindow();
-	final var iconlogo = LogoLoader.getIconLogo();
-	this.mainWindow.setSystemIcon(iconlogo);
 	this.aboutPane = new JPanel();
 	textPane = new JPanel();
 	buttonPane = new JPanel();
@@ -121,9 +119,6 @@ public class AboutDialog implements AboutHandler, MenuSection {
 		if (cmd.equals(DianeStrings.subst(Strings.menu(Menu.ABOUT_PROGRAM),
 			Strings.untranslated(Untranslated.PROGRAM_NAME)))) {
 		    app.getAboutDialog().showAboutDialog();
-		} else if (cmd.equals(DianeStrings.subst(Strings.menu(Menu.PROGRAM_HELP),
-			Strings.untranslated(Untranslated.PROGRAM_NAME)))) {
-		    app.getHelpManager().showHelp();
 		}
 		app.getMenuManager().checkFlags();
 	    } catch (final Exception ex) {
@@ -145,7 +140,6 @@ public class AboutDialog implements AboutHandler, MenuSection {
     @Override
     public void setInitialState() {
 	this.helpAbout.setEnabled(true);
-	this.helpHelp.setEnabled(true);
     }
 
     @Override
@@ -154,15 +148,11 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	final var helpMenu = new JMenu(Strings.menu(Menu.HELP));
 	this.helpAbout = new JMenuItem(
 		DianeStrings.subst(Strings.menu(Menu.ABOUT_PROGRAM), Strings.untranslated(Untranslated.PROGRAM_NAME)));
-	this.helpHelp = new JMenuItem(
-		DianeStrings.subst(Strings.menu(Menu.PROGRAM_HELP), Strings.untranslated(Untranslated.PROGRAM_NAME)));
 	this.helpAbout.addActionListener(mhandler);
-	this.helpHelp.addActionListener(mhandler);
 	if (!System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
 		.equalsIgnoreCase(Strings.untranslated(Untranslated.MACOS))) {
 	    helpMenu.add(this.helpAbout);
 	}
-	helpMenu.add(this.helpHelp);
 	return helpMenu;
     }
 

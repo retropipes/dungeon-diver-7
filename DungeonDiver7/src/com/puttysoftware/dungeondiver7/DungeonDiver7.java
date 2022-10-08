@@ -79,7 +79,7 @@ public class DungeonDiver7 {
 	    DungeonDiver7.stuffBag = new StuffBag();
 	    // Set Up Common Dialogs
 	    CommonDialogs.setDefaultTitle(DungeonDiver7.PROGRAM_NAME);
-	    CommonDialogs.setIcon(LogoLoader.getMicroLogo());
+	    CommonDialogs.setIcon(LogoLoader.getIconLogo());
 	    // Initialize preferences
 	    Prefs.init();
 	    Prefs.readPrefs();

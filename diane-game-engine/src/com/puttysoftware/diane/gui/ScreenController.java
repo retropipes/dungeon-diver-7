@@ -9,6 +9,8 @@ package com.puttysoftware.diane.gui;
 import java.awt.event.WindowListener;
 import java.lang.ref.WeakReference;
 
+import javax.swing.JPanel;
+
 public abstract class ScreenController implements WindowListener {
     // Fields
     private ScreenModel model;
@@ -48,5 +50,17 @@ public abstract class ScreenController implements WindowListener {
     protected final void hideScreen() {
 	this.checkView();
 	this.view.hideScreen(this.model, new WeakReference<>(this));
+    }
+
+    JPanel content() {
+	this.checkView();
+	return this.view.content();
+    }
+    
+    String title() {
+	if (this.model == null) {
+	    throw new IllegalStateException();
+	}
+	return this.model.getTitle();
     }
 }

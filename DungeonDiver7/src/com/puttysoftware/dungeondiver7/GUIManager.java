@@ -83,8 +83,6 @@ public class GUIManager implements MenuSection, QuitHandler {
     void updateLogo() {
 	final var logo = LogoLoader.getLogo();
 	this.logoLabel.setIcon(logo);
-	final var iconlogo = LogoLoader.getIconLogo();
-	this.mainWindow.setSystemIcon(iconlogo);
     }
 
     public boolean quitHandler() {

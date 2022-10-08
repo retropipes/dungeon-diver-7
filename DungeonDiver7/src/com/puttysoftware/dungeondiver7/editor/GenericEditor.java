@@ -17,7 +17,6 @@ import javax.swing.JScrollPane;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
-import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.integration.Integration;
 
 public abstract class GenericEditor {
@@ -150,8 +149,6 @@ public abstract class GenericEditor {
     protected void setUpGUI() {
 	this.messageLabel = new JLabel(" ");
 	this.mainWindow = MainWindow.mainWindow();
-	final var iconlogo = LogoLoader.getIconLogo();
-	this.mainWindow.setSystemIcon(iconlogo);
 	this.outputPane = new JPanel();
 	this.borderPane = new JPanel();
 	this.borderPane.setLayout(new BorderLayout());

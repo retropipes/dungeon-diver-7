@@ -7,7 +7,6 @@
 package com.puttysoftware.diane.gui;
 
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowListener;
 
@@ -56,12 +55,21 @@ public final class MainWindow {
     public static MainWindow mainWindow() {
 	if (MainWindow.window == null) {
 	    MainWindow.window = new MainWindow();
+	    MainWindow.window.frame.setIconImage(CommonDialogs.icon());
 	}
 	return MainWindow.window;
     }
 
     public boolean checkContent(final JComponent customContent) {
 	return this.content.equals(customContent);
+    }
+
+    public void setAndSave(final ScreenController screen) {
+	this.savedContent = this.content;
+	this.savedTitle = this.frame.getTitle();
+	this.content = screen.content();
+	this.frame.setContentPane(this.content);
+	this.frame.setTitle(screen.title());
     }
 
     public void setAndSave(final JComponent customContent, final String title) {
@@ -86,10 +94,6 @@ public final class MainWindow {
 
     public void setMenus(final JMenuBar menus) {
 	this.frame.setJMenuBar(menus);
-    }
-
-    public void setSystemIcon(final Image icon) {
-	this.frame.setIconImage(icon);
     }
 
     public void setDirty(final boolean newDirty) {

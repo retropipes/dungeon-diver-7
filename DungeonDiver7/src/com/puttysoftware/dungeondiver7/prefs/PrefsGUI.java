@@ -21,7 +21,6 @@ import javax.swing.JPanel;
 
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.EditorLayout;
 import com.puttysoftware.dungeondiver7.locale.PrefString;
@@ -152,8 +151,6 @@ class PrefsGUI {
 	this.mainPrefPane.add(buttonPane, BorderLayout.SOUTH);
 	prefsOK.addActionListener(this.handler);
 	prefsCancel.addActionListener(this.handler);
-	final var iconlogo = LogoLoader.getIconLogo();
-	this.mainWindow.setSystemIcon(iconlogo);
     }
 
     private class EventHandler implements ActionListener, WindowListener {

@@ -23,7 +23,6 @@ import javax.swing.JTextField;
 
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Difficulty;
 import com.puttysoftware.dungeondiver7.locale.EditorString;
@@ -105,8 +104,6 @@ class LevelPreferencesManager {
 	JButton prefsOK, prefsCancel;
 	this.handler = new EventHandler();
 	this.mainWindow = MainWindow.mainWindow();
-	final var iconlogo = LogoLoader.getIconLogo();
-	this.mainWindow.setSystemIcon(iconlogo);
 	this.mainPrefPane = new JPanel();
 	contentPane = new JPanel();
 	buttonPane = new JPanel();

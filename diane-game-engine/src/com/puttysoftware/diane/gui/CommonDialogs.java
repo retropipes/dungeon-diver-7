@@ -160,6 +160,15 @@ public class CommonDialogs {
     }
 
     /**
+     * Gets the image to use instead of the default icons.
+     *
+     * @return The icon image, as a BufferedImageIcon from the Graphics library.
+     */
+    public static BufferedImageIcon icon() {
+	return CommonDialogs.ICON;
+    }
+
+    /**
      * Sets the image to use instead of the default icons.
      *
      * @param icon The image - should be a BufferedImageIcon from the Graphics

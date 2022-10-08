@@ -42,7 +42,6 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Ground;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Party;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
-import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.EditorLayout;
 import com.puttysoftware.dungeondiver7.locale.EditorString;
 import com.puttysoftware.dungeondiver7.locale.Menu;
@@ -831,8 +830,6 @@ public class DungeonEditor implements MenuSection {
     private void setUpGUI() {
 	this.messageLabel = new JLabel(Strings.SPACE);
 	this.mainWindow = MainWindow.mainWindow();
-	final var iconlogo = LogoLoader.getIconLogo();
-	this.mainWindow.setSystemIcon(iconlogo);
 	this.outputPane = new EditorDraw();
 	this.secondaryPane = new JPanel();
 	this.borderPane = new JPanel();
