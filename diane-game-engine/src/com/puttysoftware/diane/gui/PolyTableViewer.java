@@ -95,8 +95,6 @@ public final class PolyTableViewer {
 			valid = true;
 		    } catch (final NumberFormatException nf) {
 			// Ignore exception
-		    } catch (final NullPointerException np) {
-			// Ignore exception
 		    }
 		    if (!valid) {
 			CommonDialogs.showErrorDialog("The input provided was invalid - please try again.", //$NON-NLS-1$
@@ -136,8 +134,6 @@ public final class PolyTableViewer {
 		    }
 		    valid = true;
 		} catch (final NumberFormatException nf) {
-		    // Ignore exception
-		} catch (final NullPointerException np) {
 		    // Ignore exception
 		}
 		if (!valid) {

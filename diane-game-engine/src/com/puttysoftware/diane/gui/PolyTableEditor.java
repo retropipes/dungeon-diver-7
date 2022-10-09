@@ -92,8 +92,6 @@ public final class PolyTableEditor {
 			    inputValid = true;
 			} catch (final NumberFormatException nf) {
 			    // Ignore exception
-			} catch (final NullPointerException np) {
-			    return null;
 			}
 			if (!inputValid) {
 			    CommonDialogs.showErrorDialog("The input provided was invalid - please try again.", //$NON-NLS-1$

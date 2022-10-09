@@ -19,14 +19,10 @@ public class SoundLoader {
     }
 
     private static WAVPlayer getSound(final int soundID) {
-	try {
-	    final var filename = SoundConstants.getSoundName(soundID);
-	    final var url = SoundLoader.LOAD_CLASS.getResource(Strings.untranslated(Untranslated.SOUND_LOAD_PATH)
-		    + filename.toLowerCase() + Strings.fileExtension(FileExtension.SOUND));
-	    return WAVPlayer.loadResource(url);
-	} catch (final NullPointerException np) {
-	    return null;
-	}
+	final var filename = SoundConstants.getSoundName(soundID);
+	final var url = SoundLoader.LOAD_CLASS.getResource(Strings.untranslated(Untranslated.SOUND_LOAD_PATH)
+		+ filename.toLowerCase() + Strings.fileExtension(FileExtension.SOUND));
+	return WAVPlayer.loadResource(url);
     }
 
     public static void playSound(final int soundID) {

@@ -387,13 +387,8 @@ final class MovingLaserTracker {
 	var zproceed = true;
 	AbstractDungeonObject zo = null;
 	try {
-	    try {
-		zo = m.getCell(px + sx, py + sy, pz, DungeonConstants.LAYER_LOWER_OBJECTS);
-	    } catch (final ArrayIndexOutOfBoundsException ae) {
-		zo = new Wall();
-	    }
-	} catch (final NullPointerException np) {
-	    zproceed = false;
+	    zo = m.getCell(px + sx, py + sy, pz, DungeonConstants.LAYER_LOWER_OBJECTS);
+	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    zo = new Wall();
 	}
 	if (zproceed) {

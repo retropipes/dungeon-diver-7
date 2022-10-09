@@ -120,7 +120,7 @@ public class ImageLoader {
 		}
 	    }
 	    return result;
-	} catch (final NullPointerException | IllegalArgumentException ia) {
+	} catch (final IllegalArgumentException ia) {
 	    return null;
 	}
     }
@@ -142,7 +142,7 @@ public class ImageLoader {
 		return result;
 	    }
 	    return null;
-	} catch (final NullPointerException | IllegalArgumentException ia) {
+	} catch (final IllegalArgumentException ia) {
 	    return null;
 	}
     }

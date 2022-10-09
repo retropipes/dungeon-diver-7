@@ -311,22 +311,23 @@ final class MLOTask extends Thread {
 	AbstractDungeonObject loo = null;
 	AbstractDungeonObject uoo = null;
 	try {
-	    try {
-		lgo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_GROUND);
-		ugo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_UPPER_GROUND);
-		loo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_OBJECTS);
-		uoo = m.getCell(px + this.sx, py + this.sy, pz, pw);
-	    } catch (final ArrayIndexOutOfBoundsException ae) {
-		lgo = new Wall();
-		ugo = new Wall();
-		loo = new Wall();
-		uoo = new Wall();
-	    }
-	} catch (final NullPointerException np) {
-	    this.proceed = false;
+	    lgo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_GROUND);
+	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    lgo = new Wall();
+	}
+	try {
+	    ugo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_UPPER_GROUND);
+	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    ugo = new Wall();
+	}
+	try {
+	    loo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_OBJECTS);
+	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    loo = new Wall();
+	}
+	try {
+	    uoo = m.getCell(px + this.sx, py + this.sy, pz, pw);
+	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    uoo = new Wall();
 	}
 	return MLOTask.checkSolid(lgo) && MLOTask.checkSolid(ugo) && MLOTask.checkSolid(loo) && MLOTask.checkSolid(uoo);
@@ -348,22 +349,23 @@ final class MLOTask extends Thread {
 	AbstractDungeonObject loo = null;
 	AbstractDungeonObject uoo = null;
 	try {
-	    try {
-		lgo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_GROUND);
-		ugo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_UPPER_GROUND);
-		loo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_OBJECTS);
-		uoo = m.getCell(px + this.sx, py + this.sy, pz, pw);
-	    } catch (final ArrayIndexOutOfBoundsException ae) {
-		lgo = new Wall();
-		ugo = new Wall();
-		loo = new Wall();
-		uoo = new Wall();
-	    }
-	} catch (final NullPointerException np) {
-	    this.proceed = false;
+	    lgo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_GROUND);
+	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    lgo = new Wall();
+	}
+	try {
+	    ugo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_UPPER_GROUND);
+	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    ugo = new Wall();
+	}
+	try {
+	    loo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_OBJECTS);
+	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    loo = new Wall();
+	}
+	try {
+	    uoo = m.getCell(px + this.sx, py + this.sy, pz, pw);
+	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    uoo = new Wall();
 	}
 	if (this.proceed) {
@@ -483,16 +485,13 @@ final class MLOTask extends Thread {
 	AbstractDungeonObject lgo = null;
 	AbstractDungeonObject ugo = null;
 	try {
-	    try {
-		lgo = m.getCell(px, py, pz, DungeonConstants.LAYER_LOWER_GROUND);
-		ugo = m.getCell(px, py, pz, DungeonConstants.LAYER_UPPER_GROUND);
-	    } catch (final ArrayIndexOutOfBoundsException ae) {
-		lgo = new Wall();
-		ugo = new Wall();
-	    }
-	} catch (final NullPointerException np) {
-	    this.proceed = false;
+	    lgo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_GROUND);
+	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    lgo = new Wall();
+	}
+	try {
+	    ugo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_UPPER_GROUND);
+	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    ugo = new Wall();
 	}
 	return zproceed && (!lgo.hasFriction() || !ugo.hasFriction() || this.mover || this.frozen)

@@ -212,7 +212,7 @@ public class DungeonEditor implements MenuSection {
 	    } else {
 		this.enableAddLevel();
 	    }
-	    try {
+	    if (this.elMgr != null) {
 		if (this.elMgr.getEditorLocationZ() == this.elMgr.getMinEditorLocationZ()) {
 		    this.disableDownOneFloor();
 		} else {
@@ -223,11 +223,6 @@ public class DungeonEditor implements MenuSection {
 		} else {
 		    this.enableUpOneFloor();
 		}
-	    } catch (final NullPointerException npe) {
-		this.disableDownOneFloor();
-		this.disableUpOneFloor();
-	    }
-	    try {
 		if (this.elMgr.getEditorLocationU() == this.elMgr.getMinEditorLocationU()) {
 		    this.disableDownOneLevel();
 		} else {
@@ -238,7 +233,9 @@ public class DungeonEditor implements MenuSection {
 		} else {
 		    this.enableUpOneLevel();
 		}
-	    } catch (final NullPointerException npe) {
+	    } else {
+		this.disableDownOneFloor();
+		this.disableUpOneFloor();
 		this.disableDownOneLevel();
 		this.disableUpOneLevel();
 	    }

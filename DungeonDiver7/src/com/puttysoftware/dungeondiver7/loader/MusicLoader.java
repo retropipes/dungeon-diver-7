@@ -65,17 +65,13 @@ public class MusicLoader {
     }
 
     private static OggPlayer getExternalMusic(final String filename) {
-	try {
-	    if (MusicLoader.EXTERNAL_LOAD_PATH == null) {
-		MusicLoader.EXTERNAL_LOAD_PATH = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
-			.getDungeonTempMusicFolder();
-	    }
-	    final var mmod = OggPlayer.loadLoopedFile(MusicLoader.EXTERNAL_LOAD_PATH + filename);
-	    MusicLoader.CURRENT_EXTERNAL_MUSIC = mmod;
-	    return mmod;
-	} catch (final NullPointerException np) {
-	    return null;
+	if (MusicLoader.EXTERNAL_LOAD_PATH == null) {
+	    MusicLoader.EXTERNAL_LOAD_PATH = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
+		    .getDungeonTempMusicFolder();
 	}
+	final var mmod = OggPlayer.loadLoopedFile(MusicLoader.EXTERNAL_LOAD_PATH + filename);
+	MusicLoader.CURRENT_EXTERNAL_MUSIC = mmod;
+	return mmod;
     }
 
     public static boolean isExternalMusicPlaying() {
