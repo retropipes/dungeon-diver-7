@@ -1,4 +1,4 @@
-package com.puttysoftware.diane.gui.listwithimage;
+package com.puttysoftware.diane.gui.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.Component;

@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.shop;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.diane.gui.listwithimage.ListWithImageDialog;
+import com.puttysoftware.diane.gui.dialog.ListWithImageDialog;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.item.EquipmentFactory;
