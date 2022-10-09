@@ -6,7 +6,7 @@
  */
 package com.puttysoftware.diane.gui;
 
-public class ScreenModel {
+public final class ScreenModel {
     // Fields
     private final String title;
 

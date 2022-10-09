@@ -14,6 +14,7 @@ public abstract class ScreenView {
     // Fields
     protected final MainWindow theFrame;
     protected JPanel thePanel;
+    protected WeakReference<ScreenController> controllerReference;
 
     // Constructors
     protected ScreenView() {
@@ -23,13 +24,15 @@ public abstract class ScreenView {
 
     // Methods
     final void showScreen(final ScreenModel model, final WeakReference<ScreenController> controllerRef) {
+	this.controllerReference = controllerRef;
 	this.theFrame.setAndSave(this.thePanel, model.getTitle());
-	this.theFrame.addWindowListener(controllerRef.get());
+	this.theFrame.addWindowListener(this.controllerReference.get());
 	this.theFrame.pack();
     }
 
-    final void hideScreen(final ScreenModel model, final WeakReference<ScreenController> controllerRef) {
-	this.theFrame.removeWindowListener(controllerRef.get());
+    protected final void hideScreen(final WeakReference<ScreenController> controllerRef) {
+	this.controllerReference = controllerRef;
+	this.theFrame.removeWindowListener(this.controllerReference.get());
 	this.theFrame.restoreSaved();
     }
 

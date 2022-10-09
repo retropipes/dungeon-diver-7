@@ -6,20 +6,24 @@
  */
 package com.puttysoftware.diane.gui;
 
-import java.awt.event.WindowListener;
+import java.awt.event.WindowAdapter;
 import java.lang.ref.WeakReference;
 
 import javax.swing.JPanel;
 
-public abstract class ScreenController implements WindowListener {
+public abstract class ScreenController extends WindowAdapter {
     // Fields
-    private ScreenModel model;
-    private ScreenView view;
+    private final ScreenModel model;
+    private final ScreenView view;
+    private String value;
+    private Thread valueTask;
     private boolean viewReady;
 
     // Constructors
-    protected ScreenController() {
+    protected ScreenController(final ScreenModel theModel, final ScreenView theView) {
 	super();
+	this.model = theModel;
+	this.view = theView;
 	this.viewReady = false;
     }
 
@@ -34,29 +38,44 @@ public abstract class ScreenController implements WindowListener {
 	}
     }
 
-    public final void setModel(final ScreenModel screenModel) {
-	this.model = screenModel;
-    }
-
-    public final void setView(final ScreenView screenView) {
-	this.view = screenView;
-    }
-
     public final void showScreen() {
 	this.checkView();
 	this.view.showScreen(this.model, new WeakReference<>(this));
     }
 
+    public final String showValueScreen() {
+	this.valueTask = new Thread() {
+	    @Override
+	    public void run() {
+		ScreenController.this.checkView();
+		ScreenController.this.view.showScreen(ScreenController.this.model,
+			new WeakReference<>(ScreenController.this));
+	    }
+	};
+	this.valueTask.start();
+	try {
+	    this.valueTask.join();
+	} catch (InterruptedException e) {
+	    return null;
+	}
+	return this.value;
+    }
+
+    public synchronized final void setValue(final String v) {
+	this.value = v;
+	this.valueTask.notifyAll();
+    }
+
     protected final void hideScreen() {
 	this.checkView();
-	this.view.hideScreen(this.model, new WeakReference<>(this));
+	this.view.hideScreen(new WeakReference<>(this));
     }
 
     JPanel content() {
 	this.checkView();
 	return this.view.content();
     }
-    
+
     String title() {
 	if (this.model == null) {
 	    throw new IllegalStateException();

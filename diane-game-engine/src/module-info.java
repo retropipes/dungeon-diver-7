@@ -14,6 +14,7 @@ module com.puttysoftware.diane {
     exports com.puttysoftware.diane;
     exports com.puttysoftware.diane.assets;
     exports com.puttysoftware.diane.gui;
+    exports com.puttysoftware.diane.gui.listwithimage;
     exports com.puttysoftware.diane.loaders;
     exports com.puttysoftware.diane.map;
     exports com.puttysoftware.diane.objectmodel;

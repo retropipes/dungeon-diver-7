@@ -1,15 +1,8 @@
-/*  Chrystalz: A dungeon-crawling, roguelike game
-Licensed under MIT. See the LICENSE file for details.
-
-All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
- */
-package com.puttysoftware.diane.gui;
+package com.puttysoftware.diane.gui.listwithimage;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -21,7 +14,6 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -29,62 +21,47 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
+import com.puttysoftware.diane.gui.ScreenModel;
+import com.puttysoftware.diane.gui.ScreenView;
 import com.puttysoftware.images.BufferedImageIcon;
 
-public class ListWithImageDialog extends JDialog implements ActionListener {
-    private static final long serialVersionUID = 1L;
-    static BufferedImageIcon[] imgs;
-    private static ListWithImageDialog dialog;
-    private static String value = null;
-    static JList<String> list;
+class ListWithImageView extends ScreenView implements ActionListener {
+    private BufferedImageIcon imageValue;
+    private final BufferedImageIcon[] images;
+    private final String labelText;
+    private String value;
+    private final String[] values;
+    JList<String> list;
 
-    /**
-     * Set up and show the dialog. The first Component argument determines which
-     * frame the dialog depends on; it should be a component in the dialog's
-     * controlling frame. The second Component argument should be null if you want
-     * the dialog to come up with its left corner in the center of the screen;
-     * otherwise, it should be the component on top of which the dialog should
-     * appear.
-     */
-    public static String showDialog(final String labelText, final String title, final String initialValue,
-	    final String[] possibleValues, final BufferedImageIcon imgValue,
-	    final BufferedImageIcon... possibleImages) {
-	ListWithImageDialog.value = null;
-	ListWithImageDialog.dialog = new ListWithImageDialog(labelText, title, initialValue, possibleValues, imgValue,
-		possibleImages);
-	ListWithImageDialog.dialog.setVisible(true);
-	return ListWithImageDialog.value;
+    public ListWithImageView(final String labelValue, final String initialValue, final String[] possibleValues,
+	    final BufferedImageIcon imgValue, final BufferedImageIcon... possibleImages) {
+	super();
+	this.labelText = labelValue;
+	this.value = initialValue;
+	this.values = possibleValues;
+	this.imageValue = imgValue;
+	this.images = possibleImages;
     }
 
-    private static void setValue(final String newValue) {
-	ListWithImageDialog.value = newValue;
-	ListWithImageDialog.list.setSelectedValue(ListWithImageDialog.value, true);
-    }
-
-    private ListWithImageDialog(final String labelText, final String title, final String initialValue,
-	    final String[] possibleValues, final BufferedImageIcon imgValue,
-	    final BufferedImageIcon... possibleImages) {
-	super((Frame) null, title, true);
-	// Initialize the images
-	ListWithImageDialog.imgs = possibleImages;
+    @Override
+    protected void populateMainPanel(ScreenModel model) {
 	// Create and initialize the buttons.
 	final JButton cancelButton = new JButton("Cancel");
 	cancelButton.addActionListener(this);
-	//
 	final JButton setButton = new JButton("OK");
 	setButton.setActionCommand("OK");
 	setButton.addActionListener(this);
-	this.getRootPane().setDefaultButton(setButton);
+	this.theFrame.setDefaultButton(setButton);
 	// Create a label to hold the image
 	final JPanel imgPane = new JPanel();
-	final JLabel imgLabel = new JLabel(imgValue);
+	final JLabel imgLabel = new JLabel(this.imageValue);
 	imgPane.add(imgLabel);
 	// main part of the dialog
-	ListWithImageDialog.list = new SubJList<>(possibleValues);
-	ListWithImageDialog.list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	ListWithImageDialog.list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-	ListWithImageDialog.list.setVisibleRowCount(-1);
-	ListWithImageDialog.list.addMouseListener(new MouseAdapter() {
+	this.list = new SubJList<>(this.values);
+	this.list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	this.list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+	this.list.setVisibleRowCount(-1);
+	this.list.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(final MouseEvent e) {
 		if (e.getClickCount() == 2) {
@@ -92,9 +69,8 @@ public class ListWithImageDialog extends JDialog implements ActionListener {
 		}
 	    }
 	});
-	ListWithImageDialog.list.addListSelectionListener(
-		e -> imgLabel.setIcon(ListWithImageDialog.imgs[ListWithImageDialog.list.getSelectedIndex()]));
-	final JScrollPane listScroller = new JScrollPane(ListWithImageDialog.list);
+	this.list.addListSelectionListener(e -> imgLabel.setIcon(this.images[this.list.getSelectedIndex()]));
+	final JScrollPane listScroller = new JScrollPane(this.list);
 	listScroller.setPreferredSize(new Dimension(250, 80));
 	listScroller.setAlignmentX(Component.LEFT_ALIGNMENT);
 	// Create a container so that we can add a title around
@@ -103,8 +79,8 @@ public class ListWithImageDialog extends JDialog implements ActionListener {
 	// Lay out the label and scroll pane from top to bottom.
 	final JPanel listPane = new JPanel();
 	listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
-	final JLabel label = new JLabel(labelText);
-	label.setLabelFor(ListWithImageDialog.list);
+	final JLabel label = new JLabel(this.labelText);
+	label.setLabelFor(this.list);
 	listPane.add(label);
 	listPane.add(Box.createRigidArea(new Dimension(0, 5)));
 	listPane.add(listScroller);
@@ -118,24 +94,28 @@ public class ListWithImageDialog extends JDialog implements ActionListener {
 	buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
 	buttonPane.add(setButton);
 	// Put everything together, using the content pane's BorderLayout.
-	final Container contentPane = this.getContentPane();
+	final JPanel contentPane = new JPanel();
 	contentPane.add(listPane, BorderLayout.CENTER);
 	contentPane.add(imgPane, BorderLayout.WEST);
 	contentPane.add(buttonPane, BorderLayout.PAGE_END);
 	// Initialize values.
-	ListWithImageDialog.setValue(initialValue);
-	this.pack();
+	this.setValue(this.value);
+    }
+
+    private void setValue(final String newValue) {
+	this.controllerReference.get().setValue(newValue);
+	this.list.setSelectedValue(this.value, true);
     }
 
     // Handle clicks on the Set and Cancel buttons.
     @Override
     public void actionPerformed(final ActionEvent e) {
 	if ("OK".equals(e.getActionCommand())) {
-	    ListWithImageDialog.setValue(ListWithImageDialog.list.getSelectedValue());
+	    this.setValue(this.list.getSelectedValue());
 	} else if ("Cancel".equals(e.getActionCommand())) {
-	    ListWithImageDialog.setValue(null);
+	    this.setValue(null);
 	}
-	ListWithImageDialog.dialog.setVisible(false);
+	this.hideScreen(this.controllerReference);
     }
 
     private static class SubJList<T> extends JList<T> {

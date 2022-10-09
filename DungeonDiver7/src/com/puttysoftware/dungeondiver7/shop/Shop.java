@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.shop;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.diane.gui.ListWithImageDialog;
+import com.puttysoftware.diane.gui.listwithimage.ListWithImageDialog;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.item.EquipmentFactory;
@@ -286,9 +286,10 @@ public class Shop {
 	    }
 	    Shop.this.typeDefault = 0;
 	    if (Shop.this.typeChoices != null) {
-		Shop.this.typeResult = ListWithImageDialog.showDialog("Select Type", Shop.this.getShopNameFromType(),
+		var dialog = new ListWithImageDialog("Select Type", Shop.this.getShopNameFromType(),
 			Shop.this.typeChoices[Shop.this.typeDefault], Shop.this.typeChoices,
 			Shop.this.imageChoices[Shop.this.typeDefault], Shop.this.imageChoices);
+		Shop.this.typeResult = dialog.showValueScreen();
 		if (Shop.this.typeResult == null) {
 		    return false;
 		}
