@@ -92,20 +92,27 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		this.foundX = -1;
 		this.foundY = -1;
 		this.iue = new ImageUndoEngine();
+		this.visionMode = VisionModes.EXPLORE_AND_LOS;
+		this.visionModeExploreRadius = 2;
+	}
+
+	public CurrentDungeonData(final CurrentDungeonData source) {
+		this.data = new DungeonDataStorage(source.data);
+		this.virtualData = new DungeonDataStorage(source.virtualData);
+		this.dirtyData = new FlagStorage(source.dirtyData);
+		this.visionData = new FlagStorage(source.visionData);
+		this.savedState = new DungeonDataStorage(source.savedState);
+		this.foundX = source.foundX;
+		this.foundY = source.foundY;
+		this.iue = new ImageUndoEngine(source.iue);
+		this.visionMode = source.visionMode;
+		this.visionModeExploreRadius = source.visionModeExploreRadius;
 	}
 
 	// Methods
 	@Override
 	public CurrentDungeonData clone() {
-		try {
-			final var copy = new CurrentDungeonData();
-			copy.data = (DungeonDataStorage) this.data.clone();
-			copy.savedState = (DungeonDataStorage) this.savedState.clone();
-			return copy;
-		} catch (final CloneNotSupportedException cnse) {
-			DungeonDiver7.logError(cnse);
-			return null;
-		}
+		return new CurrentDungeonData(this);
 	}
 
 	@Override
@@ -1857,20 +1864,12 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
 	@Override
 	public void updateUndoHistory(final HistoryStatus whatWas) {
-		try {
-			this.iue.updateUndoHistory((DungeonDataStorage) this.data.clone(), whatWas);
-		} catch (final CloneNotSupportedException cnse) {
-			DungeonDiver7.logError(cnse);
-		}
+		this.iue.updateUndoHistory(new DungeonDataStorage(this.data), whatWas);
 	}
 
 	@Override
 	public void updateRedoHistory(final HistoryStatus whatWas) {
-		try {
-			this.iue.updateRedoHistory((DungeonDataStorage) this.data.clone(), whatWas);
-		} catch (final CloneNotSupportedException cnse) {
-			DungeonDiver7.logError(cnse);
-		}
+		this.iue.updateRedoHistory(new DungeonDataStorage(this.data), whatWas);
 	}
 
 	@Override
@@ -1895,6 +1894,13 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 			this.redoHistory = new HistoryStack();
 			this.image = null;
 			this.whatWas = null;
+		}
+
+		public ImageUndoEngine(final ImageUndoEngine source) {
+			this.undoHistory = new HistoryStack(source.undoHistory);
+			this.redoHistory = new HistoryStack(source.redoHistory);
+			this.image = source.image;
+			this.whatWas = source.whatWas;
 		}
 
 		// Public methods
@@ -1963,6 +1969,11 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 				this.histWhatWas = hww;
 			}
 
+			HistoryEntry(final HistoryEntry source) {
+				this.histImage = source.histImage;
+				this.histWhatWas = source.histWhatWas;
+			}
+
 			public DungeonDataStorage getImage() {
 				return this.histImage;
 			}
@@ -1978,6 +1989,13 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
 			HistoryStack() {
 				this.stack = new ArrayDeque<>();
+			}
+
+			HistoryStack(final HistoryStack source) {
+				this.stack = new ArrayDeque<>();
+				for (HistoryEntry entry : source.stack) {
+					this.stack.addFirst(new HistoryEntry(entry));
+				}
 			}
 
 			public boolean isEmpty() {

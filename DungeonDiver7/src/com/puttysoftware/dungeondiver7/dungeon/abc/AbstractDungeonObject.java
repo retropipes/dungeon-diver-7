@@ -36,9 +36,8 @@ import com.puttysoftware.diane.fileio.DataIOReader;
 import com.puttysoftware.diane.fileio.DataIOWriter;
 import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 import com.puttysoftware.diane.random.RandomRange;
-import com.puttysoftware.dungeondiver7.utility.CloneableObject;
 
-public abstract class AbstractDungeonObject extends CloneableObject implements RandomGenerationRule {
+public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	// Properties
 	private boolean solid;
 	private boolean pushable;
@@ -134,28 +133,36 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 		this.imageEnabled = true;
 	}
 
+	public AbstractDungeonObject(final AbstractDungeonObject source) {
+		this.solid = source.solid;
+		this.blocksLOS = source.blocksLOS;
+		this.pushable = source.pushable;
+		this.friction = source.friction;
+		this.type = (BitSet) source.type.clone();
+		this.timerValue = source.timerValue;
+		this.timerActive = source.timerActive;
+		this.frameNumber = source.frameNumber;
+		this.directions = source.directions;
+		this.diagonalOnly = source.diagonalOnly;
+		this.color = source.color;
+		this.material = source.material;
+		this.imageEnabled = source.imageEnabled;
+	}
+
 	// Methods
 	@Override
 	public AbstractDungeonObject clone() {
 		try {
-			final AbstractDungeonObject copy = this.getClass().getConstructor().newInstance();
-			copy.solid = this.solid;
-			copy.pushable = this.pushable;
-			copy.friction = this.friction;
-			copy.type = (BitSet) this.type.clone();
-			copy.timerValue = this.timerValue;
-			copy.initialTimerValue = this.initialTimerValue;
-			copy.timerActive = this.timerActive;
-			copy.frameNumber = this.frameNumber;
-			copy.directions = this.directions;
-			copy.diagonalOnly = this.diagonalOnly;
-			copy.color = this.color;
-			copy.material = this.material;
-			return copy;
+			return this.getClass().getConstructor(this.getClass()).newInstance(this);
 		} catch (final InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-			DungeonDiver7.logError(e);
-			return null;
+			try {
+				return this.getClass().getConstructor().newInstance();
+			} catch (final InstantiationException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException | NoSuchMethodException | SecurityException e2) {
+				DungeonDiver7.logError(e);
+				return null;
+			}
 		}
 	}
 
