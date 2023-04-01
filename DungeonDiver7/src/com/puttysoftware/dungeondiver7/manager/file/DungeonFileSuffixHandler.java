@@ -13,25 +13,25 @@ import com.puttysoftware.diane.fileio.DataIOReader;
 import com.puttysoftware.diane.fileio.DataIOWriter;
 
 public class DungeonFileSuffixHandler implements AbstractSuffixIO {
-    @Override
-    public void readSuffix(final DataIOReader reader, final int formatVersion) throws IOException {
-	if (FileFormats.isFormatVersionValidGeneration1(formatVersion)) {
-	    DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG1(reader);
-	} else if (FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
-	    DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG2(reader);
-	} else if (FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
-	    DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG3(reader);
-	} else if (FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
-	    DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG4(reader);
-	} else if (FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
-	    DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG5(reader);
-	} else if (FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
-	    DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG6(reader);
+	@Override
+	public void readSuffix(final DataIOReader reader, final int formatVersion) throws IOException {
+		if (FileFormats.isFormatVersionValidGeneration1(formatVersion)) {
+			DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG1(reader);
+		} else if (FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
+			DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG2(reader);
+		} else if (FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
+			DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG3(reader);
+		} else if (FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
+			DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG4(reader);
+		} else if (FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
+			DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG5(reader);
+		} else if (FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
+			DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG6(reader);
+		}
 	}
-    }
 
-    @Override
-    public void writeSuffix(final DataIOWriter writer) throws IOException {
-	DungeonDiver7.getStuffBag().getGameLogic().saveGameHook(writer);
-    }
+	@Override
+	public void writeSuffix(final DataIOWriter writer) throws IOException {
+		DungeonDiver7.getStuffBag().getGameLogic().saveGameHook(writer);
+	}
 }

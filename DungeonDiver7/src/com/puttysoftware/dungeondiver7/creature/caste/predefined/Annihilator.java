@@ -10,6 +10,6 @@ import com.puttysoftware.dungeondiver7.creature.caste.CasteConstants;
 
 public class Annihilator extends Caste {
     public Annihilator() {
-	super(CasteConstants.CASTE_ANNIHILATOR);
+        super(CasteConstants.CASTE_ANNIHILATOR);
     }
 }

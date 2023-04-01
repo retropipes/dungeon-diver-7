@@ -36,62 +36,62 @@ public abstract class AbstractDungeon {
      * @throws IOException
      */
     public AbstractDungeon() throws IOException {
-	// Do nothing
+        // Do nothing
     }
 
     // Static methods
     public static String getDungeonTempFolder() {
-	return System.getProperty(Strings.untranslated(Untranslated.TEMP_DIR)) + File.separator
-		+ Strings.untranslated(Untranslated.PROGRAM_NAME);
+        return System.getProperty(Strings.untranslated(Untranslated.TEMP_DIR)) + File.separator
+                + Strings.untranslated(Untranslated.PROGRAM_NAME);
     }
 
     public static int getMinLevels() {
-	return AbstractDungeon.MIN_LEVELS;
+        return AbstractDungeon.MIN_LEVELS;
     }
 
     public static int getMaxLevels() {
-	return AbstractDungeon.MAX_LEVELS;
+        return AbstractDungeon.MAX_LEVELS;
     }
 
     public static int getMaxFloors() {
-	return AbstractDungeonData.getMaxFloors();
+        return AbstractDungeonData.getMaxFloors();
     }
 
     public static int getMinFloors() {
-	return AbstractDungeonData.getMinFloors();
+        return AbstractDungeonData.getMinFloors();
     }
 
     public static int getMaxRows() {
-	return AbstractDungeon.MAX_ROWS;
+        return AbstractDungeon.MAX_ROWS;
     }
 
     public static int getMinRows() {
-	return AbstractDungeonData.getMinRows();
+        return AbstractDungeonData.getMinRows();
     }
 
     public static int getMaxColumns() {
-	return AbstractDungeon.MAX_ROWS;
+        return AbstractDungeon.MAX_ROWS;
     }
 
     public static int getMinColumns() {
-	return AbstractDungeon.MAX_COLUMNS;
+        return AbstractDungeon.MAX_COLUMNS;
     }
 
     public static AbstractDungeon getTemporaryBattleCopy() throws IOException {
-	final var temp = new CurrentDungeon();
-	temp.addFixedSizeLevel(DungeonDiver7.getBattleDungeonSize(), DungeonDiver7.getBattleDungeonSize(), 1);
-	temp.fillDefault();
-	return temp;
+        final var temp = new CurrentDungeon();
+        temp.addFixedSizeLevel(DungeonDiver7.getBattleDungeonSize(), DungeonDiver7.getBattleDungeonSize(), 1);
+        temp.fillDefault();
+        return temp;
     }
 
     // Methods
     public abstract String getDungeonTempMusicFolder();
 
     public abstract Direction computeFinalBossMoveDirection(final int locX, final int locY, final int locZ,
-	    final int pi);
+            final int pi);
 
     public abstract void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
-	    final AbstractMovingObject monster, final int pi);
+            final AbstractMovingObject monster, final int pi);
 
     public abstract void postBattle(final AbstractMovingObject m, final int xLoc, final int yLoc, final boolean player);
 
@@ -144,45 +144,45 @@ public abstract class AbstractDungeon {
     public abstract int getActiveEra();
 
     public final boolean switchToNextLevelWithDifficulty(final int[] difficulty) {
-	var keepGoing = true;
-	while (keepGoing) {
-	    final var diff = this.getDifficulty().ordinal();
-	    for (final int element : difficulty) {
-		if (diff - 1 == element) {
-		    keepGoing = false;
-		    return true;
-		}
-	    }
-	    if (!this.doesLevelExistOffset(1)) {
-		keepGoing = false;
-		return false;
-	    }
-	    if (keepGoing) {
-		this.switchLevelOffset(1);
-	    }
-	}
-	return false;
+        var keepGoing = true;
+        while (keepGoing) {
+            final var diff = this.getDifficulty().ordinal();
+            for (final int element : difficulty) {
+                if (diff - 1 == element) {
+                    keepGoing = false;
+                    return true;
+                }
+            }
+            if (!this.doesLevelExistOffset(1)) {
+                keepGoing = false;
+                return false;
+            }
+            if (keepGoing) {
+                this.switchLevelOffset(1);
+            }
+        }
+        return false;
     }
 
     public final boolean switchToPreviousLevelWithDifficulty(final int[] difficulty) {
-	var keepGoing = true;
-	while (keepGoing) {
-	    final var diff = this.getDifficulty().ordinal();
-	    for (final int element : difficulty) {
-		if (diff - 1 == element) {
-		    keepGoing = false;
-		    return true;
-		}
-	    }
-	    if (!this.doesLevelExistOffset(-1)) {
-		keepGoing = false;
-		return false;
-	    }
-	    if (keepGoing) {
-		this.switchLevelOffset(-1);
-	    }
-	}
-	return false;
+        var keepGoing = true;
+        while (keepGoing) {
+            final var diff = this.getDifficulty().ordinal();
+            for (final int element : difficulty) {
+                if (diff - 1 == element) {
+                    keepGoing = false;
+                    return true;
+                }
+            }
+            if (!this.doesLevelExistOffset(-1)) {
+                keepGoing = false;
+                return false;
+            }
+            if (keepGoing) {
+                this.switchLevelOffset(-1);
+            }
+        }
+        return false;
     }
 
     public abstract String[] getLevelInfoList();
@@ -220,28 +220,28 @@ public abstract class AbstractDungeon {
     public abstract boolean addFixedSizeLevel(final int rows, final int cols, final int floors);
 
     public final boolean removeLevel(final int num) {
-	final var saveLevel = this.getActiveLevel();
-	this.switchLevel(num);
-	final var success = this.removeActiveLevel();
-	if (success) {
-	    if (saveLevel == 0) {
-		// Was at first level
-		this.switchLevel(0);
-	    } else // Was at level other than first
-	    if (saveLevel > num) {
-		// Saved level was shifted down
-		this.switchLevel(saveLevel - 1);
-	    } else if (saveLevel < num) {
-		// Saved level was NOT shifted down
-		this.switchLevel(saveLevel);
-	    } else {
-		// Saved level was deleted
-		this.switchLevel(0);
-	    }
-	} else {
-	    this.switchLevel(saveLevel);
-	}
-	return success;
+        final var saveLevel = this.getActiveLevel();
+        this.switchLevel(num);
+        final var success = this.removeActiveLevel();
+        if (success) {
+            if (saveLevel == 0) {
+                // Was at first level
+                this.switchLevel(0);
+            } else // Was at level other than first
+            if (saveLevel > num) {
+                // Saved level was shifted down
+                this.switchLevel(saveLevel - 1);
+            } else if (saveLevel < num) {
+                // Saved level was NOT shifted down
+                this.switchLevel(saveLevel);
+            } else {
+                // Saved level was deleted
+                this.switchLevel(0);
+            }
+        } else {
+            this.switchLevel(saveLevel);
+        }
+        return success;
     }
 
     protected abstract boolean removeActiveLevel();
@@ -251,7 +251,7 @@ public abstract class AbstractDungeon {
     public abstract AbstractDungeonObject getCell(final int row, final int col, final int floor, final int layer);
 
     public abstract AbstractDungeonObject getVirtualCell(final int row, final int col, final int floor,
-	    final int layer);
+            final int layer);
 
     public abstract int getStartRow(final int pi);
 
@@ -282,7 +282,7 @@ public abstract class AbstractDungeon {
     public abstract void tickTimers(final int floor, final int actionType);
 
     public static boolean radialScan(final int cx, final int cy, final int r, final int tx, final int ty) {
-	return Math.abs(tx - cx) <= r && Math.abs(ty - cy) <= r;
+        return Math.abs(tx - cx) <= r && Math.abs(ty - cy) <= r;
     }
 
     public abstract void checkForEnemies(final int floor, final int ex, final int ey, final AbstractCharacter e);
@@ -290,13 +290,13 @@ public abstract class AbstractDungeon {
     public abstract int checkForMagnetic(int floor, int centerX, int centerY, Direction dir);
 
     public abstract int[] circularScan(final int x, final int y, final int z, final int maxR, final String targetName,
-	    final boolean moved);
+            final boolean moved);
 
     public abstract int[] circularScanTunnel(final int x, final int y, final int z, final int maxR, final int tx,
-	    final int ty, final AbstractTunnel target, final boolean moved);
+            final int ty, final AbstractTunnel target, final boolean moved);
 
     public abstract void circularScanRange(final int x, final int y, final int z, final int maxR, final int rangeType,
-	    final int forceUnits);
+            final int forceUnits);
 
     public abstract int[] findObject(int z, String targetName);
 
@@ -317,10 +317,10 @@ public abstract class AbstractDungeon {
     public abstract void fullScanFindButtonLostDoor(int z, AbstractButtonDoor door);
 
     public abstract void setCell(final AbstractDungeonObject mo, final int row, final int col, final int floor,
-	    final int layer);
+            final int layer);
 
     public abstract void setVirtualCell(final AbstractDungeonObject mo, final int row, final int col, final int floor,
-	    final int layer);
+            final int layer);
 
     public abstract void markAsDirty(final int row, final int col, final int floor);
 

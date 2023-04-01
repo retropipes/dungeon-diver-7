@@ -25,9 +25,9 @@ public class ObjectImageConstants {
     public static final int WEAPONS_SHOP = 13;
 
     static String getObjectImageName(final int ID) {
-	if (ID == ObjectImageConstants.NONE) {
-	    return Strings.EMPTY;
-	}
-	return Strings.objectImage(ID);
+        if (ID == ObjectImageConstants.NONE) {
+            return Strings.EMPTY;
+        }
+        return Strings.objectImage(ID);
     }
 }

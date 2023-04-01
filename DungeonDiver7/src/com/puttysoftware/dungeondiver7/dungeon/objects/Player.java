@@ -18,42 +18,42 @@ public class Player extends AbstractCharacter {
 
     @Override
     public int getBaseID() {
-	return ObjectImageConstants.NONE;
+        return ObjectImageConstants.NONE;
     }
 
     @Override
     public String getName() {
-	return "Player";
+        return "Player";
     }
 
     @Override
     public String getPluralName() {
-	return "Players";
+        return "Players";
     }
 
     @Override
     public String getDescription() {
-	return "This is you - the Player.";
+        return "This is you - the Player.";
     }
 
     // Random Generation Rules
     @Override
     public boolean isRequired(final AbstractDungeon dungeon) {
-	return true;
+        return true;
     }
 
     @Override
     public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
-	return 1;
+        return 1;
     }
 
     @Override
     public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
-	return 1;
+        return 1;
     }
 
     @Override
     public BufferedImageIcon gameRenderHook(final int x, final int y) {
-	return PartyManager.getParty().getLeader().getImage();
+        return PartyManager.getParty().getLeader().getImage();
     }
 }

@@ -14,11 +14,11 @@ public class DeathArrow extends AbstractTransientObject {
 
     @Override
     public final int getBaseID() {
-	return 30;
+        return 30;
     }
 
     @Override
     public int getForceUnitsImbued() {
-	return 1;
+        return 1;
     }
 }

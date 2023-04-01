@@ -11,12 +11,12 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class StoneTriggerButton extends AbstractTriggerButton {
     // Constructors
     public StoneTriggerButton() {
-	super(new StoneTriggerButtonDoor(), false);
-	this.setMaterial(Materials.STONE);
+        super(new StoneTriggerButtonDoor(), false);
+        this.setMaterial(Materials.STONE);
     }
 
     @Override
     public final int getBaseID() {
-	return 108;
+        return 108;
     }
 }

@@ -12,6 +12,6 @@ public final class GameActions {
 
     // Private Constructor
     private GameActions() {
-	// Do nothing
+        // Do nothing
     }
 }

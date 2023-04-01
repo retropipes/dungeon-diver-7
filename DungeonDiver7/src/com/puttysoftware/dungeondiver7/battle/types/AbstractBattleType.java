@@ -9,22 +9,22 @@ public abstract class AbstractBattleType {
     public abstract BattleCharacter getBattlers();
 
     public final boolean isBossBattle() {
-	return this.boss;
+        return this.boss;
     }
 
     public final boolean isFinalBossBattle() {
-	return this.finalBoss;
+        return this.finalBoss;
     }
 
     public static AbstractBattleType createBattle() {
-	return new RegularBattle();
+        return new RegularBattle();
     }
 
     public static AbstractBattleType createBossBattle() {
-	return new BossBattle();
+        return new BossBattle();
     }
 
     public static AbstractBattleType createFinalBossBattle() {
-	return new FinalBossBattle();
+        return new FinalBossBattle();
     }
 }

@@ -11,16 +11,16 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 public class FrozenParty extends AbstractCharacter {
     // Constructors
     public FrozenParty(final int number) {
-	super(number);
+        super(number);
     }
 
     public FrozenParty(final Direction dir, final int number) {
-	super(number);
-	this.setDirection(dir);
+        super(number);
+        this.setDirection(dir);
     }
 
     @Override
     public final int getBaseID() {
-	return 15;
+        return 15;
     }
 }

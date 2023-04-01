@@ -15,28 +15,28 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class HotBox extends AbstractMovableObject {
     // Constructors
     public HotBox() {
-	super(true);
-	this.type.set(DungeonObjectTypes.TYPE_BOX);
-	this.setMaterial(Materials.FIRE);
+        super(true);
+        this.type.set(DungeonObjectTypes.TYPE_BOX);
+        this.setMaterial(Materials.FIRE);
     }
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(Sounds.PUSH_BOX);
+        SoundLoader.playSound(Sounds.PUSH_BOX);
     }
 
     @Override
     public final int getBaseID() {
-	return 63;
+        return 63;
     }
 
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
-	switch (materialID) {
-	case Materials.ICE:
-	    return new Box();
-	default:
-	    return this;
-	}
+        switch (materialID) {
+            case Materials.ICE:
+                return new Box();
+            default:
+                return this;
+        }
     }
 }

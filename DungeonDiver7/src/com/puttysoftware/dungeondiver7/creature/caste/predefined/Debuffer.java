@@ -10,6 +10,6 @@ import com.puttysoftware.dungeondiver7.creature.caste.CasteConstants;
 
 public class Debuffer extends Caste {
     public Debuffer() {
-	super(CasteConstants.CASTE_DEBUFFER);
+        super(CasteConstants.CASTE_DEBUFFER);
     }
 }

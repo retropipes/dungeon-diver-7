@@ -11,12 +11,12 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class WoodenPressureButton extends AbstractPressureButton {
     // Constructors
     public WoodenPressureButton() {
-	super(new WoodenPressureButtonDoor(), false);
-	this.setMaterial(Materials.WOODEN);
+        super(new WoodenPressureButtonDoor(), false);
+        this.setMaterial(Materials.WOODEN);
     }
 
     @Override
     public final int getBaseID() {
-	return 118;
+        return 118;
     }
 }

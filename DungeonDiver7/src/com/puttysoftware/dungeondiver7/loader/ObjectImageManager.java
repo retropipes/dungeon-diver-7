@@ -25,20 +25,20 @@ public class ObjectImageManager {
      * @return
      */
     public static BufferedImageIcon getImage(final String name, final int baseID) {
-	// Get it from the cache
-	final var baseName = ObjectImageConstants.getObjectImageName(baseID);
-	return ObjectImageCache.getCachedImage(name, baseName);
+        // Get it from the cache
+        final var baseName = ObjectImageConstants.getObjectImageName(baseID);
+        return ObjectImageCache.getCachedImage(name, baseName);
     }
 
     static BufferedImageIcon getUncachedImage(final String name) {
-	try {
-	    final var url = ObjectImageManager.LOAD_CLASS
-		    .getResource(Strings.untranslated(Untranslated.OBJECT_IMAGE_LOAD_PATH) + name
-			    + Strings.fileExtension(FileExtension.IMAGE));
-	    final var image = ImageIO.read(url);
-	    return new BufferedImageIcon(image);
-	} catch (final IOException ie) {
-	    return null;
-	}
+        try {
+            final var url = ObjectImageManager.LOAD_CLASS
+                    .getResource(Strings.untranslated(Untranslated.OBJECT_IMAGE_LOAD_PATH) + name
+                            + Strings.fileExtension(FileExtension.IMAGE));
+            final var image = ImageIO.read(url);
+            return new BufferedImageIcon(image);
+        } catch (final IOException ie) {
+            return null;
+        }
     }
 }

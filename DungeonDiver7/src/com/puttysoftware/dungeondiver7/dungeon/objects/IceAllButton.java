@@ -11,12 +11,12 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class IceAllButton extends AbstractAllButton {
     // Constructors
     public IceAllButton() {
-	super(new IceAllButtonDoor(), false);
-	this.setMaterial(Materials.ICE);
+        super(new IceAllButtonDoor(), false);
+        this.setMaterial(Materials.ICE);
     }
 
     @Override
     public final int getBaseID() {
-	return 80;
+        return 80;
     }
 }

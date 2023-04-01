@@ -14,11 +14,11 @@ public class Stunner extends AbstractTransientObject {
 
     @Override
     public final int getBaseID() {
-	return 35;
+        return 35;
     }
 
     @Override
     public int getForceUnitsImbued() {
-	return 0;
+        return 0;
     }
 }

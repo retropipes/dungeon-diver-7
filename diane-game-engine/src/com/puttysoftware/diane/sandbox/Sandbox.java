@@ -40,7 +40,7 @@ public abstract class Sandbox {
     public final String getCachesDirectory() {
         return this.getDirectory(SystemDir.CACHES);
     }
-    
+
     public final String getDocumentsDirectory() {
         return this.getDirectory(SystemDir.DOCUMENTS);
     }

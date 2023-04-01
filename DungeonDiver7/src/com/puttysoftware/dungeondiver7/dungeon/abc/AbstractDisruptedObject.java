@@ -14,6 +14,6 @@ public abstract class AbstractDisruptedObject extends AbstractPassThroughObject 
 
     @Override
     public boolean acceptTick(final int actionType) {
-	return actionType == GameActions.MOVE;
+        return actionType == GameActions.MOVE;
     }
 }

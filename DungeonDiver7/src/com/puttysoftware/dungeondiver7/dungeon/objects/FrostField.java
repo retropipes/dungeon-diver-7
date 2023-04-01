@@ -17,12 +17,12 @@ public class FrostField extends AbstractField {
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(Sounds.FROZEN);
-	DungeonDiver7.getStuffBag().getGameLogic().updatePositionRelativeFrozen();
+        SoundLoader.playSound(Sounds.FROZEN);
+        DungeonDiver7.getStuffBag().getGameLogic().updatePositionRelativeFrozen();
     }
 
     @Override
     public final int getBaseID() {
-	return 14;
+        return 14;
     }
 }

@@ -19,14 +19,14 @@ public class KillSkull extends AbstractSpell {
     // Scriptability
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(Sounds.KILL_SKULL);
-	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().fullScanKillPlayers();
-	DungeonDiver7.getStuffBag().getGameLogic();
-	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+        SoundLoader.playSound(Sounds.KILL_SKULL);
+        DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().fullScanKillPlayers();
+        DungeonDiver7.getStuffBag().getGameLogic();
+        GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 
     @Override
     public final int getBaseID() {
-	return 143;
+        return 143;
     }
 }

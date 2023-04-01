@@ -12,6 +12,6 @@ public class VisionModes {
     public static final int EXPLORE_AND_LOS = 3;
 
     private VisionModes() {
-	// Do nothing
+        // Do nothing
     }
 }

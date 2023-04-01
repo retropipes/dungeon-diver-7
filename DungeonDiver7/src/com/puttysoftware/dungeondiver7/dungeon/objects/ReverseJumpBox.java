@@ -15,41 +15,41 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class ReverseJumpBox extends AbstractJumpObject {
     // Constructors
     public ReverseJumpBox() {
-	this.type.set(DungeonObjectTypes.TYPE_BOX);
-	this.setMaterial(Materials.STONE);
+        this.type.set(DungeonObjectTypes.TYPE_BOX);
+        this.setMaterial(Materials.STONE);
     }
 
     @Override
     public int getActualJumpRows() {
-	return -super.getActualJumpRows();
+        return -super.getActualJumpRows();
     }
 
     @Override
     public int getActualJumpCols() {
-	return -super.getActualJumpCols();
+        return -super.getActualJumpCols();
     }
 
     @Override
     public final int getBaseID() {
-	return 124;
+        return 124;
     }
 
     @Override
     public final Color getCustomTextColor() {
-	return Color.black;
+        return Color.black;
     }
 
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
-	switch (materialID) {
-	case Materials.ICE:
-	    final var ib = new IcyBox();
-	    ib.setPreviousState(this);
-	    return ib;
-	case Materials.FIRE:
-	    return new HotBox();
-	default:
-	    return this;
-	}
+        switch (materialID) {
+            case Materials.ICE:
+                final var ib = new IcyBox();
+                ib.setPreviousState(this);
+                return ib;
+            case Materials.FIRE:
+                return new HotBox();
+            default:
+                return this;
+        }
     }
 }

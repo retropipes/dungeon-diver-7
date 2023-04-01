@@ -20,14 +20,14 @@ public class BlueKey extends AbstractKey {
     // Scriptability
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(Sounds.GRAB);
-	PartyInventory.addOneBlueKey();
-	DungeonDiver7.getStuffBag().getGameLogic();
-	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+        SoundLoader.playSound(Sounds.GRAB);
+        PartyInventory.addOneBlueKey();
+        DungeonDiver7.getStuffBag().getGameLogic();
+        GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 
     @Override
     public final int getBaseID() {
-	return 5;
+        return 5;
     }
 }

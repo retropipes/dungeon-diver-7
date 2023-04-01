@@ -14,6 +14,6 @@ public class InvalidDungeonException extends Exception {
     }
 
     public InvalidDungeonException(final String msg) {
-	super(msg);
+        super(msg);
     }
 }

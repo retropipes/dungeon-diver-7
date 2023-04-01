@@ -12,26 +12,26 @@ import com.puttysoftware.dungeondiver7.shop.ShopType;
 public class Regenerator extends AbstractShop {
     // Constructors
     public Regenerator() {
-	super(ShopType.REGENERATOR);
+        super(ShopType.REGENERATOR);
     }
 
     @Override
     public int getBaseID() {
-	return ObjectImageConstants.REGENERATOR;
+        return ObjectImageConstants.REGENERATOR;
     }
 
     @Override
     public String getName() {
-	return "Regenerator";
+        return "Regenerator";
     }
 
     @Override
     public String getPluralName() {
-	return "Regenerators";
+        return "Regenerators";
     }
 
     @Override
     public String getDescription() {
-	return "Regenerators restore magic, for a fee.";
+        return "Regenerators restore magic, for a fee.";
     }
 }

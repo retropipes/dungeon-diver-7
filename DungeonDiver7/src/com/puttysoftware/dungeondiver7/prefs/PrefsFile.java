@@ -16,41 +16,41 @@ class PrefsFile {
 
     // Constructors
     PrefsFile() {
-	this.store = new Properties();
+        this.store = new Properties();
     }
 
     // Methods
     public String getString(final String key, final String defaultValue) {
-	return this.store.getProperty(key, defaultValue);
+        return this.store.getProperty(key, defaultValue);
     }
 
     public void setString(final String key, final String newValue) {
-	this.store.setProperty(key, newValue);
+        this.store.setProperty(key, newValue);
     }
 
     public boolean getBoolean(final String key, final boolean defaultValue) {
-	final var strVal = this.getString(key, Boolean.toString(defaultValue));
-	return Boolean.parseBoolean(strVal);
+        final var strVal = this.getString(key, Boolean.toString(defaultValue));
+        return Boolean.parseBoolean(strVal);
     }
 
     public void setBoolean(final String key, final boolean newValue) {
-	this.setString(key, Boolean.toString(newValue));
+        this.setString(key, Boolean.toString(newValue));
     }
 
     public int getInteger(final String key, final int defaultValue) {
-	final var strVal = this.getString(key, Integer.toString(defaultValue));
-	return Integer.parseInt(strVal);
+        final var strVal = this.getString(key, Integer.toString(defaultValue));
+        return Integer.parseInt(strVal);
     }
 
     public void setInteger(final String key, final int newValue) {
-	this.setString(key, Integer.toString(newValue));
+        this.setString(key, Integer.toString(newValue));
     }
 
     public void loadStore(final InputStream source) throws IOException {
-	this.store.loadFromXML(source);
+        this.store.loadFromXML(source);
     }
 
     public void saveStore(final OutputStream dest) throws IOException {
-	this.store.storeToXML(dest, null);
+        this.store.storeToXML(dest, null);
     }
 }

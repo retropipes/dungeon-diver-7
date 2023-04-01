@@ -13,18 +13,18 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public class Ball extends AbstractMovableObject {
     // Constructors
     public Ball() {
-	super(true);
-	this.type.set(DungeonObjectTypes.TYPE_BALL);
-	this.type.set(DungeonObjectTypes.TYPE_ICY);
+        super(true);
+        this.type.set(DungeonObjectTypes.TYPE_BALL);
+        this.type.set(DungeonObjectTypes.TYPE_ICY);
     }
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(Sounds.BALL_ROLL);
+        SoundLoader.playSound(Sounds.BALL_ROLL);
     }
 
     @Override
     public final int getBaseID() {
-	return 2;
+        return 2;
     }
 }

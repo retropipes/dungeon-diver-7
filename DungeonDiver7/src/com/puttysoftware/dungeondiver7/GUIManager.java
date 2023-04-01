@@ -37,339 +37,339 @@ import com.puttysoftware.dungeondiver7.utility.CleanupTask;
 import com.puttysoftware.diane.integration.Integration;
 
 public class GUIManager implements MenuSection, QuitHandler {
-    // Fields
-    private final MainWindow mainWindow;
-    private final CloseHandler cHandler;
-    private final JPanel guiPane;
-    private final JLabel logoLabel;
-    private JMenuItem fileNew, fileOpen, fileOpenDefault, fileClose, fileSave, fileSaveAs, fileSaveAsProtected,
-	    filePrint, filePreferences, fileExit;
+	// Fields
+	private final MainWindow mainWindow;
+	private final CloseHandler cHandler;
+	private final JPanel guiPane;
+	private final JLabel logoLabel;
+	private JMenuItem fileNew, fileOpen, fileOpenDefault, fileClose, fileSave, fileSaveAs, fileSaveAsProtected,
+			filePrint, filePreferences, fileExit;
 
-    // Constructors
-    public GUIManager() {
-	this.cHandler = new CloseHandler();
-	this.guiPane = new JPanel();
-	this.mainWindow = MainWindow.mainWindow();
-	this.guiPane.setLayout(new GridLayout(1, 1));
-	this.logoLabel = new JLabel(Strings.EMPTY, null, SwingConstants.CENTER);
-	this.logoLabel.setLabelFor(null);
-	this.logoLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
-	this.guiPane.add(this.logoLabel);
-    }
-
-    // Methods
-    public void showGUI() {
-	final var app = DungeonDiver7.getStuffBag();
-	app.setInGUI();
-	this.attachMenus();
-	MusicLoader.playMusic(Music.TITLE);
-	this.mainWindow.setAndSave(this.guiPane, Strings.untranslated(Untranslated.PROGRAM_NAME));
-	this.mainWindow.addWindowListener(this.cHandler);
-	app.getMenuManager().checkFlags();
-    }
-
-    public void attachMenus() {
-	final var app = DungeonDiver7.getStuffBag();
-	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
-	app.getMenuManager().checkFlags();
-    }
-
-    public void hideGUI() {
-	this.mainWindow.removeWindowListener(this.cHandler);
-	this.mainWindow.restoreSaved();
-	MusicLoader.stopMusic();
-    }
-
-    void updateLogo() {
-	final var logo = LogoLoader.getLogo();
-	this.logoLabel.setIcon(logo);
-    }
-
-    public boolean quitHandler() {
-	final var mm = DungeonDiver7.getStuffBag().getDungeonManager();
-	var saved = true;
-	var status = JOptionPane.DEFAULT_OPTION;
-	if (mm.getDirty()) {
-	    status = DungeonManager.showSaveDialog();
-	    if (status == JOptionPane.YES_OPTION) {
-		saved = mm.saveDungeon(mm.isDungeonProtected());
-	    } else if (status == JOptionPane.CANCEL_OPTION) {
-		saved = false;
-	    } else {
-		mm.setDirty(false);
-	    }
-	}
-	if (saved) {
-	    Prefs.writePrefs();
-	    // Run cleanup task
-	    CleanupTask.cleanUp();
-	}
-	return saved;
-    }
-
-    private class CloseHandler implements WindowListener {
-	public CloseHandler() {
-	    // Do nothing
+	// Constructors
+	public GUIManager() {
+		this.cHandler = new CloseHandler();
+		this.guiPane = new JPanel();
+		this.mainWindow = MainWindow.mainWindow();
+		this.guiPane.setLayout(new GridLayout(1, 1));
+		this.logoLabel = new JLabel(Strings.EMPTY, null, SwingConstants.CENTER);
+		this.logoLabel.setLabelFor(null);
+		this.logoLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
+		this.guiPane.add(this.logoLabel);
 	}
 
-	@Override
-	public void windowActivated(final WindowEvent arg0) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowClosed(final WindowEvent arg0) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowClosing(final WindowEvent arg0) {
-	    if (GUIManager.this.quitHandler()) {
-		System.exit(0);
-	    }
-	}
-
-	@Override
-	public void windowDeactivated(final WindowEvent arg0) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowDeiconified(final WindowEvent arg0) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowIconified(final WindowEvent arg0) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowOpened(final WindowEvent arg0) {
-	    // Do nothing
-	}
-    }
-
-    private static class MenuHandler implements ActionListener {
-	public MenuHandler() {
-	    // Do nothing
-	}
-
-	// Handle menus
-	@Override
-	public void actionPerformed(final ActionEvent e) {
-	    try {
+	// Methods
+	public void showGUI() {
 		final var app = DungeonDiver7.getStuffBag();
-		var loaded = false;
-		final var cmd = e.getActionCommand();
-		if (cmd.equals(Strings.menu(Menu.NEW))) {
-		    loaded = app.getEditor().newDungeon();
-		    app.getDungeonManager().setLoaded(loaded);
-		} else if (cmd.equals(Strings.menu(Menu.OPEN))) {
-		    loaded = app.getDungeonManager().loadDungeon();
-		    app.getDungeonManager().setLoaded(loaded);
-		} else if (cmd.equals(Strings.menu(Menu.OPEN_DEFAULT))) {
-		    loaded = app.getDungeonManager().loadDungeonDefault();
-		    app.getDungeonManager().setLoaded(loaded);
-		} else if (cmd.equals(Strings.menu(Menu.CLOSE))) {
-		    // Close the window
-		    if (app.getMode() == StuffBag.STATUS_EDITOR) {
-			app.getEditor().handleCloseWindow();
-		    } else if (app.getMode() == StuffBag.STATUS_GAME) {
-			var saved = true;
-			var status = 0;
-			if (app.getDungeonManager().getDirty()) {
-			    status = DungeonManager.showSaveDialog();
-			    if (status == JOptionPane.YES_OPTION) {
-				saved = app.getDungeonManager()
-					.saveDungeon(app.getDungeonManager().isDungeonProtected());
-			    } else if (status == JOptionPane.CANCEL_OPTION) {
-				saved = false;
-			    } else {
-				app.getDungeonManager().setDirty(false);
-			    }
-			}
-			if (saved) {
-			    app.getGameLogic().exitGame();
-			}
-		    }
-		    app.getGUIManager().showGUI();
-		} else if (cmd.equals(Strings.menu(Menu.SAVE))) {
-		    if (app.getDungeonManager().getLoaded()) {
-			app.getDungeonManager().saveDungeon(app.getDungeonManager().isDungeonProtected());
-		    } else {
-			CommonDialogs.showDialog(Strings.menu(Menu.ERROR_NO_DUNGEON_OPENED));
-		    }
-		} else if (cmd.equals(Strings.menu(Menu.SAVE_AS))) {
-		    if (app.getDungeonManager().getLoaded()) {
-			app.getDungeonManager().saveDungeonAs(false);
-		    } else {
-			CommonDialogs.showDialog(Strings.menu(Menu.ERROR_NO_DUNGEON_OPENED));
-		    }
-		} else if (cmd.equals(Strings.menu(Menu.SAVE_AS_PROTECTED))) {
-		    if (app.getDungeonManager().getLoaded()) {
-			app.getDungeonManager().saveDungeonAs(true);
-		    } else {
-			CommonDialogs.showDialog(Strings.menu(Menu.ERROR_NO_DUNGEON_OPENED));
-		    }
-		} else if (cmd.equals(Strings.menu(Menu.PREFERENCES))) {
-		    // Show preferences dialog
-		    Prefs.showPrefs();
-		} else if (cmd.equals(Strings.menu(Menu.PRINT_GAME_WINDOW))) {
-		    GUIPrinter.printScreen();
-		} else if (cmd.equals(Strings.menu(Menu.EXIT))) {
-		    // Exit program
-		    if (app.getGUIManager().quitHandler()) {
-			System.exit(0);
-		    }
-		} else // Quit program
-		if (cmd.equals(Strings.menu(Menu.QUIT)) && app.getGUIManager().quitHandler()) {
-		    System.exit(0);
-		}
+		app.setInGUI();
+		this.attachMenus();
+		MusicLoader.playMusic(Music.TITLE);
+		this.mainWindow.setAndSave(this.guiPane, Strings.untranslated(Untranslated.PROGRAM_NAME));
+		this.mainWindow.addWindowListener(this.cHandler);
 		app.getMenuManager().checkFlags();
-	    } catch (final Exception ex) {
-		DungeonDiver7.logError(ex);
-	    }
 	}
-    }
 
-    @Override
-    public void enableModeCommands() {
-	this.fileNew.setEnabled(true);
-	this.fileOpen.setEnabled(true);
-	this.fileOpenDefault.setEnabled(true);
-	DungeonDiver7.getStuffBag().getMenuManager().enableModeCommands();
-    }
-
-    @Override
-    public void disableModeCommands() {
-	this.fileNew.setEnabled(false);
-	this.fileOpen.setEnabled(false);
-	this.fileOpenDefault.setEnabled(false);
-	DungeonDiver7.getStuffBag().getMenuManager().disableModeCommands();
-    }
-
-    @Override
-    public void setInitialState() {
-	this.fileNew.setEnabled(true);
-	this.fileOpen.setEnabled(true);
-	this.fileOpenDefault.setEnabled(true);
-	this.fileClose.setEnabled(false);
-	this.fileSave.setEnabled(false);
-	this.fileSaveAs.setEnabled(false);
-	this.fileSaveAsProtected.setEnabled(false);
-	this.filePreferences.setEnabled(true);
-	this.filePrint.setEnabled(true);
-	this.fileExit.setEnabled(true);
-    }
-
-    @Override
-    public JMenu createCommandsMenu() {
-	final var mhandler = new MenuHandler();
-	final var fileMenu = new JMenu(Strings.menu(Menu.FILE));
-	this.fileNew = new JMenuItem(Strings.menu(Menu.NEW));
-	this.fileOpen = new JMenuItem(Strings.menu(Menu.OPEN));
-	this.fileOpenDefault = new JMenuItem(Strings.menu(Menu.OPEN_DEFAULT));
-	this.fileClose = new JMenuItem(Strings.menu(Menu.CLOSE));
-	this.fileSave = new JMenuItem(Strings.menu(Menu.SAVE));
-	this.fileSaveAs = new JMenuItem(Strings.menu(Menu.SAVE_AS));
-	this.fileSaveAsProtected = new JMenuItem(Strings.menu(Menu.SAVE_AS_PROTECTED));
-	this.filePreferences = new JMenuItem(Strings.menu(Menu.PREFERENCES));
-	this.filePrint = new JMenuItem(Strings.menu(Menu.PRINT_GAME_WINDOW));
-	if (System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
-		.contains(Strings.untranslated(Untranslated.WINDOWS))) {
-	    this.fileExit = new JMenuItem(Strings.menu(Menu.EXIT));
-	} else {
-	    this.fileExit = new JMenuItem(Strings.menu(Menu.QUIT));
+	public void attachMenus() {
+		final var app = DungeonDiver7.getStuffBag();
+		Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
+		app.getMenuManager().checkFlags();
 	}
-	this.fileNew.addActionListener(mhandler);
-	this.fileOpen.addActionListener(mhandler);
-	this.fileOpenDefault.addActionListener(mhandler);
-	this.fileClose.addActionListener(mhandler);
-	this.fileSave.addActionListener(mhandler);
-	this.fileSaveAs.addActionListener(mhandler);
-	this.fileSaveAsProtected.addActionListener(mhandler);
-	this.filePreferences.addActionListener(mhandler);
-	this.filePrint.addActionListener(mhandler);
-	this.fileExit.addActionListener(mhandler);
-	fileMenu.add(this.fileNew);
-	fileMenu.add(this.fileOpen);
-	fileMenu.add(this.fileOpenDefault);
-	fileMenu.add(this.fileClose);
-	fileMenu.add(this.fileSave);
-	fileMenu.add(this.fileSaveAs);
-	fileMenu.add(this.fileSaveAsProtected);
-	if (!System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
-		.equalsIgnoreCase(Strings.untranslated(Untranslated.MACOS))) {
-	    fileMenu.add(this.filePreferences);
+
+	public void hideGUI() {
+		this.mainWindow.removeWindowListener(this.cHandler);
+		this.mainWindow.restoreSaved();
+		MusicLoader.stopMusic();
 	}
-	fileMenu.add(this.filePrint);
-	if (!System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
-		.equalsIgnoreCase(Strings.untranslated(Untranslated.MACOS))) {
-	    fileMenu.add(this.fileExit);
+
+	void updateLogo() {
+		final var logo = LogoLoader.getLogo();
+		this.logoLabel.setIcon(logo);
 	}
-	return fileMenu;
-    }
 
-    @Override
-    public void attachAccelerators(final Accelerators accel) {
-	this.fileNew.setAccelerator(accel.fileNewAccel);
-	this.fileOpen.setAccelerator(accel.fileOpenAccel);
-	this.fileClose.setAccelerator(accel.fileCloseAccel);
-	this.fileSave.setAccelerator(accel.fileSaveAccel);
-	this.fileSaveAs.setAccelerator(accel.fileSaveAsAccel);
-	this.filePreferences.setAccelerator(accel.filePreferencesAccel);
-	this.filePrint.setAccelerator(accel.filePrintAccel);
-	if (System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
-		.contains(Strings.untranslated(Untranslated.WINDOWS))) {
-	    this.fileExit.setAccelerator(null);
-	} else {
-	    this.fileExit.setAccelerator(accel.fileExitAccel);
+	public boolean quitHandler() {
+		final var mm = DungeonDiver7.getStuffBag().getDungeonManager();
+		var saved = true;
+		var status = JOptionPane.DEFAULT_OPTION;
+		if (mm.getDirty()) {
+			status = DungeonManager.showSaveDialog();
+			if (status == JOptionPane.YES_OPTION) {
+				saved = mm.saveDungeon(mm.isDungeonProtected());
+			} else if (status == JOptionPane.CANCEL_OPTION) {
+				saved = false;
+			} else {
+				mm.setDirty(false);
+			}
+		}
+		if (saved) {
+			Prefs.writePrefs();
+			// Run cleanup task
+			CleanupTask.cleanUp();
+		}
+		return saved;
 	}
-    }
 
-    @Override
-    public void enableLoadedCommands() {
-	final var app = DungeonDiver7.getStuffBag();
-	if (app.getMode() == StuffBag.STATUS_GUI) {
-	    this.fileClose.setEnabled(false);
-	    this.fileSaveAs.setEnabled(false);
-	    this.fileSaveAsProtected.setEnabled(false);
-	} else {
-	    this.fileClose.setEnabled(true);
-	    this.fileSaveAs.setEnabled(true);
-	    this.fileSaveAsProtected.setEnabled(true);
+	private class CloseHandler implements WindowListener {
+		public CloseHandler() {
+			// Do nothing
+		}
+
+		@Override
+		public void windowActivated(final WindowEvent arg0) {
+			// Do nothing
+		}
+
+		@Override
+		public void windowClosed(final WindowEvent arg0) {
+			// Do nothing
+		}
+
+		@Override
+		public void windowClosing(final WindowEvent arg0) {
+			if (GUIManager.this.quitHandler()) {
+				System.exit(0);
+			}
+		}
+
+		@Override
+		public void windowDeactivated(final WindowEvent arg0) {
+			// Do nothing
+		}
+
+		@Override
+		public void windowDeiconified(final WindowEvent arg0) {
+			// Do nothing
+		}
+
+		@Override
+		public void windowIconified(final WindowEvent arg0) {
+			// Do nothing
+		}
+
+		@Override
+		public void windowOpened(final WindowEvent arg0) {
+			// Do nothing
+		}
 	}
-	DungeonDiver7.getStuffBag().getMenuManager().enableLoadedCommands();
-    }
 
-    @Override
-    public void disableLoadedCommands() {
-	this.fileClose.setEnabled(false);
-	this.fileSaveAs.setEnabled(false);
-	this.fileSaveAsProtected.setEnabled(false);
-	DungeonDiver7.getStuffBag().getMenuManager().disableLoadedCommands();
-    }
+	private static class MenuHandler implements ActionListener {
+		public MenuHandler() {
+			// Do nothing
+		}
 
-    @Override
-    public void enableDirtyCommands() {
-	this.fileSave.setEnabled(true);
-	DungeonDiver7.getStuffBag().getMenuManager().enableDirtyCommands();
-    }
-
-    @Override
-    public void disableDirtyCommands() {
-	this.fileSave.setEnabled(false);
-	DungeonDiver7.getStuffBag().getMenuManager().disableDirtyCommands();
-    }
-
-    @Override
-    public void handleQuitRequestWith(final QuitEvent e, final QuitResponse response) {
-	final var quitOK = this.quitHandler();
-	if (quitOK) {
-	    response.performQuit();
-	} else {
-	    response.cancelQuit();
+		// Handle menus
+		@Override
+		public void actionPerformed(final ActionEvent e) {
+			try {
+				final var app = DungeonDiver7.getStuffBag();
+				var loaded = false;
+				final var cmd = e.getActionCommand();
+				if (cmd.equals(Strings.menu(Menu.NEW))) {
+					loaded = app.getEditor().newDungeon();
+					app.getDungeonManager().setLoaded(loaded);
+				} else if (cmd.equals(Strings.menu(Menu.OPEN))) {
+					loaded = app.getDungeonManager().loadDungeon();
+					app.getDungeonManager().setLoaded(loaded);
+				} else if (cmd.equals(Strings.menu(Menu.OPEN_DEFAULT))) {
+					loaded = app.getDungeonManager().loadDungeonDefault();
+					app.getDungeonManager().setLoaded(loaded);
+				} else if (cmd.equals(Strings.menu(Menu.CLOSE))) {
+					// Close the window
+					if (app.getMode() == StuffBag.STATUS_EDITOR) {
+						app.getEditor().handleCloseWindow();
+					} else if (app.getMode() == StuffBag.STATUS_GAME) {
+						var saved = true;
+						var status = 0;
+						if (app.getDungeonManager().getDirty()) {
+							status = DungeonManager.showSaveDialog();
+							if (status == JOptionPane.YES_OPTION) {
+								saved = app.getDungeonManager()
+										.saveDungeon(app.getDungeonManager().isDungeonProtected());
+							} else if (status == JOptionPane.CANCEL_OPTION) {
+								saved = false;
+							} else {
+								app.getDungeonManager().setDirty(false);
+							}
+						}
+						if (saved) {
+							app.getGameLogic().exitGame();
+						}
+					}
+					app.getGUIManager().showGUI();
+				} else if (cmd.equals(Strings.menu(Menu.SAVE))) {
+					if (app.getDungeonManager().getLoaded()) {
+						app.getDungeonManager().saveDungeon(app.getDungeonManager().isDungeonProtected());
+					} else {
+						CommonDialogs.showDialog(Strings.menu(Menu.ERROR_NO_DUNGEON_OPENED));
+					}
+				} else if (cmd.equals(Strings.menu(Menu.SAVE_AS))) {
+					if (app.getDungeonManager().getLoaded()) {
+						app.getDungeonManager().saveDungeonAs(false);
+					} else {
+						CommonDialogs.showDialog(Strings.menu(Menu.ERROR_NO_DUNGEON_OPENED));
+					}
+				} else if (cmd.equals(Strings.menu(Menu.SAVE_AS_PROTECTED))) {
+					if (app.getDungeonManager().getLoaded()) {
+						app.getDungeonManager().saveDungeonAs(true);
+					} else {
+						CommonDialogs.showDialog(Strings.menu(Menu.ERROR_NO_DUNGEON_OPENED));
+					}
+				} else if (cmd.equals(Strings.menu(Menu.PREFERENCES))) {
+					// Show preferences dialog
+					Prefs.showPrefs();
+				} else if (cmd.equals(Strings.menu(Menu.PRINT_GAME_WINDOW))) {
+					GUIPrinter.printScreen();
+				} else if (cmd.equals(Strings.menu(Menu.EXIT))) {
+					// Exit program
+					if (app.getGUIManager().quitHandler()) {
+						System.exit(0);
+					}
+				} else // Quit program
+				if (cmd.equals(Strings.menu(Menu.QUIT)) && app.getGUIManager().quitHandler()) {
+					System.exit(0);
+				}
+				app.getMenuManager().checkFlags();
+			} catch (final Exception ex) {
+				DungeonDiver7.logError(ex);
+			}
+		}
 	}
-    }
+
+	@Override
+	public void enableModeCommands() {
+		this.fileNew.setEnabled(true);
+		this.fileOpen.setEnabled(true);
+		this.fileOpenDefault.setEnabled(true);
+		DungeonDiver7.getStuffBag().getMenuManager().enableModeCommands();
+	}
+
+	@Override
+	public void disableModeCommands() {
+		this.fileNew.setEnabled(false);
+		this.fileOpen.setEnabled(false);
+		this.fileOpenDefault.setEnabled(false);
+		DungeonDiver7.getStuffBag().getMenuManager().disableModeCommands();
+	}
+
+	@Override
+	public void setInitialState() {
+		this.fileNew.setEnabled(true);
+		this.fileOpen.setEnabled(true);
+		this.fileOpenDefault.setEnabled(true);
+		this.fileClose.setEnabled(false);
+		this.fileSave.setEnabled(false);
+		this.fileSaveAs.setEnabled(false);
+		this.fileSaveAsProtected.setEnabled(false);
+		this.filePreferences.setEnabled(true);
+		this.filePrint.setEnabled(true);
+		this.fileExit.setEnabled(true);
+	}
+
+	@Override
+	public JMenu createCommandsMenu() {
+		final var mhandler = new MenuHandler();
+		final var fileMenu = new JMenu(Strings.menu(Menu.FILE));
+		this.fileNew = new JMenuItem(Strings.menu(Menu.NEW));
+		this.fileOpen = new JMenuItem(Strings.menu(Menu.OPEN));
+		this.fileOpenDefault = new JMenuItem(Strings.menu(Menu.OPEN_DEFAULT));
+		this.fileClose = new JMenuItem(Strings.menu(Menu.CLOSE));
+		this.fileSave = new JMenuItem(Strings.menu(Menu.SAVE));
+		this.fileSaveAs = new JMenuItem(Strings.menu(Menu.SAVE_AS));
+		this.fileSaveAsProtected = new JMenuItem(Strings.menu(Menu.SAVE_AS_PROTECTED));
+		this.filePreferences = new JMenuItem(Strings.menu(Menu.PREFERENCES));
+		this.filePrint = new JMenuItem(Strings.menu(Menu.PRINT_GAME_WINDOW));
+		if (System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
+				.contains(Strings.untranslated(Untranslated.WINDOWS))) {
+			this.fileExit = new JMenuItem(Strings.menu(Menu.EXIT));
+		} else {
+			this.fileExit = new JMenuItem(Strings.menu(Menu.QUIT));
+		}
+		this.fileNew.addActionListener(mhandler);
+		this.fileOpen.addActionListener(mhandler);
+		this.fileOpenDefault.addActionListener(mhandler);
+		this.fileClose.addActionListener(mhandler);
+		this.fileSave.addActionListener(mhandler);
+		this.fileSaveAs.addActionListener(mhandler);
+		this.fileSaveAsProtected.addActionListener(mhandler);
+		this.filePreferences.addActionListener(mhandler);
+		this.filePrint.addActionListener(mhandler);
+		this.fileExit.addActionListener(mhandler);
+		fileMenu.add(this.fileNew);
+		fileMenu.add(this.fileOpen);
+		fileMenu.add(this.fileOpenDefault);
+		fileMenu.add(this.fileClose);
+		fileMenu.add(this.fileSave);
+		fileMenu.add(this.fileSaveAs);
+		fileMenu.add(this.fileSaveAsProtected);
+		if (!System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
+				.equalsIgnoreCase(Strings.untranslated(Untranslated.MACOS))) {
+			fileMenu.add(this.filePreferences);
+		}
+		fileMenu.add(this.filePrint);
+		if (!System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
+				.equalsIgnoreCase(Strings.untranslated(Untranslated.MACOS))) {
+			fileMenu.add(this.fileExit);
+		}
+		return fileMenu;
+	}
+
+	@Override
+	public void attachAccelerators(final Accelerators accel) {
+		this.fileNew.setAccelerator(accel.fileNewAccel);
+		this.fileOpen.setAccelerator(accel.fileOpenAccel);
+		this.fileClose.setAccelerator(accel.fileCloseAccel);
+		this.fileSave.setAccelerator(accel.fileSaveAccel);
+		this.fileSaveAs.setAccelerator(accel.fileSaveAsAccel);
+		this.filePreferences.setAccelerator(accel.filePreferencesAccel);
+		this.filePrint.setAccelerator(accel.filePrintAccel);
+		if (System.getProperty(Strings.untranslated(Untranslated.OS_NAME))
+				.contains(Strings.untranslated(Untranslated.WINDOWS))) {
+			this.fileExit.setAccelerator(null);
+		} else {
+			this.fileExit.setAccelerator(accel.fileExitAccel);
+		}
+	}
+
+	@Override
+	public void enableLoadedCommands() {
+		final var app = DungeonDiver7.getStuffBag();
+		if (app.getMode() == StuffBag.STATUS_GUI) {
+			this.fileClose.setEnabled(false);
+			this.fileSaveAs.setEnabled(false);
+			this.fileSaveAsProtected.setEnabled(false);
+		} else {
+			this.fileClose.setEnabled(true);
+			this.fileSaveAs.setEnabled(true);
+			this.fileSaveAsProtected.setEnabled(true);
+		}
+		DungeonDiver7.getStuffBag().getMenuManager().enableLoadedCommands();
+	}
+
+	@Override
+	public void disableLoadedCommands() {
+		this.fileClose.setEnabled(false);
+		this.fileSaveAs.setEnabled(false);
+		this.fileSaveAsProtected.setEnabled(false);
+		DungeonDiver7.getStuffBag().getMenuManager().disableLoadedCommands();
+	}
+
+	@Override
+	public void enableDirtyCommands() {
+		this.fileSave.setEnabled(true);
+		DungeonDiver7.getStuffBag().getMenuManager().enableDirtyCommands();
+	}
+
+	@Override
+	public void disableDirtyCommands() {
+		this.fileSave.setEnabled(false);
+		DungeonDiver7.getStuffBag().getMenuManager().disableDirtyCommands();
+	}
+
+	@Override
+	public void handleQuitRequestWith(final QuitEvent e, final QuitResponse response) {
+		final var quitOK = this.quitHandler();
+		if (quitOK) {
+			response.performQuit();
+		} else {
+			response.cancelQuit();
+		}
+	}
 }

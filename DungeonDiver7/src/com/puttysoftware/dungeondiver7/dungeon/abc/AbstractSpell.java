@@ -11,21 +11,21 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public abstract class AbstractSpell extends AbstractDungeonObject {
     // Constructors
     protected AbstractSpell() {
-	this.type.set(DungeonObjectTypes.TYPE_SPELL);
+        this.type.set(DungeonObjectTypes.TYPE_SPELL);
     }
 
     @Override
     public int getLayer() {
-	return DungeonConstants.LAYER_LOWER_OBJECTS;
+        return DungeonConstants.LAYER_LOWER_OBJECTS;
     }
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+        return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
     public void setCustomProperty(final int propID, final int value) {
-	// Do nothing
+        // Do nothing
     }
 }

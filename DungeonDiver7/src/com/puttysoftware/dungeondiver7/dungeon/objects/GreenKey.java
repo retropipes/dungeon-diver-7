@@ -20,14 +20,14 @@ public class GreenKey extends AbstractKey {
     // Scriptability
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(Sounds.GRAB);
-	PartyInventory.addOneGreenKey();
-	DungeonDiver7.getStuffBag().getGameLogic();
-	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+        SoundLoader.playSound(Sounds.GRAB);
+        PartyInventory.addOneGreenKey();
+        DungeonDiver7.getStuffBag().getGameLogic();
+        GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 
     @Override
     public final int getBaseID() {
-	return 17;
+        return 17;
     }
 }

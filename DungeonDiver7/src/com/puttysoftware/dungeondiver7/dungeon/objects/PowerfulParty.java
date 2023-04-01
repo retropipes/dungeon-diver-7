@@ -15,29 +15,29 @@ import com.puttysoftware.dungeondiver7.utility.GameActions;
 public class PowerfulParty extends AbstractCharacter {
     // Constructors
     public PowerfulParty(final int number) {
-	super(number);
-	this.activateTimer(50);
+        super(number);
+        this.activateTimer(50);
     }
 
     public PowerfulParty(final Direction dir, final int number) {
-	super(number);
-	this.setDirection(dir);
-	this.activateTimer(50);
+        super(number);
+        this.setDirection(dir);
+        this.activateTimer(50);
     }
 
     @Override
     public boolean acceptTick(final int actionType) {
-	return actionType == GameActions.MOVE;
+        return actionType == GameActions.MOVE;
     }
 
     @Override
     public void timerExpiredAction(final int x, final int y) {
-	SoundLoader.playSound(Sounds.DISRUPT_END);
-	DungeonDiver7.getStuffBag().getGameLogic().setNormalPlayer();
+        SoundLoader.playSound(Sounds.DISRUPT_END);
+        DungeonDiver7.getStuffBag().getGameLogic().setNormalPlayer();
     }
 
     @Override
     public final int getBaseID() {
-	return 138;
+        return 138;
     }
 }

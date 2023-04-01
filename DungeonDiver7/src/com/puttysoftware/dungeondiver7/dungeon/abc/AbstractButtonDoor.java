@@ -12,41 +12,41 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public abstract class AbstractButtonDoor extends AbstractDungeonObject {
     // Constructors
     protected AbstractButtonDoor() {
-	super(true);
-	this.type.set(DungeonObjectTypes.TYPE_BUTTON_DOOR);
+        super(true);
+        this.type.set(DungeonObjectTypes.TYPE_BUTTON_DOOR);
     }
 
     @Override
     public int getLayer() {
-	return DungeonConstants.LAYER_LOWER_OBJECTS;
+        return DungeonConstants.LAYER_LOWER_OBJECTS;
     }
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	// Do nothing
+        // Do nothing
     }
 
     @Override
     public void editorPlaceHook(final int x, final int y, final int z) {
-	final var app = DungeonDiver7.getStuffBag();
-	app.getDungeonManager().getDungeon().fullScanButtonBind(x, y, z, this);
-	app.getEditor().redrawEditor();
+        final var app = DungeonDiver7.getStuffBag();
+        app.getDungeonManager().getDungeon().fullScanButtonBind(x, y, z, this);
+        app.getEditor().redrawEditor();
     }
 
     @Override
     public void editorRemoveHook(final int x, final int y, final int z) {
-	final var app = DungeonDiver7.getStuffBag();
-	app.getDungeonManager().getDungeon().fullScanFindButtonLostDoor(z, this);
-	app.getEditor().redrawEditor();
+        final var app = DungeonDiver7.getStuffBag();
+        app.getDungeonManager().getDungeon().fullScanFindButtonLostDoor(z, this);
+        app.getEditor().redrawEditor();
     }
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+        return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
     public void setCustomProperty(final int propID, final int value) {
-	// Do nothing
+        // Do nothing
     }
 }

@@ -125,7 +125,8 @@ class ListWithDescDialog {
 			ListWithDescDialog.list.addListSelectionListener(
 					e -> descArea.setText(ListWithDescDialog.descs[ListWithDescDialog.list.getSelectedIndex()]));
 			final var listScroller = new JScrollPane(ListWithDescDialog.list);
-			listScroller.setPreferredSize(new Dimension(CommonDialogs.DEFAULT_ELEM_WIDTH, CommonDialogs.DEFAULT_ELEM_HEIGHT));
+			listScroller.setPreferredSize(
+					new Dimension(CommonDialogs.DEFAULT_ELEM_WIDTH, CommonDialogs.DEFAULT_ELEM_HEIGHT));
 			listScroller.setAlignmentX(Component.LEFT_ALIGNMENT);
 			// Create a container so that we can add a title around
 			// the scroll pane. Can't add a title directly to the

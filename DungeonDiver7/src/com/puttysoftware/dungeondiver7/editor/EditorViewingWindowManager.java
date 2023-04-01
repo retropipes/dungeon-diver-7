@@ -16,43 +16,43 @@ final class EditorViewingWindowManager {
 
     // Constructors
     private EditorViewingWindowManager() {
-	// Do nothing
+        // Do nothing
     }
 
     // Methods
     static int getViewingWindowLocationX() {
-	return EditorViewingWindowManager.MIN_VIEWING_WINDOW_X;
+        return EditorViewingWindowManager.MIN_VIEWING_WINDOW_X;
     }
 
     static int getViewingWindowLocationY() {
-	return EditorViewingWindowManager.MIN_VIEWING_WINDOW_Y;
+        return EditorViewingWindowManager.MIN_VIEWING_WINDOW_Y;
     }
 
     static int getLowerRightViewingWindowLocationX() {
-	return EditorViewingWindowManager.VIEWING_WINDOW_SIZE_X - 1;
+        return EditorViewingWindowManager.VIEWING_WINDOW_SIZE_X - 1;
     }
 
     static int getLowerRightViewingWindowLocationY() {
-	return EditorViewingWindowManager.VIEWING_WINDOW_SIZE_Y - 1;
+        return EditorViewingWindowManager.VIEWING_WINDOW_SIZE_Y - 1;
     }
 
     static int getViewingWindowSize() {
-	return EditorViewingWindowManager.VIEWING_WINDOW_SIZE_X;
+        return EditorViewingWindowManager.VIEWING_WINDOW_SIZE_X;
     }
 
     static int getViewingWindowSizeX() {
-	return EditorViewingWindowManager.VIEWING_WINDOW_SIZE_X;
+        return EditorViewingWindowManager.VIEWING_WINDOW_SIZE_X;
     }
 
     static int getViewingWindowSizeY() {
-	return EditorViewingWindowManager.VIEWING_WINDOW_SIZE_Y;
+        return EditorViewingWindowManager.VIEWING_WINDOW_SIZE_Y;
     }
 
     static int getMinimumViewingWindowLocationX() {
-	return EditorViewingWindowManager.MIN_VIEWING_WINDOW_X;
+        return EditorViewingWindowManager.MIN_VIEWING_WINDOW_X;
     }
 
     static int getMinimumViewingWindowLocationY() {
-	return EditorViewingWindowManager.MIN_VIEWING_WINDOW_Y;
+        return EditorViewingWindowManager.MIN_VIEWING_WINDOW_Y;
     }
 }

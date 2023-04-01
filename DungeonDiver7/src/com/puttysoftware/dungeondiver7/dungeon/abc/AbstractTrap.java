@@ -16,37 +16,37 @@ public abstract class AbstractTrap extends AbstractDungeonObject {
 
     // Constructors
     protected AbstractTrap(final int baseName) {
-	super(false, false);
-	this.base = baseName;
-	this.type.set(DungeonObjectTypes.TYPE_TRAP);
+        super(false, false);
+        this.base = baseName;
+        this.type.set(DungeonObjectTypes.TYPE_TRAP);
     }
 
     // Scriptability
     @Override
     public int getBaseID() {
-	return this.base;
+        return this.base;
     }
 
     @Override
     public int getLayer() {
-	return DungeonConstants.LAYER_LOWER_OBJECTS;
+        return DungeonConstants.LAYER_LOWER_OBJECTS;
     }
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+        return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
     public void setCustomProperty(final int propID, final int value) {
-	// Do nothing
+        // Do nothing
     }
 
     @Override
     public boolean shouldGenerateObject(final AbstractDungeon maze, final int row, final int col, final int level,
-	    final int layer) {
-	// Generate all traps at 25% rate
-	final var reject = new RandomRange(1, 100);
-	return reject.generate() < 25;
+            final int layer) {
+        // Generate all traps at 25% rate
+        final var reject = new RandomRange(1, 100);
+        return reject.generate() < 25;
     }
 }

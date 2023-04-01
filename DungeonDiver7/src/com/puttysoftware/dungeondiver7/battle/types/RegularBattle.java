@@ -14,12 +14,12 @@ class RegularBattle extends AbstractBattleType {
 
     // Constructors
     public RegularBattle() {
-	this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance());
+        this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance());
     }
 
     // Methods
     @Override
     public BattleCharacter getBattlers() {
-	return this.monster;
+        return this.monster;
     }
 }

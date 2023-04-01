@@ -10,11 +10,11 @@ import com.puttysoftware.diane.random.RandomLongRange;
 public class IDGenerator {
     // Constructor
     private IDGenerator() {
-	// Do nothing
+        // Do nothing
     }
 
     // Methods
     public static String generateRandomFilename() {
-	return Long.toString(RandomLongRange.generateRaw(), 36).toLowerCase();
+        return Long.toString(RandomLongRange.generateRaw(), 36).toLowerCase();
     }
 }

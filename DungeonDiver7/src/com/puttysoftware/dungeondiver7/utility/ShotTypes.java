@@ -15,17 +15,17 @@ public class ShotTypes {
     public static final int POWER = 129;
 
     private ShotTypes() {
-	// Do nothing
+        // Do nothing
     }
 
     public static final int getRangeTypeForLaserType(final int lt) {
-	switch (lt) {
-	case STUNNER:
-	    return RangeTypes.ICE_BOMB;
-	case MISSILE:
-	    return RangeTypes.HEAT_BOMB;
-	default:
-	    return RangeTypes.BOMB;
-	}
+        switch (lt) {
+            case STUNNER:
+                return RangeTypes.ICE_BOMB;
+            case MISSILE:
+                return RangeTypes.HEAT_BOMB;
+            default:
+                return RangeTypes.BOMB;
+        }
     }
 }

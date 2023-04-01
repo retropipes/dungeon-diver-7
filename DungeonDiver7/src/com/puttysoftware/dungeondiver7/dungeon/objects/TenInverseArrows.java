@@ -16,17 +16,17 @@ public class TenInverseArrows extends AbstractInventoryModifier {
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	PartyInventory.addTenBlueLasers();
-	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+        PartyInventory.addTenBlueLasers();
+        GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 
     @Override
     public boolean doLasersPassThrough() {
-	return true;
+        return true;
     }
 
     @Override
     public final int getBaseID() {
-	return 38;
+        return 38;
     }
 }

@@ -12,14 +12,14 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public class MirrorMover extends AbstractMover {
     // Constructors
     public MirrorMover() {
-	super(true);
-	this.setDirection(Direction.NORTH);
-	this.setFrameNumber(1);
-	this.type.set(DungeonObjectTypes.TYPE_MIRROR_MOVER);
+        super(true);
+        this.setDirection(Direction.NORTH);
+        this.setFrameNumber(1);
+        this.type.set(DungeonObjectTypes.TYPE_MIRROR_MOVER);
     }
 
     @Override
     public final int getBaseID() {
-	return 125;
+        return 125;
     }
 }

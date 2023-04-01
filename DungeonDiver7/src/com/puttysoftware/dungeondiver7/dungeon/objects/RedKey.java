@@ -20,14 +20,14 @@ public class RedKey extends AbstractKey {
     // Scriptability
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(Sounds.GRAB);
-	PartyInventory.addOneRedKey();
-	DungeonDiver7.getStuffBag().getGameLogic();
-	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+        SoundLoader.playSound(Sounds.GRAB);
+        PartyInventory.addOneRedKey();
+        DungeonDiver7.getStuffBag().getGameLogic();
+        GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 
     @Override
     public final int getBaseID() {
-	return 29;
+        return 29;
     }
 }

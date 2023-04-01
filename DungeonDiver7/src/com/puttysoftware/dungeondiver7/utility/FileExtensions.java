@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.utility;
 
 public class FileExtensions {
     private FileExtensions() {
-	// Do nothing
+        // Do nothing
     }
 
     // Constants
@@ -15,6 +15,6 @@ public class FileExtensions {
 
     // Methods
     public static String getStringExtensionWithPeriod() {
-	return "." + FileExtensions.STRING_EXTENSION;
+        return "." + FileExtensions.STRING_EXTENSION;
     }
 }

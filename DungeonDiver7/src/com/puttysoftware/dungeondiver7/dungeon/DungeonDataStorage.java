@@ -12,30 +12,30 @@ import com.puttysoftware.dungeondiver7.utility.CloneableObjectStorage;
 public class DungeonDataStorage extends CloneableObjectStorage {
     // Constructor
     public DungeonDataStorage(final int... shape) {
-	super(shape);
+        super(shape);
     }
 
     public DungeonDataStorage(final DungeonDataStorage source) {
-	super(source);
+        super(source);
     }
 
     // Methods
     @Override
     public Object clone() throws CloneNotSupportedException {
-	final var copy = new DungeonDataStorage(this.getShape());
-	for (var x = 0; x < copy.getRawLength(); x++) {
-	    if (this.getRawCell(x) != null) {
-		copy.setRawCell((CloneableObject) this.getRawCell(x).clone(), x);
-	    }
-	}
-	return copy;
+        final var copy = new DungeonDataStorage(this.getShape());
+        for (var x = 0; x < copy.getRawLength(); x++) {
+            if (this.getRawCell(x) != null) {
+                copy.setRawCell((CloneableObject) this.getRawCell(x).clone(), x);
+            }
+        }
+        return copy;
     }
 
     public AbstractDungeonObject getDungeonDataCell(final int... loc) {
-	return (AbstractDungeonObject) this.getCell(loc);
+        return (AbstractDungeonObject) this.getCell(loc);
     }
 
     public void setDungeonDataCell(final AbstractDungeonObject obj, final int... loc) {
-	this.setCell(obj, loc);
+        this.setCell(obj, loc);
     }
 }

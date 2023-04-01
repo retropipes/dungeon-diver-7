@@ -13,26 +13,26 @@ import com.puttysoftware.dungeondiver7.shop.ShopType;
 public class ArmorShop extends AbstractShop {
     // Constructors
     public ArmorShop() {
-	super(ShopType.ARMOR);
+        super(ShopType.ARMOR);
     }
 
     @Override
     public int getBaseID() {
-	return ObjectImageConstants.ARMOR_SHOP;
+        return ObjectImageConstants.ARMOR_SHOP;
     }
 
     @Override
     public String getName() {
-	return "Armor Shop";
+        return "Armor Shop";
     }
 
     @Override
     public String getPluralName() {
-	return "Armor Shops";
+        return "Armor Shops";
     }
 
     @Override
     public String getDescription() {
-	return "Armor Shops sell protective armor.";
+        return "Armor Shops sell protective armor.";
     }
 }

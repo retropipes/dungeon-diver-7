@@ -16,27 +16,27 @@ import com.puttysoftware.dungeondiver7.names.Monsters;
 import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 
 public class BossImageManager {
-    private static Class<?> LOAD_CLASS = BossImageManager.class;
+	private static Class<?> LOAD_CLASS = BossImageManager.class;
 
-    public static BufferedImageIcon getBossImage(final int zoneID) {
-	// Get it from the cache
-	return BossImageCache.getCachedImage(Monsters.getImageFilename(zoneID));
-    }
-
-    public static BufferedImageIcon getFinalBossImage() {
-	// Get it from the cache
-	return BossImageCache.getCachedImage("chrys");
-    }
-
-    static BufferedImageIcon getUncachedImage(final String name) {
-	try {
-	    final var url = BossImageManager.LOAD_CLASS
-		    .getResource(Strings.untranslated(Untranslated.BOSS_IMAGE_LOAD_PATH) + name
-			    + Strings.fileExtension(FileExtension.IMAGE));
-	    final var image = ImageIO.read(url);
-	    return new BufferedImageIcon(image);
-	} catch (final IOException ie) {
-	    return null;
+	public static BufferedImageIcon getBossImage(final int zoneID) {
+		// Get it from the cache
+		return BossImageCache.getCachedImage(Monsters.getImageFilename(zoneID));
 	}
-    }
+
+	public static BufferedImageIcon getFinalBossImage() {
+		// Get it from the cache
+		return BossImageCache.getCachedImage("chrys");
+	}
+
+	static BufferedImageIcon getUncachedImage(final String name) {
+		try {
+			final var url = BossImageManager.LOAD_CLASS
+					.getResource(Strings.untranslated(Untranslated.BOSS_IMAGE_LOAD_PATH) + name
+							+ Strings.fileExtension(FileExtension.IMAGE));
+			final var image = ImageIO.read(url);
+			return new BufferedImageIcon(image);
+		} catch (final IOException ie) {
+			return null;
+		}
+	}
 }

@@ -19,30 +19,30 @@ public class OpenDoor extends AbstractPassThroughObject {
 
     @Override
     public int getBaseID() {
-	return ObjectImageConstants.OPEN_DOOR;
+        return ObjectImageConstants.OPEN_DOOR;
     }
 
     // Scriptability
     @Override
     public String getName() {
-	return "Open Door";
+        return "Open Door";
     }
 
     @Override
     public String getPluralName() {
-	return "Open Doors";
+        return "Open Doors";
     }
 
     @Override
     public String getDescription() {
-	return "Open Doors can be closed by interacting with them.";
+        return "Open Doors can be closed by interacting with them.";
     }
 
     @Override
     public void interactAction() {
-	SoundLoader.playSound(Sounds.DOOR_CLOSES);
-	final var glm = DungeonDiver7.getStuffBag().getGameLogic();
-	GameLogic.morph(new ClosedDoor());
-	glm.redrawDungeon();
+        SoundLoader.playSound(Sounds.DOOR_CLOSES);
+        final var glm = DungeonDiver7.getStuffBag().getGameLogic();
+        GameLogic.morph(new ClosedDoor());
+        glm.redrawDungeon();
     }
 }

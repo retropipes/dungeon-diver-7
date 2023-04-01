@@ -14,11 +14,11 @@ public class Missile extends AbstractTransientObject {
 
     @Override
     public final int getBaseID() {
-	return 27;
+        return 27;
     }
 
     @Override
     public int getForceUnitsImbued() {
-	return 2;
+        return 2;
     }
 }

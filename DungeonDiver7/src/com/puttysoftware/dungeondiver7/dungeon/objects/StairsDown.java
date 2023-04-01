@@ -17,19 +17,19 @@ public class StairsDown extends AbstractTeleport {
 
     @Override
     public int getDestinationFloor() {
-	final var app = DungeonDiver7.getStuffBag();
-	return app.getGameLogic().getPlayerManager().getPlayerLocationZ() - 1;
+        final var app = DungeonDiver7.getStuffBag();
+        return app.getGameLogic().getPlayerManager().getPlayerLocationZ() - 1;
     }
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	final var app = DungeonDiver7.getStuffBag();
-	app.getGameLogic().updatePositionAbsoluteNoEvents(this.getDestinationFloor());
-	SoundLoader.playSound(Sounds.DOWN);
+        final var app = DungeonDiver7.getStuffBag();
+        app.getGameLogic().updatePositionAbsoluteNoEvents(this.getDestinationFloor());
+        SoundLoader.playSound(Sounds.DOWN);
     }
 
     @Override
     public final int getBaseID() {
-	return 32;
+        return 32;
     }
 }

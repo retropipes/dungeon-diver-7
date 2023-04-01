@@ -53,16 +53,16 @@ public abstract class TAudioFileReader extends AudioFileReader {
      * @param bRereading
      */
     protected TAudioFileReader(int nMarkLimit, boolean bRereading) {
-	m_nMarkLimit = nMarkLimit;
-	m_bRereading = bRereading;
+        m_nMarkLimit = nMarkLimit;
+        m_bRereading = bRereading;
     }
 
     private int getMarkLimit() {
-	return m_nMarkLimit;
+        return m_nMarkLimit;
     }
 
     private boolean isRereading() {
-	return m_bRereading;
+        return m_bRereading;
     }
 
     /**
@@ -79,15 +79,15 @@ public abstract class TAudioFileReader extends AudioFileReader {
      */
     @Override
     public AudioFileFormat getAudioFileFormat(File file) throws UnsupportedAudioFileException, IOException {
-	LOG.log(Level.FINE, "TAudioFileReader.getAudioFileFormat(File): begin (class: {0})",
-		getClass().getSimpleName());
-	long lFileLengthInBytes = file.length();
-	AudioFileFormat audioFileFormat;
-	try (InputStream inputStream = new FileInputStream(file)) {
-	    audioFileFormat = getAudioFileFormat(inputStream, lFileLengthInBytes);
-	}
-	LOG.log(Level.FINE, "TAudioFileReader.getAudioFileFormat(File): end");
-	return audioFileFormat;
+        LOG.log(Level.FINE, "TAudioFileReader.getAudioFileFormat(File): begin (class: {0})",
+                getClass().getSimpleName());
+        long lFileLengthInBytes = file.length();
+        AudioFileFormat audioFileFormat;
+        try (InputStream inputStream = new FileInputStream(file)) {
+            audioFileFormat = getAudioFileFormat(inputStream, lFileLengthInBytes);
+        }
+        LOG.log(Level.FINE, "TAudioFileReader.getAudioFileFormat(File): end");
+        return audioFileFormat;
     }
 
     /**
@@ -104,14 +104,14 @@ public abstract class TAudioFileReader extends AudioFileReader {
      */
     @Override
     public AudioFileFormat getAudioFileFormat(URL url) throws UnsupportedAudioFileException, IOException {
-	LOG.log(Level.FINE, "TAudioFileReader.getAudioFileFormat(URL): begin (class: {0})", getClass().getSimpleName());
-	long lFileLengthInBytes = getDataLength(url);
-	AudioFileFormat audioFileFormat;
-	try (InputStream inputStream = url.openStream()) {
-	    audioFileFormat = getAudioFileFormat(inputStream, lFileLengthInBytes);
-	}
-	LOG.log(Level.FINE, "TAudioFileReader.getAudioFileFormat(URL): end");
-	return audioFileFormat;
+        LOG.log(Level.FINE, "TAudioFileReader.getAudioFileFormat(URL): begin (class: {0})", getClass().getSimpleName());
+        long lFileLengthInBytes = getDataLength(url);
+        AudioFileFormat audioFileFormat;
+        try (InputStream inputStream = url.openStream()) {
+            audioFileFormat = getAudioFileFormat(inputStream, lFileLengthInBytes);
+        }
+        LOG.log(Level.FINE, "TAudioFileReader.getAudioFileFormat(URL): end");
+        return audioFileFormat;
     }
 
     /**
@@ -128,22 +128,22 @@ public abstract class TAudioFileReader extends AudioFileReader {
      */
     @Override
     public AudioFileFormat getAudioFileFormat(InputStream inputStream)
-	    throws UnsupportedAudioFileException, IOException {
-	LOG.log(Level.FINE, "TAudioFileReader.getAudioFileFormat(InputStream): begin (class: {0})",
-		getClass().getSimpleName());
-	long lFileLengthInBytes = AudioSystem.NOT_SPECIFIED;
-	if (!inputStream.markSupported()) {
-	    inputStream = new BufferedInputStream(inputStream, getMarkLimit());
-	}
-	inputStream.mark(getMarkLimit());
-	AudioFileFormat audioFileFormat;
-	try {
-	    audioFileFormat = getAudioFileFormat(inputStream, lFileLengthInBytes);
-	} finally {
-	    inputStream.reset();
-	}
-	LOG.log(Level.FINE, "TAudioFileReader.getAudioFileFormat(InputStream): end");
-	return audioFileFormat;
+            throws UnsupportedAudioFileException, IOException {
+        LOG.log(Level.FINE, "TAudioFileReader.getAudioFileFormat(InputStream): begin (class: {0})",
+                getClass().getSimpleName());
+        long lFileLengthInBytes = AudioSystem.NOT_SPECIFIED;
+        if (!inputStream.markSupported()) {
+            inputStream = new BufferedInputStream(inputStream, getMarkLimit());
+        }
+        inputStream.mark(getMarkLimit());
+        AudioFileFormat audioFileFormat;
+        try {
+            audioFileFormat = getAudioFileFormat(inputStream, lFileLengthInBytes);
+        } finally {
+            inputStream.reset();
+        }
+        LOG.log(Level.FINE, "TAudioFileReader.getAudioFileFormat(InputStream): end");
+        return audioFileFormat;
     }
 
     /**
@@ -167,7 +167,7 @@ public abstract class TAudioFileReader extends AudioFileReader {
      * @throws java.io.IOException
      */
     protected abstract AudioFileFormat getAudioFileFormat(InputStream inputStream, long lFileLengthInBytes)
-	    throws UnsupportedAudioFileException, IOException;
+            throws UnsupportedAudioFileException, IOException;
 
     /**
      * Get an AudioInputStream object for a file. This method calls
@@ -184,19 +184,19 @@ public abstract class TAudioFileReader extends AudioFileReader {
      */
     @Override
     public AudioInputStream getAudioInputStream(File file) throws UnsupportedAudioFileException, IOException {
-	LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(File): begin (class: {0})",
-		getClass().getSimpleName());
-	long lFileLengthInBytes = file.length();
-	InputStream inputStream = new FileInputStream(file);
-	AudioInputStream audioInputStream;
-	try {
-	    audioInputStream = getAudioInputStream(inputStream, lFileLengthInBytes);
-	} catch (UnsupportedAudioFileException | IOException e) {
-	    inputStream.close();
-	    throw e;
-	}
-	LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(File): end");
-	return audioInputStream;
+        LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(File): begin (class: {0})",
+                getClass().getSimpleName());
+        long lFileLengthInBytes = file.length();
+        InputStream inputStream = new FileInputStream(file);
+        AudioInputStream audioInputStream;
+        try {
+            audioInputStream = getAudioInputStream(inputStream, lFileLengthInBytes);
+        } catch (UnsupportedAudioFileException | IOException e) {
+            inputStream.close();
+            throw e;
+        }
+        LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(File): end");
+        return audioInputStream;
     }
 
     /**
@@ -213,19 +213,19 @@ public abstract class TAudioFileReader extends AudioFileReader {
      */
     @Override
     public AudioInputStream getAudioInputStream(URL url) throws UnsupportedAudioFileException, IOException {
-	LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(URL): begin (class: {0})",
-		getClass().getSimpleName());
-	long lFileLengthInBytes = getDataLength(url);
-	InputStream inputStream = url.openStream();
-	AudioInputStream audioInputStream = null;
-	try {
-	    audioInputStream = getAudioInputStream(inputStream, lFileLengthInBytes);
-	} catch (UnsupportedAudioFileException | IOException e) {
-	    inputStream.close();
-	    throw e;
-	}
-	LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(URL): end");
-	return audioInputStream;
+        LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(URL): begin (class: {0})",
+                getClass().getSimpleName());
+        long lFileLengthInBytes = getDataLength(url);
+        InputStream inputStream = url.openStream();
+        AudioInputStream audioInputStream = null;
+        try {
+            audioInputStream = getAudioInputStream(inputStream, lFileLengthInBytes);
+        } catch (UnsupportedAudioFileException | IOException e) {
+            inputStream.close();
+            throw e;
+        }
+        LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(URL): end");
+        return audioInputStream;
     }
 
     /**
@@ -243,33 +243,33 @@ public abstract class TAudioFileReader extends AudioFileReader {
      */
     @Override
     public AudioInputStream getAudioInputStream(InputStream inputStream)
-	    throws UnsupportedAudioFileException, IOException {
-	LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(InputStream): begin (class: {0})",
-		getClass().getSimpleName());
-	long lFileLengthInBytes = AudioSystem.NOT_SPECIFIED;
-	AudioInputStream audioInputStream = null;
-	if (!inputStream.markSupported()) {
-	    inputStream = new BufferedInputStream(inputStream, getMarkLimit());
-	}
-	inputStream.mark(getMarkLimit());
-	try {
-	    audioInputStream = getAudioInputStream(inputStream, lFileLengthInBytes);
-	} catch (UnsupportedAudioFileException e) {
-	    inputStream.reset();
-	    throw e;
-	} catch (IOException e) {
-	    try {
-		inputStream.reset();
-	    } catch (IOException e2) {
-		if (e2.getCause() == null) {
-		    e2.initCause(e);
-		    throw e2;
-		}
-	    }
-	    throw e;
-	}
-	LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(InputStream): end");
-	return audioInputStream;
+            throws UnsupportedAudioFileException, IOException {
+        LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(InputStream): begin (class: {0})",
+                getClass().getSimpleName());
+        long lFileLengthInBytes = AudioSystem.NOT_SPECIFIED;
+        AudioInputStream audioInputStream = null;
+        if (!inputStream.markSupported()) {
+            inputStream = new BufferedInputStream(inputStream, getMarkLimit());
+        }
+        inputStream.mark(getMarkLimit());
+        try {
+            audioInputStream = getAudioInputStream(inputStream, lFileLengthInBytes);
+        } catch (UnsupportedAudioFileException e) {
+            inputStream.reset();
+            throw e;
+        } catch (IOException e) {
+            try {
+                inputStream.reset();
+            } catch (IOException e2) {
+                if (e2.getCause() == null) {
+                    e2.initCause(e);
+                    throw e2;
+                }
+            }
+            throw e;
+        }
+        LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(InputStream): end");
+        return audioInputStream;
     }
 
     /**
@@ -296,23 +296,23 @@ public abstract class TAudioFileReader extends AudioFileReader {
      * @throws java.io.IOException
      */
     protected AudioInputStream getAudioInputStream(InputStream inputStream, long lFileLengthInBytes)
-	    throws UnsupportedAudioFileException, IOException {
-	LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(InputStream, long): begin (class: {0})",
-		getClass().getSimpleName());
-	if (isRereading()) {
-	    if (!inputStream.markSupported()) {
-		inputStream = new BufferedInputStream(inputStream, getMarkLimit());
-	    }
-	    inputStream.mark(getMarkLimit());
-	}
-	AudioFileFormat audioFileFormat = getAudioFileFormat(inputStream, lFileLengthInBytes);
-	if (isRereading()) {
-	    inputStream.reset();
-	}
-	AudioInputStream audioInputStream = new AudioInputStream(inputStream, audioFileFormat.getFormat(),
-		audioFileFormat.getFrameLength());
-	LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(InputStream, long): end");
-	return audioInputStream;
+            throws UnsupportedAudioFileException, IOException {
+        LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(InputStream, long): begin (class: {0})",
+                getClass().getSimpleName());
+        if (isRereading()) {
+            if (!inputStream.markSupported()) {
+                inputStream = new BufferedInputStream(inputStream, getMarkLimit());
+            }
+            inputStream.mark(getMarkLimit());
+        }
+        AudioFileFormat audioFileFormat = getAudioFileFormat(inputStream, lFileLengthInBytes);
+        if (isRereading()) {
+            inputStream.reset();
+        }
+        AudioInputStream audioInputStream = new AudioInputStream(inputStream, audioFileFormat.getFormat(),
+                audioFileFormat.getFrameLength());
+        LOG.log(Level.FINE, "TAudioFileReader.getAudioInputStream(InputStream, long): end");
+        return audioInputStream;
     }
 
     /**
@@ -322,9 +322,9 @@ public abstract class TAudioFileReader extends AudioFileReader {
      * @throws IOException
      */
     private static long getDataLength(URL url) throws IOException {
-	URLConnection connection = url.openConnection();
-	connection.connect();
-	int length = connection.getContentLength();
-	return length > 0 ? length : AudioSystem.NOT_SPECIFIED;
+        URLConnection connection = url.openConnection();
+        connection.connect();
+        int length = connection.getContentLength();
+        return length > 0 ? length : AudioSystem.NOT_SPECIFIED;
     }
 }

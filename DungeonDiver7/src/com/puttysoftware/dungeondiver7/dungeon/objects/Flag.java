@@ -11,32 +11,32 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractPassThroughObject;
 public class Flag extends AbstractPassThroughObject {
     // Constructors
     public Flag() {
-	this.setFrameNumber(1);
+        this.setFrameNumber(1);
     }
 
     // Scriptability
     @Override
     public boolean defersSetProperties() {
-	return false;
+        return false;
     }
 
     @Override
     public AbstractDungeonObject editorPropertiesHook() {
-	return null;
+        return null;
     }
 
     @Override
     public boolean solvesOnMove() {
-	return true;
+        return true;
     }
 
     @Override
     public int getCustomFormat() {
-	return 0;
+        return 0;
     }
 
     @Override
     public final int getBaseID() {
-	return 13;
+        return 13;
     }
 }

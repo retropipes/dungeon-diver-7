@@ -19,30 +19,30 @@ public class ClosedDoor extends AbstractPassThroughObject {
 
     @Override
     public int getBaseID() {
-	return ObjectImageConstants.CLOSED_DOOR;
+        return ObjectImageConstants.CLOSED_DOOR;
     }
 
     // Scriptability
     @Override
     public String getName() {
-	return "Closed Door";
+        return "Closed Door";
     }
 
     @Override
     public String getPluralName() {
-	return "Closed Doors";
+        return "Closed Doors";
     }
 
     @Override
     public String getDescription() {
-	return "Closed Doors open when stepped on.";
+        return "Closed Doors open when stepped on.";
     }
 
     @Override
     public void interactAction() {
-	SoundLoader.playSound(Sounds.DOOR_OPENS);
-	final var glm = DungeonDiver7.getStuffBag().getGameLogic();
-	GameLogic.morph(new OpenDoor());
-	glm.redrawDungeon();
+        SoundLoader.playSound(Sounds.DOOR_OPENS);
+        final var glm = DungeonDiver7.getStuffBag().getGameLogic();
+        GameLogic.morph(new OpenDoor());
+        glm.redrawDungeon();
     }
 }

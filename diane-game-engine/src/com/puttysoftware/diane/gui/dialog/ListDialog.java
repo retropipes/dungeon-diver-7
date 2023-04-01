@@ -114,7 +114,8 @@ class ListDialog {
 				}
 			});
 			final var listScroller = new JScrollPane(ListDialog.list);
-			listScroller.setPreferredSize(new Dimension(CommonDialogs.DEFAULT_ELEM_WIDTH, CommonDialogs.DEFAULT_ELEM_HEIGHT));
+			listScroller.setPreferredSize(
+					new Dimension(CommonDialogs.DEFAULT_ELEM_WIDTH, CommonDialogs.DEFAULT_ELEM_HEIGHT));
 			listScroller.setAlignmentX(Component.LEFT_ALIGNMENT);
 			// Create a container so that we can add a title around
 			// the scroll pane. Can't add a title directly to the

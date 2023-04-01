@@ -18,37 +18,37 @@ public abstract class AbstractShop extends AbstractDungeonObject {
 
     // Constructors
     public AbstractShop(final ShopType newShopType) {
-	super(false, false);
-	this.shopType = newShopType;
-	this.type.set(DungeonObjectTypes.TYPE_SHOP);
+        super(false, false);
+        this.shopType = newShopType;
+        this.type.set(DungeonObjectTypes.TYPE_SHOP);
     }
 
     // Methods
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(Sounds.WALK);
+        SoundLoader.playSound(Sounds.WALK);
     }
 
     @Override
     public void interactAction() {
-	final var shop = DungeonDiver7.getStuffBag().getShopByType(this.shopType);
-	if (shop != null) {
-	    shop.showShop();
-	}
+        final var shop = DungeonDiver7.getStuffBag().getShopByType(this.shopType);
+        if (shop != null) {
+            shop.showShop();
+        }
     }
 
     @Override
     public int getLayer() {
-	return DungeonConstants.LAYER_LOWER_OBJECTS;
+        return DungeonConstants.LAYER_LOWER_OBJECTS;
     }
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+        return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
     public void setCustomProperty(final int propID, final int value) {
-	// Do nothing
+        // Do nothing
     }
 }

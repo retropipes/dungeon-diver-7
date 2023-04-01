@@ -23,52 +23,52 @@ public abstract class AbstractMapAIRoutine {
 
     // Constructor
     protected AbstractMapAIRoutine() {
-	this.spell = null;
-	this.moveX = 0;
-	this.moveY = 0;
-	this.lastResult = true;
+        this.spell = null;
+        this.moveX = 0;
+        this.moveY = 0;
+        this.lastResult = true;
     }
 
     // Methods
     public abstract int getNextAction(MapAIContext ac);
 
     public void newRoundHook() {
-	// Do nothing
+        // Do nothing
     }
 
     public final int getMoveX() {
-	return this.moveX;
+        return this.moveX;
     }
 
     public final int getMoveY() {
-	return this.moveY;
+        return this.moveY;
     }
 
     public final Spell getSpellToCast() {
-	return this.spell;
+        return this.spell;
     }
 
     public final void setLastResult(final boolean res) {
-	this.lastResult = res;
+        this.lastResult = res;
     }
 
     @Override
     public int hashCode() {
-	return Objects.hash(this.lastResult, this.moveX, this.moveY, this.spell);
+        return Objects.hash(this.lastResult, this.moveX, this.moveY, this.spell);
     }
 
     @Override
     public boolean equals(final Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null || !(obj instanceof final AbstractMapAIRoutine other) || this.lastResult != other.lastResult
-		|| this.moveX != other.moveX) {
-	    return false;
-	}
-	if (this.moveY != other.moveY || !Objects.equals(this.spell, other.spell)) {
-	    return false;
-	}
-	return true;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || !(obj instanceof final AbstractMapAIRoutine other) || this.lastResult != other.lastResult
+                || this.moveX != other.moveX) {
+            return false;
+        }
+        if (this.moveY != other.moveY || !Objects.equals(this.spell, other.spell)) {
+            return false;
+        }
+        return true;
     }
 }

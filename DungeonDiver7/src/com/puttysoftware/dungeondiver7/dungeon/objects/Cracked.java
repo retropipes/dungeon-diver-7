@@ -19,24 +19,24 @@ public class Cracked extends AbstractAttribute {
 
     @Override
     public final int getBaseID() {
-	return 131;
+        return 131;
     }
 
     @Override
     public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType, final int forceUnits) {
-	final var app = DungeonDiver7.getStuffBag();
-	app.getGameLogic();
-	GameLogic.morph(new Damaged(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(Sounds.CRACK);
-	return Direction.NONE;
+            final int laserType, final int forceUnits) {
+        final var app = DungeonDiver7.getStuffBag();
+        app.getGameLogic();
+        GameLogic.morph(new Damaged(), locX, locY, locZ, this.getLayer());
+        SoundLoader.playSound(Sounds.CRACK);
+        return Direction.NONE;
     }
 
     @Override
     public void moveFailedAction(final int locX, final int locY, final int locZ) {
-	final var app = DungeonDiver7.getStuffBag();
-	app.getGameLogic();
-	GameLogic.morph(new Damaged(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(Sounds.CRACK);
+        final var app = DungeonDiver7.getStuffBag();
+        app.getGameLogic();
+        GameLogic.morph(new Damaged(), locX, locY, locZ, this.getLayer());
+        SoundLoader.playSound(Sounds.CRACK);
     }
 }

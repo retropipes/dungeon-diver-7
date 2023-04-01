@@ -17,78 +17,78 @@ import com.puttysoftware.diane.random.RandomRange;
 public class MonsterTile extends AbstractMovingObject {
     // Constructors
     public MonsterTile() {
-	super(false);
-	this.setSavedObject(new Empty());
-	this.activateTimer(1);
+        super(false);
+        this.setSavedObject(new Empty());
+        this.activateTimer(1);
     }
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	if (DungeonDiver7.getStuffBag().getMode() != StuffBag.STATUS_BATTLE) {
-	    DungeonDiver7.getStuffBag().getBattle().doBattle();
-	    DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().postBattle(this, dirX, dirY, true);
-	}
+        if (DungeonDiver7.getStuffBag().getMode() != StuffBag.STATUS_BATTLE) {
+            DungeonDiver7.getStuffBag().getBattle().doBattle();
+            DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().postBattle(this, dirX, dirY, true);
+        }
     }
 
     @Override
     public void timerExpiredAction(final int dirX, final int dirY) {
-	// Move the monster
-	final var r = new RandomRange(0, 7);
-	final var move = Direction.values()[r.generate()];
-	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().updateMonsterPosition(move, dirX, dirY, this, 0);
-	this.activateTimer(1);
+        // Move the monster
+        final var r = new RandomRange(0, 7);
+        final var move = Direction.values()[r.generate()];
+        DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().updateMonsterPosition(move, dirX, dirY, this, 0);
+        this.activateTimer(1);
     }
 
     @Override
     public int getBaseID() {
-	return ObjectImageConstants.NONE;
+        return ObjectImageConstants.NONE;
     }
 
     @Override
     public String getName() {
-	return "Monster";
+        return "Monster";
     }
 
     @Override
     public String getPluralName() {
-	return "Monsters";
+        return "Monsters";
     }
 
     @Override
     public String getDescription() {
-	return "Monsters are dangerous. Encountering one starts a battle.";
+        return "Monsters are dangerous. Encountering one starts a battle.";
     }
 
     @Override
     public boolean shouldGenerateObject(final AbstractDungeon dungeon, final int row, final int col, final int level,
-	    final int layer) {
-	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
-	    return false;
-	}
-	return super.shouldGenerateObject(dungeon, row, col, level, layer);
+            final int layer) {
+        if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
+            return false;
+        }
+        return super.shouldGenerateObject(dungeon, row, col, level, layer);
     }
 
     @Override
     public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
-	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
-	    return RandomGenerationRule.NO_LIMIT;
-	}
-	return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(), 1.0 / 2.2);
+        if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
+            return RandomGenerationRule.NO_LIMIT;
+        }
+        return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(), 1.0 / 2.2);
     }
 
     @Override
     public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
-	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
-	    return RandomGenerationRule.NO_LIMIT;
-	}
-	return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(), 1.0 / 1.8);
+        if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
+            return RandomGenerationRule.NO_LIMIT;
+        }
+        return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(), 1.0 / 1.8);
     }
 
     @Override
     public boolean isRequired(final AbstractDungeon dungeon) {
-	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
-	    return false;
-	}
-	return true;
+        if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
+            return false;
+        }
+        return true;
     }
 }

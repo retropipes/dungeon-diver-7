@@ -12,16 +12,16 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public class UpperObjectsEmpty extends AbstractPassThroughObject {
     // Constructors
     public UpperObjectsEmpty() {
-	this.type.set(DungeonObjectTypes.TYPE_EMPTY_SPACE);
+        this.type.set(DungeonObjectTypes.TYPE_EMPTY_SPACE);
     }
 
     @Override
     public int getLayer() {
-	return DungeonConstants.LAYER_UPPER_OBJECTS;
+        return DungeonConstants.LAYER_UPPER_OBJECTS;
     }
 
     @Override
     public final int getBaseID() {
-	return 130;
+        return 130;
     }
 }

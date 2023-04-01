@@ -16,68 +16,68 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
 class OggPlayThread {
-    private AudioInputStream stream;
-    private AudioInputStream decodedStream;
-    private AudioFormat format;
-    private AudioFormat decodedFormat;
-    private boolean stop;
+	private AudioInputStream stream;
+	private AudioInputStream decodedStream;
+	private AudioFormat format;
+	private AudioFormat decodedFormat;
+	private boolean stop;
 
-    public OggPlayThread(final AudioInputStream ais) {
-	this.stream = ais;
-	this.stop = false;
-    }
-
-    public void play() {
-	try {
-	    // Get AudioInputStream from given file.
-	    this.decodedStream = null;
-	    if (this.stream != null) {
-		this.format = this.stream.getFormat();
-		this.decodedFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, this.format.getSampleRate(), 16,
-			this.format.getChannels(), this.format.getChannels() * 2, this.format.getSampleRate(), false);
-		// Get AudioInputStream that will be decoded by underlying
-		// VorbisSPI
-		this.decodedStream = AudioSystem.getAudioInputStream(this.decodedFormat, this.stream);
-	    }
-	} catch (Exception e) {
-	    return;
+	public OggPlayThread(final AudioInputStream ais) {
+		this.stream = ais;
+		this.stop = false;
 	}
-	DataLine.Info info = new DataLine.Info(SourceDataLine.class, this.decodedFormat);
-	try (Line res = AudioSystem.getLine(info); SourceDataLine line = (SourceDataLine) res) {
-	    if (line != null) {
-		line.open(this.decodedFormat);
+
+	public void play() {
 		try {
-		    byte[] data = new byte[16];
-		    // Start
-		    line.start();
-		    int nBytesRead = 0;
-		    while (nBytesRead != -1 && !this.stop) {
-			nBytesRead = this.decodedStream.read(data, 0, data.length);
-			if (this.stop) {
-			    return;
+			// Get AudioInputStream from given file.
+			this.decodedStream = null;
+			if (this.stream != null) {
+				this.format = this.stream.getFormat();
+				this.decodedFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, this.format.getSampleRate(), 16,
+						this.format.getChannels(), this.format.getChannels() * 2, this.format.getSampleRate(), false);
+				// Get AudioInputStream that will be decoded by underlying
+				// VorbisSPI
+				this.decodedStream = AudioSystem.getAudioInputStream(this.decodedFormat, this.stream);
 			}
-			if (nBytesRead != -1) {
-			    line.write(data, 0, nBytesRead);
-			}
-			if (this.stop) {
-			    return;
-			}
-		    }
-		    // Stop
-		    line.stop();
-		} catch (IOException io) {
-		    // Do nothing
-		} finally {
-		    // Stop
-		    line.stop();
+		} catch (Exception e) {
+			return;
 		}
-	    }
-	} catch (LineUnavailableException lue) {
-	    // Do nothing
+		DataLine.Info info = new DataLine.Info(SourceDataLine.class, this.decodedFormat);
+		try (Line res = AudioSystem.getLine(info); SourceDataLine line = (SourceDataLine) res) {
+			if (line != null) {
+				line.open(this.decodedFormat);
+				try {
+					byte[] data = new byte[16];
+					// Start
+					line.start();
+					int nBytesRead = 0;
+					while (nBytesRead != -1 && !this.stop) {
+						nBytesRead = this.decodedStream.read(data, 0, data.length);
+						if (this.stop) {
+							return;
+						}
+						if (nBytesRead != -1) {
+							line.write(data, 0, nBytesRead);
+						}
+						if (this.stop) {
+							return;
+						}
+					}
+					// Stop
+					line.stop();
+				} catch (IOException io) {
+					// Do nothing
+				} finally {
+					// Stop
+					line.stop();
+				}
+			}
+		} catch (LineUnavailableException lue) {
+			// Do nothing
+		}
 	}
-    }
 
-    public void stopPlaying() {
-	this.stop = true;
-    }
+	public void stopPlaying() {
+		this.stop = true;
+	}
 }

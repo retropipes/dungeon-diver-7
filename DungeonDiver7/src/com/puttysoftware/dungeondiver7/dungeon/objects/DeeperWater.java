@@ -16,61 +16,61 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class DeeperWater extends AbstractGround {
-    // Constructors
-    public DeeperWater() {
-	this.setFrameNumber(1);
-	this.setMaterial(Materials.WOODEN);
-    }
-
-    // Scriptability
-    @Override
-    public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-	final var app = DungeonDiver7.getStuffBag();
-	if (pushed.isOfType(DungeonObjectTypes.TYPE_BOX)) {
-	    app.getGameLogic();
-	    // Get rid of pushed object
-	    GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
-	    if (pushed.getMaterial() == Materials.WOODEN) {
-		app.getGameLogic();
-		GameLogic.morph(new Bridge(), x, y, z, this.getLayer());
-	    } else {
-		app.getGameLogic();
-		GameLogic.morph(new DeepWater(), x, y, z, this.getLayer());
-	    }
-	} else {
-	    app.getGameLogic();
-	    GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
+	// Constructors
+	public DeeperWater() {
+		this.setFrameNumber(1);
+		this.setMaterial(Materials.WOODEN);
 	}
-	SoundLoader.playSound(Sounds.SINK);
-	return false;
-    }
 
-    @Override
-    public boolean killsOnMove() {
-	return true;
-    }
-
-    @Override
-    public final int getBaseID() {
-	return 68;
-    }
-
-    @Override
-    public AbstractDungeonObject changesToOnExposure(final int materialID) {
-	switch (materialID) {
-	case Materials.ICE:
-	    final var i = new Ice();
-	    i.setPreviousState(this);
-	    return i;
-	case Materials.FIRE:
-	    return new DeepWater();
-	default:
-	    return this;
+	// Scriptability
+	@Override
+	public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
+		final var app = DungeonDiver7.getStuffBag();
+		if (pushed.isOfType(DungeonObjectTypes.TYPE_BOX)) {
+			app.getGameLogic();
+			// Get rid of pushed object
+			GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
+			if (pushed.getMaterial() == Materials.WOODEN) {
+				app.getGameLogic();
+				GameLogic.morph(new Bridge(), x, y, z, this.getLayer());
+			} else {
+				app.getGameLogic();
+				GameLogic.morph(new DeepWater(), x, y, z, this.getLayer());
+			}
+		} else {
+			app.getGameLogic();
+			GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
+		}
+		SoundLoader.playSound(Sounds.SINK);
+		return false;
 	}
-    }
 
-    @Override
-    public int getBlockHeight() {
-	return -3;
-    }
+	@Override
+	public boolean killsOnMove() {
+		return true;
+	}
+
+	@Override
+	public final int getBaseID() {
+		return 68;
+	}
+
+	@Override
+	public AbstractDungeonObject changesToOnExposure(final int materialID) {
+		switch (materialID) {
+			case Materials.ICE:
+				final var i = new Ice();
+				i.setPreviousState(this);
+				return i;
+			case Materials.FIRE:
+				return new DeepWater();
+			default:
+				return this;
+		}
+	}
+
+	@Override
+	public int getBlockHeight() {
+		return -3;
+	}
 }

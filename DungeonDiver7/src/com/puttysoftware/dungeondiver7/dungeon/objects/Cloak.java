@@ -17,42 +17,42 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public class Cloak extends AbstractAttribute {
     // Constructors
     public Cloak() {
-	this.type.set(DungeonObjectTypes.TYPE_CLOAK);
+        this.type.set(DungeonObjectTypes.TYPE_CLOAK);
     }
 
     @Override
     public final int getBaseID() {
-	return 135;
+        return 135;
     }
 
     @Override
     public AbstractDungeonObject attributeGameRenderHook() {
-	return new Empty();
+        return new Empty();
     }
 
     @Override
     public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType, final int forceUnits) {
-	final var app = DungeonDiver7.getStuffBag();
-	app.getGameLogic();
-	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(Sounds.DISCOVER);
-	return Direction.NONE;
+            final int laserType, final int forceUnits) {
+        final var app = DungeonDiver7.getStuffBag();
+        app.getGameLogic();
+        GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
+        SoundLoader.playSound(Sounds.DISCOVER);
+        return Direction.NONE;
     }
 
     @Override
     public void postMoveAction(final int locX, final int locY, final int locZ) {
-	final var app = DungeonDiver7.getStuffBag();
-	app.getGameLogic();
-	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(Sounds.DISCOVER);
+        final var app = DungeonDiver7.getStuffBag();
+        app.getGameLogic();
+        GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
+        SoundLoader.playSound(Sounds.DISCOVER);
     }
 
     @Override
     public void moveFailedAction(final int locX, final int locY, final int locZ) {
-	final var app = DungeonDiver7.getStuffBag();
-	app.getGameLogic();
-	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(Sounds.DISCOVER);
+        final var app = DungeonDiver7.getStuffBag();
+        app.getGameLogic();
+        GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
+        SoundLoader.playSound(Sounds.DISCOVER);
     }
 }

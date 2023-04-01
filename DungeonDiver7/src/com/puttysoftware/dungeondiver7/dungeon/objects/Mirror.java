@@ -17,84 +17,84 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 
 public class Mirror extends AbstractMovableObject {
-    // Constructors
-    public Mirror() {
-	super(true);
-	this.setDirection(Direction.NORTH_EAST);
-	this.setDiagonalOnly(true);
-	this.type.set(DungeonObjectTypes.TYPE_MOVABLE_MIRROR);
-    }
-
-    @Override
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType, final int forceUnits) {
-	if (laserType == ShotTypes.MISSILE) {
-	    // Destroy mirror
-	    SoundLoader.playSound(Sounds.BOOM);
-	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
-	    return Direction.NONE;
+	// Constructors
+	public Mirror() {
+		super(true);
+		this.setDirection(Direction.NORTH_EAST);
+		this.setDiagonalOnly(true);
+		this.type.set(DungeonObjectTypes.TYPE_MOVABLE_MIRROR);
 	}
-	final var dir = DirectionResolver.resolveInvert(dirX, dirY);
-	if (AbstractDungeonObject.hitReflectiveSide(dir)) {
-	    // Reflect laser
-	    return this.getDirection();
+
+	@Override
+	public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+			final int laserType, final int forceUnits) {
+		if (laserType == ShotTypes.MISSILE) {
+			// Destroy mirror
+			SoundLoader.playSound(Sounds.BOOM);
+			DungeonDiver7.getStuffBag().getGameLogic();
+			GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
+			return Direction.NONE;
+		}
+		final var dir = DirectionResolver.resolveInvert(dirX, dirY);
+		if (AbstractDungeonObject.hitReflectiveSide(dir)) {
+			// Reflect laser
+			return this.getDirection();
+		}
+		// Move mirror
+		return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
-	// Move mirror
-	return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-    }
 
-    @Override
-    public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType) {
-	// Finish reflecting laser
-	SoundLoader.playSound(Sounds.REFLECT);
-	final var oldlaser = DirectionResolver.resolveInvert(locX, locY);
-	final var currdir = this.getDirection();
-	if (oldlaser == Direction.NORTH) {
-	    if (currdir == Direction.NORTH_WEST) {
-		return Direction.WEST;
-	    }
-	    if (currdir == Direction.NORTH_EAST) {
-		return Direction.EAST;
-	    }
-	} else if (oldlaser == Direction.SOUTH) {
-	    if (currdir == Direction.SOUTH_WEST) {
-		return Direction.WEST;
-	    }
-	    if (currdir == Direction.SOUTH_EAST) {
-		return Direction.EAST;
-	    }
-	} else if (oldlaser == Direction.WEST) {
-	    if (currdir == Direction.SOUTH_WEST) {
-		return Direction.SOUTH;
-	    }
-	    if (currdir == Direction.NORTH_WEST) {
-		return Direction.NORTH;
-	    }
-	} else if (oldlaser == Direction.EAST) {
-	    if (currdir == Direction.SOUTH_EAST) {
-		return Direction.SOUTH;
-	    }
-	    if (currdir == Direction.NORTH_EAST) {
-		return Direction.NORTH;
-	    }
+	@Override
+	public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+			final int laserType) {
+		// Finish reflecting laser
+		SoundLoader.playSound(Sounds.REFLECT);
+		final var oldlaser = DirectionResolver.resolveInvert(locX, locY);
+		final var currdir = this.getDirection();
+		if (oldlaser == Direction.NORTH) {
+			if (currdir == Direction.NORTH_WEST) {
+				return Direction.WEST;
+			}
+			if (currdir == Direction.NORTH_EAST) {
+				return Direction.EAST;
+			}
+		} else if (oldlaser == Direction.SOUTH) {
+			if (currdir == Direction.SOUTH_WEST) {
+				return Direction.WEST;
+			}
+			if (currdir == Direction.SOUTH_EAST) {
+				return Direction.EAST;
+			}
+		} else if (oldlaser == Direction.WEST) {
+			if (currdir == Direction.SOUTH_WEST) {
+				return Direction.SOUTH;
+			}
+			if (currdir == Direction.NORTH_WEST) {
+				return Direction.NORTH;
+			}
+		} else if (oldlaser == Direction.EAST) {
+			if (currdir == Direction.SOUTH_EAST) {
+				return Direction.SOUTH;
+			}
+			if (currdir == Direction.NORTH_EAST) {
+				return Direction.NORTH;
+			}
+		}
+		return Direction.NONE;
 	}
-	return Direction.NONE;
-    }
 
-    @Override
-    public void playSoundHook() {
-	SoundLoader.playSound(Sounds.PUSH_MIRROR);
-    }
+	@Override
+	public void playSoundHook() {
+		SoundLoader.playSound(Sounds.PUSH_MIRROR);
+	}
 
-    @Override
-    public boolean doLasersPassThrough() {
-	return true;
-    }
+	@Override
+	public boolean doLasersPassThrough() {
+		return true;
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 25;
-    }
+	@Override
+	public final int getBaseID() {
+		return 25;
+	}
 }

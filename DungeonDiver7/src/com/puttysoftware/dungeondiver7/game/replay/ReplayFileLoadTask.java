@@ -21,40 +21,40 @@ import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 
 class ReplayFileLoadTask extends Thread {
-    // Fields
-    private final String filename;
-    private final MainWindow mainWindow;
-    private final JPanel loadContent;
+	// Fields
+	private final String filename;
+	private final MainWindow mainWindow;
+	private final JPanel loadContent;
 
-    // Constructors
-    ReplayFileLoadTask(final String file) {
-	JProgressBar loadBar;
-	this.filename = file;
-	this.setName(Strings.untranslated(Untranslated.REPLAY_LOADER_NAME));
-	this.mainWindow = MainWindow.mainWindow();
-	loadBar = new JProgressBar();
-	loadBar.setIndeterminate(true);
-	this.loadContent = new JPanel();
-	this.loadContent.add(loadBar);
-    }
-
-    // Methods
-    @Override
-    public void run() {
-	this.mainWindow.setAndSave(this.loadContent, Strings.dialog(DialogString.LOADING));
-	final var app = DungeonDiver7.getStuffBag();
-	app.getGameLogic().setSavedGameFlag(false);
-	try (var dungeonFile = new FileInputStream(this.filename)) {
-	    ReplayFile.loadLPB(dungeonFile);
-	    dungeonFile.close();
-	} catch (final FileNotFoundException fnfe) {
-	    CommonDialogs.showDialog(Strings.game(GameString.PLAYBACK_LOAD_FAILED));
-	} catch (final IOException ie) {
-	    CommonDialogs.showDialog(ie.getMessage());
-	} catch (final Exception ex) {
-	    DungeonDiver7.logError(ex);
-	} finally {
-	    this.mainWindow.restoreSaved();
+	// Constructors
+	ReplayFileLoadTask(final String file) {
+		JProgressBar loadBar;
+		this.filename = file;
+		this.setName(Strings.untranslated(Untranslated.REPLAY_LOADER_NAME));
+		this.mainWindow = MainWindow.mainWindow();
+		loadBar = new JProgressBar();
+		loadBar.setIndeterminate(true);
+		this.loadContent = new JPanel();
+		this.loadContent.add(loadBar);
 	}
-    }
+
+	// Methods
+	@Override
+	public void run() {
+		this.mainWindow.setAndSave(this.loadContent, Strings.dialog(DialogString.LOADING));
+		final var app = DungeonDiver7.getStuffBag();
+		app.getGameLogic().setSavedGameFlag(false);
+		try (var dungeonFile = new FileInputStream(this.filename)) {
+			ReplayFile.loadLPB(dungeonFile);
+			dungeonFile.close();
+		} catch (final FileNotFoundException fnfe) {
+			CommonDialogs.showDialog(Strings.game(GameString.PLAYBACK_LOAD_FAILED));
+		} catch (final IOException ie) {
+			CommonDialogs.showDialog(ie.getMessage());
+		} catch (final Exception ex) {
+			DungeonDiver7.logError(ex);
+		} finally {
+			this.mainWindow.restoreSaved();
+		}
+	}
 }

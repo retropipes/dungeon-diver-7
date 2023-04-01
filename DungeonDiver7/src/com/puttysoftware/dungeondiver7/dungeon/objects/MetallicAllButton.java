@@ -11,12 +11,12 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class MetallicAllButton extends AbstractAllButton {
     // Constructors
     public MetallicAllButton() {
-	super(new MetallicAllButtonDoor(), false);
-	this.setMaterial(Materials.METALLIC);
+        super(new MetallicAllButtonDoor(), false);
+        this.setMaterial(Materials.METALLIC);
     }
 
     @Override
     public final int getBaseID() {
-	return 92;
+        return 92;
     }
 }

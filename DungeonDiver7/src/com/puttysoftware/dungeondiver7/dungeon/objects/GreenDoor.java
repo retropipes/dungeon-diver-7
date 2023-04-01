@@ -15,25 +15,25 @@ import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 public class GreenDoor extends AbstractDoor {
     // Constructors
     public GreenDoor() {
-	super(new GreenKey());
+        super(new GreenKey());
     }
 
     // Scriptability
     @Override
     public boolean isConditionallySolid() {
-	return PartyInventory.getGreenKeysLeft() < 1;
+        return PartyInventory.getGreenKeysLeft() < 1;
     }
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(Sounds.UNLOCK);
-	PartyInventory.useGreenKey();
-	DungeonDiver7.getStuffBag().getGameLogic();
-	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+        SoundLoader.playSound(Sounds.UNLOCK);
+        PartyInventory.useGreenKey();
+        DungeonDiver7.getStuffBag().getGameLogic();
+        GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 
     @Override
     public final int getBaseID() {
-	return 16;
+        return 16;
     }
 }

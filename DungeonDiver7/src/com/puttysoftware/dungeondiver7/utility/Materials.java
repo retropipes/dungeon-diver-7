@@ -17,6 +17,6 @@ public class Materials {
     public static final int MAGNETIC = 7;
 
     private Materials() {
-	// Do nothing
+        // Do nothing
     }
 }

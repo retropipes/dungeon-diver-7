@@ -49,6 +49,6 @@ public class DungeonObjectTypes {
     public static final int TYPES_COUNT = 40;
 
     private DungeonObjectTypes() {
-	// Do nothing
+        // Do nothing
     }
 }

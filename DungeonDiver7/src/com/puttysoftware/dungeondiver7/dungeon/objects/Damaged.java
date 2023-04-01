@@ -19,24 +19,24 @@ public class Damaged extends AbstractAttribute {
 
     @Override
     public final int getBaseID() {
-	return 133;
+        return 133;
     }
 
     @Override
     public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType, final int forceUnits) {
-	final var app = DungeonDiver7.getStuffBag();
-	app.getGameLogic();
-	GameLogic.morph(new Crumbling(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(Sounds.CRACK);
-	return Direction.NONE;
+            final int laserType, final int forceUnits) {
+        final var app = DungeonDiver7.getStuffBag();
+        app.getGameLogic();
+        GameLogic.morph(new Crumbling(), locX, locY, locZ, this.getLayer());
+        SoundLoader.playSound(Sounds.CRACK);
+        return Direction.NONE;
     }
 
     @Override
     public void moveFailedAction(final int locX, final int locY, final int locZ) {
-	final var app = DungeonDiver7.getStuffBag();
-	app.getGameLogic();
-	GameLogic.morph(new Crumbling(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(Sounds.CRACK);
+        final var app = DungeonDiver7.getStuffBag();
+        app.getGameLogic();
+        GameLogic.morph(new Crumbling(), locX, locY, locZ, this.getLayer());
+        SoundLoader.playSound(Sounds.CRACK);
     }
 }

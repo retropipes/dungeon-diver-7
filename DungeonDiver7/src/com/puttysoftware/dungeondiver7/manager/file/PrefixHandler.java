@@ -16,28 +16,28 @@ public class PrefixHandler implements AbstractPrefixIO {
 
     @Override
     public int readPrefix(final DataIOReader reader) throws IOException {
-	final var formatVer = PrefixHandler.readFormatVersion(reader);
-	final var res = PrefixHandler.checkFormatVersion(formatVer);
-	if (!res) {
-	    throw new IOException("Unsupported maze format version: " + formatVer);
-	}
-	return formatVer;
+        final var formatVer = PrefixHandler.readFormatVersion(reader);
+        final var res = PrefixHandler.checkFormatVersion(formatVer);
+        if (!res) {
+            throw new IOException("Unsupported maze format version: " + formatVer);
+        }
+        return formatVer;
     }
 
     @Override
     public void writePrefix(final DataIOWriter writer) throws IOException {
-	PrefixHandler.writeFormatVersion(writer);
+        PrefixHandler.writeFormatVersion(writer);
     }
 
     private static byte readFormatVersion(final DataIOReader reader) throws IOException {
-	return reader.readByte();
+        return reader.readByte();
     }
 
     private static boolean checkFormatVersion(final byte version) {
-	return version <= PrefixHandler.FORMAT_VERSION;
+        return version <= PrefixHandler.FORMAT_VERSION;
     }
 
     private static void writeFormatVersion(final DataIOWriter writer) throws IOException {
-	writer.writeByte(PrefixHandler.FORMAT_VERSION);
+        writer.writeByte(PrefixHandler.FORMAT_VERSION);
     }
 }

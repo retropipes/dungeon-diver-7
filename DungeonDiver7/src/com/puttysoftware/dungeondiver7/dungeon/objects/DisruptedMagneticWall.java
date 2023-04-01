@@ -14,33 +14,33 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class DisruptedMagneticWall extends AbstractDisruptedObject {
-    // Fields
-    private int disruptionLeft;
-    private static final int DISRUPTION_START = 20;
+	// Fields
+	private int disruptionLeft;
+	private static final int DISRUPTION_START = 20;
 
-    // Constructors
-    public DisruptedMagneticWall() {
-	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
-	this.disruptionLeft = DisruptedMagneticWall.DISRUPTION_START;
-	this.activateTimer(1);
-	this.setMaterial(Materials.MAGNETIC);
-    }
-
-    @Override
-    public void timerExpiredAction(final int locX, final int locY) {
-	this.disruptionLeft--;
-	if (this.disruptionLeft == 0) {
-	    SoundLoader.playSound(Sounds.DISRUPT_END);
-	    final var z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
-	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new MagneticWall(), locX, locY, z, this.getLayer());
-	} else {
-	    this.activateTimer(1);
+	// Constructors
+	public DisruptedMagneticWall() {
+		this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
+		this.disruptionLeft = DisruptedMagneticWall.DISRUPTION_START;
+		this.activateTimer(1);
+		this.setMaterial(Materials.MAGNETIC);
 	}
-    }
 
-    @Override
-    public final int getBaseID() {
-	return 50;
-    }
+	@Override
+	public void timerExpiredAction(final int locX, final int locY) {
+		this.disruptionLeft--;
+		if (this.disruptionLeft == 0) {
+			SoundLoader.playSound(Sounds.DISRUPT_END);
+			final var z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
+			DungeonDiver7.getStuffBag().getGameLogic();
+			GameLogic.morph(new MagneticWall(), locX, locY, z, this.getLayer());
+		} else {
+			this.activateTimer(1);
+		}
+	}
+
+	@Override
+	public final int getBaseID() {
+		return 50;
+	}
 }

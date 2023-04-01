@@ -10,7 +10,7 @@ import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 public abstract class AbstractBattle {
     // Constructors
     protected AbstractBattle() {
-	// Do nothing
+        // Do nothing
     }
 
     // Generic Methods

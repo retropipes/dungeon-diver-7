@@ -11,37 +11,37 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public abstract class AbstractMovingObject extends AbstractDungeonObject {
     // Constructors
     public AbstractMovingObject(final boolean solid) {
-	super(solid, false);
-	this.type.set(DungeonObjectTypes.TYPE_DUNGEON);
+        super(solid, false);
+        this.type.set(DungeonObjectTypes.TYPE_DUNGEON);
     }
 
     // Methods
     @Override
     public boolean isMoving() {
-	return true;
+        return true;
     }
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	this.postMoveActionHook();
+        this.postMoveActionHook();
     }
 
     public void postMoveActionHook() {
-	// Do nothing
+        // Do nothing
     }
 
     @Override
     public int getLayer() {
-	return DungeonConstants.LAYER_LOWER_OBJECTS;
+        return DungeonConstants.LAYER_LOWER_OBJECTS;
     }
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+        return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
     public void setCustomProperty(final int propID, final int value) {
-	// Do nothing
+        // Do nothing
     }
 }

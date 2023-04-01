@@ -10,100 +10,100 @@ import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
 
 public class MapBattleDefinitions {
-    // Fields
-    private BattleCharacter activeCharacter;
-    private final BattleCharacter[] battlers;
-    private final MapAIContext[] aiContexts;
-    private AbstractDungeon battleMap;
-    private int battlerCount;
-    private static final int MAX_BATTLERS = 100;
+	// Fields
+	private BattleCharacter activeCharacter;
+	private final BattleCharacter[] battlers;
+	private final MapAIContext[] aiContexts;
+	private AbstractDungeon battleMap;
+	private int battlerCount;
+	private static final int MAX_BATTLERS = 100;
 
-    // Constructors
-    public MapBattleDefinitions() {
-	this.battlers = new BattleCharacter[MapBattleDefinitions.MAX_BATTLERS];
-	this.aiContexts = new MapAIContext[MapBattleDefinitions.MAX_BATTLERS];
-	this.battlerCount = 0;
-    }
-
-    // Methods
-    public BattleCharacter[] getBattlers() {
-	return this.battlers;
-    }
-
-    public void resetBattlers() {
-	for (final BattleCharacter battler : this.battlers) {
-	    if (battler != null && battler.getTemplate().isAlive()) {
-		battler.activate();
-		battler.resetAP();
-		battler.resetAttacks();
-		battler.resetSpells();
-		battler.resetLocation();
-	    }
+	// Constructors
+	public MapBattleDefinitions() {
+		this.battlers = new BattleCharacter[MapBattleDefinitions.MAX_BATTLERS];
+		this.aiContexts = new MapAIContext[MapBattleDefinitions.MAX_BATTLERS];
+		this.battlerCount = 0;
 	}
-    }
 
-    public void roundResetBattlers() {
-	for (final BattleCharacter battler : this.battlers) {
-	    if (battler != null && battler.getTemplate().isAlive()) {
-		battler.resetAP();
-		battler.resetAttacks();
-		battler.resetSpells();
-	    }
+	// Methods
+	public BattleCharacter[] getBattlers() {
+		return this.battlers;
 	}
-    }
 
-    public boolean addBattler(final BattleCharacter battler) {
-	if (this.battlerCount < MapBattleDefinitions.MAX_BATTLERS) {
-	    this.battlers[this.battlerCount] = battler;
-	    this.battlerCount++;
-	    return true;
+	public void resetBattlers() {
+		for (final BattleCharacter battler : this.battlers) {
+			if (battler != null && battler.getTemplate().isAlive()) {
+				battler.activate();
+				battler.resetAP();
+				battler.resetAttacks();
+				battler.resetSpells();
+				battler.resetLocation();
+			}
+		}
 	}
-	return false;
-    }
 
-    public MapAIContext[] getBattlerAIContexts() {
-	return this.aiContexts;
-    }
-
-    public BattleCharacter getActiveCharacter() {
-	return this.activeCharacter;
-    }
-
-    public void setActiveCharacter(final BattleCharacter bc) {
-	this.activeCharacter = bc;
-    }
-
-    public AbstractDungeon getBattleDungeon() {
-	return this.battleMap;
-    }
-
-    public void setBattleDungeon(final AbstractDungeon bMap) {
-	this.battleMap = bMap;
-    }
-
-    public int findBattler(final String name) {
-	return this.findBattler(name, 0, this.battlers.length);
-    }
-
-    private int findBattler(final String name, final int start, final int limit) {
-	for (var x = start; x < limit; x++) {
-	    if (this.battlers[x] != null && this.battlers[x].getName().equals(name)) {
-		return x;
-	    }
+	public void roundResetBattlers() {
+		for (final BattleCharacter battler : this.battlers) {
+			if (battler != null && battler.getTemplate().isAlive()) {
+				battler.resetAP();
+				battler.resetAttacks();
+				battler.resetSpells();
+			}
+		}
 	}
-	return -1;
-    }
 
-    public int findFirstBattlerOnTeam(final int teamID) {
-	return this.findFirstBattlerOnTeam(teamID, 0, this.battlers.length);
-    }
-
-    private int findFirstBattlerOnTeam(final int teamID, final int start, final int limit) {
-	for (var x = start; x < limit; x++) {
-	    if (this.battlers[x] != null && this.battlers[x].getTeamID() == teamID) {
-		return x;
-	    }
+	public boolean addBattler(final BattleCharacter battler) {
+		if (this.battlerCount < MapBattleDefinitions.MAX_BATTLERS) {
+			this.battlers[this.battlerCount] = battler;
+			this.battlerCount++;
+			return true;
+		}
+		return false;
 	}
-	return -1;
-    }
+
+	public MapAIContext[] getBattlerAIContexts() {
+		return this.aiContexts;
+	}
+
+	public BattleCharacter getActiveCharacter() {
+		return this.activeCharacter;
+	}
+
+	public void setActiveCharacter(final BattleCharacter bc) {
+		this.activeCharacter = bc;
+	}
+
+	public AbstractDungeon getBattleDungeon() {
+		return this.battleMap;
+	}
+
+	public void setBattleDungeon(final AbstractDungeon bMap) {
+		this.battleMap = bMap;
+	}
+
+	public int findBattler(final String name) {
+		return this.findBattler(name, 0, this.battlers.length);
+	}
+
+	private int findBattler(final String name, final int start, final int limit) {
+		for (var x = start; x < limit; x++) {
+			if (this.battlers[x] != null && this.battlers[x].getName().equals(name)) {
+				return x;
+			}
+		}
+		return -1;
+	}
+
+	public int findFirstBattlerOnTeam(final int teamID) {
+		return this.findFirstBattlerOnTeam(teamID, 0, this.battlers.length);
+	}
+
+	private int findFirstBattlerOnTeam(final int teamID, final int start, final int limit) {
+		for (var x = start; x < limit; x++) {
+			if (this.battlers[x] != null && this.battlers[x].getTeamID() == teamID) {
+				return x;
+			}
+		}
+		return -1;
+	}
 }

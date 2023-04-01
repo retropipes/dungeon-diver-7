@@ -10,34 +10,34 @@ import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 public abstract class AbstractTransientObject extends AbstractDungeonObject {
     // Constructors
     protected AbstractTransientObject() {
-	super(true);
+        super(true);
     }
 
     // Methods
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	// Do nothing
+        // Do nothing
     }
 
     @Override
     public int getLayer() {
-	return DungeonConstants.LAYER_VIRTUAL;
+        return DungeonConstants.LAYER_VIRTUAL;
     }
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+        return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
     public void setCustomProperty(final int propID, final int value) {
-	// Do nothing
+        // Do nothing
     }
 
     public abstract int getForceUnitsImbued();
 
     @Override
     public int getBlockHeight() {
-	return 0;
+        return 0;
     }
 }

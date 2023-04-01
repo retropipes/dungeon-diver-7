@@ -13,14 +13,14 @@ import com.puttysoftware.diane.fileio.DataIOWriter;
 
 public class FileHooks {
     private FileHooks() {
-	// Do nothing
+        // Do nothing
     }
 
     public static void loadGameHook(final DataIOReader mapFile) throws IOException {
-	PartyManager.loadGameHook(mapFile);
+        PartyManager.loadGameHook(mapFile);
     }
 
     public static void saveGameHook(final DataIOWriter mapFile) throws IOException {
-	PartyManager.saveGameHook(mapFile);
+        PartyManager.saveGameHook(mapFile);
     }
 }

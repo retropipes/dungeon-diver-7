@@ -23,20 +23,20 @@ import java.util.logging.Logger;
  *
  */
 class Residue1 extends Residue0 {
-    private static final Logger LOG = Logger.getLogger(Residue1.class.getName());
+	private static final Logger LOG = Logger.getLogger(Residue1.class.getName());
 
-    @Override
-    int inverse(Block vb, Object vl, float[][] in, int[] nonzero, int ch) {
-	int used = 0;
-	for (int i = 0; i < ch; i++) {
-	    if (nonzero[i] != 0) {
-		in[used++] = in[i];
-	    }
+	@Override
+	int inverse(Block vb, Object vl, float[][] in, int[] nonzero, int ch) {
+		int used = 0;
+		for (int i = 0; i < ch; i++) {
+			if (nonzero[i] != 0) {
+				in[used++] = in[i];
+			}
+		}
+		if (used != 0) {
+			return (_01inverse(vb, vl, in, used, 1));
+		} else {
+			return 0;
+		}
 	}
-	if (used != 0) {
-	    return (_01inverse(vb, vl, in, used, 1));
-	} else {
-	    return 0;
-	}
-    }
 }

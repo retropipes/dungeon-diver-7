@@ -11,12 +11,12 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class MagneticAllButton extends AbstractAllButton {
     // Constructors
     public MagneticAllButton() {
-	super(new MagneticAllButtonDoor(), false);
-	this.setMaterial(Materials.MAGNETIC);
+        super(new MagneticAllButtonDoor(), false);
+        this.setMaterial(Materials.MAGNETIC);
     }
 
     @Override
     public final int getBaseID() {
-	return 86;
+        return 86;
     }
 }

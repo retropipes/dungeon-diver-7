@@ -19,24 +19,24 @@ public class Weakened extends AbstractAttribute {
 
     @Override
     public final int getBaseID() {
-	return 134;
+        return 134;
     }
 
     @Override
     public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType, final int forceUnits) {
-	final var app = DungeonDiver7.getStuffBag();
-	app.getGameLogic();
-	GameLogic.morph(new Cracked(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(Sounds.CRACK);
-	return Direction.NONE;
+            final int laserType, final int forceUnits) {
+        final var app = DungeonDiver7.getStuffBag();
+        app.getGameLogic();
+        GameLogic.morph(new Cracked(), locX, locY, locZ, this.getLayer());
+        SoundLoader.playSound(Sounds.CRACK);
+        return Direction.NONE;
     }
 
     @Override
     public void moveFailedAction(final int locX, final int locY, final int locZ) {
-	final var app = DungeonDiver7.getStuffBag();
-	app.getGameLogic();
-	GameLogic.morph(new Cracked(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(Sounds.CRACK);
+        final var app = DungeonDiver7.getStuffBag();
+        app.getGameLogic();
+        GameLogic.morph(new Cracked(), locX, locY, locZ, this.getLayer());
+        SoundLoader.playSound(Sounds.CRACK);
     }
 }

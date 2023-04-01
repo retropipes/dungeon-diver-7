@@ -15,83 +15,83 @@ import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class MetallicRotaryMirror extends AbstractReactionWall {
-    // Constructors
-    public MetallicRotaryMirror() {
-	this.setDirection(Direction.NORTH_EAST);
-	this.setDiagonalOnly(true);
-	this.setMaterial(Materials.METALLIC);
-    }
-
-    @Override
-    public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
-	    final int dirY, final int laserType, final int forceUnits) {
-	final var dir = DirectionResolver.resolveInvert(dirX, dirY);
-	if (AbstractDungeonObject.hitReflectiveSide(dir)) {
-	    // Reflect laser
-	    return this.getDirection();
+	// Constructors
+	public MetallicRotaryMirror() {
+		this.setDirection(Direction.NORTH_EAST);
+		this.setDiagonalOnly(true);
+		this.setMaterial(Materials.METALLIC);
 	}
-	// Rotate mirror
-	this.toggleDirection();
-	SoundLoader.playSound(Sounds.ROTATE);
-	return Direction.NONE;
-    }
 
-    @Override
-    public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType) {
-	// Finish reflecting laser
-	SoundLoader.playSound(Sounds.REFLECT);
-	final var oldlaser = DirectionResolver.resolveInvert(locX, locY);
-	final var currdir = this.getDirection();
-	if (oldlaser == Direction.NORTH) {
-	    if (currdir == Direction.NORTH_WEST) {
-		return Direction.WEST;
-	    }
-	    if (currdir == Direction.NORTH_EAST) {
-		return Direction.EAST;
-	    }
-	} else if (oldlaser == Direction.SOUTH) {
-	    if (currdir == Direction.SOUTH_WEST) {
-		return Direction.WEST;
-	    }
-	    if (currdir == Direction.SOUTH_EAST) {
-		return Direction.EAST;
-	    }
-	} else if (oldlaser == Direction.WEST) {
-	    if (currdir == Direction.SOUTH_WEST) {
-		return Direction.SOUTH;
-	    }
-	    if (currdir == Direction.NORTH_WEST) {
-		return Direction.NORTH;
-	    }
-	} else if (oldlaser == Direction.EAST) {
-	    if (currdir == Direction.SOUTH_EAST) {
-		return Direction.SOUTH;
-	    }
-	    if (currdir == Direction.NORTH_EAST) {
-		return Direction.NORTH;
-	    }
+	@Override
+	public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
+			final int dirY, final int laserType, final int forceUnits) {
+		final var dir = DirectionResolver.resolveInvert(dirX, dirY);
+		if (AbstractDungeonObject.hitReflectiveSide(dir)) {
+			// Reflect laser
+			return this.getDirection();
+		}
+		// Rotate mirror
+		this.toggleDirection();
+		SoundLoader.playSound(Sounds.ROTATE);
+		return Direction.NONE;
 	}
-	return Direction.NONE;
-    }
 
-    @Override
-    public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int rangeType, final int forceUnits) {
-	// Rotate mirror
-	this.toggleDirection();
-	SoundLoader.playSound(Sounds.ROTATE);
-	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().markAsDirty(locX + dirX, locY + dirY, locZ);
-	return true;
-    }
+	@Override
+	public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+			final int laserType) {
+		// Finish reflecting laser
+		SoundLoader.playSound(Sounds.REFLECT);
+		final var oldlaser = DirectionResolver.resolveInvert(locX, locY);
+		final var currdir = this.getDirection();
+		if (oldlaser == Direction.NORTH) {
+			if (currdir == Direction.NORTH_WEST) {
+				return Direction.WEST;
+			}
+			if (currdir == Direction.NORTH_EAST) {
+				return Direction.EAST;
+			}
+		} else if (oldlaser == Direction.SOUTH) {
+			if (currdir == Direction.SOUTH_WEST) {
+				return Direction.WEST;
+			}
+			if (currdir == Direction.SOUTH_EAST) {
+				return Direction.EAST;
+			}
+		} else if (oldlaser == Direction.WEST) {
+			if (currdir == Direction.SOUTH_WEST) {
+				return Direction.SOUTH;
+			}
+			if (currdir == Direction.NORTH_WEST) {
+				return Direction.NORTH;
+			}
+		} else if (oldlaser == Direction.EAST) {
+			if (currdir == Direction.SOUTH_EAST) {
+				return Direction.SOUTH;
+			}
+			if (currdir == Direction.NORTH_EAST) {
+				return Direction.NORTH;
+			}
+		}
+		return Direction.NONE;
+	}
 
-    @Override
-    public boolean doLasersPassThrough() {
-	return true;
-    }
+	@Override
+	public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+			final int rangeType, final int forceUnits) {
+		// Rotate mirror
+		this.toggleDirection();
+		SoundLoader.playSound(Sounds.ROTATE);
+		DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().markAsDirty(locX + dirX, locY + dirY, locZ);
+		return true;
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 66;
-    }
+	@Override
+	public boolean doLasersPassThrough() {
+		return true;
+	}
+
+	@Override
+	public final int getBaseID() {
+		return 66;
+	}
 }

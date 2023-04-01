@@ -11,26 +11,26 @@ import com.puttysoftware.dungeondiver7.creature.caste.predefined.Curer;
 import com.puttysoftware.dungeondiver7.creature.caste.predefined.Debuffer;
 
 class CasteLoader {
-    // Constructors
-    private CasteLoader() {
-	// Do nothing
-    }
+	// Constructors
+	private CasteLoader() {
+		// Do nothing
+	}
 
-    // Methods
-    static Caste loadCaste(final String name) {
-	if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_ANNIHILATOR])) {
-	    return new Annihilator();
+	// Methods
+	static Caste loadCaste(final String name) {
+		if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_ANNIHILATOR])) {
+			return new Annihilator();
+		}
+		if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_BUFFER])) {
+			return new Buffer();
+		}
+		if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_CURER])) {
+			return new Curer();
+		}
+		if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_DEBUFFER])) {
+			return new Debuffer();
+		}
+		// Invalid caste name
+		return null;
 	}
-	if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_BUFFER])) {
-	    return new Buffer();
-	}
-	if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_CURER])) {
-	    return new Curer();
-	}
-	if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_DEBUFFER])) {
-	    return new Debuffer();
-	}
-	// Invalid caste name
-	return null;
-    }
 }
