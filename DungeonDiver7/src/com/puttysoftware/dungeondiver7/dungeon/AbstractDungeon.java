@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.dungeon;
 import java.io.File;
 import java.io.IOException;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButton;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractButtonDoor;
@@ -87,10 +87,10 @@ public abstract class AbstractDungeon {
     // Methods
     public abstract String getDungeonTempMusicFolder();
 
-    public abstract Directions computeFinalBossMoveDirection(final int locX, final int locY, final int locZ,
+    public abstract Direction computeFinalBossMoveDirection(final int locX, final int locY, final int locZ,
 	    final int pi);
 
-    public abstract void updateMonsterPosition(final Directions move, final int xLoc, final int yLoc,
+    public abstract void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
 	    final AbstractMovingObject monster, final int pi);
 
     public abstract void postBattle(final AbstractMovingObject m, final int xLoc, final int yLoc, final boolean player);
@@ -287,7 +287,7 @@ public abstract class AbstractDungeon {
 
     public abstract void checkForEnemies(final int floor, final int ex, final int ey, final AbstractCharacter e);
 
-    public abstract int checkForMagnetic(int floor, int centerX, int centerY, Directions dir);
+    public abstract int checkForMagnetic(int floor, int centerX, int centerY, Direction dir);
 
     public abstract int[] circularScan(final int x, final int y, final int z, final int maxR, final String targetName,
 	    final boolean moved);

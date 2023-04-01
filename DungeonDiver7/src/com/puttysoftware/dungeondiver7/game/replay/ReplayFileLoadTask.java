@@ -12,7 +12,7 @@ import java.io.IOException;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.locale.DialogString;

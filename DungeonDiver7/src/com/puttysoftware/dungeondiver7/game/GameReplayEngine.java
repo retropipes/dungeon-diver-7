@@ -7,8 +7,8 @@ package com.puttysoftware.dungeondiver7.game;
 
 import java.io.IOException;
 
-import com.puttysoftware.fileio.XDataReader;
-import com.puttysoftware.fileio.XDataWriter;
+import com.puttysoftware.diane.fileio.XDataReader;
+import com.puttysoftware.diane.fileio.XDataWriter;
 
 class GameReplayEngine {
     // Fields

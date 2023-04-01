@@ -8,8 +8,8 @@ package com.puttysoftware.dungeondiver7.game;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
-import com.puttysoftware.diane.utilties.DirectionResolver;
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.DirectionResolver;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
@@ -19,7 +19,7 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.FrozenParty;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Ground;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Party;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
@@ -79,7 +79,7 @@ final class MLOTask extends Thread {
 	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	if (zx == 2 || zy == 2 || zx == -2 || zy == -2) {
 	    // Boosting
-	    SoundLoader.playSound(SoundConstants.BOOST);
+	    SoundLoader.playSound(Sounds.BOOST);
 	    gm.updateScore(0, 0, 1);
 	    this.sx = zx;
 	    this.sy = zy;
@@ -93,31 +93,31 @@ final class MLOTask extends Thread {
 	    final var py = gm.getPlayerManager().getPlayerLocationY();
 	    final var pz = gm.getPlayerManager().getPlayerLocationZ();
 	    if (zx == 3) {
-		this.sx = a.checkForMagnetic(pz, px, py, Directions.EAST);
+		this.sx = a.checkForMagnetic(pz, px, py, Direction.EAST);
 		this.sy = 0;
 	    } else if (zx == -3) {
-		this.sx = -a.checkForMagnetic(pz, px, py, Directions.WEST);
+		this.sx = -a.checkForMagnetic(pz, px, py, Direction.WEST);
 		this.sy = 0;
 	    }
 	    if (zy == 3) {
 		this.sx = 0;
-		this.sy = a.checkForMagnetic(pz, px, py, Directions.SOUTH);
+		this.sy = a.checkForMagnetic(pz, px, py, Direction.SOUTH);
 	    } else if (zy == -3) {
 		this.sx = 0;
-		this.sy = -a.checkForMagnetic(pz, px, py, Directions.NORTH);
+		this.sy = -a.checkForMagnetic(pz, px, py, Direction.NORTH);
 	    }
 	    this.magnet = true;
 	    if (this.sx == 0 && this.sy == 0) {
 		// Failure
-		SoundLoader.playSound(SoundConstants.BUMP_HEAD);
+		SoundLoader.playSound(Sounds.BUMP_HEAD);
 	    } else {
 		// Success
-		SoundLoader.playSound(SoundConstants.MAGNET);
+		SoundLoader.playSound(Sounds.MAGNET);
 	    }
 	    GameLogic.updateUndo(false, false, false, false, true, false, false, false, false, false);
 	} else {
 	    // Moving normally
-	    SoundLoader.playSound(SoundConstants.MOVE);
+	    SoundLoader.playSound(Sounds.MOVE);
 	    gm.updateScore(1, 0, 0);
 	    this.sx = zx;
 	    this.sy = zy;
@@ -524,7 +524,7 @@ final class MLOTask extends Thread {
 	    t.setSavedObject(tank.getSavedObject());
 	    GameLogic.morph(t, px, py, pz, t.getLayer());
 	    gm.updatePlayer();
-	    SoundLoader.playSound(SoundConstants.DEFROST);
+	    SoundLoader.playSound(Sounds.DEFROST);
 	}
     }
 

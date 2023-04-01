@@ -10,7 +10,7 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractGround;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
@@ -27,12 +27,12 @@ public class Lava extends AbstractGround {
 	if (pushed instanceof IcyBox) {
 	    app.getGameLogic();
 	    GameLogic.morph(new Ground(), x, y, z, this.getLayer());
-	    SoundLoader.playSound(SoundConstants.COOL_OFF);
+	    SoundLoader.playSound(Sounds.COOL_OFF);
 	    return true;
 	}
 	app.getGameLogic();
 	GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
-	SoundLoader.playSound(SoundConstants.MELT);
+	SoundLoader.playSound(Sounds.MELT);
 	return false;
     }
 

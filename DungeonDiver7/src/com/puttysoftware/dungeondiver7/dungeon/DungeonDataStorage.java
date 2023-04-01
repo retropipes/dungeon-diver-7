@@ -6,8 +6,8 @@
 package com.puttysoftware.dungeondiver7.dungeon;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
-import com.puttysoftware.storage.CloneableObject;
-import com.puttysoftware.storage.CloneableObjectStorage;
+import com.puttysoftware.dungeondiver7.utility.CloneableObject;
+import com.puttysoftware.dungeondiver7.utility.CloneableObjectStorage;
 
 public class DungeonDataStorage extends CloneableObjectStorage {
     // Constructor

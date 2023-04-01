@@ -13,8 +13,8 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.objects.*;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 
 public class DungeonObjects {
     // Fields
@@ -243,7 +243,7 @@ public class DungeonObjects {
 	return instance.clone();
     }
 
-    public AbstractDungeonObject readV2(final FileIOReader reader, final int formatVersion) throws IOException {
+    public AbstractDungeonObject readV2(final DataIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration1(formatVersion)
 		&& !FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
@@ -269,7 +269,7 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV3(final FileIOReader reader, final int formatVersion) throws IOException {
+    public AbstractDungeonObject readV3(final DataIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
 	    return null;
@@ -293,7 +293,7 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV4(final FileIOReader reader, final int formatVersion) throws IOException {
+    public AbstractDungeonObject readV4(final DataIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
 	    return null;
@@ -317,7 +317,7 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV5(final FileIOReader reader, final int formatVersion) throws IOException {
+    public AbstractDungeonObject readV5(final DataIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
 	    return null;
@@ -341,7 +341,7 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV6(final FileIOReader reader, final int formatVersion) throws IOException {
+    public AbstractDungeonObject readV6(final DataIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
 	    return null;
@@ -365,7 +365,7 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV7(final FileIOReader reader, final int formatVersion) throws IOException {
+    public AbstractDungeonObject readV7(final DataIOReader reader, final int formatVersion) throws IOException {
 	AbstractDungeonObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration7(formatVersion)) {
 	    return null;

@@ -14,7 +14,7 @@ import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.names.Monsters;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.spell.SpellBook;
-import com.puttysoftware.randomrange.RandomRange;
+import com.puttysoftware.diane.random.RandomRange;
 
 public abstract class AbstractMonster extends AbstractCreature {
     // Fields

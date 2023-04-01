@@ -5,13 +5,13 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.game;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
@@ -253,7 +253,7 @@ final class MovementTask extends Thread {
 
     private static void checkGameOver() {
 	if (!PartyManager.getParty().isAlive()) {
-	    SoundLoader.playSound(SoundConstants.DEFEATED);
+	    SoundLoader.playSound(Sounds.DEFEATED);
 	    CommonDialogs.showDialog(
 		    "You have died! You lose 10% of your experience and all your Gold, but you are healed fully.");
 	    PartyManager.getParty().getLeader().onDeath(-10);

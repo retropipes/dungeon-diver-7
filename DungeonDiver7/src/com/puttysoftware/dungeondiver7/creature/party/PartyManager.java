@@ -8,21 +8,17 @@ package com.puttysoftware.dungeondiver7.creature.party;
 
 import java.io.IOException;
 
-import javax.swing.JFrame;
-
-import com.puttysoftware.ack.AvatarConstructionKit;
-import com.puttysoftware.ack.AvatarImageModel;
-import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.diane.gui.ListWithDescDialog;
-import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.diane.ack.AvatarConstructionKit;
+import com.puttysoftware.diane.ack.AvatarImageModel;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.creature.caste.CasteManager;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterLoader;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterRegistration;
 import com.puttysoftware.dungeondiver7.creature.gender.GenderManager;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.locale.Music;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
 
 public class PartyManager {
     // Fields
@@ -55,7 +51,7 @@ public class PartyManager {
 		    CharacterLoader.saveCharacter(pc);
 		}
 	    } else {
-		final var response = CommonDialogs.showCustomDialog("Pick, Create, or Done?", "Create Party",
+		final var response = CommonDialogs.showCustomDialogWithDefault("Pick, Create, or Done?", "Create Party",
 			PartyManager.buttonNames, PartyManager.buttonNames[2]);
 		if (response == 2) {
 		    pc = PartyManager.pickOnePartyMemberCreate(pickMembers);
@@ -102,7 +98,7 @@ public class PartyManager {
 	PartyManager.bank = newGold;
     }
 
-    public static void loadGameHook(final FileIOReader partyFile) throws IOException {
+    public static void loadGameHook(final DataIOReader partyFile) throws IOException {
 	final var containsPCData = partyFile.readBoolean();
 	if (containsPCData) {
 	    final var gib = partyFile.readInt();
@@ -111,7 +107,7 @@ public class PartyManager {
 	}
     }
 
-    public static void saveGameHook(final FileIOWriter partyFile) throws IOException {
+    public static void saveGameHook(final DataIOWriter partyFile) throws IOException {
 	if (PartyManager.party != null) {
 	    partyFile.writeBoolean(true);
 	    partyFile.writeInt(PartyManager.getGoldInBank());
@@ -140,11 +136,7 @@ public class PartyManager {
 		final var gender = GenderManager.selectGender();
 		if (gender != null) {
 		    AvatarImageModel avatar = null;
-		    try {
 			avatar = AvatarConstructionKit.constructAvatar();
-		    } catch (final IOException e) {
-			DungeonDiver7.logError(e);
-		    }
 		    if (avatar != null) {
 			final var aid = avatar.getAvatarImageID();
 			return new PartyMember(caste, gender, name, aid);
@@ -157,7 +149,7 @@ public class PartyManager {
 
     public static String showCreationDialog(final String labelText, final String title, final String[] input,
 	    final String[] descriptions) {
-	return ListWithDescDialog.showDialog((JFrame) null, labelText, title, input, input[0], descriptions[0],
+	return CommonDialogs.showListWithDescDialog(labelText, title, input, input[0], descriptions[0],
 		descriptions);
     }
 

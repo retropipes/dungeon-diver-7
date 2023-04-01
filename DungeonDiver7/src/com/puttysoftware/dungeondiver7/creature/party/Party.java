@@ -7,14 +7,14 @@ package com.puttysoftware.dungeondiver7.creature.party;
 
 import java.io.IOException;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
 
 public class Party {
     // Fields
@@ -75,7 +75,7 @@ public class Party {
 	// Level Up Check
 	if (this.members.checkLevelUp()) {
 	    this.members.levelUp();
-	    SoundLoader.playSound(SoundConstants.LEVEL_UP);
+	    SoundLoader.playSound(Sounds.LEVEL_UP);
 	    CommonDialogs.showTitledDialog(this.members.getName() + " reached level " + this.members.getLevel() + "!",
 		    "Level Up");
 	}
@@ -90,7 +90,7 @@ public class Party {
 	return true;
     }
 
-    static Party read(final FileIOReader worldFile) throws IOException {
+    static Party read(final DataIOReader worldFile) throws IOException {
 	worldFile.readInt();
 	final var lid = worldFile.readInt();
 	final var apc = worldFile.readInt();
@@ -106,7 +106,7 @@ public class Party {
 	return pty;
     }
 
-    void write(final FileIOWriter worldFile) throws IOException {
+    void write(final DataIOWriter worldFile) throws IOException {
 	worldFile.writeInt(1);
 	worldFile.writeInt(this.leaderID);
 	worldFile.writeInt(this.activePCs);

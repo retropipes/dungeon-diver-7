@@ -13,7 +13,7 @@ import com.puttysoftware.dungeondiver7.creature.StatConstants;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 
 public abstract class AbstractBattleCharacter extends AbstractDungeonObject {
     // Fields

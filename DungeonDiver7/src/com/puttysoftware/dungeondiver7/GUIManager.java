@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.gui.GUIPrinter;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
@@ -34,7 +34,7 @@ import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.CleanupTask;
-import com.puttysoftware.integration.Integration;
+import com.puttysoftware.diane.integration.Integration;
 
 public class GUIManager implements MenuSection, QuitHandler {
     // Fields

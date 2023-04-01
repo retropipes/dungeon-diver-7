@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.gui.DrawGrid;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
@@ -30,11 +30,11 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Darkness;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
 import com.puttysoftware.dungeondiver7.loader.BattleImageManager;
 import com.puttysoftware.dungeondiver7.loader.ImageCompositor;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.integration.Integration;
+import com.puttysoftware.diane.integration.Integration;
 
 class MapBattleGUI {
     // Fields
@@ -240,7 +240,7 @@ class MapBattleGUI {
 	public void actionPerformed(final ActionEvent e) {
 	    try {
 		if (e.getSource() instanceof JButton) {
-		    SoundLoader.playSound(SoundConstants.CLICK);
+		    SoundLoader.playSound(Sounds.CLICK);
 		}
 		final var cmd = e.getActionCommand();
 		final var b = DungeonDiver7.getStuffBag().getBattle();

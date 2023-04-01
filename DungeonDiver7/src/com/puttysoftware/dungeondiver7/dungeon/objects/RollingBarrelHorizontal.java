@@ -5,12 +5,12 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.DirectionResolver;
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.DirectionResolver;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.ShotTypes;
@@ -25,7 +25,7 @@ public class RollingBarrelHorizontal extends AbstractMovableObject {
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(SoundConstants.BALL_ROLL);
+	SoundLoader.playSound(Sounds.BALL_ROLL);
     }
 
     @Override
@@ -34,17 +34,17 @@ public class RollingBarrelHorizontal extends AbstractMovableObject {
     }
 
     @Override
-    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	final var dir = DirectionResolver.resolve(dirX, dirY);
-	if (dir == Directions.EAST || dir == Directions.WEST) {
+	if (dir == Direction.EAST || dir == Direction.WEST) {
 	    // Roll
 	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
 	// Break up
 	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	// Boom!
-	SoundLoader.playSound(SoundConstants.BARREL);
+	SoundLoader.playSound(Sounds.BARREL);
 	DungeonDiver7.getStuffBag().getGameLogic();
 	// Destroy barrel
 	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
@@ -59,7 +59,7 @@ public class RollingBarrelHorizontal extends AbstractMovableObject {
 	    return DirectionResolver.resolve(dirX, dirY);
 	}
 	// Laser stops
-	return Directions.NONE;
+	return Direction.NONE;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class RollingBarrelHorizontal extends AbstractMovableObject {
 	// Break up
 	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	// Boom!
-	SoundLoader.playSound(SoundConstants.BARREL);
+	SoundLoader.playSound(Sounds.BARREL);
 	DungeonDiver7.getStuffBag().getGameLogic();
 	// Destroy barrel
 	GameLogic.morph(new Empty(), x, y, z, this.getLayer());

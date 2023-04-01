@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.loader;
 
-import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 
 class ImageCacheEntry {
     // Fields

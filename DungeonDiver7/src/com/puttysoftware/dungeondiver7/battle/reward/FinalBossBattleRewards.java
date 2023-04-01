@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 import com.puttysoftware.dungeondiver7.battle.BattleResult;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 
 class FinalBossBattleRewards {
@@ -25,7 +25,7 @@ class FinalBossBattleRewards {
     public static void doRewards(final BattleResult br) {
 	final var player = PartyManager.getParty().getLeader();
 	if (br == BattleResult.WON || br == BattleResult.PERFECT) {
-	    SoundLoader.playSound(SoundConstants.WIN_GAME);
+	    SoundLoader.playSound(Sounds.WIN_GAME);
 	    String dialogResult = null;
 	    while (dialogResult == null) {
 		dialogResult = (String) JOptionPane.showInputDialog(null,

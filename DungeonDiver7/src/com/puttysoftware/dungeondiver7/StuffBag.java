@@ -11,7 +11,7 @@ import java.awt.Image;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.battle.AbstractBattle;
 import com.puttysoftware.dungeondiver7.battle.MapBattleLogic;
@@ -24,7 +24,7 @@ import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.shop.Shop;
 import com.puttysoftware.dungeondiver7.shop.ShopType;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjects;
-import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 
 public final class StuffBag {
     // Fields

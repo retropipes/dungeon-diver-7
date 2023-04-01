@@ -13,9 +13,9 @@ import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.effect.Effect;
 import com.puttysoftware.dungeondiver7.item.ItemInventory;
 import com.puttysoftware.dungeondiver7.spell.SpellBook;
-import com.puttysoftware.images.BufferedImageIcon;
-import com.puttysoftware.polytable.PolyTable;
-import com.puttysoftware.randomrange.RandomRange;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import com.puttysoftware.diane.polytable.PolyTable;
+import com.puttysoftware.diane.random.RandomRange;
 
 public abstract class AbstractCreature {
     // Fields

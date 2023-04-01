@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
 
@@ -13,10 +13,10 @@ public class Party extends AbstractCharacter {
     // Constructors
     public Party(final int number) {
 	super(number);
-	this.setDirection(Directions.NORTH);
+	this.setDirection(Direction.NORTH);
     }
 
-    public Party(final Directions dir, final int number) {
+    public Party(final Direction dir, final int number) {
 	super(number);
 	this.setDirection(dir);
     }

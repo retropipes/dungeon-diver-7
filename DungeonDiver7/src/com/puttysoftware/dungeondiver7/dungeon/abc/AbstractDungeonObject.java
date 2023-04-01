@@ -11,9 +11,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.BitSet;
 import java.util.Objects;
 
-import com.puttysoftware.diane.strings.DianeStrings;
-import com.puttysoftware.diane.utilties.DirectionResolver;
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.locale.DianeStrings;
+import com.puttysoftware.diane.direction.DirectionResolver;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
@@ -21,7 +21,7 @@ import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.BattleImageManager;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.Colors;
 import com.puttysoftware.dungeondiver7.locale.Strings;
@@ -32,11 +32,11 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 import com.puttysoftware.dungeondiver7.utility.RandomGenerationRule;
 import com.puttysoftware.dungeondiver7.utility.RangeTypes;
 import com.puttysoftware.dungeondiver7.utility.ShotTypes;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
-import com.puttysoftware.images.BufferedImageIcon;
-import com.puttysoftware.randomrange.RandomRange;
-import com.puttysoftware.storage.CloneableObject;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import com.puttysoftware.diane.random.RandomRange;
+import com.puttysoftware.dungeondiver7.utility.CloneableObject;
 
 public abstract class AbstractDungeonObject extends CloneableObject implements RandomGenerationRule {
     // Properties
@@ -48,7 +48,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
     private int initialTimerValue;
     private boolean timerActive;
     private int frameNumber;
-    private Directions directions;
+    private Direction directions;
     private boolean diagonalOnly;
     private Colors color;
     private int material;
@@ -74,7 +74,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.initialTimerValue = 0;
 	this.timerActive = false;
 	this.frameNumber = 0;
-	this.directions = Directions.NONE;
+	this.directions = Direction.NONE;
 	this.diagonalOnly = false;
 	this.color = Colors.NONE;
 	this.material = Materials.DEFAULT;
@@ -111,7 +111,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.timerValue = 0;
 	this.timerActive = false;
 	this.frameNumber = 0;
-	this.directions = Directions.NONE;
+	this.directions = Direction.NONE;
 	this.diagonalOnly = false;
 	this.color = Colors.NONE;
 	this.material = Materials.DEFAULT;
@@ -127,7 +127,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.timerValue = 0;
 	this.timerActive = false;
 	this.frameNumber = 0;
-	this.directions = Directions.NONE;
+	this.directions = Direction.NONE;
 	this.diagonalOnly = false;
 	this.color = Colors.NONE;
 	this.material = Materials.DEFAULT;
@@ -244,7 +244,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	return this.frameNumber > 0;
     }
 
-    public final Directions getDirection() {
+    public final Direction getDirection() {
 	return this.directions;
     }
 
@@ -252,19 +252,19 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	this.directions = DungeonConstants.nextDirOrtho(this.directions);
     }
 
-    public static boolean hitReflectiveSide(final Directions dir) {
-	Directions trigger1, trigger2;
+    public static boolean hitReflectiveSide(final Direction dir) {
+	Direction trigger1, trigger2;
 	trigger1 = DungeonConstants.previousDir(dir);
 	trigger2 = DungeonConstants.nextDir(dir);
 	return dir == trigger1 || dir == trigger2;
     }
 
-    public final void setDirection(final Directions dir) {
+    public final void setDirection(final Direction dir) {
 	this.directions = dir;
     }
 
     private final boolean hasDirection() {
-	return this.directions != null && this.directions != Directions.INVALID && this.directions != Directions.NONE;
+	return this.directions != null && this.directions != Direction.NONE && this.directions != Direction.NONE;
     }
 
     public final int getMaterial() {
@@ -376,7 +376,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      * @param locZ
      */
     public void moveFailedAction(final int locX, final int locY, final int locZ) {
-	SoundLoader.playSound(SoundConstants.FAILED);
+	SoundLoader.playSound(Sounds.FAILED);
 	DungeonDiver7.getStuffBag().showMessage("Can't go that way");
     }
 
@@ -388,7 +388,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      * @param inv
      */
     public void interactAction() {
-	SoundLoader.playSound(SoundConstants.FAILED);
+	SoundLoader.playSound(Sounds.FAILED);
 	DungeonDiver7.getStuffBag().showMessage("Can't interact with that");
     }
 
@@ -481,7 +481,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 
     protected void pushCrushAction(final int x, final int y, final int z) {
 	// Object crushed
-	SoundLoader.playSound(SoundConstants.CRUSH);
+	SoundLoader.playSound(Sounds.CRUSH);
 	DungeonDiver7.getStuffBag().getGameLogic();
 	GameLogic.morph(new Empty(), x, y, z, this.getLayer());
     }
@@ -548,7 +548,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE && this.getMaterial() == Materials.WOODEN
 		&& this.changesToOnExposure(Materials.FIRE) != null) {
 	    // Burn wooden object
-	    SoundLoader.playSound(SoundConstants.WOOD_BURN);
+	    SoundLoader.playSound(Sounds.WOOD_BURN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
@@ -558,7 +558,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 			|| this.getMaterial() == Materials.PLASTIC)
 		&& this.changesToOnExposure(Materials.ICE) != null) {
 	    // Freeze metal, wooden, or plastic object
-	    SoundLoader.playSound(SoundConstants.FROZEN);
+	    SoundLoader.playSound(Sounds.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
@@ -566,7 +566,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE && this.getMaterial() == Materials.ICE
 		&& this.changesToOnExposure(Materials.FIRE) != null) {
 	    // Melt icy object
-	    SoundLoader.playSound(SoundConstants.DEFROST);
+	    SoundLoader.playSound(Sounds.DEFROST);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
@@ -574,7 +574,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE && this.getMaterial() == Materials.FIRE
 		&& this.changesToOnExposure(Materials.ICE) != null) {
 	    // Cool hot object
-	    SoundLoader.playSound(SoundConstants.COOL_OFF);
+	    SoundLoader.playSound(Sounds.COOL_OFF);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
@@ -582,7 +582,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE && this.getMaterial() == Materials.METALLIC
 		&& this.changesToOnExposure(Materials.FIRE) != null) {
 	    // Melt metal object
-	    SoundLoader.playSound(SoundConstants.MELT);
+	    SoundLoader.playSound(Sounds.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
@@ -601,7 +601,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      * @param forceUnits
      * @return
      */
-    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	if (!this.isSolid()) {
 	    return DirectionResolver.resolve(dirX, dirY);
@@ -631,10 +631,10 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 		    locY - dirY, locZ, this.getLayer());
 	    if (adj != null && !adj.rangeAction(locX - 2 * dirX, locY - 2 * dirY, locZ, dirX, dirY,
 		    ShotTypes.getRangeTypeForLaserType(laserType), 1)) {
-		SoundLoader.playSound(SoundConstants.LASER_DIE);
+		SoundLoader.playSound(Sounds.LASER_DIE);
 	    }
 	}
-	return Directions.NONE;
+	return Direction.NONE;
     }
 
     /**
@@ -647,7 +647,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      * @param laserType
      * @return
      */
-    public Directions laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType) {
 	return DirectionResolver.resolve(dirX, dirY);
     }
@@ -848,7 +848,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	return false;
     }
 
-    public final void write(final FileIOWriter writer) throws IOException {
+    public final void write(final DataIOWriter writer) throws IOException {
 	writer.writeString(this.getIdentifier());
 	final var cc = this.getCustomFormat();
 	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
@@ -865,19 +865,19 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	}
     }
 
-    public final AbstractDungeonObject readV2(final FileIOReader reader, final String ident, final int ver)
+    public final AbstractDungeonObject readV2(final DataIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
 	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    this.directions = Directions.values()[reader.readInt()];
+	    this.directions = Direction.values()[reader.readInt()];
 	    reader.readInt();
 	    this.color = Colors.values()[reader.readInt()];
 	    return this.readHookV2(reader, ver);
 	}
-	this.directions = Directions.values()[reader.readInt()];
+	this.directions = Direction.values()[reader.readInt()];
 	this.color = Colors.values()[reader.readInt()];
 	for (var x = 0; x < cc; x++) {
 	    final var cx = reader.readInt();
@@ -886,20 +886,20 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	return this;
     }
 
-    public final AbstractDungeonObject readV3(final FileIOReader reader, final String ident, final int ver)
+    public final AbstractDungeonObject readV3(final DataIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
 	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    this.directions = Directions.values()[reader.readInt()];
+	    this.directions = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    // Discard material
 	    reader.readInt();
 	    return this.readHookV3(reader, ver);
 	}
-	this.directions = Directions.values()[reader.readInt()];
+	this.directions = Direction.values()[reader.readInt()];
 	this.color = Colors.values()[reader.readInt()];
 	// Discard material
 	reader.readInt();
@@ -910,18 +910,18 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	return this;
     }
 
-    public final AbstractDungeonObject readV4(final FileIOReader reader, final String ident, final int ver)
+    public final AbstractDungeonObject readV4(final DataIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
 	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    this.directions = Directions.values()[reader.readInt()];
+	    this.directions = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    return this.readHookV4(reader, ver);
 	}
-	this.directions = Directions.values()[reader.readInt()];
+	this.directions = Direction.values()[reader.readInt()];
 	this.color = Colors.values()[reader.readInt()];
 	for (var x = 0; x < cc; x++) {
 	    final var cx = reader.readInt();
@@ -930,18 +930,18 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	return this;
     }
 
-    public final AbstractDungeonObject readV5(final FileIOReader reader, final String ident, final int ver)
+    public final AbstractDungeonObject readV5(final DataIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
 	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    this.directions = Directions.values()[reader.readInt()];
+	    this.directions = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    return this.readHookV5(reader, ver);
 	}
-	this.directions = Directions.values()[reader.readInt()];
+	this.directions = Direction.values()[reader.readInt()];
 	this.color = Colors.values()[reader.readInt()];
 	for (var x = 0; x < cc; x++) {
 	    final var cx = reader.readInt();
@@ -950,18 +950,18 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	return this;
     }
 
-    public final AbstractDungeonObject readV6(final FileIOReader reader, final String ident, final int ver)
+    public final AbstractDungeonObject readV6(final DataIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
 	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    this.directions = Directions.values()[reader.readInt()];
+	    this.directions = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    return this.readHookV6(reader, ver);
 	}
-	this.directions = Directions.values()[reader.readInt()];
+	this.directions = Direction.values()[reader.readInt()];
 	this.color = Colors.values()[reader.readInt()];
 	for (var x = 0; x < cc; x++) {
 	    final var cx = reader.readInt();
@@ -970,18 +970,18 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
 	return this;
     }
 
-    public final AbstractDungeonObject readV7(final FileIOReader reader, final String ident, final int ver)
+    public final AbstractDungeonObject readV7(final DataIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
 	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    this.directions = Directions.values()[reader.readInt()];
+	    this.directions = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    return this.readHookV7(reader, ver);
 	}
-	this.directions = Directions.values()[reader.readInt()];
+	this.directions = Direction.values()[reader.readInt()];
 	this.color = Colors.values()[reader.readInt()];
 	for (var x = 0; x < cc; x++) {
 	    final var cx = reader.readInt();
@@ -995,7 +995,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      * @param writer
      * @throws IOException
      */
-    protected void writeHook(final FileIOWriter writer) throws IOException {
+    protected void writeHook(final DataIOWriter writer) throws IOException {
 	// Do nothing - but let subclasses override
     }
 
@@ -1006,7 +1006,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readHookV2(final FileIOReader reader, final int formatVersion) throws IOException {
+    protected AbstractDungeonObject readHookV2(final DataIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
@@ -1018,7 +1018,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readHookV3(final FileIOReader reader, final int formatVersion) throws IOException {
+    protected AbstractDungeonObject readHookV3(final DataIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
@@ -1030,7 +1030,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readHookV4(final FileIOReader reader, final int formatVersion) throws IOException {
+    protected AbstractDungeonObject readHookV4(final DataIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
@@ -1042,7 +1042,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readHookV5(final FileIOReader reader, final int formatVersion) throws IOException {
+    protected AbstractDungeonObject readHookV5(final DataIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
@@ -1054,7 +1054,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readHookV6(final FileIOReader reader, final int formatVersion) throws IOException {
+    protected AbstractDungeonObject readHookV6(final DataIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
@@ -1066,7 +1066,7 @@ public abstract class AbstractDungeonObject extends CloneableObject implements R
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readHookV7(final FileIOReader reader, final int formatVersion) throws IOException {
+    protected AbstractDungeonObject readHookV7(final DataIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }

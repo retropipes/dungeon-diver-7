@@ -5,13 +5,13 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.DirectionResolver;
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.DirectionResolver;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
@@ -25,11 +25,11 @@ public class Barrel extends AbstractReactionWall {
     }
 
     @Override
-    public Directions laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
+    public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
 	    final int dirY, final int laserType, final int forceUnits) {
 	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	// Boom!
-	SoundLoader.playSound(SoundConstants.BARREL);
+	SoundLoader.playSound(Sounds.BARREL);
 	DungeonDiver7.getStuffBag().getGameLogic();
 	// Destroy barrel
 	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
@@ -44,7 +44,7 @@ public class Barrel extends AbstractReactionWall {
 	    return DirectionResolver.resolve(dirX, dirY);
 	}
 	// Laser stops
-	return Directions.NONE;
+	return Direction.NONE;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Barrel extends AbstractReactionWall {
 	    final int rangeType, final int forceUnits) {
 	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	// Boom!
-	SoundLoader.playSound(SoundConstants.BARREL);
+	SoundLoader.playSound(Sounds.BARREL);
 	// Check for tank in range of explosion
 	final var target = a.circularScanPlayer(locX + dirX, locY + dirY, locZ, 1);
 	if (target) {

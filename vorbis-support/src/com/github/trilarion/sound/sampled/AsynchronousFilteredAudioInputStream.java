@@ -138,7 +138,6 @@ public abstract class AsynchronousFilteredAudioInputStream extends AudioInputStr
 
     @Override
     public long skip(long lSkip) throws IOException {
-	// TODO: this is quite inefficient
 	for (long lSkipped = 0; lSkipped < lSkip; lSkipped++) {
 	    int nReturn = read();
 	    if (nReturn == -1) {

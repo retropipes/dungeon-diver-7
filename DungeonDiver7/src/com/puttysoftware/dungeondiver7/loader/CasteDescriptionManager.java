@@ -12,7 +12,7 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.caste.CasteConstants;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.fileutils.ResourceStreamReader;
+import com.puttysoftware.diane.fileio.utility.ResourceStreamReader;
 
 public class CasteDescriptionManager {
     public static String getCasteDescription(final int c) {

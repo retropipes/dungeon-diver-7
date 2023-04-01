@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMover;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
@@ -13,7 +13,7 @@ public class BoxMover extends AbstractMover {
     // Constructors
     public BoxMover() {
 	super(true);
-	this.setDirection(Directions.NORTH);
+	this.setDirection(Direction.NORTH);
 	this.setFrameNumber(1);
 	this.type.set(DungeonObjectTypes.TYPE_BOX_MOVER);
     }

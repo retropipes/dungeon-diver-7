@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.loader;
 import java.io.File;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.fileutils.FileUtilities;
+import com.puttysoftware.diane.fileio.utility.FileUtilities;
 
 public class ExternalMusicSaveTask extends Thread {
     // Fields

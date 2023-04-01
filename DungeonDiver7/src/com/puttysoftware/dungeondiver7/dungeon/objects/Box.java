@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
@@ -22,7 +22,7 @@ public class Box extends AbstractMovableObject {
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(SoundConstants.PUSH_BOX);
+	SoundLoader.playSound(Sounds.PUSH_BOX);
     }
 
     @Override

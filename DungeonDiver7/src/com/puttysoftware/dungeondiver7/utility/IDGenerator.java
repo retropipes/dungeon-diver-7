@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.utility;
 
-import com.puttysoftware.randomrange.RandomLongRange;
+import com.puttysoftware.diane.random.RandomLongRange;
 
 public class IDGenerator {
     // Constructor

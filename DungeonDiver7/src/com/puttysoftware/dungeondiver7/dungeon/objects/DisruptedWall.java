@@ -5,12 +5,12 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDisruptedObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
@@ -37,21 +37,21 @@ public class DisruptedWall extends AbstractDisruptedObject {
     }
 
     @Override
-    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	if (laserType == ShotTypes.MISSILE) {
 	    // Heat up wall
-	    SoundLoader.playSound(SoundConstants.MELT);
+	    SoundLoader.playSound(Sounds.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedHotWall(this.disruptionLeft), locX, locY, locZ, this.getLayer());
-	    return Directions.NONE;
+	    return Direction.NONE;
 	}
 	if (laserType == ShotTypes.STUNNER) {
 	    // Freeze wall
-	    SoundLoader.playSound(SoundConstants.FROZEN);
+	    SoundLoader.playSound(Sounds.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedIcyWall(this.disruptionLeft), locX, locY, locZ, this.getLayer());
-	    return Directions.NONE;
+	    return Direction.NONE;
 	}
 	// Stop laser
 	return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
@@ -61,7 +61,7 @@ public class DisruptedWall extends AbstractDisruptedObject {
     public void timerExpiredAction(final int locX, final int locY) {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
-	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
+	    SoundLoader.playSound(Sounds.DISRUPT_END);
 	    final var z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Wall(), locX, locY, z, this.getLayer());

@@ -19,7 +19,7 @@ import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
-import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 
 public class ImageLoader {
     public static final int MAX_WINDOW_SIZE = 700;

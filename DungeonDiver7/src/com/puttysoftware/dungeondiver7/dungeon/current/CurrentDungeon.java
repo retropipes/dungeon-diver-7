@@ -9,9 +9,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.puttysoftware.diane.strings.DianeStrings;
-import com.puttysoftware.diane.utilties.DirectionResolver;
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.locale.DianeStrings;
+import com.puttysoftware.diane.direction.DirectionResolver;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeonData;
@@ -34,12 +34,12 @@ import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.DirectionRotator;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.FileFormats;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
-import com.puttysoftware.fileio.XDataReader;
-import com.puttysoftware.fileio.XDataWriter;
-import com.puttysoftware.fileutils.FileUtilities;
-import com.puttysoftware.randomrange.RandomLongRange;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
+import com.puttysoftware.diane.fileio.XDataReader;
+import com.puttysoftware.diane.fileio.XDataWriter;
+import com.puttysoftware.diane.fileio.utility.FileUtilities;
+import com.puttysoftware.diane.random.RandomLongRange;
 
 public class CurrentDungeon extends AbstractDungeon {
     // Properties
@@ -91,7 +91,7 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     @Override
-    public Directions computeFinalBossMoveDirection(final int locX, final int locY, final int locZ, final int pi) {
+    public Direction computeFinalBossMoveDirection(final int locX, final int locY, final int locZ, final int pi) {
 	final var px = this.getPlayerLocationX(pi);
 	final var py = this.getPlayerLocationY(pi);
 	final var relX = px - locX;
@@ -157,7 +157,7 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     @Override
-    public void updateMonsterPosition(final Directions move, final int xLoc, final int yLoc,
+    public void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
 	    final AbstractMovingObject monster, final int pi) {
 	this.dungeonData.updateMonsterPosition(this, move, xLoc, yLoc, monster, pi);
     }
@@ -594,7 +594,7 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     @Override
-    public int checkForMagnetic(final int floor, final int centerX, final int centerY, final Directions dir) {
+    public int checkForMagnetic(final int floor, final int centerX, final int centerY, final Direction dir) {
 	return this.dungeonData.checkForMagnetic(this, floor, centerX, centerY, dir);
     }
 
@@ -837,7 +837,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	m.basePath = this.basePath;
 	var version = -1;
 	// Create metafile reader
-	try (FileIOReader metaReader = new XDataReader(m.basePath + File.separator
+	try (DataIOReader metaReader = new XDataReader(m.basePath + File.separator
 		+ Strings.fileExtension(FileExtension.METAFILE) + Strings.fileExtension(FileExtension.LEVEL),
 		Strings.fileExtension(FileExtension.DUNGEON))) {
 	    // Read metafile
@@ -877,19 +877,19 @@ public class CurrentDungeon extends AbstractDungeon {
 	return m;
     }
 
-    private FileIOReader getLevelReaderG5() throws IOException {
+    private DataIOReader getLevelReaderG5() throws IOException {
 	return new XDataReader(this.basePath + File.separator + Strings.fileExtension(FileExtension.LEVEL)
 		+ this.activeLevel + Strings.fileExtension(FileExtension.LEVEL),
 		Strings.fileExtension(FileExtension.LEVEL));
     }
 
-    private FileIOReader getLevelReaderG6() throws IOException {
+    private DataIOReader getLevelReaderG6() throws IOException {
 	return new XDataReader(this.basePath + File.separator + Strings.fileExtension(FileExtension.LEVEL)
 		+ this.activeLevel + Strings.fileExtension(FileExtension.ERA) + this.activeEra
 		+ Strings.fileExtension(FileExtension.LEVEL), Strings.fileExtension(FileExtension.LEVEL));
     }
 
-    private int readDungeonMetafileVersion(final FileIOReader reader) throws IOException {
+    private int readDungeonMetafileVersion(final DataIOReader reader) throws IOException {
 	var ver = FileFormats.DUNGEON_LATEST;
 	if (this.prefixHandler != null) {
 	    ver = this.prefixHandler.readPrefix(reader);
@@ -898,7 +898,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	return ver;
     }
 
-    private void readDungeonMetafileG3(final FileIOReader reader, final int ver) throws IOException {
+    private void readDungeonMetafileG3(final DataIOReader reader, final int ver) throws IOException {
 	this.levelCount = reader.readInt();
 	this.musicFilename = "null";
 	if (this.suffixHandler != null) {
@@ -906,7 +906,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
     }
 
-    private void readDungeonMetafileG4(final FileIOReader reader, final int ver) throws IOException {
+    private void readDungeonMetafileG4(final DataIOReader reader, final int ver) throws IOException {
 	this.levelCount = reader.readInt();
 	this.musicFilename = reader.readString();
 	if (this.suffixHandler != null) {
@@ -914,7 +914,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
     }
 
-    private void readDungeonMetafileG6(final FileIOReader reader, final int ver) throws IOException {
+    private void readDungeonMetafileG6(final DataIOReader reader, final int ver) throws IOException {
 	this.levelCount = reader.readInt();
 	this.musicFilename = reader.readString();
 	this.moveShootAllowed = reader.readBoolean();
@@ -927,7 +927,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
     }
 
-    private void readDungeonMetafileG7(final FileIOReader reader, final int ver) throws IOException {
+    private void readDungeonMetafileG7(final DataIOReader reader, final int ver) throws IOException {
 	this.levelCount = reader.readInt();
 	this.startLevel = reader.readInt();
 	this.startEra = reader.readInt();
@@ -942,11 +942,11 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
     }
 
-    private void readDungeonLevel(final FileIOReader reader) throws IOException {
+    private void readDungeonLevel(final DataIOReader reader) throws IOException {
 	this.readDungeonLevel(reader, FileFormats.DUNGEON_LATEST);
     }
 
-    private void readDungeonLevel(final FileIOReader reader, final int formatVersion) throws IOException {
+    private void readDungeonLevel(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.dungeonData = (CurrentDungeonData) new CurrentDungeonData().readData(this, reader, formatVersion);
 	this.dungeonData.readSavedState(reader, formatVersion);
     }
@@ -959,7 +959,7 @@ public class CurrentDungeon extends AbstractDungeon {
     @Override
     public void writeDungeon() throws IOException {
 	// Create metafile writer
-	try (FileIOWriter metaWriter = new XDataWriter(this.basePath + File.separator
+	try (DataIOWriter metaWriter = new XDataWriter(this.basePath + File.separator
 		+ Strings.fileExtension(FileExtension.METAFILE) + Strings.fileExtension(FileExtension.LEVEL),
 		Strings.fileExtension(FileExtension.DUNGEON))) {
 	    // Write metafile
@@ -976,13 +976,13 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
     }
 
-    private FileIOWriter getLevelWriter() throws IOException {
+    private DataIOWriter getLevelWriter() throws IOException {
 	return new XDataWriter(this.basePath + File.separator + Strings.fileExtension(FileExtension.LEVEL)
 		+ this.activeLevel + Strings.fileExtension(FileExtension.ERA) + this.activeEra
 		+ Strings.fileExtension(FileExtension.LEVEL), Strings.fileExtension(FileExtension.LEVEL));
     }
 
-    private void writeDungeonMetafile(final FileIOWriter writer) throws IOException {
+    private void writeDungeonMetafile(final DataIOWriter writer) throws IOException {
 	if (this.prefixHandler != null) {
 	    this.prefixHandler.writePrefix(writer);
 	}
@@ -1000,7 +1000,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
     }
 
-    private void writeDungeonLevel(final FileIOWriter writer) throws IOException {
+    private void writeDungeonLevel(final DataIOWriter writer) throws IOException {
 	// Write the level
 	this.dungeonData.writeData(this, writer);
 	this.dungeonData.writeSavedState(writer);

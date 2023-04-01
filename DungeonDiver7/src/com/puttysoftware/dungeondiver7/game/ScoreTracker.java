@@ -7,9 +7,9 @@ package com.puttysoftware.dungeondiver7.game;
 
 import java.io.File;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.diane.scores.SavedScoreManager;
-import com.puttysoftware.diane.scores.ScoreManager;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
+import com.puttysoftware.diane.scoring.SavedScoreManager;
+import com.puttysoftware.diane.scoring.ScoreManager;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.GameString;

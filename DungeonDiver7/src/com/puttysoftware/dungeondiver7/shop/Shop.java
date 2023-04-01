@@ -7,19 +7,18 @@ package com.puttysoftware.dungeondiver7.shop;
 
 import javax.swing.JOptionPane;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.diane.gui.dialog.ListWithImageDialog;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.item.EquipmentFactory;
 import com.puttysoftware.dungeondiver7.loader.ArmorImageManager;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.loader.WeaponImageManager;
 import com.puttysoftware.dungeondiver7.locale.Music;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 
 public class Shop {
     // Fields
@@ -127,7 +126,7 @@ public class Shop {
 	private boolean shopStage1() {
 	    // Stage 1
 	    // Play enter shop sound
-	    SoundLoader.playSound(SoundConstants.SHOP);
+	    SoundLoader.playSound(Sounds.SHOP);
 	    final var playerCharacter = PartyManager.getParty().getLeader();
 	    if (Shop.this.type == ShopType.HEALER || Shop.this.type == ShopType.REGENERATOR) {
 		Shop.this.choices = new String[10];
@@ -221,7 +220,7 @@ public class Shop {
 	    // Stage 5
 	    final var playerCharacter = PartyManager.getParty().getLeader();
 	    // Play transact sound
-	    SoundLoader.playSound(SoundConstants.TRANSACT);
+	    SoundLoader.playSound(Sounds.TRANSACT);
 	    if (Shop.this.type == ShopType.HEALER) {
 		playerCharacter.offsetGold(-Shop.this.cost);
 		playerCharacter.healPercentage((Shop.this.index + 1) * 10);
@@ -266,7 +265,7 @@ public class Shop {
 	private boolean shopStage1() {
 	    // Stage 1
 	    // Play enter shop sound
-	    SoundLoader.playSound(SoundConstants.SHOP);
+	    SoundLoader.playSound(Sounds.SHOP);
 	    final var zoneID = PartyManager.getParty().getZone();
 	    if (Shop.this.type == ShopType.WEAPONS) {
 		Shop.this.imageChoices = new BufferedImageIcon[Strings.WEAPON_TYPES_COUNT];
@@ -286,17 +285,10 @@ public class Shop {
 	    }
 	    Shop.this.typeDefault = 0;
 	    if (Shop.this.typeChoices != null) {
-		var dialog = new ListWithImageDialog("Select Type", Shop.this.getShopNameFromType(),
-			Shop.this.typeChoices[Shop.this.typeDefault], Shop.this.typeChoices,
-			Shop.this.imageChoices[Shop.this.typeDefault], Shop.this.imageChoices);
-		Shop.this.typeResult = dialog.showValueScreen();
-		if (Shop.this.typeResult == null) {
+			Shop.this.typeIndex = CommonDialogs.showImageListWithDescDialog("Select Type", Shop.this.getShopNameFromType(),
+			Shop.this.imageChoices, Shop.this.typeDefault, Shop.this.typeChoices[Shop.this.typeDefault], Shop.this.typeChoices);
+		if (Shop.this.typeIndex == CommonDialogs.CANCEL) {
 		    return false;
-		}
-		for (Shop.this.typeIndex = 0; Shop.this.typeIndex < Shop.this.typeChoices.length; Shop.this.typeIndex++) {
-		    if (Shop.this.typeResult.equals(Shop.this.typeChoices[Shop.this.typeIndex])) {
-			break;
-		    }
 		}
 		if (Shop.this.typeIndex == Shop.this.typeChoices.length) {
 		    return false;
@@ -343,7 +335,7 @@ public class Shop {
 	    // Stage 5
 	    final var playerCharacter = PartyManager.getParty().getLeader();
 	    // Play transact sound
-	    SoundLoader.playSound(SoundConstants.TRANSACT);
+	    SoundLoader.playSound(Sounds.TRANSACT);
 	    if (Shop.this.type == ShopType.WEAPONS) {
 		playerCharacter.offsetGold(-Shop.this.cost);
 		final var bought = EquipmentFactory.createWeapon(Shop.this.index, Shop.this.typeIndex);

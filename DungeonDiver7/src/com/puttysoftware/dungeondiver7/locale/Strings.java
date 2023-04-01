@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import com.puttysoftware.diane.strings.DianeStrings;
+import com.puttysoftware.diane.locale.DianeStrings;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;

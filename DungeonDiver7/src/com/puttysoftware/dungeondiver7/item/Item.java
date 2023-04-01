@@ -8,8 +8,8 @@ package com.puttysoftware.dungeondiver7.item;
 import java.io.IOException;
 import java.util.Objects;
 
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
 
 public class Item {
     // Properties
@@ -76,7 +76,7 @@ public class Item {
 	return this.weight;
     }
 
-    protected static Item readItem(final FileIOReader dr) throws IOException {
+    protected static Item readItem(final DataIOReader dr) throws IOException {
 	final var itemName = dr.readString();
 	if (itemName.equals("null")) {
 	    // Abort
@@ -88,7 +88,7 @@ public class Item {
 	return new Item(itemName, buyFor, grams, power);
     }
 
-    final void writeItem(final FileIOWriter dw) throws IOException {
+    final void writeItem(final DataIOWriter dw) throws IOException {
 	dw.writeString(this.name);
 	dw.writeInt(this.buyPrice);
 	dw.writeInt(this.weight);

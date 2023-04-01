@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.ai;
 
 import java.awt.Point;
 
-import com.puttysoftware.randomrange.RandomRange;
+import com.puttysoftware.diane.random.RandomRange;
 
 class CommonMapAIRoutines {
     // Constants

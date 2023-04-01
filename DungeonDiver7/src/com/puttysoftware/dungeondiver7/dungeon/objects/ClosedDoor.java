@@ -9,7 +9,7 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractPassThroughObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 
 public class ClosedDoor extends AbstractPassThroughObject {
@@ -40,7 +40,7 @@ public class ClosedDoor extends AbstractPassThroughObject {
 
     @Override
     public void interactAction() {
-	SoundLoader.playSound(SoundConstants.DOOR_OPENS);
+	SoundLoader.playSound(Sounds.DOOR_OPENS);
 	final var glm = DungeonDiver7.getStuffBag().getGameLogic();
 	GameLogic.morph(new OpenDoor());
 	glm.redrawDungeon();

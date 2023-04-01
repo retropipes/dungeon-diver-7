@@ -8,10 +8,10 @@ package com.puttysoftware.dungeondiver7.loader;
 import java.io.File;
 import java.io.IOException;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.utility.IDGenerator;
-import com.puttysoftware.fileutils.FileUtilities;
+import com.puttysoftware.diane.fileio.utility.FileUtilities;
 
 public class ExternalMusicImporter {
     private static final String MAC_PREFIX = "HOME";

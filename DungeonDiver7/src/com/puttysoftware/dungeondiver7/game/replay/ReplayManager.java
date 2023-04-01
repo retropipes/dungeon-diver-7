@@ -10,13 +10,13 @@ import java.io.File;
 
 import javax.swing.JFrame;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
-import com.puttysoftware.fileutils.FilenameChecker;
+import com.puttysoftware.diane.fileio.utility.FilenameChecker;
 
 public class ReplayManager {
     // Constructors

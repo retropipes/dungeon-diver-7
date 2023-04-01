@@ -13,7 +13,7 @@ import java.util.zip.ZipException;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
@@ -24,7 +24,7 @@ import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.utility.InvalidDungeonException;
-import com.puttysoftware.fileutils.ZipUtilities;
+import com.puttysoftware.diane.fileio.utility.ZipUtilities;
 
 public class DungeonLoadTask extends Thread {
     // Fields

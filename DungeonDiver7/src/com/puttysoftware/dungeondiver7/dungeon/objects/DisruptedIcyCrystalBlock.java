@@ -5,12 +5,12 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.DirectionResolver;
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.DirectionResolver;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionDisruptedObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 import com.puttysoftware.dungeondiver7.utility.RangeTypes;
@@ -29,14 +29,14 @@ public class DisruptedIcyCrystalBlock extends AbstractReactionDisruptedObject {
     }
 
     @Override
-    public Directions laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
+    public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
 	    final int dirY, final int laserType, final int forceUnits) {
 	if (laserType == ShotTypes.MISSILE) {
 	    // Destroy disrupted icy crystal block
-	    SoundLoader.playSound(SoundConstants.BOOM);
+	    SoundLoader.playSound(Sounds.BOOM);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
-	    return Directions.NONE;
+	    return Direction.NONE;
 	}
 	if (laserType == ShotTypes.BLUE) {
 	    // Reflect laser
@@ -50,7 +50,7 @@ public class DisruptedIcyCrystalBlock extends AbstractReactionDisruptedObject {
     public void timerExpiredAction(final int locX, final int locY) {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
-	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
+	    SoundLoader.playSound(Sounds.DISRUPT_END);
 	    final var z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
 	    final var icb = new IcyCrystalBlock();
 	    if (this.hasPreviousState()) {
@@ -64,7 +64,7 @@ public class DisruptedIcyCrystalBlock extends AbstractReactionDisruptedObject {
     }
 
     @Override
-    public Directions laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType) {
 	return DirectionResolver.resolve(dirX, dirY);
     }

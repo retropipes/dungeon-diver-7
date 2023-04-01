@@ -10,7 +10,7 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractGround;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
@@ -24,7 +24,7 @@ public class Ice extends AbstractGround {
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(SoundConstants.PUSH_MIRROR);
+	SoundLoader.playSound(Sounds.PUSH_MIRROR);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Ice extends AbstractGround {
 	    final var g = new Ground();
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(g, x, y, z, g.getLayer());
-	    SoundLoader.playSound(SoundConstants.DEFROST);
+	    SoundLoader.playSound(Sounds.DEFROST);
 	}
 	return true;
     }

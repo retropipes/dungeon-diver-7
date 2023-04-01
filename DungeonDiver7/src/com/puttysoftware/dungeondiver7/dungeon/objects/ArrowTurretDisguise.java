@@ -5,10 +5,10 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.GameActions;
 
@@ -22,11 +22,11 @@ public class ArrowTurretDisguise extends AbstractCharacter {
 	super(number);
 	this.disguiseLeft = ArrowTurretDisguise.DISGUISE_LENGTH;
 	this.activateTimer(1);
-	this.setDirection(Directions.NORTH);
+	this.setDirection(Direction.NORTH);
 	this.setFrameNumber(1);
     }
 
-    public ArrowTurretDisguise(final Directions dir, final int number) {
+    public ArrowTurretDisguise(final Direction dir, final int number) {
 	super(number);
 	this.disguiseLeft = ArrowTurretDisguise.DISGUISE_LENGTH;
 	this.activateTimer(1);
@@ -48,7 +48,7 @@ public class ArrowTurretDisguise extends AbstractCharacter {
     public void timerExpiredAction(final int locX, final int locY) {
 	this.disguiseLeft--;
 	if (this.disguiseLeft == 0) {
-	    SoundLoader.playSound(SoundConstants.DISRUPT_END);
+	    SoundLoader.playSound(Sounds.DISRUPT_END);
 	    DungeonDiver7.getStuffBag().getGameLogic().setNormalPlayer();
 	} else {
 	    this.activateTimer(1);

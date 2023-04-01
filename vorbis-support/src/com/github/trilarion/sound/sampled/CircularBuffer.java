@@ -68,7 +68,6 @@ public class CircularBuffer {
      */
     public void close() {
 	m_bOpen = false;
-	// TODO: call notify() ?
     }
 
     /**

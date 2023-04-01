@@ -40,8 +40,6 @@ public class VorbisAudioFileFormat extends AudioFileFormat {
      */
     public VorbisAudioFileFormat(Type type, AudioFormat audioFormat, int nLengthInFrames, int nLengthInBytes,
 	    Map<String, Object> properties) {
-	super(type, nLengthInBytes, audioFormat, nLengthInFrames); // TODO set
-								   // properties
-								   // too
+	super(type, nLengthInBytes, audioFormat, nLengthInFrames);
     }
 }

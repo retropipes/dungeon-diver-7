@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 
 public abstract class AbstractReactionPassThroughObject extends AbstractPassThroughObject {
     // Constructors
@@ -13,7 +13,7 @@ public abstract class AbstractReactionPassThroughObject extends AbstractPassThro
     }
 
     @Override
-    public final Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX,
+    public final Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX,
 	    final int dirY, final int laserType, final int forceUnits) {
 	if (forceUnits >= this.getMinimumReactionForce()) {
 	    return this.laserEnteredActionHook(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
@@ -30,7 +30,7 @@ public abstract class AbstractReactionPassThroughObject extends AbstractPassThro
 	return super.rangeAction(locX, locY, locZ, dirX, dirY, rangeType, forceUnits);
     }
 
-    public abstract Directions laserEnteredActionHook(int locX, int locY, int locZ, int dirX, int dirY, int laserType,
+    public abstract Direction laserEnteredActionHook(int locX, int locY, int locZ, int dirX, int dirY, int laserType,
 	    int forceUnits);
 
     public abstract boolean rangeActionHook(int locX, int locY, int locZ, int dirX, int dirY, int laserType,

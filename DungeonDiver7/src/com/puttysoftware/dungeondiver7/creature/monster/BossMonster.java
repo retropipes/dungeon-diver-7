@@ -9,9 +9,9 @@ import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.loader.BossImageManager;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
-import com.puttysoftware.images.BufferedImageIcon;
-import com.puttysoftware.randomrange.RandomLongRange;
-import com.puttysoftware.randomrange.RandomRange;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import com.puttysoftware.diane.random.RandomLongRange;
+import com.puttysoftware.diane.random.RandomRange;
 
 class BossMonster extends AbstractMonster {
     // Constants

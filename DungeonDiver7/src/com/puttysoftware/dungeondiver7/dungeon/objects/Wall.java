@@ -5,12 +5,12 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
@@ -24,29 +24,29 @@ public class Wall extends AbstractWall {
     }
 
     @Override
-    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	switch (laserType) {
 	case ShotTypes.DISRUPTOR:
 	    // Disrupt wall
-	    SoundLoader.playSound(SoundConstants.DISRUPTED);
+	    SoundLoader.playSound(Sounds.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedWall(), locX, locY, locZ, this.getLayer());
-	    return Directions.NONE;
+	    return Direction.NONE;
 	case ShotTypes.MISSILE:
 	    // Heat up wall
-	    SoundLoader.playSound(SoundConstants.MELT);
+	    SoundLoader.playSound(Sounds.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new HotWall(), locX, locY, locZ, this.getLayer());
-	    return Directions.NONE;
+	    return Direction.NONE;
 	case ShotTypes.STUNNER: {
 	    // Freeze wall
-	    SoundLoader.playSound(SoundConstants.FROZEN);
+	    SoundLoader.playSound(Sounds.FROZEN);
 	    final var iw = new IcyWall();
 	    iw.setPreviousState(this);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(iw, locX, locY, locZ, this.getLayer());
-	    return Directions.NONE;
+	    return Direction.NONE;
 	}
 	default:
 	    // Stop laser

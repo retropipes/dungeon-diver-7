@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.loader;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
-import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 
 class ImageCache {
     // Fields

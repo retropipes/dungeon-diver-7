@@ -8,19 +8,19 @@ package com.puttysoftware.dungeondiver7.game;
 import java.io.IOException;
 
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
 
 public class FileHooks {
     private FileHooks() {
 	// Do nothing
     }
 
-    public static void loadGameHook(final FileIOReader mapFile) throws IOException {
+    public static void loadGameHook(final DataIOReader mapFile) throws IOException {
 	PartyManager.loadGameHook(mapFile);
     }
 
-    public static void saveGameHook(final FileIOWriter mapFile) throws IOException {
+    public static void saveGameHook(final DataIOWriter mapFile) throws IOException {
 	PartyManager.saveGameHook(mapFile);
     }
 }

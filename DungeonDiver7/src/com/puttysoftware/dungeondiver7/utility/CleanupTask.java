@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.utility;
 import java.io.File;
 
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
-import com.puttysoftware.fileutils.DirectoryUtilities;
+import com.puttysoftware.diane.fileio.utility.DirectoryUtilities;
 
 public class CleanupTask {
     private CleanupTask() {

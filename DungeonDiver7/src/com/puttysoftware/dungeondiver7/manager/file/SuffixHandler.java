@@ -9,18 +9,18 @@ import java.io.IOException;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.game.FileHooks;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
 
 public class SuffixHandler implements AbstractSuffixIO {
     @Override
-    public void readSuffix(final FileIOReader reader, final int formatVersion) throws IOException {
+    public void readSuffix(final DataIOReader reader, final int formatVersion) throws IOException {
 	DungeonDiver7.getStuffBag().getGameLogic();
 	FileHooks.loadGameHook(reader);
     }
 
     @Override
-    public void writeSuffix(final FileIOWriter writer) throws IOException {
+    public void writeSuffix(final DataIOWriter writer) throws IOException {
 	DungeonDiver7.getStuffBag().getGameLogic();
 	FileHooks.saveGameHook(writer);
     }

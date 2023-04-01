@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.dungeon.abc;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
@@ -23,18 +23,18 @@ public abstract class AbstractPressureButton extends AbstractButton {
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
 	final var app = DungeonDiver7.getStuffBag();
 	if (this.isUniversal() || pushed.getMaterial() == this.getMaterial()) {
-	    SoundLoader.playSound(SoundConstants.BUTTON);
+	    SoundLoader.playSound(Sounds.BUTTON);
 	    if (!this.isTriggered()) {
 		app.getGameLogic();
 		// Open door at location
 		GameLogic.morph(new Empty(), this.getDoorX(), this.getDoorY(), z, this.getLayer());
-		SoundLoader.playSound(SoundConstants.DOOR_OPENS);
+		SoundLoader.playSound(Sounds.DOOR_OPENS);
 		this.setTriggered(true);
 	    } else {
 		app.getGameLogic();
 		// Close door at location
 		GameLogic.morph(this.getButtonDoor(), this.getDoorX(), this.getDoorY(), z, this.getLayer());
-		SoundLoader.playSound(SoundConstants.DOOR_CLOSES);
+		SoundLoader.playSound(Sounds.DOOR_CLOSES);
 		this.setTriggered(false);
 	    }
 	}
@@ -49,13 +49,13 @@ public abstract class AbstractPressureButton extends AbstractButton {
 		app.getGameLogic();
 		// Close door at location
 		GameLogic.morph(this.getButtonDoor(), this.getDoorX(), this.getDoorY(), z, this.getLayer());
-		SoundLoader.playSound(SoundConstants.DOOR_CLOSES);
+		SoundLoader.playSound(Sounds.DOOR_CLOSES);
 		this.setTriggered(false);
 	    } else {
 		app.getGameLogic();
 		// Open door at location
 		GameLogic.morph(new Empty(), this.getDoorX(), this.getDoorY(), z, this.getLayer());
-		SoundLoader.playSound(SoundConstants.DOOR_OPENS);
+		SoundLoader.playSound(Sounds.DOOR_OPENS);
 		this.setTriggered(true);
 	    }
 	}

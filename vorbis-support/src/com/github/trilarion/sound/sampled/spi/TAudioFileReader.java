@@ -140,10 +140,6 @@ public abstract class TAudioFileReader extends AudioFileReader {
 	try {
 	    audioFileFormat = getAudioFileFormat(inputStream, lFileLengthInBytes);
 	} finally {
-	    /*
-	     * TODO: required semantics is unclear: should reset() be executed only when
-	     * there is an exception or should it be done always?
-	     */
 	    inputStream.reset();
 	}
 	LOG.log(Level.FINE, "TAudioFileReader.getAudioFileFormat(InputStream): end");

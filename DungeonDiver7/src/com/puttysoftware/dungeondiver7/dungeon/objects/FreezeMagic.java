@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractSpell;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 
 public class FreezeMagic extends AbstractSpell {
@@ -19,7 +19,7 @@ public class FreezeMagic extends AbstractSpell {
     // Scriptability
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(SoundConstants.FREEZE_MAGIC);
+	SoundLoader.playSound(Sounds.FREEZE_MAGIC);
 	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().fullScanFreezeGround();
 	DungeonDiver7.getStuffBag().getGameLogic();
 	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());

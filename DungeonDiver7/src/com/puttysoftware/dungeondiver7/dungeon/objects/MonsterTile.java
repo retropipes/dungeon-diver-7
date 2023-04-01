@@ -5,14 +5,14 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.utility.RandomGenerationRule;
-import com.puttysoftware.randomrange.RandomRange;
+import com.puttysoftware.diane.random.RandomRange;
 
 public class MonsterTile extends AbstractMovingObject {
     // Constructors
@@ -34,7 +34,7 @@ public class MonsterTile extends AbstractMovingObject {
     public void timerExpiredAction(final int dirX, final int dirY) {
 	// Move the monster
 	final var r = new RandomRange(0, 7);
-	final var move = Directions.values()[r.generate()];
+	final var move = Direction.values()[r.generate()];
 	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().updateMonsterPosition(move, dirX, dirY, this, 0);
 	this.activateTimer(1);
     }

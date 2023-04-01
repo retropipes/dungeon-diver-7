@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.utility;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.locale.EditorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.TimeTravel;
@@ -50,127 +50,103 @@ public class DungeonConstants {
 	return DungeonConstants.ERA_LIST;
     }
 
-    public static Directions nextDirOrtho(final Directions input) {
+    public static Direction nextDirOrtho(final Direction input) {
 	switch (input) {
-	case INVALID:
-	    return Directions.INVALID;
 	case NONE:
-	    return Directions.NONE;
+	    return Direction.NONE;
 	case NORTH:
-	    return Directions.EAST;
-	case NORTHEAST:
-	    return Directions.SOUTHEAST;
+	    return Direction.EAST;
+	case NORTH_EAST:
+	    return Direction.SOUTH_EAST;
 	case EAST:
-	    return Directions.SOUTH;
-	case SOUTHEAST:
-	    return Directions.SOUTHWEST;
+	    return Direction.SOUTH;
+	case SOUTH_EAST:
+	    return Direction.SOUTH_WEST;
 	case SOUTH:
-	    return Directions.WEST;
-	case SOUTHWEST:
-	    return Directions.NORTHWEST;
+	    return Direction.WEST;
+	case SOUTH_WEST:
+	    return Direction.NORTH_WEST;
 	case WEST:
-	    return Directions.NORTH;
-	case NORTHWEST:
-	    return Directions.NORTHEAST;
-	case HORIZONTAL:
-	    return Directions.VERTICAL;
-	case VERTICAL:
-	    return Directions.HORIZONTAL;
+	    return Direction.NORTH;
+	case NORTH_WEST:
+	    return Direction.NORTH_EAST;
 	default:
-	    return Directions.INVALID;
+	    return Direction.NONE;
 	}
     }
 
-    public static Directions previousDirOrtho(final Directions input) {
+    public static Direction previousDirOrtho(final Direction input) {
 	switch (input) {
-	case INVALID:
-	    return Directions.INVALID;
 	case NONE:
-	    return Directions.NONE;
+	    return Direction.NONE;
 	case NORTH:
-	    return Directions.WEST;
-	case NORTHEAST:
-	    return Directions.NORTHWEST;
+	    return Direction.WEST;
+	case NORTH_EAST:
+	    return Direction.NORTH_WEST;
 	case EAST:
-	    return Directions.NORTH;
-	case SOUTHEAST:
-	    return Directions.NORTHEAST;
+	    return Direction.NORTH;
+	case SOUTH_EAST:
+	    return Direction.NORTH_EAST;
 	case SOUTH:
-	    return Directions.EAST;
-	case SOUTHWEST:
-	    return Directions.SOUTHEAST;
+	    return Direction.EAST;
+	case SOUTH_WEST:
+	    return Direction.SOUTH_EAST;
 	case WEST:
-	    return Directions.SOUTH;
-	case NORTHWEST:
-	    return Directions.SOUTHWEST;
-	case HORIZONTAL:
-	    return Directions.VERTICAL;
-	case VERTICAL:
-	    return Directions.HORIZONTAL;
+	    return Direction.SOUTH;
+	case NORTH_WEST:
+	    return Direction.SOUTH_WEST;
 	default:
-	    return Directions.INVALID;
+	    return Direction.NONE;
 	}
     }
 
-    public static Directions nextDir(final Directions input) {
+    public static Direction nextDir(final Direction input) {
 	switch (input) {
-	case INVALID:
-	    return Directions.INVALID;
 	case NONE:
-	    return Directions.NONE;
+	    return Direction.NONE;
 	case NORTH:
-	    return Directions.NORTHEAST;
-	case NORTHEAST:
-	    return Directions.EAST;
+	    return Direction.NORTH_EAST;
+	case NORTH_EAST:
+	    return Direction.EAST;
 	case EAST:
-	    return Directions.SOUTHEAST;
-	case SOUTHEAST:
-	    return Directions.SOUTH;
+	    return Direction.SOUTH_EAST;
+	case SOUTH_EAST:
+	    return Direction.SOUTH;
 	case SOUTH:
-	    return Directions.SOUTHWEST;
-	case SOUTHWEST:
-	    return Directions.WEST;
+	    return Direction.SOUTH_WEST;
+	case SOUTH_WEST:
+	    return Direction.WEST;
 	case WEST:
-	    return Directions.NORTHWEST;
-	case NORTHWEST:
-	    return Directions.NORTH;
-	case HORIZONTAL:
-	    return Directions.VERTICAL;
-	case VERTICAL:
-	    return Directions.HORIZONTAL;
+	    return Direction.NORTH_WEST;
+	case NORTH_WEST:
+	    return Direction.NORTH;
 	default:
-	    return Directions.INVALID;
+	    return Direction.NONE;
 	}
     }
 
-    public static Directions previousDir(final Directions input) {
+    public static Direction previousDir(final Direction input) {
 	switch (input) {
-	case INVALID:
-	    return Directions.INVALID;
 	case NONE:
-	    return Directions.NONE;
+	    return Direction.NONE;
 	case NORTH:
-	    return Directions.NORTHWEST;
-	case NORTHEAST:
-	    return Directions.NORTH;
+	    return Direction.NORTH_WEST;
+	case NORTH_EAST:
+	    return Direction.NORTH;
 	case EAST:
-	    return Directions.NORTHEAST;
-	case SOUTHEAST:
-	    return Directions.EAST;
+	    return Direction.NORTH_EAST;
+	case SOUTH_EAST:
+	    return Direction.EAST;
 	case SOUTH:
-	    return Directions.SOUTHEAST;
-	case SOUTHWEST:
-	    return Directions.SOUTH;
+	    return Direction.SOUTH_EAST;
+	case SOUTH_WEST:
+	    return Direction.SOUTH;
 	case WEST:
-	    return Directions.SOUTHWEST;
-	case NORTHWEST:
-	    return Directions.WEST;
-	case HORIZONTAL:
-	    return Directions.VERTICAL;
-	case VERTICAL:
-	    return Directions.HORIZONTAL;
+	    return Direction.SOUTH_WEST;
+	case NORTH_WEST:
+	    return Direction.WEST;
 	default:
-	    return Directions.INVALID;
+	    return Direction.NONE;
 	}
     }
 }

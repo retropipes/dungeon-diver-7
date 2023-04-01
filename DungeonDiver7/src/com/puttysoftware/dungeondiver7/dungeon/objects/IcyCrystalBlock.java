@@ -5,12 +5,12 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
@@ -25,18 +25,18 @@ public class IcyCrystalBlock extends AbstractReactionWall {
     }
 
     @Override
-    public Directions laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
+    public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
 	    final int dirY, final int laserType, final int forceUnits) {
 	if (laserType == ShotTypes.MISSILE) {
 	    // Destroy icy crystal block
-	    SoundLoader.playSound(SoundConstants.BOOM);
+	    SoundLoader.playSound(Sounds.BOOM);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
-	    return Directions.NONE;
+	    return Direction.NONE;
 	}
 	if (laserType == ShotTypes.DISRUPTOR) {
 	    // Disrupt icy crystal block
-	    SoundLoader.playSound(SoundConstants.DISRUPTED);
+	    SoundLoader.playSound(Sounds.DISRUPTED);
 	    final var dicb = new DisruptedIcyCrystalBlock();
 	    if (this.hasPreviousState()) {
 		dicb.setPreviousState(this.getPreviousState());
@@ -45,9 +45,9 @@ public class IcyCrystalBlock extends AbstractReactionWall {
 	    GameLogic.morph(dicb, locX, locY, locZ, this.getLayer());
 	} else {
 	    // Stop laser
-	    SoundLoader.playSound(SoundConstants.LASER_DIE);
+	    SoundLoader.playSound(Sounds.LASER_DIE);
 	}
-	return Directions.NONE;
+	return Direction.NONE;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class IcyCrystalBlock extends AbstractReactionWall {
 	}
 	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE) {
 	    // Heat up crystal block
-	    SoundLoader.playSound(SoundConstants.MELT);
+	    SoundLoader.playSound(Sounds.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE) {

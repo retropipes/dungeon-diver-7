@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeonData;
@@ -96,70 +96,70 @@ class LaserTankV4FileLevel {
 			break;
 		    case 7:
 			ao = new ArrowTurret();
-			ao.setDirection(Directions.NORTH);
+			ao.setDirection(Direction.NORTH);
 			break;
 		    case 8:
 			ao = new ArrowTurret();
-			ao.setDirection(Directions.EAST);
+			ao.setDirection(Direction.EAST);
 			break;
 		    case 9:
 			ao = new ArrowTurret();
-			ao.setDirection(Directions.SOUTH);
+			ao.setDirection(Direction.SOUTH);
 			break;
 		    case 10:
 			ao = new ArrowTurret();
-			ao.setDirection(Directions.WEST);
+			ao.setDirection(Direction.WEST);
 			break;
 		    case 11:
 			ao = new Mirror();
-			ao.setDirection(Directions.NORTHWEST);
+			ao.setDirection(Direction.NORTH_WEST);
 			break;
 		    case 12:
 			ao = new Mirror();
-			ao.setDirection(Directions.NORTHEAST);
+			ao.setDirection(Direction.NORTH_EAST);
 			break;
 		    case 13:
 			ao = new Mirror();
-			ao.setDirection(Directions.SOUTHEAST);
+			ao.setDirection(Direction.SOUTH_EAST);
 			break;
 		    case 14:
 			ao = new Mirror();
-			ao.setDirection(Directions.SOUTHWEST);
+			ao.setDirection(Direction.SOUTH_WEST);
 			break;
 		    case 15:
 			ao = new PartyMover();
-			ao.setDirection(Directions.NORTH);
+			ao.setDirection(Direction.NORTH);
 			break;
 		    case 16:
 			ao = new PartyMover();
-			ao.setDirection(Directions.EAST);
+			ao.setDirection(Direction.EAST);
 			break;
 		    case 17:
 			ao = new PartyMover();
-			ao.setDirection(Directions.SOUTH);
+			ao.setDirection(Direction.SOUTH);
 			break;
 		    case 18:
 			ao = new PartyMover();
-			ao.setDirection(Directions.WEST);
+			ao.setDirection(Direction.WEST);
 			break;
 		    case 19:
 			ao = new CrystalBlock();
 			break;
 		    case 20:
 			ao = new RotaryMirror();
-			ao.setDirection(Directions.NORTHWEST);
+			ao.setDirection(Direction.NORTH_WEST);
 			break;
 		    case 21:
 			ao = new RotaryMirror();
-			ao.setDirection(Directions.NORTHEAST);
+			ao.setDirection(Direction.NORTH_EAST);
 			break;
 		    case 22:
 			ao = new RotaryMirror();
-			ao.setDirection(Directions.SOUTHEAST);
+			ao.setDirection(Direction.SOUTH_EAST);
 			break;
 		    case 23:
 			ao = new RotaryMirror();
-			ao.setDirection(Directions.SOUTHWEST);
+			ao.setDirection(Direction.SOUTH_WEST);
 			break;
 		    case 24:
 			ao = new Ice();

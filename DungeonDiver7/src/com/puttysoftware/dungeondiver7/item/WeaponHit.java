@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.item;
 
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 
 public class WeaponHit {
     // Private Constructor
@@ -13,10 +13,10 @@ public class WeaponHit {
 	// Do nothing
     }
 
-    private static final int[] HIT_SOUND_LOOKUP = { SoundConstants.AXE_HIT, SoundConstants.DAGGER_HIT,
-	    SoundConstants.HAMMER_HIT, SoundConstants.STAFF_HIT, SoundConstants.SWORD_HIT, SoundConstants.WAND_HIT };
+    private static final Sounds[] HIT_SOUND_LOOKUP = { Sounds.AXE_HIT, Sounds.DAGGER_HIT,
+	    Sounds.HAMMER_HIT, Sounds.STAFF_HIT, Sounds.SWORD_HIT, Sounds.WAND_HIT };
 
-    public static int getWeaponTypeHitSound(final int index) {
+    public static Sounds getWeaponTypeHitSound(final int index) {
 	return WeaponHit.HIT_SOUND_LOOKUP[index];
     }
 }

@@ -6,7 +6,7 @@
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
@@ -20,7 +20,7 @@ public abstract class AbstractAllButton extends AbstractButton {
     @Override
     public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
 	if (this.isUniversal() || pushed.getMaterial() == this.getMaterial()) {
-	    SoundLoader.playSound(SoundConstants.BUTTON);
+	    SoundLoader.playSound(Sounds.BUTTON);
 	    if (!this.isTriggered()) {
 		// Check to open door at location
 		this.setTriggered(true);

@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.puttysoftware.diane.gui.MainWindow;
-import com.puttysoftware.diane.strings.DianeStrings;
+import com.puttysoftware.diane.locale.DianeStrings;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Menu;

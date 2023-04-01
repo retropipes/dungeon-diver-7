@@ -5,11 +5,11 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.DirectionResolver;
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.DirectionResolver;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
@@ -18,14 +18,14 @@ public class MetallicMirror extends AbstractMovableObject {
     // Constructors
     public MetallicMirror() {
 	super(true);
-	this.setDirection(Directions.NORTHEAST);
+	this.setDirection(Direction.NORTH_EAST);
 	this.setDiagonalOnly(true);
 	this.type.set(DungeonObjectTypes.TYPE_MOVABLE_MIRROR);
 	this.setMaterial(Materials.METALLIC);
     }
 
     @Override
-    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	final var dir = DirectionResolver.resolveInvert(dirX, dirY);
 	if (AbstractDungeonObject.hitReflectiveSide(dir)) {
@@ -37,47 +37,47 @@ public class MetallicMirror extends AbstractMovableObject {
     }
 
     @Override
-    public Directions laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType) {
 	// Finish reflecting laser
-	SoundLoader.playSound(SoundConstants.REFLECT);
+	SoundLoader.playSound(Sounds.REFLECT);
 	final var oldlaser = DirectionResolver.resolveInvert(locX, locY);
 	final var currdir = this.getDirection();
-	if (oldlaser == Directions.NORTH) {
-	    if (currdir == Directions.NORTHWEST) {
-		return Directions.WEST;
+	if (oldlaser == Direction.NORTH) {
+	    if (currdir == Direction.NORTH_WEST) {
+		return Direction.WEST;
 	    }
-	    if (currdir == Directions.NORTHEAST) {
-		return Directions.EAST;
+	    if (currdir == Direction.NORTH_EAST) {
+		return Direction.EAST;
 	    }
-	} else if (oldlaser == Directions.SOUTH) {
-	    if (currdir == Directions.SOUTHWEST) {
-		return Directions.WEST;
+	} else if (oldlaser == Direction.SOUTH) {
+	    if (currdir == Direction.SOUTH_WEST) {
+		return Direction.WEST;
 	    }
-	    if (currdir == Directions.SOUTHEAST) {
-		return Directions.EAST;
+	    if (currdir == Direction.SOUTH_EAST) {
+		return Direction.EAST;
 	    }
-	} else if (oldlaser == Directions.WEST) {
-	    if (currdir == Directions.SOUTHWEST) {
-		return Directions.SOUTH;
+	} else if (oldlaser == Direction.WEST) {
+	    if (currdir == Direction.SOUTH_WEST) {
+		return Direction.SOUTH;
 	    }
-	    if (currdir == Directions.NORTHWEST) {
-		return Directions.NORTH;
+	    if (currdir == Direction.NORTH_WEST) {
+		return Direction.NORTH;
 	    }
-	} else if (oldlaser == Directions.EAST) {
-	    if (currdir == Directions.SOUTHEAST) {
-		return Directions.SOUTH;
+	} else if (oldlaser == Direction.EAST) {
+	    if (currdir == Direction.SOUTH_EAST) {
+		return Direction.SOUTH;
 	    }
-	    if (currdir == Directions.NORTHEAST) {
-		return Directions.NORTH;
+	    if (currdir == Direction.NORTH_EAST) {
+		return Direction.NORTH;
 	    }
 	}
-	return Directions.NONE;
+	return Direction.NONE;
     }
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(SoundConstants.PUSH_MIRROR);
+	SoundLoader.playSound(Sounds.PUSH_MIRROR);
     }
 
     @Override

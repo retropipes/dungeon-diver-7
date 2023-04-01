@@ -5,8 +5,8 @@
  */
 package com.puttysoftware.dungeondiver7.game;
 
-import com.puttysoftware.diane.utilties.DirectionResolver;
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.DirectionResolver;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
@@ -23,7 +23,7 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.PowerArrow;
 import com.puttysoftware.dungeondiver7.dungeon.objects.PowerfulParty;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Stunner;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Wall;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
@@ -67,12 +67,12 @@ final class MovingLaserTracker {
 	case ShotTypes.GREEN:
 	    if (this.shooter instanceof PowerfulParty) {
 		this.lt = ShotTypes.POWER;
-		SoundLoader.playSound(SoundConstants.POWER_LASER);
+		SoundLoader.playSound(Sounds.POWER_LASER);
 	    } else if (this.shooter instanceof ArrowTurretDisguise) {
 		this.lt = ShotTypes.RED;
-		SoundLoader.playSound(SoundConstants.ANTI_FIRE);
+		SoundLoader.playSound(Sounds.ANTI_FIRE);
 	    } else {
-		SoundLoader.playSound(SoundConstants.FIRE_LASER);
+		SoundLoader.playSound(Sounds.FIRE_LASER);
 	    }
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(true, false, false, false, false, false, false, false, false, false);
@@ -85,7 +85,7 @@ final class MovingLaserTracker {
 	    break;
 	case ShotTypes.RED:
 	    if (!gm.getCheatStatus(GameLogic.CHEAT_INVINCIBLE)) {
-		SoundLoader.playSound(SoundConstants.ANTI_FIRE);
+		SoundLoader.playSound(Sounds.ANTI_FIRE);
 		this.laser = true;
 		this.res = true;
 	    }
@@ -94,7 +94,7 @@ final class MovingLaserTracker {
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, true, false, false, false, false, false, false, false, false);
 	    PartyInventory.fireMissile();
-	    SoundLoader.playSound(SoundConstants.MISSILE);
+	    SoundLoader.playSound(Sounds.MISSILE);
 	    gm.updateScore(0, 0, 1);
 	    if (!gm.isReplaying()) {
 		gm.updateReplay(true, 0, 0);
@@ -106,7 +106,7 @@ final class MovingLaserTracker {
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, false, true, false, false, false, false, false, false, false);
 	    PartyInventory.fireStunner();
-	    SoundLoader.playSound(SoundConstants.STUNNER);
+	    SoundLoader.playSound(Sounds.STUNNER);
 	    gm.updateScore(0, 0, 1);
 	    if (!gm.isReplaying()) {
 		gm.updateReplay(true, 0, 0);
@@ -118,7 +118,7 @@ final class MovingLaserTracker {
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, false, false, false, false, true, false, false, false, false);
 	    PartyInventory.fireBlueLaser();
-	    SoundLoader.playSound(SoundConstants.FIRE_LASER);
+	    SoundLoader.playSound(Sounds.FIRE_LASER);
 	    gm.updateScore(0, 0, 1);
 	    if (!gm.isReplaying()) {
 		gm.updateReplay(true, 0, 0);
@@ -130,7 +130,7 @@ final class MovingLaserTracker {
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, false, false, false, false, false, true, false, false, false);
 	    PartyInventory.fireDisruptor();
-	    SoundLoader.playSound(SoundConstants.DISRUPTOR);
+	    SoundLoader.playSound(Sounds.DISRUPTOR);
 	    gm.updateScore(0, 0, 1);
 	    if (!gm.isReplaying()) {
 		gm.updateReplay(true, 0, 0);
@@ -212,7 +212,7 @@ final class MovingLaserTracker {
 	}
 	if (this.res) {
 	    int[] resolved;
-	    Directions laserDir;
+	    Direction laserDir;
 	    this.l = MovingLaserTracker.createLaserForType(this.lt);
 	    if (this.lt == ShotTypes.MISSILE) {
 		final var suffix = DirectionResolver.resolve(this.incX, this.incY);
@@ -220,7 +220,7 @@ final class MovingLaserTracker {
 	    } else if (this.lt == ShotTypes.STUNNER || this.lt == ShotTypes.DISRUPTOR) {
 		// Do nothing
 	    } else {
-		final var suffix = DirectionResolver.resolveHV(this.incX, this.incY);
+		final var suffix = DirectionResolver.resolve(this.incX, this.incY);
 		this.l.setDirection(suffix);
 	    }
 	    final var oldincX = this.incX;
@@ -247,11 +247,11 @@ final class MovingLaserTracker {
 	    }
 	    var dir = lou.laserEnteredAction(this.ox + this.cumX, this.oy + this.cumY, pz, this.incX, this.incY,
 		    this.lt, this.l.getForceUnitsImbued());
-	    if (dir != Directions.NONE) {
+	    if (dir != Direction.NONE) {
 		dir = lol.laserEnteredAction(this.ox + this.cumX, this.oy + this.cumY, pz, this.incX, this.incY,
 			this.lt, this.l.getForceUnitsImbued());
 	    }
-	    if (dir == Directions.NONE) {
+	    if (dir == Direction.NONE) {
 		this.res = false;
 		// Clear laser, because it died
 		try {
@@ -264,15 +264,15 @@ final class MovingLaserTracker {
 	    resolved = DirectionResolver.unresolve(dir);
 	    var resX = resolved[0];
 	    var resY = resolved[1];
-	    laserDir = DirectionResolver.resolveHV(resX, resY);
+	    laserDir = DirectionResolver.resolve(resX, resY);
 	    this.l.setDirection(laserDir);
 	    this.incX = resX;
 	    this.incY = resY;
 	    dir = lou.laserExitedAction(oldincX, oldincY, pz, this.incX, this.incY, this.lt);
-	    if (dir != Directions.NONE) {
+	    if (dir != Direction.NONE) {
 		dir = lol.laserExitedAction(oldincX, oldincY, pz, this.incX, this.incY, this.lt);
 	    }
-	    if (dir == Directions.NONE) {
+	    if (dir == Direction.NONE) {
 		this.res = false;
 		// Clear laser, because it died
 		try {
@@ -285,7 +285,7 @@ final class MovingLaserTracker {
 	    resolved = DirectionResolver.unresolve(dir);
 	    resX = resolved[0];
 	    resY = resolved[1];
-	    laserDir = DirectionResolver.resolveHV(resX, resY);
+	    laserDir = DirectionResolver.resolve(resX, resY);
 	    this.l.setDirection(laserDir);
 	    this.incX = resX;
 	    this.incY = resY;

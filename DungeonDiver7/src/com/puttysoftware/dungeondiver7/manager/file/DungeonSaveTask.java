@@ -8,14 +8,14 @@ package com.puttysoftware.dungeondiver7.manager.file;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.fileutils.ZipUtilities;
+import com.puttysoftware.diane.fileio.utility.ZipUtilities;
 
 public class DungeonSaveTask extends Thread {
     // Fields

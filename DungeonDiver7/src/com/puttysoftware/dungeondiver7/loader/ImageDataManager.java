@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.fileutils.ResourceStreamReader;
+import com.puttysoftware.diane.fileio.utility.ResourceStreamReader;
 
 public class ImageDataManager {
     public static String[] getObjectGraphicsData() {

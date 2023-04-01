@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.battle.damage;
 
-import com.puttysoftware.randomrange.RandomRange;
+import com.puttysoftware.diane.random.RandomRange;
 
 class CommonDamageEngineParts {
     static final int MULTIPLIER_DIVIDE = 100000;

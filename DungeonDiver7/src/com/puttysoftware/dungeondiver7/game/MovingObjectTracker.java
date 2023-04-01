@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.dungeondiver7.game;
 
-import com.puttysoftware.diane.utilties.DirectionResolver;
+import com.puttysoftware.diane.direction.DirectionResolver;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractJumpObject;

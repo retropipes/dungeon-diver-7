@@ -5,12 +5,12 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractWall;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
@@ -24,25 +24,25 @@ public class IcyWall extends AbstractWall {
     }
 
     @Override
-    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	if (laserType == ShotTypes.DISRUPTOR) {
 	    // Disrupt icy wall
-	    SoundLoader.playSound(SoundConstants.DISRUPTED);
+	    SoundLoader.playSound(Sounds.DISRUPTED);
 	    final var diw = new DisruptedIcyWall();
 	    if (this.hasPreviousState()) {
 		diw.setPreviousState(this.getPreviousState());
 	    }
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(diw, locX, locY, locZ, this.getLayer());
-	    return Directions.NONE;
+	    return Direction.NONE;
 	}
 	if (laserType != ShotTypes.MISSILE) {
 	    // Stop laser
 	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
 	// Defrost icy wall
-	SoundLoader.playSound(SoundConstants.DEFROST);
+	SoundLoader.playSound(Sounds.DEFROST);
 	AbstractDungeonObject ao;
 	if (this.hasPreviousState()) {
 	    ao = this.getPreviousState();
@@ -51,7 +51,7 @@ public class IcyWall extends AbstractWall {
 	}
 	DungeonDiver7.getStuffBag().getGameLogic();
 	GameLogic.morph(ao, locX, locY, locZ, this.getLayer());
-	return Directions.NONE;
+	return Direction.NONE;
     }
 
     @Override

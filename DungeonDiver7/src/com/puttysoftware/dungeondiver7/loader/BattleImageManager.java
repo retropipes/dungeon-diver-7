@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
-import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 
 public class BattleImageManager {
     private static Class<?> LOAD_CLASS = BattleImageManager.class;

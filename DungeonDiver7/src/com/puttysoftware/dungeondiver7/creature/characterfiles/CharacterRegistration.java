@@ -12,10 +12,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.fileutils.ResourceStreamReader;
+import com.puttysoftware.diane.fileio.utility.ResourceStreamReader;
 
 public class CharacterRegistration {
     // Fields

@@ -7,15 +7,15 @@ package com.puttysoftware.dungeondiver7.dungeon.abc;
 
 import java.io.IOException;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Empty;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 import com.puttysoftware.dungeondiver7.utility.ShotTypes;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
 
 public abstract class AbstractMovableObject extends AbstractDungeonObject {
     // Fields
@@ -59,7 +59,7 @@ public abstract class AbstractMovableObject extends AbstractDungeonObject {
     public abstract void playSoundHook();
 
     @Override
-    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	final var app = DungeonDiver7.getStuffBag();
 	if (!this.canMove() || forceUnits < this.getMinimumReactionForce()) {
@@ -95,7 +95,7 @@ public abstract class AbstractMovableObject extends AbstractDungeonObject {
 	    // Object can't go that way
 	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
-	return Directions.NONE;
+	return Direction.NONE;
     }
 
     @Override
@@ -114,43 +114,43 @@ public abstract class AbstractMovableObject extends AbstractDungeonObject {
     }
 
     @Override
-    protected AbstractDungeonObject readHookV2(final FileIOReader reader, final int formatVersion) throws IOException {
+    protected AbstractDungeonObject readHookV2(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV2(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV3(final FileIOReader reader, final int formatVersion) throws IOException {
+    protected AbstractDungeonObject readHookV3(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV3(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV4(final FileIOReader reader, final int formatVersion) throws IOException {
+    protected AbstractDungeonObject readHookV4(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV4(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV5(final FileIOReader reader, final int formatVersion) throws IOException {
+    protected AbstractDungeonObject readHookV5(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV5(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV6(final FileIOReader reader, final int formatVersion) throws IOException {
+    protected AbstractDungeonObject readHookV6(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV6(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV7(final FileIOReader reader, final int formatVersion) throws IOException {
+    protected AbstractDungeonObject readHookV7(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV7(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected void writeHook(final FileIOWriter writer) throws IOException {
+    protected void writeHook(final DataIOWriter writer) throws IOException {
 	this.getSavedObject().write(writer);
     }
 

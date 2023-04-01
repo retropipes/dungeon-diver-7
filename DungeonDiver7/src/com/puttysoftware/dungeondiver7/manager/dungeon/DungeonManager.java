@@ -13,7 +13,7 @@ import java.net.URISyntaxException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
@@ -32,7 +32,7 @@ import com.puttysoftware.dungeondiver7.manager.file.GameLoadTask;
 import com.puttysoftware.dungeondiver7.manager.file.GameSaveTask;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.CleanupTask;
-import com.puttysoftware.fileutils.FilenameChecker;
+import com.puttysoftware.diane.fileio.utility.FilenameChecker;
 
 public final class DungeonManager {
     // Fields

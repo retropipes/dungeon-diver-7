@@ -5,12 +5,12 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
@@ -26,7 +26,7 @@ public class WoodenBox extends AbstractMovableObject {
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(SoundConstants.PUSH_BOX);
+	SoundLoader.playSound(Sounds.PUSH_BOX);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class WoodenBox extends AbstractMovableObject {
     }
 
     @Override
-    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	final var app = DungeonDiver7.getStuffBag();
 	if (forceUnits < this.getMinimumReactionForce()) {
@@ -60,7 +60,7 @@ public class WoodenBox extends AbstractMovableObject {
 	final var mor = app.getDungeonManager().getDungeon().getCell(locX - dirX, locY - dirY, locZ, this.getLayer());
 	if (laserType == ShotTypes.MISSILE) {
 	    // Destroy wooden box
-	    SoundLoader.playSound(SoundConstants.BARREL);
+	    SoundLoader.playSound(Sounds.BARREL);
 	    app.getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	} else {
@@ -75,6 +75,6 @@ public class WoodenBox extends AbstractMovableObject {
 	    }
 	    this.playSoundHook();
 	}
-	return Directions.NONE;
+	return Direction.NONE;
     }
 }

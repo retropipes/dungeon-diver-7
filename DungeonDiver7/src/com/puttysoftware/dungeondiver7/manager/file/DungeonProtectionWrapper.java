@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 
@@ -57,6 +57,6 @@ public class DungeonProtectionWrapper {
 
     private static char[] getTransform() {
 	return CommonDialogs.showPasswordInputDialog(Strings.dialog(DialogString.PROTECTION_PROMPT),
-		Strings.dialog(DialogString.PROTECTION_TITLE), 15);
+		Strings.dialog(DialogString.PROTECTION_TITLE));
     }
 }

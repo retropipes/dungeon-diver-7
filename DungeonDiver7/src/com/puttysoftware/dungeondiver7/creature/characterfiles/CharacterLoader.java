@@ -8,25 +8,25 @@ package com.puttysoftware.dungeondiver7.creature.characterfiles;
 import java.io.File;
 import java.io.IOException;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.VersionException;
 import com.puttysoftware.dungeondiver7.creature.party.PartyMember;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.fileio.FileIOException;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
-import com.puttysoftware.fileio.XDataReader;
-import com.puttysoftware.fileio.XDataWriter;
+import com.puttysoftware.diane.fileio.DataIOException;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
+import com.puttysoftware.diane.fileio.XDataReader;
+import com.puttysoftware.diane.fileio.XDataWriter;
 
 public class CharacterLoader {
     private static PartyMember loadCharacter(final String name) {
 	final var basePath = CharacterRegistration.getBasePath();
 	final var loadPath = basePath + File.separator + name + Strings.fileExtension(FileExtension.CHARACTER);
-	try (FileIOReader loader = new XDataReader(loadPath, "character")) {
+	try (DataIOReader loader = new XDataReader(loadPath, "character")) {
 	    return PartyMember.read(loader);
-	} catch (VersionException | FileIOException e) {
+	} catch (VersionException | DataIOException e) {
 	    CharacterRegistration.autoremoveCharacter(name);
 	    return null;
 	} catch (final IOException e) {
@@ -58,7 +58,7 @@ public class CharacterLoader {
 	final var basePath = CharacterRegistration.getBasePath();
 	final var name = character.getName();
 	final var characterFile = basePath + File.separator + name + Strings.fileExtension(FileExtension.CHARACTER);
-	try (FileIOWriter saver = new XDataWriter(characterFile, "character")) {
+	try (DataIOWriter saver = new XDataWriter(characterFile, "character")) {
 	    character.write(saver);
 	} catch (final IOException e) {
 	    DungeonDiver7.logError(e);

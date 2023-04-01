@@ -7,8 +7,7 @@ package com.puttysoftware.dungeondiver7.creature.party;
 
 import java.io.IOException;
 
-import com.puttysoftware.ack.AvatarConstructionKit;
-import com.puttysoftware.dungeondiver7.DungeonDiver7;
+import com.puttysoftware.diane.ack.AvatarConstructionKit;
 import com.puttysoftware.dungeondiver7.VersionException;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
@@ -19,10 +18,10 @@ import com.puttysoftware.dungeondiver7.dungeon.current.GenerateDungeonTask;
 import com.puttysoftware.dungeondiver7.item.ItemInventory;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.FileFormats;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
-import com.puttysoftware.images.BufferedImageIcon;
-import com.puttysoftware.polytable.PolyTable;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import com.puttysoftware.diane.polytable.PolyTable;
 
 public class PartyMember extends AbstractCreature {
     // Fields
@@ -229,7 +228,7 @@ public class PartyMember extends AbstractCreature {
 	this.setGold(0);
     }
 
-    public static PartyMember read(final FileIOReader worldFile) throws IOException {
+    public static PartyMember read(final DataIOReader worldFile) throws IOException {
 	final int version = worldFile.readByte();
 	if (version < FileFormats.CHARACTER_2) {
 	    throw new VersionException("Invalid character version found: " + version);
@@ -281,7 +280,7 @@ public class PartyMember extends AbstractCreature {
 	return pm;
     }
 
-    public void write(final FileIOWriter worldFile) throws IOException {
+    public void write(final DataIOWriter worldFile) throws IOException {
 	worldFile.writeByte(FileFormats.CHARACTER_LATEST);
 	worldFile.writeInt(this.kills);
 	worldFile.writeInt(this.getPermanentAttackPoints());
@@ -316,12 +315,7 @@ public class PartyMember extends AbstractCreature {
 
     @Override
     protected BufferedImageIcon getInitialImage() {
-	try {
-	    return AvatarConstructionKit.constructFromAvatarID(this.avatarID).generateAvatarImage();
-	} catch (final IOException e) {
-	    DungeonDiver7.logError(e);
-	    return null;
-	}
+		return AvatarConstructionKit.constructFromAvatarID(this.avatarID).generateAvatarImage();
     }
 
     @Override

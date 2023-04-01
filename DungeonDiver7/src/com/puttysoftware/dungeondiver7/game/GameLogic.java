@@ -11,9 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
-import com.puttysoftware.diane.strings.DianeStrings;
-import com.puttysoftware.diane.utilties.DirectionResolver;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
+import com.puttysoftware.diane.locale.DianeStrings;
+import com.puttysoftware.diane.direction.DirectionResolver;
 import com.puttysoftware.dungeondiver7.Accelerators;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.MenuSection;
@@ -30,7 +30,7 @@ import com.puttysoftware.dungeondiver7.dungeon.objects.Party;
 import com.puttysoftware.dungeondiver7.dungeon.objects.PowerfulParty;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
@@ -50,10 +50,10 @@ import com.puttysoftware.dungeondiver7.utility.InvalidDungeonException;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 import com.puttysoftware.dungeondiver7.utility.RangeTypes;
 import com.puttysoftware.dungeondiver7.utility.ShotTypes;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
-import com.puttysoftware.fileio.XDataReader;
-import com.puttysoftware.fileio.XDataWriter;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
+import com.puttysoftware.diane.fileio.XDataReader;
+import com.puttysoftware.diane.fileio.XDataWriter;
 
 public final class GameLogic implements MenuSection {
     // Fields
@@ -555,7 +555,7 @@ public final class GameLogic implements MenuSection {
 
     void fireRange() {
 	// Boom!
-	SoundLoader.playSound(SoundConstants.BOOM);
+	SoundLoader.playSound(Sounds.BOOM);
 	this.updateScore(0, 0, 1);
 	switch (this.otherRangeMode) {
 	case GameLogic.OTHER_RANGE_MODE_BOMBS:
@@ -841,7 +841,7 @@ public final class GameLogic implements MenuSection {
 
     public void solvedLevel(final boolean playSound) {
 	if (playSound) {
-	    SoundLoader.playSound(SoundConstants.END_LEVEL);
+	    SoundLoader.playSound(Sounds.END_LEVEL);
 	}
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();
@@ -942,7 +942,7 @@ public final class GameLogic implements MenuSection {
 	    this.abortMovementLaserObjectLoop();
 	}
 	this.mlot = null;
-	SoundLoader.playSound(SoundConstants.DEAD);
+	SoundLoader.playSound(Sounds.DEAD);
 	final var choice = CustomDialogs.showDeadDialog();
 	switch (choice) {
 	case JOptionPane.CANCEL_OPTION:
@@ -1129,7 +1129,7 @@ public final class GameLogic implements MenuSection {
 		final var newDir = DirectionResolver.resolve(x, y);
 		if (currDir != newDir) {
 		    this.player.setDirection(newDir);
-		    SoundLoader.playSound(SoundConstants.TURN);
+		    SoundLoader.playSound(Sounds.TURN);
 		    this.redrawDungeon();
 		} else {
 		    this.updatePositionRelative(x, y);
@@ -1332,7 +1332,7 @@ public final class GameLogic implements MenuSection {
 	CommonDialogs.showTitledDialog(desc, gameName);
     }
 
-    public void loadGameHookG1(final FileIOReader dungeonFile) throws IOException {
+    public void loadGameHookG1(final DataIOReader dungeonFile) throws IOException {
 	final var app = DungeonDiver7.getStuffBag();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
@@ -1340,7 +1340,7 @@ public final class GameLogic implements MenuSection {
 	this.st.setOthers(dungeonFile.readLong());
     }
 
-    public void loadGameHookG2(final FileIOReader dungeonFile) throws IOException {
+    public void loadGameHookG2(final DataIOReader dungeonFile) throws IOException {
 	final var app = DungeonDiver7.getStuffBag();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
@@ -1351,7 +1351,7 @@ public final class GameLogic implements MenuSection {
 	PartyInventory.setBlueKeysLeft(dungeonFile.readInt());
     }
 
-    public void loadGameHookG3(final FileIOReader dungeonFile) throws IOException {
+    public void loadGameHookG3(final DataIOReader dungeonFile) throws IOException {
 	final var app = DungeonDiver7.getStuffBag();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
@@ -1360,7 +1360,7 @@ public final class GameLogic implements MenuSection {
 	PartyInventory.readInventory(dungeonFile);
     }
 
-    public void loadGameHookG4(final FileIOReader dungeonFile) throws IOException {
+    public void loadGameHookG4(final DataIOReader dungeonFile) throws IOException {
 	final var app = DungeonDiver7.getStuffBag();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
@@ -1369,7 +1369,7 @@ public final class GameLogic implements MenuSection {
 	PartyInventory.readInventory(dungeonFile);
     }
 
-    public void loadGameHookG5(final FileIOReader dungeonFile) throws IOException {
+    public void loadGameHookG5(final DataIOReader dungeonFile) throws IOException {
 	final var app = DungeonDiver7.getStuffBag();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
@@ -1378,7 +1378,7 @@ public final class GameLogic implements MenuSection {
 	PartyInventory.readInventory(dungeonFile);
     }
 
-    public void loadGameHookG6(final FileIOReader dungeonFile) throws IOException {
+    public void loadGameHookG6(final DataIOReader dungeonFile) throws IOException {
 	final var app = DungeonDiver7.getStuffBag();
 	app.getDungeonManager().setScoresFileName(dungeonFile.readString());
 	this.st.setMoves(dungeonFile.readLong());
@@ -1387,7 +1387,7 @@ public final class GameLogic implements MenuSection {
 	PartyInventory.readInventory(dungeonFile);
     }
 
-    public void saveGameHook(final FileIOWriter dungeonFile) throws IOException {
+    public void saveGameHook(final DataIOWriter dungeonFile) throws IOException {
 	final var app = DungeonDiver7.getStuffBag();
 	dungeonFile.writeString(app.getDungeonManager().getScoresFileName());
 	dungeonFile.writeLong(this.st.getMoves());

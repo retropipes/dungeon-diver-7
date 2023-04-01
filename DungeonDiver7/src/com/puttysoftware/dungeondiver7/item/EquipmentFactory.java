@@ -5,6 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.item;
 
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.locale.Slot;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.shop.Shop;
@@ -23,6 +24,6 @@ public class EquipmentFactory {
 
     public static Equipment createArmor(final int material, final int armorType) {
 	return new Equipment(Strings.armorName(material, armorType), Shop.getEquipmentCost(material), material + 1,
-		material + 1, SlotUtils.getArmorSlotForType(armorType), material, -1);
+		material + 1, SlotUtils.getArmorSlotForType(armorType), material, Sounds._NONE);
     }
 }

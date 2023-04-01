@@ -9,12 +9,12 @@ import java.io.IOException;
 
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.utility.FileFormats;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
 
 public class DungeonFileSuffixHandler implements AbstractSuffixIO {
     @Override
-    public void readSuffix(final FileIOReader reader, final int formatVersion) throws IOException {
+    public void readSuffix(final DataIOReader reader, final int formatVersion) throws IOException {
 	if (FileFormats.isFormatVersionValidGeneration1(formatVersion)) {
 	    DungeonDiver7.getStuffBag().getGameLogic().loadGameHookG1(reader);
 	} else if (FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
@@ -31,7 +31,7 @@ public class DungeonFileSuffixHandler implements AbstractSuffixIO {
     }
 
     @Override
-    public void writeSuffix(final FileIOWriter writer) throws IOException {
+    public void writeSuffix(final DataIOWriter writer) throws IOException {
 	DungeonDiver7.getStuffBag().getGameLogic().saveGameHook(writer);
     }
 }

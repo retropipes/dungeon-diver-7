@@ -30,12 +30,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.gui.DrawGrid;
 import com.puttysoftware.diane.gui.MainWindow;
-import com.puttysoftware.diane.strings.DianeStrings;
-import com.puttysoftware.diane.utilties.DirectionResolver;
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.locale.DianeStrings;
+import com.puttysoftware.diane.direction.DirectionResolver;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.Accelerators;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterRegistration;
@@ -52,7 +52,7 @@ import com.puttysoftware.dungeondiver7.loader.ImageCompositor;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageManager;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Difficulty;
@@ -68,7 +68,7 @@ import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 import com.puttysoftware.dungeondiver7.utility.RCLGenerator;
 import com.puttysoftware.dungeondiver7.utility.ShotTypes;
-import com.puttysoftware.integration.Integration;
+import com.puttysoftware.diane.integration.Integration;
 
 class GameGUI {
     // Fields
@@ -776,34 +776,34 @@ class GameGUI {
 	    }
 	}
 
-	public void handleTurns(final Directions dir) {
+	public void handleTurns(final Direction dir) {
 	    try {
 		final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 		var fired = false;
 		switch (dir) {
 		case WEST:
-		    gm.player.setDirection(Directions.WEST);
+		    gm.player.setDirection(Direction.WEST);
 		    if (!gm.isReplaying()) {
 			gm.updateReplay(false, -1, 0);
 		    }
 		    fired = true;
 		    break;
 		case SOUTH:
-		    gm.player.setDirection(Directions.SOUTH);
+		    gm.player.setDirection(Direction.SOUTH);
 		    if (!gm.isReplaying()) {
 			gm.updateReplay(false, 0, 1);
 		    }
 		    fired = true;
 		    break;
 		case EAST:
-		    gm.player.setDirection(Directions.EAST);
+		    gm.player.setDirection(Direction.EAST);
 		    if (!gm.isReplaying()) {
 			gm.updateReplay(false, 1, 0);
 		    }
 		    fired = true;
 		    break;
 		case NORTH:
-		    gm.player.setDirection(Directions.NORTH);
+		    gm.player.setDirection(Direction.NORTH);
 		    if (!gm.isReplaying()) {
 			gm.updateReplay(false, 0, -1);
 		    }
@@ -813,7 +813,7 @@ class GameGUI {
 		    break;
 		}
 		if (fired) {
-		    SoundLoader.playSound(SoundConstants.TURN);
+		    SoundLoader.playSound(Sounds.TURN);
 		    gm.markPlayerAsDirty();
 		    gm.redrawDungeon();
 		}
@@ -882,7 +882,7 @@ class GameGUI {
 	    }
 	}
 
-	public Directions mapMouseToDirection(final MouseEvent me) {
+	public Direction mapMouseToDirection(final MouseEvent me) {
 	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	    final var x = me.getX();
 	    final var y = me.getY();
@@ -893,19 +893,19 @@ class GameGUI {
 	    return DirectionResolver.resolve(destX, destY);
 	}
 
-	public Directions mapKeyToDirection(final KeyEvent e) {
+	public Direction mapKeyToDirection(final KeyEvent e) {
 	    final var keyCode = e.getKeyCode();
 	    switch (keyCode) {
 	    case KeyEvent.VK_LEFT:
-		return Directions.WEST;
+		return Direction.WEST;
 	    case KeyEvent.VK_DOWN:
-		return Directions.SOUTH;
+		return Direction.SOUTH;
 	    case KeyEvent.VK_RIGHT:
-		return Directions.EAST;
+		return Direction.EAST;
 	    case KeyEvent.VK_UP:
-		return Directions.NORTH;
+		return Direction.NORTH;
 	    default:
-		return Directions.INVALID;
+		return Direction.NONE;
 	    }
 	}
 
@@ -1169,7 +1169,7 @@ class GameGUI {
 		    game.changeOtherRangeMode();
 		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_PAST))) {
 		    // Time Travel: Distant Past
-		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
+		    SoundLoader.playSound(Sounds.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_PAST);
 		    gui.gameEraDistantPast.setSelected(true);
 		    gui.gameEraPast.setSelected(false);
@@ -1178,7 +1178,7 @@ class GameGUI {
 		    gui.gameEraDistantFuture.setSelected(false);
 		} else if (cmd.equals(Strings.timeTravel(TimeTravel.PAST))) {
 		    // Time Travel: Past
-		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
+		    SoundLoader.playSound(Sounds.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PAST);
 		    gui.gameEraDistantPast.setSelected(false);
 		    gui.gameEraPast.setSelected(true);
@@ -1187,7 +1187,7 @@ class GameGUI {
 		    gui.gameEraDistantFuture.setSelected(false);
 		} else if (cmd.equals(Strings.timeTravel(TimeTravel.PRESENT))) {
 		    // Time Travel: Present
-		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
+		    SoundLoader.playSound(Sounds.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PRESENT);
 		    gui.gameEraDistantPast.setSelected(false);
 		    gui.gameEraPast.setSelected(false);
@@ -1196,7 +1196,7 @@ class GameGUI {
 		    gui.gameEraDistantFuture.setSelected(false);
 		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FUTURE))) {
 		    // Time Travel: Future
-		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
+		    SoundLoader.playSound(Sounds.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_FUTURE);
 		    gui.gameEraDistantPast.setSelected(false);
 		    gui.gameEraPast.setSelected(false);
@@ -1205,7 +1205,7 @@ class GameGUI {
 		    gui.gameEraDistantFuture.setSelected(false);
 		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_FUTURE))) {
 		    // Time Travel: Distant Future
-		    SoundLoader.playSound(SoundConstants.ERA_CHANGE);
+		    SoundLoader.playSound(Sounds.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_FUTURE);
 		    gui.gameEraDistantPast.setSelected(false);
 		    gui.gameEraPast.setSelected(false);

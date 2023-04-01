@@ -11,9 +11,9 @@ import com.puttysoftware.dungeondiver7.locale.Difficulty;
 import com.puttysoftware.dungeondiver7.locale.Generic;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
-import com.puttysoftware.storage.NumberStorage;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
+import com.puttysoftware.diane.storage.NumberStorage;
 
 public final class DungeonLevelInfo {
     // Properties
@@ -226,7 +226,7 @@ public final class DungeonLevelInfo {
 	return this.thirdDimensionWraparoundEnabled;
     }
 
-    public void writeLevelInfo(final FileIOWriter writer) throws IOException {
+    public void writeLevelInfo(final DataIOWriter writer) throws IOException {
 	int x, y;
 	for (y = 0; y < DungeonConstants.PLAYER_DIMS; y++) {
 	    for (x = 0; x < DungeonConstants.NUM_PLAYERS; x++) {
@@ -243,7 +243,7 @@ public final class DungeonLevelInfo {
 	writer.writeBoolean(this.moveShootAllowed);
     }
 
-    public static DungeonLevelInfo readLevelInfo(final FileIOReader reader) throws IOException {
+    public static DungeonLevelInfo readLevelInfo(final DataIOReader reader) throws IOException {
 	final var li = new DungeonLevelInfo();
 	int x, y;
 	for (y = 0; y < 3; y++) {

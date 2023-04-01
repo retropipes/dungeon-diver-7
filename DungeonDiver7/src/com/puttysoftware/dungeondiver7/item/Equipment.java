@@ -7,19 +7,20 @@ package com.puttysoftware.dungeondiver7.item;
 
 import java.io.IOException;
 
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.locale.Slot;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
 
 public class Equipment extends Item {
     // Properties
     private final int materialID;
     private final Slot slotUsed;
-    private final int hitSound;
+    private final Sounds hitSound;
 
     // Constructors
     Equipment(final String itemName, final int buyFor, final int grams, final int power, final Slot slot,
-	    final int newMaterialID, final int hitSoundID) {
+	    final int newMaterialID, final Sounds hitSoundID) {
 	super(itemName, buyFor, grams, power);
 	this.materialID = newMaterialID;
 	this.slotUsed = slot;
@@ -54,7 +55,7 @@ public class Equipment extends Item {
 	return true;
     }
 
-    public final int getHitSound() {
+    public final Sounds getHitSound() {
 	return this.hitSound;
     }
 
@@ -66,7 +67,7 @@ public class Equipment extends Item {
 	return this.materialID;
     }
 
-    static Equipment readEquipment(final FileIOReader dr) throws IOException {
+    static Equipment readEquipment(final DataIOReader dr) throws IOException {
 	final var i = Item.readItem(dr);
 	if (i == null) {
 	    // Abort
@@ -74,14 +75,14 @@ public class Equipment extends Item {
 	}
 	final var matID = dr.readInt();
 	final var slot = Slot.values()[dr.readInt()];
-	final var hs = dr.readInt();
+	final var hs = Sounds.values()[dr.readInt()];
 	return new Equipment(i.getName(), i.getBuyPrice(), i.getWeight(), i.getPotency(), slot, matID, hs);
     }
 
-    final void writeEquipment(final FileIOWriter dw) throws IOException {
+    final void writeEquipment(final DataIOWriter dw) throws IOException {
 	super.writeItem(dw);
 	dw.writeInt(this.materialID);
 	dw.writeInt(this.slotUsed.ordinal());
-	dw.writeInt(this.hitSound);
+	dw.writeInt(this.hitSound.ordinal());
     }
 }

@@ -9,7 +9,7 @@ import java.io.File;
 import java.nio.BufferUnderflowException;
 
 import com.puttysoftware.audio.ogg.OggPlayer;
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.editor.ExternalMusic;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;

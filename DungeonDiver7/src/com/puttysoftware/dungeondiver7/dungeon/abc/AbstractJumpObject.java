@@ -5,9 +5,9 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.abc;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
@@ -74,28 +74,28 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
     }
 
     @Override
-    public Directions laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	final var app = DungeonDiver7.getStuffBag();
 	final var px = app.getGameLogic().getPlayerManager().getPlayerLocationX();
 	final var py = app.getGameLogic().getPlayerManager().getPlayerLocationY();
 	if (forceUnits > this.getMinimumReactionForce() && this.jumpRows == 0 && this.jumpCols == 0) {
 	    this.pushCrushAction(locX, locY, locZ);
-	    return Directions.NONE;
+	    return Direction.NONE;
 	}
 	if (!this.jumpShot) {
 	    this.jumpShot = true;
 	    this.dir1X = (int) Math.signum(px - locX);
 	    this.dir1Y = (int) Math.signum(py - locY);
-	    SoundLoader.playSound(SoundConstants.PREPARE);
-	    return Directions.NONE;
+	    SoundLoader.playSound(Sounds.PREPARE);
+	    return Direction.NONE;
 	}
 	this.jumpShot = false;
 	this.dir2X = (int) Math.signum(px - locX);
 	this.dir2Y = (int) Math.signum(py - locY);
 	if (this.dir1X != 0 && this.dir2X != 0 || this.dir1Y != 0 && this.dir2Y != 0) {
-	    SoundLoader.playSound(SoundConstants.LASER_DIE);
-	    return Directions.NONE;
+	    SoundLoader.playSound(Sounds.LASER_DIE);
+	    return Direction.NONE;
 	}
 	if (this.dir1X == 0 && this.dir2X == 1 && this.dir1Y == -1 && this.dir2Y == 0
 		|| this.dir1X == 0 && this.dir2X == -1 && this.dir1Y == 1 && this.dir2Y == 0
@@ -149,9 +149,9 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 
     public final void jumpSound(final boolean success) {
 	if (!success || this.jumpRows == 0 && this.jumpCols == 0) {
-	    SoundLoader.playSound(SoundConstants.LASER_DIE);
+	    SoundLoader.playSound(Sounds.LASER_DIE);
 	} else {
-	    SoundLoader.playSound(SoundConstants.JUMPING);
+	    SoundLoader.playSound(Sounds.JUMPING);
 	}
     }
 

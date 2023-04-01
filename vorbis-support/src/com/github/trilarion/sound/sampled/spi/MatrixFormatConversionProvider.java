@@ -98,8 +98,6 @@ public abstract class MatrixFormatConversionProvider extends SimpleFormatConvers
 	return EMPTY_ENCODING_ARRAY;
     }
 
-    // TODO: this should work on the array returned by
-    // getTargetEncodings(AudioFormat)
     /*
      * public boolean isConversionSupported(AudioFormat.Encoding targetEncoding,
      * AudioFormat sourceFormat) { return isAllowedSourceFormat(sourceFormat) &&

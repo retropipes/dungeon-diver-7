@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.loader;
 
 import java.awt.Color;
 
-import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 
 public class ImageCompositor {
     public static final int MAX_WINDOW_SIZE = 700;

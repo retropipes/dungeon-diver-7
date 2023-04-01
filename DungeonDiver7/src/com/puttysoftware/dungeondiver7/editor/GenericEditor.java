@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
-import com.puttysoftware.integration.Integration;
+import com.puttysoftware.diane.integration.Integration;
 
 public abstract class GenericEditor {
     // Fields

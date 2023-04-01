@@ -5,10 +5,10 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.GameActions;
 
@@ -19,7 +19,7 @@ public class PowerfulParty extends AbstractCharacter {
 	this.activateTimer(50);
     }
 
-    public PowerfulParty(final Directions dir, final int number) {
+    public PowerfulParty(final Direction dir, final int number) {
 	super(number);
 	this.setDirection(dir);
 	this.activateTimer(50);
@@ -32,7 +32,7 @@ public class PowerfulParty extends AbstractCharacter {
 
     @Override
     public void timerExpiredAction(final int x, final int y) {
-	SoundLoader.playSound(SoundConstants.DISRUPT_END);
+	SoundLoader.playSound(Sounds.DISRUPT_END);
 	DungeonDiver7.getStuffBag().getGameLogic().setNormalPlayer();
     }
 

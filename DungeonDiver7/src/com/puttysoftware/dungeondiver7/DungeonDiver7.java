@@ -5,15 +5,15 @@
  */
 package com.puttysoftware.dungeondiver7;
 
-import com.puttysoftware.diane.ErrorLogger;
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.Diane;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.prefs.PrefsRequest;
-import com.puttysoftware.integration.Integration;
+import com.puttysoftware.diane.integration.Integration;
 
 public class DungeonDiver7 {
     private DungeonDiver7() {
@@ -25,7 +25,6 @@ public class DungeonDiver7 {
     private static String PROGRAM_NAME = "Dungeon Diver 7";
     private static String ERROR_MESSAGE = null;
     private static String ERROR_TITLE = null;
-    private static ErrorLogger errorLogger;
     private static final int BATTLE_MAP_SIZE = 10;
     private static final int DUNGEON_BASE_SIZE = 24;
     private static final int DUNGEON_SIZE_INCREMENT = 2;
@@ -38,17 +37,17 @@ public class DungeonDiver7 {
     public static void logError(final Throwable t) {
 	CommonDialogs.showErrorDialog(DungeonDiver7.ERROR_MESSAGE, DungeonDiver7.ERROR_TITLE);
 	t.printStackTrace();
-	DungeonDiver7.errorLogger.logError(t);
+	Diane.handleError(t);
     }
 
     public static void logErrorDirectly(final Throwable t) {
 	t.printStackTrace();
-	DungeonDiver7.errorLogger.logError(t);
+	Diane.handleError(t);
     }
 
     public static void logWarningDirectly(final Throwable t) {
 	t.printStackTrace(System.out);
-	DungeonDiver7.errorLogger.logWarning(t);
+	Diane.handleWarning(t);
     }
 
     public static int getDungeonLevelSize(final int zoneID) {
@@ -65,7 +64,7 @@ public class DungeonDiver7 {
 		// Initialize strings
 		DungeonDiver7.preInit();
 		// Initialize error logger
-		DungeonDiver7.errorLogger = new ErrorLogger(DungeonDiver7.PROGRAM_NAME);
+		Diane.installDefaultErrorHandler(PROGRAM_NAME);
 	    } catch (final RuntimeException re) {
 		// Something has gone horribly wrong
 		CommonDialogs.showErrorDialog("Something has gone horribly wrong trying to load the string data!",

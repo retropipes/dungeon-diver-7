@@ -28,9 +28,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JToggleButton;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.gui.MainWindow;
-import com.puttysoftware.diane.strings.DianeStrings;
+import com.puttysoftware.diane.locale.DianeStrings;
 import com.puttysoftware.dungeondiver7.Accelerators;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.MenuSection;
@@ -41,6 +41,7 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractJumpObject;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Ground;
 import com.puttysoftware.dungeondiver7.dungeon.objects.Party;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
+import com.puttysoftware.dungeondiver7.loader.BattleImageManager;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 import com.puttysoftware.dungeondiver7.locale.EditorLayout;
 import com.puttysoftware.dungeondiver7.locale.EditorString;
@@ -51,11 +52,11 @@ import com.puttysoftware.dungeondiver7.manager.dungeon.DungeonManager;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.RCLGenerator;
-import com.puttysoftware.images.BufferedImageIcon;
-import com.puttysoftware.integration.Integration;
-import com.puttysoftware.picturepicker.PicturePicker;
-import com.puttysoftware.picturepicker.SXSPicturePicker;
-import com.puttysoftware.picturepicker.StackedPicturePicker;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import com.puttysoftware.diane.integration.Integration;
+import com.puttysoftware.diane.gui.picker.PicturePicker;
+import com.puttysoftware.diane.gui.picker.SXSPicturePicker;
+import com.puttysoftware.diane.gui.picker.StackedPicturePicker;
 
 public class DungeonEditor implements MenuSection {
     // Declarations
@@ -968,7 +969,7 @@ public class DungeonEditor implements MenuSection {
 	if (this.newPicker11 != null) {
 	    this.newPicker11.updatePicker(newImages, enabled);
 	} else {
-	    this.newPicker11 = new StackedPicturePicker(newImages, enabled, DungeonEditor.STACK_COUNT);
+	    this.newPicker11 = new StackedPicturePicker(newImages, enabled, DungeonEditor.STACK_COUNT, BattleImageManager.getGraphicSize());
 	}
     }
 

@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.game.replay;
 
 import java.io.FileInputStream;
 
-import com.puttysoftware.diane.gui.CommonDialogs;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.GameString;

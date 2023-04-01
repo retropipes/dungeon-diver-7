@@ -7,7 +7,7 @@ package com.puttysoftware.dungeondiver7.battle.damage;
 
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
-import com.puttysoftware.randomrange.RandomRange;
+import com.puttysoftware.diane.random.RandomRange;
 
 class EasyDamageEngine extends AbstractDamageEngine {
     private static final int MULTIPLIER_MIN = 8000;

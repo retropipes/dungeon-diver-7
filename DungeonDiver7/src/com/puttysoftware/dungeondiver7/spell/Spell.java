@@ -9,23 +9,24 @@ import java.util.Objects;
 
 import com.puttysoftware.dungeondiver7.battle.BattleTarget;
 import com.puttysoftware.dungeondiver7.effect.Effect;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 
 public class Spell {
     // Fields
     private final Effect effect;
     private final int cost;
     private final BattleTarget target;
-    private final int soundEffect;
+    private final Sounds soundEffect;
 
     // Constructors
     public Spell() {
 	this.effect = null;
 	this.cost = 0;
 	this.target = null;
-	this.soundEffect = -1;
+	this.soundEffect = Sounds._NONE;
     }
 
-    public Spell(final Effect newEffect, final int newCost, final BattleTarget newTarget, final int sfx) {
+    public Spell(final Effect newEffect, final int newCost, final BattleTarget newTarget, final Sounds sfx) {
 	this.effect = newEffect;
 	this.cost = newCost;
 	this.target = newTarget;
@@ -44,7 +45,7 @@ public class Spell {
 	return this.target;
     }
 
-    int getSound() {
+    Sounds getSound() {
 	return this.soundEffect;
     }
 

@@ -8,7 +8,7 @@ package com.puttysoftware.dungeondiver7.dungeon.abc;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
-import com.puttysoftware.randomrange.RandomRange;
+import com.puttysoftware.diane.random.RandomRange;
 
 public abstract class AbstractTrap extends AbstractDungeonObject {
     // Fields

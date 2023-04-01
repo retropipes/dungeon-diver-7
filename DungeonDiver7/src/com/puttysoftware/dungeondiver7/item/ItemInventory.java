@@ -11,12 +11,12 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
-import com.puttysoftware.dungeondiver7.loader.SoundConstants;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.locale.Slot;
 import com.puttysoftware.dungeondiver7.locale.Strings;
-import com.puttysoftware.fileio.FileIOReader;
-import com.puttysoftware.fileio.FileIOWriter;
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
 
 public class ItemInventory {
     // Properties
@@ -41,19 +41,19 @@ public class ItemInventory {
 	// Equip it
 	this.equipment[ei.getSlotUsed().ordinal()] = ei;
 	if (playSound) {
-	    SoundLoader.playSound(SoundConstants.EQUIP);
+	    SoundLoader.playSound(Sounds.EQUIP);
 	}
     }
 
-    public int getWeaponHitSound(final AbstractCreature pc) {
+    public Sounds getWeaponHitSound(final AbstractCreature pc) {
 	final var weapon = this.equipment[Slot.WEAPON.ordinal()];
 	if (weapon != null) {
 	    return weapon.getHitSound();
 	}
 	if (pc.getTeamID() == AbstractCreature.TEAM_PARTY) {
-	    return SoundConstants.ATTACK_HIT;
+	    return Sounds.ATTACK_HIT;
 	}
-	return SoundConstants.MONSTER_HIT;
+	return Sounds.MONSTER_HIT;
     }
 
     public String[] generateEquipmentStringArray() {
@@ -117,7 +117,7 @@ public class ItemInventory {
 	return total;
     }
 
-    public static ItemInventory readItemInventory(final FileIOReader dr) throws IOException {
+    public static ItemInventory readItemInventory(final DataIOReader dr) throws IOException {
 	final var ii = new ItemInventory();
 	for (var x = 0; x < ii.equipment.length; x++) {
 	    final var ei = Equipment.readEquipment(dr);
@@ -128,7 +128,7 @@ public class ItemInventory {
 	return ii;
     }
 
-    public void writeItemInventory(final FileIOWriter dw) throws IOException {
+    public void writeItemInventory(final DataIOWriter dw) throws IOException {
 	for (final Equipment ei : this.equipment) {
 	    if (ei != null) {
 		ei.writeEquipment(dw);
