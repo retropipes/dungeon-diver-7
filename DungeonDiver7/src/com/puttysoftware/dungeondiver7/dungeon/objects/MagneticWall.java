@@ -16,28 +16,28 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 import com.puttysoftware.dungeondiver7.utility.ShotTypes;
 
 public class MagneticWall extends AbstractWall {
-	// Constructors
-	public MagneticWall() {
-		this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
-		this.setMaterial(Materials.MAGNETIC);
-	}
+    // Constructors
+    public MagneticWall() {
+        this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
+        this.setMaterial(Materials.MAGNETIC);
+    }
 
-	@Override
-	public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-			final int laserType, final int forceUnits) {
-		if (laserType == ShotTypes.DISRUPTOR) {
-			// Disrupt magnetic wall
-			SoundLoader.playSound(Sounds.DISRUPTED);
-			DungeonDiver7.getStuffBag().getGameLogic();
-			GameLogic.morph(new DisruptedMagneticWall(), locX, locY, locZ, this.getLayer());
-			return Direction.NONE;
-		}
-		// Stop laser
-		return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-	}
+    @Override
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+            final int laserType, final int forceUnits) {
+        if (laserType == ShotTypes.DISRUPTOR) {
+            // Disrupt magnetic wall
+            SoundLoader.playSound(Sounds.DISRUPTED);
+            DungeonDiver7.getStuffBag().getGameLogic();
+            GameLogic.morph(new DisruptedMagneticWall(), locX, locY, locZ, this.getLayer());
+            return Direction.NONE;
+        }
+        // Stop laser
+        return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 24;
-	}
+    @Override
+    public final int getBaseID() {
+        return 24;
+    }
 }

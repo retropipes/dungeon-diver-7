@@ -15,24 +15,24 @@ import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 
 public class ArmorImageManager {
-	private static final String LOAD_PATH_SUFFIX = "armor_";
-	private static Class<?> LOAD_CLASS = ArmorImageManager.class;
+    private static final String LOAD_PATH_SUFFIX = "armor_";
+    private static Class<?> LOAD_CLASS = ArmorImageManager.class;
 
-	public static BufferedImageIcon getImage(final int typeID, final int zoneID) {
-		// Get it from the cache
-		final var name = ArmorImageManager.LOAD_PATH_SUFFIX + Integer.toString(zoneID);
-		return ArmorImageCache.getCachedImage(name);
-	}
+    public static BufferedImageIcon getImage(final int typeID, final int zoneID) {
+        // Get it from the cache
+        final var name = ArmorImageManager.LOAD_PATH_SUFFIX + Integer.toString(zoneID);
+        return ArmorImageCache.getCachedImage(name);
+    }
 
-	static BufferedImageIcon getUncachedImage(final String name) {
-		try {
-			final var url = ArmorImageManager.LOAD_CLASS
-					.getResource(Strings.untranslated(Untranslated.ITEM_IMAGE_LOAD_PATH)
-							+ ArmorImageManager.LOAD_PATH_SUFFIX + name + Strings.fileExtension(FileExtension.IMAGE));
-			final var image = ImageIO.read(url);
-			return new BufferedImageIcon(image);
-		} catch (final IOException ie) {
-			return null;
-		}
-	}
+    static BufferedImageIcon getUncachedImage(final String name) {
+        try {
+            final var url = ArmorImageManager.LOAD_CLASS
+                    .getResource(Strings.untranslated(Untranslated.ITEM_IMAGE_LOAD_PATH)
+                            + ArmorImageManager.LOAD_PATH_SUFFIX + name + Strings.fileExtension(FileExtension.IMAGE));
+            final var image = ImageIO.read(url);
+            return new BufferedImageIcon(image);
+        } catch (final IOException ie) {
+            return null;
+        }
+    }
 }

@@ -6,19 +6,19 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.ai;
 
 public class AutoMapAI extends AbstractMapAIRoutine {
-	// Constructor
-	public AutoMapAI() {
-	}
+    // Constructor
+    public AutoMapAI() {
+    }
 
-	@Override
-	public int getNextAction(final MapAIContext ac) {
-		final var there = ac.isEnemyNearby();
-		if (there != null) {
-			// Something hostile is nearby, so attack it
-			this.moveX = there.x;
-			this.moveY = there.y;
-			return AbstractMapAIRoutine.ACTION_MOVE;
-		}
-		return AbstractMapAIRoutine.ACTION_END_TURN;
-	}
+    @Override
+    public int getNextAction(final MapAIContext ac) {
+        final var there = ac.isEnemyNearby();
+        if (there != null) {
+            // Something hostile is nearby, so attack it
+            this.moveX = there.x;
+            this.moveY = there.y;
+            return AbstractMapAIRoutine.ACTION_MOVE;
+        }
+        return AbstractMapAIRoutine.ACTION_END_TURN;
+    }
 }

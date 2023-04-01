@@ -14,40 +14,40 @@ import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class ThinIce extends AbstractGround {
-	// Constructors
-	public ThinIce() {
-		super(false);
-		this.setMaterial(Materials.ICE);
-	}
+    // Constructors
+    public ThinIce() {
+        super(false);
+        this.setMaterial(Materials.ICE);
+    }
 
-	@Override
-	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		SoundLoader.playSound(Sounds.PUSH_MIRROR);
-		DungeonDiver7.getStuffBag().getGameLogic().remoteDelayedDecayTo(new Water());
-	}
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+        SoundLoader.playSound(Sounds.PUSH_MIRROR);
+        DungeonDiver7.getStuffBag().getGameLogic().remoteDelayedDecayTo(new Water());
+    }
 
-	@Override
-	public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-		DungeonDiver7.getStuffBag().getGameLogic().remoteDelayedDecayTo(new Water());
-		return true;
-	}
+    @Override
+    public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
+        DungeonDiver7.getStuffBag().getGameLogic().remoteDelayedDecayTo(new Water());
+        return true;
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 43;
-	}
+    @Override
+    public final int getBaseID() {
+        return 43;
+    }
 
-	@Override
-	public AbstractDungeonObject changesToOnExposure(final int materialID) {
-		switch (materialID) {
-			case Materials.ICE:
-				final var i = new Ice();
-				i.setPreviousState(this);
-				return i;
-			case Materials.FIRE:
-				return new Water();
-			default:
-				return this;
-		}
-	}
+    @Override
+    public AbstractDungeonObject changesToOnExposure(final int materialID) {
+        switch (materialID) {
+            case Materials.ICE:
+                final var i = new Ice();
+                i.setPreviousState(this);
+                return i;
+            case Materials.FIRE:
+                return new Water();
+            default:
+                return this;
+        }
+    }
 }

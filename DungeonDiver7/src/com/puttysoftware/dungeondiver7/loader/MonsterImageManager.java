@@ -16,23 +16,23 @@ import com.puttysoftware.dungeondiver7.names.Monsters;
 import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 
 public class MonsterImageManager {
-	private static Class<?> LOAD_CLASS = MonsterImageManager.class;
+    private static Class<?> LOAD_CLASS = MonsterImageManager.class;
 
-	public static BufferedImageIcon getImage(final int zoneID, final int monID) {
-		// Get it from the cache
-		final var name = Monsters.getImageFilename(monID);
-		return MonsterImageCache.getCachedImage(name);
-	}
+    public static BufferedImageIcon getImage(final int zoneID, final int monID) {
+        // Get it from the cache
+        final var name = Monsters.getImageFilename(monID);
+        return MonsterImageCache.getCachedImage(name);
+    }
 
-	static BufferedImageIcon getUncachedImage(final String name) {
-		try {
-			final var url = MonsterImageManager.LOAD_CLASS
-					.getResource(Strings.untranslated(Untranslated.MONSTER_IMAGE_LOAD_PATH) + name
-							+ Strings.fileExtension(FileExtension.IMAGE));
-			final var image = ImageIO.read(url);
-			return new BufferedImageIcon(image);
-		} catch (final IOException ie) {
-			return null;
-		}
-	}
+    static BufferedImageIcon getUncachedImage(final String name) {
+        try {
+            final var url = MonsterImageManager.LOAD_CLASS
+                    .getResource(Strings.untranslated(Untranslated.MONSTER_IMAGE_LOAD_PATH) + name
+                            + Strings.fileExtension(FileExtension.IMAGE));
+            final var image = ImageIO.read(url);
+            return new BufferedImageIcon(image);
+        } catch (final IOException ie) {
+            return null;
+        }
+    }
 }

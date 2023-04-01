@@ -13,34 +13,34 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class PlasticBox extends AbstractMovableObject {
-	// Constructors
-	public PlasticBox() {
-		super(true);
-		this.type.set(DungeonObjectTypes.TYPE_BOX);
-		this.setMaterial(Materials.PLASTIC);
-	}
+    // Constructors
+    public PlasticBox() {
+        super(true);
+        this.type.set(DungeonObjectTypes.TYPE_BOX);
+        this.setMaterial(Materials.PLASTIC);
+    }
 
-	@Override
-	public void playSoundHook() {
-		SoundLoader.playSound(Sounds.PUSH_BOX);
-	}
+    @Override
+    public void playSoundHook() {
+        SoundLoader.playSound(Sounds.PUSH_BOX);
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 72;
-	}
+    @Override
+    public final int getBaseID() {
+        return 72;
+    }
 
-	@Override
-	public AbstractDungeonObject changesToOnExposure(final int materialID) {
-		switch (materialID) {
-			case Materials.ICE:
-				final var ib = new IcyBox();
-				ib.setPreviousState(this);
-				return ib;
-			case Materials.FIRE:
-				return new HotBox();
-			default:
-				return this;
-		}
-	}
+    @Override
+    public AbstractDungeonObject changesToOnExposure(final int materialID) {
+        switch (materialID) {
+            case Materials.ICE:
+                final var ib = new IcyBox();
+                ib.setPreviousState(this);
+                return ib;
+            case Materials.FIRE:
+                return new HotBox();
+            default:
+                return this;
+        }
+    }
 }

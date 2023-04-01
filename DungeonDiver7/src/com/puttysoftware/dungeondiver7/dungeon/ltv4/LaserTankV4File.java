@@ -14,29 +14,29 @@ import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.utility.InvalidDungeonException;
 
 class LaserTankV4File {
-	private LaserTankV4File() {
-		// Do nothing
-	}
+    private LaserTankV4File() {
+        // Do nothing
+    }
 
-	static void loadOldFile(final AbstractDungeon a, final FileInputStream file) throws InvalidDungeonException {
-		CurrentDungeonData t = null;
-		var levelCount = 0;
-		do {
-			a.switchLevel(levelCount);
-			t = LaserTankV4FileLevel.loadAndConvert(file, a);
-			if (t != null) {
-				levelCount++;
-				a.setData(t, levelCount);
-				final var found = a.findPlayer(1);
-				if (found == null) {
-					throw new InvalidDungeonException(Strings.error(ErrorString.PLAYER_LOCATION));
-				}
-				a.setStartColumn(0, found[0]);
-				a.setStartRow(0, found[1]);
-				a.setStartFloor(0, found[2]);
-				a.save();
-				a.switchLevel(levelCount);
-			}
-		} while (t != null);
-	}
+    static void loadOldFile(final AbstractDungeon a, final FileInputStream file) throws InvalidDungeonException {
+        CurrentDungeonData t = null;
+        var levelCount = 0;
+        do {
+            a.switchLevel(levelCount);
+            t = LaserTankV4FileLevel.loadAndConvert(file, a);
+            if (t != null) {
+                levelCount++;
+                a.setData(t, levelCount);
+                final var found = a.findPlayer(1);
+                if (found == null) {
+                    throw new InvalidDungeonException(Strings.error(ErrorString.PLAYER_LOCATION));
+                }
+                a.setStartColumn(0, found[0]);
+                a.setStartRow(0, found[1]);
+                a.setStartFloor(0, found[2]);
+                a.save();
+                a.switchLevel(levelCount);
+            }
+        } while (t != null);
+    }
 }

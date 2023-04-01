@@ -15,23 +15,23 @@ import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 
 public class EffectImageManager {
-	private static Class<?> LOAD_CLASS = EffectImageManager.class;
+    private static Class<?> LOAD_CLASS = EffectImageManager.class;
 
-	public static BufferedImageIcon getImage(final int imageID) {
-		// Get it from the cache
-		final var name = EffectImageConstants.getEffectImageName(imageID);
-		return EffectImageCache.getCachedImage(name);
-	}
+    public static BufferedImageIcon getImage(final int imageID) {
+        // Get it from the cache
+        final var name = EffectImageConstants.getEffectImageName(imageID);
+        return EffectImageCache.getCachedImage(name);
+    }
 
-	static BufferedImageIcon getUncachedImage(final String name) {
-		try {
-			final var url = EffectImageManager.LOAD_CLASS
-					.getResource(Strings.untranslated(Untranslated.EFFECT_IMAGE_LOAD_PATH) + name
-							+ Strings.fileExtension(FileExtension.IMAGE));
-			final var image = ImageIO.read(url);
-			return new BufferedImageIcon(image);
-		} catch (final IOException ie) {
-			return null;
-		}
-	}
+    static BufferedImageIcon getUncachedImage(final String name) {
+        try {
+            final var url = EffectImageManager.LOAD_CLASS
+                    .getResource(Strings.untranslated(Untranslated.EFFECT_IMAGE_LOAD_PATH) + name
+                            + Strings.fileExtension(FileExtension.IMAGE));
+            final var image = ImageIO.read(url);
+            return new BufferedImageIcon(image);
+        } catch (final IOException ie) {
+            return null;
+        }
+    }
 }

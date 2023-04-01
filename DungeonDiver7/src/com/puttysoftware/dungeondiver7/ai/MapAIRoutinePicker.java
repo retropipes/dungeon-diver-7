@@ -8,28 +8,28 @@ package com.puttysoftware.dungeondiver7.ai;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 
 public final class MapAIRoutinePicker {
-	// Constructors
-	private MapAIRoutinePicker() {
-		// Do nothing
-	}
+    // Constructors
+    private MapAIRoutinePicker() {
+        // Do nothing
+    }
 
-	public static AbstractMapAIRoutine getNextRoutine() {
-		final var difficulty = Prefs.getGameDifficulty();
-		if (difficulty == Prefs.DIFFICULTY_VERY_EASY) {
-			return new VeryEasyMapAIRoutine();
-		}
-		if (difficulty == Prefs.DIFFICULTY_EASY) {
-			return new EasyMapAIRoutine();
-		}
-		if (difficulty == Prefs.DIFFICULTY_NORMAL) {
-			return new NormalMapAIRoutine();
-		}
-		if (difficulty == Prefs.DIFFICULTY_HARD) {
-			return new HardMapAIRoutine();
-		}
-		if (difficulty == Prefs.DIFFICULTY_VERY_HARD) {
-			return new VeryHardMapAIRoutine();
-		}
-		return new NormalMapAIRoutine();
-	}
+    public static AbstractMapAIRoutine getNextRoutine() {
+        final var difficulty = Prefs.getGameDifficulty();
+        if (difficulty == Prefs.DIFFICULTY_VERY_EASY) {
+            return new VeryEasyMapAIRoutine();
+        }
+        if (difficulty == Prefs.DIFFICULTY_EASY) {
+            return new EasyMapAIRoutine();
+        }
+        if (difficulty == Prefs.DIFFICULTY_NORMAL) {
+            return new NormalMapAIRoutine();
+        }
+        if (difficulty == Prefs.DIFFICULTY_HARD) {
+            return new HardMapAIRoutine();
+        }
+        if (difficulty == Prefs.DIFFICULTY_VERY_HARD) {
+            return new VeryHardMapAIRoutine();
+        }
+        return new NormalMapAIRoutine();
+    }
 }

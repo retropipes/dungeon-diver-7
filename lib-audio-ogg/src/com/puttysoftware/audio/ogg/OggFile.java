@@ -13,39 +13,39 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 class OggFile extends OggPlayer {
-	private final String filename;
-	private OggPlayThread player;
+    private final String filename;
+    private OggPlayThread player;
 
-	public OggFile(final String Oggfile) {
-		super();
-		this.filename = Oggfile;
-	}
+    public OggFile(final String Oggfile) {
+        super();
+        this.filename = Oggfile;
+    }
 
-	@Override
-	public void run() {
-		if (this.filename != null) {
-			final File soundFile = new File(this.filename);
-			if (!soundFile.exists()) {
-				return;
-			}
-			try (AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile)) {
-				this.player = new OggPlayThread(ais);
-				this.player.play();
-			} catch (final UnsupportedAudioFileException e1) {
-			} catch (final IOException e1) {
-			}
-		}
-	}
+    @Override
+    public void run() {
+        if (this.filename != null) {
+            final File soundFile = new File(this.filename);
+            if (!soundFile.exists()) {
+                return;
+            }
+            try (AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile)) {
+                this.player = new OggPlayThread(ais);
+                this.player.play();
+            } catch (final UnsupportedAudioFileException e1) {
+            } catch (final IOException e1) {
+            }
+        }
+    }
 
-	@Override
-	public boolean isPlaying() {
-		return this.player != null && this.isAlive();
-	}
+    @Override
+    public boolean isPlaying() {
+        return this.player != null && this.isAlive();
+    }
 
-	@Override
-	public void stopPlayer() {
-		if (this.player != null) {
-			this.player.stopPlaying();
-		}
-	}
+    @Override
+    public void stopPlayer() {
+        if (this.player != null) {
+            this.player.stopPlaying();
+        }
+    }
 }
