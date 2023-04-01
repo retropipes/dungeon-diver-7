@@ -21,7 +21,6 @@ class FinalBossBattleRewards {
 		// Do nothing
 	}
 
-	// Methods
 	public static void doRewards(final BattleResult br) {
 		final var player = PartyManager.getParty().getLeader();
 		if (br == BattleResult.WON || br == BattleResult.PERFECT) {

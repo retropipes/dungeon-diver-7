@@ -149,7 +149,6 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 		this.imageEnabled = source.imageEnabled;
 	}
 
-	// Methods
 	@Override
 	public AbstractDungeonObject clone() {
 		try {

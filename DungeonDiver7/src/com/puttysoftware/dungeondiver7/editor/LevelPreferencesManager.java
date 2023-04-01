@@ -47,7 +47,6 @@ class LevelPreferencesManager {
 		this.setUpGUI();
 	}
 
-	// Methods
 	void showPrefs() {
 		this.loadPrefs();
 		DungeonDiver7.getStuffBag().getEditor().disableOutput();

@@ -33,7 +33,6 @@ final class MovementTask extends Thread {
 		this.saved = new Empty();
 	}
 
-	// Methods
 	@Override
 	public void run() {
 		try {

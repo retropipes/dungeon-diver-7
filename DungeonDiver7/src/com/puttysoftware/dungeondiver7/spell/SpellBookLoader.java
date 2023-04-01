@@ -17,7 +17,6 @@ public class SpellBookLoader {
 		// Do nothing
 	}
 
-	// Methods
 	public static SpellBook loadSpellBook(final int sbid) {
 		switch (sbid) {
 			case CasteConstants.CASTE_ANNIHILATOR:

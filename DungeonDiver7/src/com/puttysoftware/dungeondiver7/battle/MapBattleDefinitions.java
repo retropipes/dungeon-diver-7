@@ -25,7 +25,6 @@ public class MapBattleDefinitions {
 		this.battlerCount = 0;
 	}
 
-	// Methods
 	public BattleCharacter[] getBattlers() {
 		return this.battlers;
 	}

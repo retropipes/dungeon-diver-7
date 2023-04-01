@@ -32,7 +32,6 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 		this.handler = new EventHandler();
 	}
 
-	// Methods
 	public void setMusicFilename(final String fn) {
 		DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().setMusicFilename(fn);
 	}

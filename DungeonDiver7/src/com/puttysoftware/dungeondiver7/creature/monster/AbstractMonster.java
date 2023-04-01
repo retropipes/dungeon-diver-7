@@ -36,7 +36,6 @@ public abstract class AbstractMonster extends AbstractCreature {
 		this.setSpellBook(spells);
 	}
 
-	// Methods
 	protected void configureDefaults() {
 		this.monID = RandomRange.generate(0, 99);
 		final var zoneID = PartyManager.getParty().getZone();

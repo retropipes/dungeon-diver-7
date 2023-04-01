@@ -107,7 +107,6 @@ public class MusicLoader {
 		MusicLoader.EXTERNAL_LOAD_PATH = null;
 	}
 
-	// Methods
 	public static ExternalMusic getExternalMusic() {
 		if (MusicLoader.gameExternalMusic == null) {
 			MusicLoader.loadExternalMusic();

@@ -27,7 +27,6 @@ public class CharacterRegistration {
 	private static final String WIN_DIR = "\\Ignition Igloo Games\\Chrystalz\\Characters";
 	private static final String UNIX_DIR = "/.ignitionigloogames/chrystalz/characters";
 
-	// Methods
 	public static void registerCharacter() {
 		// Load character list
 		final var characterNameList = CharacterRegistration.getCharacterNameList();

@@ -70,7 +70,6 @@ public class PartyMember extends AbstractCreature {
 		this.setSpellBook(CasteManager.getSpellBookByID(this.caste.getCasteID()));
 	}
 
-	// Methods
 	public String getXPString() {
 		return this.getExperience() + "/" + this.getToNextLevelValue();
 	}

@@ -32,7 +32,6 @@ public class Party {
 		this.zone = 0;
 	}
 
-	// Methods
 	private void generateBattleCharacters() {
 		this.battlers = new BattleCharacter(this.members);
 	}

@@ -60,7 +60,6 @@ class MapBattleGUI {
 		this.eventHandlersOn = true;
 	}
 
-	// Methods
 	MapBattleViewingWindowManager getViewManager() {
 		return this.vwMgr;
 	}

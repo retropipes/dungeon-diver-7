@@ -42,7 +42,6 @@ public class GameLoadTask extends Thread {
 		this.loadContent.add(loadBar);
 	}
 
-	// Methods
 	@Override
 	public void run() {
 		final var sg = "Game";

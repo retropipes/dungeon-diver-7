@@ -59,7 +59,6 @@ public final class DungeonManager {
 		this.scoresFileName = Strings.EMPTY;
 	}
 
-	// Methods
 	public static AbstractDungeon createDungeon() throws IOException {
 		return new CurrentDungeon();
 	}

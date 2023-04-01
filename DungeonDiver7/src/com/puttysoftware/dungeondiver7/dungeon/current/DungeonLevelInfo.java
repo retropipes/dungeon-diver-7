@@ -59,7 +59,6 @@ public final class DungeonLevelInfo {
 		this.moveShootAllowed = source.moveShootAllowed;
 	}
 
-	// Methods
 	public boolean isMoveShootAllowed() {
 		return this.moveShootAllowed;
 	}

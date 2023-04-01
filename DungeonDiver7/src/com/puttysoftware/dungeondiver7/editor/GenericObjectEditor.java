@@ -43,7 +43,6 @@ public abstract class GenericObjectEditor extends GenericEditor {
 		this.autoStore = autoStoreEnabled;
 	}
 
-	// Methods
 	protected JTextField getEntryField(final int num) {
 		return this.entryFields[num];
 	}

@@ -83,7 +83,6 @@ public class CurrentDungeon extends AbstractDungeon {
 		}
 	}
 
-	// Methods
 	@Override
 	public String getDungeonTempMusicFolder() {
 		return this.basePath + File.pathSeparator + Strings.untranslated(Untranslated.EXTERNAL_MUSIC_TEMP_FOLDER)

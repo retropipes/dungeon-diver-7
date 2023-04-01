@@ -27,7 +27,6 @@ public class ItemInventory {
 		this.equipment = new Equipment[Strings.SLOTS_COUNT];
 	}
 
-	// Methods
 	public void resetInventory() {
 		Arrays.fill(this.equipment, null);
 	}

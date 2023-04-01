@@ -148,7 +148,6 @@ public final class GameLogic implements MenuSection {
 		this.otherRangeMode = GameLogic.OTHER_RANGE_MODE_BOMBS;
 	}
 
-	// Methods
 	public void activeLanguageChanged() {
 		this.gui.activeLanguageChanged();
 		GameLogic.OTHER_AMMO_CHOICES = new String[] { Strings.game(GameString.MISSILES),

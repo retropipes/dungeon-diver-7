@@ -24,7 +24,6 @@ public class ReplayManager {
 		// Do nothing
 	}
 
-	// Methods
 	public static void loadLPB() {
 		String filename, extension, file, dir;
 		final var lastOpen = Prefs.getLastDirOpen();

@@ -109,7 +109,6 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		this.visionModeExploreRadius = source.visionModeExploreRadius;
 	}
 
-	// Methods
 	@Override
 	public CurrentDungeonData clone() {
 		return new CurrentDungeonData(this);

@@ -49,7 +49,6 @@ public class DungeonLoadTask extends Thread {
 
 	}
 
-	// Methods
 	@Override
 	public void run() {
 		this.mainWindow.setAndSave(this.loadContent, Strings.dialog(DialogString.LOADING));

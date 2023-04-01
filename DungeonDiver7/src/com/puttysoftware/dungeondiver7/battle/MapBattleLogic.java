@@ -68,7 +68,6 @@ public class MapBattleLogic extends AbstractBattle {
 		this.ait.start();
 	}
 
-	// Methods
 	@Override
 	public void doBattle() {
 		this.battleType = AbstractBattleType.createBattle();

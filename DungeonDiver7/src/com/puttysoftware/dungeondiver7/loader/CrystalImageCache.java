@@ -13,7 +13,6 @@ public class CrystalImageCache {
 	private static int CACHE_INCREMENT = 20;
 	private static int CACHE_SIZE = 0;
 
-	// Methods
 	static BufferedImageIcon getCachedImage(final String name) {
 		if (!CrystalImageCache.isInCache(name)) {
 			final var bii = CrystalImageManager.getUncachedImage(name);

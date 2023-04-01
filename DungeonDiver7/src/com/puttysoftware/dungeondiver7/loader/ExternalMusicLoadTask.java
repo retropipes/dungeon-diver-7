@@ -21,7 +21,6 @@ public class ExternalMusicLoadTask extends Thread {
 		this.setName("External Music Loader");
 	}
 
-	// Methods
 	@Override
 	public void run() {
 		final var app = DungeonDiver7.getStuffBag();

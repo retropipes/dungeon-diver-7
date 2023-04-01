@@ -33,7 +33,6 @@ class ScoreTracker {
 		this.trackScores = true;
 	}
 
-	// Methods
 	boolean checkScore() {
 		if (this.trackScores) {
 			return this.ssMgr.checkScore(new long[] { this.moves, this.shots, this.others });

@@ -46,7 +46,6 @@ public class Shop {
 		this.index = 0;
 	}
 
-	// Methods
 	public static int getEquipmentCost(final int x) {
 		return 10 * x * x * x + 10 * x * x + 10 * x + 10;
 	}

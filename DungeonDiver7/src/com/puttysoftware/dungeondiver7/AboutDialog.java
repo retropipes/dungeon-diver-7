@@ -39,7 +39,6 @@ public class AboutDialog implements AboutHandler, MenuSection {
 		this.setUpGUI(ver);
 	}
 
-	// Methods
 	public void showAboutDialog() {
 		this.mainWindow.setAndSave(this.aboutPane, DianeStrings.subst(Strings.dialog(DialogString.ABOUT),
 				Strings.untranslated(Untranslated.PROGRAM_NAME)));

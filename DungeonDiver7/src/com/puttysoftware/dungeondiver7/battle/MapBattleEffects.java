@@ -23,7 +23,6 @@ public class MapBattleEffects {
 		// Do nothing
 	}
 
-	// Methods
 	public JPanel getEffectsPane() {
 		if (this.effectsPane == null) {
 			this.effectsPane = new JPanel();

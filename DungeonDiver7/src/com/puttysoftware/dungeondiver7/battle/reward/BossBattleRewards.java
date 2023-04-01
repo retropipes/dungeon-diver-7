@@ -20,7 +20,6 @@ class BossBattleRewards {
 		// Do nothing
 	}
 
-	// Methods
 	public static void doRewards(final BattleResult br) {
 		final var player = PartyManager.getParty().getLeader();
 		player.healAndRegenerateFully();

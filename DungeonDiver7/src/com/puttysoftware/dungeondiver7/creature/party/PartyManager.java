@@ -32,7 +32,6 @@ public class PartyManager {
 		// Do nothing
 	}
 
-	// Methods
 	public static boolean createParty() {
 		if (MusicLoader.isMusicPlaying()) {
 			MusicLoader.stopMusic();

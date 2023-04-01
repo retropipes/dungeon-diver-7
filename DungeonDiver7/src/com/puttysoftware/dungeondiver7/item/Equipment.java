@@ -34,7 +34,6 @@ public class Equipment extends Item {
 		this.hitSound = e.hitSound;
 	}
 
-	// Methods
 	@Override
 	public int hashCode() {
 		final var prime = 31;

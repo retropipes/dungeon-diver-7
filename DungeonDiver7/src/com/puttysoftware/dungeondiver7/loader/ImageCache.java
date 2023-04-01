@@ -21,7 +21,6 @@ class ImageCache {
 		// Do nothing
 	}
 
-	// Methods
 	static void flushCache() {
 		ImageCache.cache = null;
 		ImageCache.CACHE_SIZE = 0;

@@ -35,7 +35,6 @@ public class GenerateDungeonTask extends Thread {
 		this.loadContent.add(loadBar);
 	}
 
-	// Methods
 	@Override
 	public void run() {
 		try {

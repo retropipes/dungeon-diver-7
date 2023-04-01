@@ -27,7 +27,6 @@ public final class PlayerLocationManager {
 		this.savedRemoteData.fill(-1);
 	}
 
-	// Methods
 	public int getActivePlayerNumber() {
 		return this.playerInstance;
 	}

@@ -31,7 +31,6 @@ class StatGUI {
 		this.setUpGUI();
 	}
 
-	// Methods
 	JPanel getStatsPane() {
 		return this.statsPane;
 	}

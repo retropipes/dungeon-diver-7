@@ -40,7 +40,6 @@ public abstract class GenericEditor {
 		return this.source;
 	}
 
-	// Methods
 	public final void edit() {
 		final var app = DungeonDiver7.getStuffBag();
 		app.getGUIManager().hideGUI();

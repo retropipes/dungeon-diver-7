@@ -63,7 +63,6 @@ public final class StuffBag {
 		this.spells = new Shop(ShopType.SPELLS);
 	}
 
-	// Methods
 	public void activeLanguageChanged() {
 		// Rebuild menus
 		this.getMenuManager().unregisterAllModeManagers();

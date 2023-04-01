@@ -13,7 +13,6 @@ public class BattleImageCache {
 	private static int CACHE_INCREMENT = 20;
 	private static int CACHE_SIZE = 0;
 
-	// Methods
 	static BufferedImageIcon getCachedImage(final String name, final String baseName) {
 		if (!BattleImageCache.isInCache(name)) {
 			final var bii = BattleImageManager.getUncachedImage(baseName);

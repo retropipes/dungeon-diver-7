@@ -31,7 +31,6 @@ public class MapBattleStats {
 		this.updateIcons();
 	}
 
-	// Methods
 	public JPanel getStatsPane() {
 		return this.statsPane;
 	}

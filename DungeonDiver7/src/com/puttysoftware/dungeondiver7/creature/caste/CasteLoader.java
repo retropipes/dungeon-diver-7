@@ -16,7 +16,6 @@ class CasteLoader {
 		// Do nothing
 	}
 
-	// Methods
 	static Caste loadCaste(final String name) {
 		if (name.equals(CasteConstants.CASTE_NAMES[CasteConstants.CASTE_ANNIHILATOR])) {
 			return new Annihilator();

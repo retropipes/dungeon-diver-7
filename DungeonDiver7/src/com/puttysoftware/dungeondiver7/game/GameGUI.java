@@ -110,7 +110,6 @@ class GameGUI {
 		this.sg = new StatGUI();
 	}
 
-	// Methods
 	public void activeLanguageChanged() {
 		this.setUpDifficultyDialog();
 	}

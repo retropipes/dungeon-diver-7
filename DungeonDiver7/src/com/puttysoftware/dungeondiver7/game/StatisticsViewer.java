@@ -34,7 +34,6 @@ public class StatisticsViewer {
 		// Do nothing
 	}
 
-	// Methods
 	public static void viewStatistics() {
 		StatisticsViewer.setUpGUI();
 		final var leader = PartyManager.getParty().getLeader();

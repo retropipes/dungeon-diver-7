@@ -13,7 +13,6 @@ public class MonsterImageCache {
 	private static int CACHE_INCREMENT = 20;
 	private static int CACHE_SIZE = 0;
 
-	// Methods
 	static BufferedImageIcon getCachedImage(final String name) {
 		if (!MonsterImageCache.isInCache(name)) {
 			final var bii = MonsterImageManager.getUncachedImage(name);

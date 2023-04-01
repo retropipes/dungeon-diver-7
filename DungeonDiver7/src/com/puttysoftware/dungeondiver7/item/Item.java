@@ -33,7 +33,6 @@ public class Item {
 		this.potency = i.potency;
 	}
 
-	// Methods
 	@Override
 	public String toString() {
 		return this.name;

@@ -27,7 +27,6 @@ final class CheatManager {
 		this.loadCheatCache();
 	}
 
-	// Methods
 	private void loadCheatCache() {
 		this.cheatCache.addAll(Strings.allCheats());
 	}

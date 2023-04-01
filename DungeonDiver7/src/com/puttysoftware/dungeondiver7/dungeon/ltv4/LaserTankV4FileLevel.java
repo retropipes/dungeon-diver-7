@@ -53,7 +53,6 @@ class LaserTankV4FileLevel {
 		// Do nothing
 	}
 
-	// Methods
 	static CurrentDungeonData loadAndConvert(final FileInputStream file, final AbstractDungeon a) {
 		try {
 			LaserTankV4FileLevel.objects = new byte[LaserTankV4FileLevel.OBJECTS_SIZE];

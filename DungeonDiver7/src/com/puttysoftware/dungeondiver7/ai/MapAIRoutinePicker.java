@@ -13,7 +13,6 @@ public final class MapAIRoutinePicker {
 		// Do nothing
 	}
 
-	// Methods
 	public static AbstractMapAIRoutine getNextRoutine() {
 		final var difficulty = Prefs.getGameDifficulty();
 		if (difficulty == Prefs.DIFFICULTY_VERY_EASY) {

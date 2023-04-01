@@ -13,7 +13,6 @@ public class ObjectImageCache {
 	private static int CACHE_INCREMENT = 20;
 	private static int CACHE_SIZE = 0;
 
-	// Methods
 	static BufferedImageIcon getCachedImage(final String name, final String baseName) {
 		if (!ObjectImageCache.isInCache(name)) {
 			final var bii = ObjectImageManager.getUncachedImage(baseName);

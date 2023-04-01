@@ -20,7 +20,6 @@ public final class EditorLocationManager {
 		this.resetEditorLocation();
 	}
 
-	// Methods
 	int getEditorLocationX() {
 		return this.locX;
 	}

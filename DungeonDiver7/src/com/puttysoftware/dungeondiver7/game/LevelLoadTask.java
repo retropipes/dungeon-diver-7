@@ -33,7 +33,6 @@ public class LevelLoadTask extends Thread {
 		this.loadContent.add(loadBar);
 	}
 
-	// Methods
 	@Override
 	public void run() {
 		try {

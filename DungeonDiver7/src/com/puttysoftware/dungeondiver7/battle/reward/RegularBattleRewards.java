@@ -17,7 +17,6 @@ class RegularBattleRewards {
 		// Do nothing
 	}
 
-	// Methods
 	public static void doRewards(final BattleResult br, final long baseExp, final int baseGold) {
 		RegularBattleRewards.processExp(br, baseExp);
 		RegularBattleRewards.processGold(br, baseGold);

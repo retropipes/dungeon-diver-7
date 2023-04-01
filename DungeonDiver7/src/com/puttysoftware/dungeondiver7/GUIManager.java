@@ -57,7 +57,6 @@ public class GUIManager implements MenuSection, QuitHandler {
 		this.guiPane.add(this.logoLabel);
 	}
 
-	// Methods
 	public void showGUI() {
 		final var app = DungeonDiver7.getStuffBag();
 		app.setInGUI();

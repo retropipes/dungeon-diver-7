@@ -9,7 +9,6 @@ import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 
 public abstract class AbstractDamageEngine {
-	// Methods
 	public abstract int computeDamage(AbstractCreature enemy, AbstractCreature acting);
 
 	public abstract boolean enemyDodged();

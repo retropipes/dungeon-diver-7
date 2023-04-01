@@ -117,7 +117,6 @@ public class Importer {
 		Importer.inited = true;
 	}
 
-	// Methods
 	public static void showImporter() {
 		if (!Importer.inited) {
 			Importer.init();

@@ -50,7 +50,6 @@ class PrefsGUI {
 		this.setDefaultPrefs();
 	}
 
-	// Methods
 	void activeLanguageChanged() {
 		PrefsGUI.DIFFICULTY_NAMES = Strings.allDifficulties();
 		this.setUpGUI();

@@ -13,7 +13,6 @@ public class BossImageCache {
 	private static int CACHE_INCREMENT = 20;
 	private static int CACHE_SIZE = 0;
 
-	// Methods
 	static BufferedImageIcon getCachedImage(final String name) {
 		if (!BossImageCache.isInCache(name)) {
 			final var bii = BossImageManager.getUncachedImage(name);

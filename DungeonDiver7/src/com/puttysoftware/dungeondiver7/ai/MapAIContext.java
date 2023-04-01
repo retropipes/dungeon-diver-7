@@ -35,7 +35,6 @@ public class MapAIContext {
 		return MapAIContext.AP_COST;
 	}
 
-	// Methods
 	public void updateContext(final AbstractDungeon arena) {
 		for (var x = 0; x < this.apCosts.length; x++) {
 			for (var y = 0; y < this.apCosts[x].length; y++) {

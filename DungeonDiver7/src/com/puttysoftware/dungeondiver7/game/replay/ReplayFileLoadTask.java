@@ -38,7 +38,6 @@ class ReplayFileLoadTask extends Thread {
 		this.loadContent.add(loadBar);
 	}
 
-	// Methods
 	@Override
 	public void run() {
 		this.mainWindow.setAndSave(this.loadContent, Strings.dialog(DialogString.LOADING));

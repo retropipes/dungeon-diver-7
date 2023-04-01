@@ -33,7 +33,6 @@ public class MenuManager implements MenuSection {
 		this.accel = Accelerators.getAcceleratorModel();
 	}
 
-	// Methods
 	public JMenuBar getMainMenuBar() {
 		return this.mainMenuBar;
 	}

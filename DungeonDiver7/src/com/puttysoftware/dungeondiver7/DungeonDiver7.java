@@ -29,7 +29,6 @@ public class DungeonDiver7 {
 	private static final int DUNGEON_BASE_SIZE = 24;
 	private static final int DUNGEON_SIZE_INCREMENT = 2;
 
-	// Methods
 	public static StuffBag getStuffBag() {
 		return DungeonDiver7.stuffBag;
 	}

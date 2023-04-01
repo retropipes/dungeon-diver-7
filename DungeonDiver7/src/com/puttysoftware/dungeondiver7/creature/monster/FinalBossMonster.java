@@ -37,7 +37,6 @@ public class FinalBossMonster extends AbstractMonster {
 		this.loadCreature();
 	}
 
-	// Methods
 	@Override
 	public boolean checkLevelUp() {
 		return false;
