@@ -19,7 +19,6 @@ class PrefsFile {
         this.store = new Properties();
     }
 
-    // Methods
     public String getString(final String key, final String defaultValue) {
         return this.store.getProperty(key, defaultValue);
     }

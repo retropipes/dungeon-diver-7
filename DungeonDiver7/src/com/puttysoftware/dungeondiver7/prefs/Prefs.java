@@ -42,7 +42,6 @@ public class Prefs {
         // Do nothing
     }
 
-    // Methods
     public static void init() {
         Prefs.file = new PrefsFile();
         Prefs.gui = new PrefsGUI();

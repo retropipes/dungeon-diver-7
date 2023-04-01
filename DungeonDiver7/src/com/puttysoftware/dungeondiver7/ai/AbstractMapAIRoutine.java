@@ -29,7 +29,6 @@ public abstract class AbstractMapAIRoutine {
         this.lastResult = true;
     }
 
-    // Methods
     public abstract int getNextAction(MapAIContext ac);
 
     public void newRoundHook() {

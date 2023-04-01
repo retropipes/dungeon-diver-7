@@ -26,7 +26,6 @@ class Statistic {
         this.minVal = 0;
     }
 
-    // Methods
     int getValue() {
         return this.value;
     }

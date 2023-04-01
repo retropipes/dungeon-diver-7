@@ -23,7 +23,6 @@ public abstract class AbstractShop extends AbstractDungeonObject {
         this.type.set(DungeonObjectTypes.TYPE_SHOP);
     }
 
-    // Methods
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
         SoundLoader.playSound(Sounds.WALK);

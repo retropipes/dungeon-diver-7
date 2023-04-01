@@ -19,7 +19,6 @@ public class DungeonDataStorage extends CloneableObjectStorage {
         super(source);
     }
 
-    // Methods
     @Override
     public Object clone() throws CloneNotSupportedException {
         final var copy = new DungeonDataStorage(this.getShape());

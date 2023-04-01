@@ -15,7 +15,6 @@ public abstract class AbstractMovingObject extends AbstractDungeonObject {
         this.type.set(DungeonObjectTypes.TYPE_DUNGEON);
     }
 
-    // Methods
     @Override
     public boolean isMoving() {
         return true;

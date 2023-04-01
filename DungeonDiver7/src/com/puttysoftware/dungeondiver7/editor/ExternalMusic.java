@@ -16,7 +16,6 @@ public class ExternalMusic {
         this.path = "";
     }
 
-    // Methods
     public String getName() {
         return this.name;
     }

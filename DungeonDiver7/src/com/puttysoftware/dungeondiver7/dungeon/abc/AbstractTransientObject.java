@@ -13,7 +13,6 @@ public abstract class AbstractTransientObject extends AbstractDungeonObject {
         super(true);
     }
 
-    // Methods
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
         // Do nothing

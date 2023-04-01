@@ -36,7 +36,6 @@ public abstract class AbstractCharacter extends AbstractDungeonObject {
         this.characterNumber = number;
     }
 
-    // Methods
     public int getNumber() {
         return this.characterNumber;
     }

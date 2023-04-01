@@ -84,7 +84,6 @@ public abstract class AbstractDungeon {
         return temp;
     }
 
-    // Methods
     public abstract String getDungeonTempMusicFolder();
 
     public abstract Direction computeFinalBossMoveDirection(final int locX, final int locY, final int locZ,

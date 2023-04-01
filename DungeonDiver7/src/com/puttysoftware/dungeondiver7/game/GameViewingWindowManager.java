@@ -51,7 +51,6 @@ public final class GameViewingWindowManager {
         return GameViewingWindowManager.VIEWING_WINDOW_SIZE_Y;
     }
 
-    // Methods
     public int getViewingWindowLocationX() {
         return this.locX;
     }

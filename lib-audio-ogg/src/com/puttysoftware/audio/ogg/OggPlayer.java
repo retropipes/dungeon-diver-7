@@ -16,7 +16,6 @@ public abstract class OggPlayer extends Thread {
         super("Ogg Media Player");
     }
 
-    // Methods
     protected abstract void stopPlayer();
 
     public abstract boolean isPlaying();

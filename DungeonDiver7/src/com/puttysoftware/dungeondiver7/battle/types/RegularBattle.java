@@ -17,7 +17,6 @@ class RegularBattle extends AbstractBattleType {
         this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance());
     }
 
-    // Methods
     @Override
     public BattleCharacter getBattlers() {
         return this.monster;

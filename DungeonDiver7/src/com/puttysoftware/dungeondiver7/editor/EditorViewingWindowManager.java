@@ -19,7 +19,6 @@ final class EditorViewingWindowManager {
         // Do nothing
     }
 
-    // Methods
     static int getViewingWindowLocationX() {
         return EditorViewingWindowManager.MIN_VIEWING_WINDOW_X;
     }

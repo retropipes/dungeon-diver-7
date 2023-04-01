@@ -17,7 +17,6 @@ class ImageCacheEntry {
         // Do nothing
     }
 
-    // Methods
     BufferedImageIcon getEntry() {
         return this.entry;
     }

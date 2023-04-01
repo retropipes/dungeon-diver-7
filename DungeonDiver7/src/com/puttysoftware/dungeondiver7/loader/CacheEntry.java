@@ -18,7 +18,6 @@ final class CacheEntry {
         this.name = newName;
     }
 
-    // Methods
     BufferedImageIcon getImage() {
         return this.image;
     }

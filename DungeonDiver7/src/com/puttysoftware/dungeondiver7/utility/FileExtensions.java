@@ -13,7 +13,6 @@ public class FileExtensions {
     // Constants
     private static final String STRING_EXTENSION = "properties";
 
-    // Methods
     public static String getStringExtensionWithPeriod() {
         return "." + FileExtensions.STRING_EXTENSION;
     }

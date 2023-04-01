@@ -13,7 +13,6 @@ public class IDGenerator {
         // Do nothing
     }
 
-    // Methods
     public static String generateRandomFilename() {
         return Long.toString(RandomLongRange.generateRaw(), 36).toLowerCase();
     }

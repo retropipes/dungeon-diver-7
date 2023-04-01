@@ -22,7 +22,6 @@ public class MapBattleViewingWindowManager {
         this.oldLocY = 0;
     }
 
-    // Methods
     public int getViewingWindowLocationX() {
         return this.locX;
     }
