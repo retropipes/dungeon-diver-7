@@ -1,63 +1,29 @@
-/*
- * Diane Game Engine Copyleft (C) 2019-present Eric Ahnell
- * 
- * Any questions should be directed to the author via email at:
- * support@puttysoftware.com
- */
+/*  Diane Game Engine
+Copyleft (C) 2019-present Eric Ahnell
+Any questions should be directed to the author via email at: support@puttysoftware.com */
 package com.puttysoftware.diane.objectmodel;
 
-import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import com.puttysoftware.diane.direction.DirectionQuery;
 
 public interface ObjectModel {
-    int getUniqueID();
-
-    BufferedImageIcon getImage();
-
-    BufferedImageIcon getGameImage();
+    BufferedImageIcon getBattleImage();
 
     BufferedImageIcon getEditorImage();
 
-    BufferedImageIcon getBattleImage();
+    BufferedImageIcon getGameImage();
 
-    boolean isSolid();
+    BufferedImageIcon getImage();
 
-    boolean isDirectionallySolid(int dirX, int dirY);
+    int getTimerTicks();
 
-    boolean isInternallyDirectionallySolid(int dirX, int dirY);
-
-    boolean isPushable();
-
-    boolean isDirectionallyPushable(int dirX, int dirY);
-
-    boolean isPullable();
-
-    boolean isDirectionallyPullable(int dirX, int dirY);
-
-    boolean isPullableInto();
-
-    boolean isPushableInto();
-
-    boolean isDirectionallyPushableInto(int dirX, int dirY);
-
-    boolean isDirectionallyPullableInto(int dirX, int dirY);
-
-    boolean isPullableOut();
-
-    boolean isPushableOut();
-
-    boolean isDirectionallyPushableOut(int dirX, int dirY);
-
-    boolean isDirectionallyPullableOut(int dirX, int dirY);
-
-    boolean hasFriction();
-
-    boolean isUsable();
+    int getUniqueID();
 
     int getUses();
 
-    void use();
+    boolean hasFriction();
 
-    boolean isDestroyable();
+    boolean isCarryable();
 
     boolean isChainReacting();
 
@@ -65,17 +31,49 @@ public interface ObjectModel {
 
     boolean isChainReactingVertically();
 
-    boolean isCarryable();
+    boolean isDestroyable();
+
+    boolean isDirectionallyPullable(DirectionQuery dir);
+
+    boolean isDirectionallyPullableInto(DirectionQuery dir);
+
+    boolean isDirectionallyPullableOut(DirectionQuery dir);
+
+    boolean isDirectionallyPushable(DirectionQuery dir);
+
+    boolean isDirectionallyPushableInto(DirectionQuery dir);
+
+    boolean isDirectionallyPushableOut(DirectionQuery dir);
+
+    boolean isDirectionallySightBlocking(DirectionQuery dir);
+
+    boolean isDirectionallySolid(DirectionQuery dir);
+
+    boolean isInternallyDirectionallySightBlocking(DirectionQuery dir);
+
+    boolean isInternallyDirectionallySolid(DirectionQuery dir);
+
+    boolean isPullable();
+
+    boolean isPullableInto();
+
+    boolean isPullableOut();
+
+    boolean isPushable();
+
+    boolean isPushableInto();
+
+    boolean isPushableOut();
 
     boolean isSightBlocking();
 
-    boolean isDirectionallySightBlocking(int inDirX, int inDirY);
+    boolean isSolid();
 
-    boolean isInternallyDirectionallySightBlocking(int inDirX, int inDirY);
+    boolean isUsable();
 
-    int getTimerTicks();
+    void resetTimer();
 
     void tickTimer();
 
-    void resetTimer();
+    void use();
 }

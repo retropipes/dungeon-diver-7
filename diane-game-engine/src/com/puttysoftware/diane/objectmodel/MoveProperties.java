@@ -1,249 +1,236 @@
-/*
- * Diane Game Engine Copyleft (C) 2019-present Eric Ahnell
- * 
- * Any questions should be directed to the author via email at:
- * support@puttysoftware.com
- */
+/*  Diane Game Engine
+Copyleft (C) 2019-present Eric Ahnell
+Any questions should be directed to the author via email at: support@puttysoftware.com */
 package com.puttysoftware.diane.objectmodel;
 
 import java.util.Objects;
 
-import com.puttysoftware.diane.utilties.DirectionResolver;
-import com.puttysoftware.diane.utilties.Directions;
-import com.puttysoftware.storage.FlagStorage;
+import com.puttysoftware.diane.direction.DirectionQuery;
+import com.puttysoftware.diane.direction.DirectionQueryResolver;
+import com.puttysoftware.diane.storage.FlagStorage;
 
 class MoveProperties {
-    // Private enumeration
-    private enum MoveDataTypes {
-	PUSH(0),
-	PULL(1),
-	PUSH_INTO(2),
-	PULL_INTO(3),
-	PUSH_OUT(4),
-	PULL_OUT(5);
+	// Private enumeration
+	private enum MoveDataTypes {
+		PUSH(0),
+		PULL(1),
+		PUSH_INTO(2),
+		PULL_INTO(3),
+		PUSH_OUT(4),
+		PULL_OUT(5);
 
-	private int index;
+		private int index;
 
-	MoveDataTypes(final int value) {
-	    this.index = value;
+		MoveDataTypes(final int value) {
+			this.index = value;
+		}
 	}
-    }
 
-    // Properties
-    private final FlagStorage moveData;
-    private static final int MOVE_DATA_TYPES = 6;
+	private static final int MOVE_DATA_TYPES = 6;
+	// Properties
+	private final FlagStorage moveData;
 
-    // Constructors
-    public MoveProperties() {
-	this.moveData = new FlagStorage(MoveProperties.MOVE_DATA_TYPES, DirectionResolver.COUNT);
-    }
-
-    // Methods
-    @Override
-    public boolean equals(final Object obj) {
-	if (obj == null) {
-	    return false;
+	// Constructors
+	public MoveProperties() {
+		this.moveData = new FlagStorage(MoveProperties.MOVE_DATA_TYPES, DirectionQueryResolver.COUNT);
 	}
-	if (this.getClass() != obj.getClass()) {
-	    return false;
+
+	// Methods
+	@Override
+	public boolean equals(final Object obj) {
+		if (obj == null || this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final var other = (MoveProperties) obj;
+		if (!Objects.equals(this.moveData, other.moveData)) {
+			return false;
+		}
+		return true;
 	}
-	final MoveProperties other = (MoveProperties) obj;
-	if (!Objects.equals(this.moveData, other.moveData)) {
-	    return false;
+
+	@Override
+	public int hashCode() {
+		final var hash = 7;
+		return 17 * hash + Objects.hashCode(this.moveData);
 	}
-	return true;
-    }
 
-    @Override
-    public int hashCode() {
-	int hash = 7;
-	hash = 17 * hash + Objects.hashCode(this.moveData);
-	return hash;
-    }
-
-    public boolean isPushable() {
-	boolean result = true;
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    result = result && this.moveData.getCell(MoveDataTypes.PUSH.index, dir);
+	public boolean isDirectionallyPullable(final DirectionQuery dir) {
+		try {
+			if (dir != DirectionQuery.NONE) {
+				return this.moveData.getCell(MoveDataTypes.PULL.index, dir.ordinal());
+			} else {
+				return false;
+			}
+		} catch (final ArrayIndexOutOfBoundsException aioob) {
+			return false;
+		}
 	}
-	return result;
-    }
 
-    public boolean isDirectionallyPushable(final int dirX, final int dirY) {
-	final Directions dir = DirectionResolver.resolve(dirX, dirY);
-	try {
-	    if (dir != Directions.NONE) {
-		return this.moveData.getCell(MoveDataTypes.PUSH.index, dir.ordinal());
-	    } else {
-		return false;
-	    }
-	} catch (final ArrayIndexOutOfBoundsException aioob) {
-	    return false;
+	public boolean isDirectionallyPullableInto(final DirectionQuery dir) {
+		try {
+			if (dir != DirectionQuery.NONE) {
+				return this.moveData.getCell(MoveDataTypes.PULL_INTO.index, dir.ordinal());
+			} else {
+				return false;
+			}
+		} catch (final ArrayIndexOutOfBoundsException aioob) {
+			return false;
+		}
 	}
-    }
 
-    public boolean isPullable() {
-	boolean result = true;
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    result = result && this.moveData.getCell(MoveDataTypes.PULL.index, dir);
+	public boolean isDirectionallyPullableOut(final DirectionQuery dir) {
+		try {
+			if (dir != DirectionQuery.NONE) {
+				return this.moveData.getCell(MoveDataTypes.PULL_OUT.index, dir.ordinal());
+			} else {
+				return false;
+			}
+		} catch (final ArrayIndexOutOfBoundsException aioob) {
+			return false;
+		}
 	}
-	return result;
-    }
 
-    public boolean isDirectionallyPullable(final int dirX, final int dirY) {
-	final Directions dir = DirectionResolver.resolve(dirX, dirY);
-	try {
-	    if (dir != Directions.NONE) {
-		return this.moveData.getCell(MoveDataTypes.PULL.index, dir.ordinal());
-	    } else {
-		return false;
-	    }
-	} catch (final ArrayIndexOutOfBoundsException aioob) {
-	    return false;
+	public boolean isDirectionallyPushable(final DirectionQuery dir) {
+		try {
+			if (dir != DirectionQuery.NONE) {
+				return this.moveData.getCell(MoveDataTypes.PUSH.index, dir.ordinal());
+			} else {
+				return false;
+			}
+		} catch (final ArrayIndexOutOfBoundsException aioob) {
+			return false;
+		}
 	}
-    }
 
-    public boolean isPushableInto() {
-	boolean result = true;
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    result = result && this.moveData.getCell(MoveDataTypes.PUSH_INTO.index, dir);
+	public boolean isDirectionallyPushableInto(final DirectionQuery dir) {
+		try {
+			if (dir != DirectionQuery.NONE) {
+				return this.moveData.getCell(MoveDataTypes.PUSH_INTO.index, dir.ordinal());
+			} else {
+				return false;
+			}
+		} catch (final ArrayIndexOutOfBoundsException aioob) {
+			return false;
+		}
 	}
-	return result;
-    }
 
-    public boolean isDirectionallyPushableInto(final int dirX, final int dirY) {
-	final Directions dir = DirectionResolver.resolve(dirX, dirY);
-	try {
-	    if (dir != Directions.NONE) {
-		return this.moveData.getCell(MoveDataTypes.PUSH_INTO.index, dir.ordinal());
-	    } else {
-		return false;
-	    }
-	} catch (final ArrayIndexOutOfBoundsException aioob) {
-	    return false;
+	public boolean isDirectionallyPushableOut(final DirectionQuery dir) {
+		try {
+			if (dir != DirectionQuery.NONE) {
+				return this.moveData.getCell(MoveDataTypes.PUSH_OUT.index, dir.ordinal());
+			} else {
+				return false;
+			}
+		} catch (final ArrayIndexOutOfBoundsException aioob) {
+			return false;
+		}
 	}
-    }
 
-    public boolean isPullableInto() {
-	boolean result = true;
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    result = result && this.moveData.getCell(MoveDataTypes.PULL_INTO.index, dir);
+	public boolean isPullable() {
+		var result = true;
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			result = result && this.moveData.getCell(MoveDataTypes.PULL.index, dir);
+		}
+		return result;
 	}
-	return result;
-    }
 
-    public boolean isDirectionallyPullableInto(final int dirX, final int dirY) {
-	final Directions dir = DirectionResolver.resolve(dirX, dirY);
-	try {
-	    if (dir != Directions.NONE) {
-		return this.moveData.getCell(MoveDataTypes.PULL_INTO.index, dir.ordinal());
-	    } else {
-		return false;
-	    }
-	} catch (final ArrayIndexOutOfBoundsException aioob) {
-	    return false;
+	public boolean isPullableInto() {
+		var result = true;
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			result = result && this.moveData.getCell(MoveDataTypes.PULL_INTO.index, dir);
+		}
+		return result;
 	}
-    }
 
-    public boolean isPushableOut() {
-	boolean result = true;
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    result = result && this.moveData.getCell(MoveDataTypes.PUSH_OUT.index, dir);
+	public boolean isPullableOut() {
+		var result = true;
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			result = result && this.moveData.getCell(MoveDataTypes.PULL_OUT.index, dir);
+		}
+		return result;
 	}
-	return result;
-    }
 
-    public boolean isDirectionallyPushableOut(final int dirX, final int dirY) {
-	final Directions dir = DirectionResolver.resolve(dirX, dirY);
-	try {
-	    if (dir != Directions.NONE) {
-		return this.moveData.getCell(MoveDataTypes.PUSH_OUT.index, dir.ordinal());
-	    } else {
-		return false;
-	    }
-	} catch (final ArrayIndexOutOfBoundsException aioob) {
-	    return false;
+	public boolean isPushable() {
+		var result = true;
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			result = result && this.moveData.getCell(MoveDataTypes.PUSH.index, dir);
+		}
+		return result;
 	}
-    }
 
-    public boolean isPullableOut() {
-	boolean result = true;
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    result = result && this.moveData.getCell(MoveDataTypes.PULL_OUT.index, dir);
+	public boolean isPushableInto() {
+		var result = true;
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			result = result && this.moveData.getCell(MoveDataTypes.PUSH_INTO.index, dir);
+		}
+		return result;
 	}
-	return result;
-    }
 
-    public boolean isDirectionallyPullableOut(final int dirX, final int dirY) {
-	final Directions dir = DirectionResolver.resolve(dirX, dirY);
-	try {
-	    if (dir != Directions.NONE) {
-		return this.moveData.getCell(MoveDataTypes.PULL_OUT.index, dir.ordinal());
-	    } else {
-		return false;
-	    }
-	} catch (final ArrayIndexOutOfBoundsException aioob) {
-	    return false;
+	public boolean isPushableOut() {
+		var result = true;
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			result = result && this.moveData.getCell(MoveDataTypes.PUSH_OUT.index, dir);
+		}
+		return result;
 	}
-    }
 
-    public void setPushable(final boolean value) {
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    this.setDirectionallyPushable(dir, value);
+	public void setDirectionallyPullable(final DirectionQuery dir, final boolean value) {
+		this.moveData.setCell(value, MoveDataTypes.PULL.index, dir.ordinal());
 	}
-    }
 
-    public void setDirectionallyPushable(final int dir, final boolean value) {
-	this.moveData.setCell(value, MoveDataTypes.PUSH.index, dir);
-    }
-
-    public void setPullable(final boolean value) {
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    this.setDirectionallyPullable(dir, value);
+	public void setDirectionallyPullableInto(final DirectionQuery dir, final boolean value) {
+		this.moveData.setCell(value, MoveDataTypes.PULL_INTO.index, dir.ordinal());
 	}
-    }
 
-    public void setDirectionallyPullable(final int dir, final boolean value) {
-	this.moveData.setCell(value, MoveDataTypes.PULL.index, dir);
-    }
-
-    public void setPushableInto(final boolean value) {
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    this.setDirectionallyPushableInto(dir, value);
+	public void setDirectionallyPullableOut(final DirectionQuery dir, final boolean value) {
+		this.moveData.setCell(value, MoveDataTypes.PULL_OUT.index, dir.ordinal());
 	}
-    }
 
-    public void setDirectionallyPushableInto(final int dir, final boolean value) {
-	this.moveData.setCell(value, MoveDataTypes.PUSH_INTO.index, dir);
-    }
-
-    public void setPullableInto(final boolean value) {
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    this.setDirectionallyPullableInto(dir, value);
+	public void setDirectionallyPushable(final DirectionQuery dir, final boolean value) {
+		this.moveData.setCell(value, MoveDataTypes.PUSH.index, dir.ordinal());
 	}
-    }
 
-    public void setDirectionallyPullableInto(final int dir, final boolean value) {
-	this.moveData.setCell(value, MoveDataTypes.PULL_INTO.index, dir);
-    }
-
-    public void setPushableOut(final boolean value) {
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    this.setDirectionallyPushableOut(dir, value);
+	public void setDirectionallyPushableInto(final DirectionQuery dir, final boolean value) {
+		this.moveData.setCell(value, MoveDataTypes.PUSH_INTO.index, dir.ordinal());
 	}
-    }
 
-    public void setDirectionallyPushableOut(final int dir, final boolean value) {
-	this.moveData.setCell(value, MoveDataTypes.PUSH_OUT.index, dir);
-    }
-
-    public void setPullableOut(final boolean value) {
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    this.setDirectionallyPullableOut(dir, value);
+	public void setDirectionallyPushableOut(final DirectionQuery dir, final boolean value) {
+		this.moveData.setCell(value, MoveDataTypes.PUSH_OUT.index, dir.ordinal());
 	}
-    }
 
-    public void setDirectionallyPullableOut(final int dir, final boolean value) {
-	this.moveData.setCell(value, MoveDataTypes.PULL_OUT.index, dir);
-    }
+	public void setPullable(final boolean value) {
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			this.setDirectionallyPullable(DirectionQuery.values()[dir], value);
+		}
+	}
+
+	public void setPullableInto(final boolean value) {
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			this.setDirectionallyPullableInto(DirectionQuery.values()[dir], value);
+		}
+	}
+
+	public void setPullableOut(final boolean value) {
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			this.setDirectionallyPullableOut(DirectionQuery.values()[dir], value);
+		}
+	}
+
+	public void setPushable(final boolean value) {
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			this.setDirectionallyPushable(DirectionQuery.values()[dir], value);
+		}
+	}
+
+	public void setPushableInto(final boolean value) {
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			this.setDirectionallyPushableInto(DirectionQuery.values()[dir], value);
+		}
+	}
+
+	public void setPushableOut(final boolean value) {
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			this.setDirectionallyPushableOut(DirectionQuery.values()[dir], value);
+		}
+	}
 }

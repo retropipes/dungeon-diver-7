@@ -1,24 +1,35 @@
 /*
- * Diane Game Engine Copyleft (C) 2019-present Eric Ahnell
+ * Diane Game Engine Copyleft (C) 2019 Eric Ahnell
  * 
  * Any questions should be directed to the author via email at:
  * support@puttysoftware.com
  */
 module com.puttysoftware.diane {
     requires transitive java.desktop;
-    requires transitive com.puttysoftware.images;
-    requires transitive com.puttysoftware.polytable;
-    requires transitive com.puttysoftware.storage;
-    requires transitive com.puttysoftware.fileio;
 
     exports com.puttysoftware.diane;
+    exports com.puttysoftware.diane.ack;
     exports com.puttysoftware.diane.assets;
+    exports com.puttysoftware.diane.assets.image;
+    exports com.puttysoftware.diane.assets.music;
+    exports com.puttysoftware.diane.assets.sound;
+    exports com.puttysoftware.diane.direction;
+    exports com.puttysoftware.diane.edge;
+    exports com.puttysoftware.diane.fileio;
+    exports com.puttysoftware.diane.fileio.utility;
     exports com.puttysoftware.diane.gui;
     exports com.puttysoftware.diane.gui.dialog;
-    exports com.puttysoftware.diane.loaders;
+    exports com.puttysoftware.diane.gui.picker;
+    exports com.puttysoftware.diane.help;
+    exports com.puttysoftware.diane.integration;
+    exports com.puttysoftware.diane.locale;
     exports com.puttysoftware.diane.map;
     exports com.puttysoftware.diane.objectmodel;
-    exports com.puttysoftware.diane.scores;
-    exports com.puttysoftware.diane.strings;
-    exports com.puttysoftware.diane.utilties;
+    exports com.puttysoftware.diane.polytable;
+    exports com.puttysoftware.diane.random;
+    exports com.puttysoftware.diane.sandbox;
+    exports com.puttysoftware.diane.scoring;
+    exports com.puttysoftware.diane.storage;
+    exports com.puttysoftware.diane.update;
+    exports com.puttysoftware.diane.utility;
 }

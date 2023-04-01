@@ -1,105 +1,96 @@
-/*
- * Diane Game Engine Copyleft (C) 2019-present Eric Ahnell
- * 
- * Any questions should be directed to the author via email at:
- * support@puttysoftware.com
- */
+/*  Diane Game Engine
+Copyleft (C) 2019-present Eric Ahnell
+Any questions should be directed to the author via email at: support@puttysoftware.com */
 package com.puttysoftware.diane.objectmodel;
 
 import java.util.Objects;
 
-import com.puttysoftware.diane.utilties.DirectionResolver;
-import com.puttysoftware.diane.utilties.Directions;
-import com.puttysoftware.storage.FlagStorage;
+import com.puttysoftware.diane.direction.DirectionQuery;
+import com.puttysoftware.diane.direction.DirectionQueryResolver;
+import com.puttysoftware.diane.storage.FlagStorage;
 
 class SolidProperties {
-    // Private enumeration
-    private enum SolidDataTypes {
-	EXTERNAL(0),
-	INTERNAL(1);
+	// Private enumeration
+	private enum SolidDataTypes {
+		EXTERNAL(0),
+		INTERNAL(1);
 
-	private int index;
+		private int index;
 
-	SolidDataTypes(final int value) {
-	    this.index = value;
+		SolidDataTypes(final int value) {
+			this.index = value;
+		}
 	}
-    }
 
-    // Properties
-    private final FlagStorage solidData;
-    private static final int SOLID_DATA_TYPES = 2;
+	private static final int SOLID_DATA_TYPES = 2;
+	// Properties
+	private final FlagStorage solidData;
 
-    // Constructors
-    public SolidProperties() {
-	this.solidData = new FlagStorage(SolidProperties.SOLID_DATA_TYPES, DirectionResolver.COUNT);
-    }
-
-    // Methods
-    @Override
-    public boolean equals(final Object obj) {
-	if (obj == null) {
-	    return false;
+	// Constructors
+	public SolidProperties() {
+		this.solidData = new FlagStorage(SolidProperties.SOLID_DATA_TYPES, DirectionQueryResolver.COUNT);
 	}
-	if (this.getClass() != obj.getClass()) {
-	    return false;
+
+	// Methods
+	@Override
+	public boolean equals(final Object obj) {
+		if (obj == null || this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final var other = (SolidProperties) obj;
+		if (!Objects.equals(this.solidData, other.solidData)) {
+			return false;
+		}
+		return true;
 	}
-	final SolidProperties other = (SolidProperties) obj;
-	if (!Objects.equals(this.solidData, other.solidData)) {
-	    return false;
+
+	@Override
+	public int hashCode() {
+		final var hash = 3;
+		return 89 * hash + Objects.hashCode(this.solidData);
 	}
-	return true;
-    }
 
-    @Override
-    public int hashCode() {
-	int hash = 3;
-	hash = 89 * hash + Objects.hashCode(this.solidData);
-	return hash;
-    }
-
-    public boolean isSolid() {
-	boolean result = false;
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    result = result || this.solidData.getCell(SolidDataTypes.EXTERNAL.index, dir);
+	public boolean isDirectionallySolid(final DirectionQuery dir) {
+		return this.solidData.getCell(SolidDataTypes.EXTERNAL.index, dir.ordinal());
 	}
-	return result;
-    }
 
-    public boolean isInternallySolid() {
-	boolean result = false;
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    result = result || this.solidData.getCell(SolidDataTypes.INTERNAL.index, dir);
+	public boolean isInternallyDirectionallySolid(final DirectionQuery dir) {
+		return this.solidData.getCell(SolidDataTypes.INTERNAL.index, dir.ordinal());
 	}
-	return result;
-    }
 
-    public boolean isDirectionallySolid(final int dirX, final int dirY) {
-	final Directions dir = DirectionResolver.resolve(dirX, dirY);
-	return this.solidData.getCell(SolidDataTypes.EXTERNAL.index, dir.ordinal());
-    }
-
-    public boolean isInternallyDirectionallySolid(final int dirX, final int dirY) {
-	final Directions dir = DirectionResolver.resolve(dirX, dirY);
-	return this.solidData.getCell(SolidDataTypes.INTERNAL.index, dir.ordinal());
-    }
-
-    public void setSolid(final boolean value) {
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    this.solidData.setCell(value, SolidDataTypes.EXTERNAL.index, dir);
+	public boolean isInternallySolid() {
+		var result = false;
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			result = result || this.solidData.getCell(SolidDataTypes.INTERNAL.index, dir);
+		}
+		return result;
 	}
-    }
 
-    public void setInternallySolid(final boolean value) {
-	for (int dir = 0; dir < DirectionResolver.COUNT; dir++) {
-	    this.solidData.setCell(value, SolidDataTypes.INTERNAL.index, dir);
+	public boolean isSolid() {
+		var result = false;
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			result = result || this.solidData.getCell(SolidDataTypes.EXTERNAL.index, dir);
+		}
+		return result;
 	}
-    }
 
-    public void setDirectionallySolid(final int dir, final boolean value) {
-	this.solidData.setCell(value, SolidDataTypes.EXTERNAL.index, dir);
-    }
+	public void setDirectionallySolid(final DirectionQuery dir, final boolean value) {
+		this.solidData.setCell(value, SolidDataTypes.EXTERNAL.index, dir.ordinal());
+	}
 
-    public void setInternallyDirectionallySolid(final int dir, final boolean value) {
-	this.solidData.setCell(value, SolidDataTypes.INTERNAL.index, dir);
-    }
+	public void setInternallyDirectionallySolid(final DirectionQuery dir, final boolean value) {
+		this.solidData.setCell(value, SolidDataTypes.INTERNAL.index, dir.ordinal());
+	}
+
+	public void setInternallySolid(final boolean value) {
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			this.solidData.setCell(value, SolidDataTypes.INTERNAL.index, dir);
+		}
+	}
+
+	public void setSolid(final boolean value) {
+		for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
+			this.solidData.setCell(value, SolidDataTypes.EXTERNAL.index, dir);
+		}
+	}
 }
