@@ -20,7 +20,6 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.StuffBag;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.dungeondiver7.dungeon.current.CurrentDungeon;
-import com.puttysoftware.dungeondiver7.dungeon.ltv4.LaserTankV4LoadTask;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.EditorString;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
@@ -318,11 +317,6 @@ public final class DungeonManager {
 		} else if (extension.equals(Strings.fileExtension(FileExtension.SUSPEND))) {
 		    this.lastUsedGameFile = filename;
 		    DungeonManager.loadDungeonFile(filename, true, false);
-		} else if (extension.equals(Strings.fileExtension(FileExtension.OLD_LEVEL))) {
-		    this.lastUsedDungeonFile = filename;
-		    this.scoresFileName = DungeonManager.getNameWithoutExtension(file);
-		    final var ollt = new LaserTankV4LoadTask(filename);
-		    ollt.start();
 		} else {
 		    CommonDialogs.showDialog(Strings.dialog(DialogString.NON_DUNGEON_FILE));
 		}

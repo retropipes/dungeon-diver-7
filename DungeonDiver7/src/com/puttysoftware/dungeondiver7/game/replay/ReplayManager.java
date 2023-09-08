@@ -72,7 +72,7 @@ public class ReplayManager {
 	if (file != null && dir != null) {
 	    filename = dir + file;
 	    extension = ReplayManager.getExtension(filename);
-	    if (extension.equals(Strings.fileExtension(FileExtension.OLD_REPLAY))) {
+	    if (extension.equals(Strings.fileExtension(FileExtension.REPLAY))) {
 		ReplayManager.loadFile(filename);
 	    } else {
 		CommonDialogs.showDialog(Strings.dialog(DialogString.NON_PLAYBACK_FILE));
