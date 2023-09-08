@@ -5,19 +5,19 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.spell;
 
-import com.puttysoftware.dungeondiver7.creature.caste.CasteConstants;
-import com.puttysoftware.dungeondiver7.creature.caste.predefined.AnnihilatorSpellBook;
-import com.puttysoftware.dungeondiver7.creature.caste.predefined.BufferSpellBook;
-import com.puttysoftware.dungeondiver7.creature.caste.predefined.CurerSpellBook;
-import com.puttysoftware.dungeondiver7.creature.caste.predefined.DebufferSpellBook;
+import com.puttysoftware.dungeondiver7.creature.job.JobConstants;
+import com.puttysoftware.dungeondiver7.creature.job.predefined.AnnihilatorSpellBook;
+import com.puttysoftware.dungeondiver7.creature.job.predefined.BufferSpellBook;
+import com.puttysoftware.dungeondiver7.creature.job.predefined.CurerSpellBook;
+import com.puttysoftware.dungeondiver7.creature.job.predefined.DebufferSpellBook;
 
 public class SpellBookLoader {
     public static SpellBook loadSpellBook(final int sbid) {
 	return switch (sbid) {
-	case CasteConstants.CASTE_ANNIHILATOR -> new AnnihilatorSpellBook();
-	case CasteConstants.CASTE_BUFFER -> new BufferSpellBook();
-	case CasteConstants.CASTE_CURER -> new CurerSpellBook();
-	case CasteConstants.CASTE_DEBUFFER -> new DebufferSpellBook();
+	case JobConstants.JOB_ANNIHILATOR -> new AnnihilatorSpellBook();
+	case JobConstants.JOB_BUFFER -> new BufferSpellBook();
+	case JobConstants.JOB_CURER -> new CurerSpellBook();
+	case JobConstants.JOB_DEBUFFER -> new DebufferSpellBook();
 	default -> /* Invalid caste name */ null;
 	};
     }

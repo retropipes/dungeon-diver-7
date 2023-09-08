@@ -10,15 +10,15 @@ import java.io.IOException;
 
 import com.puttysoftware.diane.fileio.utility.ResourceStreamReader;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
-import com.puttysoftware.dungeondiver7.creature.caste.CasteConstants;
+import com.puttysoftware.dungeondiver7.creature.job.JobConstants;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 
-public class CasteDescriptionManager {
-    public static String getCasteDescription(final int c) {
-	final var name = CasteConstants.CASTE_NAMES[c].toLowerCase();
-	try (final var rsr = new ResourceStreamReader(CasteDescriptionManager.class.getResourceAsStream(
-		"/assets/descriptions/caste/" + name + Strings.fileExtension(FileExtension.INTERNAL_DATA)))) {
+public class JobDescriptionManager {
+    public static String getJobDescription(final int j) {
+	final var name = JobConstants.JOB_NAMES[j].toLowerCase();
+	try (final var rsr = new ResourceStreamReader(JobDescriptionManager.class.getResourceAsStream(
+		"/asset/description/job/" + name + Strings.fileExtension(FileExtension.INTERNAL_DATA)))) {
 	    return rsr.readString();
 	} catch (final IOException e) {
 	    DungeonDiver7.logError(e);

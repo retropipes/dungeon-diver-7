@@ -3,11 +3,11 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package com.puttysoftware.dungeondiver7.creature.caste.predefined;
+package com.puttysoftware.dungeondiver7.creature.job.predefined;
 
 import com.puttysoftware.dungeondiver7.battle.BattleTarget;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
-import com.puttysoftware.dungeondiver7.creature.caste.CasteConstants;
+import com.puttysoftware.dungeondiver7.creature.job.JobConstants;
 import com.puttysoftware.dungeondiver7.effect.Effect;
 import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.spell.Spell;
@@ -17,7 +17,7 @@ public class BufferSpellBook extends SpellBook {
     // Constructor
     public BufferSpellBook() {
 	super(8, false);
-	this.setName(CasteConstants.CASTE_NAMES[this.getLegacyID()]);
+	this.setName(JobConstants.JOB_NAMES[this.getLegacyID()]);
     }
 
     @Override
@@ -90,6 +90,6 @@ public class BufferSpellBook extends SpellBook {
 
     @Override
     public int getLegacyID() {
-	return CasteConstants.CASTE_BUFFER;
+	return JobConstants.JOB_BUFFER;
     }
 }

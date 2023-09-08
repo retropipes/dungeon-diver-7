@@ -15,9 +15,9 @@ import com.puttysoftware.diane.polytable.PolyTable;
 import com.puttysoftware.dungeondiver7.VersionException;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
-import com.puttysoftware.dungeondiver7.creature.caste.Caste;
-import com.puttysoftware.dungeondiver7.creature.caste.CasteManager;
 import com.puttysoftware.dungeondiver7.creature.gender.Gender;
+import com.puttysoftware.dungeondiver7.creature.job.Job;
+import com.puttysoftware.dungeondiver7.creature.job.JobManager;
 import com.puttysoftware.dungeondiver7.dungeon.current.GenerateDungeonTask;
 import com.puttysoftware.dungeondiver7.item.ItemInventory;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
@@ -80,7 +80,7 @@ public class PartyMember extends AbstractCreature {
     }
 
     // Fields
-    private Caste caste;
+    private Job job;
     private Gender gender;
     private final String name;
     private int permanentAttack;
@@ -91,11 +91,11 @@ public class PartyMember extends AbstractCreature {
     private final String avatarID;
 
     // Constructors
-    PartyMember(final Caste c, final Gender g, final String n, final String aid) {
+    PartyMember(final Job c, final Gender g, final String n, final String aid) {
 	super(0);
 	this.avatarID = aid;
 	this.name = n;
-	this.caste = c;
+	this.job = c;
 	this.gender = g;
 	this.permanentAttack = 0;
 	this.permanentDefense = 0;
@@ -120,7 +120,7 @@ public class PartyMember extends AbstractCreature {
 	nextLevelEquation.setCoefficient(2, value);
 	nextLevelEquation.setCoefficient(3, value);
 	this.setToNextLevel(nextLevelEquation);
-	this.setSpellBook(CasteManager.getSpellBookByID(this.caste.getCasteID()));
+	this.setSpellBook(JobManager.getSpellBookByID(this.job.getJobID()));
     }
 
     @Override
@@ -128,8 +128,8 @@ public class PartyMember extends AbstractCreature {
 	return super.getAttack() + this.getPermanentAttackPoints();
     }
 
-    public Caste getCaste() {
-	return this.caste;
+    public Job getJob() {
+	return this.job;
     }
 
     @Override
@@ -202,8 +202,8 @@ public class PartyMember extends AbstractCreature {
 	return this.getExperience() + "/" + this.getToNextLevelValue();
     }
 
-    public void initPostKill(final Caste c, final Gender g) {
-	this.caste = c;
+    public void initPostKill(final Job c, final Gender g) {
+	this.job = c;
 	this.gender = g;
 	this.setLevel(1);
 	this.setStrength(StatConstants.GAIN_STRENGTH);
@@ -224,7 +224,7 @@ public class PartyMember extends AbstractCreature {
 	nextLevelEquation.setCoefficient(2, value);
 	nextLevelEquation.setCoefficient(3, value);
 	this.setToNextLevel(nextLevelEquation);
-	this.setSpellBook(CasteManager.getSpellBookByID(this.caste.getCasteID()));
+	this.setSpellBook(JobManager.getSpellBookByID(this.job.getJobID()));
 	PartyManager.getParty().resetZone();
 	new GenerateDungeonTask(true).start();
     }
@@ -254,7 +254,7 @@ public class PartyMember extends AbstractCreature {
 	this.setGold(newGold);
 	this.setLoad(newLoad);
 	this.setExperience(newExperience);
-	final var book = CasteManager.getSpellBookByID(bookID);
+	final var book = JobManager.getSpellBookByID(bookID);
 	for (var x = 0; x < known.length; x++) {
 	    if (known[x]) {
 		book.learnSpellByID(x);
@@ -310,7 +310,7 @@ public class PartyMember extends AbstractCreature {
 	worldFile.writeInt(this.getSpellsPerRound());
 	worldFile.writeInt(this.getLoad());
 	worldFile.writeLong(this.getExperience());
-	worldFile.writeInt(this.getCaste().getCasteID());
+	worldFile.writeInt(this.getJob().getJobID());
 	worldFile.writeInt(this.getGender().getGenderID());
 	final var max = this.getSpellBook().getSpellCount();
 	worldFile.writeInt(max);

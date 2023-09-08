@@ -13,10 +13,10 @@ import com.puttysoftware.diane.ack.AvatarImageModel;
 import com.puttysoftware.diane.fileio.DataIOReader;
 import com.puttysoftware.diane.fileio.DataIOWriter;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
-import com.puttysoftware.dungeondiver7.creature.caste.CasteManager;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterLoader;
 import com.puttysoftware.dungeondiver7.creature.characterfiles.CharacterRegistration;
 import com.puttysoftware.dungeondiver7.creature.gender.GenderManager;
+import com.puttysoftware.dungeondiver7.creature.job.JobManager;
 import com.puttysoftware.dungeondiver7.loader.MusicLoader;
 import com.puttysoftware.dungeondiver7.locale.Music;
 
@@ -54,15 +54,15 @@ public class PartyManager {
     private static PartyMember createNewPC() {
 	final var name = CommonDialogs.showTextInputDialog("Character Name", "Create Character");
 	if (name != null) {
-	    final var caste = CasteManager.selectCaste();
-	    if (caste != null) {
+	    final var job = JobManager.selectJob();
+	    if (job != null) {
 		final var gender = GenderManager.selectGender();
 		if (gender != null) {
 		    AvatarImageModel avatar = null;
 		    avatar = AvatarConstructionKit.constructAvatar();
 		    if (avatar != null) {
 			final var aid = avatar.getAvatarImageID();
-			return new PartyMember(caste, gender, name, aid);
+			return new PartyMember(job, gender, name, aid);
 		    }
 		}
 	    }
@@ -117,9 +117,9 @@ public class PartyManager {
     }
 
     public static PartyMember getNewPCInstance(final int c, final int g, final String n, final String aid) {
-	final var caste = CasteManager.getCaste(c);
+	final var job = JobManager.getJob(c);
 	final var gender = GenderManager.getGender(g);
-	return new PartyMember(caste, gender, n, aid);
+	return new PartyMember(job, gender, n, aid);
     }
 
     public static Party getParty() {
@@ -178,7 +178,7 @@ public class PartyManager {
 
     public static void updatePostKill() {
 	final var leader = PartyManager.getParty().getLeader();
-	leader.initPostKill(leader.getCaste(), leader.getGender());
+	leader.initPostKill(leader.getJob(), leader.getGender());
     }
 
     // Constructors
