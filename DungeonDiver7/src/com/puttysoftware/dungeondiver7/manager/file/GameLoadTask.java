@@ -9,10 +9,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import com.puttysoftware.diane.fileio.utility.ZipUtilities;
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
@@ -29,7 +29,7 @@ public class GameLoadTask extends Thread {
     // Fields
     private final String filename;
     private final MainWindow mainWindow;
-    private final JPanel loadContent;
+    private final MainContent loadContent;
 
     // Constructors
     public GameLoadTask(final String file) {
@@ -38,7 +38,7 @@ public class GameLoadTask extends Thread {
 	this.mainWindow = MainWindow.mainWindow();
 	final var loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
-	this.loadContent = new JPanel();
+	this.loadContent = MainWindow.createContent();
 	this.loadContent.add(loadBar);
     }
 

@@ -17,11 +17,11 @@ import java.awt.event.WindowListener;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.puttysoftware.diane.gui.GUIPrinter;
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.integration.Integration;
@@ -165,7 +165,7 @@ public class GUIManager implements MenuSection, QuitHandler {
     // Fields
     private final MainWindow mainWindow;
     private final CloseHandler cHandler;
-    private final JPanel guiPane;
+    private final MainContent guiPane;
     private final JLabel logoLabel;
     private JMenuItem fileNew, fileOpen, fileOpenDefault, fileClose, fileSave, fileSaveAs, fileSaveAsProtected,
 	    filePrint, filePreferences, fileExit;
@@ -173,8 +173,8 @@ public class GUIManager implements MenuSection, QuitHandler {
     // Constructors
     public GUIManager() {
 	this.cHandler = new CloseHandler();
-	this.guiPane = new JPanel();
 	this.mainWindow = MainWindow.mainWindow();
+	this.guiPane = this.mainWindow.createMainContent();
 	this.guiPane.setLayout(new GridLayout(1, 1));
 	this.logoLabel = new JLabel(Strings.EMPTY, null, SwingConstants.CENTER);
 	this.logoLabel.setLabelFor(null);

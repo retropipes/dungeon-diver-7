@@ -11,10 +11,10 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JLabel;
 import javax.swing.JMenu;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
+import com.puttysoftware.diane.gui.ScrollingContent;
 import com.puttysoftware.diane.integration.Integration;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
@@ -23,10 +23,10 @@ public abstract class GenericEditor {
     // Fields
     private final String source;
     private MainWindow mainWindow;
-    private JPanel borderPane;
-    private JPanel outputPane;
+    private MainContent borderPane;
+    private MainContent outputPane;
     private JLabel messageLabel;
-    private JScrollPane scrollPane;
+    private ScrollingContent scrollPane;
     private boolean objectChanged;
     private boolean readOnly;
 
@@ -121,18 +121,18 @@ public abstract class GenericEditor {
 
     public abstract void redrawEditor();
 
-    protected abstract void reSetUpGUIHook(JPanel output);
+    protected abstract void reSetUpGUIHook(MainContent output);
 
     protected abstract void saveObject();
 
     protected void setUpGUI() {
 	this.messageLabel = new JLabel(" ");
 	this.mainWindow = MainWindow.mainWindow();
-	this.outputPane = new JPanel();
-	this.borderPane = new JPanel();
+	this.outputPane = MainWindow.createContent();
+	this.borderPane = MainWindow.createContent();
 	this.borderPane.setLayout(new BorderLayout());
 	this.setUpGUIHook(this.outputPane);
-	this.scrollPane = new JScrollPane(this.borderPane);
+	this.scrollPane = this.mainWindow.createMainScrollingContent(this.borderPane);
 	this.borderPane.add(this.outputPane, BorderLayout.CENTER);
 	this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
 	if (this.mainWindow.getWidth() > ImageLoader.MAX_WINDOW_SIZE
@@ -152,7 +152,7 @@ public abstract class GenericEditor {
 	}
     }
 
-    protected abstract void setUpGUIHook(JPanel output);
+    protected abstract void setUpGUIHook(MainContent output);
 
     public final void showOutput() {
 	final var app = DungeonDiver7.getStuffBag();

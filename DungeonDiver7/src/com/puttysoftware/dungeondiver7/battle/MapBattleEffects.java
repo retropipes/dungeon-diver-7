@@ -9,13 +9,14 @@ package com.puttysoftware.dungeondiver7.battle;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
+import com.puttysoftware.diane.gui.MainContent;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
 
 public class MapBattleEffects {
     // Fields
-    private JPanel effectsPane;
+    private MainContent effectsPane;
     private JLabel[] effectLabels;
 
     // Constructors
@@ -23,9 +24,9 @@ public class MapBattleEffects {
 	// Do nothing
     }
 
-    public JPanel getEffectsPane() {
+    public MainContent getEffectsPane() {
 	if (this.effectsPane == null) {
-	    this.effectsPane = new JPanel();
+	    this.effectsPane = MainWindow.createContent();
 	}
 	return this.effectsPane;
     }

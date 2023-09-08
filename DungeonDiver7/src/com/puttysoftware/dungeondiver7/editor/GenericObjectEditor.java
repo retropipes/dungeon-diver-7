@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 
 public abstract class GenericObjectEditor extends GenericEditor {
@@ -143,12 +143,12 @@ public abstract class GenericObjectEditor extends GenericEditor {
     }
 
     @Override
-    protected void reSetUpGUIHook(final JPanel outputPane) {
+    protected void reSetUpGUIHook(final MainContent outputPane) {
 	this.setUpGUIHook(outputPane);
     }
 
     @Override
-    protected void setUpGUIHook(final JPanel outputPane) {
+    protected void setUpGUIHook(final MainContent outputPane) {
 	this.handler = new EventHandler();
 	outputPane.setLayout(new GridLayout(this.abCols, this.abRows));
 	this.nameLabels = new JLabel[this.abCols];

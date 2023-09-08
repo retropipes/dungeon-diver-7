@@ -17,15 +17,14 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
 import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.internal.PrivateErrorString;
 import com.puttysoftware.diane.internal.PrivateStrings;
@@ -64,7 +63,7 @@ class ImageListDialog {
     }
 
     private static MainWindow dialogFrame;
-    private static JComponent dialogPane;
+    private static MainContent dialogPane;
     private static JList<BufferedImageIcon> list;
     private static CompletableFuture<Integer> completer = new CompletableFuture<>();
 
@@ -86,7 +85,7 @@ class ImageListDialog {
 	Executors.newSingleThreadExecutor().submit(() -> {
 	    // Create and initialize the dialog.
 	    ImageListDialog.dialogFrame = MainWindow.mainWindow();
-	    ImageListDialog.dialogPane = ImageListDialog.dialogFrame.createContent();
+	    ImageListDialog.dialogPane = ImageListDialog.dialogFrame.createMainContent();
 	    // Create and initialize the buttons.
 	    final var cancelButton = new JButton(PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON));
 	    cancelButton.addActionListener(h -> {
@@ -121,7 +120,7 @@ class ImageListDialog {
 	    // the scroll pane. Can't add a title directly to the
 	    // scroll pane because its background would be white.
 	    // Lay out the label and scroll pane from top to bottom.
-	    final var listPane = new JPanel();
+	    final var listPane = MainWindow.createContent();
 	    listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
 	    final var label = new JLabel(labelText);
 	    label.setLabelFor(ImageListDialog.list);
@@ -130,7 +129,7 @@ class ImageListDialog {
 	    listPane.add(listScroller);
 	    listPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	    // Lay out the buttons from left to right.
-	    final var buttonPane = new JPanel();
+	    final var buttonPane = MainWindow.createContent();
 	    buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
 	    buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 	    buttonPane.add(Box.createHorizontalGlue());

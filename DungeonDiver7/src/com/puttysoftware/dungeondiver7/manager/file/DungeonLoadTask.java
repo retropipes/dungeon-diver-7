@@ -10,10 +10,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.zip.ZipException;
 
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import com.puttysoftware.diane.fileio.utility.ZipUtilities;
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
@@ -29,7 +29,7 @@ import com.puttysoftware.dungeondiver7.utility.InvalidDungeonException;
 public class DungeonLoadTask extends Thread {
     // Fields
     private final String filename;
-    private final JPanel loadContent;
+    private final MainContent loadContent;
     private final boolean isSavedGame;
     private final MainWindow mainWindow;
     private final boolean dungeonProtected;
@@ -44,7 +44,7 @@ public class DungeonLoadTask extends Thread {
 	this.mainWindow = MainWindow.mainWindow();
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
-	this.loadContent = new JPanel();
+	this.loadContent = this.mainWindow.createMainContent();
 	this.loadContent.add(loadBar);
     }
 

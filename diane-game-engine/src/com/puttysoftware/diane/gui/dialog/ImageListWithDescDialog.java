@@ -17,16 +17,15 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
 import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.internal.PrivateErrorString;
 import com.puttysoftware.diane.internal.PrivateStrings;
@@ -65,7 +64,7 @@ class ImageListWithDescDialog {
     }
 
     private static MainWindow dialogFrame;
-    private static JComponent dialogPane;
+    private static MainContent dialogPane;
     private static String[] descs;
     private static JList<BufferedImageIcon> list;
     private static CompletableFuture<Integer> completer = new CompletableFuture<>();
@@ -89,7 +88,7 @@ class ImageListWithDescDialog {
 	Executors.newSingleThreadExecutor().submit(() -> {
 	    // Create and initialize the dialog.
 	    ImageListWithDescDialog.dialogFrame = MainWindow.mainWindow();
-	    ImageListWithDescDialog.dialogPane = ImageListWithDescDialog.dialogFrame.createContent();
+	    ImageListWithDescDialog.dialogPane = ImageListWithDescDialog.dialogFrame.createMainContent();
 	    // Initialize the descriptions
 	    ImageListWithDescDialog.descs = possibleDescriptions;
 	    // Create and initialize the buttons.
@@ -105,7 +104,7 @@ class ImageListWithDescDialog {
 		ImageListWithDescDialog.dialogFrame.restoreSaved();
 	    });
 	    // Create a text area to hold the description
-	    final var descPane = new JPanel();
+	    final var descPane = MainWindow.createContent();
 	    final var descArea = new JTextArea(descValue);
 	    descArea.setLineWrap(true);
 	    descArea.setWrapStyleWord(true);
@@ -134,7 +133,7 @@ class ImageListWithDescDialog {
 	    // the scroll pane. Can't add a title directly to the
 	    // scroll pane because its background would be white.
 	    // Lay out the label and scroll pane from top to bottom.
-	    final var listPane = new JPanel();
+	    final var listPane = MainWindow.createContent();
 	    listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
 	    final var label = new JLabel(labelText);
 	    label.setLabelFor(ImageListWithDescDialog.list);
@@ -143,7 +142,7 @@ class ImageListWithDescDialog {
 	    listPane.add(listScroller);
 	    listPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	    // Lay out the buttons from left to right.
-	    final var buttonPane = new JPanel();
+	    final var buttonPane = MainWindow.createContent();
 	    buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
 	    buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 	    buttonPane.add(Box.createHorizontalGlue());

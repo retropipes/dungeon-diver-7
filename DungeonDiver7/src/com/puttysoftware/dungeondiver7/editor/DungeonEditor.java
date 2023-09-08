@@ -23,11 +23,11 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JToggleButton;
 
 import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.gui.picker.PicturePicker;
@@ -372,7 +372,7 @@ public class DungeonEditor implements MenuSection {
     private static final String[] JUMP_LIST = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
     // Declarations
     private MainWindow mainWindow;
-    private JPanel secondaryPane, borderPane, outerOutputPane, switcherPane;
+    private MainContent secondaryPane, borderPane, outerOutputPane, switcherPane;
     private EditorDraw outputPane;
     private JToggleButton lowerGround, upperGround, lowerObjects, upperObjects;
     private JLabel messageLabel;
@@ -1472,9 +1472,8 @@ public class DungeonEditor implements MenuSection {
 	this.messageLabel = new JLabel(Strings.SPACE);
 	this.mainWindow = MainWindow.mainWindow();
 	this.outputPane = new EditorDraw();
-	this.secondaryPane = new JPanel();
-	this.borderPane = new JPanel();
-	this.borderPane.setLayout(new BorderLayout());
+	this.secondaryPane = MainWindow.createContent();
+	this.borderPane = this.mainWindow.createMainContent();
 	this.messageLabel.setLabelFor(this.outputPane);
 	this.outerOutputPane = RCLGenerator.generateRowColumnLabels();
 	this.outerOutputPane.add(this.outputPane, BorderLayout.CENTER);
@@ -1494,7 +1493,7 @@ public class DungeonEditor implements MenuSection {
 	this.outputPane.add(this.secondaryPane);
 	this.secondaryPane.addMouseListener(this.mhandler);
 	this.secondaryPane.addMouseMotionListener(this.mhandler);
-	this.switcherPane = new JPanel();
+	this.switcherPane = MainWindow.createContent();
 	final var switcherHandler = new SwitcherHandler();
 	final var switcherGroup = new ButtonGroup();
 	this.lowerGround = new JToggleButton(Strings.editor(EditorString.LOWER_GROUND_LAYER));

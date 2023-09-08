@@ -3,12 +3,11 @@ package com.puttysoftware.dungeondiver7.game;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-import javax.swing.JPanel;
-
 import com.puttysoftware.diane.gui.DrawGrid;
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.dungeondiver7.loader.ImageLoader;
 
-public class GameDraw extends JPanel {
+public class GameDraw extends MainContent {
     private static final long serialVersionUID = 35935343464625L;
     private final DrawGrid drawGrid;
 

@@ -13,20 +13,19 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.internal.PrivateErrorString;
 import com.puttysoftware.diane.internal.PrivateStrings;
 
 class TextInputDialog {
     private static MainWindow dialogFrame;
-    private static JComponent dialogPane;
+    private static MainContent dialogPane;
     private static JTextField input;
     private static CompletableFuture<String> completer = new CompletableFuture<>();
 
@@ -47,7 +46,7 @@ class TextInputDialog {
 	Executors.newSingleThreadExecutor().submit(() -> {
 	    // Create and initialize the dialog.
 	    TextInputDialog.dialogFrame = MainWindow.mainWindow();
-	    TextInputDialog.dialogPane = TextInputDialog.dialogFrame.createContent();
+	    TextInputDialog.dialogPane = TextInputDialog.dialogFrame.createMainContent();
 	    // Create and initialize the buttons.
 	    final var cancelButton = new JButton(PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON));
 	    cancelButton.addActionListener(h -> {
@@ -62,11 +61,11 @@ class TextInputDialog {
 	    });
 	    // main part of the dialog
 	    TextInputDialog.input = new JTextField(initialValue);
-	    final var iconPane = new JPanel();
+	    final var iconPane = MainWindow.createContent();
 	    final var iconLabel = new JLabel(icon);
 	    iconPane.setLayout(new BoxLayout(iconPane, BoxLayout.PAGE_AXIS));
 	    iconPane.add(iconLabel);
-	    final var mainPane = new JPanel();
+	    final var mainPane = dialogFrame.createMainContent();
 	    mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.PAGE_AXIS));
 	    final var textLabel = new JTextArea(text);
 	    textLabel.setEditable(false);
@@ -78,7 +77,7 @@ class TextInputDialog {
 	    mainPane.add(TextInputDialog.input);
 	    mainPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	    // Lay out the buttons from left to right.
-	    final var buttonPane = new JPanel();
+	    final var buttonPane = MainWindow.createContent();
 	    buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
 	    buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 	    buttonPane.add(Box.createHorizontalGlue());

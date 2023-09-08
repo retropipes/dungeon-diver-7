@@ -13,20 +13,19 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 
 import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.internal.PrivateErrorString;
 import com.puttysoftware.diane.internal.PrivateStrings;
 
 class PasswordInputDialog {
     private static MainWindow dialogFrame;
-    private static JComponent dialogPane;
+    private static MainContent dialogPane;
     private static JPasswordField input;
     private static CompletableFuture<char[]> completer = new CompletableFuture<>();
 
@@ -46,7 +45,7 @@ class PasswordInputDialog {
 	Executors.newSingleThreadExecutor().submit(() -> {
 	    // Create and initialize the dialog.
 	    PasswordInputDialog.dialogFrame = MainWindow.mainWindow();
-	    PasswordInputDialog.dialogPane = PasswordInputDialog.dialogFrame.createContent();
+	    PasswordInputDialog.dialogPane = PasswordInputDialog.dialogFrame.createMainContent();
 	    // Create and initialize the buttons.
 	    final var cancelButton = new JButton(PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON));
 	    cancelButton.addActionListener(h -> {
@@ -61,11 +60,11 @@ class PasswordInputDialog {
 	    });
 	    // main part of the dialog
 	    PasswordInputDialog.input = new JPasswordField();
-	    final var iconPane = new JPanel();
+	    final var iconPane = MainWindow.createContent();
 	    final var iconLabel = new JLabel(icon);
 	    iconPane.setLayout(new BoxLayout(iconPane, BoxLayout.PAGE_AXIS));
 	    iconPane.add(iconLabel);
-	    final var mainPane = new JPanel();
+	    final var mainPane = dialogFrame.createMainContent();
 	    mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.PAGE_AXIS));
 	    final var textLabel = new JTextArea(text);
 	    textLabel.setEditable(false);
@@ -77,7 +76,7 @@ class PasswordInputDialog {
 	    mainPane.add(PasswordInputDialog.input);
 	    mainPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	    // Lay out the buttons from left to right.
-	    final var buttonPane = new JPanel();
+	    final var buttonPane = MainWindow.createContent();
 	    buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
 	    buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 	    buttonPane.add(Box.createHorizontalGlue());

@@ -13,32 +13,31 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.internal.PrivateErrorString;
 import com.puttysoftware.diane.internal.PrivateStrings;
 
 class InputDialog {
     private static MainWindow dialogFrame;
-    private static JComponent dialogPane;
+    private static MainContent dialogPane;
     private static CompletableFuture<Integer> completer;
 
     private static void initializeDialog(final String text, final String title, final BufferedImageIcon icon,
 	    final String[] possibleValues) {
 	// Create and initialize the dialog.
 	InputDialog.dialogFrame = MainWindow.mainWindow();
-	InputDialog.dialogPane = InputDialog.dialogFrame.createContent();
+	InputDialog.dialogPane = InputDialog.dialogFrame.createMainContent();
 	// main part of the dialog
-	final var iconPane = new JPanel();
+	final var iconPane = MainWindow.createContent();
 	final var iconLabel = new JLabel(icon);
 	iconPane.setLayout(new BoxLayout(iconPane, BoxLayout.PAGE_AXIS));
 	iconPane.add(iconLabel);
-	final var mainPane = new JPanel();
+	final var mainPane = dialogFrame.createMainContent();
 	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.PAGE_AXIS));
 	final var textLabel = new JTextArea(text);
 	textLabel.setEditable(false);
@@ -49,7 +48,7 @@ class InputDialog {
 	mainPane.add(Box.createRigidArea(new Dimension(0, 5)));
 	mainPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	// Lay out the buttons from left to right.
-	final var buttonPane = new JPanel();
+	final var buttonPane = MainWindow.createContent();
 	buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
 	buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 	buttonPane.add(Box.createHorizontalGlue());

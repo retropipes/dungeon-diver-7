@@ -13,19 +13,18 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.internal.PrivateErrorString;
 import com.puttysoftware.diane.internal.PrivateStrings;
 
 class GeneralDialog {
     private static MainWindow dialogFrame;
-    private static JComponent dialogPane;
+    private static MainContent dialogPane;
     private static CompletableFuture<Void> completer = new CompletableFuture<>();
 
     /**
@@ -35,7 +34,7 @@ class GeneralDialog {
 	Executors.newSingleThreadExecutor().submit(() -> {
 	    // Create and initialize the dialog.
 	    GeneralDialog.dialogFrame = MainWindow.mainWindow();
-	    GeneralDialog.dialogPane = GeneralDialog.dialogFrame.createContent();
+	    GeneralDialog.dialogPane = GeneralDialog.dialogFrame.createMainContent();
 	    // Create and initialize the buttons.
 	    final var setButton = new JButton(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
 	    setButton.setActionCommand(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
@@ -44,11 +43,11 @@ class GeneralDialog {
 		GeneralDialog.dialogFrame.restoreSaved();
 	    });
 	    // main part of the dialog
-	    final var iconPane = new JPanel();
+	    final var iconPane = MainWindow.createContent();
 	    final var iconLabel = new JLabel(icon);
 	    iconPane.setLayout(new BoxLayout(iconPane, BoxLayout.PAGE_AXIS));
 	    iconPane.add(iconLabel);
-	    final var mainPane = new JPanel();
+	    final var mainPane = dialogFrame.createMainContent();
 	    mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.PAGE_AXIS));
 	    final var textLabel = new JTextArea(text);
 	    textLabel.setEditable(false);
@@ -58,7 +57,7 @@ class GeneralDialog {
 	    mainPane.add(textLabel);
 	    mainPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	    // Lay out the buttons from left to right.
-	    final var buttonPane = new JPanel();
+	    final var buttonPane = MainWindow.createContent();
 	    buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
 	    buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 	    buttonPane.add(Box.createHorizontalGlue());

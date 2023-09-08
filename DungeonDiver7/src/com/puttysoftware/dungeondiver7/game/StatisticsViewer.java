@@ -11,8 +11,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.creature.StatConstants;
@@ -22,9 +22,9 @@ import com.puttysoftware.dungeondiver7.locale.Strings;
 public class StatisticsViewer {
     // Fields
     static MainWindow mainWindow;
-    private static JPanel statisticsPane;
-    private static JPanel contentPane;
-    private static JPanel buttonPane;
+    private static MainContent statisticsPane;
+    private static MainContent contentPane;
+    private static MainContent buttonPane;
     private static JButton btnOK;
     private static JLabel[] statisticsValues;
     private static boolean inited = false;
@@ -32,11 +32,11 @@ public class StatisticsViewer {
     private static void setUpGUI() {
 	if (!StatisticsViewer.inited) {
 	    StatisticsViewer.mainWindow = MainWindow.mainWindow();
-	    StatisticsViewer.statisticsPane = new JPanel();
+	    StatisticsViewer.statisticsPane = MainWindow.createContent();
 	    StatisticsViewer.statisticsPane.setLayout(new BorderLayout());
-	    StatisticsViewer.contentPane = new JPanel();
+	    StatisticsViewer.contentPane = MainWindow.createContent();
 	    StatisticsViewer.contentPane.setLayout(new GridLayout(StatConstants.MAX_STATS, 1));
-	    StatisticsViewer.buttonPane = new JPanel();
+	    StatisticsViewer.buttonPane = MainWindow.createContent();
 	    StatisticsViewer.buttonPane.setLayout(new FlowLayout());
 	    StatisticsViewer.btnOK = new JButton("OK");
 	    StatisticsViewer.btnOK.addActionListener(e -> StatisticsViewer.mainWindow.restoreSaved());

@@ -17,15 +17,14 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.internal.PrivateErrorString;
 import com.puttysoftware.diane.internal.PrivateStrings;
@@ -64,7 +63,7 @@ class ListWithDescDialog {
     }
 
     private static MainWindow dialogFrame;
-    private static JComponent dialogPane;
+    private static MainContent dialogPane;
     private static String[] descs;
     private static JList<String> list;
     private static CompletableFuture<String> completer = new CompletableFuture<>();
@@ -87,7 +86,7 @@ class ListWithDescDialog {
 	Executors.newSingleThreadExecutor().submit(() -> {
 	    // Create and initialize the dialog.
 	    ListWithDescDialog.dialogFrame = MainWindow.mainWindow();
-	    ListWithDescDialog.dialogPane = ListWithDescDialog.dialogFrame.createContent();
+	    ListWithDescDialog.dialogPane = ListWithDescDialog.dialogFrame.createMainContent();
 	    // Initialize the descriptions
 	    ListWithDescDialog.descs = possibleDescriptions;
 	    // Create and initialize the buttons.
@@ -103,7 +102,7 @@ class ListWithDescDialog {
 		ListWithDescDialog.dialogFrame.restoreSaved();
 	    });
 	    // Create a text area to hold the description
-	    final var descPane = new JPanel();
+	    final var descPane = MainWindow.createContent();
 	    final var descArea = new JTextArea(descValue);
 	    descArea.setLineWrap(true);
 	    descArea.setWrapStyleWord(true);
@@ -132,7 +131,7 @@ class ListWithDescDialog {
 	    // the scroll pane. Can't add a title directly to the
 	    // scroll pane because its background would be white.
 	    // Lay out the label and scroll pane from top to bottom.
-	    final var listPane = new JPanel();
+	    final var listPane = MainWindow.createContent();
 	    listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
 	    final var label = new JLabel(labelText);
 	    label.setLabelFor(ListWithDescDialog.list);
@@ -141,7 +140,7 @@ class ListWithDescDialog {
 	    listPane.add(listScroller);
 	    listPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	    // Lay out the buttons from left to right.
-	    final var buttonPane = new JPanel();
+	    final var buttonPane = MainWindow.createContent();
 	    buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
 	    buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 	    buttonPane.add(Box.createHorizontalGlue());

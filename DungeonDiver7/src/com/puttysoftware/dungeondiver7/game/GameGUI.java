@@ -24,11 +24,11 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 
 import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.diane.direction.DirectionResolver;
 import com.puttysoftware.diane.gui.DrawGrid;
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.integration.Integration;
@@ -816,7 +816,7 @@ class GameGUI {
     // Fields
     private MainWindow mainWindow;
     private EventHandler handler;
-    private JPanel borderPane, scorePane, infoPane, outerOutputPane, difficultyPane;
+    private MainContent borderPane, scorePane, infoPane, outerOutputPane, difficultyPane;
     private JLabel messageLabel;
     private JLabel scoreMoves;
     private JLabel scoreShots;
@@ -1164,9 +1164,9 @@ class GameGUI {
     private void setUpDifficultyDialog() {
 	// Set up Difficulty Dialog
 	this.dhandler = new DifficultyEventHandler();
-	this.difficultyPane = new JPanel();
-	final var listPane = new JPanel();
-	final var buttonPane = new JPanel();
+	this.difficultyPane = MainWindow.createContent();
+	final var listPane = MainWindow.createContent();
+	final var buttonPane = MainWindow.createContent();
 	this.difficultyList = new JList<>(Strings.allDifficulties());
 	this.difficultyOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	final var cancelButton = new JButton(Strings.dialog(DialogString.CANCEL_BUTTON));
@@ -1183,13 +1183,13 @@ class GameGUI {
 	this.difficultyOK.addActionListener(this.dhandler);
 	cancelButton.addActionListener(this.dhandler);
     }
-    
+
     private void showDifficultyDialog() {
 	this.mainWindow.setAndSave(this.difficultyPane, Strings.game(GameString.SELECT_DIFFICULTY), this.difficultyOK);
 	this.mainWindow.pack();
 	this.mainWindow.addWindowListener(this.dhandler);
     }
-    
+
     private void hideDifficultyDialog() {
 	this.mainWindow.removeWindowListener(this.dhandler);
 	this.mainWindow.restoreSaved();
@@ -1198,15 +1198,15 @@ class GameGUI {
 
     private void setUpGUI() {
 	this.handler = new EventHandler();
-	this.borderPane = new JPanel();
+	this.mainWindow = MainWindow.mainWindow();
+	this.borderPane = this.mainWindow.createMainContent();
 	this.borderPane.setLayout(new BorderLayout());
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);
-	this.mainWindow = MainWindow.mainWindow();
 	this.drawGrid = new DrawGrid(Prefs.getViewingWindowSize());
 	this.outputPane = new GameDraw(this.drawGrid);
 	// Pasted code
-	this.borderPane = new JPanel();
+	this.borderPane = MainWindow.createContent();
 	this.borderPane.setLayout(new BorderLayout());
 	this.mainWindow = MainWindow.mainWindow();
 	this.outerOutputPane = RCLGenerator.generateRowColumnLabels();
@@ -1219,7 +1219,7 @@ class GameGUI {
 	this.otherAmmoLeft = new JLabel(DianeStrings.subst(Strings.game(GameString.MISSILES), Integer.toString(0)));
 	this.otherToolsLeft = new JLabel(DianeStrings.subst(Strings.game(GameString.BOOSTS), Integer.toString(0)));
 	this.otherRangesLeft = new JLabel(DianeStrings.subst(Strings.game(GameString.BOMBS), Integer.toString(0)));
-	this.scorePane = new JPanel();
+	this.scorePane = MainWindow.createContent();
 	this.scorePane.setLayout(new FlowLayout());
 	this.scorePane.add(this.scoreMoves);
 	this.scorePane.add(this.scoreShots);
@@ -1228,7 +1228,7 @@ class GameGUI {
 	this.scorePane.add(this.otherToolsLeft);
 	this.scorePane.add(this.otherRangesLeft);
 	this.levelInfo = new JLabel(Strings.SPACE);
-	this.infoPane = new JPanel();
+	this.infoPane = MainWindow.createContent();
 	this.infoPane.setLayout(new FlowLayout());
 	this.infoPane.add(this.levelInfo);
 	this.scoreMoves.setLabelFor(this.outputPane);

@@ -17,8 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
@@ -90,7 +90,7 @@ class PrefsGUI {
     // Fields
     private MainWindow mainWindow;
     private EventHandler handler;
-    private JPanel mainPrefPane;
+    private MainContent mainPrefPane;
     private JCheckBox sounds;
     private JCheckBox music;
     private JCheckBox checkUpdatesStartup;
@@ -158,9 +158,9 @@ class PrefsGUI {
     private void setUpGUI() {
 	this.handler = new EventHandler();
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainPrefPane = new JPanel();
-	final var buttonPane = new JPanel();
-	final var settingsPane = new JPanel();
+	this.mainPrefPane = this.mainWindow.createMainContent();
+	final var buttonPane = MainWindow.createContent();
+	final var settingsPane = MainWindow.createContent();
 	final var prefsOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	prefsOK.setDefaultCapable(true);
 	this.mainWindow.setDefaultButton(prefsOK);

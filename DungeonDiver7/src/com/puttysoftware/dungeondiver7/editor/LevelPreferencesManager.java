@@ -17,10 +17,10 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
@@ -100,7 +100,7 @@ class LevelPreferencesManager {
     private JTextArea hint;
     private JComboBox<String> difficulty;
     private JCheckBox moveShoot;
-    private JPanel mainPrefPane;
+    private MainContent mainPrefPane;
 
     // Constructors
     public LevelPreferencesManager() {
@@ -152,13 +152,13 @@ class LevelPreferencesManager {
     }
 
     private void setUpGUI() {
-	JPanel contentPane, buttonPane;
+	MainContent contentPane, buttonPane;
 	JButton prefsOK, prefsCancel;
 	this.handler = new EventHandler();
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainPrefPane = new JPanel();
-	contentPane = new JPanel();
-	buttonPane = new JPanel();
+	this.mainPrefPane = MainWindow.createContent();
+	contentPane = MainWindow.createContent();
+	buttonPane = MainWindow.createContent();
 	prefsOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	prefsOK.setDefaultCapable(true);
 	this.mainWindow.setDefaultButton(prefsOK);

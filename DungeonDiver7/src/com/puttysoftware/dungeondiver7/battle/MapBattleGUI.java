@@ -16,10 +16,10 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 import com.puttysoftware.diane.gui.DrawGrid;
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.integration.Integration;
@@ -162,7 +162,7 @@ class MapBattleGUI {
     // Fields
     private MainWindow mainWindow;
     private EventHandler handler;
-    private JPanel borderPane;
+    private MainContent borderPane;
     private MapBattleDraw battlePane;
     private JLabel messageLabel;
     private final MapBattleViewingWindowManager vwMgr;
@@ -266,12 +266,12 @@ class MapBattleGUI {
 
     private void setUpGUI() {
 	this.handler = new EventHandler();
-	this.borderPane = new JPanel();
-	final var buttonPane = new JPanel();
+	this.mainWindow = MainWindow.mainWindow();
+	this.borderPane = this.mainWindow.createMainContent();
+	final var buttonPane = MainWindow.createContent();
 	this.borderPane.setLayout(new BorderLayout());
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);
-	this.mainWindow = MainWindow.mainWindow();
 	this.spell = new JButton("Cast Spell");
 	this.steal = new JButton("Steal");
 	this.drain = new JButton("Drain");

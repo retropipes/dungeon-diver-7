@@ -5,9 +5,9 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.dungeon.current;
 
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.random.RandomRange;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
@@ -22,7 +22,7 @@ import com.puttysoftware.dungeondiver7.utility.ImageColors;
 public class GenerateDungeonTask extends Thread {
     // Fields
     private final MainWindow mainWindow;
-    private final JPanel loadContent;
+    private final MainContent loadContent;
     private final boolean scratch;
 
     // Constructors
@@ -31,7 +31,7 @@ public class GenerateDungeonTask extends Thread {
 	this.mainWindow = MainWindow.mainWindow();
 	final var loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
-	this.loadContent = new JPanel();
+	this.loadContent = this.mainWindow.createMainContent();
 	this.loadContent.add(loadBar);
     }
 

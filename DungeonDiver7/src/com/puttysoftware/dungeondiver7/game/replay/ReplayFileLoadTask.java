@@ -9,9 +9,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
@@ -24,7 +24,7 @@ class ReplayFileLoadTask extends Thread {
     // Fields
     private final String filename;
     private final MainWindow mainWindow;
-    private final JPanel loadContent;
+    private final MainContent loadContent;
 
     // Constructors
     ReplayFileLoadTask(final String file) {
@@ -34,7 +34,7 @@ class ReplayFileLoadTask extends Thread {
 	this.mainWindow = MainWindow.mainWindow();
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
-	this.loadContent = new JPanel();
+	this.loadContent = this.mainWindow.createMainContent();
 	this.loadContent.add(loadBar);
     }
 

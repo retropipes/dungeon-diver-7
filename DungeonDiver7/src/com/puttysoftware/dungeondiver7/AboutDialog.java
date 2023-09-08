@@ -17,9 +17,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.locale.DianeStrings;
 import com.puttysoftware.dungeondiver7.loader.LogoLoader;
@@ -73,7 +73,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 
     // Fields
     private MainWindow mainWindow;
-    private JPanel aboutPane;
+    private MainContent aboutPane;
     private JMenuItem helpAbout;
 
     // Constructors
@@ -145,16 +145,16 @@ public class AboutDialog implements AboutHandler, MenuSection {
     }
 
     private void setUpGUI(final String ver) {
-	JPanel textPane, buttonPane, logoPane;
+	MainContent textPane, buttonPane, logoPane;
 	JButton aboutOK;
 	EventHandler handler;
 	JLabel miniLabel;
 	handler = new EventHandler();
 	this.mainWindow = MainWindow.mainWindow();
-	this.aboutPane = new JPanel();
-	textPane = new JPanel();
-	buttonPane = new JPanel();
-	logoPane = new JPanel();
+	this.aboutPane = this.mainWindow.createMainContent();
+	textPane = MainWindow.createContent();
+	buttonPane = MainWindow.createContent();
+	logoPane = MainWindow.createContent();
 	aboutOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	miniLabel = new JLabel(Strings.EMPTY, LogoLoader.getMiniatureLogo(), SwingConstants.LEFT);
 	miniLabel.setLabelFor(null);

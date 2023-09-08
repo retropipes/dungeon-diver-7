@@ -14,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
-import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.TransferHandler;
 import javax.swing.WindowConstants;
@@ -61,7 +60,7 @@ public final class MainWindow {
 	this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.frame.setResizable(false);
 	this.contentSize = new Dimension(width, height);
-	this.content = this.createContent();
+	this.content = this.createMainContent();
 	this.savedDepth = 0;
 	this.savedTitleDepth = 0;
 	this.savedContentStack = new LinkedList<>();
@@ -91,7 +90,7 @@ public final class MainWindow {
 	}
     }
 
-    public boolean checkContent(final JComponent customContent) {
+    public boolean checkContent(final MainContent customContent) {
 	return this.content.equals(customContent);
     }
 
@@ -99,13 +98,25 @@ public final class MainWindow {
 	return this.content;
     }
 
-    public JPanel createContent() {
-	final var newContent = new JPanel();
-	newContent.setPreferredSize(this.contentSize);
-	newContent.setMinimumSize(this.contentSize);
-	newContent.setMaximumSize(this.contentSize);
-	newContent.setSize(this.contentSize);
-	return newContent;
+    public MainContent createMainContent() {
+	return new MainContent(this.contentSize);
+    }
+
+    public static MainContent createContent() {
+	return new MainContent();
+    }
+
+    public ScrollingContent createMainScrollingContent(final MainContent view) {
+	final var result = new ScrollingContent(view);
+	result.setPreferredSize(this.contentSize);
+	result.setMinimumSize(this.contentSize);
+	result.setMaximumSize(this.contentSize);
+	result.setSize(this.contentSize);
+	return result;
+    }
+
+    public static ScrollingContent createScrollingContent(final MainContent view) {
+	return new ScrollingContent(view);
     }
 
     public int getHeight() {
@@ -177,7 +188,7 @@ public final class MainWindow {
 	}
     }
 
-    public void setAndSave(final JComponent customContent) {
+    public void setAndSave(final MainContent customContent) {
 	this.savedContentStack.push(this.content);
 	this.savedMusicStack.push(this.currentMusic);
 	this.savedDefaultButtonStack.push(this.currentDefault);
@@ -189,7 +200,7 @@ public final class MainWindow {
 	this.currentDefault = null;
     }
 
-    public void setAndSave(final JComponent customContent, final String title) {
+    public void setAndSave(final MainContent customContent, final String title) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
@@ -203,7 +214,7 @@ public final class MainWindow {
 	this.currentDefault = null;
     }
 
-    public void setAndSave(final JComponent customContent, final String title, final DianeMusicIndex music) {
+    public void setAndSave(final MainContent customContent, final String title, final DianeMusicIndex music) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
@@ -225,7 +236,7 @@ public final class MainWindow {
 	}
     }
 
-    public void setAndSave(final JComponent customContent, final String title, final DianeMusicIndex music,
+    public void setAndSave(final MainContent customContent, final String title, final DianeMusicIndex music,
 	    final JButton defaultButton) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
@@ -249,7 +260,94 @@ public final class MainWindow {
 	this.frame.getRootPane().setDefaultButton(defaultButton);
     }
 
-    public void setAndSave(final JComponent customContent, final String title, final JButton defaultButton) {
+    public void setAndSave(final MainContent customContent, final String title, final JButton defaultButton) {
+	this.savedContentStack.push(this.content);
+	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
+	this.savedTitleDepth++;
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+	this.frame.setTitle(title);
+	this.currentMusic = DefaultAssets.NO_MUSIC;
+	this.currentDefault = defaultButton;
+	this.frame.getRootPane().setDefaultButton(defaultButton);
+    }
+    
+    public void setAndSave(final ScrollingContent customContent) {
+	this.savedContentStack.push(this.content);
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
+	this.savedTitleDepth++;
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+	this.currentMusic = DefaultAssets.NO_MUSIC;
+	this.currentDefault = null;
+    }
+
+    public void setAndSave(final ScrollingContent customContent, final String title) {
+	this.savedContentStack.push(this.content);
+	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
+	this.savedTitleDepth++;
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+	this.frame.setTitle(title);
+	this.currentMusic = DefaultAssets.NO_MUSIC;
+	this.currentDefault = null;
+    }
+
+    public void setAndSave(final ScrollingContent customContent, final String title, final DianeMusicIndex music) {
+	this.savedContentStack.push(this.content);
+	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
+	this.savedTitleDepth++;
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+	this.frame.setTitle(title);
+	final var oldMusic = this.currentMusic;
+	this.currentMusic = music;
+	this.currentDefault = null;
+	if (this.currentMusic != null && this.currentMusic != oldMusic) {
+	    try {
+		DianeMusicPlayer.play(this.currentMusic);
+	    } catch (final IOException e) {
+		Diane.handleError(e);
+	    }
+	}
+    }
+
+    public void setAndSave(final ScrollingContent customContent, final String title, final DianeMusicIndex music,
+	    final JButton defaultButton) {
+	this.savedContentStack.push(this.content);
+	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
+	this.savedTitleDepth++;
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+	this.frame.setTitle(title);
+	final var oldMusic = this.currentMusic;
+	this.currentMusic = music;
+	if (this.currentMusic != null && this.currentMusic != oldMusic) {
+	    try {
+		DianeMusicPlayer.play(this.currentMusic);
+	    } catch (final IOException e) {
+		Diane.handleError(e);
+	    }
+	}
+	this.currentDefault = defaultButton;
+	this.frame.getRootPane().setDefaultButton(defaultButton);
+    }
+
+    public void setAndSave(final ScrollingContent customContent, final String title, final JButton defaultButton) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);

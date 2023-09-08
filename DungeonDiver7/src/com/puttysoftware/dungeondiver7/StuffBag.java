@@ -8,7 +8,6 @@ package com.puttysoftware.dungeondiver7;
 import java.awt.Dimension;
 import java.awt.Image;
 
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import com.puttysoftware.diane.assets.image.BufferedImageIcon;
@@ -266,7 +265,7 @@ public final class StuffBag {
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	loadBar.setPreferredSize(new Dimension(600, 20));
-	final var loadContent = new JPanel();
+	final var loadContent = mainWindow.createMainContent();
 	loadContent.add(loadBar);
 	mainWindow.setAndSave(loadContent, Strings.dialog(DialogString.UPDATING_LEVEL_INFO));
 	this.getDungeonManager().getDungeon().generateLevelInfoList();

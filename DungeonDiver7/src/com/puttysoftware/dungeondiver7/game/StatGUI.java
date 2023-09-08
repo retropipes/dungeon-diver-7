@@ -8,16 +8,17 @@ package com.puttysoftware.dungeondiver7.game;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import com.puttysoftware.diane.gui.MainContent;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 import com.puttysoftware.dungeondiver7.loader.StatImageManager;
 import com.puttysoftware.dungeondiver7.locale.StatusImage;
 
 class StatGUI {
     // Fields
-    private JPanel statsPane;
+    private MainContent statsPane;
     private JLabel hpLabel;
     private JLabel mpLabel;
     private JLabel goldLabel;
@@ -31,12 +32,12 @@ class StatGUI {
 	this.setUpGUI();
     }
 
-    JPanel getStatsPane() {
+    MainContent getStatsPane() {
 	return this.statsPane;
     }
 
     private void setUpGUI() {
-	this.statsPane = new JPanel();
+	this.statsPane = MainWindow.createContent();
 	this.statsPane.setLayout(new GridLayout(7, 1));
 	this.hpLabel = new JLabel("", null, SwingConstants.LEFT);
 	this.mpLabel = new JLabel("", null, SwingConstants.LEFT);

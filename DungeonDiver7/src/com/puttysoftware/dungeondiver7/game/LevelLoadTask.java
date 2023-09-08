@@ -5,9 +5,9 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.game;
 
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
@@ -19,7 +19,7 @@ import com.puttysoftware.dungeondiver7.utility.ImageColors;
 public class LevelLoadTask extends Thread {
     // Fields
     private final MainWindow mainWindow;
-    private final JPanel loadContent;
+    private final MainContent loadContent;
     private final int level;
 
     // Constructors
@@ -29,7 +29,7 @@ public class LevelLoadTask extends Thread {
 	this.mainWindow = MainWindow.mainWindow();
 	final var loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
-	this.loadContent = new JPanel();
+	this.loadContent = MainWindow.createContent();
 	this.loadContent.add(loadBar);
     }
 

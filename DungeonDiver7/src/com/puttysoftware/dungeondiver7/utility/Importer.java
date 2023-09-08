@@ -16,11 +16,11 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.TransferHandler;
 import javax.swing.border.EmptyBorder;
 
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.loader.ExternalMusicImporter;
@@ -42,7 +42,7 @@ public class Importer {
 
     // Fields
     static MainWindow mainWindow;
-    private static JPanel guiPane;
+    private static MainContent guiPane;
     private static JLabel logoLabel;
     private static boolean inited = false;
     private static TransferHandler handler = new TransferHandler() {
@@ -107,7 +107,7 @@ public class Importer {
 
     private static void init() {
 	Importer.mainWindow = MainWindow.mainWindow();
-	Importer.guiPane = new JPanel();
+	Importer.guiPane = Importer.mainWindow.createMainContent();
 	Importer.mainWindow.addWindowListener(new CloseHandler());
 	Importer.guiPane.setLayout(new GridLayout(1, 1));
 	Importer.logoLabel = new JLabel(Strings.dialog(DialogString.IMPORT_INSTRUCTIONS), null, SwingConstants.CENTER);
