@@ -7,36 +7,34 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMovableObject;
-import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class HotBox extends AbstractMovableObject {
     // Constructors
     public HotBox() {
-        super(true);
-        this.type.set(DungeonObjectTypes.TYPE_BOX);
-        this.setMaterial(Materials.FIRE);
-    }
-
-    @Override
-    public void playSoundHook() {
-        SoundLoader.playSound(Sounds.PUSH_BOX);
-    }
-
-    @Override
-    public final int getBaseID() {
-        return 63;
+	super(true);
+	this.type.set(DungeonObjectTypes.TYPE_BOX);
+	this.setMaterial(Materials.FIRE);
     }
 
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
-        switch (materialID) {
-            case Materials.ICE:
-                return new Box();
-            default:
-                return this;
-        }
+	return switch (materialID) {
+	case Materials.ICE -> new Box();
+	default -> this;
+	};
+    }
+
+    @Override
+    public final int getBaseID() {
+	return 63;
+    }
+
+    @Override
+    public void playSoundHook() {
+	SoundLoader.playSound(Sounds.PUSH_BOX);
     }
 }

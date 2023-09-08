@@ -14,11 +14,11 @@ public class Disruptor extends AbstractTransientObject {
 
     @Override
     public final int getBaseID() {
-        return 47;
+	return 47;
     }
 
     @Override
     public int getForceUnitsImbued() {
-        return 0;
+	return 0;
     }
 }

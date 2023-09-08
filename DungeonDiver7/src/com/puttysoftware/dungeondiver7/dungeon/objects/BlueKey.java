@@ -8,8 +8,8 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractKey;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 
 public class BlueKey extends AbstractKey {
@@ -17,17 +17,17 @@ public class BlueKey extends AbstractKey {
     public BlueKey() {
     }
 
+    @Override
+    public final int getBaseID() {
+	return 5;
+    }
+
     // Scriptability
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-        SoundLoader.playSound(Sounds.GRAB);
-        PartyInventory.addOneBlueKey();
-        DungeonDiver7.getStuffBag().getGameLogic();
-        GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-    }
-
-    @Override
-    public final int getBaseID() {
-        return 5;
+	SoundLoader.playSound(Sounds.GRAB);
+	PartyInventory.addOneBlueKey();
+	DungeonDiver7.getStuffBag().getGameLogic();
+	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 }

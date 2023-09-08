@@ -11,7 +11,7 @@ import com.puttysoftware.diane.fileio.DataIOReader;
 import com.puttysoftware.diane.fileio.DataIOWriter;
 
 public interface AbstractSuffixIO {
-    void writeSuffix(DataIOWriter writer) throws IOException;
-
     void readSuffix(DataIOReader reader, int formatVersion) throws IOException;
+
+    void writeSuffix(DataIOWriter writer) throws IOException;
 }

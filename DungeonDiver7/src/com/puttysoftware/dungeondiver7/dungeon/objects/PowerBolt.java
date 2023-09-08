@@ -8,8 +8,8 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractField;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
-import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 
 public class PowerBolt extends AbstractField {
     // Constructors
@@ -17,15 +17,15 @@ public class PowerBolt extends AbstractField {
     }
 
     @Override
-    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-        SoundLoader.playSound(Sounds.POWERFUL);
-        DungeonDiver7.getStuffBag().getGameLogic();
-        GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-        DungeonDiver7.getStuffBag().getGameLogic().setPowerfulPlayer();
+    public final int getBaseID() {
+	return 139;
     }
 
     @Override
-    public final int getBaseID() {
-        return 139;
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	SoundLoader.playSound(Sounds.POWERFUL);
+	DungeonDiver7.getStuffBag().getGameLogic();
+	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+	DungeonDiver7.getStuffBag().getGameLogic().setPowerfulPlayer();
     }
 }

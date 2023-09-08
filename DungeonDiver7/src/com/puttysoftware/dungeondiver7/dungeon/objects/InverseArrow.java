@@ -14,11 +14,11 @@ public class InverseArrow extends AbstractTransientObject {
 
     @Override
     public final int getBaseID() {
-        return 6;
+	return 6;
     }
 
     @Override
     public int getForceUnitsImbued() {
-        return 1;
+	return 1;
     }
 }

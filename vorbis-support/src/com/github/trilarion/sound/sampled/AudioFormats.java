@@ -29,11 +29,11 @@ public final class AudioFormats {
     private static final Logger LOG = Logger.getLogger(AudioFormats.class.getName());
 
     private static boolean doMatch(int i1, int i2) {
-        return i1 == AudioSystem.NOT_SPECIFIED || i2 == AudioSystem.NOT_SPECIFIED || i1 == i2;
+	return i1 == AudioSystem.NOT_SPECIFIED || i2 == AudioSystem.NOT_SPECIFIED || i1 == i2;
     }
 
     private static boolean doMatch(float f1, float f2) {
-        return f1 == AudioSystem.NOT_SPECIFIED || f2 == AudioSystem.NOT_SPECIFIED || Math.abs(f1 - f2) < 1.0e-9;
+	return f1 == AudioSystem.NOT_SPECIFIED || f2 == AudioSystem.NOT_SPECIFIED || Math.abs(f1 - f2) < 1.0e-9;
     }
 
     /**
@@ -59,32 +59,32 @@ public final class AudioFormats {
     // IDEA: create a special "NOT_SPECIFIED" encoding
     // and a AudioFormat.Encoding.matches method.
     public static boolean matches(AudioFormat format1, AudioFormat format2) {
-        // $$fb 19 Dec 99: endian must be checked, too.
-        //
-        // we do have a problem with redundant elements:
-        // e.g.
-        // encoding=ALAW || ULAW -> bigEndian and samplesizeinbits don't matter
-        // sample size in bits == 8 -> bigEndian doesn't matter
-        // sample size in bits > 8 -> PCM is always signed.
-        // This is an overall issue in JavaSound, I think.
-        // At present, it is not consistently implemented to support these
-        // redundancies and implicit definitions
-        //
-        // As a workaround of this issue I return in the converters
-        // all combinations, e.g. for ULAW I return bigEndian and !bigEndian
-        // formats.
-        /*
-         * old version
-         */
-        // as proposed by florian
-        return format1.getEncoding().equals(format2.getEncoding())
-                && (format2.getSampleSizeInBits() <= 8 || format1.getSampleSizeInBits() == AudioSystem.NOT_SPECIFIED
-                        || format2.getSampleSizeInBits() == AudioSystem.NOT_SPECIFIED
-                        || format1.isBigEndian() == format2.isBigEndian())
-                && doMatch(format1.getChannels(), format2.getChannels())
-                && doMatch(format1.getSampleSizeInBits(), format2.getSampleSizeInBits())
-                && doMatch(format1.getFrameSize(), format2.getFrameSize())
-                && doMatch(format1.getSampleRate(), format2.getSampleRate())
-                && doMatch(format1.getFrameRate(), format2.getFrameRate());
+	// $$fb 19 Dec 99: endian must be checked, too.
+	//
+	// we do have a problem with redundant elements:
+	// e.g.
+	// encoding=ALAW || ULAW -> bigEndian and samplesizeinbits don't matter
+	// sample size in bits == 8 -> bigEndian doesn't matter
+	// sample size in bits > 8 -> PCM is always signed.
+	// This is an overall issue in JavaSound, I think.
+	// At present, it is not consistently implemented to support these
+	// redundancies and implicit definitions
+	//
+	// As a workaround of this issue I return in the converters
+	// all combinations, e.g. for ULAW I return bigEndian and !bigEndian
+	// formats.
+	/*
+	 * old version
+	 */
+	// as proposed by florian
+	return format1.getEncoding().equals(format2.getEncoding())
+		&& (format2.getSampleSizeInBits() <= 8 || format1.getSampleSizeInBits() == AudioSystem.NOT_SPECIFIED
+			|| format2.getSampleSizeInBits() == AudioSystem.NOT_SPECIFIED
+			|| format1.isBigEndian() == format2.isBigEndian())
+		&& doMatch(format1.getChannels(), format2.getChannels())
+		&& doMatch(format1.getSampleSizeInBits(), format2.getSampleSizeInBits())
+		&& doMatch(format1.getFrameSize(), format2.getFrameSize())
+		&& doMatch(format1.getSampleRate(), format2.getSampleRate())
+		&& doMatch(format1.getFrameRate(), format2.getFrameRate());
     }
 }

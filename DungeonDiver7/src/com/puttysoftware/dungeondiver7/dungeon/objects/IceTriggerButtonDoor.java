@@ -11,11 +11,11 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class IceTriggerButtonDoor extends AbstractTriggerButtonDoor {
     // Constructors
     public IceTriggerButtonDoor() {
-        this.setMaterial(Materials.ICE);
+	this.setMaterial(Materials.ICE);
     }
 
     @Override
     public final int getBaseID() {
-        return 85;
+	return 85;
     }
 }

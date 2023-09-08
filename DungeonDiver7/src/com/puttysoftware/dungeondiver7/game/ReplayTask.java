@@ -11,22 +11,22 @@ import com.puttysoftware.dungeondiver7.prefs.Prefs;
 class ReplayTask extends Thread {
     // Constructors
     public ReplayTask() {
-        // Do nothing
+	// Do nothing
     }
 
     @Override
     public void run() {
-        final var gm = DungeonDiver7.getStuffBag().getGameLogic();
-        var result = true;
-        while (result) {
-            result = gm.replayLastMove();
-            // Delay, for animation purposes
-            try {
-                Thread.sleep(Prefs.getReplaySpeed());
-            } catch (final InterruptedException ie) {
-                // Ignore
-            }
-        }
-        gm.replayDone();
+	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	var result = true;
+	while (result) {
+	    result = gm.replayLastMove();
+	    // Delay, for animation purposes
+	    try {
+		Thread.sleep(Prefs.getReplaySpeed());
+	    } catch (final InterruptedException ie) {
+		// Ignore
+	    }
+	}
+	gm.replayDone();
     }
 }

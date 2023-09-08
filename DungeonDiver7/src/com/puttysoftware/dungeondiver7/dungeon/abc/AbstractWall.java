@@ -12,33 +12,33 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public abstract class AbstractWall extends AbstractDungeonObject {
     // Constructors
     protected AbstractWall() {
-        super(true);
-        this.type.set(DungeonObjectTypes.TYPE_WALL);
-        this.setMaterial(Materials.STONE);
-    }
-
-    @Override
-    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-        // Do nothing
-    }
-
-    @Override
-    public int getLayer() {
-        return DungeonConstants.LAYER_LOWER_OBJECTS;
-    }
-
-    @Override
-    public int getCustomProperty(final int propID) {
-        return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
-    }
-
-    @Override
-    public void setCustomProperty(final int propID, final int value) {
-        // Do nothing
+	super(true);
+	this.type.set(DungeonObjectTypes.TYPE_WALL);
+	this.setMaterial(Materials.STONE);
     }
 
     @Override
     public boolean doLasersPassThrough() {
-        return false;
+	return false;
+    }
+
+    @Override
+    public int getCustomProperty(final int propID) {
+	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+    }
+
+    @Override
+    public int getLayer() {
+	return DungeonConstants.LAYER_LOWER_OBJECTS;
+    }
+
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	// Do nothing
+    }
+
+    @Override
+    public void setCustomProperty(final int propID, final int value) {
+	// Do nothing
     }
 }

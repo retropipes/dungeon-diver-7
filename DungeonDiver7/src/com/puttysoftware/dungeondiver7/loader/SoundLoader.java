@@ -9,14 +9,13 @@ import com.puttysoftware.diane.assets.sound.DianeSoundPlayer;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 
 public class SoundLoader {
-
-    private SoundLoader() {
-        // Do nothing
+    public static void playSound(final Sounds soundID) {
+	if (Prefs.getSoundsEnabled()) {
+	    DianeSoundPlayer.play(soundID);
+	}
     }
 
-    public static void playSound(final Sounds soundID) {
-        if (Prefs.getSoundsEnabled()) {
-            DianeSoundPlayer.play(soundID);
-        }
+    private SoundLoader() {
+	// Do nothing
     }
 }

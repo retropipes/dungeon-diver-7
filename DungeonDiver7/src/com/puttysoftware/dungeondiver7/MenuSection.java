@@ -3,21 +3,21 @@ package com.puttysoftware.dungeondiver7;
 import javax.swing.JMenu;
 
 public interface MenuSection {
-    void enableModeCommands();
-
-    void disableModeCommands();
-
-    void setInitialState();
+    void attachAccelerators(final Accelerators accel);
 
     JMenu createCommandsMenu();
 
-    void attachAccelerators(final Accelerators accel);
-
-    void enableLoadedCommands();
+    void disableDirtyCommands();
 
     void disableLoadedCommands();
 
+    void disableModeCommands();
+
     void enableDirtyCommands();
 
-    void disableDirtyCommands();
+    void enableLoadedCommands();
+
+    void enableModeCommands();
+
+    void setInitialState();
 }

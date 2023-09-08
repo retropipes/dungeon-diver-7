@@ -39,7 +39,7 @@ import com.github.trilarion.sound.vorbis.jcraft.jorbis.Info;
  * This class implements the Vorbis decoding.
  */
 public class DecodedVorbisAudioInputStream extends AsynchronousFilteredAudioInputStream
-        implements CircularBuffer.BufferListener {
+	implements CircularBuffer.BufferListener {
     private static final Logger LOG = Logger.getLogger(DecodedVorbisAudioInputStream.class.getName());
     private InputStream oggBitStream_;
     private SyncState oggSyncState_ = null;
@@ -79,29 +79,29 @@ public class DecodedVorbisAudioInputStream extends AsynchronousFilteredAudioInpu
      * @param bitStream
      */
     public DecodedVorbisAudioInputStream(AudioFormat outputFormat, AudioInputStream bitStream) {
-        super(outputFormat, -1);
-        this.oggBitStream_ = bitStream;
-        init_jorbis();
-        index = 0;
-        playState = playState_NeedHeaders;
+	super(outputFormat, -1);
+	this.oggBitStream_ = bitStream;
+	init_jorbis();
+	index = 0;
+	playState = playState_NeedHeaders;
     }
 
     /**
      * Initializes all the jOrbis and jOgg vars that are used for song playback.
      */
     private void init_jorbis() {
-        oggSyncState_ = new SyncState();
-        oggStreamState_ = new StreamState();
-        oggPage_ = new Page();
-        oggPacket_ = new Packet();
-        vorbisInfo = new Info();
-        vorbisComment = new Comment();
-        vorbisDspState = new DspState();
-        vorbisBlock = new Block(vorbisDspState);
-        buffer = null;
-        bytes = 0;
-        currentBytes = 0L;
-        oggSyncState_.init();
+	oggSyncState_ = new SyncState();
+	oggStreamState_ = new StreamState();
+	oggPage_ = new Page();
+	oggPacket_ = new Packet();
+	vorbisInfo = new Info();
+	vorbisComment = new Comment();
+	vorbisDspState = new DspState();
+	vorbisBlock = new Block(vorbisDspState);
+	buffer = null;
+	bytes = 0;
+	currentBytes = 0L;
+	oggSyncState_.init();
     }
 
     /**
@@ -109,147 +109,143 @@ public class DecodedVorbisAudioInputStream extends AsynchronousFilteredAudioInpu
      */
     @Override
     public void dataReady() {
-        switch (playState) {
-            case playState_NeedHeaders:
-                LOG.log(Level.FINE, "playState = playState_NeedHeaders");
-                break;
-            case playState_ReadData:
-                LOG.log(Level.FINE, "playState = playState_ReadData");
-                break;
-            case playState_WriteData:
-                LOG.log(Level.FINE, "playState = playState_WriteData");
-                break;
-            case playState_Done:
-                LOG.log(Level.FINE, "playState = playState_Done");
-                break;
-            case playState_BufferFull:
-                LOG.log(Level.FINE, "playState = playState_BufferFull");
-                break;
-            case playState_Corrupt:
-                LOG.log(Level.FINE, "playState = playState_Corrupt");
-                break;
-        }
-        // This code was developed by the jCraft group, as JOrbisPlayer.java,
-        // slightly
-        // modified by jOggPlayer developer and adapted by JavaZOOM to suit the
-        // JavaSound
-        // SPI. Then further modified by Tom Kimpton to correctly play ogg files
-        // that
-        // would hang the player.
-        switch (playState) {
-            case playState_NeedHeaders:
-                try {
-                    // Headers (+ Comments).
-                    readHeaders();
-                } catch (IOException ioe) {
-                    playState = playState_Corrupt;
-                    return;
-                }
-                playState = playState_ReadData;
-                break;
-            case playState_ReadData:
-                int result;
-                index = oggSyncState_.buffer(bufferSize_);
-                buffer = oggSyncState_.data;
-                bytes = readFromStream(buffer, index, bufferSize_);
-                LOG.log(Level.FINE, "More data : {0}", bytes);
-                if (bytes == -1) {
-                    playState = playState_Done;
-                    LOG.log(Level.FINE, "Ogg Stream empty. Settings playState to playState_Done.");
-                    break;
-                } else {
-                    oggSyncState_.wrote(bytes);
-                    if (bytes == 0) {
-                        if ((oggPage_.eos() != 0) || (oggStreamState_.e_o_s != 0) || (oggPacket_.e_o_s != 0)) {
-                            LOG.log(Level.FINE, "oggSyncState wrote 0 bytes: settings playState to playState_Done.");
-                            playState = playState_Done;
-                        }
-                        LOG.log(Level.FINE, "oggSyncState wrote 0 bytes: but stream not yet empty.");
-                        break;
-                    }
-                }
-                result = oggSyncState_.pageout(oggPage_);
-                if (result == 0) {
-                    LOG.log(Level.FINE, "Setting playState to playState_ReadData.");
-                    playState = playState_ReadData;
-                    break;
-                } // need more data
-                if (result == -1) { // missing or corrupt data at this page position
-                    LOG.log(Level.FINE,
-                            "Corrupt or missing data in bitstream; setting playState to playState_ReadData");
-                    playState = playState_ReadData;
-                    break;
-                }
-                oggStreamState_.pagein(oggPage_);
-                LOG.log(Level.FINE, "Setting playState to playState_WriteData.");
-                playState = playState_WriteData;
-                break;
-            case playState_WriteData:
-                // Decoding !
-                LOG.log(Level.FINE, "Decoding");
-                label: while (true) {
-                    result = oggStreamState_.packetout(oggPacket_);
-                    switch (result) {
-                        case 0:
-                            LOG.log(Level.FINE, "Packetout returned 0, going to read state.");
-                            playState = playState_ReadData;
-                            break label;
-                        case -1:
-                            // missing or corrupt data at this page position
-                            // no reason to complain; already complained above
-                            LOG.log(Level.FINE,
-                                    "Corrupt or missing data in packetout bitstream; going to read state...");
-                            // playState = playState_ReadData;
-                            // break;
-                            // continue;
-                            break;
-                        default:
-                            // we have a packet. Decode it
-                            if (vorbisBlock.synthesis(oggPacket_) == 0) { // test for
-                                // success!
-                                vorbisDspState.synthesis_blockin(vorbisBlock);
-                            } else {
-                                // if(TDebug.TraceAudioConverter)
-                                // TDebug.out("vorbisBlock.synthesis() returned !0,
-                                // going to read state");
-                                LOG.log(Level.FINE, "VorbisBlock.synthesis() returned !0, continuing.");
-                                continue;
-                            }
-                            outputSamples();
-                            if (playState == playState_BufferFull) {
-                                return;
-                            }
-                            break;
-                    }
-                } // while(true)
-                if (oggPage_.eos() != 0) {
-                    LOG.log(Level.FINE, "Settings playState to playState_Done.");
-                    playState = playState_Done;
-                }
-                break;
-            case playState_BufferFull:
-                continueFromBufferFull();
-                break;
-            case playState_Corrupt:
-                LOG.log(Level.FINE, "Corrupt Song.");
-                // drop through to playState_Done...
-            case playState_Done:
-                oggStreamState_.clear();
-                vorbisBlock.clear();
-                vorbisDspState.clear();
-                vorbisInfo.clear();
-                oggSyncState_.clear();
-                LOG.log(Level.FINE, "Done Song.");
-                try {
-                    if (oggBitStream_ != null) {
-                        oggBitStream_.close();
-                    }
-                    getCircularBuffer().close();
-                } catch (Exception e) {
-                    LOG.log(Level.FINE, e.getMessage());
-                }
-                break;
-        } // switch
+	switch (playState) {
+	case playState_NeedHeaders:
+	    LOG.log(Level.FINE, "playState = playState_NeedHeaders");
+	    break;
+	case playState_ReadData:
+	    LOG.log(Level.FINE, "playState = playState_ReadData");
+	    break;
+	case playState_WriteData:
+	    LOG.log(Level.FINE, "playState = playState_WriteData");
+	    break;
+	case playState_Done:
+	    LOG.log(Level.FINE, "playState = playState_Done");
+	    break;
+	case playState_BufferFull:
+	    LOG.log(Level.FINE, "playState = playState_BufferFull");
+	    break;
+	case playState_Corrupt:
+	    LOG.log(Level.FINE, "playState = playState_Corrupt");
+	    break;
+	}
+	// This code was developed by the jCraft group, as JOrbisPlayer.java,
+	// slightly
+	// modified by jOggPlayer developer and adapted by JavaZOOM to suit the
+	// JavaSound
+	// SPI. Then further modified by Tom Kimpton to correctly play ogg files
+	// that
+	// would hang the player.
+	switch (playState) {
+	case playState_NeedHeaders:
+	    try {
+		// Headers (+ Comments).
+		readHeaders();
+	    } catch (IOException ioe) {
+		playState = playState_Corrupt;
+		return;
+	    }
+	    playState = playState_ReadData;
+	    break;
+	case playState_ReadData:
+	    int result;
+	    index = oggSyncState_.buffer(bufferSize_);
+	    buffer = oggSyncState_.data;
+	    bytes = readFromStream(buffer, index, bufferSize_);
+	    LOG.log(Level.FINE, "More data : {0}", bytes);
+	    if (bytes == -1) {
+		playState = playState_Done;
+		LOG.log(Level.FINE, "Ogg Stream empty. Settings playState to playState_Done.");
+		break;
+	    }
+	    oggSyncState_.wrote(bytes);
+	    if (bytes == 0) {
+	        if ((oggPage_.eos() != 0) || (oggStreamState_.e_o_s != 0) || (oggPacket_.e_o_s != 0)) {
+	    	LOG.log(Level.FINE, "oggSyncState wrote 0 bytes: settings playState to playState_Done.");
+	    	playState = playState_Done;
+	        }
+	        LOG.log(Level.FINE, "oggSyncState wrote 0 bytes: but stream not yet empty.");
+	        break;
+	    }
+	    result = oggSyncState_.pageout(oggPage_);
+	    if (result == 0) {
+		LOG.log(Level.FINE, "Setting playState to playState_ReadData.");
+		playState = playState_ReadData;
+		break;
+	    } // need more data
+	    if (result == -1) { // missing or corrupt data at this page position
+		LOG.log(Level.FINE, "Corrupt or missing data in bitstream; setting playState to playState_ReadData");
+		playState = playState_ReadData;
+		break;
+	    }
+	    oggStreamState_.pagein(oggPage_);
+	    LOG.log(Level.FINE, "Setting playState to playState_WriteData.");
+	    playState = playState_WriteData;
+	    break;
+	case playState_WriteData:
+	    // Decoding !
+	    LOG.log(Level.FINE, "Decoding");
+	    label: while (true) {
+		result = oggStreamState_.packetout(oggPacket_);
+		switch (result) {
+		case 0:
+		    LOG.log(Level.FINE, "Packetout returned 0, going to read state.");
+		    playState = playState_ReadData;
+		    break label;
+		case -1:
+		    // missing or corrupt data at this page position
+		    // no reason to complain; already complained above
+		    LOG.log(Level.FINE, "Corrupt or missing data in packetout bitstream; going to read state...");
+		    // playState = playState_ReadData;
+		    // break;
+		    // continue;
+		    break;
+		default:
+		    // we have a packet. Decode it
+		    if (vorbisBlock.synthesis(oggPacket_) != 0) {
+			// if(TDebug.TraceAudioConverter)
+			// TDebug.out("vorbisBlock.synthesis() returned !0,
+			// going to read state");
+			LOG.log(Level.FINE, "VorbisBlock.synthesis() returned !0, continuing.");
+			continue;
+		    }
+		    // success!
+		    vorbisDspState.synthesis_blockin(vorbisBlock);
+		    outputSamples();
+		    if (playState == playState_BufferFull) {
+			return;
+		    }
+		    break;
+		}
+	    } // while(true)
+	    if (oggPage_.eos() != 0) {
+		LOG.log(Level.FINE, "Settings playState to playState_Done.");
+		playState = playState_Done;
+	    }
+	    break;
+	case playState_BufferFull:
+	    continueFromBufferFull();
+	    break;
+	case playState_Corrupt:
+	    LOG.log(Level.FINE, "Corrupt Song.");
+	    // drop through to playState_Done...
+	case playState_Done:
+	    oggStreamState_.clear();
+	    vorbisBlock.clear();
+	    vorbisDspState.clear();
+	    vorbisInfo.clear();
+	    oggSyncState_.clear();
+	    LOG.log(Level.FINE, "Done Song.");
+	    try {
+		if (oggBitStream_ != null) {
+		    oggBitStream_.close();
+		}
+		getCircularBuffer().close();
+	    } catch (Exception e) {
+		LOG.log(Level.FINE, e.getMessage());
+	    }
+	    break;
+	} // switch
     }
 
     /**
@@ -258,151 +254,151 @@ public class DecodedVorbisAudioInputStream extends AsynchronousFilteredAudioInpu
      * we were.
      */
     private void outputSamples() {
-        int samples;
-        while ((samples = vorbisDspState.synthesis_pcmout(_pcmf, _index)) > 0) {
-            float[][] pcmf = _pcmf[0];
-            bout = (samples < convsize ? samples : convsize);
-            // convert doubles to 16 bit signed ints (host order) and
-            // interleave
-            for (i = 0; i < vorbisInfo.channels; i++) {
-                int pointer = i * 2;
-                // int ptr=i;
-                int mono = _index[i];
-                for (int j = 0; j < bout; j++) {
-                    double fVal = pcmf[i][mono + j] * 32767.;
-                    int val = (int) (fVal);
-                    if (val > 32767) {
-                        val = 32767;
-                    }
-                    if (val < -32768) {
-                        val = -32768;
-                    }
-                    if (val < 0) {
-                        val = val | 0x8000;
-                    }
-                    convbuffer[pointer] = (byte) (val);
-                    convbuffer[pointer + 1] = (byte) (val >>> 8);
-                    pointer += 2 * (vorbisInfo.channels);
-                }
-            }
-            LOG.log(Level.FINE, "about to write: {0}", 2 * vorbisInfo.channels * bout);
-            if (getCircularBuffer().availableWrite() < 2 * vorbisInfo.channels * bout) {
-                LOG.log(Level.FINE,
-                        "Too much data in this data packet, better return, let the channel drain, and try again...");
-                playState = playState_BufferFull;
-                return;
-            }
-            getCircularBuffer().write(convbuffer, 0, 2 * vorbisInfo.channels * bout);
-            if (bytes < bufferSize_) {
-                LOG.log(Level.FINE, "Finished with final buffer of music?");
-            }
-            if (vorbisDspState.synthesis_read(bout) != 0) {
-                LOG.log(Level.FINE, "VorbisDspState.synthesis_read returned -1.");
-            }
-        } // while(samples...)
-        playState = playState_ReadData;
+	int samples;
+	while ((samples = vorbisDspState.synthesis_pcmout(_pcmf, _index)) > 0) {
+	    float[][] pcmf = _pcmf[0];
+	    bout = (samples < convsize ? samples : convsize);
+	    // convert doubles to 16 bit signed ints (host order) and
+	    // interleave
+	    for (i = 0; i < vorbisInfo.channels; i++) {
+		int pointer = i * 2;
+		// int ptr=i;
+		int mono = _index[i];
+		for (int j = 0; j < bout; j++) {
+		    double fVal = pcmf[i][mono + j] * 32767.;
+		    int val = (int) (fVal);
+		    if (val > 32767) {
+			val = 32767;
+		    }
+		    if (val < -32768) {
+			val = -32768;
+		    }
+		    if (val < 0) {
+			val = val | 0x8000;
+		    }
+		    convbuffer[pointer] = (byte) (val);
+		    convbuffer[pointer + 1] = (byte) (val >>> 8);
+		    pointer += 2 * (vorbisInfo.channels);
+		}
+	    }
+	    LOG.log(Level.FINE, "about to write: {0}", 2 * vorbisInfo.channels * bout);
+	    if (getCircularBuffer().availableWrite() < 2 * vorbisInfo.channels * bout) {
+		LOG.log(Level.FINE,
+			"Too much data in this data packet, better return, let the channel drain, and try again...");
+		playState = playState_BufferFull;
+		return;
+	    }
+	    getCircularBuffer().write(convbuffer, 0, 2 * vorbisInfo.channels * bout);
+	    if (bytes < bufferSize_) {
+		LOG.log(Level.FINE, "Finished with final buffer of music?");
+	    }
+	    if (vorbisDspState.synthesis_read(bout) != 0) {
+		LOG.log(Level.FINE, "VorbisDspState.synthesis_read returned -1.");
+	    }
+	} // while(samples...)
+	playState = playState_ReadData;
     }
 
     private void continueFromBufferFull() {
-        if (getCircularBuffer().availableWrite() < 2 * vorbisInfo.channels * bout) {
-            LOG.log(Level.FINE,
-                    "Too much data in this data packet, better return, let the channel drain, and try again...");
-            // Don't change play state.
-            return;
-        }
-        getCircularBuffer().write(convbuffer, 0, 2 * vorbisInfo.channels * bout);
-        // Don't change play state. Let outputSamples change play state, if
-        // necessary.
-        outputSamples();
+	if (getCircularBuffer().availableWrite() < 2 * vorbisInfo.channels * bout) {
+	    LOG.log(Level.FINE,
+		    "Too much data in this data packet, better return, let the channel drain, and try again...");
+	    // Don't change play state.
+	    return;
+	}
+	getCircularBuffer().write(convbuffer, 0, 2 * vorbisInfo.channels * bout);
+	// Don't change play state. Let outputSamples change play state, if
+	// necessary.
+	outputSamples();
     }
 
     /**
      * Reads headers and comments.
      */
     private void readHeaders() throws IOException {
-        LOG.log(Level.FINE, "readHeaders(");
-        index = oggSyncState_.buffer(bufferSize_);
-        buffer = oggSyncState_.data;
-        bytes = readFromStream(buffer, index, bufferSize_);
-        if (bytes == -1) {
-            LOG.log(Level.FINE, "Cannot get any data from selected Ogg bitstream.");
-            throw new IOException("Cannot get any data from selected Ogg bitstream.");
-        }
-        oggSyncState_.wrote(bytes);
-        if (oggSyncState_.pageout(oggPage_) != 1) {
-            if (bytes < bufferSize_) {
-                throw new IOException("EOF");
-            }
-            LOG.log(Level.FINE, "Input does not appear to be an Ogg bitstream.");
-            throw new IOException("Input does not appear to be an Ogg bitstream.");
-        }
-        oggStreamState_.init(oggPage_.serialno());
-        vorbisInfo.init();
-        vorbisComment.init();
-        if (oggStreamState_.pagein(oggPage_) < 0) {
-            // error; stream version mismatch perhaps
-            LOG.log(Level.FINE, "Error reading first page of Ogg bitstream data.");
-            throw new IOException("Error reading first page of Ogg bitstream data.");
-        }
-        if (oggStreamState_.packetout(oggPacket_) != 1) {
-            // no page? must not be vorbis
-            LOG.log(Level.FINE, "Error reading initial header packet.");
-            throw new IOException("Error reading initial header packet.");
-        }
-        if (vorbisInfo.synthesis_headerin(vorbisComment, oggPacket_) < 0) {
-            // error case; not a vorbis header
-            LOG.log(Level.FINE, "This Ogg bitstream does not contain Vorbis audio data.");
-            throw new IOException("This Ogg bitstream does not contain Vorbis audio data.");
-        }
-        // int i = 0;
-        i = 0;
-        while (i < 2) {
-            while (i < 2) {
-                int result = oggSyncState_.pageout(oggPage_);
-                if (result == 0) {
-                    break;
-                } // Need more data
-                if (result == 1) {
-                    oggStreamState_.pagein(oggPage_);
-                    while (i < 2) {
-                        result = oggStreamState_.packetout(oggPacket_);
-                        if (result == 0) {
-                            break;
-                        }
-                        if (result == -1) {
-                            LOG.log(Level.FINE, "Corrupt secondary header.  Exiting.");
-                            throw new IOException("Corrupt secondary header.  Exiting.");
-                        }
-                        vorbisInfo.synthesis_headerin(vorbisComment, oggPacket_);
-                        i++;
-                    }
-                }
-            }
-            index = oggSyncState_.buffer(bufferSize_);
-            buffer = oggSyncState_.data;
-            bytes = readFromStream(buffer, index, bufferSize_);
-            if (bytes == -1) {
-                break;
-            }
-            if (bytes == 0 && i < 2) {
-                LOG.log(Level.FINE, "End of file before finding all Vorbis headers!");
-                throw new IOException("End of file before finding all Vorbis  headers!");
-            }
-            oggSyncState_.wrote(bytes);
-        }
-        byte[][] ptr = vorbisComment.user_comments;
-        for (byte[] ptr1 : ptr) {
-            if (ptr1 == null) {
-                break;
-            }
-            String currComment = (new String(ptr1, 0, ptr1.length - 1, Charset.forName("US-ASCII"))).trim();
-            LOG.log(Level.FINE, "Comment: {0}", currComment);
-        }
-        convsize = bufferSize_ / vorbisInfo.channels;
-        vorbisDspState.synthesis_init(vorbisInfo);
-        vorbisBlock.init(vorbisDspState);
-        _pcmf = new float[1][][];
-        _index = new int[vorbisInfo.channels];
+	LOG.log(Level.FINE, "readHeaders(");
+	index = oggSyncState_.buffer(bufferSize_);
+	buffer = oggSyncState_.data;
+	bytes = readFromStream(buffer, index, bufferSize_);
+	if (bytes == -1) {
+	    LOG.log(Level.FINE, "Cannot get any data from selected Ogg bitstream.");
+	    throw new IOException("Cannot get any data from selected Ogg bitstream.");
+	}
+	oggSyncState_.wrote(bytes);
+	if (oggSyncState_.pageout(oggPage_) != 1) {
+	    if (bytes < bufferSize_) {
+		throw new IOException("EOF");
+	    }
+	    LOG.log(Level.FINE, "Input does not appear to be an Ogg bitstream.");
+	    throw new IOException("Input does not appear to be an Ogg bitstream.");
+	}
+	oggStreamState_.init(oggPage_.serialno());
+	vorbisInfo.init();
+	vorbisComment.init();
+	if (oggStreamState_.pagein(oggPage_) < 0) {
+	    // error; stream version mismatch perhaps
+	    LOG.log(Level.FINE, "Error reading first page of Ogg bitstream data.");
+	    throw new IOException("Error reading first page of Ogg bitstream data.");
+	}
+	if (oggStreamState_.packetout(oggPacket_) != 1) {
+	    // no page? must not be vorbis
+	    LOG.log(Level.FINE, "Error reading initial header packet.");
+	    throw new IOException("Error reading initial header packet.");
+	}
+	if (vorbisInfo.synthesis_headerin(vorbisComment, oggPacket_) < 0) {
+	    // error case; not a vorbis header
+	    LOG.log(Level.FINE, "This Ogg bitstream does not contain Vorbis audio data.");
+	    throw new IOException("This Ogg bitstream does not contain Vorbis audio data.");
+	}
+	// int i = 0;
+	i = 0;
+	while (i < 2) {
+	    while (i < 2) {
+		int result = oggSyncState_.pageout(oggPage_);
+		if (result == 0) {
+		    break;
+		} // Need more data
+		if (result == 1) {
+		    oggStreamState_.pagein(oggPage_);
+		    while (i < 2) {
+			result = oggStreamState_.packetout(oggPacket_);
+			if (result == 0) {
+			    break;
+			}
+			if (result == -1) {
+			    LOG.log(Level.FINE, "Corrupt secondary header.  Exiting.");
+			    throw new IOException("Corrupt secondary header.  Exiting.");
+			}
+			vorbisInfo.synthesis_headerin(vorbisComment, oggPacket_);
+			i++;
+		    }
+		}
+	    }
+	    index = oggSyncState_.buffer(bufferSize_);
+	    buffer = oggSyncState_.data;
+	    bytes = readFromStream(buffer, index, bufferSize_);
+	    if (bytes == -1) {
+		break;
+	    }
+	    if (bytes == 0 && i < 2) {
+		LOG.log(Level.FINE, "End of file before finding all Vorbis headers!");
+		throw new IOException("End of file before finding all Vorbis  headers!");
+	    }
+	    oggSyncState_.wrote(bytes);
+	}
+	byte[][] ptr = vorbisComment.user_comments;
+	for (byte[] ptr1 : ptr) {
+	    if (ptr1 == null) {
+		break;
+	    }
+	    String currComment = (new String(ptr1, 0, ptr1.length - 1, Charset.forName("US-ASCII"))).trim();
+	    LOG.log(Level.FINE, "Comment: {0}", currComment);
+	}
+	convsize = bufferSize_ / vorbisInfo.channels;
+	vorbisDspState.synthesis_init(vorbisInfo);
+	vorbisBlock.init(vorbisDspState);
+	_pcmf = new float[1][][];
+	_index = new int[vorbisInfo.channels];
     }
 
     /**
@@ -415,15 +411,15 @@ public class DecodedVorbisAudioInputStream extends AsynchronousFilteredAudioInpu
      * @return the number of bytes read or -1 if error.
      */
     private int readFromStream(byte[] buffer, int index, int bufferSize_) {
-        int bytes;
-        try {
-            bytes = oggBitStream_.read(buffer, index, bufferSize_);
-        } catch (Exception e) {
-            LOG.log(Level.FINE, "Cannot Read Selected Song");
-            bytes = -1;
-        }
-        currentBytes = currentBytes + bytes;
-        return bytes;
+	int bytes;
+	try {
+	    bytes = oggBitStream_.read(buffer, index, bufferSize_);
+	} catch (Exception e) {
+	    LOG.log(Level.FINE, "Cannot Read Selected Song");
+	    bytes = -1;
+	}
+	currentBytes = currentBytes + bytes;
+	return bytes;
     }
 
     /**
@@ -433,7 +429,7 @@ public class DecodedVorbisAudioInputStream extends AsynchronousFilteredAudioInpu
      */
     @Override
     public void close() throws IOException {
-        super.close();
-        oggBitStream_.close();
+	super.close();
+	oggBitStream_.close();
     }
 }

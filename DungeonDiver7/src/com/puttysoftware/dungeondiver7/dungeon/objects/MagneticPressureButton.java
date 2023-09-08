@@ -11,12 +11,12 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class MagneticPressureButton extends AbstractPressureButton {
     // Constructors
     public MagneticPressureButton() {
-        super(new MagneticPressureButtonDoor(), false);
-        this.setMaterial(Materials.MAGNETIC);
+	super(new MagneticPressureButtonDoor(), false);
+	this.setMaterial(Materials.MAGNETIC);
     }
 
     @Override
     public final int getBaseID() {
-        return 88;
+	return 88;
     }
 }

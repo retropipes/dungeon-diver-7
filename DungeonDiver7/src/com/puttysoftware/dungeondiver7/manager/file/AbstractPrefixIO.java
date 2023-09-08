@@ -11,7 +11,7 @@ import com.puttysoftware.diane.fileio.DataIOReader;
 import com.puttysoftware.diane.fileio.DataIOWriter;
 
 public interface AbstractPrefixIO {
-    void writePrefix(DataIOWriter writer) throws IOException;
-
     int readPrefix(DataIOReader reader) throws IOException;
+
+    void writePrefix(DataIOWriter writer) throws IOException;
 }

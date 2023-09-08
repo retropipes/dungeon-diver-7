@@ -6,14 +6,14 @@
 package com.puttysoftware.dungeondiver7.utility;
 
 public class FileExtensions {
-    private FileExtensions() {
-        // Do nothing
-    }
-
     // Constants
     private static final String STRING_EXTENSION = "properties";
 
     public static String getStringExtensionWithPeriod() {
-        return "." + FileExtensions.STRING_EXTENSION;
+	return "." + FileExtensions.STRING_EXTENSION;
+    }
+
+    private FileExtensions() {
+	// Do nothing
     }
 }

@@ -11,22 +11,22 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public abstract class AbstractMPModifier extends AbstractDungeonObject {
     // Constructors
     protected AbstractMPModifier() {
-        super(false, false);
-        this.type.set(DungeonObjectTypes.TYPE_MP_MODIFIER);
-    }
-
-    @Override
-    public int getLayer() {
-        return DungeonConstants.LAYER_LOWER_OBJECTS;
+	super(false, false);
+	this.type.set(DungeonObjectTypes.TYPE_MP_MODIFIER);
     }
 
     @Override
     public int getCustomProperty(final int propID) {
-        return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+    }
+
+    @Override
+    public int getLayer() {
+	return DungeonConstants.LAYER_LOWER_OBJECTS;
     }
 
     @Override
     public void setCustomProperty(final int propID, final int value) {
-        // Do nothing
+	// Do nothing
     }
 }

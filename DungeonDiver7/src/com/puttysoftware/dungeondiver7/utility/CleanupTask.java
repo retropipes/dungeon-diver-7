@@ -7,20 +7,20 @@ package com.puttysoftware.dungeondiver7.utility;
 
 import java.io.File;
 
-import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 import com.puttysoftware.diane.fileio.utility.DirectoryUtilities;
+import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 
 public class CleanupTask {
-    private CleanupTask() {
-        // Do nothing
+    public static void cleanUp() {
+	try {
+	    final var dirToDelete = new File(AbstractDungeon.getDungeonTempFolder());
+	    DirectoryUtilities.removeDirectory(dirToDelete);
+	} catch (final Throwable t) {
+	    // Ignore
+	}
     }
 
-    public static void cleanUp() {
-        try {
-            final var dirToDelete = new File(AbstractDungeon.getDungeonTempFolder());
-            DirectoryUtilities.removeDirectory(dirToDelete);
-        } catch (final Throwable t) {
-            // Ignore
-        }
+    private CleanupTask() {
+	// Do nothing
     }
 }

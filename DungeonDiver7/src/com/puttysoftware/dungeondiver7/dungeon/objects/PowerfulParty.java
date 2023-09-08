@@ -8,36 +8,36 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
-import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.utility.GameActions;
 
 public class PowerfulParty extends AbstractCharacter {
-    // Constructors
-    public PowerfulParty(final int number) {
-        super(number);
-        this.activateTimer(50);
+    public PowerfulParty(final Direction dir, final int number) {
+	super(number);
+	this.setDirection(dir);
+	this.activateTimer(50);
     }
 
-    public PowerfulParty(final Direction dir, final int number) {
-        super(number);
-        this.setDirection(dir);
-        this.activateTimer(50);
+    // Constructors
+    public PowerfulParty(final int number) {
+	super(number);
+	this.activateTimer(50);
     }
 
     @Override
     public boolean acceptTick(final int actionType) {
-        return actionType == GameActions.MOVE;
-    }
-
-    @Override
-    public void timerExpiredAction(final int x, final int y) {
-        SoundLoader.playSound(Sounds.DISRUPT_END);
-        DungeonDiver7.getStuffBag().getGameLogic().setNormalPlayer();
+	return actionType == GameActions.MOVE;
     }
 
     @Override
     public final int getBaseID() {
-        return 138;
+	return 138;
+    }
+
+    @Override
+    public void timerExpiredAction(final int x, final int y) {
+	SoundLoader.playSound(Sounds.DISRUPT_END);
+	DungeonDiver7.getStuffBag().getGameLogic().setNormalPlayer();
     }
 }

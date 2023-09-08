@@ -12,24 +12,18 @@ import com.puttysoftware.dungeondiver7.creature.caste.predefined.CurerSpellBook;
 import com.puttysoftware.dungeondiver7.creature.caste.predefined.DebufferSpellBook;
 
 public class SpellBookLoader {
-    // Constructors
-    private SpellBookLoader() {
-        // Do nothing
+    public static SpellBook loadSpellBook(final int sbid) {
+	return switch (sbid) {
+	case CasteConstants.CASTE_ANNIHILATOR -> new AnnihilatorSpellBook();
+	case CasteConstants.CASTE_BUFFER -> new BufferSpellBook();
+	case CasteConstants.CASTE_CURER -> new CurerSpellBook();
+	case CasteConstants.CASTE_DEBUFFER -> new DebufferSpellBook();
+	default -> /* Invalid caste name */ null;
+	};
     }
 
-    public static SpellBook loadSpellBook(final int sbid) {
-        switch (sbid) {
-            case CasteConstants.CASTE_ANNIHILATOR:
-                return new AnnihilatorSpellBook();
-            case CasteConstants.CASTE_BUFFER:
-                return new BufferSpellBook();
-            case CasteConstants.CASTE_CURER:
-                return new CurerSpellBook();
-            case CasteConstants.CASTE_DEBUFFER:
-                return new DebufferSpellBook();
-            default:
-                // Invalid caste name
-                return null;
-        }
+    // Constructors
+    private SpellBookLoader() {
+	// Do nothing
     }
 }

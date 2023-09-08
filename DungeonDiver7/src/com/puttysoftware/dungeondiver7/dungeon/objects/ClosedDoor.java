@@ -9,8 +9,8 @@ import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractPassThroughObject;
 import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
-import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 
 public class ClosedDoor extends AbstractPassThroughObject {
     // Constructors
@@ -19,30 +19,30 @@ public class ClosedDoor extends AbstractPassThroughObject {
 
     @Override
     public int getBaseID() {
-        return ObjectImageConstants.CLOSED_DOOR;
+	return ObjectImageConstants.CLOSED_DOOR;
+    }
+
+    @Override
+    public String getDescription() {
+	return "Closed Doors open when stepped on.";
     }
 
     // Scriptability
     @Override
     public String getName() {
-        return "Closed Door";
+	return "Closed Door";
     }
 
     @Override
     public String getPluralName() {
-        return "Closed Doors";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Closed Doors open when stepped on.";
+	return "Closed Doors";
     }
 
     @Override
     public void interactAction() {
-        SoundLoader.playSound(Sounds.DOOR_OPENS);
-        final var glm = DungeonDiver7.getStuffBag().getGameLogic();
-        GameLogic.morph(new OpenDoor());
-        glm.redrawDungeon();
+	SoundLoader.playSound(Sounds.DOOR_OPENS);
+	final var glm = DungeonDiver7.getStuffBag().getGameLogic();
+	GameLogic.morph(new OpenDoor());
+	glm.redrawDungeon();
     }
 }

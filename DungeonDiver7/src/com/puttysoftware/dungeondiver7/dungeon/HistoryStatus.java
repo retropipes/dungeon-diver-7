@@ -1,8 +1,6 @@
 package com.puttysoftware.dungeondiver7.dungeon;
 
 public class HistoryStatus {
-    // Fields
-    private boolean[] wasWhat;
     private static final int MAX_WHAT = 10;
     public static final int WAS_LASER = 0;
     public static final int WAS_MISSILE = 1;
@@ -14,20 +12,22 @@ public class HistoryStatus {
     public static final int WAS_BOMB = 7;
     public static final int WAS_HEAT_BOMB = 8;
     public static final int WAS_ICE_BOMB = 9;
+    // Fields
+    private boolean[] wasWhat;
 
     public HistoryStatus(final boolean... entries) {
-        if (entries == null || entries.length == 0) {
-            this.wasWhat = new boolean[HistoryStatus.MAX_WHAT];
-        } else {
-            this.wasWhat = entries;
-        }
-    }
-
-    public boolean wasSomething(final int index) {
-        return this.wasWhat[index];
+	if (entries == null || entries.length == 0) {
+	    this.wasWhat = new boolean[HistoryStatus.MAX_WHAT];
+	} else {
+	    this.wasWhat = entries;
+	}
     }
 
     public void setWasSomething(final int index, final boolean value) {
-        this.wasWhat[index] = value;
+	this.wasWhat[index] = value;
+    }
+
+    public boolean wasSomething(final int index) {
+	return this.wasWhat[index];
     }
 }

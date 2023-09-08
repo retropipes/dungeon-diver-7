@@ -5,24 +5,24 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon;
 
-import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import com.puttysoftware.diane.storage.ObjectStorage;
+import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 
 public class DungeonDataStorage extends ObjectStorage {
-    // Constructor
-    public DungeonDataStorage(final int... shape) {
-        super(shape);
+    public DungeonDataStorage(final DungeonDataStorage source) {
+	super(source);
     }
 
-    public DungeonDataStorage(final DungeonDataStorage source) {
-        super(source);
+    // Constructor
+    public DungeonDataStorage(final int... shape) {
+	super(shape);
     }
 
     public AbstractDungeonObject getDungeonDataCell(final int... loc) {
-        return (AbstractDungeonObject) this.getCell(loc);
+	return (AbstractDungeonObject) this.getCell(loc);
     }
 
     public void setDungeonDataCell(final AbstractDungeonObject obj, final int... loc) {
-        this.setCell(obj, loc);
+	this.setCell(obj, loc);
     }
 }

@@ -10,53 +10,53 @@ import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 public abstract class AbstractBattle {
     // Constructors
     protected AbstractBattle() {
-        // Do nothing
+	// Do nothing
     }
 
-    // Generic Methods
-    public abstract void resetGUI();
-
-    public abstract void doBattle();
-
-    public abstract void doBossBattle();
-
-    public abstract void doFinalBossBattle();
-
-    public abstract void doBattleByProxy();
-
-    public abstract void setStatusMessage(final String msg);
-
-    public abstract void executeNextAIAction();
-
-    public abstract boolean getLastAIActionResult();
+    public abstract void battleDone();
 
     public abstract boolean castSpell();
-
-    public abstract boolean steal();
-
-    public abstract boolean drain();
-
-    public abstract void endTurn();
-
-    public abstract AbstractCreature getEnemy();
-
-    public abstract void battleDone();
 
     public abstract void displayActiveEffects();
 
     public abstract void displayBattleStats();
 
-    public abstract boolean doPlayerActions(final int actionType);
+    public abstract void doBattle();
 
-    public abstract BattleResult getResult();
+    public abstract void doBattleByProxy();
+
+    public abstract void doBossBattle();
+
+    public abstract void doFinalBossBattle();
+
+    public abstract boolean doPlayerActions(final int actionType);
 
     public abstract void doResult();
 
-    public abstract void setResult(final int resultCode);
+    public abstract boolean drain();
+
+    public abstract void endTurn();
+
+    public abstract void executeNextAIAction();
+
+    public abstract AbstractCreature getEnemy();
+
+    public abstract boolean getLastAIActionResult();
+
+    public abstract BattleResult getResult();
+
+    public abstract boolean isWaitingForAI();
 
     public abstract void maintainEffects(final boolean player);
 
-    public abstract boolean updatePosition(int x, int y);
+    // Generic Methods
+    public abstract void resetGUI();
 
-    public abstract boolean isWaitingForAI();
+    public abstract void setResult(final int resultCode);
+
+    public abstract void setStatusMessage(final String msg);
+
+    public abstract boolean steal();
+
+    public abstract boolean updatePosition(int x, int y);
 }

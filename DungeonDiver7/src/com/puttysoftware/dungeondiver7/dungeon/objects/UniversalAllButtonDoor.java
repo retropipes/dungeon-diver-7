@@ -11,11 +11,11 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class UniversalAllButtonDoor extends AbstractAllButtonDoor {
     // Constructors
     public UniversalAllButtonDoor() {
-        this.setMaterial(Materials.DEFAULT);
+	this.setMaterial(Materials.DEFAULT);
     }
 
     @Override
     public final int getBaseID() {
-        return 111;
+	return 111;
     }
 }

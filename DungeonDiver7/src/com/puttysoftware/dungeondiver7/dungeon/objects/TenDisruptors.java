@@ -15,18 +15,18 @@ public class TenDisruptors extends AbstractInventoryModifier {
     }
 
     @Override
-    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-        PartyInventory.addTenDisruptors();
-        GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-    }
-
-    @Override
     public boolean doLasersPassThrough() {
-        return true;
+	return true;
     }
 
     @Override
     public final int getBaseID() {
-        return 48;
+	return 48;
+    }
+
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	PartyInventory.addTenDisruptors();
+	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 }

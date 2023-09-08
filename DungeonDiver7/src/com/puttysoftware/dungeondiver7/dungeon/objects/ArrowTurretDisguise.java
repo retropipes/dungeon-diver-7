@@ -8,50 +8,50 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractCharacter;
-import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.loader.SoundLoader;
+import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.utility.GameActions;
 
 public class ArrowTurretDisguise extends AbstractCharacter {
+    private static final int DISGUISE_LENGTH = 30;
     // Fields
     private int disguiseLeft;
-    private static final int DISGUISE_LENGTH = 30;
+
+    public ArrowTurretDisguise(final Direction dir, final int number) {
+	super(number);
+	this.disguiseLeft = ArrowTurretDisguise.DISGUISE_LENGTH;
+	this.activateTimer(1);
+	this.setDirection(dir);
+	this.setFrameNumber(1);
+    }
 
     // Constructors
     public ArrowTurretDisguise(final int number) {
-        super(number);
-        this.disguiseLeft = ArrowTurretDisguise.DISGUISE_LENGTH;
-        this.activateTimer(1);
-        this.setDirection(Direction.NORTH);
-        this.setFrameNumber(1);
-    }
-
-    public ArrowTurretDisguise(final Direction dir, final int number) {
-        super(number);
-        this.disguiseLeft = ArrowTurretDisguise.DISGUISE_LENGTH;
-        this.activateTimer(1);
-        this.setDirection(dir);
-        this.setFrameNumber(1);
-    }
-
-    @Override
-    public final int getBaseID() {
-        return 0;
+	super(number);
+	this.disguiseLeft = ArrowTurretDisguise.DISGUISE_LENGTH;
+	this.activateTimer(1);
+	this.setDirection(Direction.NORTH);
+	this.setFrameNumber(1);
     }
 
     @Override
     public boolean acceptTick(final int actionType) {
-        return actionType == GameActions.MOVE;
+	return actionType == GameActions.MOVE;
+    }
+
+    @Override
+    public final int getBaseID() {
+	return 0;
     }
 
     @Override
     public void timerExpiredAction(final int locX, final int locY) {
-        this.disguiseLeft--;
-        if (this.disguiseLeft == 0) {
-            SoundLoader.playSound(Sounds.DISRUPT_END);
-            DungeonDiver7.getStuffBag().getGameLogic().setNormalPlayer();
-        } else {
-            this.activateTimer(1);
-        }
+	this.disguiseLeft--;
+	if (this.disguiseLeft == 0) {
+	    SoundLoader.playSound(Sounds.DISRUPT_END);
+	    DungeonDiver7.getStuffBag().getGameLogic().setNormalPlayer();
+	} else {
+	    this.activateTimer(1);
+	}
     }
 }

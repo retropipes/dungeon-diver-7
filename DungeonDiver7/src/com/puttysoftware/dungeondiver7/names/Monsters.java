@@ -8,23 +8,23 @@ package com.puttysoftware.dungeondiver7.names;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 
 public class Monsters {
-    // Private constructor
-    private Monsters() {
-        // Do nothing
-    }
-
     public static final String getImageFilename(final int ID) {
-        final var tempMonID = Integer.toString(ID);
-        String monID;
-        if (tempMonID.length() == 1) {
-            monID = "0" + tempMonID;
-        } else {
-            monID = tempMonID;
-        }
-        return monID;
+	final var tempMonID = Integer.toString(ID);
+	String monID;
+	if (tempMonID.length() == 1) {
+	    monID = "0" + tempMonID;
+	} else {
+	    monID = tempMonID;
+	}
+	return monID;
     }
 
     public static final String getType(final int zoneID, final int ID) {
-        return Strings.monsterzone(zoneID, ID);
+	return Strings.monsterzone(zoneID, ID);
+    }
+
+    // Private constructor
+    private Monsters() {
+	// Do nothing
     }
 }

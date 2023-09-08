@@ -15,18 +15,18 @@ public class TenBoosts extends AbstractInventoryModifier {
     }
 
     @Override
-    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-        PartyInventory.addTenBoosts();
-        GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-    }
-
-    @Override
     public boolean doLasersPassThrough() {
-        return true;
+	return true;
     }
 
     @Override
     public final int getBaseID() {
-        return 39;
+	return 39;
+    }
+
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	PartyInventory.addTenBoosts();
+	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 }

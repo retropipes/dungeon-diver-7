@@ -8,15 +8,15 @@ package com.puttysoftware.dungeondiver7.item;
 import com.puttysoftware.dungeondiver7.loader.Sounds;
 
 public class WeaponHit {
-    // Private Constructor
-    private WeaponHit() {
-        // Do nothing
-    }
-
-    private static final Sounds[] HIT_SOUND_LOOKUP = { Sounds.AXE_HIT, Sounds.DAGGER_HIT,
-            Sounds.HAMMER_HIT, Sounds.STAFF_HIT, Sounds.SWORD_HIT, Sounds.WAND_HIT };
+    private static final Sounds[] HIT_SOUND_LOOKUP = { Sounds.AXE_HIT, Sounds.DAGGER_HIT, Sounds.HAMMER_HIT,
+	    Sounds.STAFF_HIT, Sounds.SWORD_HIT, Sounds.WAND_HIT };
 
     public static Sounds getWeaponTypeHitSound(final int index) {
-        return WeaponHit.HIT_SOUND_LOOKUP[index];
+	return WeaponHit.HIT_SOUND_LOOKUP[index];
+    }
+
+    // Private Constructor
+    private WeaponHit() {
+	// Do nothing
     }
 }

@@ -11,15 +11,15 @@ import com.puttysoftware.dungeondiver7.locale.Colors;
 public class Tunnel extends AbstractTunnel {
     // Constructors
     public Tunnel() {
-        this.setColor(Colors.GRAY);
+	this.setColor(Colors.GRAY);
     }
 
     public Tunnel(final Colors color) {
-        this.setColor(color);
+	this.setColor(color);
     }
 
     @Override
     public final int getBaseID() {
-        return 44;
+	return 44;
     }
 }

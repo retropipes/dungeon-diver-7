@@ -22,43 +22,43 @@ public class FileFormats {
     public static final byte CHARACTER_2 = 2;
     public static final byte CHARACTER_LATEST = 3;
 
-    private FileFormats() {
-        // Do nothing
-    }
-
-    public static final boolean isMoveShootAllowed(final int ver) {
-        return ver >= FileFormats.DUNGEON_11;
-    }
-
-    public static final boolean isLevelListStored(final int ver) {
-        return ver >= FileFormats.DUNGEON_17;
-    }
-
-    public static final boolean isFormatVersionValidGeneration7(final int ver) {
-        return ver == FileFormats.DUNGEON_18;
-    }
-
-    public static final boolean isFormatVersionValidGeneration6(final int ver) {
-        return ver == FileFormats.DUNGEON_17;
-    }
-
-    public static final boolean isFormatVersionValidGeneration5(final int ver) {
-        return ver == FileFormats.DUNGEON_12 || ver == FileFormats.DUNGEON_15 || ver == FileFormats.DUNGEON_16;
-    }
-
-    public static final boolean isFormatVersionValidGeneration4(final int ver) {
-        return ver == FileFormats.DUNGEON_10 || ver == FileFormats.DUNGEON_11;
-    }
-
-    public static final boolean isFormatVersionValidGeneration3(final int ver) {
-        return ver == FileFormats.DUNGEON_9;
+    public static final boolean isFormatVersionValidGeneration1(final int ver) {
+	return ver == FileFormats.DUNGEON_5 || ver == FileFormats.DUNGEON_6;
     }
 
     public static final boolean isFormatVersionValidGeneration2(final int ver) {
-        return ver == FileFormats.DUNGEON_7 || ver == FileFormats.DUNGEON_8;
+	return ver == FileFormats.DUNGEON_7 || ver == FileFormats.DUNGEON_8;
     }
 
-    public static final boolean isFormatVersionValidGeneration1(final int ver) {
-        return ver == FileFormats.DUNGEON_5 || ver == FileFormats.DUNGEON_6;
+    public static final boolean isFormatVersionValidGeneration3(final int ver) {
+	return ver == FileFormats.DUNGEON_9;
+    }
+
+    public static final boolean isFormatVersionValidGeneration4(final int ver) {
+	return ver == FileFormats.DUNGEON_10 || ver == FileFormats.DUNGEON_11;
+    }
+
+    public static final boolean isFormatVersionValidGeneration5(final int ver) {
+	return ver == FileFormats.DUNGEON_12 || ver == FileFormats.DUNGEON_15 || ver == FileFormats.DUNGEON_16;
+    }
+
+    public static final boolean isFormatVersionValidGeneration6(final int ver) {
+	return ver == FileFormats.DUNGEON_17;
+    }
+
+    public static final boolean isFormatVersionValidGeneration7(final int ver) {
+	return ver == FileFormats.DUNGEON_18;
+    }
+
+    public static final boolean isLevelListStored(final int ver) {
+	return ver >= FileFormats.DUNGEON_17;
+    }
+
+    public static final boolean isMoveShootAllowed(final int ver) {
+	return ver >= FileFormats.DUNGEON_11;
+    }
+
+    private FileFormats() {
+	// Do nothing
     }
 }

@@ -18,6 +18,6 @@ public class EffectImageConstants {
     public static final int EFFECT_IMAGE_LEVEL = 4;
 
     static String getEffectImageName(final int ID) {
-        return Strings.effectImage(ID);
+	return Strings.effectImage(ID);
     }
 }

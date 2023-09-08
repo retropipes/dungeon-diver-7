@@ -128,11 +128,11 @@ public enum Sounds implements DianeSoundIndex {
 
     @Override
     public String getName() {
-        return Strings.sound(this.ordinal());
+	return Strings.sound(this.ordinal());
     }
 
     @Override
     public URL getURL() {
-        return Sounds.class.getResource("/asset/sound/" + getName() + Strings.fileExtension(FileExtension.SOUND));
+	return Sounds.class.getResource("/asset/sound/" + this.getName() + Strings.fileExtension(FileExtension.SOUND));
     }
 }

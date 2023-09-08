@@ -14,22 +14,22 @@ class ImageCacheEntry {
 
     // Constructor
     ImageCacheEntry() {
-        // Do nothing
+	// Do nothing
     }
 
     BufferedImageIcon getEntry() {
-        return this.entry;
-    }
-
-    void setEntry(final BufferedImageIcon entry1) {
-        this.entry = entry1;
+	return this.entry;
     }
 
     String getNameEntry() {
-        return this.nameEntry;
+	return this.nameEntry;
+    }
+
+    void setEntry(final BufferedImageIcon entry1) {
+	this.entry = entry1;
     }
 
     void setNameEntry(final String nameEntry1) {
-        this.nameEntry = nameEntry1;
+	this.nameEntry = nameEntry1;
     }
 }

@@ -44,17 +44,17 @@ public abstract class TFormatConversionProvider extends FormatConversionProvider
     // $$fb2000-10-04: use AudioSystem.NOT_SPECIFIED for all fields.
     @Override
     public AudioInputStream getAudioInputStream(AudioFormat.Encoding targetEncoding,
-            AudioInputStream audioInputStream) {
-        AudioFormat sourceFormat = audioInputStream.getFormat();
-        AudioFormat targetFormat = new AudioFormat(targetEncoding, AudioSystem.NOT_SPECIFIED, // sample rate
-                AudioSystem.NOT_SPECIFIED, // sample size in bits
-                AudioSystem.NOT_SPECIFIED, // channels
-                AudioSystem.NOT_SPECIFIED, // frame size
-                AudioSystem.NOT_SPECIFIED, // frame rate
-                sourceFormat.isBigEndian()); // big endian
-        LOG.log(Level.FINE, "TFormatConversionProvider.getAudioInputStream(AudioFormat.Encoding, AudioInputStream):");
-        LOG.log(Level.FINE, "trying to convert to {0}", targetFormat);
-        return getAudioInputStream(targetFormat, audioInputStream);
+	    AudioInputStream audioInputStream) {
+	AudioFormat sourceFormat = audioInputStream.getFormat();
+	AudioFormat targetFormat = new AudioFormat(targetEncoding, AudioSystem.NOT_SPECIFIED, // sample rate
+		AudioSystem.NOT_SPECIFIED, // sample size in bits
+		AudioSystem.NOT_SPECIFIED, // channels
+		AudioSystem.NOT_SPECIFIED, // frame size
+		AudioSystem.NOT_SPECIFIED, // frame rate
+		sourceFormat.isBigEndian()); // big endian
+	LOG.log(Level.FINE, "TFormatConversionProvider.getAudioInputStream(AudioFormat.Encoding, AudioInputStream):");
+	LOG.log(Level.FINE, "trying to convert to {0}", targetFormat);
+	return getAudioInputStream(targetFormat, audioInputStream);
     }
 
     /**
@@ -75,20 +75,20 @@ public abstract class TFormatConversionProvider extends FormatConversionProvider
      */
     @Override
     public boolean isConversionSupported(AudioFormat targetFormat, AudioFormat sourceFormat) {
-        LOG.log(Level.FINE, ">TFormatConversionProvider.isConversionSupported(AudioFormat, AudioFormat):");
-        LOG.log(Level.FINE, "class: {0}", getClass().getName());
-        LOG.log(Level.FINE, "checking if conversion possible");
-        LOG.log(Level.FINE, "from: {0}", sourceFormat);
-        LOG.log(Level.FINE, "to: {0}", targetFormat);
-        AudioFormat[] aTargetFormats = getTargetFormats(targetFormat.getEncoding(), sourceFormat);
-        for (AudioFormat aTargetFormat : aTargetFormats) {
-            LOG.log(Level.FINE, "checking against possible target format: {0}", aTargetFormat);
-            if (aTargetFormat != null && AudioFormats.matches(aTargetFormat, targetFormat)) {
-                LOG.log(Level.FINE, "<result=true");
-                return true;
-            }
-        }
-        LOG.log(Level.FINE, "<result=false");
-        return false;
+	LOG.log(Level.FINE, ">TFormatConversionProvider.isConversionSupported(AudioFormat, AudioFormat):");
+	LOG.log(Level.FINE, "class: {0}", getClass().getName());
+	LOG.log(Level.FINE, "checking if conversion possible");
+	LOG.log(Level.FINE, "from: {0}", sourceFormat);
+	LOG.log(Level.FINE, "to: {0}", targetFormat);
+	AudioFormat[] aTargetFormats = getTargetFormats(targetFormat.getEncoding(), sourceFormat);
+	for (AudioFormat aTargetFormat : aTargetFormats) {
+	    LOG.log(Level.FINE, "checking against possible target format: {0}", aTargetFormat);
+	    if (aTargetFormat != null && AudioFormats.matches(aTargetFormat, targetFormat)) {
+		LOG.log(Level.FINE, "<result=true");
+		return true;
+	    }
+	}
+	LOG.log(Level.FINE, "<result=false");
+	return false;
     }
 }

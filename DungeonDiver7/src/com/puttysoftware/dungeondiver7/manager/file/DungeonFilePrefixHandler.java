@@ -7,42 +7,42 @@ package com.puttysoftware.dungeondiver7.manager.file;
 
 import java.io.IOException;
 
+import com.puttysoftware.diane.fileio.DataIOReader;
+import com.puttysoftware.diane.fileio.DataIOWriter;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.utility.FileFormats;
-import com.puttysoftware.diane.fileio.DataIOReader;
-import com.puttysoftware.diane.fileio.DataIOWriter;
 
 public class DungeonFilePrefixHandler implements AbstractPrefixIO {
     private static final byte FORMAT_VERSION = (byte) FileFormats.DUNGEON_LATEST;
 
+    private static boolean checkFormatVersion(final byte version) {
+	if (version > DungeonFilePrefixHandler.FORMAT_VERSION) {
+	    return false;
+	}
+	return true;
+    }
+
+    private static byte readFormatVersion(final DataIOReader reader) throws IOException {
+	return reader.readByte();
+    }
+
+    private static void writeFormatVersion(final DataIOWriter writer) throws IOException {
+	writer.writeByte(DungeonFilePrefixHandler.FORMAT_VERSION);
+    }
+
     @Override
     public int readPrefix(final DataIOReader reader) throws IOException {
-        final var formatVer = DungeonFilePrefixHandler.readFormatVersion(reader);
-        final var res = DungeonFilePrefixHandler.checkFormatVersion(formatVer);
-        if (!res) {
-            throw new IOException(Strings.error(ErrorString.UNKNOWN_FILE_FORMAT));
-        }
-        return formatVer;
+	final var formatVer = DungeonFilePrefixHandler.readFormatVersion(reader);
+	final var res = DungeonFilePrefixHandler.checkFormatVersion(formatVer);
+	if (!res) {
+	    throw new IOException(Strings.error(ErrorString.UNKNOWN_FILE_FORMAT));
+	}
+	return formatVer;
     }
 
     @Override
     public void writePrefix(final DataIOWriter writer) throws IOException {
-        DungeonFilePrefixHandler.writeFormatVersion(writer);
-    }
-
-    private static byte readFormatVersion(final DataIOReader reader) throws IOException {
-        return reader.readByte();
-    }
-
-    private static boolean checkFormatVersion(final byte version) {
-        if (version > DungeonFilePrefixHandler.FORMAT_VERSION) {
-            return false;
-        }
-        return true;
-    }
-
-    private static void writeFormatVersion(final DataIOWriter writer) throws IOException {
-        writer.writeByte(DungeonFilePrefixHandler.FORMAT_VERSION);
+	DungeonFilePrefixHandler.writeFormatVersion(writer);
     }
 }

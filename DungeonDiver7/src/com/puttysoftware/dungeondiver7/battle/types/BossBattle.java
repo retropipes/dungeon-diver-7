@@ -14,12 +14,12 @@ class BossBattle extends AbstractBattleType {
 
     // Constructors
     public BossBattle() {
-        this.boss = true;
-        this.monster = new BattleCharacter(MonsterFactory.getNewBossInstance());
+	this.boss = true;
+	this.monster = new BattleCharacter(MonsterFactory.getNewBossInstance());
     }
 
     @Override
     public BattleCharacter getBattlers() {
-        return this.monster;
+	return this.monster;
     }
 }

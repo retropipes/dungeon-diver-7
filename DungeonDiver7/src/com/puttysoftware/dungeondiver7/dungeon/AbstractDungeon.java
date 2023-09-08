@@ -31,234 +31,160 @@ public abstract class AbstractDungeon {
     private static final int MAX_COLUMNS = 250;
     private static final int MAX_ROWS = 250;
 
+    // Static methods
+    public static String getDungeonTempFolder() {
+	return System.getProperty(Strings.untranslated(Untranslated.TEMP_DIR)) + File.separator
+		+ Strings.untranslated(Untranslated.PROGRAM_NAME);
+    }
+
+    public static int getMaxColumns() {
+	return AbstractDungeon.MAX_ROWS;
+    }
+
+    public static int getMaxFloors() {
+	return AbstractDungeonData.getMaxFloors();
+    }
+
+    public static int getMaxLevels() {
+	return AbstractDungeon.MAX_LEVELS;
+    }
+
+    public static int getMaxRows() {
+	return AbstractDungeon.MAX_ROWS;
+    }
+
+    public static int getMinColumns() {
+	return AbstractDungeon.MAX_COLUMNS;
+    }
+
+    public static int getMinFloors() {
+	return AbstractDungeonData.getMinFloors();
+    }
+
+    public static int getMinLevels() {
+	return AbstractDungeon.MIN_LEVELS;
+    }
+
+    public static int getMinRows() {
+	return AbstractDungeonData.getMinRows();
+    }
+
+    public static AbstractDungeon getTemporaryBattleCopy() throws IOException {
+	final var temp = new CurrentDungeon();
+	temp.addFixedSizeLevel(DungeonDiver7.getBattleDungeonSize(), DungeonDiver7.getBattleDungeonSize(), 1);
+	temp.fillDefault();
+	return temp;
+    }
+
+    public static boolean radialScan(final int cx, final int cy, final int r, final int tx, final int ty) {
+	return Math.abs(tx - cx) <= r && Math.abs(ty - cy) <= r;
+    }
+
     // Constructors
     /**
      * @throws IOException
      */
     public AbstractDungeon() throws IOException {
-        // Do nothing
+	// Do nothing
     }
 
-    // Static methods
-    public static String getDungeonTempFolder() {
-        return System.getProperty(Strings.untranslated(Untranslated.TEMP_DIR)) + File.separator
-                + Strings.untranslated(Untranslated.PROGRAM_NAME);
-    }
+    public abstract boolean addFixedSizeLevel(final int rows, final int cols, final int floors);
 
-    public static int getMinLevels() {
-        return AbstractDungeon.MIN_LEVELS;
-    }
+    public abstract boolean addLevel();
 
-    public static int getMaxLevels() {
-        return AbstractDungeon.MAX_LEVELS;
-    }
+    public abstract void checkForEnemies(final int floor, final int ex, final int ey, final AbstractCharacter e);
 
-    public static int getMaxFloors() {
-        return AbstractDungeonData.getMaxFloors();
-    }
+    public abstract int checkForMagnetic(int floor, int centerX, int centerY, Direction dir);
 
-    public static int getMinFloors() {
-        return AbstractDungeonData.getMinFloors();
-    }
+    public abstract int[] circularScan(final int x, final int y, final int z, final int maxR, final String targetName,
+	    final boolean moved);
 
-    public static int getMaxRows() {
-        return AbstractDungeon.MAX_ROWS;
-    }
+    public abstract boolean circularScanPlayer(final int x, final int y, final int z, final int maxR);
 
-    public static int getMinRows() {
-        return AbstractDungeonData.getMinRows();
-    }
+    public abstract void circularScanRange(final int x, final int y, final int z, final int maxR, final int rangeType,
+	    final int forceUnits);
 
-    public static int getMaxColumns() {
-        return AbstractDungeon.MAX_ROWS;
-    }
+    public abstract int[] circularScanTunnel(final int x, final int y, final int z, final int maxR, final int tx,
+	    final int ty, final AbstractTunnel target, final boolean moved);
 
-    public static int getMinColumns() {
-        return AbstractDungeon.MAX_COLUMNS;
-    }
+    public abstract void clearDirtyFlags(int floor);
 
-    public static AbstractDungeon getTemporaryBattleCopy() throws IOException {
-        final var temp = new CurrentDungeon();
-        temp.addFixedSizeLevel(DungeonDiver7.getBattleDungeonSize(), DungeonDiver7.getBattleDungeonSize(), 1);
-        temp.fillDefault();
-        return temp;
-    }
-
-    public abstract String getDungeonTempMusicFolder();
+    public abstract void clearVirtualGrid();
 
     public abstract Direction computeFinalBossMoveDirection(final int locX, final int locY, final int locZ,
-            final int pi);
+	    final int pi);
 
-    public abstract void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
-            final AbstractMovingObject monster, final int pi);
+    public abstract void copyLevel();
 
-    public abstract void postBattle(final AbstractMovingObject m, final int xLoc, final int yLoc, final boolean player);
+    public abstract void cutLevel();
 
-    public abstract boolean isMoveShootAllowed();
+    public abstract void disableHorizontalWraparound();
 
-    public abstract boolean isMoveShootAllowedGlobally();
+    public abstract void disableThirdDimensionWraparound();
 
-    public abstract boolean isMoveShootAllowedThisLevel();
-
-    public abstract void setMoveShootAllowedGlobally(boolean value);
-
-    public abstract void setMoveShootAllowedThisLevel(boolean value);
-
-    public abstract String getMusicFilename();
-
-    public abstract void setMusicFilename(final String newMusicFilename);
-
-    public abstract String getName();
-
-    public abstract void setName(String newName);
-
-    public abstract String getHint();
-
-    public abstract void setHint(String newHint);
-
-    public abstract String getAuthor();
-
-    public abstract void setAuthor(String newAuthor);
-
-    public abstract Difficulty getDifficulty();
-
-    public abstract void setDifficulty(Difficulty newDifficulty);
-
-    public abstract String getBasePath();
-
-    public abstract void setPrefixHandler(AbstractPrefixIO xph);
-
-    public abstract void setSuffixHandler(AbstractSuffixIO xsh);
-
-    public abstract void tickTimers();
-
-    public abstract void resetVisibleSquares(final int floor);
-
-    public abstract void updateVisibleSquares(final int xp, final int yp, final int zp);
-
-    public abstract boolean isSquareVisible(final int x1, final int y1, final int x2, final int y2, final int zp);
-
-    public abstract int getActiveLevel();
-
-    public abstract int getActiveEra();
-
-    public final boolean switchToNextLevelWithDifficulty(final int[] difficulty) {
-        var keepGoing = true;
-        while (keepGoing) {
-            final var diff = this.getDifficulty().ordinal();
-            for (final int element : difficulty) {
-                if (diff - 1 == element) {
-                    keepGoing = false;
-                    return true;
-                }
-            }
-            if (!this.doesLevelExistOffset(1)) {
-                keepGoing = false;
-                return false;
-            }
-            if (keepGoing) {
-                this.switchLevelOffset(1);
-            }
-        }
-        return false;
-    }
-
-    public final boolean switchToPreviousLevelWithDifficulty(final int[] difficulty) {
-        var keepGoing = true;
-        while (keepGoing) {
-            final var diff = this.getDifficulty().ordinal();
-            for (final int element : difficulty) {
-                if (diff - 1 == element) {
-                    keepGoing = false;
-                    return true;
-                }
-            }
-            if (!this.doesLevelExistOffset(-1)) {
-                keepGoing = false;
-                return false;
-            }
-            if (keepGoing) {
-                this.switchLevelOffset(-1);
-            }
-        }
-        return false;
-    }
-
-    public abstract String[] getLevelInfoList();
-
-    public abstract void generateLevelInfoList();
-
-    public abstract void switchLevel(int level);
-
-    public abstract void switchLevelOffset(int level);
-
-    public abstract void switchEra(final int era);
-
-    public abstract void switchEraOffset(final int era);
-
-    protected abstract void switchInternal(int level, int era);
+    public abstract void disableVerticalWraparound();
 
     public abstract boolean doesLevelExist(int level);
 
     public abstract boolean doesLevelExistOffset(int level);
 
-    public abstract void cutLevel();
+    public abstract boolean doesPlayerExist(final int pi);
 
-    public abstract void copyLevel();
+    public abstract void enableHorizontalWraparound();
 
-    public abstract void pasteLevel();
+    public abstract void enableThirdDimensionWraparound();
 
-    public abstract boolean isPasteBlocked();
+    public abstract void enableVerticalWraparound();
 
-    public abstract boolean isCutBlocked();
+    public abstract void fillDefault();
 
-    public abstract boolean insertLevelFromClipboard();
+    public abstract int[] findObject(int z, String targetName);
 
-    public abstract boolean addLevel();
+    public abstract int[] findPlayer(final int number);
 
-    public abstract boolean addFixedSizeLevel(final int rows, final int cols, final int floors);
+    public abstract void fullScanAllButtonClose(int z, AbstractButton source);
 
-    public final boolean removeLevel(final int num) {
-        final var saveLevel = this.getActiveLevel();
-        this.switchLevel(num);
-        final var success = this.removeActiveLevel();
-        if (success) {
-            if (saveLevel == 0) {
-                // Was at first level
-                this.switchLevel(0);
-            } else // Was at level other than first
-            if (saveLevel > num) {
-                // Saved level was shifted down
-                this.switchLevel(saveLevel - 1);
-            } else if (saveLevel < num) {
-                // Saved level was NOT shifted down
-                this.switchLevel(saveLevel);
-            } else {
-                // Saved level was deleted
-                this.switchLevel(0);
-            }
-        } else {
-            this.switchLevel(saveLevel);
-        }
-        return success;
-    }
+    public abstract void fullScanAllButtonOpen(int z, AbstractButton source);
 
-    protected abstract boolean removeActiveLevel();
+    public abstract void fullScanButtonBind(int dx, int dy, int z, AbstractButtonDoor source);
 
-    public abstract boolean isCellDirty(final int row, final int col, final int floor);
+    public abstract void fullScanButtonCleanup(int px, int py, int z, AbstractButton button);
+
+    public abstract void fullScanFindButtonLostDoor(int z, AbstractButtonDoor door);
+
+    public abstract void fullScanFreezeGround();
+
+    public abstract void fullScanKillPlayers();
+
+    public abstract void generateLevelInfoList();
+
+    public abstract int getActiveEra();
+
+    public abstract int getActiveLevel();
+
+    public abstract String getAuthor();
+
+    public abstract String getBasePath();
 
     public abstract AbstractDungeonObject getCell(final int row, final int col, final int floor, final int layer);
 
-    public abstract AbstractDungeonObject getVirtualCell(final int row, final int col, final int floor,
-            final int layer);
+    public abstract int getColumns();
 
-    public abstract int getStartRow(final int pi);
+    public abstract Difficulty getDifficulty();
 
-    public abstract int getStartColumn(final int pi);
+    public abstract String getDungeonTempMusicFolder();
 
-    public abstract int getStartFloor(final int pi);
+    public abstract int getFloors();
 
-    public abstract int getStartLevel(final int pi);
+    public abstract String getHint();
+
+    public abstract String[] getLevelInfoList();
+
+    public abstract int getLevels();
+
+    public abstract String getMusicFilename();
+
+    public abstract String getName();
 
     public abstract int getPlayerLocationX(final int pi);
 
@@ -268,72 +194,42 @@ public abstract class AbstractDungeon {
 
     public abstract int getRows();
 
-    public abstract int getColumns();
+    public abstract int getStartColumn(final int pi);
 
-    public abstract int getFloors();
+    public abstract int getStartFloor(final int pi);
 
-    public abstract int getLevels();
+    public abstract int getStartLevel(final int pi);
 
-    public abstract boolean doesPlayerExist(final int pi);
+    public abstract int getStartRow(final int pi);
 
-    public abstract int[] findPlayer(final int number);
+    public abstract AbstractDungeonObject getVirtualCell(final int row, final int col, final int floor,
+	    final int layer);
 
-    public abstract void tickTimers(final int floor, final int actionType);
+    public abstract HistoryStatus getWhatWas();
 
-    public static boolean radialScan(final int cx, final int cy, final int r, final int tx, final int ty) {
-        return Math.abs(tx - cx) <= r && Math.abs(ty - cy) <= r;
-    }
+    public abstract boolean insertLevelFromClipboard();
 
-    public abstract void checkForEnemies(final int floor, final int ex, final int ey, final AbstractCharacter e);
+    public abstract boolean isCellDirty(final int row, final int col, final int floor);
 
-    public abstract int checkForMagnetic(int floor, int centerX, int centerY, Direction dir);
+    public abstract boolean isCutBlocked();
 
-    public abstract int[] circularScan(final int x, final int y, final int z, final int maxR, final String targetName,
-            final boolean moved);
+    public abstract boolean isHorizontalWraparoundEnabled();
 
-    public abstract int[] circularScanTunnel(final int x, final int y, final int z, final int maxR, final int tx,
-            final int ty, final AbstractTunnel target, final boolean moved);
+    public abstract boolean isMoveShootAllowed();
 
-    public abstract void circularScanRange(final int x, final int y, final int z, final int maxR, final int rangeType,
-            final int forceUnits);
+    public abstract boolean isMoveShootAllowedGlobally();
 
-    public abstract int[] findObject(int z, String targetName);
+    public abstract boolean isMoveShootAllowedThisLevel();
 
-    public abstract boolean circularScanPlayer(final int x, final int y, final int z, final int maxR);
+    public abstract boolean isPasteBlocked();
 
-    public abstract void fullScanKillPlayers();
+    public abstract boolean isSquareVisible(final int x1, final int y1, final int x2, final int y2, final int zp);
 
-    public abstract void fullScanFreezeGround();
+    public abstract boolean isThirdDimensionWraparoundEnabled();
 
-    public abstract void fullScanAllButtonOpen(int z, AbstractButton source);
-
-    public abstract void fullScanAllButtonClose(int z, AbstractButton source);
-
-    public abstract void fullScanButtonBind(int dx, int dy, int z, AbstractButtonDoor source);
-
-    public abstract void fullScanButtonCleanup(int px, int py, int z, AbstractButton button);
-
-    public abstract void fullScanFindButtonLostDoor(int z, AbstractButtonDoor door);
-
-    public abstract void setCell(final AbstractDungeonObject mo, final int row, final int col, final int floor,
-            final int layer);
-
-    public abstract void setVirtualCell(final AbstractDungeonObject mo, final int row, final int col, final int floor,
-            final int layer);
+    public abstract boolean isVerticalWraparoundEnabled();
 
     public abstract void markAsDirty(final int row, final int col, final int floor);
-
-    public abstract void clearDirtyFlags(int floor);
-
-    public abstract void setDirtyFlags(int floor);
-
-    public abstract void clearVirtualGrid();
-
-    public abstract void setStartRow(final int pi, final int newStartRow);
-
-    public abstract void setStartColumn(final int pi, final int newStartColumn);
-
-    public abstract void setStartFloor(final int pi, final int newStartFloor);
 
     public abstract void offsetPlayerLocationX(final int pi, final int newPlayerLocationX);
 
@@ -341,63 +237,167 @@ public abstract class AbstractDungeon {
 
     public abstract void offsetPlayerLocationZ(final int pi, final int newPlayerLocationZ);
 
+    public abstract void pasteLevel();
+
+    public abstract void postBattle(final AbstractMovingObject m, final int xLoc, final int yLoc, final boolean player);
+
+    public abstract AbstractDungeon readDungeon() throws IOException;
+
+    public abstract void redo();
+
+    protected abstract boolean removeActiveLevel();
+
+    public final boolean removeLevel(final int num) {
+	final var saveLevel = this.getActiveLevel();
+	this.switchLevel(num);
+	final var success = this.removeActiveLevel();
+	if (success) {
+	    if (saveLevel == 0) {
+		// Was at first level
+		this.switchLevel(0);
+	    } else // Was at level other than first
+	    if (saveLevel > num) {
+		// Saved level was shifted down
+		this.switchLevel(saveLevel - 1);
+	    } else if (saveLevel < num) {
+		// Saved level was NOT shifted down
+		this.switchLevel(saveLevel);
+	    } else {
+		// Saved level was deleted
+		this.switchLevel(0);
+	    }
+	} else {
+	    this.switchLevel(saveLevel);
+	}
+	return success;
+    }
+
+    public abstract void resetHistoryEngine();
+
+    public abstract void resetVisibleSquares(final int floor);
+
+    public abstract void resize(int z, AbstractDungeonObject nullFill);
+
+    public abstract void restore();
+
+    public abstract void restorePlayerLocation();
+
+    public abstract void save();
+
+    public abstract void savePlayerLocation();
+
+    public abstract void setAuthor(String newAuthor);
+
+    public abstract void setCell(final AbstractDungeonObject mo, final int row, final int col, final int floor,
+	    final int layer);
+
+    public abstract void setData(AbstractDungeonData newData, int count);
+
+    public abstract void setDifficulty(Difficulty newDifficulty);
+
+    public abstract void setDirtyFlags(int floor);
+
+    public abstract void setHint(String newHint);
+
+    public abstract void setMoveShootAllowedGlobally(boolean value);
+
+    public abstract void setMoveShootAllowedThisLevel(boolean value);
+
+    public abstract void setMusicFilename(final String newMusicFilename);
+
+    public abstract void setName(String newName);
+
     public abstract void setPlayerLocationX(final int pi, final int newPlayerLocationX);
 
     public abstract void setPlayerLocationY(final int pi, final int newPlayerLocationY);
 
     public abstract void setPlayerLocationZ(final int pi, final int newPlayerLocationZ);
 
-    public abstract void savePlayerLocation();
-
-    public abstract void restorePlayerLocation();
-
     public abstract void setPlayerToStart();
 
-    public abstract void fillDefault();
+    public abstract void setPrefixHandler(AbstractPrefixIO xph);
 
-    public abstract void save();
+    public abstract void setStartColumn(final int pi, final int newStartColumn);
 
-    public abstract void restore();
+    public abstract void setStartFloor(final int pi, final int newStartFloor);
 
-    public abstract void resize(int z, AbstractDungeonObject nullFill);
+    public abstract void setStartRow(final int pi, final int newStartRow);
 
-    public abstract void setData(AbstractDungeonData newData, int count);
+    public abstract void setSuffixHandler(AbstractSuffixIO xsh);
 
-    public abstract void enableHorizontalWraparound();
+    public abstract void setVirtualCell(final AbstractDungeonObject mo, final int row, final int col, final int floor,
+	    final int layer);
 
-    public abstract void disableHorizontalWraparound();
+    public abstract void switchEra(final int era);
 
-    public abstract void enableVerticalWraparound();
+    public abstract void switchEraOffset(final int era);
 
-    public abstract void disableVerticalWraparound();
+    protected abstract void switchInternal(int level, int era);
 
-    public abstract void enableThirdDimensionWraparound();
+    public abstract void switchLevel(int level);
 
-    public abstract void disableThirdDimensionWraparound();
+    public abstract void switchLevelOffset(int level);
 
-    public abstract boolean isHorizontalWraparoundEnabled();
+    public final boolean switchToNextLevelWithDifficulty(final int[] difficulty) {
+	var keepGoing = true;
+	while (keepGoing) {
+	    final var diff = this.getDifficulty().ordinal();
+	    for (final int element : difficulty) {
+		if (diff - 1 == element) {
+		    keepGoing = false;
+		    return true;
+		}
+	    }
+	    if (!this.doesLevelExistOffset(1)) {
+		keepGoing = false;
+		return false;
+	    }
+	    if (keepGoing) {
+		this.switchLevelOffset(1);
+	    }
+	}
+	return false;
+    }
 
-    public abstract boolean isVerticalWraparoundEnabled();
+    public final boolean switchToPreviousLevelWithDifficulty(final int[] difficulty) {
+	var keepGoing = true;
+	while (keepGoing) {
+	    final var diff = this.getDifficulty().ordinal();
+	    for (final int element : difficulty) {
+		if (diff - 1 == element) {
+		    keepGoing = false;
+		    return true;
+		}
+	    }
+	    if (!this.doesLevelExistOffset(-1)) {
+		keepGoing = false;
+		return false;
+	    }
+	    if (keepGoing) {
+		this.switchLevelOffset(-1);
+	    }
+	}
+	return false;
+    }
 
-    public abstract boolean isThirdDimensionWraparoundEnabled();
+    public abstract void tickTimers();
 
-    public abstract AbstractDungeon readDungeon() throws IOException;
-
-    public abstract void writeDungeon() throws IOException;
-
-    public abstract void undo();
-
-    public abstract void redo();
-
-    public abstract boolean tryUndo();
+    public abstract void tickTimers(final int floor, final int actionType);
 
     public abstract boolean tryRedo();
 
-    public abstract void updateUndoHistory(final HistoryStatus whatIs);
+    public abstract boolean tryUndo();
+
+    public abstract void undo();
+
+    public abstract void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
+	    final AbstractMovingObject monster, final int pi);
 
     public abstract void updateRedoHistory(final HistoryStatus whatIs);
 
-    public abstract HistoryStatus getWhatWas();
+    public abstract void updateUndoHistory(final HistoryStatus whatIs);
 
-    public abstract void resetHistoryEngine();
+    public abstract void updateVisibleSquares(final int xp, final int yp, final int zp);
+
+    public abstract void writeDungeon() throws IOException;
 }

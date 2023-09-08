@@ -25,245 +25,245 @@ public class PartyInventory {
     private static int heatBombsLeft = 0;
     private static int iceBombsLeft = 0;
 
-    // Constructor
-    private PartyInventory() {
-        // Do nothing
-    }
-
-    public static void resetInventory() {
-        PartyInventory.missilesLeft = 0;
-        PartyInventory.stunnersLeft = 0;
-        PartyInventory.boostsLeft = 0;
-        PartyInventory.magnetsLeft = 0;
-        PartyInventory.blueLasersLeft = 0;
-        PartyInventory.disruptorsLeft = 0;
-        PartyInventory.redKeysLeft = 0;
-        PartyInventory.greenKeysLeft = 0;
-        PartyInventory.blueKeysLeft = 0;
-        PartyInventory.bombsLeft = 0;
-        PartyInventory.heatBombsLeft = 0;
-        PartyInventory.iceBombsLeft = 0;
-    }
-
-    public static void readInventory(final DataIOReader reader) throws IOException {
-        PartyInventory.missilesLeft = reader.readInt();
-        PartyInventory.stunnersLeft = reader.readInt();
-        PartyInventory.boostsLeft = reader.readInt();
-        PartyInventory.magnetsLeft = reader.readInt();
-        PartyInventory.blueLasersLeft = reader.readInt();
-        PartyInventory.disruptorsLeft = reader.readInt();
-        PartyInventory.redKeysLeft = reader.readInt();
-        PartyInventory.greenKeysLeft = reader.readInt();
-        PartyInventory.blueKeysLeft = reader.readInt();
-        PartyInventory.bombsLeft = reader.readInt();
-        PartyInventory.heatBombsLeft = reader.readInt();
-        PartyInventory.iceBombsLeft = reader.readInt();
-    }
-
-    public static void writeInventory(final DataIOWriter writer) throws IOException {
-        writer.writeInt(PartyInventory.missilesLeft);
-        writer.writeInt(PartyInventory.stunnersLeft);
-        writer.writeInt(PartyInventory.boostsLeft);
-        writer.writeInt(PartyInventory.magnetsLeft);
-        writer.writeInt(PartyInventory.blueLasersLeft);
-        writer.writeInt(PartyInventory.disruptorsLeft);
-        writer.writeInt(PartyInventory.redKeysLeft);
-        writer.writeInt(PartyInventory.greenKeysLeft);
-        writer.writeInt(PartyInventory.blueKeysLeft);
-        writer.writeInt(PartyInventory.bombsLeft);
-        writer.writeInt(PartyInventory.heatBombsLeft);
-        writer.writeInt(PartyInventory.iceBombsLeft);
-    }
-
-    public static int getMissilesLeft() {
-        return PartyInventory.missilesLeft;
-    }
-
-    public static void addTenMissiles() {
-        PartyInventory.missilesLeft += 10;
-    }
-
-    public static void fireMissile() {
-        PartyInventory.missilesLeft--;
-    }
-
-    public static void addOneMissile() {
-        PartyInventory.missilesLeft++;
-    }
-
-    public static int getStunnersLeft() {
-        return PartyInventory.stunnersLeft;
-    }
-
-    public static void addTenStunners() {
-        PartyInventory.stunnersLeft += 10;
-    }
-
-    public static void fireStunner() {
-        PartyInventory.stunnersLeft--;
-    }
-
-    public static void addOneStunner() {
-        PartyInventory.stunnersLeft++;
-    }
-
-    public static int getBoostsLeft() {
-        return PartyInventory.boostsLeft;
-    }
-
-    public static void addTenBoosts() {
-        PartyInventory.boostsLeft += 10;
-    }
-
-    public static void fireBoost() {
-        PartyInventory.boostsLeft--;
-    }
-
-    public static void addOneBoost() {
-        PartyInventory.boostsLeft++;
-    }
-
-    public static int getMagnetsLeft() {
-        return PartyInventory.magnetsLeft;
-    }
-
-    public static void addTenMagnets() {
-        PartyInventory.magnetsLeft += 10;
-    }
-
-    public static void fireMagnet() {
-        PartyInventory.magnetsLeft--;
-    }
-
-    public static void addOneMagnet() {
-        PartyInventory.magnetsLeft++;
-    }
-
-    public static int getBlueLasersLeft() {
-        return PartyInventory.blueLasersLeft;
-    }
-
-    public static void addTenBlueLasers() {
-        PartyInventory.blueLasersLeft += 10;
-    }
-
-    public static void fireBlueLaser() {
-        PartyInventory.blueLasersLeft--;
+    public static void addOneBlueKey() {
+	PartyInventory.blueKeysLeft++;
     }
 
     public static void addOneBlueLaser() {
-        PartyInventory.blueLasersLeft++;
-    }
-
-    public static int getDisruptorsLeft() {
-        return PartyInventory.disruptorsLeft;
-    }
-
-    public static void addTenDisruptors() {
-        PartyInventory.disruptorsLeft += 10;
-    }
-
-    public static void fireDisruptor() {
-        PartyInventory.disruptorsLeft--;
-    }
-
-    public static void addOneDisruptor() {
-        PartyInventory.disruptorsLeft++;
-    }
-
-    public static int getRedKeysLeft() {
-        return PartyInventory.redKeysLeft;
-    }
-
-    public static void setRedKeysLeft(final int newRedKeys) {
-        PartyInventory.redKeysLeft = newRedKeys;
-    }
-
-    public static void useRedKey() {
-        PartyInventory.redKeysLeft--;
-    }
-
-    public static void addOneRedKey() {
-        PartyInventory.redKeysLeft++;
-    }
-
-    public static int getGreenKeysLeft() {
-        return PartyInventory.greenKeysLeft;
-    }
-
-    public static void setGreenKeysLeft(final int newGreenKeys) {
-        PartyInventory.greenKeysLeft = newGreenKeys;
-    }
-
-    public static void useGreenKey() {
-        PartyInventory.greenKeysLeft--;
-    }
-
-    public static void addOneGreenKey() {
-        PartyInventory.greenKeysLeft++;
-    }
-
-    public static int getBlueKeysLeft() {
-        return PartyInventory.blueKeysLeft;
-    }
-
-    public static void setBlueKeysLeft(final int newBlueKeys) {
-        PartyInventory.blueKeysLeft = newBlueKeys;
-    }
-
-    public static void useBlueKey() {
-        PartyInventory.blueKeysLeft--;
-    }
-
-    public static void addOneBlueKey() {
-        PartyInventory.blueKeysLeft++;
-    }
-
-    public static int getBombsLeft() {
-        return PartyInventory.bombsLeft;
-    }
-
-    public static void addTenBombs() {
-        PartyInventory.bombsLeft += 10;
-    }
-
-    public static void fireBomb() {
-        PartyInventory.bombsLeft--;
+	PartyInventory.blueLasersLeft++;
     }
 
     public static void addOneBomb() {
-        PartyInventory.bombsLeft++;
+	PartyInventory.bombsLeft++;
     }
 
-    public static int getHeatBombsLeft() {
-        return PartyInventory.heatBombsLeft;
+    public static void addOneBoost() {
+	PartyInventory.boostsLeft++;
     }
 
-    public static void addTenHeatBombs() {
-        PartyInventory.heatBombsLeft += 10;
+    public static void addOneDisruptor() {
+	PartyInventory.disruptorsLeft++;
     }
 
-    public static void fireHeatBomb() {
-        PartyInventory.heatBombsLeft--;
+    public static void addOneGreenKey() {
+	PartyInventory.greenKeysLeft++;
     }
 
     public static void addOneHeatBomb() {
-        PartyInventory.heatBombsLeft++;
-    }
-
-    public static int getIceBombsLeft() {
-        return PartyInventory.iceBombsLeft;
-    }
-
-    public static void addTenIceBombs() {
-        PartyInventory.iceBombsLeft += 10;
-    }
-
-    public static void fireIceBomb() {
-        PartyInventory.iceBombsLeft--;
+	PartyInventory.heatBombsLeft++;
     }
 
     public static void addOneIceBomb() {
-        PartyInventory.iceBombsLeft++;
+	PartyInventory.iceBombsLeft++;
+    }
+
+    public static void addOneMagnet() {
+	PartyInventory.magnetsLeft++;
+    }
+
+    public static void addOneMissile() {
+	PartyInventory.missilesLeft++;
+    }
+
+    public static void addOneRedKey() {
+	PartyInventory.redKeysLeft++;
+    }
+
+    public static void addOneStunner() {
+	PartyInventory.stunnersLeft++;
+    }
+
+    public static void addTenBlueLasers() {
+	PartyInventory.blueLasersLeft += 10;
+    }
+
+    public static void addTenBombs() {
+	PartyInventory.bombsLeft += 10;
+    }
+
+    public static void addTenBoosts() {
+	PartyInventory.boostsLeft += 10;
+    }
+
+    public static void addTenDisruptors() {
+	PartyInventory.disruptorsLeft += 10;
+    }
+
+    public static void addTenHeatBombs() {
+	PartyInventory.heatBombsLeft += 10;
+    }
+
+    public static void addTenIceBombs() {
+	PartyInventory.iceBombsLeft += 10;
+    }
+
+    public static void addTenMagnets() {
+	PartyInventory.magnetsLeft += 10;
+    }
+
+    public static void addTenMissiles() {
+	PartyInventory.missilesLeft += 10;
+    }
+
+    public static void addTenStunners() {
+	PartyInventory.stunnersLeft += 10;
+    }
+
+    public static void fireBlueLaser() {
+	PartyInventory.blueLasersLeft--;
+    }
+
+    public static void fireBomb() {
+	PartyInventory.bombsLeft--;
+    }
+
+    public static void fireBoost() {
+	PartyInventory.boostsLeft--;
+    }
+
+    public static void fireDisruptor() {
+	PartyInventory.disruptorsLeft--;
+    }
+
+    public static void fireHeatBomb() {
+	PartyInventory.heatBombsLeft--;
+    }
+
+    public static void fireIceBomb() {
+	PartyInventory.iceBombsLeft--;
+    }
+
+    public static void fireMagnet() {
+	PartyInventory.magnetsLeft--;
+    }
+
+    public static void fireMissile() {
+	PartyInventory.missilesLeft--;
+    }
+
+    public static void fireStunner() {
+	PartyInventory.stunnersLeft--;
+    }
+
+    public static int getBlueKeysLeft() {
+	return PartyInventory.blueKeysLeft;
+    }
+
+    public static int getBlueLasersLeft() {
+	return PartyInventory.blueLasersLeft;
+    }
+
+    public static int getBombsLeft() {
+	return PartyInventory.bombsLeft;
+    }
+
+    public static int getBoostsLeft() {
+	return PartyInventory.boostsLeft;
+    }
+
+    public static int getDisruptorsLeft() {
+	return PartyInventory.disruptorsLeft;
+    }
+
+    public static int getGreenKeysLeft() {
+	return PartyInventory.greenKeysLeft;
+    }
+
+    public static int getHeatBombsLeft() {
+	return PartyInventory.heatBombsLeft;
+    }
+
+    public static int getIceBombsLeft() {
+	return PartyInventory.iceBombsLeft;
+    }
+
+    public static int getMagnetsLeft() {
+	return PartyInventory.magnetsLeft;
+    }
+
+    public static int getMissilesLeft() {
+	return PartyInventory.missilesLeft;
+    }
+
+    public static int getRedKeysLeft() {
+	return PartyInventory.redKeysLeft;
+    }
+
+    public static int getStunnersLeft() {
+	return PartyInventory.stunnersLeft;
+    }
+
+    public static void readInventory(final DataIOReader reader) throws IOException {
+	PartyInventory.missilesLeft = reader.readInt();
+	PartyInventory.stunnersLeft = reader.readInt();
+	PartyInventory.boostsLeft = reader.readInt();
+	PartyInventory.magnetsLeft = reader.readInt();
+	PartyInventory.blueLasersLeft = reader.readInt();
+	PartyInventory.disruptorsLeft = reader.readInt();
+	PartyInventory.redKeysLeft = reader.readInt();
+	PartyInventory.greenKeysLeft = reader.readInt();
+	PartyInventory.blueKeysLeft = reader.readInt();
+	PartyInventory.bombsLeft = reader.readInt();
+	PartyInventory.heatBombsLeft = reader.readInt();
+	PartyInventory.iceBombsLeft = reader.readInt();
+    }
+
+    public static void resetInventory() {
+	PartyInventory.missilesLeft = 0;
+	PartyInventory.stunnersLeft = 0;
+	PartyInventory.boostsLeft = 0;
+	PartyInventory.magnetsLeft = 0;
+	PartyInventory.blueLasersLeft = 0;
+	PartyInventory.disruptorsLeft = 0;
+	PartyInventory.redKeysLeft = 0;
+	PartyInventory.greenKeysLeft = 0;
+	PartyInventory.blueKeysLeft = 0;
+	PartyInventory.bombsLeft = 0;
+	PartyInventory.heatBombsLeft = 0;
+	PartyInventory.iceBombsLeft = 0;
+    }
+
+    public static void setBlueKeysLeft(final int newBlueKeys) {
+	PartyInventory.blueKeysLeft = newBlueKeys;
+    }
+
+    public static void setGreenKeysLeft(final int newGreenKeys) {
+	PartyInventory.greenKeysLeft = newGreenKeys;
+    }
+
+    public static void setRedKeysLeft(final int newRedKeys) {
+	PartyInventory.redKeysLeft = newRedKeys;
+    }
+
+    public static void useBlueKey() {
+	PartyInventory.blueKeysLeft--;
+    }
+
+    public static void useGreenKey() {
+	PartyInventory.greenKeysLeft--;
+    }
+
+    public static void useRedKey() {
+	PartyInventory.redKeysLeft--;
+    }
+
+    public static void writeInventory(final DataIOWriter writer) throws IOException {
+	writer.writeInt(PartyInventory.missilesLeft);
+	writer.writeInt(PartyInventory.stunnersLeft);
+	writer.writeInt(PartyInventory.boostsLeft);
+	writer.writeInt(PartyInventory.magnetsLeft);
+	writer.writeInt(PartyInventory.blueLasersLeft);
+	writer.writeInt(PartyInventory.disruptorsLeft);
+	writer.writeInt(PartyInventory.redKeysLeft);
+	writer.writeInt(PartyInventory.greenKeysLeft);
+	writer.writeInt(PartyInventory.blueKeysLeft);
+	writer.writeInt(PartyInventory.bombsLeft);
+	writer.writeInt(PartyInventory.heatBombsLeft);
+	writer.writeInt(PartyInventory.iceBombsLeft);
+    }
+
+    // Constructor
+    private PartyInventory() {
+	// Do nothing
     }
 }

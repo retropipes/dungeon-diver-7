@@ -24,32 +24,32 @@ public class LevelLoadTask extends Thread {
 
     // Constructors
     public LevelLoadTask(final int offset) {
-        this.level = offset;
-        this.setName("Level Loader");
-        this.mainWindow = MainWindow.mainWindow();
-        final var loadBar = new JProgressBar();
-        loadBar.setIndeterminate(true);
-        this.loadContent = new JPanel();
-        this.loadContent.add(loadBar);
+	this.level = offset;
+	this.setName("Level Loader");
+	this.mainWindow = MainWindow.mainWindow();
+	final var loadBar = new JProgressBar();
+	loadBar.setIndeterminate(true);
+	this.loadContent = new JPanel();
+	this.loadContent.add(loadBar);
     }
 
     @Override
     public void run() {
-        try {
-            this.mainWindow.setAndSave(this.loadContent, Strings.dialog(DialogString.LOADING));
-            final var app = DungeonDiver7.getStuffBag();
-            final var gameDungeon = app.getDungeonManager().getDungeon();
-            app.getGameLogic().disableEvents();
-            gameDungeon.switchLevelOffset(this.level);
-            PartyManager.getParty().offsetZone(this.level);
-            AbstractDungeonObject.setTemplateColor(ImageColors.getColorForLevel(PartyManager.getParty().getZone()));
-            app.getGameLogic().resetViewingWindow();
-            app.getGameLogic().enableEvents();
-            app.getGameLogic().redrawDungeon();
-        } catch (final Exception ex) {
-            DungeonDiver7.logError(ex);
-        } finally {
-            this.mainWindow.restoreSaved();
-        }
+	try {
+	    this.mainWindow.setAndSave(this.loadContent, Strings.dialog(DialogString.LOADING));
+	    final var app = DungeonDiver7.getStuffBag();
+	    final var gameDungeon = app.getDungeonManager().getDungeon();
+	    app.getGameLogic().disableEvents();
+	    gameDungeon.switchLevelOffset(this.level);
+	    PartyManager.getParty().offsetZone(this.level);
+	    AbstractDungeonObject.setTemplateColor(ImageColors.getColorForLevel(PartyManager.getParty().getZone()));
+	    app.getGameLogic().resetViewingWindow();
+	    app.getGameLogic().enableEvents();
+	    app.getGameLogic().redrawDungeon();
+	} catch (final Exception ex) {
+	    DungeonDiver7.logError(ex);
+	} finally {
+	    this.mainWindow.restoreSaved();
+	}
     }
 }

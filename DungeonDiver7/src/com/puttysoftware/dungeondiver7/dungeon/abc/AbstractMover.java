@@ -13,11 +13,11 @@ public abstract class AbstractMover extends AbstractGround {
     }
 
     protected AbstractMover(final boolean hasFriction) {
-        super(hasFriction);
+	super(hasFriction);
     }
 
     @Override
     public int getLayer() {
-        return DungeonConstants.LAYER_UPPER_GROUND;
+	return DungeonConstants.LAYER_UPPER_GROUND;
     }
 }

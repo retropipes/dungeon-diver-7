@@ -29,7 +29,7 @@ public class SoundException extends Exception {
      * @param s
      */
     public SoundException(String s) {
-        super("Vorbis exception " + s);
+	super("Vorbis exception " + s);
     }
 
     private static final Logger LOG = Logger.getLogger(SoundException.class.getName());

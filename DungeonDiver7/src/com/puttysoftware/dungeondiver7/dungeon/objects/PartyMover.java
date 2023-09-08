@@ -12,13 +12,13 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public class PartyMover extends AbstractMover {
     // Constructors
     public PartyMover() {
-        this.setDirection(Direction.NORTH);
-        this.setFrameNumber(1);
-        this.type.set(DungeonObjectTypes.TYPE_MOVER);
+	this.setDirection(Direction.NORTH);
+	this.setFrameNumber(1);
+	this.type.set(DungeonObjectTypes.TYPE_MOVER);
     }
 
     @Override
     public final int getBaseID() {
-        return 37;
+	return 37;
     }
 }

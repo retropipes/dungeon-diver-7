@@ -13,47 +13,47 @@ public class EffectImageCache {
     private static int CACHE_INCREMENT = 20;
     private static int CACHE_SIZE = 0;
 
-    static BufferedImageIcon getCachedImage(final String name) {
-        if (!EffectImageCache.isInCache(name)) {
-            final var bii = EffectImageManager.getUncachedImage(name);
-            EffectImageCache.addToCache(name, bii);
-        }
-        for (final CacheEntry element : EffectImageCache.cache) {
-            if (name.equals(element.getName())) {
-                return element.getImage();
-            }
-        }
-        return null;
+    static synchronized void addToCache(final String name, final BufferedImageIcon bii) {
+	if (EffectImageCache.cache == null) {
+	    EffectImageCache.cache = new CacheEntry[EffectImageCache.CACHE_INCREMENT];
+	}
+	if (EffectImageCache.CACHE_SIZE == EffectImageCache.cache.length) {
+	    EffectImageCache.expandCache();
+	}
+	EffectImageCache.cache[EffectImageCache.CACHE_SIZE] = new CacheEntry(bii, name);
+	EffectImageCache.CACHE_SIZE++;
     }
 
     private static void expandCache() {
-        final var tempCache = new CacheEntry[EffectImageCache.cache.length + EffectImageCache.CACHE_INCREMENT];
-        for (var x = 0; x < EffectImageCache.CACHE_SIZE; x++) {
-            tempCache[x] = EffectImageCache.cache[x];
-        }
-        EffectImageCache.cache = tempCache;
+	final var tempCache = new CacheEntry[EffectImageCache.cache.length + EffectImageCache.CACHE_INCREMENT];
+	for (var x = 0; x < EffectImageCache.CACHE_SIZE; x++) {
+	    tempCache[x] = EffectImageCache.cache[x];
+	}
+	EffectImageCache.cache = tempCache;
     }
 
-    static synchronized void addToCache(final String name, final BufferedImageIcon bii) {
-        if (EffectImageCache.cache == null) {
-            EffectImageCache.cache = new CacheEntry[EffectImageCache.CACHE_INCREMENT];
-        }
-        if (EffectImageCache.CACHE_SIZE == EffectImageCache.cache.length) {
-            EffectImageCache.expandCache();
-        }
-        EffectImageCache.cache[EffectImageCache.CACHE_SIZE] = new CacheEntry(bii, name);
-        EffectImageCache.CACHE_SIZE++;
+    static BufferedImageIcon getCachedImage(final String name) {
+	if (!EffectImageCache.isInCache(name)) {
+	    final var bii = EffectImageManager.getUncachedImage(name);
+	    EffectImageCache.addToCache(name, bii);
+	}
+	for (final CacheEntry element : EffectImageCache.cache) {
+	    if (name.equals(element.getName())) {
+		return element.getImage();
+	    }
+	}
+	return null;
     }
 
     static synchronized boolean isInCache(final String name) {
-        if (EffectImageCache.cache == null) {
-            EffectImageCache.cache = new CacheEntry[EffectImageCache.CACHE_INCREMENT];
-        }
-        for (var x = 0; x < EffectImageCache.CACHE_SIZE; x++) {
-            if (name.equals(EffectImageCache.cache[x].getName())) {
-                return true;
-            }
-        }
-        return false;
+	if (EffectImageCache.cache == null) {
+	    EffectImageCache.cache = new CacheEntry[EffectImageCache.CACHE_INCREMENT];
+	}
+	for (var x = 0; x < EffectImageCache.CACHE_SIZE; x++) {
+	    if (name.equals(EffectImageCache.cache[x].getName())) {
+		return true;
+	    }
+	}
+	return false;
     }
 }

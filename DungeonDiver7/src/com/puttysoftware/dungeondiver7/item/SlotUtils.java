@@ -9,9 +9,9 @@ import com.puttysoftware.dungeondiver7.locale.Slot;
 
 public class SlotUtils {
     public static Slot getArmorSlotForType(final int armorType) {
-        if (armorType >= Slot.WEAPON.ordinal()) {
-            return Slot.values()[armorType + 1];
-        }
-        return Slot.values()[armorType];
+	if (armorType >= Slot.WEAPON.ordinal()) {
+	    return Slot.values()[armorType + 1];
+	}
+	return Slot.values()[armorType];
     }
 }

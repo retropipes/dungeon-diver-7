@@ -15,41 +15,40 @@ import com.puttysoftware.dungeondiver7.utility.Materials;
 public class ReverseJumpBox extends AbstractJumpObject {
     // Constructors
     public ReverseJumpBox() {
-        this.type.set(DungeonObjectTypes.TYPE_BOX);
-        this.setMaterial(Materials.STONE);
-    }
-
-    @Override
-    public int getActualJumpRows() {
-        return -super.getActualJumpRows();
-    }
-
-    @Override
-    public int getActualJumpCols() {
-        return -super.getActualJumpCols();
-    }
-
-    @Override
-    public final int getBaseID() {
-        return 124;
-    }
-
-    @Override
-    public final Color getCustomTextColor() {
-        return Color.black;
+	this.type.set(DungeonObjectTypes.TYPE_BOX);
+	this.setMaterial(Materials.STONE);
     }
 
     @Override
     public AbstractDungeonObject changesToOnExposure(final int materialID) {
-        switch (materialID) {
-            case Materials.ICE:
-                final var ib = new IcyBox();
-                ib.setPreviousState(this);
-                return ib;
-            case Materials.FIRE:
-                return new HotBox();
-            default:
-                return this;
-        }
+	return switch (materialID) {
+	case Materials.ICE -> {
+	    final var ib = new IcyBox();
+	    ib.setPreviousState(this);
+	    yield ib;
+	}
+	case Materials.FIRE -> new HotBox();
+	default -> this;
+	};
+    }
+
+    @Override
+    public int getActualJumpCols() {
+	return -super.getActualJumpCols();
+    }
+
+    @Override
+    public int getActualJumpRows() {
+	return -super.getActualJumpRows();
+    }
+
+    @Override
+    public final int getBaseID() {
+	return 124;
+    }
+
+    @Override
+    public final Color getCustomTextColor() {
+	return Color.black;
     }
 }

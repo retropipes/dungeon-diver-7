@@ -12,26 +12,26 @@ import com.puttysoftware.dungeondiver7.shop.ShopType;
 public class WeaponsShop extends AbstractShop {
     // Constructors
     public WeaponsShop() {
-        super(ShopType.WEAPONS);
+	super(ShopType.WEAPONS);
     }
 
     @Override
     public int getBaseID() {
-        return ObjectImageConstants.WEAPONS_SHOP;
-    }
-
-    @Override
-    public String getName() {
-        return "Weapons Shop";
-    }
-
-    @Override
-    public String getPluralName() {
-        return "Weapons Shops";
+	return ObjectImageConstants.WEAPONS_SHOP;
     }
 
     @Override
     public String getDescription() {
-        return "Weapons Shops sell weapons used to fight monsters.";
+	return "Weapons Shops sell weapons used to fight monsters.";
+    }
+
+    @Override
+    public String getName() {
+	return "Weapons Shop";
+    }
+
+    @Override
+    public String getPluralName() {
+	return "Weapons Shops";
     }
 }

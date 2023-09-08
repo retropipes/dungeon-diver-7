@@ -15,18 +15,18 @@ public class TenBombs extends AbstractInventoryModifier {
     }
 
     @Override
-    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-        PartyInventory.addTenBombs();
-        GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-    }
-
-    @Override
     public boolean doLasersPassThrough() {
-        return true;
+	return true;
     }
 
     @Override
     public final int getBaseID() {
-        return 53;
+	return 53;
+    }
+
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	PartyInventory.addTenBombs();
+	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
     }
 }

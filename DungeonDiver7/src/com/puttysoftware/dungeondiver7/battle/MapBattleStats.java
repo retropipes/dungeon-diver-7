@@ -27,47 +27,47 @@ public class MapBattleStats {
 
     // Constructors
     public MapBattleStats() {
-        this.setUpGUI();
-        this.updateIcons();
+	this.setUpGUI();
+	this.updateIcons();
     }
 
     public JPanel getStatsPane() {
-        return this.statsPane;
-    }
-
-    public void updateStats(final BattleCharacter bc) {
-        this.nameLabel.setText(bc.getName());
-        this.hpLabel.setText(bc.getTemplate().getHPString());
-        this.mpLabel.setText(bc.getTemplate().getMPString());
-        this.attLabel.setText(Integer.toString(bc.getTemplate().getAttack()));
-        this.defLabel.setText(Integer.toString(bc.getTemplate().getDefense()));
+	return this.statsPane;
     }
 
     private void setUpGUI() {
-        this.statsPane = new JPanel();
-        this.statsPane.setLayout(new GridLayout(9, 1));
-        this.nameLabel = new JLabel("", null, SwingConstants.LEFT);
-        this.hpLabel = new JLabel("", null, SwingConstants.LEFT);
-        this.mpLabel = new JLabel("", null, SwingConstants.LEFT);
-        this.attLabel = new JLabel("", null, SwingConstants.LEFT);
-        this.defLabel = new JLabel("", null, SwingConstants.LEFT);
-        this.statsPane.add(this.nameLabel);
-        this.statsPane.add(this.hpLabel);
-        this.statsPane.add(this.mpLabel);
-        this.statsPane.add(this.attLabel);
-        this.statsPane.add(this.defLabel);
+	this.statsPane = new JPanel();
+	this.statsPane.setLayout(new GridLayout(9, 1));
+	this.nameLabel = new JLabel("", null, SwingConstants.LEFT);
+	this.hpLabel = new JLabel("", null, SwingConstants.LEFT);
+	this.mpLabel = new JLabel("", null, SwingConstants.LEFT);
+	this.attLabel = new JLabel("", null, SwingConstants.LEFT);
+	this.defLabel = new JLabel("", null, SwingConstants.LEFT);
+	this.statsPane.add(this.nameLabel);
+	this.statsPane.add(this.hpLabel);
+	this.statsPane.add(this.mpLabel);
+	this.statsPane.add(this.attLabel);
+	this.statsPane.add(this.defLabel);
     }
 
     private void updateIcons() {
-        final var nameImage = StatImageManager.load(StatusImage.CREATURE_ID);
-        this.nameLabel.setIcon(nameImage);
-        final var hpImage = StatImageManager.load(StatusImage.HEALTH);
-        this.hpLabel.setIcon(hpImage);
-        final var mpImage = StatImageManager.load(StatusImage.MAGIC);
-        this.mpLabel.setIcon(mpImage);
-        final var attImage = StatImageManager.load(StatusImage.MELEE_ATTACK);
-        this.attLabel.setIcon(attImage);
-        final var defImage = StatImageManager.load(StatusImage.DEFENSE);
-        this.defLabel.setIcon(defImage);
+	final var nameImage = StatImageManager.load(StatusImage.CREATURE_ID);
+	this.nameLabel.setIcon(nameImage);
+	final var hpImage = StatImageManager.load(StatusImage.HEALTH);
+	this.hpLabel.setIcon(hpImage);
+	final var mpImage = StatImageManager.load(StatusImage.MAGIC);
+	this.mpLabel.setIcon(mpImage);
+	final var attImage = StatImageManager.load(StatusImage.MELEE_ATTACK);
+	this.attLabel.setIcon(attImage);
+	final var defImage = StatImageManager.load(StatusImage.DEFENSE);
+	this.defLabel.setIcon(defImage);
+    }
+
+    public void updateStats(final BattleCharacter bc) {
+	this.nameLabel.setText(bc.getName());
+	this.hpLabel.setText(bc.getTemplate().getHPString());
+	this.mpLabel.setText(bc.getTemplate().getMPString());
+	this.attLabel.setText(Integer.toString(bc.getTemplate().getAttack()));
+	this.defLabel.setText(Integer.toString(bc.getTemplate().getDefense()));
     }
 }

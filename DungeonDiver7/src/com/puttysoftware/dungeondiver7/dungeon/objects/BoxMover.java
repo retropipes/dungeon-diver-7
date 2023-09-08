@@ -12,14 +12,14 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public class BoxMover extends AbstractMover {
     // Constructors
     public BoxMover() {
-        super(true);
-        this.setDirection(Direction.NORTH);
-        this.setFrameNumber(1);
-        this.type.set(DungeonObjectTypes.TYPE_BOX_MOVER);
+	super(true);
+	this.setDirection(Direction.NORTH);
+	this.setFrameNumber(1);
+	this.type.set(DungeonObjectTypes.TYPE_BOX_MOVER);
     }
 
     @Override
     public final int getBaseID() {
-        return 122;
+	return 122;
     }
 }

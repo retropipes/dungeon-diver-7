@@ -14,18 +14,15 @@ public class ShotTypes {
     public static final int DISRUPTOR = 65;
     public static final int POWER = 129;
 
-    private ShotTypes() {
-        // Do nothing
+    public static final int getRangeTypeForLaserType(final int lt) {
+	return switch (lt) {
+	case STUNNER -> RangeTypes.ICE_BOMB;
+	case MISSILE -> RangeTypes.HEAT_BOMB;
+	default -> RangeTypes.BOMB;
+	};
     }
 
-    public static final int getRangeTypeForLaserType(final int lt) {
-        switch (lt) {
-            case STUNNER:
-                return RangeTypes.ICE_BOMB;
-            case MISSILE:
-                return RangeTypes.HEAT_BOMB;
-            default:
-                return RangeTypes.BOMB;
-        }
+    private ShotTypes() {
+	// Do nothing
     }
 }

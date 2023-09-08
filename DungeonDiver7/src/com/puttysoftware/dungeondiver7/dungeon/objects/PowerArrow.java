@@ -14,11 +14,11 @@ public class PowerArrow extends AbstractTransientObject {
 
     @Override
     public final int getBaseID() {
-        return 137;
+	return 137;
     }
 
     @Override
     public int getForceUnitsImbued() {
-        return 5;
+	return 5;
     }
 }

@@ -12,13 +12,13 @@ public class AutoMapAI extends AbstractMapAIRoutine {
 
     @Override
     public int getNextAction(final MapAIContext ac) {
-        final var there = ac.isEnemyNearby();
-        if (there != null) {
-            // Something hostile is nearby, so attack it
-            this.moveX = there.x;
-            this.moveY = there.y;
-            return AbstractMapAIRoutine.ACTION_MOVE;
-        }
-        return AbstractMapAIRoutine.ACTION_END_TURN;
+	final var there = ac.isEnemyNearby();
+	if (there != null) {
+	    // Something hostile is nearby, so attack it
+	    this.moveX = there.x;
+	    this.moveY = there.y;
+	    return AbstractMapAIRoutine.ACTION_MOVE;
+	}
+	return AbstractMapAIRoutine.ACTION_END_TURN;
     }
 }

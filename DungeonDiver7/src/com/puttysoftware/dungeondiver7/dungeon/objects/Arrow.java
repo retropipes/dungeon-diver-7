@@ -14,11 +14,11 @@ public class Arrow extends AbstractTransientObject {
 
     @Override
     public final int getBaseID() {
-        return 18;
+	return 18;
     }
 
     @Override
     public int getForceUnitsImbued() {
-        return 1;
+	return 1;
     }
 }

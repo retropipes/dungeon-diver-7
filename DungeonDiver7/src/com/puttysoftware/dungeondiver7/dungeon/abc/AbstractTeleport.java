@@ -11,27 +11,27 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public abstract class AbstractTeleport extends AbstractDungeonObject {
     // Constructors
     protected AbstractTeleport() {
-        super(false);
-        this.type.set(DungeonObjectTypes.TYPE_TELEPORT);
+	super(false);
+	this.type.set(DungeonObjectTypes.TYPE_TELEPORT);
+    }
+
+    @Override
+    public int getCustomProperty(final int propID) {
+	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     public abstract int getDestinationFloor();
 
     @Override
+    public int getLayer() {
+	return DungeonConstants.LAYER_LOWER_OBJECTS;
+    }
+
+    @Override
     public abstract void postMoveAction(final int dirX, final int dirY, int dirZ);
 
     @Override
-    public int getLayer() {
-        return DungeonConstants.LAYER_LOWER_OBJECTS;
-    }
-
-    @Override
-    public int getCustomProperty(final int propID) {
-        return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
-    }
-
-    @Override
     public void setCustomProperty(final int propID, final int value) {
-        // Do nothing
+	// Do nothing
     }
 }

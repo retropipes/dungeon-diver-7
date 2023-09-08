@@ -11,22 +11,22 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public abstract class AbstractTrigger extends AbstractDungeonObject {
     // Constructors
     protected AbstractTrigger() {
-        super(false, true, false);
-        this.type.set(DungeonObjectTypes.TYPE_TRIGGER);
-    }
-
-    @Override
-    public int getLayer() {
-        return DungeonConstants.LAYER_LOWER_OBJECTS;
+	super(false, true, false);
+	this.type.set(DungeonObjectTypes.TYPE_TRIGGER);
     }
 
     @Override
     public int getCustomProperty(final int propID) {
-        return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+    }
+
+    @Override
+    public int getLayer() {
+	return DungeonConstants.LAYER_LOWER_OBJECTS;
     }
 
     @Override
     public void setCustomProperty(final int propID, final int value) {
-        // Do nothing
+	// Do nothing
     }
 }

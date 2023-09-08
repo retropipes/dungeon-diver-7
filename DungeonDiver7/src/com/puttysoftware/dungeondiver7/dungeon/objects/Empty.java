@@ -11,11 +11,11 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 public class Empty extends AbstractPassThroughObject {
     // Constructors
     public Empty() {
-        this.type.set(DungeonObjectTypes.TYPE_EMPTY_SPACE);
+	this.type.set(DungeonObjectTypes.TYPE_EMPTY_SPACE);
     }
 
     @Override
     public final int getBaseID() {
-        return 130;
+	return 130;
     }
 }

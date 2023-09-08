@@ -10,11 +10,11 @@ import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 public interface RandomGenerationRule {
     int NO_LIMIT = 0;
 
-    boolean shouldGenerateObject(AbstractDungeon dungeon, int row, int col, int level, int layer);
+    int getMaximumRequiredQuantity(AbstractDungeon dungeon);
 
     int getMinimumRequiredQuantity(AbstractDungeon dungeon);
 
-    int getMaximumRequiredQuantity(AbstractDungeon dungeon);
-
     boolean isRequired(AbstractDungeon dungeon);
+
+    boolean shouldGenerateObject(AbstractDungeon dungeon, int row, int col, int level, int layer);
 }

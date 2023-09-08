@@ -12,26 +12,26 @@ import com.puttysoftware.dungeondiver7.shop.ShopType;
 public class HealShop extends AbstractShop {
     // Constructors
     public HealShop() {
-        super(ShopType.HEALER);
+	super(ShopType.HEALER);
     }
 
     @Override
     public int getBaseID() {
-        return ObjectImageConstants.HEAL_SHOP;
-    }
-
-    @Override
-    public String getName() {
-        return "Heal Shop";
-    }
-
-    @Override
-    public String getPluralName() {
-        return "Heal Shops";
+	return ObjectImageConstants.HEAL_SHOP;
     }
 
     @Override
     public String getDescription() {
-        return "Heal Shops restore health, for a fee.";
+	return "Heal Shops restore health, for a fee.";
+    }
+
+    @Override
+    public String getName() {
+	return "Heal Shop";
+    }
+
+    @Override
+    public String getPluralName() {
+	return "Heal Shops";
     }
 }

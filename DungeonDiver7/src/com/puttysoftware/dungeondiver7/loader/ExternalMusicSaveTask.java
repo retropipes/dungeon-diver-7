@@ -7,8 +7,8 @@ package com.puttysoftware.dungeondiver7.loader;
 
 import java.io.File;
 
-import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.diane.fileio.utility.FileUtilities;
+import com.puttysoftware.dungeondiver7.DungeonDiver7;
 
 public class ExternalMusicSaveTask extends Thread {
     // Fields
@@ -17,20 +17,20 @@ public class ExternalMusicSaveTask extends Thread {
 
     // Constructors
     public ExternalMusicSaveTask(final String path, final String file) {
-        this.filename = file;
-        this.pathname = path;
-        this.setName("External Music Writer");
+	this.filename = file;
+	this.pathname = path;
+	this.setName("External Music Writer");
     }
 
     @Override
     public void run() {
-        try {
-            final var basePath = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
-                    .getDungeonTempMusicFolder();
-            FileUtilities.copyFile(new File(this.pathname + this.filename),
-                    new File(basePath + File.separator + this.filename.toLowerCase()));
-        } catch (final Exception ex) {
-            DungeonDiver7.logError(ex);
-        }
+	try {
+	    final var basePath = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
+		    .getDungeonTempMusicFolder();
+	    FileUtilities.copyFile(new File(this.pathname + this.filename),
+		    new File(basePath + File.separator + this.filename.toLowerCase()));
+	} catch (final Exception ex) {
+	    DungeonDiver7.logError(ex);
+	}
     }
 }
