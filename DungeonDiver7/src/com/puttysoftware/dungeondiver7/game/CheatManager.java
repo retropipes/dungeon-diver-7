@@ -7,8 +7,6 @@ package com.puttysoftware.dungeondiver7.game;
 
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.ErrorString;
@@ -41,7 +39,7 @@ final class CheatManager {
 	}
 	final var value = CommonDialogs.showConfirmDialog(Strings.game(GameString.CHEAT_ACTION),
 		Strings.dialog(DialogString.CHEATS));
-	if (value == JOptionPane.YES_OPTION) {
+	if (value == CommonDialogs.YES_OPTION) {
 	    return Strings.game(GameString.ENABLE_CHEAT) + Strings.SPACE + userInput.toLowerCase();
 	}
 	return Strings.game(GameString.DISABLE_CHEAT) + Strings.SPACE + userInput.toLowerCase();

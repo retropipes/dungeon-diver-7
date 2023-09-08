@@ -9,7 +9,6 @@ import java.io.IOException;
 
 import javax.swing.JLabel;
 import javax.swing.JMenu;
-import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.direction.DirectionResolver;
 import com.puttysoftware.diane.fileio.DataIOReader;
@@ -530,15 +529,15 @@ public final class GameLogic implements MenuSection {
 	SoundLoader.playSound(Sounds.DEAD);
 	final var choice = CustomDialogs.showDeadDialog();
 	switch (choice) {
-	case JOptionPane.CANCEL_OPTION:
+	case CommonDialogs.CANCEL_OPTION:
 	    // End
 	    this.exitGame();
 	    break;
-	case JOptionPane.YES_OPTION:
+	case CommonDialogs.YES_OPTION:
 	    // Undo
 	    this.undoLastMove();
 	    break;
-	case JOptionPane.NO_OPTION:
+	case CommonDialogs.NO_OPTION:
 	    // Restart
 	    try {
 		this.resetCurrentLevel();

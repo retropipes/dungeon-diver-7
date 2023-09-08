@@ -5,22 +5,16 @@
  */
 package com.puttysoftware.dungeondiver7.utility;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-import com.puttysoftware.dungeondiver7.loader.LogoLoader;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 
 public class CustomDialogs {
     public static int showDeadDialog() {
-	return JOptionPane
-		.showOptionDialog((JFrame) null, Strings.dialog(DialogString.DEAD_MESSAGE),
-			Strings.dialog(DialogString.DEAD_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
-			JOptionPane.INFORMATION_MESSAGE, LogoLoader.getMicroLogo(),
-			new String[] { Strings.dialog(DialogString.UNDO_BUTTON),
-				Strings.dialog(DialogString.RESTART_BUTTON), Strings.dialog(DialogString.END_BUTTON) },
-			Strings.dialog(DialogString.UNDO_BUTTON));
+	return CommonDialogs.showCustomDialogWithDefault(Strings.dialog(DialogString.DEAD_MESSAGE),
+		Strings.dialog(DialogString.DEAD_TITLE), new String[] { Strings.dialog(DialogString.UNDO_BUTTON),
+			Strings.dialog(DialogString.RESTART_BUTTON), Strings.dialog(DialogString.END_BUTTON) },
+		Strings.dialog(DialogString.UNDO_BUTTON));
     }
 
     private CustomDialogs() {

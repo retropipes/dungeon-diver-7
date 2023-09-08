@@ -17,7 +17,6 @@ import java.awt.event.WindowListener;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -110,10 +109,10 @@ public class GUIManager implements MenuSection, QuitHandler {
 			var status = 0;
 			if (app.getDungeonManager().getDirty()) {
 			    status = DungeonManager.showSaveDialog();
-			    if (status == JOptionPane.YES_OPTION) {
+			    if (status == CommonDialogs.YES_OPTION) {
 				saved = app.getDungeonManager()
 					.saveDungeon(app.getDungeonManager().isDungeonProtected());
-			    } else if (status == JOptionPane.CANCEL_OPTION) {
+			    } else if (status == CommonDialogs.CANCEL_OPTION) {
 				saved = false;
 			    } else {
 				app.getDungeonManager().setDirty(false);
@@ -324,12 +323,12 @@ public class GUIManager implements MenuSection, QuitHandler {
     public boolean quitHandler() {
 	final var mm = DungeonDiver7.getStuffBag().getDungeonManager();
 	var saved = true;
-	var status = JOptionPane.DEFAULT_OPTION;
+	var status = CommonDialogs.DEFAULT_OPTION;
 	if (mm.getDirty()) {
 	    status = DungeonManager.showSaveDialog();
-	    if (status == JOptionPane.YES_OPTION) {
+	    if (status == CommonDialogs.YES_OPTION) {
 		saved = mm.saveDungeon(mm.isDungeonProtected());
-	    } else if (status == JOptionPane.CANCEL_OPTION) {
+	    } else if (status == CommonDialogs.CANCEL_OPTION) {
 		saved = false;
 	    } else {
 		mm.setDirty(false);

@@ -26,7 +26,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -609,13 +608,13 @@ class GameGUI {
 		if (app.getDungeonManager().getDirty()) {
 		    app.getDungeonManager();
 		    status = DungeonManager.showSaveDialog();
-		    if (status == JOptionPane.YES_OPTION) {
+		    if (status == CommonDialogs.YES_OPTION) {
 			app.getDungeonManager();
 			success = DungeonManager.saveGame();
 			if (success) {
 			    app.getGameLogic().exitGame();
 			}
-		    } else if (status == JOptionPane.NO_OPTION) {
+		    } else if (status == CommonDialogs.NO_OPTION) {
 			app.getGameLogic().exitGame();
 		    }
 		} else {
@@ -663,7 +662,7 @@ class GameGUI {
 		if (cmd.equals(Strings.menu(Menu.RESET_CURRENT_LEVEL))) {
 		    final var result = CommonDialogs.showConfirmDialog(Strings.menu(Menu.CONFIRM_RESET_CURRENT_LEVEL),
 			    Strings.untranslated(Untranslated.PROGRAM_NAME));
-		    if (result == JOptionPane.YES_OPTION) {
+		    if (result == CommonDialogs.YES_OPTION) {
 			game.abortAndWaitForMLOLoop();
 			game.resetCurrentLevel();
 		    }

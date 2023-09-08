@@ -7,8 +7,6 @@ package com.puttysoftware.dungeondiver7.battle;
 
 import java.io.IOException;
 
-import javax.swing.JOptionPane;
-
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.random.RandomRange;
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
@@ -988,7 +986,7 @@ public class MapBattleLogic extends AbstractBattle {
 	    if (!active.hasMapAI()) {
 		SoundLoader.playSound(Sounds.SPECIAL);
 		final var confirm = CommonDialogs.showConfirmDialog("Embrace Cowardice?", "Battle");
-		if (confirm != JOptionPane.YES_OPTION) {
+		if (confirm != CommonDialogs.YES_OPTION) {
 		    this.battleGUI.getViewManager().restoreViewingWindow();
 		    activeBC.restoreLocation();
 		    return false;
@@ -1145,7 +1143,7 @@ public class MapBattleLogic extends AbstractBattle {
 		    return false;
 		}
 		final var confirm = CommonDialogs.showConfirmDialog("Attack Friend?", "Battle");
-		if (confirm != JOptionPane.YES_OPTION) {
+		if (confirm != CommonDialogs.YES_OPTION) {
 		    return false;
 		}
 	    }

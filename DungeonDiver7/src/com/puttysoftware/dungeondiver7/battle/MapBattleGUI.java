@@ -16,7 +16,6 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
@@ -126,7 +125,7 @@ class MapBattleGUI {
 			// Confirm before attacking self
 			final var res = CommonDialogs.showConfirmDialog("Are you sure you want to attack yourself?",
 				"Battle");
-			if (res == JOptionPane.YES_OPTION) {
+			if (res == CommonDialogs.YES_OPTION) {
 			    bl.updatePosition(0, 0);
 			}
 			break;

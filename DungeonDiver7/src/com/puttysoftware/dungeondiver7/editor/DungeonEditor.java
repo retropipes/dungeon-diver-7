@@ -23,7 +23,6 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JToggleButton;
@@ -209,7 +208,7 @@ public class DungeonEditor implements MenuSection {
 		    // Clear undo/redo history, confirm first
 		    final var res = CommonDialogs.showConfirmDialog(Strings.menu(Menu.CONFIRM_CLEAR_HISTORY),
 			    Strings.editor(EditorString.EDITOR));
-		    if (res == JOptionPane.YES_OPTION) {
+		    if (res == CommonDialogs.YES_OPTION) {
 			editor.clearHistory();
 		    }
 		} else if (cmd.equals(Strings.menu(Menu.GO_TO_LEVEL))) {
@@ -595,7 +594,7 @@ public class DungeonEditor implements MenuSection {
     private boolean confirmNonUndoable() {
 	final var confirm = CommonDialogs.showConfirmDialog(Strings.editor(EditorString.CONFIRM_CANNOT_BE_UNDONE),
 		Strings.editor(EditorString.EDITOR));
-	if (confirm == JOptionPane.YES_OPTION) {
+	if (confirm == CommonDialogs.YES_OPTION) {
 	    this.clearHistory();
 	    return true;
 	}
@@ -1073,15 +1072,15 @@ public class DungeonEditor implements MenuSection {
 	try {
 	    final var app = DungeonDiver7.getStuffBag();
 	    var success = false;
-	    var status = JOptionPane.DEFAULT_OPTION;
+	    var status = CommonDialogs.DEFAULT_OPTION;
 	    if (app.getDungeonManager().getDirty()) {
 		status = DungeonManager.showSaveDialog();
-		if (status == JOptionPane.YES_OPTION) {
+		if (status == CommonDialogs.YES_OPTION) {
 		    success = app.getDungeonManager().saveDungeon(app.getDungeonManager().isDungeonProtected());
 		    if (success) {
 			this.exitEditor();
 		    }
-		} else if (status == JOptionPane.NO_OPTION) {
+		} else if (status == CommonDialogs.NO_OPTION) {
 		    app.getDungeonManager().setDirty(false);
 		    this.exitEditor();
 		}
@@ -1107,9 +1106,9 @@ public class DungeonEditor implements MenuSection {
 	var status = 0;
 	if (app.getDungeonManager().getDirty()) {
 	    status = DungeonManager.showSaveDialog();
-	    if (status == JOptionPane.YES_OPTION) {
+	    if (status == CommonDialogs.YES_OPTION) {
 		saved = app.getDungeonManager().saveDungeon(app.getDungeonManager().isDungeonProtected());
-	    } else if (status == JOptionPane.CANCEL_OPTION) {
+	    } else if (status == CommonDialogs.CANCEL_OPTION) {
 		saved = false;
 	    } else {
 		app.getDungeonManager().setDirty(false);

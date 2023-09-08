@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import com.puttysoftware.diane.fileio.utility.FilenameChecker;
 import com.puttysoftware.diane.gui.MainWindow;
@@ -200,7 +199,7 @@ public final class DungeonManager {
 	    source = Strings.untranslated(Untranslated.PROGRAM_NAME);
 	} else {
 	    // Not in the game or editor, so abort
-	    return JOptionPane.NO_OPTION;
+	    return CommonDialogs.NO_OPTION;
 	}
 	return CommonDialogs.showYNCConfirmDialog(type, source);
     }
@@ -290,9 +289,9 @@ public final class DungeonManager {
 	fd.setDirectory(initialDirectory);
 	if (this.getDirty()) {
 	    status = DungeonManager.showSaveDialog();
-	    if (status == JOptionPane.YES_OPTION) {
+	    if (status == CommonDialogs.YES_OPTION) {
 		saved = this.saveDungeon(this.isDungeonProtected());
-	    } else if (status == JOptionPane.CANCEL_OPTION) {
+	    } else if (status == CommonDialogs.CANCEL_OPTION) {
 		saved = false;
 	    } else {
 		this.setDirty(false);
@@ -335,9 +334,9 @@ public final class DungeonManager {
 	final var gf = new GameFinder();
 	if (this.getDirty()) {
 	    status = DungeonManager.showSaveDialog();
-	    if (status == JOptionPane.YES_OPTION) {
+	    if (status == CommonDialogs.YES_OPTION) {
 		saved = DungeonManager.saveGame();
-	    } else if (status == JOptionPane.CANCEL_OPTION) {
+	    } else if (status == CommonDialogs.CANCEL_OPTION) {
 		saved = false;
 	    } else {
 		this.setDirty(false);

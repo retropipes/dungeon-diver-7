@@ -5,8 +5,6 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package com.puttysoftware.dungeondiver7.shop;
 
-import javax.swing.JOptionPane;
-
 import com.puttysoftware.diane.assets.image.BufferedImageIcon;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
@@ -103,7 +101,7 @@ public class Shop {
 	    // Confirm
 	    final var stage4Confirm = CommonDialogs.showConfirmDialog(
 		    "This will cost " + Shop.this.cost + " Gold. Are you sure?", Shop.this.getShopNameFromType());
-	    if (stage4Confirm == JOptionPane.NO_OPTION || stage4Confirm == JOptionPane.CLOSED_OPTION) {
+	    if (stage4Confirm == CommonDialogs.NO_OPTION || stage4Confirm == CommonDialogs.CLOSED_OPTION) {
 		return false;
 	    }
 	    return true;
@@ -217,7 +215,7 @@ public class Shop {
 	    // Confirm
 	    final var stage4Confirm = CommonDialogs.showConfirmDialog(
 		    "This will cost " + Shop.this.cost + " Gold. Are you sure?", Shop.this.getShopNameFromType());
-	    if (stage4Confirm == JOptionPane.NO_OPTION || stage4Confirm == JOptionPane.CLOSED_OPTION) {
+	    if (stage4Confirm == CommonDialogs.NO_OPTION || stage4Confirm == CommonDialogs.CLOSED_OPTION) {
 		return false;
 	    }
 	    return true;
