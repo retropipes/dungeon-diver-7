@@ -5,16 +5,12 @@
  */
 package com.puttysoftware.dungeondiver7.game.replay;
 
-import java.awt.FileDialog;
 import java.io.File;
-
-import javax.swing.JFrame;
 
 import com.puttysoftware.diane.fileio.utility.FilenameChecker;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
-import com.puttysoftware.dungeondiver7.locale.GameString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 
@@ -61,16 +57,12 @@ public class ReplayManager {
 	}
     }
 
-    public static void loadLPB() {
-	String filename, extension, file, dir;
+    public static void loadReplay() {
+	String filename, extension;
 	final var lastOpen = Prefs.getLastDirOpen();
-	final var fd = new FileDialog((JFrame) null, Strings.game(GameString.LOAD_PLAYBACK), FileDialog.LOAD);
-	fd.setDirectory(lastOpen);
-	fd.setVisible(true);
-	file = fd.getFile();
-	dir = fd.getDirectory();
-	if (file != null && dir != null) {
-	    filename = dir + file;
+	File file = CommonDialogs.showFileOpenDialog(new File(lastOpen), null, Strings.dialog(DialogString.LOAD));
+	if (file != null) {
+	    filename = file.getAbsolutePath();
 	    extension = ReplayManager.getExtension(filename);
 	    if (extension.equals(Strings.fileExtension(FileExtension.REPLAY))) {
 		ReplayManager.loadFile(filename);

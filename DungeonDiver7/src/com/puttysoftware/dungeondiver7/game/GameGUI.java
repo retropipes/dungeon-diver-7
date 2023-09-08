@@ -20,14 +20,11 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.direction.Direction;
 import com.puttysoftware.diane.direction.DirectionResolver;
@@ -675,7 +672,7 @@ class GameGUI {
 		    game.toggleRecording();
 		} else if (cmd.equals(Strings.menu(Menu.LOAD_REPLAY_FILE))) {
 		    game.abortAndWaitForMLOLoop();
-		    ReplayManager.loadLPB();
+		    ReplayManager.loadReplay();
 		} else if (cmd.equals(Strings.menu(Menu.PREVIOUS_LEVEL))) {
 		    game.abortAndWaitForMLOLoop();
 		    game.previousLevel();
@@ -819,7 +816,7 @@ class GameGUI {
     // Fields
     private MainWindow mainWindow;
     private EventHandler handler;
-    private JPanel borderPane, scorePane, infoPane, outerOutputPane;
+    private JPanel borderPane, scorePane, infoPane, outerOutputPane, difficultyPane;
     private JLabel messageLabel;
     private JLabel scoreMoves;
     private JLabel scoreShots;
@@ -828,6 +825,8 @@ class GameGUI {
     private JLabel otherToolsLeft;
     private JLabel otherRangesLeft;
     private JLabel levelInfo;
+    private JButton difficultyOK;
+    private DifficultyEventHandler dhandler;
     private GameViewingWindowManager vwMgr = null;
     private final StatGUI sg;
     private DrawGrid drawGrid;
@@ -836,7 +835,6 @@ class GameGUI {
     private boolean deferredRedraw;
     boolean eventFlag;
     private boolean newGameResult;
-    private JDialog difficultyFrame;
     private JList<String> difficultyList;
     private JMenu gameTimeTravelSubMenu;
     JCheckBoxMenuItem gameEraDistantPast, gameEraPast, gameEraPresent, gameEraFuture, gameEraDistantFuture;
@@ -950,12 +948,12 @@ class GameGUI {
     }
 
     void difficultyDialogCancelButtonClicked() {
-	this.difficultyFrame.setVisible(false);
+	this.hideDifficultyDialog();
 	this.newGameResult = false;
     }
 
     void difficultyDialogOKButtonClicked() {
-	this.difficultyFrame.setVisible(false);
+	this.hideDifficultyDialog();
 	if (this.difficultyList.isSelectedIndex(Difficulty.KIDS.ordinal())) {
 	    Prefs.setKidsDifficultyEnabled(true);
 	} else {
@@ -1093,7 +1091,7 @@ class GameGUI {
 	this.difficultyList.clearSelection();
 	final var retVal = GameGUI.getEnabledDifficulties();
 	this.difficultyList.setSelectedIndices(retVal);
-	this.difficultyFrame.setVisible(true);
+	this.showDifficultyDialog();
 	return this.newGameResult;
     }
 
@@ -1165,33 +1163,37 @@ class GameGUI {
 
     private void setUpDifficultyDialog() {
 	// Set up Difficulty Dialog
-	final var dhandler = new DifficultyEventHandler();
-	this.difficultyFrame = new JDialog((JFrame) null, Strings.game(GameString.SELECT_DIFFICULTY));
-	final var difficultyPane = new JPanel();
+	this.dhandler = new DifficultyEventHandler();
+	this.difficultyPane = new JPanel();
 	final var listPane = new JPanel();
 	final var buttonPane = new JPanel();
 	this.difficultyList = new JList<>(Strings.allDifficulties());
-	final var okButton = new JButton(Strings.dialog(DialogString.OK_BUTTON));
+	this.difficultyOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	final var cancelButton = new JButton(Strings.dialog(DialogString.CANCEL_BUTTON));
 	buttonPane.setLayout(new FlowLayout());
-	buttonPane.add(okButton);
+	buttonPane.add(this.difficultyOK);
 	buttonPane.add(cancelButton);
 	listPane.setLayout(new FlowLayout());
 	listPane.add(this.difficultyList);
-	difficultyPane.setLayout(new BorderLayout());
-	difficultyPane.add(listPane, BorderLayout.CENTER);
-	difficultyPane.add(buttonPane, BorderLayout.SOUTH);
-	this.difficultyFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	this.difficultyFrame.setModal(true);
-	this.difficultyFrame.setResizable(false);
-	okButton.setDefaultCapable(true);
+	this.difficultyPane.setLayout(new BorderLayout());
+	this.difficultyPane.add(listPane, BorderLayout.CENTER);
+	this.difficultyPane.add(buttonPane, BorderLayout.SOUTH);
+	this.difficultyOK.setDefaultCapable(true);
 	cancelButton.setDefaultCapable(false);
-	this.difficultyFrame.getRootPane().setDefaultButton(okButton);
-	this.difficultyFrame.addWindowListener(dhandler);
-	okButton.addActionListener(dhandler);
-	cancelButton.addActionListener(dhandler);
-	this.difficultyFrame.setContentPane(difficultyPane);
-	this.difficultyFrame.pack();
+	this.difficultyOK.addActionListener(this.dhandler);
+	cancelButton.addActionListener(this.dhandler);
+    }
+    
+    private void showDifficultyDialog() {
+	this.mainWindow.setAndSave(this.difficultyPane, Strings.game(GameString.SELECT_DIFFICULTY), this.difficultyOK);
+	this.mainWindow.pack();
+	this.mainWindow.addWindowListener(this.dhandler);
+    }
+    
+    private void hideDifficultyDialog() {
+	this.mainWindow.removeWindowListener(this.dhandler);
+	this.mainWindow.restoreSaved();
+	this.mainWindow.pack();
     }
 
     private void setUpGUI() {

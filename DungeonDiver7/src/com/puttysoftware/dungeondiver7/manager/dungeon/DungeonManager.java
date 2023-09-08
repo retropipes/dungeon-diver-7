@@ -5,12 +5,9 @@
  */
 package com.puttysoftware.dungeondiver7.manager.dungeon;
 
-import java.awt.FileDialog;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-
-import javax.swing.JFrame;
 
 import com.puttysoftware.diane.fileio.utility.FilenameChecker;
 import com.puttysoftware.diane.gui.MainWindow;
@@ -284,9 +281,9 @@ public final class DungeonManager {
     private boolean loadDungeonImpl(final String initialDirectory) {
 	var status = 0;
 	var saved = true;
-	String filename, extension, file, dir;
-	final var fd = new FileDialog((JFrame) null, Strings.dialog(DialogString.LOAD), FileDialog.LOAD);
-	fd.setDirectory(initialDirectory);
+	var fileOnly = Strings.EMPTY;
+	String filename, extension;
+	final String dir = initialDirectory;
 	if (this.getDirty()) {
 	    status = DungeonManager.showSaveDialog();
 	    if (status == CommonDialogs.YES_OPTION) {
@@ -298,20 +295,18 @@ public final class DungeonManager {
 	    }
 	}
 	if (saved) {
-	    fd.setVisible(true);
-	    file = fd.getFile();
-	    dir = fd.getDirectory();
-	    if (file != null && dir != null) {
-		Prefs.setLastDirOpen(dir);
-		filename = dir + file;
-		extension = DungeonManager.getExtension(filename);
+	    File file = CommonDialogs.showFileOpenDialog(new File(dir), null, Strings.dialog(DialogString.LOAD));
+	    if (file != null) {
+		filename = file.getAbsolutePath();
+		fileOnly = filename.substring(dir.length() + 1);
+		extension = DungeonManager.getExtension(fileOnly);
 		if (extension.equals(Strings.fileExtension(FileExtension.DUNGEON))) {
 		    this.lastUsedDungeonFile = filename;
-		    this.scoresFileName = DungeonManager.getNameWithoutExtension(file);
+		    this.scoresFileName = DungeonManager.getNameWithoutExtension(fileOnly);
 		    DungeonManager.loadDungeonFile(filename, false, false);
 		} else if (extension.equals(Strings.fileExtension(FileExtension.PROTECTED_DUNGEON))) {
 		    this.lastUsedDungeonFile = filename;
-		    this.scoresFileName = DungeonManager.getNameWithoutExtension(file);
+		    this.scoresFileName = DungeonManager.getNameWithoutExtension(fileOnly);
 		    DungeonManager.loadDungeonFile(filename, false, true);
 		} else if (extension.equals(Strings.fileExtension(FileExtension.SUSPEND))) {
 		    this.lastUsedGameFile = filename;
@@ -435,19 +430,15 @@ public final class DungeonManager {
 	final var app = DungeonDiver7.getStuffBag();
 	var filename = Strings.EMPTY;
 	var fileOnly = Strings.EMPTY;
-	String extension, file, dir;
-	final var lastSave = Prefs.getLastDirSave();
-	final var fd = new FileDialog((JFrame) null, Strings.dialog(DialogString.SAVE), FileDialog.SAVE);
-	fd.setDirectory(lastSave);
+	String extension;
+	final var dir = Prefs.getLastDirSave();
 	while (!FilenameChecker.isFilenameOK(fileOnly)) {
-	    fd.setVisible(true);
-	    file = fd.getFile();
-	    dir = fd.getDirectory();
-	    if (file == null || dir == null) {
+	    File file = CommonDialogs.showFileSaveDialog(new File(dir), Strings.dialog(DialogString.LOAD));
+	    if (file == null) {
 		break;
 	    }
-	    extension = DungeonManager.getExtension(file);
-	    filename = dir + file;
+	    filename = file.getAbsolutePath();
+	    extension = DungeonManager.getExtension(filename);
 	    fileOnly = filename.substring(dir.length() + 1);
 	    if (!FilenameChecker.isFilenameOK(fileOnly)) {
 		CommonDialogs.showErrorDialog(Strings.dialog(DialogString.ILLEGAL_CHARACTERS),
@@ -457,7 +448,7 @@ public final class DungeonManager {
 		if (app.getMode() == StuffBag.STATUS_GAME) {
 		    if (extension != null) {
 			if (!extension.equals(Strings.fileExtension(FileExtension.SUSPEND))) {
-			    filename = DungeonManager.getNameWithoutExtension(file)
+			    filename = DungeonManager.getNameWithoutExtension(fileOnly)
 				    + Strings.fileExtension(FileExtension.SUSPEND);
 			}
 		    } else {
@@ -469,7 +460,7 @@ public final class DungeonManager {
 		    if (protect) {
 			if (extension != null) {
 			    if (!extension.equals(Strings.fileExtension(FileExtension.PROTECTED_DUNGEON))) {
-				filename = DungeonManager.getNameWithoutExtension(file)
+				filename = DungeonManager.getNameWithoutExtension(fileOnly)
 					+ Strings.fileExtension(FileExtension.PROTECTED_DUNGEON);
 			    }
 			} else {
@@ -477,14 +468,14 @@ public final class DungeonManager {
 			}
 		    } else if (extension != null) {
 			if (!extension.equals(Strings.fileExtension(FileExtension.DUNGEON))) {
-			    filename = DungeonManager.getNameWithoutExtension(file)
+			    filename = DungeonManager.getNameWithoutExtension(fileOnly)
 				    + Strings.fileExtension(FileExtension.DUNGEON);
 			}
 		    } else {
 			filename += Strings.fileExtension(FileExtension.DUNGEON);
 		    }
 		    this.lastUsedDungeonFile = filename;
-		    this.scoresFileName = DungeonManager.getNameWithoutExtension(file);
+		    this.scoresFileName = DungeonManager.getNameWithoutExtension(fileOnly);
 		    DungeonManager.saveDungeonFile(filename, false, protect);
 		}
 	    }
