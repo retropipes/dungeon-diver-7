@@ -9,39 +9,39 @@ import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 
 public abstract class AbstractDamageEngine {
-    public static AbstractDamageEngine getEnemyInstance() {
-	final var difficulty = Prefs.getGameDifficulty();
-	return switch (difficulty) {
-	case Prefs.DIFFICULTY_VERY_EASY -> new VeryHardDamageEngine();
-	case Prefs.DIFFICULTY_EASY -> new HardDamageEngine();
-	case Prefs.DIFFICULTY_NORMAL -> new NormalDamageEngine();
-	case Prefs.DIFFICULTY_HARD -> new EasyDamageEngine();
-	case Prefs.DIFFICULTY_VERY_HARD -> new VeryEasyDamageEngine();
-	default -> new NormalDamageEngine();
-	};
-    }
+	public static AbstractDamageEngine getEnemyInstance() {
+		final var difficulty = Prefs.getGameDifficulty();
+		return switch (difficulty) {
+		case Prefs.DIFFICULTY_VERY_EASY -> new VeryHardDamageEngine();
+		case Prefs.DIFFICULTY_EASY -> new HardDamageEngine();
+		case Prefs.DIFFICULTY_NORMAL -> new NormalDamageEngine();
+		case Prefs.DIFFICULTY_HARD -> new EasyDamageEngine();
+		case Prefs.DIFFICULTY_VERY_HARD -> new VeryEasyDamageEngine();
+		default -> new NormalDamageEngine();
+		};
+	}
 
-    public static AbstractDamageEngine getPlayerInstance() {
-	final var difficulty = Prefs.getGameDifficulty();
-	return switch (difficulty) {
-	case Prefs.DIFFICULTY_VERY_EASY -> new VeryEasyDamageEngine();
-	case Prefs.DIFFICULTY_EASY -> new EasyDamageEngine();
-	case Prefs.DIFFICULTY_NORMAL -> new NormalDamageEngine();
-	case Prefs.DIFFICULTY_HARD -> new HardDamageEngine();
-	case Prefs.DIFFICULTY_VERY_HARD -> new VeryHardDamageEngine();
-	default -> new NormalDamageEngine();
-	};
-    }
+	public static AbstractDamageEngine getPlayerInstance() {
+		final var difficulty = Prefs.getGameDifficulty();
+		return switch (difficulty) {
+		case Prefs.DIFFICULTY_VERY_EASY -> new VeryEasyDamageEngine();
+		case Prefs.DIFFICULTY_EASY -> new EasyDamageEngine();
+		case Prefs.DIFFICULTY_NORMAL -> new NormalDamageEngine();
+		case Prefs.DIFFICULTY_HARD -> new HardDamageEngine();
+		case Prefs.DIFFICULTY_VERY_HARD -> new VeryHardDamageEngine();
+		default -> new NormalDamageEngine();
+		};
+	}
 
-    public abstract int computeDamage(AbstractCreature enemy, AbstractCreature acting);
+	public abstract int computeDamage(AbstractCreature enemy, AbstractCreature acting);
 
-    public abstract boolean enemyDodged();
+	public abstract boolean enemyDodged();
 
-    public abstract boolean weaponCrit();
+	public abstract boolean weaponCrit();
 
-    public abstract boolean weaponFumble();
+	public abstract boolean weaponFumble();
 
-    public abstract boolean weaponMissed();
+	public abstract boolean weaponMissed();
 
-    public abstract boolean weaponPierce();
+	public abstract boolean weaponPierce();
 }

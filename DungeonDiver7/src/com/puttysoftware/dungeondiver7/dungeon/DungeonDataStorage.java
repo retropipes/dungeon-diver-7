@@ -5,24 +5,25 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon;
 
-import com.puttysoftware.diane.storage.ObjectStorage;
+import org.retropipes.diane.storage.ObjectStorage;
+
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 
-public class DungeonDataStorage extends ObjectStorage {
-    public DungeonDataStorage(final DungeonDataStorage source) {
-	super(source);
-    }
+public class DungeonDataStorage extends ObjectStorage<AbstractDungeonObject> {
+	public DungeonDataStorage(final DungeonDataStorage source) {
+		super(source);
+	}
 
-    // Constructor
-    public DungeonDataStorage(final int... shape) {
-	super(shape);
-    }
+	// Constructor
+	public DungeonDataStorage(final int... shape) {
+		super(shape);
+	}
 
-    public AbstractDungeonObject getDungeonDataCell(final int... loc) {
-	return (AbstractDungeonObject) this.getCell(loc);
-    }
+	public AbstractDungeonObject getDungeonDataCell(final int... loc) {
+		return (AbstractDungeonObject) this.getCell(loc);
+	}
 
-    public void setDungeonDataCell(final AbstractDungeonObject obj, final int... loc) {
-	this.setCell(obj, loc);
-    }
+	public void setDungeonDataCell(final AbstractDungeonObject obj, final int... loc) {
+		this.setCell(obj, loc);
+	}
 }

@@ -12,20 +12,20 @@ import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.loader.Sounds;
 
 public class PowerBolt extends AbstractField {
-    // Constructors
-    public PowerBolt() {
-    }
+	// Constructors
+	public PowerBolt() {
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 139;
-    }
+	@Override
+	public final int getBaseID() {
+		return 139;
+	}
 
-    @Override
-    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(Sounds.POWERFUL);
-	DungeonDiver7.getStuffBag().getGameLogic();
-	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-	DungeonDiver7.getStuffBag().getGameLogic().setPowerfulPlayer();
-    }
+	@Override
+	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+		SoundLoader.playSound(Sounds.POWERFUL);
+		DungeonDiver7.getStuffBag().getGameLogic();
+		GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+		DungeonDiver7.getStuffBag().getGameLogic().setPowerfulPlayer();
+	}
 }

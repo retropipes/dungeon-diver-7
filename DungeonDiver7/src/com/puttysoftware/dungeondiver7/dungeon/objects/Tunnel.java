@@ -9,17 +9,17 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTunnel;
 import com.puttysoftware.dungeondiver7.locale.Colors;
 
 public class Tunnel extends AbstractTunnel {
-    // Constructors
-    public Tunnel() {
-	this.setColor(Colors.GRAY);
-    }
+	// Constructors
+	public Tunnel() {
+		this.setColor(Colors.GRAY);
+	}
 
-    public Tunnel(final Colors color) {
-	this.setColor(color);
-    }
+	public Tunnel(final Colors color) {
+		this.setColor(color);
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 44;
-    }
+	@Override
+	public final int getBaseID() {
+		return 44;
+	}
 }

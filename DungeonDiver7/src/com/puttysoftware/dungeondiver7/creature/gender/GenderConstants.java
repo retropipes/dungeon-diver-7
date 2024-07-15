@@ -6,10 +6,10 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.creature.gender;
 
 class GenderConstants {
-    public static final int GENDERS_COUNT = 2;
-    public static final String[] GENDER_NAMES = { "Male", "Female" };
+	public static final int GENDERS_COUNT = 2;
+	public static final String[] GENDER_NAMES = { "Male", "Female" };
 
-    private GenderConstants() {
-	// Do nothing
-    }
+	private GenderConstants() {
+		// Do nothing
+	}
 }

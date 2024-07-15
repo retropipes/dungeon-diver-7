@@ -6,13 +6,13 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.creature.gender;
 
 public class Gender {
-    private final int genderID;
+	private final int genderID;
 
-    Gender(final int gid) {
-	this.genderID = gid;
-    }
+	Gender(final int gid) {
+		this.genderID = gid;
+	}
 
-    public int getGenderID() {
-	return this.genderID;
-    }
+	public int getGenderID() {
+		return this.genderID;
+	}
 }

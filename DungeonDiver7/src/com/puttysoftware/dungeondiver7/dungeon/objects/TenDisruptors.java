@@ -10,23 +10,23 @@ import com.puttysoftware.dungeondiver7.game.GameLogic;
 import com.puttysoftware.dungeondiver7.utility.PartyInventory;
 
 public class TenDisruptors extends AbstractInventoryModifier {
-    // Constructors
-    public TenDisruptors() {
-    }
+	// Constructors
+	public TenDisruptors() {
+	}
 
-    @Override
-    public boolean doLasersPassThrough() {
-	return true;
-    }
+	@Override
+	public boolean doLasersPassThrough() {
+		return true;
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 48;
-    }
+	@Override
+	public final int getBaseID() {
+		return 48;
+	}
 
-    @Override
-    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	PartyInventory.addTenDisruptors();
-	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-    }
+	@Override
+	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+		PartyInventory.addTenDisruptors();
+		GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+	}
 }

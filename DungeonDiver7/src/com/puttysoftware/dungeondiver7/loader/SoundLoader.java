@@ -5,17 +5,18 @@
  */
 package com.puttysoftware.dungeondiver7.loader;
 
-import com.puttysoftware.diane.assets.sound.DianeSoundPlayer;
+import org.retropipes.diane.asset.sound.DianeSoundPlayer;
+
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 
 public class SoundLoader {
-    public static void playSound(final Sounds soundID) {
-	if (Prefs.getSoundsEnabled()) {
-	    DianeSoundPlayer.play(soundID);
+	public static void playSound(final Sounds soundID) {
+		if (Prefs.getSoundsEnabled()) {
+			DianeSoundPlayer.play(soundID);
+		}
 	}
-    }
 
-    private SoundLoader() {
-	// Do nothing
-    }
+	private SoundLoader() {
+		// Do nothing
+	}
 }

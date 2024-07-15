@@ -6,6 +6,5 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.locale;
 
 public enum NamedSubst {
-    NAME,
-    TARGET
+	NAME, TARGET
 }

@@ -9,17 +9,17 @@ import com.puttysoftware.dungeondiver7.creature.monster.MonsterFactory;
 import com.puttysoftware.dungeondiver7.dungeon.objects.BattleCharacter;
 
 class BossBattle extends AbstractBattleType {
-    // Fields
-    final BattleCharacter monster;
+	// Fields
+	final BattleCharacter monster;
 
-    // Constructors
-    public BossBattle() {
-	this.boss = true;
-	this.monster = new BattleCharacter(MonsterFactory.getNewBossInstance());
-    }
+	// Constructors
+	public BossBattle() {
+		this.boss = true;
+		this.monster = new BattleCharacter(MonsterFactory.getNewBossInstance());
+	}
 
-    @Override
-    public BattleCharacter getBattlers() {
-	return this.monster;
-    }
+	@Override
+	public BattleCharacter getBattlers() {
+		return this.monster;
+	}
 }

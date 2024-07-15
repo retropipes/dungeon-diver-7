@@ -13,34 +13,34 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class IcyBox extends AbstractMovableObject {
-    // Constructors
-    public IcyBox() {
-	super(true);
-	this.type.set(DungeonObjectTypes.TYPE_BOX);
-	this.type.set(DungeonObjectTypes.TYPE_ICY);
-	this.setMaterial(Materials.ICE);
-    }
-
-    @Override
-    public AbstractDungeonObject changesToOnExposure(final int materialID) {
-	switch (materialID) {
-	case Materials.FIRE:
-	    if (this.hasPreviousState()) {
-		return this.getPreviousState();
-	    }
-	    return new Box();
-	default:
-	    return this;
+	// Constructors
+	public IcyBox() {
+		super(true);
+		this.type.set(DungeonObjectTypes.TYPE_BOX);
+		this.type.set(DungeonObjectTypes.TYPE_ICY);
+		this.setMaterial(Materials.ICE);
 	}
-    }
 
-    @Override
-    public final int getBaseID() {
-	return 21;
-    }
+	@Override
+	public AbstractDungeonObject changesToOnExposure(final int materialID) {
+		switch (materialID) {
+		case Materials.FIRE:
+			if (this.hasPreviousState()) {
+				return this.getPreviousState();
+			}
+			return new Box();
+		default:
+			return this;
+		}
+	}
 
-    @Override
-    public void playSoundHook() {
-	SoundLoader.playSound(Sounds.PUSH_BOX);
-    }
+	@Override
+	public final int getBaseID() {
+		return 21;
+	}
+
+	@Override
+	public void playSoundHook() {
+		SoundLoader.playSound(Sounds.PUSH_BOX);
+	}
 }

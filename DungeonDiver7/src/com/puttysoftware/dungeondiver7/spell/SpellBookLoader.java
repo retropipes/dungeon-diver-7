@@ -12,18 +12,18 @@ import com.puttysoftware.dungeondiver7.creature.job.predefined.CurerSpellBook;
 import com.puttysoftware.dungeondiver7.creature.job.predefined.DebufferSpellBook;
 
 public class SpellBookLoader {
-    public static SpellBook loadSpellBook(final int sbid) {
-	return switch (sbid) {
-	case JobConstants.JOB_ANNIHILATOR -> new AnnihilatorSpellBook();
-	case JobConstants.JOB_BUFFER -> new BufferSpellBook();
-	case JobConstants.JOB_CURER -> new CurerSpellBook();
-	case JobConstants.JOB_DEBUFFER -> new DebufferSpellBook();
-	default -> /* Invalid caste name */ null;
-	};
-    }
+	public static SpellBook loadSpellBook(final int sbid) {
+		return switch (sbid) {
+		case JobConstants.JOB_ANNIHILATOR -> new AnnihilatorSpellBook();
+		case JobConstants.JOB_BUFFER -> new BufferSpellBook();
+		case JobConstants.JOB_CURER -> new CurerSpellBook();
+		case JobConstants.JOB_DEBUFFER -> new DebufferSpellBook();
+		default -> /* Invalid caste name */ null;
+		};
+	}
 
-    // Constructors
-    private SpellBookLoader() {
-	// Do nothing
-    }
+	// Constructors
+	private SpellBookLoader() {
+		// Do nothing
+	}
 }

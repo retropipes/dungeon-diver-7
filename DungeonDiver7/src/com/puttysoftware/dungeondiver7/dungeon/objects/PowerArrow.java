@@ -8,17 +8,17 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTransientObject;
 
 public class PowerArrow extends AbstractTransientObject {
-    // Constructors
-    public PowerArrow() {
-    }
+	// Constructors
+	public PowerArrow() {
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 137;
-    }
+	@Override
+	public final int getBaseID() {
+		return 137;
+	}
 
-    @Override
-    public int getForceUnitsImbued() {
-	return 5;
-    }
+	@Override
+	public int getForceUnitsImbued() {
+		return 5;
+	}
 }

@@ -9,13 +9,13 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTriggerButtonDoor;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class StoneTriggerButtonDoor extends AbstractTriggerButtonDoor {
-    // Constructors
-    public StoneTriggerButtonDoor() {
-	this.setMaterial(Materials.STONE);
-    }
+	// Constructors
+	public StoneTriggerButtonDoor() {
+		this.setMaterial(Materials.STONE);
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 109;
-    }
+	@Override
+	public final int getBaseID() {
+		return 109;
+	}
 }

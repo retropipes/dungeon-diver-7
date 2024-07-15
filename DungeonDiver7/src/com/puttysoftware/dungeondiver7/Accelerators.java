@@ -10,22 +10,22 @@ import javax.swing.KeyStroke;
 import com.puttysoftware.dungeondiver7.prefs.Prefs;
 
 public abstract class Accelerators {
-    public static Accelerators getAcceleratorModel() {
-	if (Prefs.useClassicAccelerators()) {
-	    return new ClassicAccelerators();
+	public static Accelerators getAcceleratorModel() {
+		if (Prefs.useClassicAccelerators()) {
+			return new ClassicAccelerators();
+		}
+		return new ModernAccelerators();
 	}
-	return new ModernAccelerators();
-    }
 
-    public KeyStroke fileNewAccel, fileOpenAccel, fileCloseAccel, fileSaveAccel, fileSaveAsAccel, filePreferencesAccel,
-	    filePrintAccel, fileExitAccel;
-    public KeyStroke playPlayDungeonAccel, playEditDungeonAccel;
-    public KeyStroke gameResetAccel, gameShowTableAccel;
-    public KeyStroke editorUndoAccel, editorRedoAccel, editorCutLevelAccel, editorCopyLevelAccel, editorPasteLevelAccel,
-	    editorInsertLevelFromClipboardAccel, editorClearHistoryAccel, editorGoToLocationAccel,
-	    editorUpOneLevelAccel, editorDownOneLevelAccel;
+	public KeyStroke fileNewAccel, fileOpenAccel, fileCloseAccel, fileSaveAccel, fileSaveAsAccel, filePreferencesAccel,
+			filePrintAccel, fileExitAccel;
+	public KeyStroke playPlayDungeonAccel, playEditDungeonAccel;
+	public KeyStroke gameResetAccel, gameShowTableAccel;
+	public KeyStroke editorUndoAccel, editorRedoAccel, editorCutLevelAccel, editorCopyLevelAccel, editorPasteLevelAccel,
+			editorInsertLevelFromClipboardAccel, editorClearHistoryAccel, editorGoToLocationAccel,
+			editorUpOneLevelAccel, editorDownOneLevelAccel;
 
-    Accelerators() {
-	// Do nothing
-    }
+	Accelerators() {
+		// Do nothing
+	}
 }

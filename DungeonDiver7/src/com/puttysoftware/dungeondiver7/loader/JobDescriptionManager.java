@@ -8,21 +8,22 @@ package com.puttysoftware.dungeondiver7.loader;
 
 import java.io.IOException;
 
-import com.puttysoftware.diane.fileio.utility.ResourceStreamReader;
+import org.retropipes.diane.fileio.utility.ResourceStreamReader;
+
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.creature.job.JobConstants;
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 
 public class JobDescriptionManager {
-    public static String getJobDescription(final int j) {
-	final var name = JobConstants.JOB_NAMES[j].toLowerCase();
-	try (final var rsr = new ResourceStreamReader(JobDescriptionManager.class.getResourceAsStream(
-		"/asset/description/job/" + name + Strings.fileExtension(FileExtension.INTERNAL_DATA)))) {
-	    return rsr.readString();
-	} catch (final IOException e) {
-	    DungeonDiver7.logError(e);
-	    return null;
+	public static String getJobDescription(final int j) {
+		final var name = JobConstants.JOB_NAMES[j].toLowerCase();
+		try (final var rsr = new ResourceStreamReader(JobDescriptionManager.class.getResourceAsStream(
+				"/asset/description/job/" + name + Strings.fileExtension(FileExtension.INTERNAL_DATA)))) {
+			return rsr.readString();
+		} catch (final IOException e) {
+			DungeonDiver7.logError(e);
+			return null;
+		}
 	}
-    }
 }

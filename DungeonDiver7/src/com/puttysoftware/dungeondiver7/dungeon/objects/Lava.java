@@ -15,47 +15,47 @@ import com.puttysoftware.dungeondiver7.loader.Sounds;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class Lava extends AbstractGround {
-    // Constructors
-    public Lava() {
-	this.setMaterial(Materials.FIRE);
-    }
-
-    @Override
-    public AbstractDungeonObject changesToOnExposure(final int materialID) {
-	return switch (materialID) {
-	case Materials.ICE -> new Ground();
-	default -> this;
-	};
-    }
-
-    @Override
-    public final int getBaseID() {
-	return 62;
-    }
-
-    @Override
-    public int getBlockHeight() {
-	return -1;
-    }
-
-    @Override
-    public boolean killsOnMove() {
-	return true;
-    }
-
-    // Scriptability
-    @Override
-    public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-	final var app = DungeonDiver7.getStuffBag();
-	if (pushed instanceof IcyBox) {
-	    app.getGameLogic();
-	    GameLogic.morph(new Ground(), x, y, z, this.getLayer());
-	    SoundLoader.playSound(Sounds.COOL_OFF);
-	    return true;
+	// Constructors
+	public Lava() {
+		this.setMaterial(Materials.FIRE);
 	}
-	app.getGameLogic();
-	GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
-	SoundLoader.playSound(Sounds.MELT);
-	return false;
-    }
+
+	@Override
+	public AbstractDungeonObject changesToOnExposure(final int materialID) {
+		return switch (materialID) {
+		case Materials.ICE -> new Ground();
+		default -> this;
+		};
+	}
+
+	@Override
+	public final int getBaseID() {
+		return 62;
+	}
+
+	@Override
+	public int getBlockHeight() {
+		return -1;
+	}
+
+	@Override
+	public boolean killsOnMove() {
+		return true;
+	}
+
+	// Scriptability
+	@Override
+	public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
+		final var app = DungeonDiver7.getStuffBag();
+		if (pushed instanceof IcyBox) {
+			app.getGameLogic();
+			GameLogic.morph(new Ground(), x, y, z, this.getLayer());
+			SoundLoader.playSound(Sounds.COOL_OFF);
+			return true;
+		}
+		app.getGameLogic();
+		GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
+		SoundLoader.playSound(Sounds.MELT);
+		return false;
+	}
 }

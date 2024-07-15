@@ -9,30 +9,31 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import org.retropipes.diane.asset.image.BufferedImageIcon;
+
 import com.puttysoftware.dungeondiver7.locale.FileExtension;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 import com.puttysoftware.dungeondiver7.locale.Untranslated;
 import com.puttysoftware.dungeondiver7.names.Monsters;
 
 public class MonsterImageManager {
-    private static Class<?> LOAD_CLASS = MonsterImageManager.class;
+	private static Class<?> LOAD_CLASS = MonsterImageManager.class;
 
-    public static BufferedImageIcon getImage(final int monID) {
-	// Get it from the cache
-	final var name = Monsters.getImageFilename(monID);
-	return MonsterImageCache.getCachedImage(name);
-    }
-
-    static BufferedImageIcon getUncachedImage(final String name) {
-	try {
-	    final var url = MonsterImageManager.LOAD_CLASS
-		    .getResource(Strings.untranslated(Untranslated.MONSTER_IMAGE_LOAD_PATH) + name
-			    + Strings.fileExtension(FileExtension.IMAGE));
-	    final var image = ImageIO.read(url);
-	    return new BufferedImageIcon(image);
-	} catch (final IOException ie) {
-	    return null;
+	public static BufferedImageIcon getImage(final int monID) {
+		// Get it from the cache
+		final var name = Monsters.getImageFilename(monID);
+		return MonsterImageCache.getCachedImage(name);
 	}
-    }
+
+	static BufferedImageIcon getUncachedImage(final String name) {
+		try {
+			final var url = MonsterImageManager.LOAD_CLASS
+					.getResource(Strings.untranslated(Untranslated.MONSTER_IMAGE_LOAD_PATH) + name
+							+ Strings.fileExtension(FileExtension.IMAGE));
+			final var image = ImageIO.read(url);
+			return new BufferedImageIcon(image);
+		} catch (final IOException ie) {
+			return null;
+		}
+	}
 }

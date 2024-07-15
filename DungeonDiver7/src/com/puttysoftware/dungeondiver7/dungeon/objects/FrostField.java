@@ -11,18 +11,18 @@ import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.loader.Sounds;
 
 public class FrostField extends AbstractField {
-    // Constructors
-    public FrostField() {
-    }
+	// Constructors
+	public FrostField() {
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 14;
-    }
+	@Override
+	public final int getBaseID() {
+		return 14;
+	}
 
-    @Override
-    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(Sounds.FROZEN);
-	DungeonDiver7.getStuffBag().getGameLogic().updatePositionRelativeFrozen();
-    }
+	@Override
+	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+		SoundLoader.playSound(Sounds.FROZEN);
+		DungeonDiver7.getStuffBag().getGameLogic().updatePositionRelativeFrozen();
+	}
 }

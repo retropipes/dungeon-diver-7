@@ -6,11 +6,5 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.locale;
 
 public enum ItemString {
-    BONUS,
-    ITEM_QUANTITY_USES,
-    INFINITE,
-    NOTHING,
-    POWER,
-    SOCKS,
-    NO_SOCKS
+	BONUS, ITEM_QUANTITY_USES, INFINITE, NOTHING, POWER, SOCKS, NO_SOCKS
 }

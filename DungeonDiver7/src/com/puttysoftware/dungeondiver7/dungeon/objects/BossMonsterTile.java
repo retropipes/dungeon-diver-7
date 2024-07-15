@@ -13,69 +13,69 @@ import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.utility.RandomGenerationRule;
 
 public class BossMonsterTile extends AbstractMovingObject {
-    // Constructors
-    public BossMonsterTile() {
-	super(false);
-	this.setSavedObject(new Empty());
-    }
-
-    @Override
-    public int getBaseID() {
-	return ObjectImageConstants.BOSS;
-    }
-
-    @Override
-    public String getDescription() {
-	return "Boss Monsters are very dangerous. Encountering one starts a boss battle.";
-    }
-
-    @Override
-    public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
-	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
-	    return RandomGenerationRule.NO_LIMIT;
+	// Constructors
+	public BossMonsterTile() {
+		super(false);
+		this.setSavedObject(new Empty());
 	}
-	return 1;
-    }
 
-    @Override
-    public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
-	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
-	    return RandomGenerationRule.NO_LIMIT;
+	@Override
+	public int getBaseID() {
+		return ObjectImageConstants.BOSS;
 	}
-	return 1;
-    }
 
-    @Override
-    public String getName() {
-	return "Boss Monster";
-    }
-
-    @Override
-    public String getPluralName() {
-	return "Boss Monsters";
-    }
-
-    @Override
-    public boolean isRequired(final AbstractDungeon dungeon) {
-	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
-	    return false;
+	@Override
+	public String getDescription() {
+		return "Boss Monsters are very dangerous. Encountering one starts a boss battle.";
 	}
-	return true;
-    }
 
-    @Override
-    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	if (DungeonDiver7.getStuffBag().getMode() != StuffBag.STATUS_BATTLE) {
-	    DungeonDiver7.getStuffBag().getBattle().doBossBattle();
+	@Override
+	public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
+		if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
+			return RandomGenerationRule.NO_LIMIT;
+		}
+		return 1;
 	}
-    }
 
-    @Override
-    public boolean shouldGenerateObject(final AbstractDungeon dungeon, final int row, final int col, final int level,
-	    final int layer) {
-	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
-	    return false;
+	@Override
+	public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
+		if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
+			return RandomGenerationRule.NO_LIMIT;
+		}
+		return 1;
 	}
-	return super.shouldGenerateObject(dungeon, row, col, level, layer);
-    }
+
+	@Override
+	public String getName() {
+		return "Boss Monster";
+	}
+
+	@Override
+	public String getPluralName() {
+		return "Boss Monsters";
+	}
+
+	@Override
+	public boolean isRequired(final AbstractDungeon dungeon) {
+		if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+		if (DungeonDiver7.getStuffBag().getMode() != StuffBag.STATUS_BATTLE) {
+			DungeonDiver7.getStuffBag().getBattle().doBossBattle();
+		}
+	}
+
+	@Override
+	public boolean shouldGenerateObject(final AbstractDungeon dungeon, final int row, final int col, final int level,
+			final int layer) {
+		if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
+			return false;
+		}
+		return super.shouldGenerateObject(dungeon, row, col, level, layer);
+	}
 }

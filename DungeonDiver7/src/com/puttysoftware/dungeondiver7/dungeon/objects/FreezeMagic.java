@@ -12,21 +12,21 @@ import com.puttysoftware.dungeondiver7.loader.SoundLoader;
 import com.puttysoftware.dungeondiver7.loader.Sounds;
 
 public class FreezeMagic extends AbstractSpell {
-    // Constructors
-    public FreezeMagic() {
-    }
+	// Constructors
+	public FreezeMagic() {
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 142;
-    }
+	@Override
+	public final int getBaseID() {
+		return 142;
+	}
 
-    // Scriptability
-    @Override
-    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(Sounds.FREEZE_MAGIC);
-	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().fullScanFreezeGround();
-	DungeonDiver7.getStuffBag().getGameLogic();
-	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-    }
+	// Scriptability
+	@Override
+	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+		SoundLoader.playSound(Sounds.FREEZE_MAGIC);
+		DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().fullScanFreezeGround();
+		DungeonDiver7.getStuffBag().getGameLogic();
+		GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+	}
 }

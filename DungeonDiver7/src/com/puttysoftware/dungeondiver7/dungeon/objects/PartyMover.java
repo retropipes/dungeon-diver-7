@@ -5,20 +5,21 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.direction.Direction;
+import org.retropipes.diane.direction.Direction;
+
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMover;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class PartyMover extends AbstractMover {
-    // Constructors
-    public PartyMover() {
-	this.setDirection(Direction.NORTH);
-	this.setFrameNumber(1);
-	this.type.set(DungeonObjectTypes.TYPE_MOVER);
-    }
+	// Constructors
+	public PartyMover() {
+		this.setDirection(Direction.NORTH);
+		this.setFrameNumber(1);
+		this.type.set(DungeonObjectTypes.TYPE_MOVER);
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 37;
-    }
+	@Override
+	public final int getBaseID() {
+		return 37;
+	}
 }

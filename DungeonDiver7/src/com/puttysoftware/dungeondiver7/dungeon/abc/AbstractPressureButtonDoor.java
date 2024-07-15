@@ -8,8 +8,8 @@ package com.puttysoftware.dungeondiver7.dungeon.abc;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractPressureButtonDoor extends AbstractButtonDoor {
-    // Constructors
-    protected AbstractPressureButtonDoor() {
-	this.type.set(DungeonObjectTypes.TYPE_PRESSURE_BUTTON_DOOR);
-    }
+	// Constructors
+	protected AbstractPressureButtonDoor() {
+		this.type.set(DungeonObjectTypes.TYPE_PRESSURE_BUTTON_DOOR);
+	}
 }

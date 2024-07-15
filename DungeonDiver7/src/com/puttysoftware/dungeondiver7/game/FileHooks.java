@@ -7,20 +7,21 @@ package com.puttysoftware.dungeondiver7.game;
 
 import java.io.IOException;
 
-import com.puttysoftware.diane.fileio.DataIOReader;
-import com.puttysoftware.diane.fileio.DataIOWriter;
+import org.retropipes.diane.fileio.DataIOReader;
+import org.retropipes.diane.fileio.DataIOWriter;
+
 import com.puttysoftware.dungeondiver7.creature.party.PartyManager;
 
 public class FileHooks {
-    public static void loadGameHook(final DataIOReader mapFile) throws IOException {
-	PartyManager.loadGameHook(mapFile);
-    }
+	public static void loadGameHook(final DataIOReader mapFile) throws IOException {
+		PartyManager.loadGameHook(mapFile);
+	}
 
-    public static void saveGameHook(final DataIOWriter mapFile) throws IOException {
-	PartyManager.saveGameHook(mapFile);
-    }
+	public static void saveGameHook(final DataIOWriter mapFile) throws IOException {
+		PartyManager.saveGameHook(mapFile);
+	}
 
-    private FileHooks() {
-	// Do nothing
-    }
+	private FileHooks() {
+		// Do nothing
+	}
 }

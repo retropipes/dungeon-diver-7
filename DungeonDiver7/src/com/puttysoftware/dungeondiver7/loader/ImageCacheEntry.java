@@ -5,31 +5,31 @@
  */
 package com.puttysoftware.dungeondiver7.loader;
 
-import com.puttysoftware.diane.assets.image.BufferedImageIcon;
+import org.retropipes.diane.asset.image.BufferedImageIcon;
 
 class ImageCacheEntry {
-    // Fields
-    private BufferedImageIcon entry;
-    private String nameEntry;
+	// Fields
+	private BufferedImageIcon entry;
+	private String nameEntry;
 
-    // Constructor
-    ImageCacheEntry() {
-	// Do nothing
-    }
+	// Constructor
+	ImageCacheEntry() {
+		// Do nothing
+	}
 
-    BufferedImageIcon getEntry() {
-	return this.entry;
-    }
+	BufferedImageIcon getEntry() {
+		return this.entry;
+	}
 
-    String getNameEntry() {
-	return this.nameEntry;
-    }
+	String getNameEntry() {
+		return this.nameEntry;
+	}
 
-    void setEntry(final BufferedImageIcon entry1) {
-	this.entry = entry1;
-    }
+	void setEntry(final BufferedImageIcon entry1) {
+		this.entry = entry1;
+	}
 
-    void setNameEntry(final String nameEntry1) {
-	this.nameEntry = nameEntry1;
-    }
+	void setNameEntry(final String nameEntry1) {
+		this.nameEntry = nameEntry1;
+	}
 }

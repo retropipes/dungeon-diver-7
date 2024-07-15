@@ -9,27 +9,27 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractGround;
 import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 
 public class Tile extends AbstractGround {
-    // Constructors
-    public Tile() {
-    }
+	// Constructors
+	public Tile() {
+	}
 
-    @Override
-    public final int getBaseID() {
-	return ObjectImageConstants.TILE;
-    }
+	@Override
+	public final int getBaseID() {
+		return ObjectImageConstants.TILE;
+	}
 
-    @Override
-    public String getDescription() {
-	return "Tile is one of the many types of ground - unlike other types of ground, objects can be pushed and pulled over Tiles.";
-    }
+	@Override
+	public String getDescription() {
+		return "Tile is one of the many types of ground - unlike other types of ground, objects can be pushed and pulled over Tiles.";
+	}
 
-    @Override
-    public String getName() {
-	return "Tile";
-    }
+	@Override
+	public String getName() {
+		return "Tile";
+	}
 
-    @Override
-    public String getPluralName() {
-	return "Tiles";
-    }
+	@Override
+	public String getPluralName() {
+		return "Tiles";
+	}
 }

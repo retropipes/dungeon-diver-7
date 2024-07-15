@@ -7,21 +7,22 @@ package com.puttysoftware.dungeondiver7.manager.file;
 
 import java.io.IOException;
 
-import com.puttysoftware.diane.fileio.DataIOReader;
-import com.puttysoftware.diane.fileio.DataIOWriter;
+import org.retropipes.diane.fileio.DataIOReader;
+import org.retropipes.diane.fileio.DataIOWriter;
+
 import com.puttysoftware.dungeondiver7.DungeonDiver7;
 import com.puttysoftware.dungeondiver7.game.FileHooks;
 
 public class SuffixHandler implements AbstractSuffixIO {
-    @Override
-    public void readSuffix(final DataIOReader reader, final int formatVersion) throws IOException {
-	DungeonDiver7.getStuffBag().getGameLogic();
-	FileHooks.loadGameHook(reader);
-    }
+	@Override
+	public void readSuffix(final DataIOReader reader, final int formatVersion) throws IOException {
+		DungeonDiver7.getStuffBag().getGameLogic();
+		FileHooks.loadGameHook(reader);
+	}
 
-    @Override
-    public void writeSuffix(final DataIOWriter writer) throws IOException {
-	DungeonDiver7.getStuffBag().getGameLogic();
-	FileHooks.saveGameHook(writer);
-    }
+	@Override
+	public void writeSuffix(final DataIOWriter writer) throws IOException {
+		DungeonDiver7.getStuffBag().getGameLogic();
+		FileHooks.saveGameHook(writer);
+	}
 }

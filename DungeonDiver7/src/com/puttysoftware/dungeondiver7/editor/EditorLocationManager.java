@@ -8,135 +8,135 @@ package com.puttysoftware.dungeondiver7.editor;
 import com.puttysoftware.dungeondiver7.dungeon.AbstractDungeon;
 
 public final class EditorLocationManager {
-    // Fields
-    private int locX, locY, locZ, locW;
-    private int locU;
-    private int minX, minY, minZ, minU;
-    private int maxU;
-    private int maxX, maxY, maxZ;
+	// Fields
+	private int locX, locY, locZ, locW;
+	private int locU;
+	private int minX, minY, minZ, minU;
+	private int maxU;
+	private int maxX, maxY, maxZ;
 
-    // Constructors
-    public EditorLocationManager() {
-	this.resetEditorLocation();
-    }
-
-    private void checkLimits() {
-	// Check for limits out of bounds
-	if (this.locU < this.minU) {
-	    this.locU = this.minU;
+	// Constructors
+	public EditorLocationManager() {
+		this.resetEditorLocation();
 	}
-	if (this.locU > this.maxU) {
-	    this.locU = this.maxU;
+
+	private void checkLimits() {
+		// Check for limits out of bounds
+		if (this.locU < this.minU) {
+			this.locU = this.minU;
+		}
+		if (this.locU > this.maxU) {
+			this.locU = this.maxU;
+		}
+		if (this.locX < this.minX) {
+			this.locX = this.minX;
+		}
+		if (this.locX > this.maxX) {
+			this.locX = this.maxX;
+		}
+		if (this.locY < this.minY) {
+			this.locY = this.minY;
+		}
+		if (this.locY > this.maxY) {
+			this.locY = this.maxY;
+		}
+		if (this.locZ < this.minZ) {
+			this.locZ = this.minZ;
+		}
+		if (this.locZ > this.maxZ) {
+			this.locZ = this.maxZ;
+		}
 	}
-	if (this.locX < this.minX) {
-	    this.locX = this.minX;
+
+	public int getEditorLocationU() {
+		return this.locU;
 	}
-	if (this.locX > this.maxX) {
-	    this.locX = this.maxX;
+
+	int getEditorLocationW() {
+		return this.locW;
 	}
-	if (this.locY < this.minY) {
-	    this.locY = this.minY;
+
+	int getEditorLocationX() {
+		return this.locX;
 	}
-	if (this.locY > this.maxY) {
-	    this.locY = this.maxY;
+
+	int getEditorLocationY() {
+		return this.locY;
 	}
-	if (this.locZ < this.minZ) {
-	    this.locZ = this.minZ;
+
+	int getEditorLocationZ() {
+		return this.locZ;
 	}
-	if (this.locZ > this.maxZ) {
-	    this.locZ = this.maxZ;
+
+	int getMaxEditorLocationU() {
+		return this.maxU;
 	}
-    }
 
-    public int getEditorLocationU() {
-	return this.locU;
-    }
+	int getMaxEditorLocationZ() {
+		return this.maxZ;
+	}
 
-    int getEditorLocationW() {
-	return this.locW;
-    }
+	int getMinEditorLocationU() {
+		return this.minU;
+	}
 
-    int getEditorLocationX() {
-	return this.locX;
-    }
+	int getMinEditorLocationZ() {
+		return this.minZ;
+	}
 
-    int getEditorLocationY() {
-	return this.locY;
-    }
+	void offsetEditorLocationU(final int val) {
+		this.locU += val;
+		this.checkLimits();
+	}
 
-    int getEditorLocationZ() {
-	return this.locZ;
-    }
+	void offsetEditorLocationZ(final int val) {
+		this.locZ += val;
+		this.checkLimits();
+	}
 
-    int getMaxEditorLocationU() {
-	return this.maxU;
-    }
+	private void resetEditorLocation() {
+		this.locX = 0;
+		this.locY = 0;
+		this.locZ = 0;
+		this.locW = 0;
+		this.locU = 0;
+		this.maxX = 0;
+		this.maxY = 0;
+		this.maxZ = 0;
+		this.maxU = 0;
+		this.minX = 0;
+		this.minY = 0;
+		this.minZ = 0;
+		this.minU = 0;
+	}
 
-    int getMaxEditorLocationZ() {
-	return this.maxZ;
-    }
+	void setEditorLocationU(final int val) {
+		this.locU = val;
+		this.checkLimits();
+	}
 
-    int getMinEditorLocationU() {
-	return this.minU;
-    }
+	void setEditorLocationW(final int val) {
+		this.locW = val;
+	}
 
-    int getMinEditorLocationZ() {
-	return this.minZ;
-    }
+	void setEditorLocationX(final int val) {
+		this.locX = val;
+		this.checkLimits();
+	}
 
-    void offsetEditorLocationU(final int val) {
-	this.locU += val;
-	this.checkLimits();
-    }
+	void setEditorLocationY(final int val) {
+		this.locY = val;
+		this.checkLimits();
+	}
 
-    void offsetEditorLocationZ(final int val) {
-	this.locZ += val;
-	this.checkLimits();
-    }
-
-    private void resetEditorLocation() {
-	this.locX = 0;
-	this.locY = 0;
-	this.locZ = 0;
-	this.locW = 0;
-	this.locU = 0;
-	this.maxX = 0;
-	this.maxY = 0;
-	this.maxZ = 0;
-	this.maxU = 0;
-	this.minX = 0;
-	this.minY = 0;
-	this.minZ = 0;
-	this.minU = 0;
-    }
-
-    void setEditorLocationU(final int val) {
-	this.locU = val;
-	this.checkLimits();
-    }
-
-    void setEditorLocationW(final int val) {
-	this.locW = val;
-    }
-
-    void setEditorLocationX(final int val) {
-	this.locX = val;
-	this.checkLimits();
-    }
-
-    void setEditorLocationY(final int val) {
-	this.locY = val;
-	this.checkLimits();
-    }
-
-    void setLimitsFromDungeon(final AbstractDungeon m) {
-	this.minX = 0;
-	this.minY = 0;
-	this.minZ = 0;
-	this.minU = 0;
-	this.maxU = m.getLevels() - 1;
-	this.maxX = m.getRows();
-	this.maxY = m.getColumns();
-	this.maxZ = m.getFloors() - 1;
-    }
+	void setLimitsFromDungeon(final AbstractDungeon m) {
+		this.minX = 0;
+		this.minY = 0;
+		this.minZ = 0;
+		this.minU = 0;
+		this.maxU = m.getLevels() - 1;
+		this.maxX = m.getRows();
+		this.maxY = m.getColumns();
+		this.maxZ = m.getFloors() - 1;
+	}
 }

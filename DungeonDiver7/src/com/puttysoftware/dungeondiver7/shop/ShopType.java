@@ -6,9 +6,5 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.shop;
 
 public enum ShopType {
-    WEAPONS,
-    ARMOR,
-    HEALER,
-    REGENERATOR,
-    SPELLS;
+	WEAPONS, ARMOR, HEALER, REGENERATOR, SPELLS;
 }

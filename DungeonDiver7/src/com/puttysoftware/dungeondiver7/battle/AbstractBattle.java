@@ -8,55 +8,55 @@ package com.puttysoftware.dungeondiver7.battle;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 
 public abstract class AbstractBattle {
-    // Constructors
-    protected AbstractBattle() {
-	// Do nothing
-    }
+	// Constructors
+	protected AbstractBattle() {
+		// Do nothing
+	}
 
-    public abstract void battleDone();
+	public abstract void battleDone();
 
-    public abstract boolean castSpell();
+	public abstract boolean castSpell();
 
-    public abstract void displayActiveEffects();
+	public abstract void displayActiveEffects();
 
-    public abstract void displayBattleStats();
+	public abstract void displayBattleStats();
 
-    public abstract void doBattle();
+	public abstract void doBattle();
 
-    public abstract void doBattleByProxy();
+	public abstract void doBattleByProxy();
 
-    public abstract void doBossBattle();
+	public abstract void doBossBattle();
 
-    public abstract void doFinalBossBattle();
+	public abstract void doFinalBossBattle();
 
-    public abstract boolean doPlayerActions(final int actionType);
+	public abstract boolean doPlayerActions(final int actionType);
 
-    public abstract void doResult();
+	public abstract void doResult();
 
-    public abstract boolean drain();
+	public abstract boolean drain();
 
-    public abstract void endTurn();
+	public abstract void endTurn();
 
-    public abstract void executeNextAIAction();
+	public abstract void executeNextAIAction();
 
-    public abstract AbstractCreature getEnemy();
+	public abstract AbstractCreature getEnemy();
 
-    public abstract boolean getLastAIActionResult();
+	public abstract boolean getLastAIActionResult();
 
-    public abstract BattleResult getResult();
+	public abstract BattleResult getResult();
 
-    public abstract boolean isWaitingForAI();
+	public abstract boolean isWaitingForAI();
 
-    public abstract void maintainEffects(final boolean player);
+	public abstract void maintainEffects(final boolean player);
 
-    // Generic Methods
-    public abstract void resetGUI();
+	// Generic Methods
+	public abstract void resetGUI();
 
-    public abstract void setResult(final int resultCode);
+	public abstract void setResult(final int resultCode);
 
-    public abstract void setStatusMessage(final String msg);
+	public abstract void setStatusMessage(final String msg);
 
-    public abstract boolean steal();
+	public abstract boolean steal();
 
-    public abstract boolean updatePosition(int x, int y);
+	public abstract boolean updatePosition(int x, int y);
 }

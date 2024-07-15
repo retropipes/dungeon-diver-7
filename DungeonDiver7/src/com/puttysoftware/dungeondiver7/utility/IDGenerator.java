@@ -5,15 +5,15 @@
  */
 package com.puttysoftware.dungeondiver7.utility;
 
-import com.puttysoftware.diane.random.RandomLongRange;
+import org.retropipes.diane.random.RandomLongRange;
 
 public class IDGenerator {
-    public static String generateRandomFilename() {
-	return Long.toString(RandomLongRange.generateRaw(), 36).toLowerCase();
-    }
+	public static String generateRandomFilename() {
+		return Long.toString(RandomLongRange.generateRaw(), 36).toLowerCase();
+	}
 
-    // Constructor
-    private IDGenerator() {
-	// Do nothing
-    }
+	// Constructor
+	private IDGenerator() {
+		// Do nothing
+	}
 }

@@ -8,23 +8,23 @@ package com.puttysoftware.dungeondiver7.creature.job;
 import com.puttysoftware.dungeondiver7.loader.JobDescriptionManager;
 
 public class Job {
-    static String jobIDtoName(final int jobID) {
-	return JobConstants.JOB_NAMES[jobID];
-    }
+	static String jobIDtoName(final int jobID) {
+		return JobConstants.JOB_NAMES[jobID];
+	}
 
-    private final int jobID;
-    private final String desc;
+	private final int jobID;
+	private final String desc;
 
-    public Job(final int cid) {
-	this.desc = JobDescriptionManager.getJobDescription(cid);
-	this.jobID = cid;
-    }
+	public Job(final int cid) {
+		this.desc = JobDescriptionManager.getJobDescription(cid);
+		this.jobID = cid;
+	}
 
-    public final int getJobID() {
-	return this.jobID;
-    }
+	public final int getJobID() {
+		return this.jobID;
+	}
 
-    public String getDescription() {
-	return this.desc;
-    }
+	public String getDescription() {
+		return this.desc;
+	}
 }

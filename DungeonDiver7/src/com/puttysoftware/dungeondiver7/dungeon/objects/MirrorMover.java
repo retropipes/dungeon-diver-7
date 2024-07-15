@@ -5,21 +5,22 @@
  */
 package com.puttysoftware.dungeondiver7.dungeon.objects;
 
-import com.puttysoftware.diane.direction.Direction;
+import org.retropipes.diane.direction.Direction;
+
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractMover;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public class MirrorMover extends AbstractMover {
-    // Constructors
-    public MirrorMover() {
-	super(true);
-	this.setDirection(Direction.NORTH);
-	this.setFrameNumber(1);
-	this.type.set(DungeonObjectTypes.TYPE_MIRROR_MOVER);
-    }
+	// Constructors
+	public MirrorMover() {
+		super(true);
+		this.setDirection(Direction.NORTH);
+		this.setFrameNumber(1);
+		this.type.set(DungeonObjectTypes.TYPE_MIRROR_MOVER);
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 125;
-    }
+	@Override
+	public final int getBaseID() {
+		return 125;
+	}
 }

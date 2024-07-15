@@ -9,13 +9,13 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractAllButtonDoor;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class UniversalAllButtonDoor extends AbstractAllButtonDoor {
-    // Constructors
-    public UniversalAllButtonDoor() {
-	this.setMaterial(Materials.DEFAULT);
-    }
+	// Constructors
+	public UniversalAllButtonDoor() {
+		this.setMaterial(Materials.DEFAULT);
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 111;
-    }
+	@Override
+	public final int getBaseID() {
+		return 111;
+	}
 }

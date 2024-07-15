@@ -9,14 +9,14 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractAllButton;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class FireAllButton extends AbstractAllButton {
-    // Constructors
-    public FireAllButton() {
-	super(new FireAllButtonDoor(), false);
-	this.setMaterial(Materials.FIRE);
-    }
+	// Constructors
+	public FireAllButton() {
+		super(new FireAllButtonDoor(), false);
+		this.setMaterial(Materials.FIRE);
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 74;
-    }
+	@Override
+	public final int getBaseID() {
+		return 74;
+	}
 }

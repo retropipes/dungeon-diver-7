@@ -6,19 +6,19 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package com.puttysoftware.dungeondiver7.names;
 
 public class Zones {
-    public static final String getZoneNumber(final int ID) {
-	final var tempZoneID = Integer.toString(ID);
-	String zoneID;
-	if (tempZoneID.length() == 1) {
-	    zoneID = "0" + tempZoneID;
-	} else {
-	    zoneID = tempZoneID;
+	public static final String getZoneNumber(final int ID) {
+		final var tempZoneID = Integer.toString(ID);
+		String zoneID;
+		if (tempZoneID.length() == 1) {
+			zoneID = "0" + tempZoneID;
+		} else {
+			zoneID = tempZoneID;
+		}
+		return zoneID;
 	}
-	return zoneID;
-    }
 
-    // Private constructor
-    private Zones() {
-	// Do nothing
-    }
+	// Private constructor
+	private Zones() {
+		// Do nothing
+	}
 }

@@ -9,14 +9,14 @@ import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractPressureButton;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class FirePressureButton extends AbstractPressureButton {
-    // Constructors
-    public FirePressureButton() {
-	super(new FirePressureButtonDoor(), false);
-	this.setMaterial(Materials.FIRE);
-    }
+	// Constructors
+	public FirePressureButton() {
+		super(new FirePressureButtonDoor(), false);
+		this.setMaterial(Materials.FIRE);
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 76;
-    }
+	@Override
+	public final int getBaseID() {
+		return 76;
+	}
 }

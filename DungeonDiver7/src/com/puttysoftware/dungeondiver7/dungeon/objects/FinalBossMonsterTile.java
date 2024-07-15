@@ -13,79 +13,79 @@ import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.utility.RandomGenerationRule;
 
 public class FinalBossMonsterTile extends AbstractMovingObject {
-    // Constructors
-    public FinalBossMonsterTile() {
-	super(false);
-	this.setSavedObject(new Empty());
-	this.activateTimer(1);
-    }
-
-    @Override
-    public int getBaseID() {
-	return ObjectImageConstants.FINAL_BOSS;
-    }
-
-    @Override
-    public String getDescription() {
-	return "Final Boss Monsters are extremely dangerous. Encountering one starts a final boss battle.";
-    }
-
-    @Override
-    public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
-	if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
-	    return RandomGenerationRule.NO_LIMIT;
+	// Constructors
+	public FinalBossMonsterTile() {
+		super(false);
+		this.setSavedObject(new Empty());
+		this.activateTimer(1);
 	}
-	return 1;
-    }
 
-    @Override
-    public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
-	if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
-	    return RandomGenerationRule.NO_LIMIT;
+	@Override
+	public int getBaseID() {
+		return ObjectImageConstants.FINAL_BOSS;
 	}
-	return 1;
-    }
 
-    @Override
-    public String getName() {
-	return "Final Boss Monster";
-    }
-
-    @Override
-    public String getPluralName() {
-	return "Final Boss Monsters";
-    }
-
-    @Override
-    public boolean isRequired(final AbstractDungeon dungeon) {
-	if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
-	    return false;
+	@Override
+	public String getDescription() {
+		return "Final Boss Monsters are extremely dangerous. Encountering one starts a final boss battle.";
 	}
-	return true;
-    }
 
-    @Override
-    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	if (DungeonDiver7.getStuffBag().getMode() != StuffBag.STATUS_BATTLE) {
-	    DungeonDiver7.getStuffBag().getBattle().doFinalBossBattle();
+	@Override
+	public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
+		if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
+			return RandomGenerationRule.NO_LIMIT;
+		}
+		return 1;
 	}
-    }
 
-    @Override
-    public boolean shouldGenerateObject(final AbstractDungeon dungeon, final int row, final int col, final int level,
-	    final int layer) {
-	if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
-	    return false;
+	@Override
+	public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
+		if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
+			return RandomGenerationRule.NO_LIMIT;
+		}
+		return 1;
 	}
-	return super.shouldGenerateObject(dungeon, row, col, level, layer);
-    }
 
-    @Override
-    public void timerExpiredAction(final int locX, final int locY) {
-	// Move the monster
-	final var dungeon = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	final var move = dungeon.computeFinalBossMoveDirection(locX, locY, 0, 0);
-	dungeon.updateMonsterPosition(move, locX, locY, this, 0);
-	this.activateTimer(1);
-    }
+	@Override
+	public String getName() {
+		return "Final Boss Monster";
+	}
+
+	@Override
+	public String getPluralName() {
+		return "Final Boss Monsters";
+	}
+
+	@Override
+	public boolean isRequired(final AbstractDungeon dungeon) {
+		if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+		if (DungeonDiver7.getStuffBag().getMode() != StuffBag.STATUS_BATTLE) {
+			DungeonDiver7.getStuffBag().getBattle().doFinalBossBattle();
+		}
+	}
+
+	@Override
+	public boolean shouldGenerateObject(final AbstractDungeon dungeon, final int row, final int col, final int level,
+			final int layer) {
+		if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
+			return false;
+		}
+		return super.shouldGenerateObject(dungeon, row, col, level, layer);
+	}
+
+	@Override
+	public void timerExpiredAction(final int locX, final int locY) {
+		// Move the monster
+		final var dungeon = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+		final var move = dungeon.computeFinalBossMoveDirection(locX, locY, 0, 0);
+		dungeon.updateMonsterPosition(move, locX, locY, this, 0);
+		this.activateTimer(1);
+	}
 }

@@ -12,60 +12,60 @@ import com.puttysoftware.dungeondiver7.effect.Effect;
 import com.puttysoftware.dungeondiver7.loader.Sounds;
 
 public class Spell {
-    // Fields
-    private final Effect effect;
-    private final int cost;
-    private final BattleTarget target;
-    private final Sounds soundEffect;
+	// Fields
+	private final Effect effect;
+	private final int cost;
+	private final BattleTarget target;
+	private final Sounds soundEffect;
 
-    // Constructors
-    public Spell() {
-	this.effect = null;
-	this.cost = 0;
-	this.target = null;
-	this.soundEffect = Sounds._NONE;
-    }
-
-    public Spell(final Effect newEffect, final int newCost, final BattleTarget newTarget, final Sounds sfx) {
-	this.effect = newEffect;
-	this.cost = newCost;
-	this.target = newTarget;
-	this.soundEffect = sfx;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-	if (this == obj) {
-	    return true;
+	// Constructors
+	public Spell() {
+		this.effect = null;
+		this.cost = 0;
+		this.target = null;
+		this.soundEffect = Sounds._NONE;
 	}
-	if (obj == null || !(obj instanceof final Spell other) || this.cost != other.cost
-		|| !Objects.equals(this.effect, other.effect)) {
-	    return false;
+
+	public Spell(final Effect newEffect, final int newCost, final BattleTarget newTarget, final Sounds sfx) {
+		this.effect = newEffect;
+		this.cost = newCost;
+		this.target = newTarget;
+		this.soundEffect = sfx;
 	}
-	if (this.soundEffect != other.soundEffect || this.target != other.target) {
-	    return false;
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || !(obj instanceof final Spell other) || this.cost != other.cost
+				|| !Objects.equals(this.effect, other.effect)) {
+			return false;
+		}
+		if (this.soundEffect != other.soundEffect || this.target != other.target) {
+			return false;
+		}
+		return true;
 	}
-	return true;
-    }
 
-    public int getCost() {
-	return this.cost;
-    }
+	public int getCost() {
+		return this.cost;
+	}
 
-    public Effect getEffect() {
-	return this.effect;
-    }
+	public Effect getEffect() {
+		return this.effect;
+	}
 
-    Sounds getSound() {
-	return this.soundEffect;
-    }
+	Sounds getSound() {
+		return this.soundEffect;
+	}
 
-    BattleTarget getTarget() {
-	return this.target;
-    }
+	BattleTarget getTarget() {
+		return this.target;
+	}
 
-    @Override
-    public int hashCode() {
-	return Objects.hash(this.cost, this.effect, this.soundEffect, this.target);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.cost, this.effect, this.soundEffect, this.target);
+	}
 }

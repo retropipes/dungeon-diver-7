@@ -9,13 +9,13 @@ import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public abstract class AbstractInventoryModifier extends AbstractGround {
-    // Constructors
-    protected AbstractInventoryModifier() {
-	this.setMaterial(Materials.NOT_APPLICABLE);
-    }
+	// Constructors
+	protected AbstractInventoryModifier() {
+		this.setMaterial(Materials.NOT_APPLICABLE);
+	}
 
-    @Override
-    public int getLayer() {
-	return DungeonConstants.LAYER_LOWER_OBJECTS;
-    }
+	@Override
+	public int getLayer() {
+		return DungeonConstants.LAYER_LOWER_OBJECTS;
+	}
 }

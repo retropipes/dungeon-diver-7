@@ -13,33 +13,33 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class MetallicBox extends AbstractMovableObject {
-    // Constructors
-    public MetallicBox() {
-	super(true);
-	this.type.set(DungeonObjectTypes.TYPE_BOX);
-	this.setMaterial(Materials.METALLIC);
-    }
-
-    @Override
-    public AbstractDungeonObject changesToOnExposure(final int materialID) {
-	return switch (materialID) {
-	case Materials.ICE -> {
-	    final var ib = new IcyBox();
-	    ib.setPreviousState(this);
-	    yield ib;
+	// Constructors
+	public MetallicBox() {
+		super(true);
+		this.type.set(DungeonObjectTypes.TYPE_BOX);
+		this.setMaterial(Materials.METALLIC);
 	}
-	case Materials.FIRE -> new HotBox();
-	default -> this;
-	};
-    }
 
-    @Override
-    public final int getBaseID() {
-	return 73;
-    }
+	@Override
+	public AbstractDungeonObject changesToOnExposure(final int materialID) {
+		return switch (materialID) {
+		case Materials.ICE -> {
+			final var ib = new IcyBox();
+			ib.setPreviousState(this);
+			yield ib;
+		}
+		case Materials.FIRE -> new HotBox();
+		default -> this;
+		};
+	}
 
-    @Override
-    public void playSoundHook() {
-	SoundLoader.playSound(Sounds.PUSH_BOX);
-    }
+	@Override
+	public final int getBaseID() {
+		return 73;
+	}
+
+	@Override
+	public void playSoundHook() {
+		SoundLoader.playSound(Sounds.PUSH_BOX);
+	}
 }

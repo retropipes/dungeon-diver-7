@@ -8,17 +8,17 @@ package com.puttysoftware.dungeondiver7.dungeon.objects;
 import com.puttysoftware.dungeondiver7.dungeon.abc.AbstractTransientObject;
 
 public class Disruptor extends AbstractTransientObject {
-    // Constructors
-    public Disruptor() {
-    }
+	// Constructors
+	public Disruptor() {
+	}
 
-    @Override
-    public final int getBaseID() {
-	return 47;
-    }
+	@Override
+	public final int getBaseID() {
+		return 47;
+	}
 
-    @Override
-    public int getForceUnitsImbued() {
-	return 0;
-    }
+	@Override
+	public int getForceUnitsImbued() {
+		return 0;
+	}
 }

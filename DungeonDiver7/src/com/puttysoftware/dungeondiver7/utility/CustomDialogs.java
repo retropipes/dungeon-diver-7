@@ -5,19 +5,20 @@
  */
 package com.puttysoftware.dungeondiver7.utility;
 
-import com.puttysoftware.diane.gui.dialog.CommonDialogs;
+import org.retropipes.diane.gui.dialog.CommonDialogs;
+
 import com.puttysoftware.dungeondiver7.locale.DialogString;
 import com.puttysoftware.dungeondiver7.locale.Strings;
 
 public class CustomDialogs {
-    public static int showDeadDialog() {
-	return CommonDialogs.showCustomDialogWithDefault(Strings.dialog(DialogString.DEAD_MESSAGE),
-		Strings.dialog(DialogString.DEAD_TITLE), new String[] { Strings.dialog(DialogString.UNDO_BUTTON),
-			Strings.dialog(DialogString.RESTART_BUTTON), Strings.dialog(DialogString.END_BUTTON) },
-		Strings.dialog(DialogString.UNDO_BUTTON));
-    }
+	public static int showDeadDialog() {
+		return CommonDialogs.showCustomDialogWithDefault(Strings.dialog(DialogString.DEAD_MESSAGE),
+				Strings.dialog(DialogString.DEAD_TITLE), new String[] { Strings.dialog(DialogString.UNDO_BUTTON),
+						Strings.dialog(DialogString.RESTART_BUTTON), Strings.dialog(DialogString.END_BUTTON) },
+				Strings.dialog(DialogString.UNDO_BUTTON));
+	}
 
-    private CustomDialogs() {
-	// Do nothing
-    }
+	private CustomDialogs() {
+		// Do nothing
+	}
 }

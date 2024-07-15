@@ -10,28 +10,28 @@ import com.puttysoftware.dungeondiver7.loader.ObjectImageConstants;
 import com.puttysoftware.dungeondiver7.shop.ShopType;
 
 public class Regenerator extends AbstractShop {
-    // Constructors
-    public Regenerator() {
-	super(ShopType.REGENERATOR);
-    }
+	// Constructors
+	public Regenerator() {
+		super(ShopType.REGENERATOR);
+	}
 
-    @Override
-    public int getBaseID() {
-	return ObjectImageConstants.REGENERATOR;
-    }
+	@Override
+	public int getBaseID() {
+		return ObjectImageConstants.REGENERATOR;
+	}
 
-    @Override
-    public String getDescription() {
-	return "Regenerators restore magic, for a fee.";
-    }
+	@Override
+	public String getDescription() {
+		return "Regenerators restore magic, for a fee.";
+	}
 
-    @Override
-    public String getName() {
-	return "Regenerator";
-    }
+	@Override
+	public String getName() {
+		return "Regenerator";
+	}
 
-    @Override
-    public String getPluralName() {
-	return "Regenerators";
-    }
+	@Override
+	public String getPluralName() {
+		return "Regenerators";
+	}
 }

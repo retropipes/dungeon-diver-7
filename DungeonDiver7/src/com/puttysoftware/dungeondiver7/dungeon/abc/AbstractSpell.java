@@ -9,23 +9,23 @@ import com.puttysoftware.dungeondiver7.utility.DungeonConstants;
 import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractSpell extends AbstractDungeonObject {
-    // Constructors
-    protected AbstractSpell() {
-	this.type.set(DungeonObjectTypes.TYPE_SPELL);
-    }
+	// Constructors
+	protected AbstractSpell() {
+		this.type.set(DungeonObjectTypes.TYPE_SPELL);
+	}
 
-    @Override
-    public int getCustomProperty(final int propID) {
-	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
-    }
+	@Override
+	public int getCustomProperty(final int propID) {
+		return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+	}
 
-    @Override
-    public int getLayer() {
-	return DungeonConstants.LAYER_LOWER_OBJECTS;
-    }
+	@Override
+	public int getLayer() {
+		return DungeonConstants.LAYER_LOWER_OBJECTS;
+	}
 
-    @Override
-    public void setCustomProperty(final int propID, final int value) {
-	// Do nothing
-    }
+	@Override
+	public void setCustomProperty(final int propID, final int value) {
+		// Do nothing
+	}
 }

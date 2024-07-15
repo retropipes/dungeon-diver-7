@@ -8,19 +8,19 @@ package com.puttysoftware.dungeondiver7.creature.monster;
 import com.puttysoftware.dungeondiver7.creature.AbstractCreature;
 
 public class MonsterFactory {
-    public static AbstractCreature getNewBossInstance() {
-	return new BossMonster();
-    }
+	public static AbstractCreature getNewBossInstance() {
+		return new BossMonster();
+	}
 
-    public static AbstractCreature getNewFinalBossInstance() {
-	return new FinalBossMonster();
-    }
+	public static AbstractCreature getNewFinalBossInstance() {
+		return new FinalBossMonster();
+	}
 
-    public static AbstractCreature getNewMonsterInstance() {
-	return new Monster();
-    }
+	public static AbstractCreature getNewMonsterInstance() {
+		return new Monster();
+	}
 
-    private MonsterFactory() {
-	// Do nothing
-    }
+	private MonsterFactory() {
+		// Do nothing
+	}
 }

@@ -13,32 +13,32 @@ import com.puttysoftware.dungeondiver7.utility.DungeonObjectTypes;
 import com.puttysoftware.dungeondiver7.utility.Materials;
 
 public class JumpBox extends AbstractJumpObject {
-    // Constructors
-    public JumpBox() {
-	this.type.set(DungeonObjectTypes.TYPE_BOX);
-	this.setMaterial(Materials.STONE);
-    }
-
-    @Override
-    public AbstractDungeonObject changesToOnExposure(final int materialID) {
-	return switch (materialID) {
-	case Materials.ICE -> {
-	    final var ib = new IcyBox();
-	    ib.setPreviousState(this);
-	    yield ib;
+	// Constructors
+	public JumpBox() {
+		this.type.set(DungeonObjectTypes.TYPE_BOX);
+		this.setMaterial(Materials.STONE);
 	}
-	case Materials.FIRE -> new HotBox();
-	default -> this;
-	};
-    }
 
-    @Override
-    public final int getBaseID() {
-	return 123;
-    }
+	@Override
+	public AbstractDungeonObject changesToOnExposure(final int materialID) {
+		return switch (materialID) {
+		case Materials.ICE -> {
+			final var ib = new IcyBox();
+			ib.setPreviousState(this);
+			yield ib;
+		}
+		case Materials.FIRE -> new HotBox();
+		default -> this;
+		};
+	}
 
-    @Override
-    public final Color getCustomTextColor() {
-	return Color.black;
-    }
+	@Override
+	public final int getBaseID() {
+		return 123;
+	}
+
+	@Override
+	public final Color getCustomTextColor() {
+		return Color.black;
+	}
 }
