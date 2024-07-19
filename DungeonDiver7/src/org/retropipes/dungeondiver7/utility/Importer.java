@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
 import org.retropipes.diane.gui.MainContent;
 import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
-import org.retropipes.dungeondiver7.loader.ExternalMusicImporter;
+import org.retropipes.dungeondiver7.asset.ExternalMusicImporter;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Strings;
 

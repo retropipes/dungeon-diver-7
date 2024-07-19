@@ -6,10 +6,10 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
+import org.retropipes.dungeondiver7.asset.SoundLoader;
+import org.retropipes.dungeondiver7.asset.Sounds;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractSpell;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.loader.SoundLoader;
-import org.retropipes.dungeondiver7.loader.Sounds;
 
 public class KillSkull extends AbstractSpell {
 	// Constructors

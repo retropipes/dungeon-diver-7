@@ -8,8 +8,8 @@ package org.retropipes.dungeondiver7.creature.monster;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.random.RandomLongRange;
 import org.retropipes.diane.random.RandomRange;
+import org.retropipes.dungeondiver7.asset.BossImageManager;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.loader.BossImageManager;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 

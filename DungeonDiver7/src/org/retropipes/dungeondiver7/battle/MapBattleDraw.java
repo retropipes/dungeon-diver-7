@@ -10,7 +10,7 @@ import java.awt.Graphics;
 
 import org.retropipes.diane.drawgrid.DrawGrid;
 import org.retropipes.diane.gui.MainContent;
-import org.retropipes.dungeondiver7.loader.BattleImageManager;
+import org.retropipes.dungeondiver7.asset.BattleImageManager;
 
 public class MapBattleDraw extends MainContent {
 	private static final long serialVersionUID = 35935343464625L;

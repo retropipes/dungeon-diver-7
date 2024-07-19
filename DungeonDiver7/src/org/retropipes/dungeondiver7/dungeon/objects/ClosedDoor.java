@@ -6,11 +6,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
+import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
+import org.retropipes.dungeondiver7.asset.SoundLoader;
+import org.retropipes.dungeondiver7.asset.Sounds;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractPassThroughObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.loader.ObjectImageConstants;
-import org.retropipes.dungeondiver7.loader.SoundLoader;
-import org.retropipes.dungeondiver7.loader.Sounds;
 
 public class ClosedDoor extends AbstractPassThroughObject {
 	// Constructors

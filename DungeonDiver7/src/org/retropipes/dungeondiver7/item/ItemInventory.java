@@ -12,9 +12,9 @@ import java.util.Objects;
 
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
+import org.retropipes.dungeondiver7.asset.SoundLoader;
+import org.retropipes.dungeondiver7.asset.Sounds;
 import org.retropipes.dungeondiver7.creature.AbstractCreature;
-import org.retropipes.dungeondiver7.loader.SoundLoader;
-import org.retropipes.dungeondiver7.loader.Sounds;
 import org.retropipes.dungeondiver7.locale.Slot;
 import org.retropipes.dungeondiver7.locale.Strings;
 

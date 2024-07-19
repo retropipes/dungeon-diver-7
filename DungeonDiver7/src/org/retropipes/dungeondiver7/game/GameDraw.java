@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 import org.retropipes.diane.drawgrid.DrawGrid;
 import org.retropipes.diane.gui.MainContent;
-import org.retropipes.dungeondiver7.loader.ImageLoader;
+import org.retropipes.dungeondiver7.asset.ImageLoader;
 
 public class GameDraw extends MainContent {
 	private static final long serialVersionUID = 35935343464625L;

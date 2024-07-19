@@ -14,9 +14,9 @@ import java.io.IOException;
 import java.util.Locale;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
+import org.retropipes.dungeondiver7.asset.ImageLoader;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Ground;
-import org.retropipes.dungeondiver7.loader.ImageLoader;
 import org.retropipes.dungeondiver7.locale.EditorLayout;
 import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.PrefKey;

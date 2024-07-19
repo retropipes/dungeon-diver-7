@@ -6,10 +6,10 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
+import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
-import org.retropipes.dungeondiver7.loader.ObjectImageConstants;
 
 public class Player extends AbstractCharacter {
 	// Constructors

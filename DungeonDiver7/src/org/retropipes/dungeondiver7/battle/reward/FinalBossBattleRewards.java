@@ -6,10 +6,10 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.battle.reward;
 
 import org.retropipes.diane.gui.dialog.CommonDialogs;
+import org.retropipes.dungeondiver7.asset.SoundLoader;
+import org.retropipes.dungeondiver7.asset.Sounds;
 import org.retropipes.dungeondiver7.battle.BattleResult;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.loader.SoundLoader;
-import org.retropipes.dungeondiver7.loader.Sounds;
 
 class FinalBossBattleRewards {
 	// Fields

@@ -22,7 +22,7 @@ import javax.swing.SwingConstants;
 import org.retropipes.diane.LocaleUtils;
 import org.retropipes.diane.gui.MainContent;
 import org.retropipes.diane.gui.MainWindow;
-import org.retropipes.dungeondiver7.loader.LogoLoader;
+import org.retropipes.dungeondiver7.asset.LogoLoader;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Menu;
 import org.retropipes.dungeondiver7.locale.Strings;

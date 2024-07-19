@@ -18,7 +18,7 @@ import org.retropipes.diane.gui.MainScrollingContent;
 import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.loader.ImageLoader;
+import org.retropipes.dungeondiver7.asset.ImageLoader;
 
 public abstract class GenericEditor {
 	// Fields

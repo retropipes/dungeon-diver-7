@@ -25,13 +25,13 @@ import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.ai.AbstractMapAIRoutine;
+import org.retropipes.dungeondiver7.asset.BattleImageManager;
+import org.retropipes.dungeondiver7.asset.ImageCompositor;
+import org.retropipes.dungeondiver7.asset.SoundLoader;
+import org.retropipes.dungeondiver7.asset.Sounds;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Darkness;
 import org.retropipes.dungeondiver7.dungeon.objects.Wall;
-import org.retropipes.dungeondiver7.loader.BattleImageManager;
-import org.retropipes.dungeondiver7.loader.ImageCompositor;
-import org.retropipes.dungeondiver7.loader.SoundLoader;
-import org.retropipes.dungeondiver7.loader.Sounds;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 

@@ -7,9 +7,9 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.StuffBag;
+import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
 import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
-import org.retropipes.dungeondiver7.loader.ObjectImageConstants;
 import org.retropipes.dungeondiver7.utility.RandomGenerationRule;
 
 public class FinalBossMonsterTile extends AbstractMovingObject {

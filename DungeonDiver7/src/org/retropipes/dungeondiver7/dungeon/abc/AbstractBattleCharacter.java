@@ -9,10 +9,10 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 import java.util.Objects;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
+import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
 import org.retropipes.dungeondiver7.creature.AbstractCreature;
 import org.retropipes.dungeondiver7.creature.StatConstants;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
-import org.retropipes.dungeondiver7.loader.ObjectImageConstants;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 public abstract class AbstractBattleCharacter extends AbstractDungeonObject {

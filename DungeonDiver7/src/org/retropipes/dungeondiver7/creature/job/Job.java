@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.creature.job;
 
-import org.retropipes.dungeondiver7.loader.JobDescriptionManager;
+import org.retropipes.dungeondiver7.asset.JobDescriptionManager;
 
 public class Job {
 	static String jobIDtoName(final int jobID) {

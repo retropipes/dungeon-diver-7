@@ -5,8 +5,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.dungeon.objects;
 
+import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractShop;
-import org.retropipes.dungeondiver7.loader.ObjectImageConstants;
 import org.retropipes.dungeondiver7.shop.ShopType;
 
 public class HealShop extends AbstractShop {

@@ -11,10 +11,10 @@ import java.lang.reflect.InvocationTargetException;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.dungeondiver7.DungeonDiver7;
+import org.retropipes.dungeondiver7.asset.ImageLoader;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.*;
-import org.retropipes.dungeondiver7.loader.ImageLoader;
 
 public class DungeonObjects {
 	// Fields

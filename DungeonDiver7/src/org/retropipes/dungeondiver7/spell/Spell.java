@@ -7,9 +7,9 @@ package org.retropipes.dungeondiver7.spell;
 
 import java.util.Objects;
 
+import org.retropipes.dungeondiver7.asset.Sounds;
 import org.retropipes.dungeondiver7.battle.BattleTarget;
 import org.retropipes.dungeondiver7.effect.Effect;
-import org.retropipes.dungeondiver7.loader.Sounds;
 
 public class Spell {
 	// Fields
