@@ -10,7 +10,7 @@ import java.awt.Graphics;
 
 import org.retropipes.diane.drawgrid.DrawGrid;
 import org.retropipes.diane.gui.MainContent;
-import org.retropipes.dungeondiver7.asset.BattleImageManager;
+import org.retropipes.dungeondiver7.asset.ImageLoader;
 
 public class MapBattleDraw extends MainContent {
 	private static final long serialVersionUID = 35935343464625L;
@@ -19,7 +19,7 @@ public class MapBattleDraw extends MainContent {
 	public MapBattleDraw(final DrawGrid grid) {
 		this.drawGrid = grid;
 		final var vSize = MapBattleViewingWindowManager.getViewingWindowSize();
-		final var gSize = BattleImageManager.getGraphicSize();
+		final var gSize = ImageLoader.imageSize();
 		this.setPreferredSize(new Dimension(vSize * gSize, vSize * gSize));
 	}
 
@@ -27,7 +27,7 @@ public class MapBattleDraw extends MainContent {
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 		if (this.drawGrid != null) {
-			final var gSize = BattleImageManager.getGraphicSize();
+			final var gSize = ImageLoader.imageSize();
 			final var vSize = MapBattleViewingWindowManager.getViewingWindowSize();
 			for (var x = 0; x < vSize; x++) {
 				for (var y = 0; y < vSize; y++) {

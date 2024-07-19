@@ -16,6 +16,7 @@ import javax.swing.JMenu;
 import javax.swing.JTextField;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
+import org.retropipes.dungeondiver7.asset.ExternalMusic;
 import org.retropipes.dungeondiver7.asset.ExternalMusicImporter;
 import org.retropipes.dungeondiver7.asset.MusicLoader;
 import org.retropipes.dungeondiver7.locale.EditorString;

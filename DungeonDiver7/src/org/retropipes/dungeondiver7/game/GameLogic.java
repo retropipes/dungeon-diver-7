@@ -601,8 +601,8 @@ public final class GameLogic implements MenuSection {
 	void identifyObject(final int x, final int y) {
 		final var app = DungeonDiver7.getStuffBag();
 		final var m = app.getDungeonManager().getDungeon();
-		final var destX = x / ImageLoader.getGraphicSize();
-		final var destY = y / ImageLoader.getGraphicSize();
+		final var destX = x / ImageLoader.imageSize();
+		final var destY = y / ImageLoader.imageSize();
 		final var destZ = this.plMgr.getPlayerLocationZ();
 		final var target = m.getCell(destX, destY, destZ, DungeonConstants.LAYER_LOWER_OBJECTS);
 		target.determineCurrentAppearance(destX, destY, destZ);

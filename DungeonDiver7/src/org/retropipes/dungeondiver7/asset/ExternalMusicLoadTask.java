@@ -8,7 +8,6 @@ package org.retropipes.dungeondiver7.asset;
 import java.io.File;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.editor.ExternalMusic;
 
 public class ExternalMusicLoadTask extends Thread {
 	private static String getFileNameOnly(final String s) {

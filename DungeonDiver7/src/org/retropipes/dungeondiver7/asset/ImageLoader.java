@@ -57,8 +57,8 @@ public class ImageLoader {
 		}
 	}
 
-	public static int getGraphicSize() {
-		return 32;
+	public static int imageSize() {
+		return 64;
 	}
 
 	public static BufferedImageIcon getImage(final AbstractDungeonObject obj, final boolean useText) {
@@ -93,8 +93,8 @@ public class ImageLoader {
 				return null;
 			}
 			final var result = new BufferedImageIcon(icon);
-			for (var x = 0; x < ImageLoader.getGraphicSize(); x++) {
-				for (var y = 0; y < ImageLoader.getGraphicSize(); y++) {
+			for (var x = 0; x < ImageLoader.imageSize(); x++) {
+				for (var y = 0; y < ImageLoader.imageSize(); y++) {
 					final var pixel = icon.getRGB(x, y);
 					final var c = new Color(pixel);
 					if (c.equals(ImageLoader.TRANSPARENT)) {

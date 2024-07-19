@@ -11,7 +11,6 @@ import java.nio.BufferUnderflowException;
 import org.retropipes.diane.asset.ogg.DianeOggPlayer;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.editor.ExternalMusic;
 import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Music;
 import org.retropipes.dungeondiver7.locale.Strings;

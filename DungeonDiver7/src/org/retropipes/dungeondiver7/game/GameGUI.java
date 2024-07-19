@@ -524,8 +524,8 @@ class GameGUI {
 			final var y = me.getY();
 			final var px = gm.getPlayerManager().getPlayerLocationX();
 			final var py = gm.getPlayerManager().getPlayerLocationY();
-			final var destX = (int) Math.signum(x / ImageLoader.getGraphicSize() - px);
-			final var destY = (int) Math.signum(y / ImageLoader.getGraphicSize() - py);
+			final var destX = (int) Math.signum(x / ImageLoader.imageSize() - px);
+			final var destY = (int) Math.signum(y / ImageLoader.imageSize() - py);
 			return DirectionResolver.resolve(destX, destY);
 		}
 
@@ -548,8 +548,8 @@ class GameGUI {
 						final var y = e.getY();
 						final var px = game.getPlayerManager().getPlayerLocationX();
 						final var py = game.getPlayerManager().getPlayerLocationY();
-						final var destX = (int) Math.signum(x / ImageLoader.getGraphicSize() - px);
-						final var destY = (int) Math.signum(y / ImageLoader.getGraphicSize() - py);
+						final var destX = (int) Math.signum(x / ImageLoader.imageSize() - px);
+						final var destY = (int) Math.signum(y / ImageLoader.imageSize() - py);
 						game.updatePositionRelative(destX, destY);
 					}
 				} else if (e.getButton() == MouseEvent.BUTTON2 || e.getButton() == MouseEvent.BUTTON3) {

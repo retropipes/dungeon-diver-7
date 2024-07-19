@@ -39,7 +39,6 @@ import org.retropipes.dungeondiver7.Accelerators;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.MenuSection;
 import org.retropipes.dungeondiver7.StuffBag;
-import org.retropipes.dungeondiver7.asset.BattleImageManager;
 import org.retropipes.dungeondiver7.asset.ImageLoader;
 import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
@@ -852,9 +851,9 @@ public class DungeonEditor implements MenuSection {
 		}
 		final var xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
 		final var yOffset = this.horzScroll.getValue() - this.horzScroll.getMinimum();
-		final var gridX = x / ImageLoader.getGraphicSize() + EditorViewingWindowManager.getViewingWindowLocationX()
+		final var gridX = x / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationX()
 				- xOffset + yOffset;
-		final var gridY = y / ImageLoader.getGraphicSize() + EditorViewingWindowManager.getViewingWindowLocationY()
+		final var gridY = y / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationY()
 				+ xOffset - yOffset;
 		try {
 			this.savedDungeonObject = app.getDungeonManager().getDungeon().getCell(gridX, gridY,
@@ -888,9 +887,9 @@ public class DungeonEditor implements MenuSection {
 		final var app = DungeonDiver7.getStuffBag();
 		final var xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
 		final var yOffset = this.horzScroll.getValue() - this.horzScroll.getMinimum();
-		final var gridX = x / ImageLoader.getGraphicSize() + EditorViewingWindowManager.getViewingWindowLocationX()
+		final var gridX = x / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationX()
 				- xOffset + yOffset;
-		final var gridY = y / ImageLoader.getGraphicSize() + EditorViewingWindowManager.getViewingWindowLocationY()
+		final var gridY = y / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationY()
 				+ xOffset - yOffset;
 		try {
 			final var mo = app.getDungeonManager().getDungeon().getCell(gridX, gridY, this.elMgr.getEditorLocationZ(),
@@ -1146,9 +1145,9 @@ public class DungeonEditor implements MenuSection {
 		final var app = DungeonDiver7.getStuffBag();
 		final var xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
 		final var yOffset = this.horzScroll.getValue() - this.horzScroll.getMinimum();
-		final var gridX = x / ImageLoader.getGraphicSize() + EditorViewingWindowManager.getViewingWindowLocationX()
+		final var gridX = x / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationX()
 				- xOffset + yOffset;
-		final var gridY = y / ImageLoader.getGraphicSize() + EditorViewingWindowManager.getViewingWindowLocationY()
+		final var gridY = y / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationY()
 				+ xOffset - yOffset;
 		final var mo = app.getDungeonManager().getDungeon().getCell(gridX, gridY, this.elMgr.getEditorLocationZ(),
 				this.elMgr.getEditorLocationW());
@@ -1425,9 +1424,9 @@ public class DungeonEditor implements MenuSection {
 		final var app = DungeonDiver7.getStuffBag();
 		final var xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
 		final var yOffset = this.horzScroll.getValue() - this.horzScroll.getMinimum();
-		final var destX = x / ImageLoader.getGraphicSize() + EditorViewingWindowManager.getViewingWindowLocationX()
+		final var destX = x / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationX()
 				- xOffset + yOffset;
-		final var destY = y / ImageLoader.getGraphicSize() + EditorViewingWindowManager.getViewingWindowLocationY()
+		final var destY = y / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationY()
 				+ xOffset - yOffset;
 		final var oldX = app.getDungeonManager().getDungeon().getStartColumn(this.activePlayer);
 		final var oldY = app.getDungeonManager().getDungeon().getStartRow(this.activePlayer);
@@ -1576,7 +1575,7 @@ public class DungeonEditor implements MenuSection {
 			this.newPicker11.updatePicker(newImages, enabled);
 		} else {
 			this.newPicker11 = new StackedPicturePicker(newImages, enabled, DungeonEditor.STACK_COUNT,
-					BattleImageManager.getGraphicSize());
+					ImageLoader.imageSize());
 		}
 	}
 

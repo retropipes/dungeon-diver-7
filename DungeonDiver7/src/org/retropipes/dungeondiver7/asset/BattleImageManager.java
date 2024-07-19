@@ -17,10 +17,6 @@ import org.retropipes.dungeondiver7.locale.Untranslated;
 public class BattleImageManager {
 	private static Class<?> LOAD_CLASS = BattleImageManager.class;
 
-	public static int getGraphicSize() {
-		return 64;
-	}
-
 	/**
 	 *
 	 * @param name

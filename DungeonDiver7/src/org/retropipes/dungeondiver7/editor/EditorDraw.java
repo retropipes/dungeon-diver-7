@@ -13,7 +13,7 @@ class EditorDraw extends MainContent {
 
 	public EditorDraw() {
 		final var vSize = EditorViewingWindowManager.getViewingWindowSize();
-		final var gSize = ImageLoader.getGraphicSize();
+		final var gSize = ImageLoader.imageSize();
 		this.setPreferredSize(new Dimension(vSize * gSize, vSize * gSize));
 		this.drawGrid = new DrawGrid(vSize);
 	}
@@ -26,7 +26,7 @@ class EditorDraw extends MainContent {
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 		if (this.drawGrid != null) {
-			final var gSize = ImageLoader.getGraphicSize();
+			final var gSize = ImageLoader.imageSize();
 			final var vSize = EditorViewingWindowManager.getViewingWindowSize();
 			for (var x = 0; x < vSize; x++) {
 				for (var y = 0; y < vSize; y++) {
