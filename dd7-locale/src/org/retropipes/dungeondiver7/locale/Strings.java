@@ -5,10 +5,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.retropipes.diane.LocaleUtils;
-import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.loader.ImageLoader;
-import org.retropipes.dungeondiver7.prefs.Prefs;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 public final class Strings {
 	public static final String EMPTY = "";
@@ -27,13 +23,6 @@ public final class Strings {
 	public static final int SLOTS_COUNT = 12;
 	private static final int EDITOR_LAYOUTS_COUNT = 3;
 	private static Locale ACTIVE = Locale.getDefault();
-
-	public static void activeLanguageChanged() {
-		DungeonConstants.activeLanguageChanged();
-		DungeonDiver7.getStuffBag().activeLanguageChanged();
-		Prefs.activeLanguageChanged();
-		ImageLoader.activeLanguageChanged();
-	}
 
 	public static String[] allArmorTypes() {
 		final var result = new String[Strings.ARMOR_TYPES_COUNT];
@@ -114,7 +103,6 @@ public final class Strings {
 
 	public static void changeLanguage(final Locale newLang) {
 		Strings.ACTIVE = newLang;
-		Strings.activeLanguageChanged();
 	}
 
 	public static String cheat(final int index) {
@@ -168,10 +156,6 @@ public final class Strings {
 
 	public static String group(final Group item) {
 		return ResourceBundle.getBundle("locale.group", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
-	}
-
-	public static void init() {
-		Strings.ACTIVE = Locale.getDefault();
 	}
 
 	public static String item(final ItemString item) {

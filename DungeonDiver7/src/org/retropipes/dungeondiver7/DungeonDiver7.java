@@ -89,10 +89,9 @@ public class DungeonDiver7 {
 	}
 
 	private static void preInit() {
-		Strings.init();
+		AbstractCreature.computeActionCap(DungeonDiver7.BATTLE_MAP_SIZE, DungeonDiver7.BATTLE_MAP_SIZE);
 		DungeonDiver7.ERROR_TITLE = Strings.error(ErrorString.ERROR_TITLE);
 		DungeonDiver7.ERROR_MESSAGE = Strings.error(ErrorString.ERROR_MESSAGE);
-		AbstractCreature.computeActionCap(DungeonDiver7.BATTLE_MAP_SIZE, DungeonDiver7.BATTLE_MAP_SIZE);
 	}
 
 	private DungeonDiver7() {
