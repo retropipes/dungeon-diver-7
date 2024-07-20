@@ -129,7 +129,7 @@ public enum ObjectImageId implements DianeImageIndex {
 
 	@Override
 	public String getName() {
-		return ImageDataManager.getObjectImageFilename(this.ordinal());
+		return CatalogLoader.getObjectImageFilename(this.ordinal());
 	}
 
 	@Override
