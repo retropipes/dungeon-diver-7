@@ -13,6 +13,8 @@ import org.retropipes.diane.fileio.utility.ResourceStreamReader;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 
 public class ImageDataManager {
+	private static ArrayList<String> OBJECT_IMAGE_FILENAMES = null;
+
 	public static String[] getObjectGraphicsData() {
 		try (final var rsr = new ResourceStreamReader(
 				ImageDataManager.class.getResourceAsStream("/assets/data/images/objects.txt"))) {
@@ -49,5 +51,30 @@ public class ImageDataManager {
 			DungeonDiver7.logError(e);
 			return null;
 		}
+	}
+
+	public static String getObjectImageFilename(int index) {
+		if (ImageDataManager.OBJECT_IMAGE_FILENAMES == null) {
+			try (final var rsr = new ResourceStreamReader(
+					ImageDataManager.class.getResourceAsStream("/asset/catalog/image/object.catalog"))) {
+				// Fetch data
+				final var rawData = new ArrayList<String>();
+				var line = "";
+				while (line != null) {
+					line = rsr.readString();
+					if (line != null) {
+						rawData.add(line);
+					}
+				}
+				ImageDataManager.OBJECT_IMAGE_FILENAMES = rawData;
+			} catch (final IOException e) {
+				DungeonDiver7.logError(e);
+				return null;
+			}
+		}
+		if (ImageDataManager.OBJECT_IMAGE_FILENAMES == null) {
+			return null;
+		}
+		return ImageDataManager.OBJECT_IMAGE_FILENAMES.get(index);
 	}
 }
