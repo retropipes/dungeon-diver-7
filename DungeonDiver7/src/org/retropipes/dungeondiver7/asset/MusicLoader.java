@@ -106,7 +106,7 @@ public class MusicLoader {
 	}
 
 	public static void playMusic(final Music musicID) {
-		MusicLoader.CURRENT_MUSIC = MusicLoader.getMusic(Strings.music(musicID));
+		MusicLoader.CURRENT_MUSIC = MusicLoader.getMusic(CatalogLoader.getMusicFilename(musicID));
 		if (MusicLoader.CURRENT_MUSIC != null) {
 			// Play the music
 			MusicLoader.CURRENT_MUSIC.play();
