@@ -21,7 +21,7 @@ import org.retropipes.dungeondiver7.Accelerators;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.MenuSection;
 import org.retropipes.dungeondiver7.StuffBag;
-import org.retropipes.dungeondiver7.asset.ImageLoader;
+import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.HistoryStatus;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
@@ -602,8 +602,8 @@ public final class GameLogic implements MenuSection {
 	void identifyObject(final int x, final int y) {
 		final var app = DungeonDiver7.getStuffBag();
 		final var m = app.getDungeonManager().getDungeon();
-		final var destX = x / ImageLoader.imageSize();
-		final var destY = y / ImageLoader.imageSize();
+		final var destX = x / ImageConstants.SIZE;
+		final var destY = y / ImageConstants.SIZE;
 		final var destZ = this.plMgr.getPlayerLocationZ();
 		final var target = m.getCell(destX, destY, destZ, DungeonConstants.LAYER_LOWER_OBJECTS);
 		target.determineCurrentAppearance(destX, destY, destZ);

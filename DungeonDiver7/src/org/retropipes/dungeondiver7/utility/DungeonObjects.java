@@ -11,10 +11,10 @@ import java.lang.reflect.InvocationTargetException;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.asset.ImageLoader;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.*;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 
 public class DungeonObjects {
 	// Fields
@@ -69,7 +69,8 @@ public class DungeonObjects {
 	public BufferedImageIcon[] getAllEditorAppearances() {
 		final var allEditorAppearances = new BufferedImageIcon[this.allObjects.length];
 		for (var x = 0; x < allEditorAppearances.length; x++) {
-			allEditorAppearances[x] = ImageLoader.getImage(this.allObjects[x], false);
+			allEditorAppearances[x] = ObjectImageLoader.load(this.allObjects[x].getImageName(),
+					this.allObjects[x].getBaseID());
 		}
 		return allEditorAppearances;
 	}
@@ -83,7 +84,8 @@ public class DungeonObjects {
 				} else {
 					this.allObjects[x].setEnabled(false);
 				}
-				allEditorAppearancesOnLayer[x] = ImageLoader.getImage(this.allObjects[x], false);
+				allEditorAppearancesOnLayer[x] = ObjectImageLoader.load(this.allObjects[x].getImageName(),
+						this.allObjects[x].getBaseID());
 			}
 			return allEditorAppearancesOnLayer;
 		}
@@ -91,7 +93,8 @@ public class DungeonObjects {
 		var objectCount = 0;
 		for (var x = 0; x < this.allObjects.length; x++) {
 			if (this.allObjects[x].getLayer() == layer) {
-				tempAllEditorAppearancesOnLayer[x] = ImageLoader.getImage(this.allObjects[x], false);
+				tempAllEditorAppearancesOnLayer[x] = ObjectImageLoader.load(this.allObjects[x].getImageName(),
+						this.allObjects[x].getBaseID());
 			}
 		}
 		for (final BufferedImageIcon element : tempAllEditorAppearancesOnLayer) {

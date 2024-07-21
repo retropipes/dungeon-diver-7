@@ -18,7 +18,7 @@ import org.retropipes.diane.gui.MainScrollingContent;
 import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.asset.ImageLoader;
+import org.retropipes.dungeondiver7.asset.ImageConstants;
 
 public abstract class GenericEditor {
 	// Fields
@@ -136,16 +136,16 @@ public abstract class GenericEditor {
 		this.scrollPane = MainContentFactory.mainScrollingContent(this.borderPane);
 		this.borderPane.add(this.outputPane, BorderLayout.CENTER);
 		this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
-		if (this.mainWindow.getWidth() > ImageLoader.MAX_WINDOW_SIZE
-				|| this.mainWindow.getHeight() > ImageLoader.MAX_WINDOW_SIZE) {
+		if (this.mainWindow.getWidth() > ImageConstants.MAX_WINDOW_SIZE
+				|| this.mainWindow.getHeight() > ImageConstants.MAX_WINDOW_SIZE) {
 			int pw, ph;
-			if (this.mainWindow.getWidth() > ImageLoader.MAX_WINDOW_SIZE) {
-				pw = ImageLoader.MAX_WINDOW_SIZE;
+			if (this.mainWindow.getWidth() > ImageConstants.MAX_WINDOW_SIZE) {
+				pw = ImageConstants.MAX_WINDOW_SIZE;
 			} else {
 				pw = this.scrollPane.getWidth();
 			}
-			if (this.mainWindow.getHeight() > ImageLoader.MAX_WINDOW_SIZE) {
-				ph = ImageLoader.MAX_WINDOW_SIZE;
+			if (this.mainWindow.getHeight() > ImageConstants.MAX_WINDOW_SIZE) {
+				ph = ImageConstants.MAX_WINDOW_SIZE;
 			} else {
 				ph = this.scrollPane.getHeight();
 			}

@@ -28,6 +28,7 @@ import javax.swing.JToggleButton;
 
 import org.retropipes.diane.LocaleUtils;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
+import org.retropipes.diane.asset.image.ImageCompositor;
 import org.retropipes.diane.gui.MainContent;
 import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
@@ -39,13 +40,14 @@ import org.retropipes.dungeondiver7.Accelerators;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.MenuSection;
 import org.retropipes.dungeondiver7.StuffBag;
-import org.retropipes.dungeondiver7.asset.ImageLoader;
+import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractJumpObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Ground;
 import org.retropipes.dungeondiver7.dungeon.objects.Party;
 import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.locale.EditorLayout;
 import org.retropipes.dungeondiver7.locale.EditorString;
 import org.retropipes.dungeondiver7.locale.Menu;
@@ -851,10 +853,10 @@ public class DungeonEditor implements MenuSection {
 		}
 		final var xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
 		final var yOffset = this.horzScroll.getValue() - this.horzScroll.getMinimum();
-		final var gridX = x / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationX()
-				- xOffset + yOffset;
-		final var gridY = y / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationY()
-				+ xOffset - yOffset;
+		final var gridX = x / ImageConstants.SIZE + EditorViewingWindowManager.getViewingWindowLocationX() - xOffset
+				+ yOffset;
+		final var gridY = y / ImageConstants.SIZE + EditorViewingWindowManager.getViewingWindowLocationY() + xOffset
+				- yOffset;
 		try {
 			this.savedDungeonObject = app.getDungeonManager().getDungeon().getCell(gridX, gridY,
 					this.elMgr.getEditorLocationZ(), this.elMgr.getEditorLocationW());
@@ -887,10 +889,10 @@ public class DungeonEditor implements MenuSection {
 		final var app = DungeonDiver7.getStuffBag();
 		final var xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
 		final var yOffset = this.horzScroll.getValue() - this.horzScroll.getMinimum();
-		final var gridX = x / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationX()
-				- xOffset + yOffset;
-		final var gridY = y / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationY()
-				+ xOffset - yOffset;
+		final var gridX = x / ImageConstants.SIZE + EditorViewingWindowManager.getViewingWindowLocationX() - xOffset
+				+ yOffset;
+		final var gridY = y / ImageConstants.SIZE + EditorViewingWindowManager.getViewingWindowLocationY() + xOffset
+				- yOffset;
 		try {
 			final var mo = app.getDungeonManager().getDungeon().getCell(gridX, gridY, this.elMgr.getEditorLocationZ(),
 					this.elMgr.getEditorLocationW());
@@ -1145,10 +1147,10 @@ public class DungeonEditor implements MenuSection {
 		final var app = DungeonDiver7.getStuffBag();
 		final var xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
 		final var yOffset = this.horzScroll.getValue() - this.horzScroll.getMinimum();
-		final var gridX = x / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationX()
-				- xOffset + yOffset;
-		final var gridY = y / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationY()
-				+ xOffset - yOffset;
+		final var gridX = x / ImageConstants.SIZE + EditorViewingWindowManager.getViewingWindowLocationX() - xOffset
+				+ yOffset;
+		final var gridY = y / ImageConstants.SIZE + EditorViewingWindowManager.getViewingWindowLocationY() + xOffset
+				- yOffset;
 		final var mo = app.getDungeonManager().getDungeon().getCell(gridX, gridY, this.elMgr.getEditorLocationZ(),
 				this.elMgr.getEditorLocationW());
 		this.elMgr.setEditorLocationX(gridX);
@@ -1221,7 +1223,9 @@ public class DungeonEditor implements MenuSection {
 				yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
 				final var lgobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
 						DungeonConstants.LAYER_LOWER_GROUND);
-				drawGrid.setImageCell(ImageLoader.getImage(lgobj, true), xFix, yFix);
+				final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getBaseID());
+				final var img = lgimg;
+				drawGrid.setImageCell(img, xFix, yFix);
 			}
 		}
 	}
@@ -1242,7 +1246,11 @@ public class DungeonEditor implements MenuSection {
 						DungeonConstants.LAYER_LOWER_GROUND);
 				final var ugobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
 						DungeonConstants.LAYER_UPPER_GROUND);
-				drawGrid.setImageCell(ImageLoader.getCompositeImage(lgobj, ugobj, true), xFix, yFix);
+				final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getBaseID());
+				final var ugimg = ObjectImageLoader.load(ugobj.getImageName(), ugobj.getBaseID());
+				final var cacheName = Strings.compositeCacheName(lgobj.getName(), ugobj.getName());
+				final var img = ImageCompositor.composite(cacheName, lgimg, ugimg);
+				drawGrid.setImageCell(img, xFix, yFix);
 			}
 		}
 	}
@@ -1265,7 +1273,12 @@ public class DungeonEditor implements MenuSection {
 						DungeonConstants.LAYER_UPPER_GROUND);
 				final var loobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
 						DungeonConstants.LAYER_LOWER_OBJECTS);
-				drawGrid.setImageCell(ImageLoader.getVirtualCompositeImage(lgobj, ugobj, loobj), xFix, yFix);
+				final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getBaseID());
+				final var ugimg = ObjectImageLoader.load(ugobj.getImageName(), ugobj.getBaseID());
+				final var loimg = ObjectImageLoader.load(loobj.getImageName(), loobj.getBaseID());
+				final var cacheName = Strings.compositeCacheName(lgobj.getName(), ugobj.getName(), loobj.getName());
+				final var img = ImageCompositor.composite(cacheName, lgimg, ugimg, loimg);
+				drawGrid.setImageCell(img, xFix, yFix);
 			}
 		}
 	}
@@ -1292,8 +1305,15 @@ public class DungeonEditor implements MenuSection {
 						DungeonConstants.LAYER_UPPER_OBJECTS);
 				final var lvobj = app.getDungeonManager().getDungeon().getVirtualCell(y, x,
 						this.elMgr.getEditorLocationZ(), DungeonConstants.LAYER_VIRTUAL);
-				drawGrid.setImageCell(ImageLoader.getVirtualCompositeImage(lgobj, ugobj, loobj, uoobj, lvobj), xFix,
-						yFix);
+				final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getBaseID());
+				final var ugimg = ObjectImageLoader.load(ugobj.getImageName(), ugobj.getBaseID());
+				final var loimg = ObjectImageLoader.load(loobj.getImageName(), loobj.getBaseID());
+				final var uoimg = ObjectImageLoader.load(uoobj.getImageName(), uoobj.getBaseID());
+				final var lvimg = ObjectImageLoader.load(lvobj.getImageName(), lvobj.getBaseID());
+				final var cacheName = Strings.compositeCacheName(lgobj.getName(), ugobj.getName(), loobj.getName(),
+						uoobj.getName(), lvobj.getName());
+				final var img = ImageCompositor.composite(cacheName, lgimg, ugimg, loimg, uoimg, lvimg);
+				drawGrid.setImageCell(img, xFix, yFix);
 			}
 		}
 	}
@@ -1424,10 +1444,10 @@ public class DungeonEditor implements MenuSection {
 		final var app = DungeonDiver7.getStuffBag();
 		final var xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
 		final var yOffset = this.horzScroll.getValue() - this.horzScroll.getMinimum();
-		final var destX = x / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationX()
-				- xOffset + yOffset;
-		final var destY = y / ImageLoader.imageSize() + EditorViewingWindowManager.getViewingWindowLocationY()
-				+ xOffset - yOffset;
+		final var destX = x / ImageConstants.SIZE + EditorViewingWindowManager.getViewingWindowLocationX() - xOffset
+				+ yOffset;
+		final var destY = y / ImageConstants.SIZE + EditorViewingWindowManager.getViewingWindowLocationY() + xOffset
+				- yOffset;
 		final var oldX = app.getDungeonManager().getDungeon().getStartColumn(this.activePlayer);
 		final var oldY = app.getDungeonManager().getDungeon().getStartRow(this.activePlayer);
 		final var oldZ = app.getDungeonManager().getDungeon().getStartFloor(this.activePlayer);
@@ -1575,7 +1595,7 @@ public class DungeonEditor implements MenuSection {
 			this.newPicker11.updatePicker(newImages, enabled);
 		} else {
 			this.newPicker11 = new StackedPicturePicker(newImages, enabled, DungeonEditor.STACK_COUNT,
-					ImageLoader.imageSize());
+					ImageConstants.SIZE);
 		}
 	}
 

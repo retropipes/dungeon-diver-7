@@ -36,7 +36,7 @@ import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.Accelerators;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.asset.ImageCompositor;
-import org.retropipes.dungeondiver7.asset.ImageLoader;
+import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.creature.characterfiles.CharacterRegistration;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
@@ -524,8 +524,8 @@ class GameGUI {
 			final var y = me.getY();
 			final var px = gm.getPlayerManager().getPlayerLocationX();
 			final var py = gm.getPlayerManager().getPlayerLocationY();
-			final var destX = (int) Math.signum(x / ImageLoader.imageSize() - px);
-			final var destY = (int) Math.signum(y / ImageLoader.imageSize() - py);
+			final var destX = (int) Math.signum(x / ImageConstants.SIZE - px);
+			final var destY = (int) Math.signum(y / ImageConstants.SIZE - py);
 			return DirectionResolver.resolve(destX, destY);
 		}
 
@@ -548,8 +548,8 @@ class GameGUI {
 						final var y = e.getY();
 						final var px = game.getPlayerManager().getPlayerLocationX();
 						final var py = game.getPlayerManager().getPlayerLocationY();
-						final var destX = (int) Math.signum(x / ImageLoader.imageSize() - px);
-						final var destY = (int) Math.signum(y / ImageLoader.imageSize() - py);
+						final var destX = (int) Math.signum(x / ImageConstants.SIZE - px);
+						final var destY = (int) Math.signum(y / ImageConstants.SIZE - py);
 						game.updatePositionRelative(destX, destY);
 					}
 				} else if (e.getButton() == MouseEvent.BUTTON2 || e.getButton() == MouseEvent.BUTTON3) {

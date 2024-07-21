@@ -13,6 +13,7 @@ public final class Strings {
 	public static final String VERSION = "V";
 	public static final String UNDERSCORE = "_";
 	public static final String VERSION_DELIM = ".";
+	private static final String CACHE_DELIM = " & ";
 	private static final String NAMED_DELIM = "$$";
 	public static final int ARMOR_TYPES_COUNT = 6;
 	public static final int WEAPON_TYPES_COUNT = 6;
@@ -99,6 +100,17 @@ public final class Strings {
 
 	public static String boss(final int index) {
 		return ResourceBundle.getBundle("locale.boss", Strings.ACTIVE).getString(Integer.toString(index));
+	}
+
+	public static String compositeCacheName(final String... inputs) {
+		final var result = new StringBuilder();
+		for (var index = 0; index < inputs.length; index++) {
+			result.append(inputs[index]);
+			if (index <= inputs.length - 1) {
+				result.append(Strings.CACHE_DELIM);
+			}
+		}
+		return result.toString();
 	}
 
 	public static void changeLanguage(final Locale newLang) {

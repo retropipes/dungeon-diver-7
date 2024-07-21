@@ -26,7 +26,7 @@ import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.ai.AbstractMapAIRoutine;
 import org.retropipes.dungeondiver7.asset.ImageCompositor;
-import org.retropipes.dungeondiver7.asset.ImageLoader;
+import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Darkness;
 import org.retropipes.dungeondiver7.dungeon.objects.Wall;
@@ -219,7 +219,7 @@ class MapBattleGUI {
 						final var icon2 = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS)
 								.battleRenderHook();
 						this.drawGrid.setImageCell(
-								ImageCompositor.getCompositeImage(icon1, icon2, ImageLoader.imageSize()),
+								ImageCompositor.getCompositeImage(icon1, icon2, ImageConstants.SIZE),
 								xFix, yFix);
 					} catch (final ArrayIndexOutOfBoundsException ae) {
 						final var wall = new Wall();
@@ -247,7 +247,7 @@ class MapBattleGUI {
 						.battleRenderHook();
 				final var icon3 = obj3.battleRenderHook();
 				this.drawGrid.setImageCell(ImageCompositor.getVirtualCompositeImage(icon1, icon2, icon3,
-						ImageLoader.imageSize()), xFix, yFix);
+						ImageConstants.SIZE), xFix, yFix);
 				this.battlePane.repaint();
 			} catch (final ArrayIndexOutOfBoundsException ae) {
 				// Do nothing

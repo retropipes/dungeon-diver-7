@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 import org.retropipes.diane.drawgrid.DrawGrid;
 import org.retropipes.diane.gui.MainContent;
-import org.retropipes.dungeondiver7.asset.ImageLoader;
+import org.retropipes.dungeondiver7.asset.ImageConstants;
 
 class EditorDraw extends MainContent {
 	private static final long serialVersionUID = 35935343464625L;
@@ -13,7 +13,7 @@ class EditorDraw extends MainContent {
 
 	public EditorDraw() {
 		final var vSize = EditorViewingWindowManager.getViewingWindowSize();
-		final var gSize = ImageLoader.imageSize();
+		final var gSize = ImageConstants.SIZE;
 		this.setPreferredSize(new Dimension(vSize * gSize, vSize * gSize));
 		this.drawGrid = new DrawGrid(vSize);
 	}
@@ -26,7 +26,7 @@ class EditorDraw extends MainContent {
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 		if (this.drawGrid != null) {
-			final var gSize = ImageLoader.imageSize();
+			final var gSize = ImageConstants.SIZE;
 			final var vSize = EditorViewingWindowManager.getViewingWindowSize();
 			for (var x = 0; x < vSize; x++) {
 				for (var y = 0; y < vSize; y++) {
