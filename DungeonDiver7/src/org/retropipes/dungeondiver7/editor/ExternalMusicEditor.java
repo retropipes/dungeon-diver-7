@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.asset.ExternalMusic;
 import org.retropipes.dungeondiver7.asset.ExternalMusicImporter;
-import org.retropipes.dungeondiver7.asset.MusicLoader;
+import org.retropipes.dungeondiver7.asset.ExternalMusicLoader;
 import org.retropipes.dungeondiver7.locale.EditorString;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.utility.Importer;
@@ -37,7 +37,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 
 		@Override
 		public void windowClosed(final WindowEvent we) {
-			MusicLoader.stopExternalMusic();
+			ExternalMusicLoader.stopExternalMusic();
 		}
 
 		@Override
@@ -174,11 +174,11 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 				this.loadObject();
 			}
 			if (this.cachedExternalMusic != null) {
-				MusicLoader.loadPlayExternalMusic(this.cachedExternalMusic.getName());
+				ExternalMusicLoader.loadPlayExternalMusic(this.cachedExternalMusic.getName());
 			}
 		} else if (cmd.equals("st")) {
 			// Stop the music
-			MusicLoader.stopExternalMusic();
+			ExternalMusicLoader.stopExternalMusic();
 		} else if (cmd.equals("md")) {
 			// Set new music
 			this.create();
@@ -193,7 +193,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 
 	@Override
 	protected void loadObject() {
-		this.cachedExternalMusic = MusicLoader.getExternalMusic();
+		this.cachedExternalMusic = ExternalMusicLoader.getExternalMusic();
 	}
 
 	@Override
@@ -203,7 +203,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 			this.cachedExternalMusic.setName(file.getName());
 			this.cachedExternalMusic.setPath(file.getParent() + File.separator);
 			this.saveObject();
-			MusicLoader.saveExternalMusic();
+			ExternalMusicLoader.saveExternalMusic();
 			file.deleteOnExit();
 			DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 		}
@@ -233,7 +233,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 
 	@Override
 	protected void saveObject() {
-		MusicLoader.setExternalMusic(this.cachedExternalMusic);
+		ExternalMusicLoader.setExternalMusic(this.cachedExternalMusic);
 	}
 
 	public void setMusicFilename(final String fn) {

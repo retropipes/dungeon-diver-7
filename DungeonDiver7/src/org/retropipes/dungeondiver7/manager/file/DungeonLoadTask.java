@@ -17,7 +17,7 @@ import org.retropipes.diane.gui.MainContent;
 import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.asset.MusicLoader;
+import org.retropipes.dungeondiver7.asset.ExternalMusicLoader;
 import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.ErrorString;
@@ -109,7 +109,7 @@ public class DungeonLoadTask extends Thread {
 				app.getDungeonManager().setLastUsedDungeon(lum);
 			}
 			app.getEditor().dungeonChanged();
-			MusicLoader.dungeonChanged();
+			ExternalMusicLoader.dungeonChanged();
 			if (this.isSavedGame) {
 				CommonDialogs.showDialog(Strings.dialog(DialogString.GAME_LOADING_SUCCESS));
 			} else {

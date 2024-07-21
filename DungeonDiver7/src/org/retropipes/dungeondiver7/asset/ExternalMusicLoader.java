@@ -6,23 +6,16 @@
 package org.retropipes.dungeondiver7.asset;
 
 import java.io.File;
-import java.nio.BufferUnderflowException;
 
 import org.retropipes.diane.asset.ogg.DianeOggPlayer;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.locale.FileExtension;
-import org.retropipes.dungeondiver7.locale.Music;
-import org.retropipes.dungeondiver7.locale.Strings;
-import org.retropipes.dungeondiver7.locale.Untranslated;
 
-public class MusicLoader {
+public class ExternalMusicLoader {
 	// Fields
 	private static String EXTERNAL_LOAD_PATH = null;
-	private static DianeOggPlayer CURRENT_MUSIC;
 	private static DianeOggPlayer CURRENT_EXTERNAL_MUSIC;
 	private static ExternalMusic gameExternalMusic;
-	private static Class<?> LOAD_CLASS = MusicLoader.class;
 
 	public static void deleteExternalMusicFile() {
 		final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
@@ -31,42 +24,29 @@ public class MusicLoader {
 	}
 
 	public static void dungeonChanged() {
-		MusicLoader.EXTERNAL_LOAD_PATH = null;
+		ExternalMusicLoader.EXTERNAL_LOAD_PATH = null;
 	}
 
 	public static ExternalMusic getExternalMusic() {
-		if (MusicLoader.gameExternalMusic == null) {
-			MusicLoader.loadExternalMusic();
+		if (ExternalMusicLoader.gameExternalMusic == null) {
+			ExternalMusicLoader.loadExternalMusic();
 		}
-		return MusicLoader.gameExternalMusic;
+		return ExternalMusicLoader.gameExternalMusic;
 	}
 
 	private static DianeOggPlayer getExternalMusic(final String filename) {
-		if (MusicLoader.EXTERNAL_LOAD_PATH == null) {
-			MusicLoader.EXTERNAL_LOAD_PATH = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
+		if (ExternalMusicLoader.EXTERNAL_LOAD_PATH == null) {
+			ExternalMusicLoader.EXTERNAL_LOAD_PATH = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
 					.getDungeonTempMusicFolder();
 		}
-		final var mmod = DianeOggPlayer.loadLoopedFile(MusicLoader.EXTERNAL_LOAD_PATH + filename);
-		MusicLoader.CURRENT_EXTERNAL_MUSIC = mmod;
+		final var mmod = DianeOggPlayer.loadLoopedFile(ExternalMusicLoader.EXTERNAL_LOAD_PATH + filename);
+		ExternalMusicLoader.CURRENT_EXTERNAL_MUSIC = mmod;
 		return mmod;
 	}
 
-	private static DianeOggPlayer getMusic(final String filename) {
-		final var modFile = MusicLoader.LOAD_CLASS.getResource(Strings.untranslated(Untranslated.MUSIC_LOAD_PATH)
-				+ filename + Strings.fileExtension(FileExtension.MUSIC));
-		return DianeOggPlayer.loadLoopedResource(modFile);
-	}
-
 	public static boolean isExternalMusicPlaying() {
-		if (MusicLoader.CURRENT_EXTERNAL_MUSIC != null && MusicLoader.CURRENT_EXTERNAL_MUSIC.isPlaying()) {
+		if (ExternalMusicLoader.CURRENT_EXTERNAL_MUSIC != null && ExternalMusicLoader.CURRENT_EXTERNAL_MUSIC.isPlaying()) {
 			return true;
-		}
-		return false;
-	}
-
-	public static boolean isMusicPlaying() {
-		if (MusicLoader.CURRENT_MUSIC != null) {
-			return MusicLoader.CURRENT_MUSIC.isAlive();
 		}
 		return false;
 	}
@@ -90,26 +70,18 @@ public class MusicLoader {
 	}
 
 	public static void loadPlayExternalMusic(final String filename) {
-		final var mmod = MusicLoader.getExternalMusic(filename);
+		final var mmod = ExternalMusicLoader.getExternalMusic(filename);
 		if (mmod != null) {
-			MusicLoader.CURRENT_EXTERNAL_MUSIC = mmod;
+			ExternalMusicLoader.CURRENT_EXTERNAL_MUSIC = mmod;
 			mmod.play();
 		}
 	}
 
 	public static void playExternalMusic() {
 		final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-		final var mmod = MusicLoader.getExternalMusic(a.getMusicFilename());
+		final var mmod = ExternalMusicLoader.getExternalMusic(a.getMusicFilename());
 		if (mmod != null) {
 			mmod.play();
-		}
-	}
-
-	public static void playMusic(final Music musicID) {
-		MusicLoader.CURRENT_MUSIC = MusicLoader.getMusic(CatalogLoader.getMusicFilename(musicID));
-		if (MusicLoader.CURRENT_MUSIC != null) {
-			// Play the music
-			MusicLoader.CURRENT_MUSIC.play();
 		}
 	}
 
@@ -124,37 +96,24 @@ public class MusicLoader {
 				return;
 			}
 		}
-		final var filename = MusicLoader.gameExternalMusic.getName();
-		final var filepath = MusicLoader.gameExternalMusic.getPath();
+		final var filename = ExternalMusicLoader.gameExternalMusic.getName();
+		final var filepath = ExternalMusicLoader.gameExternalMusic.getPath();
 		final var esst = new ExternalMusicSaveTask(filepath, filename);
 		esst.start();
 	}
 
 	public static void setExternalMusic(final ExternalMusic newExternalMusic) {
-		MusicLoader.gameExternalMusic = newExternalMusic;
+		ExternalMusicLoader.gameExternalMusic = newExternalMusic;
 	}
 
 	public static void stopExternalMusic() {
-		if (MusicLoader.isExternalMusicPlaying()) {
+		if (ExternalMusicLoader.isExternalMusicPlaying()) {
 			DianeOggPlayer.stopPlaying();
 		}
 	}
 
-	public static void stopMusic() {
-		if (MusicLoader.CURRENT_MUSIC != null) {
-			// Stop the music
-			try {
-				DianeOggPlayer.stopPlaying();
-			} catch (final BufferUnderflowException bue) {
-				// Ignore
-			} catch (final Throwable t) {
-				DungeonDiver7.logError(t);
-			}
-		}
-	}
-
 	// Constructors
-	private MusicLoader() {
+	private ExternalMusicLoader() {
 		// Do nothing
 	}
 }

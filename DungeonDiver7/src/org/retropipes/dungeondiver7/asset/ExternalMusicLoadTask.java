@@ -39,7 +39,7 @@ public class ExternalMusicLoadTask extends Thread {
 			this.gameExternalMusic = new ExternalMusic();
 			this.gameExternalMusic.setName(ExternalMusicLoadTask.getFileNameOnly(this.filename));
 			this.gameExternalMusic.setPath(a.getDungeonTempMusicFolder());
-			MusicLoader.setExternalMusic(this.gameExternalMusic);
+			ExternalMusicLoader.setExternalMusic(this.gameExternalMusic);
 		} catch (final Exception ex) {
 			DungeonDiver7.logError(ex);
 		}

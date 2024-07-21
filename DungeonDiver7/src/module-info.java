@@ -12,5 +12,6 @@ module org.retropipes.dungeondiver7 {
 	requires org.retropipes.diane.polytable;
 	requires org.retropipes.diane.scoring;
 	requires org.retropipes.diane.asset.ogg;
+	requires org.retropipes.dungeondiver7.loader.music;
 	requires org.retropipes.dungeondiver7.locale;
 }

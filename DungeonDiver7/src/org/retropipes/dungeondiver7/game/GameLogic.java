@@ -21,8 +21,8 @@ import org.retropipes.dungeondiver7.Accelerators;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.MenuSection;
 import org.retropipes.dungeondiver7.StuffBag;
+import org.retropipes.dungeondiver7.asset.ExternalMusicLoader;
 import org.retropipes.dungeondiver7.asset.ImageLoader;
-import org.retropipes.dungeondiver7.asset.MusicLoader;
 import org.retropipes.dungeondiver7.asset.SoundLoader;
 import org.retropipes.dungeondiver7.asset.Sounds;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
@@ -406,7 +406,7 @@ public final class GameLogic implements MenuSection {
 
 	public void exitGame() {
 		// Stop music
-		MusicLoader.stopExternalMusic();
+		ExternalMusicLoader.stopExternalMusic();
 		// Halt the animator
 		if (this.animator != null) {
 			this.animator.stopAnimator();
@@ -781,7 +781,7 @@ public final class GameLogic implements MenuSection {
 				this.showOutput();
 				// Start music
 				if (Prefs.getMusicEnabled()) {
-					MusicLoader.playExternalMusic();
+					ExternalMusicLoader.playExternalMusic();
 				}
 				app.getDungeonManager().getDungeon().setDirtyFlags(this.plMgr.getPlayerLocationZ());
 				this.updateScoreText();
