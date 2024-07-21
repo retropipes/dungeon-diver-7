@@ -8,13 +8,13 @@ package org.retropipes.dungeondiver7.shop;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.asset.ArmorImageManager;
-import org.retropipes.dungeondiver7.asset.SoundLoader;
-import org.retropipes.dungeondiver7.asset.Sounds;
 import org.retropipes.dungeondiver7.asset.WeaponImageManager;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
 import org.retropipes.dungeondiver7.item.EquipmentFactory;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
+import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
+import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Music;
 import org.retropipes.dungeondiver7.locale.Strings;
 

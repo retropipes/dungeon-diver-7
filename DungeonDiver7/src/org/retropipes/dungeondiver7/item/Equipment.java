@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
-import org.retropipes.dungeondiver7.asset.Sounds;
+import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Slot;
 
 public class Equipment extends Item {

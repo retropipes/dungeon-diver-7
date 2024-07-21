@@ -7,9 +7,9 @@ package org.retropipes.dungeondiver7.spell;
 
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.asset.SoundLoader;
 import org.retropipes.dungeondiver7.creature.AbstractCreature;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
+import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 
 public class SpellCaster {
 	// Fields

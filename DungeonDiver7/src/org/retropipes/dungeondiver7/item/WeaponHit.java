@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.item;
 
-import org.retropipes.dungeondiver7.asset.Sounds;
+import org.retropipes.dungeondiver7.loader.sound.Sounds;
 
 public class WeaponHit {
 	private static final Sounds[] HIT_SOUND_LOOKUP = { Sounds.AXE_HIT, Sounds.DAGGER_HIT, Sounds.HAMMER_HIT,

@@ -7,8 +7,8 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.asset.SoundLoader;
-import org.retropipes.dungeondiver7.asset.Sounds;
+import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
+import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractJumpObject extends AbstractMovableObject {

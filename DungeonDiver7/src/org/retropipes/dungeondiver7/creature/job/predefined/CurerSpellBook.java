@@ -5,11 +5,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.creature.job.predefined;
 
-import org.retropipes.dungeondiver7.asset.Sounds;
 import org.retropipes.dungeondiver7.battle.BattleTarget;
 import org.retropipes.dungeondiver7.creature.StatConstants;
 import org.retropipes.dungeondiver7.creature.job.JobConstants;
 import org.retropipes.dungeondiver7.effect.Effect;
+import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.spell.Spell;
 import org.retropipes.dungeondiver7.spell.SpellBook;
 
