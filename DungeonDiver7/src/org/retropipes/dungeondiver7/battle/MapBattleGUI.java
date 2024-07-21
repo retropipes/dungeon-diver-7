@@ -18,6 +18,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.KeyStroke;
 
+import org.retropipes.diane.asset.image.ImageCompositor;
 import org.retropipes.diane.drawgrid.DrawGrid;
 import org.retropipes.diane.gui.MainContent;
 import org.retropipes.diane.gui.MainWindow;
@@ -25,13 +26,12 @@ import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.ai.AbstractMapAIRoutine;
-import org.retropipes.dungeondiver7.asset.ImageCompositor;
-import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Darkness;
 import org.retropipes.dungeondiver7.dungeon.objects.Wall;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
+import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
@@ -214,13 +214,13 @@ class MapBattleGUI {
 					xFix = x - xView;
 					yFix = y - yView;
 					try {
-						final var icon1 = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND)
-								.battleRenderHook();
-						final var icon2 = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS)
-								.battleRenderHook();
-						this.drawGrid.setImageCell(
-								ImageCompositor.getCompositeImage(icon1, icon2, ImageConstants.SIZE),
-								xFix, yFix);
+						final var lgobj = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND);
+						final var ugobj = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_UPPER_GROUND);
+						final var lgimg = lgobj.battleRenderHook();
+						final var ugimg = ugobj.battleRenderHook();
+						final var cacheName = Strings.compositeCacheName(lgobj.getName(), ugobj.getName());
+						final var img = ImageCompositor.composite(cacheName, lgimg, ugimg);
+						this.drawGrid.setImageCell(img, xFix, yFix);
 					} catch (final ArrayIndexOutOfBoundsException ae) {
 						final var wall = new Wall();
 						this.drawGrid.setImageCell(wall.battleRenderHook(), xFix, yFix);
@@ -241,13 +241,14 @@ class MapBattleGUI {
 				final var yView = this.vwMgr.getViewingWindowLocationY();
 				xFix = y - xView;
 				yFix = x - yView;
-				final var icon1 = bd.getBattleDungeon().getCell(x, y, 0, DungeonConstants.LAYER_LOWER_GROUND)
-						.battleRenderHook();
-				final var icon2 = bd.getBattleDungeon().getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS)
-						.battleRenderHook();
-				final var icon3 = obj3.battleRenderHook();
-				this.drawGrid.setImageCell(ImageCompositor.getVirtualCompositeImage(icon1, icon2, icon3,
-						ImageConstants.SIZE), xFix, yFix);
+				final var lgobj = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND);
+				final var ugobj = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_UPPER_GROUND);
+				final var lgimg = lgobj.battleRenderHook();
+				final var ugimg = ugobj.battleRenderHook();
+				final var o3img = obj3.battleRenderHook();
+				final var cacheName = Strings.compositeCacheName(lgobj.getName(), ugobj.getName());
+				final var img = ImageCompositor.composite(cacheName, lgimg, ugimg, o3img);
+				this.drawGrid.setImageCell(img, xFix, yFix);
 				this.battlePane.repaint();
 			} catch (final ArrayIndexOutOfBoundsException ae) {
 				// Do nothing

@@ -26,6 +26,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import org.retropipes.diane.LocaleUtils;
+import org.retropipes.diane.asset.image.ImageCompositor;
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.diane.drawgrid.DrawGrid;
@@ -35,7 +36,6 @@ import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.Accelerators;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.asset.ImageCompositor;
 import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.creature.characterfiles.CharacterRegistration;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
@@ -1120,12 +1120,13 @@ class GameGUI {
 						if (u == y && v == x) {
 							final AbstractDungeonObject obj3 = new Player();
 							final var img3 = obj3.gameRenderHook(y, x);
-							this.drawGrid.setImageCell(ImageCompositor.getVirtualCompositeImage(img1, img2, img3,
-									ImageCompositor.getGraphicSize()), xFix, yFix);
+							final var cacheName = Strings.compositeCacheName(obj1.getName(), obj2.getName(), obj3.getName());
+							final var img = ImageCompositor.composite(cacheName, img1, img2, img3);
+							this.drawGrid.setImageCell(img, xFix, yFix);
 						} else {
-							this.drawGrid.setImageCell(
-									ImageCompositor.getCompositeImage(img1, img2, ImageCompositor.getGraphicSize()),
-									xFix, yFix);
+							final var cacheName = Strings.compositeCacheName(obj1.getName(), obj2.getName());
+							final var img = ImageCompositor.composite(cacheName, img1, img2);
+							this.drawGrid.setImageCell(img, xFix, yFix);
 						}
 					} else {
 						this.drawGrid.setImageCell(
