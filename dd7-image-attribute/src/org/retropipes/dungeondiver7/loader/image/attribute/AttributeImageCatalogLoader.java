@@ -7,12 +7,14 @@ import org.retropipes.diane.Diane;
 import org.retropipes.diane.fileio.utility.ResourceStreamReader;
 
 class AttributeImageCatalogLoader {
-	private static ArrayList<String> ATTRIBUTE_IMAGE_FILENAMES = null;
 
-	static String getAttributeImageFilename(final int index) {
-		if (AttributeImageCatalogLoader.ATTRIBUTE_IMAGE_FILENAMES == null) {
+	private static ArrayList<String> FILENAME_CACHE = null;
+	private static String CATALOG_PATH = "/asset/catalog/image/attribute.catalog";
+
+	static String getFilename(final int index) {
+		if (FILENAME_CACHE == null) {
 			try (final var rsr = new ResourceStreamReader(
-					AttributeImageCatalogLoader.class.getResourceAsStream("/asset/catalog/image/attribute.catalog"))) {
+					AttributeImageCatalogLoader.class.getResourceAsStream(CATALOG_PATH))) {
 				// Fetch data
 				final var rawData = new ArrayList<String>();
 				var line = "";
@@ -22,16 +24,16 @@ class AttributeImageCatalogLoader {
 						rawData.add(line);
 					}
 				}
-				AttributeImageCatalogLoader.ATTRIBUTE_IMAGE_FILENAMES = rawData;
+				FILENAME_CACHE = rawData;
 			} catch (final IOException e) {
 				Diane.handleError(e);
 				return null;
 			}
 		}
-		if (AttributeImageCatalogLoader.ATTRIBUTE_IMAGE_FILENAMES == null) {
+		if (FILENAME_CACHE == null) {
 			return null;
 		}
-		return AttributeImageCatalogLoader.ATTRIBUTE_IMAGE_FILENAMES.get(index);
+		return FILENAME_CACHE.get(index);
 	}
 
 	private AttributeImageCatalogLoader() {

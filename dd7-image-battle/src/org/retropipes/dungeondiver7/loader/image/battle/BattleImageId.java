@@ -13,7 +13,7 @@ public enum BattleImageId implements DianeImageIndex {
 
 	@Override
 	public String getName() {
-		return BattleImageCatalogLoader.getBattleImageFilename(this.ordinal());
+		return BattleImageCatalogLoader.getFilename(this.ordinal());
 	}
 
 	@Override

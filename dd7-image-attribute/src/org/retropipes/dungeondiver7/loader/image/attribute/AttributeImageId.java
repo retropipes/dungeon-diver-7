@@ -26,7 +26,7 @@ public enum AttributeImageId implements DianeImageIndex {
 
 	@Override
 	public String getName() {
-		return AttributeImageCatalogLoader.getAttributeImageFilename(this.ordinal());
+		return AttributeImageCatalogLoader.getFilename(this.ordinal());
 	}
 
 	@Override
