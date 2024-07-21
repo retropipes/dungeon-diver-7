@@ -3,7 +3,7 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package org.retropipes.dungeondiver7.asset;
+package org.retropipes.dungeondiver7.loader.extmusic;
 
 public class ExternalMusic {
 	// Fields

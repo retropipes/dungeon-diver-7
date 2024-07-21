@@ -3,15 +3,12 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package org.retropipes.dungeondiver7.asset;
+package org.retropipes.dungeondiver7.loader.extmusic;
 
 import java.io.File;
 import java.io.IOException;
 
 import org.retropipes.diane.fileio.utility.FileUtilities;
-import org.retropipes.diane.gui.dialog.CommonDialogs;
-import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.utility.IDGenerator;
 
 public class ExternalMusicImporter {
 	private static final String MAC_PREFIX = "HOME";
@@ -71,21 +68,21 @@ public class ExternalMusicImporter {
 		return ExternalMusicImporter.UNIX_SOUND_DIR;
 	}
 
-	public static void importMusic(final File source) {
+	public static String importMusic(final File source) {
 		final var basePath = ExternalMusicImporter.getMusicBasePath();
-		final var musicfilename = IDGenerator.generateRandomFilename() + ExternalMusicImporter.getExtension(source);
+		final var musicfilename = ExternalMusicIDGenerator.generateRandomFilename()
+				+ ExternalMusicImporter.getExtension(source);
 		final var dest = new File(basePath + File.separator + musicfilename);
 		ExternalMusicImporter.destFile = dest;
 		try {
 			if (!dest.getParentFile().exists()) {
 				dest.getParentFile().mkdirs();
 			}
+			ExternalMusicLoader.deleteExternalMusicFile(basePath, musicfilename);
 			FileUtilities.copyFile(source, dest);
-			ExternalMusicLoader.deleteExternalMusicFile();
-			DungeonDiver7.getStuffBag().getEditor().setMusicFilename(musicfilename);
-			CommonDialogs.showDialog("Music successfully imported.");
 		} catch (final IOException io) {
 			// Ignore
 		}
+		return musicfilename;
 	}
 }

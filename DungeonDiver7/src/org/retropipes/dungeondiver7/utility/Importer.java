@@ -23,7 +23,8 @@ import javax.swing.border.EmptyBorder;
 import org.retropipes.diane.gui.MainContent;
 import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
-import org.retropipes.dungeondiver7.asset.ExternalMusicImporter;
+import org.retropipes.dungeondiver7.DungeonDiver7;
+import org.retropipes.dungeondiver7.loader.extmusic.ExternalMusicImporter;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Strings;
 
@@ -86,7 +87,9 @@ public class Importer {
 							if (ext.equalsIgnoreCase("mod") || ext.equalsIgnoreCase("s3m")
 									|| ext.equalsIgnoreCase("xm")) {
 								// Import External Music
-								ExternalMusicImporter.importMusic(f);
+								var emf = ExternalMusicImporter.importMusic(f);
+								DungeonDiver7.getStuffBag().getEditor().setMusicFilename(emf);
+								CommonDialogs.showDialog("Music successfully imported.");
 								Importer.mainWindow.restoreSaved();
 							} else {
 								// Unknown file type

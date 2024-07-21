@@ -3,20 +3,22 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package org.retropipes.dungeondiver7.asset;
+package org.retropipes.dungeondiver7.loader.extmusic;
 
 import java.io.File;
 
+import org.retropipes.diane.Diane;
 import org.retropipes.diane.fileio.utility.FileUtilities;
-import org.retropipes.dungeondiver7.DungeonDiver7;
 
 public class ExternalMusicSaveTask extends Thread {
 	// Fields
 	private final String filename;
 	private final String pathname;
+	private final String basePath;
 
 	// Constructors
-	public ExternalMusicSaveTask(final String path, final String file) {
+	public ExternalMusicSaveTask(final String base, final String path, final String file) {
+		this.basePath = base;
 		this.filename = file;
 		this.pathname = path;
 		this.setName("External Music Writer");
@@ -25,12 +27,10 @@ public class ExternalMusicSaveTask extends Thread {
 	@Override
 	public void run() {
 		try {
-			final var basePath = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
-					.getDungeonTempMusicFolder();
 			FileUtilities.copyFile(new File(this.pathname + this.filename),
-					new File(basePath + File.separator + this.filename.toLowerCase()));
+					new File(this.basePath + File.separator + this.filename.toLowerCase()));
 		} catch (final Exception ex) {
-			DungeonDiver7.logError(ex);
+			Diane.handleError(ex);
 		}
 	}
 }

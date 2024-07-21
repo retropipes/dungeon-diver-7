@@ -3,11 +3,11 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package org.retropipes.dungeondiver7.asset;
+package org.retropipes.dungeondiver7.loader.extmusic;
 
 import java.io.File;
 
-import org.retropipes.dungeondiver7.DungeonDiver7;
+import org.retropipes.diane.Diane;
 
 public class ExternalMusicLoadTask extends Thread {
 	private static String getFileNameOnly(final String s) {
@@ -23,25 +23,25 @@ public class ExternalMusicLoadTask extends Thread {
 
 	// Fields
 	private ExternalMusic gameExternalMusic;
+	private final String folder;
 	private final String filename;
 
 	// Constructors
-	public ExternalMusicLoadTask(final String file) {
-		this.filename = file;
+	public ExternalMusicLoadTask(final String loadFolder, final String loadFilename) {
+		this.folder = loadFolder;
+		this.filename = loadFilename;
 		this.setName("External Music Loader");
 	}
 
 	@Override
 	public void run() {
-		final var app = DungeonDiver7.getStuffBag();
-		final var a = app.getDungeonManager().getDungeon();
 		try {
 			this.gameExternalMusic = new ExternalMusic();
 			this.gameExternalMusic.setName(ExternalMusicLoadTask.getFileNameOnly(this.filename));
-			this.gameExternalMusic.setPath(a.getDungeonTempMusicFolder());
+			this.gameExternalMusic.setPath(this.folder);
 			ExternalMusicLoader.setExternalMusic(this.gameExternalMusic);
 		} catch (final Exception ex) {
-			DungeonDiver7.logError(ex);
+			Diane.handleError(ex);
 		}
 	}
 }

@@ -15,10 +15,11 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JTextField;
 
+import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.asset.ExternalMusic;
-import org.retropipes.dungeondiver7.asset.ExternalMusicImporter;
-import org.retropipes.dungeondiver7.asset.ExternalMusicLoader;
+import org.retropipes.dungeondiver7.loader.extmusic.ExternalMusic;
+import org.retropipes.dungeondiver7.loader.extmusic.ExternalMusicImporter;
+import org.retropipes.dungeondiver7.loader.extmusic.ExternalMusicLoader;
 import org.retropipes.dungeondiver7.locale.EditorString;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.utility.Importer;
@@ -174,7 +175,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 				this.loadObject();
 			}
 			if (this.cachedExternalMusic != null) {
-				ExternalMusicLoader.loadPlayExternalMusic(this.cachedExternalMusic.getName());
+				ExternalMusicLoader.playExternalMusic(ExternalMusicImporter.getMusicBasePath(), this.cachedExternalMusic.getName());
 			}
 		} else if (cmd.equals("st")) {
 			// Stop the music
@@ -193,7 +194,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 
 	@Override
 	protected void loadObject() {
-		this.cachedExternalMusic = ExternalMusicLoader.getExternalMusic();
+		this.cachedExternalMusic = ExternalMusicLoader.getExternalMusic(ExternalMusicImporter.getMusicBasePath(), DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getMusicFilename());
 	}
 
 	@Override
@@ -203,7 +204,10 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 			this.cachedExternalMusic.setName(file.getName());
 			this.cachedExternalMusic.setPath(file.getParent() + File.separator);
 			this.saveObject();
-			ExternalMusicLoader.saveExternalMusic();
+			var success = ExternalMusicLoader.saveExternalMusic(ExternalMusicImporter.getMusicBasePath());
+			if (!success) {
+				CommonDialogs.showErrorDialog("Save External Music Failed!", "External Music Editor");
+			}
 			file.deleteOnExit();
 			DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 		}

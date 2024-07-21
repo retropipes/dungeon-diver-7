@@ -3,17 +3,17 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package org.retropipes.dungeondiver7.utility;
+package org.retropipes.dungeondiver7.loader.extmusic;
 
 import org.retropipes.diane.random.RandomLongRange;
 
-public class IDGenerator {
+public class ExternalMusicIDGenerator {
 	public static String generateRandomFilename() {
 		return Long.toString(RandomLongRange.generateRaw(), 36).toLowerCase();
 	}
 
 	// Constructor
-	private IDGenerator() {
+	private ExternalMusicIDGenerator() {
 		// Do nothing
 	}
 }

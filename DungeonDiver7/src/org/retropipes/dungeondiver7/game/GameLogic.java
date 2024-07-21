@@ -21,7 +21,6 @@ import org.retropipes.dungeondiver7.Accelerators;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.MenuSection;
 import org.retropipes.dungeondiver7.StuffBag;
-import org.retropipes.dungeondiver7.asset.ExternalMusicLoader;
 import org.retropipes.dungeondiver7.asset.ImageLoader;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.HistoryStatus;
@@ -33,6 +32,8 @@ import org.retropipes.dungeondiver7.dungeon.objects.ArrowTurretDisguise;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.dungeon.objects.Party;
 import org.retropipes.dungeondiver7.dungeon.objects.PowerfulParty;
+import org.retropipes.dungeondiver7.loader.extmusic.ExternalMusicImporter;
+import org.retropipes.dungeondiver7.loader.extmusic.ExternalMusicLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.DialogString;
@@ -781,7 +782,8 @@ public final class GameLogic implements MenuSection {
 				this.showOutput();
 				// Start music
 				if (Prefs.getMusicEnabled()) {
-					ExternalMusicLoader.playExternalMusic();
+					ExternalMusicLoader.playExternalMusic(ExternalMusicImporter.getMusicBasePath(),
+							m.getMusicFilename());
 				}
 				app.getDungeonManager().getDungeon().setDirtyFlags(this.plMgr.getPlayerLocationZ());
 				this.updateScoreText();
