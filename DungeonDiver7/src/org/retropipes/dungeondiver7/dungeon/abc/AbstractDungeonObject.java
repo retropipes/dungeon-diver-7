@@ -19,7 +19,6 @@ import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.asset.BattleImageManager;
 import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
 import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
@@ -199,7 +198,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	}
 
 	public BufferedImageIcon battleRenderHook() {
-		return BattleImageManager.getImage(this.getName(), this.getBattleBaseID());
+		return ObjectImageLoader.load(this.getName(), this.getBattleBaseID());
 	}
 
 	public boolean canMove() {
