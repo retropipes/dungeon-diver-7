@@ -11,7 +11,6 @@ import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
 
 public class MonsterImageLoader {
-
 	public static BufferedImageIcon load(final int index) {
 		var filename = Integer.toString(index);
 		return DianeImageLoader.load(filename, MonsterImageLoader.class

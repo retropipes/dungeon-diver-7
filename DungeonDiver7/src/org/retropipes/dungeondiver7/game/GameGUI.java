@@ -37,7 +37,6 @@ import org.retropipes.dungeondiver7.Accelerators;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.asset.ImageCompositor;
 import org.retropipes.dungeondiver7.asset.ImageLoader;
-import org.retropipes.dungeondiver7.asset.ObjectImageManager;
 import org.retropipes.dungeondiver7.creature.characterfiles.CharacterRegistration;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
@@ -48,6 +47,7 @@ import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.dungeon.objects.Player;
 import org.retropipes.dungeondiver7.dungeon.objects.Wall;
 import org.retropipes.dungeondiver7.game.replay.ReplayManager;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
@@ -1129,7 +1129,7 @@ class GameGUI {
 						}
 					} else {
 						this.drawGrid.setImageCell(
-								ObjectImageManager.getImage(GameGUI.DARK.getName(), GameGUI.DARK.getBaseID()), xFix,
+								ObjectImageLoader.load(GameGUI.DARK.getName(), GameGUI.DARK.getBaseID()), xFix,
 								yFix);
 					}
 				} catch (final ArrayIndexOutOfBoundsException ae) {

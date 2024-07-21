@@ -21,10 +21,10 @@ import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.asset.BattleImageManager;
 import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
-import org.retropipes.dungeondiver7.asset.ObjectImageManager;
 import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Colors;
@@ -324,7 +324,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	 * @return
 	 */
 	public BufferedImageIcon gameRenderHook(final int x, final int y) {
-		return ObjectImageManager.getImage(this.getName(), this.getBaseID());
+		return ObjectImageLoader.load(this.getName(), this.getBaseID());
 	}
 
 	abstract public int getBaseID();
