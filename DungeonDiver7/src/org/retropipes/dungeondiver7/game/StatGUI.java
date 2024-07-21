@@ -12,9 +12,9 @@ import javax.swing.SwingConstants;
 
 import org.retropipes.diane.gui.MainContent;
 import org.retropipes.diane.gui.MainWindow;
-import org.retropipes.dungeondiver7.asset.StatImageManager;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.locale.StatusImage;
+import org.retropipes.dungeondiver7.loader.image.status.StatusImageId;
+import org.retropipes.dungeondiver7.loader.image.status.StatusImageLoader;
 
 class StatGUI {
 	// Fields
@@ -57,19 +57,19 @@ class StatGUI {
 	}
 
 	void updateImages() {
-		final var hpImage = StatImageManager.load(StatusImage.HEALTH);
+		final var hpImage = StatusImageLoader.load(StatusImageId.HEALTH);
 		this.hpLabel.setIcon(hpImage);
-		final var mpImage = StatImageManager.load(StatusImage.MAGIC);
+		final var mpImage = StatusImageLoader.load(StatusImageId.MAGIC);
 		this.mpLabel.setIcon(mpImage);
-		final var goldImage = StatImageManager.load(StatusImage.MONEY);
+		final var goldImage = StatusImageLoader.load(StatusImageId.MONEY);
 		this.goldLabel.setIcon(goldImage);
-		final var attackImage = StatImageManager.load(StatusImage.MELEE_ATTACK);
+		final var attackImage = StatusImageLoader.load(StatusImageId.MELEE_ATTACK);
 		this.attackLabel.setIcon(attackImage);
-		final var defenseImage = StatImageManager.load(StatusImage.DEFENSE);
+		final var defenseImage = StatusImageLoader.load(StatusImageId.DEFENSE);
 		this.defenseLabel.setIcon(defenseImage);
-		final var xpImage = StatImageManager.load(StatusImage.EXPERIENCE);
+		final var xpImage = StatusImageLoader.load(StatusImageId.EXPERIENCE);
 		this.xpLabel.setIcon(xpImage);
-		final var levelImage = StatImageManager.load(StatusImage.CREATURE_LEVEL);
+		final var levelImage = StatusImageLoader.load(StatusImageId.CREATURE_LEVEL);
 		this.levelLabel.setIcon(levelImage);
 	}
 

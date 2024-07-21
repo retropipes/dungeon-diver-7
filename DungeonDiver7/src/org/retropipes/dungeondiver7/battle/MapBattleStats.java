@@ -13,9 +13,9 @@ import javax.swing.SwingConstants;
 
 import org.retropipes.diane.gui.MainContent;
 import org.retropipes.diane.gui.MainWindow;
-import org.retropipes.dungeondiver7.asset.StatImageManager;
 import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
-import org.retropipes.dungeondiver7.locale.StatusImage;
+import org.retropipes.dungeondiver7.loader.image.status.StatusImageId;
+import org.retropipes.dungeondiver7.loader.image.status.StatusImageLoader;
 
 public class MapBattleStats {
 	// Fields
@@ -53,15 +53,15 @@ public class MapBattleStats {
 	}
 
 	private void updateIcons() {
-		final var nameImage = StatImageManager.load(StatusImage.CREATURE_ID);
+		final var nameImage = StatusImageLoader.load(StatusImageId.CREATURE_ID);
 		this.nameLabel.setIcon(nameImage);
-		final var hpImage = StatImageManager.load(StatusImage.HEALTH);
+		final var hpImage = StatusImageLoader.load(StatusImageId.HEALTH);
 		this.hpLabel.setIcon(hpImage);
-		final var mpImage = StatImageManager.load(StatusImage.MAGIC);
+		final var mpImage = StatusImageLoader.load(StatusImageId.MAGIC);
 		this.mpLabel.setIcon(mpImage);
-		final var attImage = StatImageManager.load(StatusImage.MELEE_ATTACK);
+		final var attImage = StatusImageLoader.load(StatusImageId.MELEE_ATTACK);
 		this.attLabel.setIcon(attImage);
-		final var defImage = StatImageManager.load(StatusImage.DEFENSE);
+		final var defImage = StatusImageLoader.load(StatusImageId.DEFENSE);
 		this.defLabel.setIcon(defImage);
 	}
 

@@ -17,6 +17,7 @@ module org.retropipes.dungeondiver7 {
 	requires org.retropipes.dungeondiver7.loader.image.battle;
 	requires org.retropipes.dungeondiver7.loader.image.gameobject;
 	requires org.retropipes.dungeondiver7.loader.image.monster;
+	requires org.retropipes.dungeondiver7.loader.image.status;
 	requires org.retropipes.dungeondiver7.loader.music;
 	requires org.retropipes.dungeondiver7.loader.sound;
 	requires org.retropipes.dungeondiver7.locale;

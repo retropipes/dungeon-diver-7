@@ -226,10 +226,6 @@ public final class Strings {
 		return ResourceBundle.getBundle("locale.stat", Strings.ACTIVE).getString(Integer.toString(index));
 	}
 
-	public static String statusImage(final StatusImage item) {
-		return ResourceBundle.getBundle("locale.statusimage").getString(Integer.toString(item.ordinal()));
-	}
-
 	public static String timeTravel(final int index) {
 		return ResourceBundle.getBundle("locale.timetravel", Strings.ACTIVE).getString(Integer.toString(index));
 	}
