@@ -8,8 +8,8 @@ package org.retropipes.dungeondiver7.creature.monster;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.random.RandomLongRange;
 import org.retropipes.diane.random.RandomRange;
-import org.retropipes.dungeondiver7.asset.MonsterImageManager;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
+import org.retropipes.dungeondiver7.loader.image.monster.MonsterImageLoader;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.shop.Shop;
 
@@ -106,7 +106,7 @@ class Monster extends AbstractMonster {
 	@Override
 	protected BufferedImageIcon getInitialImage() {
 		final var monID = this.getMonsterID();
-		return MonsterImageManager.getImage(monID);
+		return MonsterImageLoader.load(monID);
 	}
 
 	private int getInitialIntelligence() {
