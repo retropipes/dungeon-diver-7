@@ -9,7 +9,7 @@ import org.retropipes.diane.fileio.utility.ResourceStreamReader;
 class StatusImageCatalogLoader {
 
 	private static ArrayList<String> FILENAME_CACHE = null;
-	private static String CATALOG_PATH = "/asset/catalog/image/attribute.catalog";
+	private static String CATALOG_PATH = "/asset/catalog/image/status.catalog";
 
 	static String getFilename(final int index) {
 		if (FILENAME_CACHE == null) {
