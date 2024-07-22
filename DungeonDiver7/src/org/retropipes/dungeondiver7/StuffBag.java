@@ -13,7 +13,6 @@ import javax.swing.JProgressBar;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
-import org.retropipes.dungeondiver7.asset.LogoLoader;
 import org.retropipes.dungeondiver7.battle.AbstractBattle;
 import org.retropipes.dungeondiver7.battle.MapBattleLogic;
 import org.retropipes.dungeondiver7.editor.DungeonEditor;

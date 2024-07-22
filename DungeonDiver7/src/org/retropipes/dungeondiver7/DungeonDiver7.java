@@ -8,7 +8,6 @@ package org.retropipes.dungeondiver7;
 import org.retropipes.diane.Diane;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.diane.integration.Integration;
-import org.retropipes.dungeondiver7.asset.LogoLoader;
 import org.retropipes.dungeondiver7.creature.AbstractCreature;
 import org.retropipes.dungeondiver7.locale.ErrorString;
 import org.retropipes.dungeondiver7.locale.Strings;
