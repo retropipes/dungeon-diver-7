@@ -29,7 +29,6 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTunnel;
 import org.retropipes.dungeondiver7.dungeon.objects.ArrowTurret;
 import org.retropipes.dungeondiver7.dungeon.objects.ArrowTurretDisguise;
-import org.retropipes.dungeondiver7.dungeon.objects.BossMonsterTile;
 import org.retropipes.dungeondiver7.dungeon.objects.DeadArrowTurret;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.dungeon.objects.FinalBossMonsterTile;
@@ -1898,8 +1897,6 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 						app.getGameLogic().stopMovement();
 						if (monster instanceof FinalBossMonsterTile) {
 							app.getBattle().doFinalBossBattle();
-						} else if (monster instanceof BossMonsterTile) {
-							app.getBattle().doBossBattle();
 						} else {
 							app.getBattle().doBattle();
 							this.postBattle(dungeon, monster, xLoc, yLoc, false);

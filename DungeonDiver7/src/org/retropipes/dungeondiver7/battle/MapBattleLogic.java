@@ -342,16 +342,6 @@ public class MapBattleLogic extends AbstractBattle {
 	}
 
 	@Override
-	public void doBossBattle() {
-		this.battleType = AbstractBattleType.createBossBattle();
-		if (MusicLoader.isMusicPlaying()) {
-			MusicLoader.stopMusic();
-		}
-		MusicLoader.playMusic(Music.BOSS);
-		this.doBattleInternal();
-	}
-
-	@Override
 	public void doFinalBossBattle() {
 		this.battleType = AbstractBattleType.createFinalBossBattle();
 		if (MusicLoader.isMusicPlaying()) {

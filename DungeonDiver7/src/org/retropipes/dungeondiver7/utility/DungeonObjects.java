@@ -49,7 +49,7 @@ public class DungeonObjects {
 			new Cracked(), new Crumbling(), new Damaged(), new Weakened(), new Cloak(), new Darkness(), new PowerBolt(),
 			new RollingBarrelHorizontal(), new RollingBarrelVertical(), new FreezeMagic(), new KillSkull(),
 			new ArrowBelt(), new ArmorShop(), new ClosedDoor(), new HealShop(), new MonsterTile(),
-			new BossMonsterTile(), new FinalBossMonsterTile(), new OpenDoor(), new Regenerator(), new SpellShop(),
+			new FinalBossMonsterTile(), new OpenDoor(), new Regenerator(), new SpellShop(),
 			new Tile(), new WeaponsShop() };
 
 	public void enableAllObjects() {

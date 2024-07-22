@@ -7,10 +7,6 @@ public abstract class AbstractBattleType {
 		return new RegularBattle();
 	}
 
-	public static AbstractBattleType createBossBattle() {
-		return new BossBattle();
-	}
-
 	public static AbstractBattleType createFinalBossBattle() {
 		return new FinalBossBattle();
 	}

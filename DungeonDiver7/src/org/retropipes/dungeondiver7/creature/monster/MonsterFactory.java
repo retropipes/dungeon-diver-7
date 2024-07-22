@@ -8,10 +8,6 @@ package org.retropipes.dungeondiver7.creature.monster;
 import org.retropipes.dungeondiver7.creature.AbstractCreature;
 
 public class MonsterFactory {
-	public static AbstractCreature getNewBossInstance() {
-		return new BossMonster();
-	}
-
 	public static AbstractCreature getNewFinalBossInstance() {
 		return new FinalBossMonster();
 	}

@@ -25,8 +25,6 @@ public abstract class AbstractBattle {
 
 	public abstract void doBattleByProxy();
 
-	public abstract void doBossBattle();
-
 	public abstract void doFinalBossBattle();
 
 	public abstract boolean doPlayerActions(final int actionType);

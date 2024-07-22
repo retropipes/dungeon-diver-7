@@ -8,9 +8,9 @@ package org.retropipes.dungeondiver7.creature.monster;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.ai.MapAIRoutinePicker;
-import org.retropipes.dungeondiver7.asset.BossImageManager;
 import org.retropipes.dungeondiver7.creature.AbstractCreature;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
+import org.retropipes.dungeondiver7.loader.image.monster.MonsterImageLoader;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.spell.SpellBook;
@@ -96,7 +96,7 @@ public class FinalBossMonster extends AbstractMonster {
 
 	@Override
 	protected BufferedImageIcon getInitialImage() {
-		return BossImageManager.getFinalBossImage();
+		return MonsterImageLoader.loadFinalBoss();
 	}
 
 	private int getInitialIntelligence() {
