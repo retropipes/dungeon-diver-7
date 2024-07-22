@@ -24,9 +24,13 @@ public enum Sounds implements DianeSoundIndex {
 	MELT, CRUSH, BUTTON, JUMPING, PREPARE, CRACK, DISCOVER, POWERFUL, POWER_LASER, FREEZE_MAGIC, KILL_SKULL, CONTROL,
 	ERA_CHANGE, ERAS_ENABLED, IDENTIFY, _NONE;
 
+	public String getDisplayName() {
+		return this == _NONE ? null : Strings.sound(this.ordinal());
+	}
+
 	@Override
 	public String getName() {
-		return Strings.sound(this.ordinal());
+		return this == _NONE ? null : this.toString().toLowerCase().replace('_', '-');
 	}
 
 	@Override
