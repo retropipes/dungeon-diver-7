@@ -7,16 +7,12 @@ package org.retropipes.dungeondiver7.shop;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
-import org.retropipes.dungeondiver7.asset.ArmorImageManager;
-import org.retropipes.dungeondiver7.asset.WeaponImageManager;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
-import org.retropipes.dungeondiver7.item.EquipmentFactory;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Music;
-import org.retropipes.dungeondiver7.locale.Strings;
 
 public class Shop {
 	private class ShopDialogGUI {
@@ -158,117 +154,6 @@ public class Shop {
 		}
 	}
 
-	private class ShopImageDialogGUI {
-		public ShopImageDialogGUI() {
-			// Do nothing
-		}
-
-		private boolean shopStage1() {
-			// Stage 1
-			// Play enter shop sound
-			SoundLoader.playSound(Sounds.SHOP);
-			final var zoneID = PartyManager.getParty().getZone();
-			if (Shop.this.type == ShopType.WEAPONS) {
-				Shop.this.imageChoices = new BufferedImageIcon[Strings.WEAPON_TYPES_COUNT];
-				for (var i = 0; i < Strings.WEAPON_TYPES_COUNT; i++) {
-					Shop.this.imageChoices[i] = WeaponImageManager.getImage(i, zoneID);
-				}
-				Shop.this.typeChoices = Strings.allWeaponTypes();
-			} else if (Shop.this.type == ShopType.ARMOR) {
-				Shop.this.imageChoices = new BufferedImageIcon[Strings.ARMOR_TYPES_COUNT];
-				for (var i = 0; i < Strings.ARMOR_TYPES_COUNT; i++) {
-					Shop.this.imageChoices[i] = ArmorImageManager.getImage(i, zoneID);
-				}
-				Shop.this.typeChoices = Strings.allArmorTypes();
-			} else {
-				// Invalid shop type
-				return false;
-			}
-			Shop.this.typeDefault = 0;
-			if (Shop.this.typeChoices != null) {
-				Shop.this.typeIndex = CommonDialogs.showImageListWithDescDialog("Select Type",
-						Shop.this.getShopNameFromType(), Shop.this.imageChoices, Shop.this.typeDefault,
-						Shop.this.typeChoices[Shop.this.typeDefault], Shop.this.typeChoices);
-				if (Shop.this.typeIndex == CommonDialogs.CANCEL
-						|| Shop.this.typeIndex == Shop.this.typeChoices.length) {
-					return false;
-				}
-			}
-			return true;
-		}
-
-		private boolean shopStage2() {
-			// Stage 2
-			Shop.this.index = PartyManager.getParty().getZone();
-			if (Shop.this.type == ShopType.WEAPONS) {
-				Shop.this.result = Strings.weaponName(Shop.this.index, Shop.this.typeIndex);
-			} else if (Shop.this.type == ShopType.ARMOR) {
-				Shop.this.result = Strings.armorName(Shop.this.index, Shop.this.typeIndex);
-			}
-			return true;
-		}
-
-		private boolean shopStage3() {
-			// Stage 3
-			Shop.this.cost = 0;
-			Shop.this.cost = Shop.getEquipmentCost(Shop.this.index);
-			// Confirm
-			final var stage4Confirm = CommonDialogs.showConfirmDialog(
-					"This will cost " + Shop.this.cost + " Gold. Are you sure?", Shop.this.getShopNameFromType());
-			if (stage4Confirm == CommonDialogs.NO_OPTION || stage4Confirm == CommonDialogs.CLOSED_OPTION) {
-				return false;
-			}
-			return true;
-		}
-
-		private boolean shopStage4() {
-			// Stage 4
-			final var playerCharacter = PartyManager.getParty().getLeader();
-			if (playerCharacter.getGold() < Shop.this.cost) {
-				CommonDialogs.showErrorDialog("Not Enough Gold!", Shop.this.getShopNameFromType());
-				return false;
-			}
-			return true;
-		}
-
-		private void shopStage5() {
-			// Stage 5
-			final var playerCharacter = PartyManager.getParty().getLeader();
-			// Play transact sound
-			SoundLoader.playSound(Sounds.TRANSACT);
-			if (Shop.this.type == ShopType.WEAPONS) {
-				playerCharacter.offsetGold(-Shop.this.cost);
-				final var bought = EquipmentFactory.createWeapon(Shop.this.index, Shop.this.typeIndex);
-				playerCharacter.getItems().equip(playerCharacter, bought, true);
-			} else if (Shop.this.type == ShopType.ARMOR) {
-				playerCharacter.offsetGold(-Shop.this.cost);
-				final var bought = EquipmentFactory.createArmor(Shop.this.index, Shop.this.typeIndex);
-				playerCharacter.getItems().equip(playerCharacter, bought, true);
-			}
-		}
-
-		public void showShop() {
-			Shop.this.index = 0;
-			Shop.this.defaultChoice = 0;
-			Shop.this.choices = null;
-			Shop.this.result = null;
-			Shop.this.cost = 0;
-			var valid = this.shopStage1();
-			if (valid) {
-				valid = this.shopStage2();
-			}
-			if (valid) {
-				valid = this.shopStage3();
-			}
-			if (valid) {
-				valid = this.shopStage4();
-			}
-			if (valid) {
-				this.shopStage5();
-			}
-		}
-	}
-
 	// Fields
 	private static final String[] SHOP_NAMES = { "Weapons", "Armor", "Healer", "Regenerator", "Spells" };
 	static final int MAX_ENHANCEMENTS = 9;
@@ -312,12 +197,10 @@ public class Shop {
 	int typeIndex;
 	BufferedImageIcon[] imageChoices;
 	private final ShopDialogGUI defaultUI;
-	private final ShopImageDialogGUI imageUI;
 
 	// Constructors
 	public Shop(final ShopType shopType) {
 		this.defaultUI = new ShopDialogGUI();
-		this.imageUI = new ShopImageDialogGUI();
 		this.type = shopType;
 		this.index = 0;
 	}
@@ -331,11 +214,7 @@ public class Shop {
 			MusicLoader.stopMusic();
 		}
 		MusicLoader.playMusic(Music.SHOP);
-		if (this.type == ShopType.ARMOR || this.type == ShopType.WEAPONS) {
-			this.imageUI.showShop();
-		} else {
-			this.defaultUI.showShop();
-		}
+		this.defaultUI.showShop();
 		MusicLoader.stopMusic();
 		final var zoneID = PartyManager.getParty().getZone();
 		if (zoneID == AbstractDungeon.getMaxLevels() - 1) {
