@@ -132,7 +132,7 @@ public class MapBattleLogic extends AbstractBattle {
 			// Active character has no AI, or AI is turned off
 			final var success = SpellCaster.selectAndCastSpell(this.bd.getActiveCharacter().getTemplate());
 			if (success) {
-				SoundLoader.playSound(Sounds.CAST_SPELL);
+				SoundLoader.playSound(Sounds.PARTY_SPELL);
 				this.decrementActiveSpellCounter();
 			}
 			final var currResult = this.getResult();
@@ -147,7 +147,7 @@ public class MapBattleLogic extends AbstractBattle {
 		final var sp = this.bd.getActiveCharacter().getTemplate().getMapAI().getSpellToCast();
 		final var success = SpellCaster.castSpell(sp, this.bd.getActiveCharacter().getTemplate());
 		if (success) {
-			SoundLoader.playSound(Sounds.MONSTER_SPELL);
+			SoundLoader.playSound(Sounds.ENEMY_SPELL);
 			this.decrementActiveSpellCounter();
 		}
 		final var currResult = this.getResult();
@@ -177,7 +177,11 @@ public class MapBattleLogic extends AbstractBattle {
 		} else {
 			theEnemy.doDamage(this.damage);
 		}
-		this.displayRoundResults(theEnemy, acting, activeDE);
+		if (acting.getTeamID() == AbstractCreature.TEAM_PARTY) {
+			this.displayPartyRoundResults(theEnemy, acting, activeDE);
+		} else {
+			this.displayEnemyRoundResults(theEnemy, acting, activeDE);
+		}
 	}
 
 	private void decrementActiveActionCounterBy(final int amount) {
@@ -202,7 +206,7 @@ public class MapBattleLogic extends AbstractBattle {
 		// Do nothing
 	}
 
-	private void displayRoundResults(final AbstractCreature theEnemy, final AbstractCreature active,
+	private void displayPartyRoundResults(final AbstractCreature theEnemy, final AbstractCreature active,
 			final AbstractDamageEngine activeDE) {
 		// Display round results
 		final var hitSound = active.getItems().getWeaponHitSound(active);
@@ -225,18 +229,18 @@ public class MapBattleLogic extends AbstractBattle {
 			var displayDamagePrefix = "";
 			if (activeDE.weaponCrit() && activeDE.weaponPierce()) {
 				displayDamagePrefix = "PIERCING CRITICAL HIT! ";
-				SoundLoader.playSound(Sounds.COUNTER);
-				SoundLoader.playSound(Sounds.CRITICAL_HIT);
+				SoundLoader.playSound(Sounds.PARTY_COUNTER);
+				SoundLoader.playSound(Sounds.CRITICAL);
 			} else if (activeDE.weaponCrit()) {
 				displayDamagePrefix = "CRITICAL HIT! ";
-				SoundLoader.playSound(Sounds.CRITICAL_HIT);
+				SoundLoader.playSound(Sounds.CRITICAL);
 			} else if (activeDE.weaponPierce()) {
 				displayDamagePrefix = "PIERCING HIT! ";
-				SoundLoader.playSound(Sounds.COUNTER);
+				SoundLoader.playSound(Sounds.PARTY_COUNTER);
 			}
 			displayDamageString = displayDamagePrefix + activeName + " tries to hit " + enemyName + ", but " + enemyName
 					+ " RIPOSTES for " + damageString + " damage!";
-			SoundLoader.playSound(Sounds.COUNTER);
+			SoundLoader.playSound(Sounds.PARTY_COUNTER);
 		} else {
 			var displayDamagePrefix = "";
 			if (activeDE.weaponFumble()) {
@@ -246,14 +250,75 @@ public class MapBattleLogic extends AbstractBattle {
 			} else {
 				if (activeDE.weaponCrit() && activeDE.weaponPierce()) {
 					displayDamagePrefix = "PIERCING CRITICAL HIT! ";
-					SoundLoader.playSound(Sounds.COUNTER);
-					SoundLoader.playSound(Sounds.CRITICAL_HIT);
+					SoundLoader.playSound(Sounds.PARTY_COUNTER);
+					SoundLoader.playSound(Sounds.CRITICAL);
 				} else if (activeDE.weaponCrit()) {
 					displayDamagePrefix = "CRITICAL HIT! ";
-					SoundLoader.playSound(Sounds.CRITICAL_HIT);
+					SoundLoader.playSound(Sounds.CRITICAL);
 				} else if (activeDE.weaponPierce()) {
 					displayDamagePrefix = "PIERCING HIT! ";
-					SoundLoader.playSound(Sounds.COUNTER);
+					SoundLoader.playSound(Sounds.PARTY_COUNTER);
+				}
+				displayDamageString = displayDamagePrefix + activeName + " hits " + enemyName + " for " + damageString
+						+ " damage!";
+				SoundLoader.playSound(hitSound);
+			}
+		}
+		this.setStatusMessage(displayDamageString);
+	}
+
+	private void displayEnemyRoundResults(final AbstractCreature theEnemy, final AbstractCreature active,
+			final AbstractDamageEngine activeDE) {
+		// Display round results
+		final var hitSound = active.getItems().getWeaponHitSound(active);
+		final var activeName = active.getName();
+		final var enemyName = theEnemy.getName();
+		var damageString = Integer.toString(this.damage);
+		var displayDamageString = " ";
+		if (this.damage == 0) {
+			if (activeDE.weaponMissed()) {
+				displayDamageString = activeName + " tries to hit " + enemyName + ", but MISSES!";
+			} else if (activeDE.enemyDodged()) {
+				displayDamageString = activeName + " tries to hit " + enemyName + ", but " + enemyName
+						+ " AVOIDS the attack!";
+			} else {
+				displayDamageString = activeName + " tries to hit " + enemyName + ", but the attack is BLOCKED!";
+			}
+			SoundLoader.playSound(Sounds.MISSED);
+		} else if (this.damage < 0) {
+			damageString = Integer.toString(-this.damage);
+			var displayDamagePrefix = "";
+			if (activeDE.weaponCrit() && activeDE.weaponPierce()) {
+				displayDamagePrefix = "PIERCING CRITICAL HIT! ";
+				SoundLoader.playSound(Sounds.ENEMY_COUNTER);
+				SoundLoader.playSound(Sounds.CRITICAL);
+			} else if (activeDE.weaponCrit()) {
+				displayDamagePrefix = "CRITICAL HIT! ";
+				SoundLoader.playSound(Sounds.CRITICAL);
+			} else if (activeDE.weaponPierce()) {
+				displayDamagePrefix = "PIERCING HIT! ";
+				SoundLoader.playSound(Sounds.ENEMY_COUNTER);
+			}
+			displayDamageString = displayDamagePrefix + activeName + " tries to hit " + enemyName + ", but " + enemyName
+					+ " RIPOSTES for " + damageString + " damage!";
+			SoundLoader.playSound(Sounds.ENEMY_COUNTER);
+		} else {
+			var displayDamagePrefix = "";
+			if (activeDE.weaponFumble()) {
+				SoundLoader.playSound(Sounds.FUMBLE);
+				displayDamageString = "FUMBLE! " + activeName + " drops their weapon on themselves, doing "
+						+ damageString + " damage!";
+			} else {
+				if (activeDE.weaponCrit() && activeDE.weaponPierce()) {
+					displayDamagePrefix = "PIERCING CRITICAL HIT! ";
+					SoundLoader.playSound(Sounds.ENEMY_COUNTER);
+					SoundLoader.playSound(Sounds.CRITICAL);
+				} else if (activeDE.weaponCrit()) {
+					displayDamagePrefix = "CRITICAL HIT! ";
+					SoundLoader.playSound(Sounds.CRITICAL);
+				} else if (activeDE.weaponPierce()) {
+					displayDamagePrefix = "PIERCING HIT! ";
+					SoundLoader.playSound(Sounds.ENEMY_COUNTER);
 				}
 				displayDamageString = displayDamagePrefix + activeName + " hits " + enemyName + " for " + damageString
 						+ " damage!";
@@ -335,7 +400,7 @@ public class MapBattleLogic extends AbstractBattle {
 		// Start Battle
 		this.battleGUI.getViewManager().setViewingWindowCenterX(this.bd.getActiveCharacter().getY());
 		this.battleGUI.getViewManager().setViewingWindowCenterY(this.bd.getActiveCharacter().getX());
-		SoundLoader.playSound(Sounds.FIGHT);
+		SoundLoader.playSound(Sounds.DRAW_SWORD);
 		this.showBattle();
 		this.updateStatsAndEffects();
 		this.redrawBattle();
@@ -725,7 +790,7 @@ public class MapBattleLogic extends AbstractBattle {
 				// Handle low health for party members
 				if (active.isAlive() && active.getTeamID() == AbstractCreature.TEAM_PARTY
 						&& active.getCurrentHP() <= active.getMaximumHP() * 3 / 10) {
-					SoundLoader.playSound(Sounds.DANGER);
+					SoundLoader.playSound(Sounds.LOW_HEALTH);
 				}
 				// Cull Inactive Effects
 				active.cullInactiveEffects();
@@ -974,7 +1039,7 @@ public class MapBattleLogic extends AbstractBattle {
 		if (next == null || nextGround == null || currGround == null) {
 			// Confirm Flee
 			if (!active.hasMapAI()) {
-				SoundLoader.playSound(Sounds.SPECIAL);
+				SoundLoader.playSound(Sounds.QUESTION);
 				final var confirm = CommonDialogs.showConfirmDialog("Embrace Cowardice?", "Battle");
 				if (confirm != CommonDialogs.YES_OPTION) {
 					this.battleGUI.getViewManager().restoreViewingWindow();
@@ -983,7 +1048,7 @@ public class MapBattleLogic extends AbstractBattle {
 				}
 			}
 			// Flee
-			SoundLoader.playSound(Sounds.RUN_AWAY);
+			SoundLoader.playSound(Sounds.RUN);
 			this.battleGUI.getViewManager().restoreViewingWindow();
 			activeBC.restoreLocation();
 			// Set fled character to inactive
@@ -1116,7 +1181,11 @@ public class MapBattleLogic extends AbstractBattle {
 			activeBC.setSavedObject(m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS));
 			m.setCell(activeBC, px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 			this.decrementActiveActionCounterBy(MapAIContext.getAPCost());
-			SoundLoader.playSound(Sounds.WALK);
+			if (activeBC.getTeamID() == AbstractCreature.TEAM_PARTY) {
+				SoundLoader.playSound(Sounds.STEP_PARTY);
+			} else {
+				SoundLoader.playSound(Sounds.STEP_ENEMY);
+			}
 		} else if (next instanceof BattleCharacter) {
 			if ((!useAP || this.getActiveAttackCounter() <= 0) && useAP) {
 				// Deny attack - out of actions
@@ -1145,7 +1214,7 @@ public class MapBattleLogic extends AbstractBattle {
 			// Handle low health for party members
 			if (theEnemy.getTemplate().isAlive() && theEnemy.getTeamID() == AbstractCreature.TEAM_PARTY
 					&& theEnemy.getTemplate().getCurrentHP() <= theEnemy.getTemplate().getMaximumHP() * 3 / 10) {
-				SoundLoader.playSound(Sounds.DANGER);
+				SoundLoader.playSound(Sounds.LOW_HEALTH);
 			}
 			// Handle enemy death
 			if (!theEnemy.getTemplate().isAlive()) {

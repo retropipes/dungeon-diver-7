@@ -57,7 +57,7 @@ public class Party {
 		// Level Up Check
 		if (this.members.checkLevelUp()) {
 			this.members.levelUp();
-			SoundLoader.playSound(Sounds.LEVEL_UP);
+			SoundLoader.playSound(Sounds.GAIN_LEVEL);
 			CommonDialogs.showTitledDialog(this.members.getName() + " reached level " + this.members.getLevel() + "!",
 					"Level Up");
 		}

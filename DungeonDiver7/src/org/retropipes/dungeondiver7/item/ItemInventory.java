@@ -130,9 +130,9 @@ public class ItemInventory {
 			return weapon.getHitSound();
 		}
 		if (pc.getTeamID() == AbstractCreature.TEAM_PARTY) {
-			return Sounds.ATTACK_HIT;
+			return Sounds.ATTACK_PUNCH;
 		}
-		return Sounds.MONSTER_HIT;
+		return Sounds.ENEMY_HIT;
 	}
 
 	@Override
