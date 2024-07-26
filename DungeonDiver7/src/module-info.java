@@ -16,6 +16,7 @@ module org.retropipes.dungeondiver7 {
 	requires org.retropipes.dungeondiver7.loader.extmusic;
 	requires org.retropipes.dungeondiver7.loader.image.attribute;
 	requires org.retropipes.dungeondiver7.loader.image.battle;
+	requires org.retropipes.dungeondiver7.loader.image.effect;
 	requires org.retropipes.dungeondiver7.loader.image.gameobject;
 	requires org.retropipes.dungeondiver7.loader.image.halo;
 	requires org.retropipes.dungeondiver7.loader.image.item;
