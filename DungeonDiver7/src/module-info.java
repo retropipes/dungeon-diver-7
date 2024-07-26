@@ -18,6 +18,7 @@ module org.retropipes.dungeondiver7 {
 	requires org.retropipes.dungeondiver7.loader.image.battle;
 	requires org.retropipes.dungeondiver7.loader.image.gameobject;
 	requires org.retropipes.dungeondiver7.loader.image.halo;
+	requires org.retropipes.dungeondiver7.loader.image.item;
 	requires org.retropipes.dungeondiver7.loader.image.monster;
 	requires org.retropipes.dungeondiver7.loader.image.status;
 	requires org.retropipes.dungeondiver7.loader.image.ui;
