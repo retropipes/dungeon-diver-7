@@ -12,6 +12,7 @@ module org.retropipes.dungeondiver7 {
 	requires org.retropipes.diane.polytable;
 	requires org.retropipes.diane.scoring;
 	requires org.retropipes.diane.asset.ogg;
+	requires org.retropipes.dungeondiver7.creature.job.description;
 	requires org.retropipes.dungeondiver7.loader.extmusic;
 	requires org.retropipes.dungeondiver7.loader.image.attribute;
 	requires org.retropipes.dungeondiver7.loader.image.battle;
