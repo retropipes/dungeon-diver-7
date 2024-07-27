@@ -10,6 +10,7 @@ public final class GameObject {
 	private final ObjectImageId id;
 	private BufferedImageIcon image;
 	private boolean lazyLoaded;
+	private boolean solid;
 
 	public GameObject(final ObjectImageId oid) {
 		this.id = oid;
@@ -51,19 +52,25 @@ public final class GameObject {
 	}
 
 	public final BufferedImageIcon getImage() {
-		lazyLoad();
+		this.lazyLoad();
 		return this.image;
 	}
 
 	private void lazyLoad() {
 		if (!this.lazyLoaded) {
 			this.image = ObjectImageLoader.load(this.id);
+			this.solid = GameObjectDataLoader.solid(this.id);
 			this.lazyLoaded = true;
 		}
 	}
 
 	public final void incrementCounter(final int index) {
 		this.model.incrementCounter(index);
+	}
+
+	public final boolean isSolid() {
+		this.lazyLoad();
+		return this.solid;
 	}
 
 	public final int maxCounters() {
