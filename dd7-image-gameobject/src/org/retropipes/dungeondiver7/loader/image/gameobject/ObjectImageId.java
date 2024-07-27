@@ -3,11 +3,12 @@ package org.retropipes.dungeondiver7.loader.image.gameobject;
 import java.net.URL;
 
 import org.retropipes.diane.asset.image.DianeImageIndex;
+import org.retropipes.diane.objectmodel.ObjectId;
 import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
 
-public enum ObjectImageId implements DianeImageIndex {
+public enum ObjectImageId implements DianeImageIndex, ObjectId {
 	A_PLUG, A_PORT, AMETHYST_GEM, AMETHYST_SQUARE, AMETHYST_SQUARE_WALL, AMULET, ANNIHILATION_WAND, ANTIVENOM_AMULET,
 	AQUA_BOOTS, ARMOR_SHOP, ASH, ASH_BUTTON, ASH_DOOR, ASH_GENERATOR_D2, ASH_GENERATOR_D4, ASH_GENERATOR_D6,
 	ASH_GENERATOR_D8, ASH_KEY, ASH_LOCK, ASH_MAKING_TRAP, ASH_OFF_WALL, ASH_SHARD, ASH_SHARD_WALL, ASH_STONE, ASH_WALL,
