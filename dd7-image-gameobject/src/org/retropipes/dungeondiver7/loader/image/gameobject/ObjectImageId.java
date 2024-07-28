@@ -9,11 +9,13 @@ import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
 
 public enum ObjectImageId implements DianeImageIndex, ObjectId {
-	EMPTY, WALL, DARKNESS, BOUNDS, PARTY, NOTE, NOTHING, EASY_MONSTER, NORMAL_MONSTER, HARD_MONSTER, _NONE;
+	EMPTY, WALL, DARKNESS, BOUNDS, PARTY, NOTE, NOTHING, EASY_MONSTER, NORMAL_MONSTER, HARD_MONSTER, TILE, ARMOR_SHOP,
+	BANK, HEALER, ITEM_SHOP, SPELL_SHOP, SURGE_SHOP, WEAPON_SHOP, STAIRS_DOWN, STAIRS_UP, GRASS, TREE, CUT_TREE, AXE,
+	DIRT, WATER, DEEP_WATER, DEEPER_WATER, DEEPEST_WATER, BOOTS, _NONE;
 
 	@Override
 	public String getName() {
-		return ObjectImageCatalogLoader.getFilename(this.ordinal());
+		return Integer.toString(this.ordinal());
 	}
 
 	@Override
