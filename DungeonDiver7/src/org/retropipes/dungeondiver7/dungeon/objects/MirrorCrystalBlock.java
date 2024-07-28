@@ -53,7 +53,7 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
 		return switch (laserType) {
 		case ShotTypes.MISSILE -> {
 			// Destroy mirror crystal block
-			SoundLoader.playSound(Sounds.BOOM);
+			SoundLoader.playSound(Sounds.KABOOM);
 			DungeonDiver7.getStuffBag().getGameLogic();
 			GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 			yield Direction.NONE;

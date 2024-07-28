@@ -47,7 +47,7 @@ public class IcyCrystalBlock extends AbstractReactionWall {
 			final int dirY, final int laserType, final int forceUnits) {
 		if (laserType == ShotTypes.MISSILE) {
 			// Destroy icy crystal block
-			SoundLoader.playSound(Sounds.BOOM);
+			SoundLoader.playSound(Sounds.KABOOM);
 			DungeonDiver7.getStuffBag().getGameLogic();
 			GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 			return Direction.NONE;

@@ -40,7 +40,7 @@ public class Mirror extends AbstractMovableObject {
 			final int laserType, final int forceUnits) {
 		if (laserType == ShotTypes.MISSILE) {
 			// Destroy mirror
-			SoundLoader.playSound(Sounds.BOOM);
+			SoundLoader.playSound(Sounds.KABOOM);
 			DungeonDiver7.getStuffBag().getGameLogic();
 			GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 			return Direction.NONE;
@@ -95,6 +95,6 @@ public class Mirror extends AbstractMovableObject {
 
 	@Override
 	public void playSoundHook() {
-		SoundLoader.playSound(Sounds.PUSH_MIRROR);
+		SoundLoader.playSound(Sounds.PUSH);
 	}
 }

@@ -493,7 +493,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	 * @param inv
 	 */
 	public void interactAction() {
-		SoundLoader.playSound(Sounds.FAILED);
+		SoundLoader.playSound(Sounds.ACTION_FAILED);
 		DungeonDiver7.getStuffBag().showMessage("Can't interact with that");
 	}
 
@@ -618,7 +618,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	 * @param locZ
 	 */
 	public void moveFailedAction(final int locX, final int locY, final int locZ) {
-		SoundLoader.playSound(Sounds.FAILED);
+		SoundLoader.playSound(Sounds.ACTION_FAILED);
 		DungeonDiver7.getStuffBag().showMessage("Can't go that way");
 	}
 

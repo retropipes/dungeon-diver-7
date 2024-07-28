@@ -94,7 +94,7 @@ public class ArrowTurret extends AbstractMovableObject {
 
 	@Override
 	public void playSoundHook() {
-		SoundLoader.playSound(Sounds.PUSH_ANTI_TANK);
+		SoundLoader.playSound(Sounds.PUSH);
 	}
 
 	@Override

@@ -42,7 +42,7 @@ public class Ice extends AbstractGround {
 
 	@Override
 	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		SoundLoader.playSound(Sounds.PUSH_MIRROR);
+		SoundLoader.playSound(Sounds.PUSH);
 	}
 
 	@Override

@@ -182,7 +182,7 @@ final class MLOTask extends Thread {
 			this.magnet = true;
 			if (this.sx == 0 && this.sy == 0) {
 				// Failure
-				SoundLoader.playSound(Sounds.BUMP_HEAD);
+				SoundLoader.playSound(Sounds.STEP_FAIL);
 			} else {
 				// Success
 				SoundLoader.playSound(Sounds.MAGNET);
@@ -190,7 +190,7 @@ final class MLOTask extends Thread {
 			GameLogic.updateUndo(false, false, false, false, true, false, false, false, false, false);
 		} else {
 			// Moving normally
-			SoundLoader.playSound(Sounds.MOVE);
+			SoundLoader.playSound(Sounds.STEP_PARTY);
 			gm.updateScore(1, 0, 0);
 			this.sx = zx;
 			this.sy = zy;

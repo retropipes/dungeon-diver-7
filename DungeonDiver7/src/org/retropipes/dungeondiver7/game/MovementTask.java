@@ -19,7 +19,7 @@ import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 final class MovementTask extends Thread {
 	private static void checkGameOver() {
 		if (!PartyManager.getParty().isAlive()) {
-			SoundLoader.playSound(Sounds.DEFEATED);
+			SoundLoader.playSound(Sounds.GAME_OVER);
 			CommonDialogs.showDialog(
 					"You have died! You lose 10% of your experience and all your Gold, but you are healed fully.");
 			PartyManager.getParty().getLeader().onDeath(-10);

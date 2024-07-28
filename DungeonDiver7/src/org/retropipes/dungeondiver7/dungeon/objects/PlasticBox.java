@@ -40,6 +40,6 @@ public class PlasticBox extends AbstractMovableObject {
 
 	@Override
 	public void playSoundHook() {
-		SoundLoader.playSound(Sounds.PUSH_BOX);
+		SoundLoader.playSound(Sounds.PUSH);
 	}
 }

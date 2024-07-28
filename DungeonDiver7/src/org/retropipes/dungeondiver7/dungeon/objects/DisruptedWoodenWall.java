@@ -48,7 +48,7 @@ public class DisruptedWoodenWall extends AbstractDisruptedObject {
 			final int laserType, final int forceUnits) {
 		if (laserType == ShotTypes.MISSILE) {
 			// Destroy disrupted wooden wall
-			SoundLoader.playSound(Sounds.BOOM);
+			SoundLoader.playSound(Sounds.KABOOM);
 			DungeonDiver7.getStuffBag().getGameLogic();
 			GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 			return Direction.NONE;

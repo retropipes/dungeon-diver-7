@@ -42,7 +42,7 @@ public class MagneticMirror extends AbstractMovableObject {
 			final int laserType, final int forceUnits) {
 		if (laserType == ShotTypes.MISSILE) {
 			// Destroy mirror
-			SoundLoader.playSound(Sounds.BOOM);
+			SoundLoader.playSound(Sounds.KABOOM);
 			DungeonDiver7.getStuffBag().getGameLogic();
 			GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 			return Direction.NONE;
@@ -63,7 +63,7 @@ public class MagneticMirror extends AbstractMovableObject {
 			app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
 			this.playSoundHook();
 		} else if (laserType == ShotTypes.MISSILE) {
-			SoundLoader.playSound(Sounds.BOOM);
+			SoundLoader.playSound(Sounds.KABOOM);
 		} else {
 			return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 		}
@@ -111,6 +111,6 @@ public class MagneticMirror extends AbstractMovableObject {
 
 	@Override
 	public void playSoundHook() {
-		SoundLoader.playSound(Sounds.PUSH_MIRROR);
+		SoundLoader.playSound(Sounds.PUSH);
 	}
 }

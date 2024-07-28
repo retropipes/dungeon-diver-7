@@ -33,7 +33,7 @@ public class DeadArrowTurret extends AbstractMovableObject {
 			return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 		}
 		// Destroy
-		SoundLoader.playSound(Sounds.BOOM);
+		SoundLoader.playSound(Sounds.KABOOM);
 		DungeonDiver7.getStuffBag().getGameLogic();
 		GameLogic.morph(this.getSavedObject(), locX, locY, locZ, this.getLayer());
 		return Direction.NONE;

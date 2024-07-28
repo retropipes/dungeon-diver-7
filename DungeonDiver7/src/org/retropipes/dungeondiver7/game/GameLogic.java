@@ -484,7 +484,7 @@ public final class GameLogic implements MenuSection {
 
 	void fireRange() {
 		// Boom!
-		SoundLoader.playSound(Sounds.BOOM);
+		SoundLoader.playSound(Sounds.KABOOM);
 		this.updateScore(0, 0, 1);
 		switch (this.otherRangeMode) {
 		case GameLogic.OTHER_RANGE_MODE_BOMBS:
@@ -526,7 +526,7 @@ public final class GameLogic implements MenuSection {
 			this.abortMovementLaserObjectLoop();
 		}
 		this.mlot = null;
-		SoundLoader.playSound(Sounds.DEAD);
+		SoundLoader.playSound(Sounds.GAME_OVER);
 		final var choice = CustomDialogs.showDeadDialog();
 		switch (choice) {
 		case CommonDialogs.CANCEL_OPTION:

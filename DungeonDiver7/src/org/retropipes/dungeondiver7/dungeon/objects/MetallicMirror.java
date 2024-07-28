@@ -87,6 +87,6 @@ public class MetallicMirror extends AbstractMovableObject {
 
 	@Override
 	public void playSoundHook() {
-		SoundLoader.playSound(Sounds.PUSH_MIRROR);
+		SoundLoader.playSound(Sounds.PUSH);
 	}
 }

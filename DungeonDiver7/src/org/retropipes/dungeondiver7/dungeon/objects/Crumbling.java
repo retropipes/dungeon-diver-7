@@ -32,7 +32,7 @@ public class Crumbling extends AbstractAttribute {
 		app.getGameLogic();
 		// Destroy whatever we were attached to
 		GameLogic.morph(new Empty(), locX, locY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS);
-		SoundLoader.playSound(Sounds.CRACK);
+		SoundLoader.playSound(Sounds.EFFECT_CRACK);
 		return Direction.NONE;
 	}
 
@@ -44,6 +44,6 @@ public class Crumbling extends AbstractAttribute {
 		app.getGameLogic();
 		// Destroy whatever we were attached to
 		GameLogic.morph(new Empty(), locX, locY, locZ, DungeonConstants.LAYER_LOWER_OBJECTS);
-		SoundLoader.playSound(Sounds.CRACK);
+		SoundLoader.playSound(Sounds.EFFECT_CRACK);
 	}
 }

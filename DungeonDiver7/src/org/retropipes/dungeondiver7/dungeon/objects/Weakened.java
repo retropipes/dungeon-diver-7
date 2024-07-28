@@ -28,7 +28,7 @@ public class Weakened extends AbstractAttribute {
 		final var app = DungeonDiver7.getStuffBag();
 		app.getGameLogic();
 		GameLogic.morph(new Cracked(), locX, locY, locZ, this.getLayer());
-		SoundLoader.playSound(Sounds.CRACK);
+		SoundLoader.playSound(Sounds.EFFECT_CRACK);
 		return Direction.NONE;
 	}
 
@@ -37,6 +37,6 @@ public class Weakened extends AbstractAttribute {
 		final var app = DungeonDiver7.getStuffBag();
 		app.getGameLogic();
 		GameLogic.morph(new Cracked(), locX, locY, locZ, this.getLayer());
-		SoundLoader.playSound(Sounds.CRACK);
+		SoundLoader.playSound(Sounds.EFFECT_CRACK);
 	}
 }

@@ -41,7 +41,7 @@ public class MagneticBox extends AbstractMovableObject {
 			app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
 			this.playSoundHook();
 		} else if (laserType == ShotTypes.MISSILE) {
-			SoundLoader.playSound(Sounds.BOOM);
+			SoundLoader.playSound(Sounds.KABOOM);
 		} else {
 			return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 		}
@@ -50,6 +50,6 @@ public class MagneticBox extends AbstractMovableObject {
 
 	@Override
 	public void playSoundHook() {
-		SoundLoader.playSound(Sounds.PUSH_BOX);
+		SoundLoader.playSound(Sounds.PUSH);
 	}
 }

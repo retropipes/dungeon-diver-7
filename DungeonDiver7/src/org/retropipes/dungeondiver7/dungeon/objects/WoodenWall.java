@@ -54,7 +54,7 @@ public class WoodenWall extends AbstractWall {
 		}
 		case ShotTypes.MISSILE -> {
 			// Destroy wooden wall
-			SoundLoader.playSound(Sounds.BOOM);
+			SoundLoader.playSound(Sounds.KABOOM);
 			DungeonDiver7.getStuffBag().getGameLogic();
 			GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 			yield Direction.NONE;
