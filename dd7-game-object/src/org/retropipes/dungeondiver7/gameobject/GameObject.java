@@ -51,6 +51,10 @@ public final class GameObject {
 		return this.id;
 	}
 
+	public final String getIdentifier() {
+		return Integer.toString(this.id.ordinal());
+	}
+
 	public final BufferedImageIcon getImage() {
 		this.lazyLoad();
 		return this.image;

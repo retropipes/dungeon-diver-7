@@ -198,8 +198,8 @@ public final class Strings {
 		return ResourceBundle.getBundle("locale.object").getString(Integer.toString(index));
 	}
 
-	public static String objectImage(final int index) {
-		return ResourceBundle.getBundle("locale.objectimage").getString(Integer.toString(index));
+	public static String objectName(final int index) {
+		return ResourceBundle.getBundle("locale.objectname").getString(Integer.toString(index));
 	}
 
 	public static String prefKey(final PrefKey item) {

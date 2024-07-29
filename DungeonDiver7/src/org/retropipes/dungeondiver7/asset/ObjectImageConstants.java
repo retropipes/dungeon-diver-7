@@ -5,8 +5,6 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.asset;
 
-import org.retropipes.dungeondiver7.locale.Strings;
-
 public class ObjectImageConstants {
 	public static final int NONE = -1;
 	public static final int ARMOR_SHOP = 0;
@@ -23,11 +21,4 @@ public class ObjectImageConstants {
 	public static final int TILE = 11;
 	public static final int WALL = 12;
 	public static final int WEAPONS_SHOP = 13;
-
-	static String getObjectImageName(final int ID) {
-		if (ID == ObjectImageConstants.NONE) {
-			return Strings.EMPTY;
-		}
-		return Strings.objectImage(ID);
-	}
 }
