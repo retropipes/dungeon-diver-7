@@ -6,8 +6,6 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public class Ball extends AbstractMovableObject {
@@ -25,6 +23,5 @@ public class Ball extends AbstractMovableObject {
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(Sounds.BALL_ROLL);
     }
 }

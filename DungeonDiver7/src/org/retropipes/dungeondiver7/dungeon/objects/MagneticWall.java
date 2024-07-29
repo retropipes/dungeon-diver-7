@@ -9,8 +9,6 @@ import org.retropipes.diane.direction.Direction;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractWall;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
@@ -32,7 +30,6 @@ public class MagneticWall extends AbstractWall {
 	    final int laserType, final int forceUnits) {
 	if (laserType == ShotTypes.DISRUPTOR) {
 	    // Disrupt magnetic wall
-	    SoundLoader.playSound(Sounds.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedMagneticWall(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;

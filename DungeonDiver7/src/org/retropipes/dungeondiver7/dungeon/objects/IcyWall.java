@@ -10,8 +10,6 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractWall;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
@@ -46,7 +44,6 @@ public class IcyWall extends AbstractWall {
 	    final int laserType, final int forceUnits) {
 	if (laserType == ShotTypes.DISRUPTOR) {
 	    // Disrupt icy wall
-	    SoundLoader.playSound(Sounds.DISRUPTED);
 	    final var diw = new DisruptedIcyWall();
 	    if (this.hasPreviousState()) {
 		diw.setPreviousState(this.getPreviousState());
@@ -60,7 +57,6 @@ public class IcyWall extends AbstractWall {
 	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
 	// Defrost icy wall
-	SoundLoader.playSound(Sounds.DEFROST);
 	AbstractDungeonObject ao;
 	if (this.hasPreviousState()) {
 	    ao = this.getPreviousState();

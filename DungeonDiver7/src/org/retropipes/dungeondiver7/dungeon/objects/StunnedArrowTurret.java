@@ -47,7 +47,6 @@ public class StunnedArrowTurret extends AbstractMovableObject {
     public void timerExpiredAction(final int locX, final int locY) {
 	this.stunnedLeft--;
 	if (this.stunnedLeft == 1) {
-	    SoundLoader.playSound(Sounds.STUN_OFF);
 	    this.activateTimer(1);
 	} else if (this.stunnedLeft == 0) {
 	    final var z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
@@ -57,7 +56,6 @@ public class StunnedArrowTurret extends AbstractMovableObject {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(at, locX, locY, z, this.getLayer());
 	} else {
-	    SoundLoader.playSound(Sounds.STUNNED);
 	    this.activateTimer(1);
 	}
     }

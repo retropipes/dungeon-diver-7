@@ -78,7 +78,6 @@ public class DisruptedIcyCrystalBlock extends AbstractReactionDisruptedObject {
     public void timerExpiredAction(final int locX, final int locY) {
 	this.disruptionLeft--;
 	if (this.disruptionLeft == 0) {
-	    SoundLoader.playSound(Sounds.DISRUPT_END);
 	    final var z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
 	    final var icb = new IcyCrystalBlock();
 	    if (this.hasPreviousState()) {

@@ -54,7 +54,6 @@ public class IcyCrystalBlock extends AbstractReactionWall {
 	}
 	if (laserType == ShotTypes.DISRUPTOR) {
 	    // Disrupt icy crystal block
-	    SoundLoader.playSound(Sounds.DISRUPTED);
 	    final var dicb = new DisruptedIcyCrystalBlock();
 	    if (this.hasPreviousState()) {
 		dicb.setPreviousState(this.getPreviousState());
@@ -63,7 +62,6 @@ public class IcyCrystalBlock extends AbstractReactionWall {
 	    GameLogic.morph(dicb, locX, locY, locZ, this.getLayer());
 	} else {
 	    // Stop laser
-	    SoundLoader.playSound(Sounds.LASER_DIE);
 	}
 	return Direction.NONE;
     }
@@ -79,7 +77,6 @@ public class IcyCrystalBlock extends AbstractReactionWall {
 	}
 	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE) {
 	    // Heat up crystal block
-	    SoundLoader.playSound(Sounds.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE) {

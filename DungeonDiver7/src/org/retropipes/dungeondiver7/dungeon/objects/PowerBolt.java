@@ -8,8 +8,6 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractField;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
 
 public class PowerBolt extends AbstractField {
     // Constructors
@@ -23,7 +21,6 @@ public class PowerBolt extends AbstractField {
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(Sounds.POWERFUL);
 	DungeonDiver7.getStuffBag().getGameLogic();
 	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
 	DungeonDiver7.getStuffBag().getGameLogic().setPowerfulPlayer();

@@ -10,8 +10,6 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractWall;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
@@ -41,14 +39,12 @@ public class HotWall extends AbstractWall {
 	    final int laserType, final int forceUnits) {
 	if (laserType == ShotTypes.DISRUPTOR) {
 	    // Disrupt hot wall
-	    SoundLoader.playSound(Sounds.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedHotWall(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;
 	}
 	if (laserType == ShotTypes.STUNNER) {
 	    // Cool off hot wall
-	    SoundLoader.playSound(Sounds.COOL_OFF);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new Wall(), locX, locY, locZ, this.getLayer());
 	    return Direction.NONE;

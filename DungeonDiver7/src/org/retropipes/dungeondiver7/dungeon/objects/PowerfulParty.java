@@ -8,8 +8,6 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.GameActions;
 
 public class PowerfulParty extends AbstractCharacter {
@@ -37,7 +35,6 @@ public class PowerfulParty extends AbstractCharacter {
 
     @Override
     public void timerExpiredAction(final int x, final int y) {
-	SoundLoader.playSound(Sounds.DISRUPT_END);
 	DungeonDiver7.getStuffBag().getGameLogic().setNormalPlayer();
     }
 }

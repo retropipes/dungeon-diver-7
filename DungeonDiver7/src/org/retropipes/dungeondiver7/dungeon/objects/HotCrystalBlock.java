@@ -49,12 +49,10 @@ public class HotCrystalBlock extends AbstractReactionWall {
 	}
 	if (laserType == ShotTypes.DISRUPTOR) {
 	    // Disrupt hot crystal block
-	    SoundLoader.playSound(Sounds.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedHotCrystalBlock(), locX, locY, locZ, this.getLayer());
 	} else {
 	    // Stop laser
-	    SoundLoader.playSound(Sounds.LASER_DIE);
 	}
 	return Direction.NONE;
     }
@@ -72,7 +70,6 @@ public class HotCrystalBlock extends AbstractReactionWall {
 		|| RangeTypes.getMaterialForRangeType(rangeType) != Materials.ICE) {
 	} else {
 	    // Freeze crystal block
-	    SoundLoader.playSound(Sounds.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	}

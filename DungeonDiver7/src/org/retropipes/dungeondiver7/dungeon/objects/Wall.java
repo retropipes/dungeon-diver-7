@@ -10,8 +10,6 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractWall;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
@@ -47,21 +45,18 @@ public class Wall extends AbstractWall {
 	return switch (laserType) {
 	case ShotTypes.DISRUPTOR -> {
 	    // Disrupt wall
-	    SoundLoader.playSound(Sounds.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedWall(), locX, locY, locZ, this.getLayer());
 	    yield Direction.NONE;
 	}
 	case ShotTypes.MISSILE -> {
 	    // Heat up wall
-	    SoundLoader.playSound(Sounds.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new HotWall(), locX, locY, locZ, this.getLayer());
 	    yield Direction.NONE;
 	}
 	case ShotTypes.STUNNER -> {
 	    // Freeze wall
-	    SoundLoader.playSound(Sounds.FROZEN);
 	    final var iw = new IcyWall();
 	    iw.setPreviousState(this);
 	    DungeonDiver7.getStuffBag().getGameLogic();

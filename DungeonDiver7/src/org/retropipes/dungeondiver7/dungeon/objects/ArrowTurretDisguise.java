@@ -8,8 +8,6 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.GameActions;
 
 public class ArrowTurretDisguise extends AbstractCharacter {
@@ -48,7 +46,6 @@ public class ArrowTurretDisguise extends AbstractCharacter {
     public void timerExpiredAction(final int locX, final int locY) {
 	this.disguiseLeft--;
 	if (this.disguiseLeft == 0) {
-	    SoundLoader.playSound(Sounds.DISRUPT_END);
 	    DungeonDiver7.getStuffBag().getGameLogic().setNormalPlayer();
 	} else {
 	    this.activateTimer(1);

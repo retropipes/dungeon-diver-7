@@ -51,7 +51,6 @@ public class Ice extends AbstractGround {
 	    final var g = new Ground();
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(g, x, y, z, g.getLayer());
-	    SoundLoader.playSound(Sounds.DEFROST);
 	}
 	return true;
     }

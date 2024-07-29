@@ -49,7 +49,6 @@ public class RotaryMirror extends AbstractReactionWall {
 	}
 	// Rotate mirror
 	this.toggleDirection();
-	SoundLoader.playSound(Sounds.ROTATE);
 	return Direction.NONE;
     }
 
@@ -57,7 +56,6 @@ public class RotaryMirror extends AbstractReactionWall {
     public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType) {
 	// Finish reflecting laser
-	SoundLoader.playSound(Sounds.REFLECT);
 	final var oldlaser = DirectionResolver.resolveInvert(locX, locY);
 	final var currdir = this.getDirection();
 	if (oldlaser == Direction.NORTH) {
@@ -97,7 +95,6 @@ public class RotaryMirror extends AbstractReactionWall {
 	    final int rangeType, final int forceUnits) {
 	// Rotate mirror
 	this.toggleDirection();
-	SoundLoader.playSound(Sounds.ROTATE);
 	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().markAsDirty(locX + dirX, locY + dirY, locZ);
 	return true;
     }

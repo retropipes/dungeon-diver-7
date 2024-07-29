@@ -10,8 +10,6 @@ import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractReactionWall;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class MetallicRotaryMirror extends AbstractReactionWall {
@@ -42,7 +40,6 @@ public class MetallicRotaryMirror extends AbstractReactionWall {
 	}
 	// Rotate mirror
 	this.toggleDirection();
-	SoundLoader.playSound(Sounds.ROTATE);
 	return Direction.NONE;
     }
 
@@ -50,7 +47,6 @@ public class MetallicRotaryMirror extends AbstractReactionWall {
     public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType) {
 	// Finish reflecting laser
-	SoundLoader.playSound(Sounds.REFLECT);
 	final var oldlaser = DirectionResolver.resolveInvert(locX, locY);
 	final var currdir = this.getDirection();
 	if (oldlaser == Direction.NORTH) {
@@ -90,7 +86,6 @@ public class MetallicRotaryMirror extends AbstractReactionWall {
 	    final int rangeType, final int forceUnits) {
 	// Rotate mirror
 	this.toggleDirection();
-	SoundLoader.playSound(Sounds.ROTATE);
 	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().markAsDirty(locX + dirX, locY + dirY, locZ);
 	return true;
     }

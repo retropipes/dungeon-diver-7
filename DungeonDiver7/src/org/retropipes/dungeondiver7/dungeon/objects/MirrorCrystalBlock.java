@@ -61,7 +61,6 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
 	case ShotTypes.BLUE -> /* Pass laser through */ DirectionResolver.resolve(dirX, dirY);
 	case ShotTypes.DISRUPTOR -> {
 	    // Disrupt mirror crystal block
-	    SoundLoader.playSound(Sounds.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedMirrorCrystalBlock(), locX, locY, locZ, this.getLayer());
 	    yield Direction.NONE;
@@ -87,12 +86,10 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
 	}
 	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE) {
 	    // Heat up mirror crystal block
-	    SoundLoader.playSound(Sounds.MELT);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE) {
 	    // Freeze mirror crystal block
-	    SoundLoader.playSound(Sounds.FROZEN);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	}

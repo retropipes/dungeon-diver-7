@@ -50,7 +50,6 @@ public class MetallicMirror extends AbstractMovableObject {
     public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType) {
 	// Finish reflecting laser
-	SoundLoader.playSound(Sounds.REFLECT);
 	final var oldlaser = DirectionResolver.resolveInvert(locX, locY);
 	final var currdir = this.getDirection();
 	if (oldlaser == Direction.NORTH) {

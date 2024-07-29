@@ -54,7 +54,6 @@ public class WoodenBox extends AbstractMovableObject {
 	final var mor = app.getDungeonManager().getDungeon().getCell(locX - dirX, locY - dirY, locZ, this.getLayer());
 	if (laserType == ShotTypes.MISSILE) {
 	    // Destroy wooden box
-	    SoundLoader.playSound(Sounds.BARREL);
 	    app.getGameLogic();
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	} else {

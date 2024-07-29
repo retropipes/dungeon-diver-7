@@ -69,7 +69,6 @@ public class ArrowTurret extends AbstractMovableObject {
 	    dat.setSavedObject(this.getSavedObject());
 	    dat.setDirection(baseDir);
 	    GameLogic.morph(dat, locX, locY, locZ, this.getLayer());
-	    SoundLoader.playSound(Sounds.ANTI_DIE);
 	    return Direction.NONE;
 	}
 	if (laserType == ShotTypes.STUNNER) {
@@ -77,7 +76,6 @@ public class ArrowTurret extends AbstractMovableObject {
 	    sat.setSavedObject(this.getSavedObject());
 	    sat.setDirection(baseDir);
 	    GameLogic.morph(sat, locX, locY, locZ, this.getLayer());
-	    SoundLoader.playSound(Sounds.STUN);
 	    return Direction.NONE;
 	}
 	final var sourceDir = DirectionResolver.resolveInvert(dirX, dirY);
@@ -86,7 +84,6 @@ public class ArrowTurret extends AbstractMovableObject {
 	    dat.setSavedObject(this.getSavedObject());
 	    dat.setDirection(baseDir);
 	    GameLogic.morph(dat, locX, locY, locZ, this.getLayer());
-	    SoundLoader.playSound(Sounds.ANTI_DIE);
 	    return Direction.NONE;
 	}
 	return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);

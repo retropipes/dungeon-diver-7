@@ -47,7 +47,6 @@ public class WoodenWall extends AbstractWall {
 	return switch (laserType) {
 	case ShotTypes.DISRUPTOR -> {
 	    // Disrupt wooden wall
-	    SoundLoader.playSound(Sounds.DISRUPTED);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(new DisruptedWoodenWall(), locX, locY, locZ, this.getLayer());
 	    yield Direction.NONE;
@@ -61,7 +60,6 @@ public class WoodenWall extends AbstractWall {
 	}
 	case ShotTypes.STUNNER -> {
 	    // Freeze wooden wall
-	    SoundLoader.playSound(Sounds.FROZEN);
 	    final var iw = new IcyWall();
 	    iw.setPreviousState(this);
 	    DungeonDiver7.getStuffBag().getGameLogic();

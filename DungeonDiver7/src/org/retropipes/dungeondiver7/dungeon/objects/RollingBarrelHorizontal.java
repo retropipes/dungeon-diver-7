@@ -10,8 +10,6 @@ import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
@@ -39,7 +37,6 @@ public class RollingBarrelHorizontal extends AbstractMovableObject {
 	// Break up
 	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	// Boom!
-	SoundLoader.playSound(Sounds.BARREL);
 	DungeonDiver7.getStuffBag().getGameLogic();
 	// Destroy barrel
 	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
@@ -59,7 +56,6 @@ public class RollingBarrelHorizontal extends AbstractMovableObject {
 
     @Override
     public void playSoundHook() {
-	SoundLoader.playSound(Sounds.BALL_ROLL);
     }
 
     @Override
@@ -67,7 +63,6 @@ public class RollingBarrelHorizontal extends AbstractMovableObject {
 	// Break up
 	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	// Boom!
-	SoundLoader.playSound(Sounds.BARREL);
 	DungeonDiver7.getStuffBag().getGameLogic();
 	// Destroy barrel
 	GameLogic.morph(new Empty(), x, y, z, this.getLayer());

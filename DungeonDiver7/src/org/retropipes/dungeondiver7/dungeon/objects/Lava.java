@@ -10,8 +10,6 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractGround;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class Lava extends AbstractGround {
@@ -50,12 +48,10 @@ public class Lava extends AbstractGround {
 	if (pushed instanceof IcyBox) {
 	    app.getGameLogic();
 	    GameLogic.morph(new Ground(), x, y, z, this.getLayer());
-	    SoundLoader.playSound(Sounds.COOL_OFF);
 	    return true;
 	}
 	app.getGameLogic();
 	GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
-	SoundLoader.playSound(Sounds.MELT);
 	return false;
     }
 }
