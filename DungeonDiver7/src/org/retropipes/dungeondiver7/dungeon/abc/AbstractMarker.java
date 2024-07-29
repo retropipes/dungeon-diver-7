@@ -27,7 +27,7 @@ public abstract class AbstractMarker extends AbstractDungeonObject {
 
     @Override
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	SoundLoader.playSound(Sounds.WALK);
+	SoundLoader.playSound(Sounds.STEP_PARTY);
     }
 
     @Override

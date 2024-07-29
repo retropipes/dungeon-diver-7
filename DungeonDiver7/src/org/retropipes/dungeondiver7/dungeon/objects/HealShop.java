@@ -19,19 +19,4 @@ public class HealShop extends AbstractShop {
     public int getBaseID() {
 	return ObjectImageConstants.HEAL_SHOP;
     }
-
-    @Override
-    public String getDescription() {
-	return "Heal Shops restore health, for a fee.";
-    }
-
-    @Override
-    public String getName() {
-	return "Heal Shop";
-    }
-
-    @Override
-    public String getPluralName() {
-	return "Heal Shops";
-    }
 }

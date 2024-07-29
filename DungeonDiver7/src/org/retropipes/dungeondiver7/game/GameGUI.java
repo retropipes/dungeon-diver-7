@@ -49,8 +49,6 @@ import org.retropipes.dungeondiver7.dungeon.objects.Wall;
 import org.retropipes.dungeondiver7.game.replay.ReplayManager;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Difficulty;
 import org.retropipes.dungeondiver7.locale.GameString;
@@ -479,7 +477,6 @@ class GameGUI {
 		    break;
 		}
 		if (fired) {
-		    SoundLoader.playSound(Sounds.TURN);
 		    gm.markPlayerAsDirty();
 		    gm.redrawDungeon();
 		}
@@ -694,7 +691,6 @@ class GameGUI {
 		    game.changeOtherRangeMode();
 		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_PAST))) {
 		    // Time Travel: Distant Past
-		    SoundLoader.playSound(Sounds.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_PAST);
 		    gui.gameEraDistantPast.setSelected(true);
 		    gui.gameEraPast.setSelected(false);
@@ -703,7 +699,6 @@ class GameGUI {
 		    gui.gameEraDistantFuture.setSelected(false);
 		} else if (cmd.equals(Strings.timeTravel(TimeTravel.PAST))) {
 		    // Time Travel: Past
-		    SoundLoader.playSound(Sounds.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PAST);
 		    gui.gameEraDistantPast.setSelected(false);
 		    gui.gameEraPast.setSelected(true);
@@ -712,7 +707,6 @@ class GameGUI {
 		    gui.gameEraDistantFuture.setSelected(false);
 		} else if (cmd.equals(Strings.timeTravel(TimeTravel.PRESENT))) {
 		    // Time Travel: Present
-		    SoundLoader.playSound(Sounds.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PRESENT);
 		    gui.gameEraDistantPast.setSelected(false);
 		    gui.gameEraPast.setSelected(false);
@@ -721,7 +715,6 @@ class GameGUI {
 		    gui.gameEraDistantFuture.setSelected(false);
 		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FUTURE))) {
 		    // Time Travel: Future
-		    SoundLoader.playSound(Sounds.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_FUTURE);
 		    gui.gameEraDistantPast.setSelected(false);
 		    gui.gameEraPast.setSelected(false);
@@ -730,7 +723,6 @@ class GameGUI {
 		    gui.gameEraDistantFuture.setSelected(false);
 		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_FUTURE))) {
 		    // Time Travel: Distant Future
-		    SoundLoader.playSound(Sounds.ERA_CHANGE);
 		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_FUTURE);
 		    gui.gameEraDistantPast.setSelected(false);
 		    gui.gameEraPast.setSelected(false);

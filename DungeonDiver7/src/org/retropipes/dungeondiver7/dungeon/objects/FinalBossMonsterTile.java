@@ -26,11 +26,6 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public String getDescription() {
-	return "Final Boss Monsters are extremely dangerous. Encountering one starts a final boss battle.";
-    }
-
-    @Override
     public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
 	if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
@@ -44,16 +39,6 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
 	    return RandomGenerationRule.NO_LIMIT;
 	}
 	return 1;
-    }
-
-    @Override
-    public String getName() {
-	return "Final Boss Monster";
-    }
-
-    @Override
-    public String getPluralName() {
-	return "Final Boss Monsters";
     }
 
     @Override

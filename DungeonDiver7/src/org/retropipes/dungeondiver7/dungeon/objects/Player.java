@@ -27,11 +27,6 @@ public class Player extends AbstractCharacter {
     }
 
     @Override
-    public String getDescription() {
-	return "This is you - the Player.";
-    }
-
-    @Override
     public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
 	return 1;
     }
@@ -39,16 +34,6 @@ public class Player extends AbstractCharacter {
     @Override
     public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
 	return 1;
-    }
-
-    @Override
-    public String getName() {
-	return "Player";
-    }
-
-    @Override
-    public String getPluralName() {
-	return "Players";
     }
 
     // Random Generation Rules

@@ -328,7 +328,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 
     abstract public int getBaseID();
 
-    public final String getCacheName() {
+    public String getCacheName() {
 	return Integer.toString(this.getBaseID());
     }
 

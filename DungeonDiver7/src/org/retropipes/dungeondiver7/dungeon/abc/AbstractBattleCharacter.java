@@ -107,7 +107,6 @@ public abstract class AbstractBattleCharacter extends AbstractDungeonObject {
 	return DungeonConstants.LAYER_LOWER_OBJECTS;
     }
 
-    @Override
     public String getName() {
 	return this.template.getName();
     }

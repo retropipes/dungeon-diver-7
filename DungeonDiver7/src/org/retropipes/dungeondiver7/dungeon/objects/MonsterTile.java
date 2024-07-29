@@ -28,11 +28,6 @@ public class MonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public String getDescription() {
-	return "Monsters are dangerous. Encountering one starts a battle.";
-    }
-
-    @Override
     public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
 	if (dungeon.getActiveLevel() == AbstractDungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
@@ -46,16 +41,6 @@ public class MonsterTile extends AbstractMovingObject {
 	    return RandomGenerationRule.NO_LIMIT;
 	}
 	return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(), 1.0 / 2.2);
-    }
-
-    @Override
-    public String getName() {
-	return "Monster";
-    }
-
-    @Override
-    public String getPluralName() {
-	return "Monsters";
     }
 
     @Override

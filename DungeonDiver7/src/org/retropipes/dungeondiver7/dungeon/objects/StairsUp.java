@@ -30,6 +30,6 @@ public class StairsUp extends AbstractTeleport {
     public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
 	final var app = DungeonDiver7.getStuffBag();
 	app.getGameLogic().updatePositionAbsoluteNoEvents(this.getDestinationFloor());
-	SoundLoader.playSound(Sounds.UP);
+	SoundLoader.playSound(Sounds.STAIRS);
     }
 }

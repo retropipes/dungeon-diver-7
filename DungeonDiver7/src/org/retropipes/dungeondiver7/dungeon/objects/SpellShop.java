@@ -19,19 +19,4 @@ public class SpellShop extends AbstractShop {
     public int getBaseID() {
 	return ObjectImageConstants.SPELL_SHOP;
     }
-
-    @Override
-    public String getDescription() {
-	return "Spell Shops teach spells, for a fee.";
-    }
-
-    @Override
-    public String getName() {
-	return "Spell Shop";
-    }
-
-    @Override
-    public String getPluralName() {
-	return "Spell Shops";
-    }
 }

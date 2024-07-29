@@ -144,12 +144,8 @@ final class MovingLaserTracker {
 	case ShotTypes.GREEN:
 	    if (this.shooter instanceof PowerfulParty) {
 		this.lt = ShotTypes.POWER;
-		SoundLoader.playSound(Sounds.POWER_LASER);
 	    } else if (this.shooter instanceof ArrowTurretDisguise) {
 		this.lt = ShotTypes.RED;
-		SoundLoader.playSound(Sounds.ANTI_FIRE);
-	    } else {
-		SoundLoader.playSound(Sounds.FIRE_LASER);
 	    }
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(true, false, false, false, false, false, false, false, false, false);
@@ -162,7 +158,6 @@ final class MovingLaserTracker {
 	    break;
 	case ShotTypes.RED:
 	    if (!gm.getCheatStatus(GameLogic.CHEAT_INVINCIBLE)) {
-		SoundLoader.playSound(Sounds.ANTI_FIRE);
 		this.laser = true;
 		this.res = true;
 	    }
@@ -183,7 +178,6 @@ final class MovingLaserTracker {
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, false, true, false, false, false, false, false, false, false);
 	    PartyInventory.fireStunner();
-	    SoundLoader.playSound(Sounds.STUNNER);
 	    gm.updateScore(0, 0, 1);
 	    if (!gm.isReplaying()) {
 		gm.updateReplay(true, 0, 0);
@@ -195,7 +189,6 @@ final class MovingLaserTracker {
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, false, false, false, false, true, false, false, false, false);
 	    PartyInventory.fireBlueLaser();
-	    SoundLoader.playSound(Sounds.FIRE_LASER);
 	    gm.updateScore(0, 0, 1);
 	    if (!gm.isReplaying()) {
 		gm.updateReplay(true, 0, 0);
@@ -207,7 +200,6 @@ final class MovingLaserTracker {
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    GameLogic.updateUndo(false, false, false, false, false, false, true, false, false, false);
 	    PartyInventory.fireDisruptor();
-	    SoundLoader.playSound(Sounds.DISRUPTOR);
 	    gm.updateScore(0, 0, 1);
 	    if (!gm.isReplaying()) {
 		gm.updateReplay(true, 0, 0);

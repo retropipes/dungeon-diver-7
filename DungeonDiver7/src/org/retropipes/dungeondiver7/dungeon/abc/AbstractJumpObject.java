@@ -7,8 +7,6 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractJumpObject extends AbstractMovableObject {
@@ -123,11 +121,7 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
     }
 
     public final void jumpSound(final boolean success) {
-	if (!success || this.jumpRows == 0 && this.jumpCols == 0) {
-	    SoundLoader.playSound(Sounds.LASER_DIE);
-	} else {
-	    SoundLoader.playSound(Sounds.JUMPING);
-	}
+	// Do nothing
     }
 
     @Override
@@ -144,14 +138,12 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 	    this.jumpShot = true;
 	    this.dir1X = (int) Math.signum(px - locX);
 	    this.dir1Y = (int) Math.signum(py - locY);
-	    SoundLoader.playSound(Sounds.PREPARE);
 	    return Direction.NONE;
 	}
 	this.jumpShot = false;
 	this.dir2X = (int) Math.signum(px - locX);
 	this.dir2Y = (int) Math.signum(py - locY);
 	if (this.dir1X != 0 && this.dir2X != 0 || this.dir1Y != 0 && this.dir2Y != 0) {
-	    SoundLoader.playSound(Sounds.LASER_DIE);
 	    return Direction.NONE;
 	}
 	if (this.dir1X == 0 && this.dir2X == 1 && this.dir1Y == -1 && this.dir2Y == 0

@@ -951,7 +951,6 @@ public final class GameLogic implements MenuSection {
 		final var newDir = DirectionResolver.resolve(x, y);
 		if (currDir != newDir) {
 		    this.player.setDirection(newDir);
-		    SoundLoader.playSound(Sounds.TURN);
 		    this.redrawDungeon();
 		} else {
 		    this.updatePositionRelative(x, y);
@@ -1158,7 +1157,7 @@ public final class GameLogic implements MenuSection {
 
     public void solvedLevel(final boolean playSound) {
 	if (playSound) {
-	    SoundLoader.playSound(Sounds.END_LEVEL);
+	    SoundLoader.playSound(Sounds.VICTORY);
 	}
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();

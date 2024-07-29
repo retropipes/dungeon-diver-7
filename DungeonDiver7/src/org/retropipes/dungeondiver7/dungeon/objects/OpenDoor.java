@@ -23,22 +23,6 @@ public class OpenDoor extends AbstractPassThroughObject {
     }
 
     @Override
-    public String getDescription() {
-	return "Open Doors can be closed by interacting with them.";
-    }
-
-    // Scriptability
-    @Override
-    public String getName() {
-	return "Open Door";
-    }
-
-    @Override
-    public String getPluralName() {
-	return "Open Doors";
-    }
-
-    @Override
     public void interactAction() {
 	SoundLoader.playSound(Sounds.DOOR_CLOSES);
 	final var glm = DungeonDiver7.getStuffBag().getGameLogic();

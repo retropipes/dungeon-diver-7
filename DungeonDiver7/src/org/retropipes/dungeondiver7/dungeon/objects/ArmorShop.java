@@ -20,19 +20,4 @@ public class ArmorShop extends AbstractShop {
     public int getBaseID() {
 	return ObjectImageConstants.ARMOR_SHOP;
     }
-
-    @Override
-    public String getDescription() {
-	return "Armor Shops sell protective armor.";
-    }
-
-    @Override
-    public String getName() {
-	return "Armor Shop";
-    }
-
-    @Override
-    public String getPluralName() {
-	return "Armor Shops";
-    }
 }
