@@ -45,15 +45,21 @@ public enum ObjectImageId implements DianeImageIndex, ObjectId {
     CONDITIONAL_TELEPORT, CONTROLLABLE_ONE_SHOT_TELEPORT, CHAIN_ONE_SHOT_TELEPORT, N_WAY_ONE_SHOT_TELEPORT,
     RANDOM_ONE_SHOT_TELEPORT, CONDITIONAL_ONE_SHOT_TELEPORT, CONDITIONAL_CHAIN_TELEPORT, BLOCK_TELEPORT, TEN_MISSILES,
     KEY, TREASURE_CHEST, TABLET, TABLET_SLOT, SINGLE_HOURGLASS, DOUBLE_HOURGLASS, TRIPLE_HOURGLASS, QUAD_HOURGLASS,
-    HALF_HOURGLASS, THIRD_HOURGLASS, FOURTH_HOURGLASS, PULLABLE_BLOCK, PUSH_POWER, PULL_POWER, _NONE;
+    HALF_HOURGLASS, THIRD_HOURGLASS, FOURTH_HOURGLASS, PULLABLE_BLOCK, PUSH_POWER, PULL_POWER, _CREATURE, _NONE;
 
     @Override
     public String getName() {
+	if (this == ObjectImageId._NONE || this == ObjectImageId._CREATURE) {
+	    return null;
+	}
 	return Integer.toString(this.ordinal());
     }
 
     @Override
     public URL getURL() {
+	if (this == ObjectImageId._NONE || this == ObjectImageId._CREATURE) {
+	    return null;
+	}
 	return this.getClass().getResource(Strings.untranslated(Untranslated.OBJECT_IMAGE_LOAD_PATH) + this.getName()
 		+ Strings.fileExtension(FileExtension.IMAGE));
     }
