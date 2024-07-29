@@ -11,12 +11,14 @@ public final class GameObject {
     private BufferedImageIcon image;
     private boolean lazyLoaded;
     private boolean solid;
+    private boolean friction;
 
     public GameObject(final ObjectImageId oid) {
 	this.id = oid;
 	this.model = new ObjectModel();
 	this.model.setId(oid);
 	this.lazyLoaded = false;
+	this.friction = true;
     }
 
     public final void addCounters(final int count) {
@@ -60,12 +62,9 @@ public final class GameObject {
 	return this.image;
     }
 
-    private void lazyLoad() {
-	if (!this.lazyLoaded) {
-	    this.image = ObjectImageLoader.load(this.id);
-	    this.solid = GameObjectDataLoader.solid(this.id);
-	    this.lazyLoaded = true;
-	}
+    public final boolean hasFriction() {
+	this.lazyLoad();
+	return this.friction;
     }
 
     public final void incrementCounter(final int index) {
@@ -75,6 +74,15 @@ public final class GameObject {
     public final boolean isSolid() {
 	this.lazyLoad();
 	return this.solid;
+    }
+
+    private void lazyLoad() {
+	if (!this.lazyLoaded) {
+	    this.image = ObjectImageLoader.load(this.id);
+	    this.solid = GameObjectDataLoader.solid(this.id);
+	    this.friction = GameObjectDataLoader.friction(this.id);
+	    this.lazyLoaded = true;
+	}
     }
 
     public final int maxCounters() {
