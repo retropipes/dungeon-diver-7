@@ -10,6 +10,11 @@ final class GameObjectDataLoader {
 		.getObject(Integer.toString(index.ordinal()));
     }
 
+    public static int layer(final ObjectImageId index) {
+	return (int) ResourceBundle.getBundle("asset.data.gameobject.layer")
+		.getObject(Integer.toString(index.ordinal()));
+    }
+
     public static boolean solid(final ObjectImageId index) {
 	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.solid")
 		.getObject(Integer.toString(index.ordinal()));

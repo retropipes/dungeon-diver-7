@@ -6,51 +6,27 @@ import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 
 public final class GameObject {
+    private static final int COUNTER_LAYER = 0;
+    private static final int FLAG_SOLID = 0;
+    private static final int FLAG_FRICTION = 1;
+    private static final int MAX_COUNTERS = 1;
+    private static final int MAX_FLAGS = 2;
     private final ObjectModel model;
     private final ObjectImageId id;
     private BufferedImageIcon image;
     private boolean lazyLoaded;
-    private boolean solid;
-    private boolean friction;
 
     public GameObject(final ObjectImageId oid) {
 	this.id = oid;
 	this.model = new ObjectModel();
 	this.model.setId(oid);
 	this.lazyLoaded = false;
-	this.friction = true;
-    }
-
-    public final void addCounters(final int count) {
-	this.model.addCounters(count);
-    }
-
-    public final void addFlags(final int count) {
-	this.model.addFlags(count);
-    }
-
-    public final void addOneCounter() {
-	this.model.addOneCounter();
-    }
-
-    public final void addOneFlag() {
-	this.model.addOneFlag();
-    }
-
-    public final void decrementCounter(final int index) {
-	this.model.decrementCounter(index);
+	this.model.addCounters(MAX_COUNTERS);
+	this.model.addFlags(MAX_FLAGS);
     }
 
     public final String getCacheName() {
 	return Integer.toString(this.id.ordinal());
-    }
-
-    public final int getCounter(final int index) {
-	return this.model.getCounter(index);
-    }
-
-    public final boolean getFlag(final int index) {
-	return this.model.getFlag(index);
     }
 
     public final ObjectImageId getId() {
@@ -62,50 +38,28 @@ public final class GameObject {
 	return this.image;
     }
 
-    public final boolean hasFriction() {
+    public final int getLayer() {
 	this.lazyLoad();
-	return this.friction;
+	return this.model.getCounter(COUNTER_LAYER);
     }
 
-    public final void incrementCounter(final int index) {
-	this.model.incrementCounter(index);
+    public final boolean hasFriction() {
+	this.lazyLoad();
+	return this.model.getFlag(FLAG_FRICTION);
     }
 
     public final boolean isSolid() {
 	this.lazyLoad();
-	return this.solid;
+	return this.model.getFlag(FLAG_SOLID);
     }
 
     private void lazyLoad() {
 	if (!this.lazyLoaded) {
 	    this.image = ObjectImageLoader.load(this.id);
-	    this.solid = GameObjectDataLoader.solid(this.id);
-	    this.friction = GameObjectDataLoader.friction(this.id);
+	    this.model.setFlag(FLAG_SOLID, GameObjectDataLoader.solid(this.id));
+	    this.model.setFlag(FLAG_FRICTION, GameObjectDataLoader.friction(this.id));
+	    this.model.setCounter(COUNTER_LAYER, GameObjectDataLoader.layer(this.id));
 	    this.lazyLoaded = true;
 	}
-    }
-
-    public final int maxCounters() {
-	return this.model.maxCounters();
-    }
-
-    public final int maxFlags() {
-	return this.model.maxFlags();
-    }
-
-    public final void offsetCounter(final int index, final int value) {
-	this.model.offsetCounter(index, value);
-    }
-
-    public final void setCounter(final int index, final int value) {
-	this.model.setCounter(index, value);
-    }
-
-    public final void setFlag(final int index, final boolean value) {
-	this.model.setFlag(index, value);
-    }
-
-    public final void toggleFlag(final int index) {
-	this.model.toggleFlag(index);
     }
 }
