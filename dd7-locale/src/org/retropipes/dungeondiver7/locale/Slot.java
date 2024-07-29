@@ -6,5 +6,5 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.locale;
 
 public enum Slot {
-	HEAD, NECK, ARMS, WEAPON, HANDS, BODY, FEET, BACK, FINGERS, WAIST, LEGS, FRONT, NONE
+    HEAD, NECK, ARMS, WEAPON, HANDS, BODY, FEET, BACK, FINGERS, WAIST, LEGS, FRONT, NONE
 }

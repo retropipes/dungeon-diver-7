@@ -12,15 +12,15 @@ import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 
 public class FileHooks {
-	public static void loadGameHook(final DataIOReader mapFile) throws IOException {
-		PartyManager.loadGameHook(mapFile);
-	}
+    public static void loadGameHook(final DataIOReader mapFile) throws IOException {
+	PartyManager.loadGameHook(mapFile);
+    }
 
-	public static void saveGameHook(final DataIOWriter mapFile) throws IOException {
-		PartyManager.saveGameHook(mapFile);
-	}
+    public static void saveGameHook(final DataIOWriter mapFile) throws IOException {
+	PartyManager.saveGameHook(mapFile);
+    }
 
-	private FileHooks() {
-		// Do nothing
-	}
+    private FileHooks() {
+	// Do nothing
+    }
 }

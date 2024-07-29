@@ -9,7 +9,7 @@ import org.retropipes.dungeondiver7.creature.job.Job;
 import org.retropipes.dungeondiver7.creature.job.JobConstants;
 
 public class Buffer extends Job {
-	public Buffer() {
-		super(JobConstants.JOB_BUFFER);
-	}
+    public Buffer() {
+	super(JobConstants.JOB_BUFFER);
+    }
 }

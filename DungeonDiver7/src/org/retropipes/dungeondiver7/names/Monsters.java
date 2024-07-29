@@ -8,23 +8,23 @@ package org.retropipes.dungeondiver7.names;
 import org.retropipes.dungeondiver7.locale.Strings;
 
 public class Monsters {
-	public static final String getImageFilename(final int ID) {
-		final var tempMonID = Integer.toString(ID);
-		String monID;
-		if (tempMonID.length() == 1) {
-			monID = "0" + tempMonID;
-		} else {
-			monID = tempMonID;
-		}
-		return monID;
+    public static final String getImageFilename(final int ID) {
+	final var tempMonID = Integer.toString(ID);
+	String monID;
+	if (tempMonID.length() == 1) {
+	    monID = "0" + tempMonID;
+	} else {
+	    monID = tempMonID;
 	}
+	return monID;
+    }
 
-	public static final String getType(final int zoneID, final int ID) {
-		return Strings.monsterzone(zoneID, ID);
-	}
+    public static final String getType(final int zoneID, final int ID) {
+	return Strings.monsterzone(zoneID, ID);
+    }
 
-	// Private constructor
-	private Monsters() {
-		// Do nothing
-	}
+    // Private constructor
+    private Monsters() {
+	// Do nothing
+    }
 }

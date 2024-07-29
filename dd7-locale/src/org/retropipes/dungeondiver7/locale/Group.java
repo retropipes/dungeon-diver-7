@@ -6,5 +6,5 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.locale;
 
 public enum Group {
-	PAIR, PAIR_SLASH, TRIAD_SLASH_BOOST
+    PAIR, PAIR_SLASH, TRIAD_SLASH_BOOST
 }

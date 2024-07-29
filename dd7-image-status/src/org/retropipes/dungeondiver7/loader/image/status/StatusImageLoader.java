@@ -9,8 +9,7 @@ import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.asset.image.DianeImageLoader;
 
 public class StatusImageLoader {
-
-	public static BufferedImageIcon load(final StatusImageId baseId) {
-		return DianeImageLoader.load(baseId);
-	}
+    public static BufferedImageIcon load(final StatusImageId baseId) {
+	return DianeImageLoader.load(baseId);
+    }
 }

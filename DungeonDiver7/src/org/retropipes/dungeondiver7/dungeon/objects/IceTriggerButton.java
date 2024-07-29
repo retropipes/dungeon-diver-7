@@ -9,14 +9,14 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractTriggerButton;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class IceTriggerButton extends AbstractTriggerButton {
-	// Constructors
-	public IceTriggerButton() {
-		super(new IceTriggerButtonDoor(), false);
-		this.setMaterial(Materials.ICE);
-	}
+    // Constructors
+    public IceTriggerButton() {
+	super(new IceTriggerButtonDoor(), false);
+	this.setMaterial(Materials.ICE);
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 84;
-	}
+    @Override
+    public final int getBaseID() {
+	return 84;
+    }
 }

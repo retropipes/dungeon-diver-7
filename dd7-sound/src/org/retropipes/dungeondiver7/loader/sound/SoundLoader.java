@@ -8,11 +8,11 @@ package org.retropipes.dungeondiver7.loader.sound;
 import org.retropipes.diane.asset.sound.DianeSoundPlayer;
 
 public class SoundLoader {
-	public static void playSound(final Sounds soundID) {
-		DianeSoundPlayer.play(soundID);
-	}
+    public static void playSound(final Sounds soundID) {
+	DianeSoundPlayer.play(soundID);
+    }
 
-	private SoundLoader() {
-		// Do nothing
-	}
+    private SoundLoader() {
+	// Do nothing
+    }
 }

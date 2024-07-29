@@ -10,18 +10,18 @@ import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public class UpperObjectsEmpty extends AbstractPassThroughObject {
-	// Constructors
-	public UpperObjectsEmpty() {
-		this.type.set(DungeonObjectTypes.TYPE_EMPTY_SPACE);
-	}
+    // Constructors
+    public UpperObjectsEmpty() {
+	this.type.set(DungeonObjectTypes.TYPE_EMPTY_SPACE);
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 130;
-	}
+    @Override
+    public final int getBaseID() {
+	return 130;
+    }
 
-	@Override
-	public int getLayer() {
-		return DungeonConstants.LAYER_UPPER_OBJECTS;
-	}
+    @Override
+    public int getLayer() {
+	return DungeonConstants.LAYER_UPPER_OBJECTS;
+    }
 }

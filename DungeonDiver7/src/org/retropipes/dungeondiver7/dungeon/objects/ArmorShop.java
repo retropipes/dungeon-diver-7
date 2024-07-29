@@ -11,28 +11,28 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractShop;
 import org.retropipes.dungeondiver7.shop.ShopType;
 
 public class ArmorShop extends AbstractShop {
-	// Constructors
-	public ArmorShop() {
-		super(ShopType.ARMOR);
-	}
+    // Constructors
+    public ArmorShop() {
+	super(ShopType.ARMOR);
+    }
 
-	@Override
-	public int getBaseID() {
-		return ObjectImageConstants.ARMOR_SHOP;
-	}
+    @Override
+    public int getBaseID() {
+	return ObjectImageConstants.ARMOR_SHOP;
+    }
 
-	@Override
-	public String getDescription() {
-		return "Armor Shops sell protective armor.";
-	}
+    @Override
+    public String getDescription() {
+	return "Armor Shops sell protective armor.";
+    }
 
-	@Override
-	public String getName() {
-		return "Armor Shop";
-	}
+    @Override
+    public String getName() {
+	return "Armor Shop";
+    }
 
-	@Override
-	public String getPluralName() {
-		return "Armor Shops";
-	}
+    @Override
+    public String getPluralName() {
+	return "Armor Shops";
+    }
 }

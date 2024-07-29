@@ -9,27 +9,27 @@ import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractField extends AbstractDungeonObject {
-	// Constructors
-	protected AbstractField() {
-		super(false);
-		this.type.set(DungeonObjectTypes.TYPE_FIELD);
-	}
+    // Constructors
+    protected AbstractField() {
+	super(false);
+	this.type.set(DungeonObjectTypes.TYPE_FIELD);
+    }
 
-	@Override
-	public int getCustomProperty(final int propID) {
-		return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
-	}
+    @Override
+    public int getCustomProperty(final int propID) {
+	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+    }
 
-	@Override
-	public int getLayer() {
-		return DungeonConstants.LAYER_LOWER_OBJECTS;
-	}
+    @Override
+    public int getLayer() {
+	return DungeonConstants.LAYER_LOWER_OBJECTS;
+    }
 
-	@Override
-	public abstract void postMoveAction(final int dirX, final int dirY, int dirZ);
+    @Override
+    public abstract void postMoveAction(final int dirX, final int dirY, int dirZ);
 
-	@Override
-	public void setCustomProperty(final int propID, final int value) {
-		// Do nothing
-	}
+    @Override
+    public void setCustomProperty(final int propID, final int value) {
+	// Do nothing
+    }
 }

@@ -8,9 +8,9 @@ package org.retropipes.dungeondiver7.dungeon.current;
 import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
 
 public final class DungeonGenerator {
-	/**
-	 * @param dungeon
-	 */
-	public static void fillRandomly(final AbstractDungeon dungeon) {
-	}
+    /**
+     * @param dungeon
+     */
+    public static void fillRandomly(final AbstractDungeon dungeon) {
+    }
 }

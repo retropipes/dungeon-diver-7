@@ -8,12 +8,12 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractGround;
 
 public class Bridge extends AbstractGround {
-	// Constructors
-	public Bridge() {
-	}
+    // Constructors
+    public Bridge() {
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 9;
-	}
+    @Override
+    public final int getBaseID() {
+	return 9;
+    }
 }

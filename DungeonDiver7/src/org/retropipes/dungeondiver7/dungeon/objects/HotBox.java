@@ -13,28 +13,28 @@ import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class HotBox extends AbstractMovableObject {
-	// Constructors
-	public HotBox() {
-		super(true);
-		this.type.set(DungeonObjectTypes.TYPE_BOX);
-		this.setMaterial(Materials.FIRE);
-	}
+    // Constructors
+    public HotBox() {
+	super(true);
+	this.type.set(DungeonObjectTypes.TYPE_BOX);
+	this.setMaterial(Materials.FIRE);
+    }
 
-	@Override
-	public AbstractDungeonObject changesToOnExposure(final int materialID) {
-		return switch (materialID) {
-		case Materials.ICE -> new Box();
-		default -> this;
-		};
-	}
+    @Override
+    public AbstractDungeonObject changesToOnExposure(final int materialID) {
+	return switch (materialID) {
+	case Materials.ICE -> new Box();
+	default -> this;
+	};
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 63;
-	}
+    @Override
+    public final int getBaseID() {
+	return 63;
+    }
 
-	@Override
-	public void playSoundHook() {
-		SoundLoader.playSound(Sounds.PUSH);
-	}
+    @Override
+    public void playSoundHook() {
+	SoundLoader.playSound(Sounds.PUSH);
+    }
 }

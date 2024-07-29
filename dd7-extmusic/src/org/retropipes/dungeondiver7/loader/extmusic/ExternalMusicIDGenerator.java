@@ -8,12 +8,12 @@ package org.retropipes.dungeondiver7.loader.extmusic;
 import org.retropipes.diane.random.RandomLongRange;
 
 public class ExternalMusicIDGenerator {
-	public static String generateRandomFilename() {
-		return Long.toString(RandomLongRange.generateRaw(), 36).toLowerCase();
-	}
+    public static String generateRandomFilename() {
+	return Long.toString(RandomLongRange.generateRaw(), 36).toLowerCase();
+    }
 
-	// Constructor
-	private ExternalMusicIDGenerator() {
-		// Do nothing
-	}
+    // Constructor
+    private ExternalMusicIDGenerator() {
+	// Do nothing
+    }
 }

@@ -9,13 +9,13 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractPassThroughObject;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public class Empty extends AbstractPassThroughObject {
-	// Constructors
-	public Empty() {
-		this.type.set(DungeonObjectTypes.TYPE_EMPTY_SPACE);
-	}
+    // Constructors
+    public Empty() {
+	this.type.set(DungeonObjectTypes.TYPE_EMPTY_SPACE);
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 130;
-	}
+    @Override
+    public final int getBaseID() {
+	return 130;
+    }
 }

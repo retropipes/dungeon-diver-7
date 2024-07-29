@@ -13,36 +13,36 @@ import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 
 public class ClosedDoor extends AbstractPassThroughObject {
-	// Constructors
-	public ClosedDoor() {
-	}
+    // Constructors
+    public ClosedDoor() {
+    }
 
-	@Override
-	public int getBaseID() {
-		return ObjectImageConstants.CLOSED_DOOR;
-	}
+    @Override
+    public int getBaseID() {
+	return ObjectImageConstants.CLOSED_DOOR;
+    }
 
-	@Override
-	public String getDescription() {
-		return "Closed Doors open when stepped on.";
-	}
+    @Override
+    public String getDescription() {
+	return "Closed Doors open when stepped on.";
+    }
 
-	// Scriptability
-	@Override
-	public String getName() {
-		return "Closed Door";
-	}
+    // Scriptability
+    @Override
+    public String getName() {
+	return "Closed Door";
+    }
 
-	@Override
-	public String getPluralName() {
-		return "Closed Doors";
-	}
+    @Override
+    public String getPluralName() {
+	return "Closed Doors";
+    }
 
-	@Override
-	public void interactAction() {
-		SoundLoader.playSound(Sounds.DOOR_OPENS);
-		final var glm = DungeonDiver7.getStuffBag().getGameLogic();
-		GameLogic.morph(new OpenDoor());
-		glm.redrawDungeon();
-	}
+    @Override
+    public void interactAction() {
+	SoundLoader.playSound(Sounds.DOOR_OPENS);
+	final var glm = DungeonDiver7.getStuffBag().getGameLogic();
+	GameLogic.morph(new OpenDoor());
+	glm.redrawDungeon();
+    }
 }

@@ -8,17 +8,17 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTransientObject;
 
 public class Stunner extends AbstractTransientObject {
-	// Constructors
-	public Stunner() {
-	}
+    // Constructors
+    public Stunner() {
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 35;
-	}
+    @Override
+    public final int getBaseID() {
+	return 35;
+    }
 
-	@Override
-	public int getForceUnitsImbued() {
-		return 0;
-	}
+    @Override
+    public int getForceUnitsImbued() {
+	return 0;
+    }
 }

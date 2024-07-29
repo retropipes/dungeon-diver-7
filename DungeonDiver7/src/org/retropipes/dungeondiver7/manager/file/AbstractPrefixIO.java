@@ -11,7 +11,7 @@ import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 
 public interface AbstractPrefixIO {
-	int readPrefix(DataIOReader reader) throws IOException;
+    int readPrefix(DataIOReader reader) throws IOException;
 
-	void writePrefix(DataIOWriter writer) throws IOException;
+    void writePrefix(DataIOWriter writer) throws IOException;
 }

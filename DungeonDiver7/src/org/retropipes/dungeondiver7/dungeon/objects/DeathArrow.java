@@ -8,17 +8,17 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTransientObject;
 
 public class DeathArrow extends AbstractTransientObject {
-	// Constructors
-	public DeathArrow() {
-	}
+    // Constructors
+    public DeathArrow() {
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 30;
-	}
+    @Override
+    public final int getBaseID() {
+	return 30;
+    }
 
-	@Override
-	public int getForceUnitsImbued() {
-		return 1;
-	}
+    @Override
+    public int getForceUnitsImbued() {
+	return 1;
+    }
 }

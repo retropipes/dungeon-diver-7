@@ -9,14 +9,14 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractAllButton;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class MetallicAllButton extends AbstractAllButton {
-	// Constructors
-	public MetallicAllButton() {
-		super(new MetallicAllButtonDoor(), false);
-		this.setMaterial(Materials.METALLIC);
-	}
+    // Constructors
+    public MetallicAllButton() {
+	super(new MetallicAllButtonDoor(), false);
+	this.setMaterial(Materials.METALLIC);
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 92;
-	}
+    @Override
+    public final int getBaseID() {
+	return 92;
+    }
 }

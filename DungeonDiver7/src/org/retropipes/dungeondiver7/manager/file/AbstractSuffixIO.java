@@ -11,7 +11,7 @@ import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 
 public interface AbstractSuffixIO {
-	void readSuffix(DataIOReader reader, int formatVersion) throws IOException;
+    void readSuffix(DataIOReader reader, int formatVersion) throws IOException;
 
-	void writeSuffix(DataIOWriter writer) throws IOException;
+    void writeSuffix(DataIOWriter writer) throws IOException;
 }

@@ -11,10 +11,9 @@ import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
 
 public class ItemImageLoader {
-
-	public static BufferedImageIcon load(final ItemImageId baseId, final int power) {
-		var filename = baseId.toString().toLowerCase() + "-" + Integer.toString(power);
-		return DianeImageLoader.load("monster-" + filename, ItemImageLoader.class
-				.getResource("/asset/image/monster/" + filename + Strings.fileExtension(FileExtension.IMAGE)));
-	}
+    public static BufferedImageIcon load(final ItemImageId baseId, final int power) {
+	var filename = baseId.toString().toLowerCase() + "-" + Integer.toString(power);
+	return DianeImageLoader.load("monster-" + filename, ItemImageLoader.class
+		.getResource("/asset/image/monster/" + filename + Strings.fileExtension(FileExtension.IMAGE)));
+    }
 }

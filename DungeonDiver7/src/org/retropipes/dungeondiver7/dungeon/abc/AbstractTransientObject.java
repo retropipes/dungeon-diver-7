@@ -8,35 +8,35 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 public abstract class AbstractTransientObject extends AbstractDungeonObject {
-	// Constructors
-	protected AbstractTransientObject() {
-		super(true);
-	}
+    // Constructors
+    protected AbstractTransientObject() {
+	super(true);
+    }
 
-	@Override
-	public int getBlockHeight() {
-		return 0;
-	}
+    @Override
+    public int getBlockHeight() {
+	return 0;
+    }
 
-	@Override
-	public int getCustomProperty(final int propID) {
-		return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
-	}
+    @Override
+    public int getCustomProperty(final int propID) {
+	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+    }
 
-	public abstract int getForceUnitsImbued();
+    public abstract int getForceUnitsImbued();
 
-	@Override
-	public int getLayer() {
-		return DungeonConstants.LAYER_VIRTUAL;
-	}
+    @Override
+    public int getLayer() {
+	return DungeonConstants.LAYER_VIRTUAL;
+    }
 
-	@Override
-	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		// Do nothing
-	}
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	// Do nothing
+    }
 
-	@Override
-	public void setCustomProperty(final int propID, final int value) {
-		// Do nothing
-	}
+    @Override
+    public void setCustomProperty(final int propID, final int value) {
+	// Do nothing
+    }
 }

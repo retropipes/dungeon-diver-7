@@ -12,21 +12,21 @@ import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 
 public class KillSkull extends AbstractSpell {
-	// Constructors
-	public KillSkull() {
-	}
+    // Constructors
+    public KillSkull() {
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 143;
-	}
+    @Override
+    public final int getBaseID() {
+	return 143;
+    }
 
-	// Scriptability
-	@Override
-	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		SoundLoader.playSound(Sounds.KILL_SKULL);
-		DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().fullScanKillPlayers();
-		DungeonDiver7.getStuffBag().getGameLogic();
-		GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-	}
+    // Scriptability
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	SoundLoader.playSound(Sounds.KILL_SKULL);
+	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().fullScanKillPlayers();
+	DungeonDiver7.getStuffBag().getGameLogic();
+	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+    }
 }

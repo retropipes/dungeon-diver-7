@@ -9,18 +9,18 @@ import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 
 class FinalBossBattle extends AbstractBattleType {
-	// Fields
-	final BattleCharacter monster;
+    // Fields
+    final BattleCharacter monster;
 
-	// Constructors
-	public FinalBossBattle() {
-		this.boss = true;
-		this.finalBoss = true;
-		this.monster = new BattleCharacter(MonsterFactory.getNewFinalBossInstance());
-	}
+    // Constructors
+    public FinalBossBattle() {
+	this.boss = true;
+	this.finalBoss = true;
+	this.monster = new BattleCharacter(MonsterFactory.getNewFinalBossInstance());
+    }
 
-	@Override
-	public BattleCharacter getBattlers() {
-		return this.monster;
-	}
+    @Override
+    public BattleCharacter getBattlers() {
+	return this.monster;
+    }
 }

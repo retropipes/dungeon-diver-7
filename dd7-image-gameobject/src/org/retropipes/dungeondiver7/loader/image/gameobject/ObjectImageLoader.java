@@ -11,13 +11,13 @@ import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
 
 public class ObjectImageLoader {
-	public static BufferedImageIcon load(final ObjectImageId baseId) {
-		return DianeImageLoader.load(baseId);
-	}
+    public static BufferedImageIcon load(final ObjectImageId baseId) {
+	return DianeImageLoader.load(baseId);
+    }
 
-	public static BufferedImageIcon load(final String name, final int baseId) {
-		var filename = Integer.toString(baseId);
-		return DianeImageLoader.load(name, ObjectImageLoader.class
-				.getResource("/asset/image/object/" + filename + Strings.fileExtension(FileExtension.IMAGE)));
-	}
+    public static BufferedImageIcon load(final String name, final int baseId) {
+	var filename = Integer.toString(baseId);
+	return DianeImageLoader.load(name, ObjectImageLoader.class
+		.getResource("/asset/image/object/" + filename + Strings.fileExtension(FileExtension.IMAGE)));
+    }
 }

@@ -8,172 +8,172 @@ package org.retropipes.dungeondiver7.editor;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 
 class EditorUndoRedoEngine {
-	// Inner classes
-	private static class Link {
-		// Fields
-		public AbstractDungeonObject mo;
-		public int coordX, coordY, coordZ, coordW, coordU;
-		public Link next;
-
-		Link(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w, final int u) {
-			this.mo = obj;
-			this.coordX = x;
-			this.coordY = y;
-			this.coordZ = z;
-			this.coordW = w;
-			this.coordU = u;
-			this.next = null;
-		}
-	}
-
-	private static class LinkList {
-		// Fields
-		private Link first;
-
-		LinkList() {
-			this.first = null;
-		}
-
-		public Link deleteFirst() {
-			final var temp = this.first;
-			this.first = this.first.next;
-			return temp;
-		}
-
-		public void insertFirst(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w,
-				final int u) {
-			final var newLink = new Link(obj, x, y, z, w, u);
-			newLink.next = this.first;
-			this.first = newLink;
-		}
-
-		public boolean isEmpty() {
-			return this.first == null;
-		}
-	}
-
-	private static class LinkStack {
-		// Fields
-		private final LinkList theList;
-
-		LinkStack() {
-			this.theList = new LinkList();
-		}
-
-		public boolean isEmpty() {
-			return this.theList.isEmpty();
-		}
-
-		public Link pop() {
-			return this.theList.deleteFirst();
-		}
-
-		public void push(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w,
-				final int u) {
-			this.theList.insertFirst(obj, x, y, z, w, u);
-		}
-	}
-
+    // Inner classes
+    private static class Link {
 	// Fields
-	private final LinkStack undoHistory;
-	private final LinkStack redoHistory;
-	private AbstractDungeonObject object;
-	private int destX, destY, destZ, destW, destU;
+	public AbstractDungeonObject mo;
+	public int coordX, coordY, coordZ, coordW, coordU;
+	public Link next;
 
-	// Constructors
-	public EditorUndoRedoEngine() {
-		this.undoHistory = new LinkStack();
-		this.redoHistory = new LinkStack();
-		this.object = null;
-		this.destX = -1;
-		this.destY = -1;
-		this.destZ = -1;
-		this.destW = -1;
-		this.destU = -1;
+	Link(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w, final int u) {
+	    this.mo = obj;
+	    this.coordX = x;
+	    this.coordY = y;
+	    this.coordZ = z;
+	    this.coordW = w;
+	    this.coordU = u;
+	    this.next = null;
+	}
+    }
+
+    private static class LinkList {
+	// Fields
+	private Link first;
+
+	LinkList() {
+	    this.first = null;
 	}
 
-	AbstractDungeonObject getObject() {
-		return this.object;
+	public Link deleteFirst() {
+	    final var temp = this.first;
+	    this.first = this.first.next;
+	    return temp;
 	}
 
-	int getU() {
-		return this.destU;
+	public void insertFirst(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w,
+		final int u) {
+	    final var newLink = new Link(obj, x, y, z, w, u);
+	    newLink.next = this.first;
+	    this.first = newLink;
 	}
 
-	int getW() {
-		return this.destW;
+	public boolean isEmpty() {
+	    return this.first == null;
+	}
+    }
+
+    private static class LinkStack {
+	// Fields
+	private final LinkList theList;
+
+	LinkStack() {
+	    this.theList = new LinkList();
 	}
 
-	int getX() {
-		return this.destX;
+	public boolean isEmpty() {
+	    return this.theList.isEmpty();
 	}
 
-	int getY() {
-		return this.destY;
+	public Link pop() {
+	    return this.theList.deleteFirst();
 	}
 
-	int getZ() {
-		return this.destZ;
+	public void push(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w,
+		final int u) {
+	    this.theList.insertFirst(obj, x, y, z, w, u);
 	}
+    }
 
-	void redo() {
-		if (!this.redoHistory.isEmpty()) {
-			final var entry = this.redoHistory.pop();
-			this.object = entry.mo;
-			this.destX = entry.coordX;
-			this.destY = entry.coordY;
-			this.destZ = entry.coordZ;
-			this.destW = entry.coordW;
-			this.destU = entry.coordU;
-		} else {
-			this.object = null;
-			this.destX = -1;
-			this.destY = -1;
-			this.destZ = -1;
-			this.destW = -1;
-			this.destU = -1;
-		}
-	}
+    // Fields
+    private final LinkStack undoHistory;
+    private final LinkStack redoHistory;
+    private AbstractDungeonObject object;
+    private int destX, destY, destZ, destW, destU;
 
-	boolean tryBoth() {
-		return this.undoHistory.isEmpty() && this.redoHistory.isEmpty();
-	}
+    // Constructors
+    public EditorUndoRedoEngine() {
+	this.undoHistory = new LinkStack();
+	this.redoHistory = new LinkStack();
+	this.object = null;
+	this.destX = -1;
+	this.destY = -1;
+	this.destZ = -1;
+	this.destW = -1;
+	this.destU = -1;
+    }
 
-	boolean tryRedo() {
-		return !this.redoHistory.isEmpty();
-	}
+    AbstractDungeonObject getObject() {
+	return this.object;
+    }
 
-	boolean tryUndo() {
-		return !this.undoHistory.isEmpty();
-	}
+    int getU() {
+	return this.destU;
+    }
 
-	// Public methods
-	void undo() {
-		if (!this.undoHistory.isEmpty()) {
-			final var entry = this.undoHistory.pop();
-			this.object = entry.mo;
-			this.destX = entry.coordX;
-			this.destY = entry.coordY;
-			this.destZ = entry.coordZ;
-			this.destW = entry.coordW;
-			this.destU = entry.coordU;
-		} else {
-			this.object = null;
-			this.destX = -1;
-			this.destY = -1;
-			this.destZ = -1;
-			this.destW = -1;
-			this.destU = -1;
-		}
-	}
+    int getW() {
+	return this.destW;
+    }
 
-	void updateRedoHistory(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w,
-			final int u) {
-		this.redoHistory.push(obj, x, y, z, w, u);
-	}
+    int getX() {
+	return this.destX;
+    }
 
-	void updateUndoHistory(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w,
-			final int u) {
-		this.undoHistory.push(obj, x, y, z, w, u);
+    int getY() {
+	return this.destY;
+    }
+
+    int getZ() {
+	return this.destZ;
+    }
+
+    void redo() {
+	if (!this.redoHistory.isEmpty()) {
+	    final var entry = this.redoHistory.pop();
+	    this.object = entry.mo;
+	    this.destX = entry.coordX;
+	    this.destY = entry.coordY;
+	    this.destZ = entry.coordZ;
+	    this.destW = entry.coordW;
+	    this.destU = entry.coordU;
+	} else {
+	    this.object = null;
+	    this.destX = -1;
+	    this.destY = -1;
+	    this.destZ = -1;
+	    this.destW = -1;
+	    this.destU = -1;
 	}
+    }
+
+    boolean tryBoth() {
+	return this.undoHistory.isEmpty() && this.redoHistory.isEmpty();
+    }
+
+    boolean tryRedo() {
+	return !this.redoHistory.isEmpty();
+    }
+
+    boolean tryUndo() {
+	return !this.undoHistory.isEmpty();
+    }
+
+    // Public methods
+    void undo() {
+	if (!this.undoHistory.isEmpty()) {
+	    final var entry = this.undoHistory.pop();
+	    this.object = entry.mo;
+	    this.destX = entry.coordX;
+	    this.destY = entry.coordY;
+	    this.destZ = entry.coordZ;
+	    this.destW = entry.coordW;
+	    this.destU = entry.coordU;
+	} else {
+	    this.object = null;
+	    this.destX = -1;
+	    this.destY = -1;
+	    this.destZ = -1;
+	    this.destW = -1;
+	    this.destU = -1;
+	}
+    }
+
+    void updateRedoHistory(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w,
+	    final int u) {
+	this.redoHistory.push(obj, x, y, z, w, u);
+    }
+
+    void updateUndoHistory(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w,
+	    final int u) {
+	this.undoHistory.push(obj, x, y, z, w, u);
+    }
 }

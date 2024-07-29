@@ -9,13 +9,13 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractPressureButtonDoor;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class UniversalPressureButtonDoor extends AbstractPressureButtonDoor {
-	// Constructors
-	public UniversalPressureButtonDoor() {
-		this.setMaterial(Materials.DEFAULT);
-	}
+    // Constructors
+    public UniversalPressureButtonDoor() {
+	this.setMaterial(Materials.DEFAULT);
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 113;
-	}
+    @Override
+    public final int getBaseID() {
+	return 113;
+    }
 }

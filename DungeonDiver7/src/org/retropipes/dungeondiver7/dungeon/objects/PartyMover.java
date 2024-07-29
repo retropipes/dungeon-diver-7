@@ -10,15 +10,15 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractMover;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public class PartyMover extends AbstractMover {
-	// Constructors
-	public PartyMover() {
-		this.setDirection(Direction.NORTH);
-		this.setFrameNumber(1);
-		this.type.set(DungeonObjectTypes.TYPE_MOVER);
-	}
+    // Constructors
+    public PartyMover() {
+	this.setDirection(Direction.NORTH);
+	this.setFrameNumber(1);
+	this.type.set(DungeonObjectTypes.TYPE_MOVER);
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 37;
-	}
+    @Override
+    public final int getBaseID() {
+	return 37;
+    }
 }

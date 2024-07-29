@@ -10,23 +10,23 @@ import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.utility.PartyInventory;
 
 public class TenStunners extends AbstractInventoryModifier {
-	// Constructors
-	public TenStunners() {
-	}
+    // Constructors
+    public TenStunners() {
+    }
 
-	@Override
-	public boolean doLasersPassThrough() {
-		return true;
-	}
+    @Override
+    public boolean doLasersPassThrough() {
+	return true;
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 42;
-	}
+    @Override
+    public final int getBaseID() {
+	return 42;
+    }
 
-	@Override
-	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		PartyInventory.addTenStunners();
-		GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-	}
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	PartyInventory.addTenStunners();
+	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+    }
 }

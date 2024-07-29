@@ -8,17 +8,17 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTransientObject;
 
 public class Missile extends AbstractTransientObject {
-	// Constructors
-	public Missile() {
-	}
+    // Constructors
+    public Missile() {
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 27;
-	}
+    @Override
+    public final int getBaseID() {
+	return 27;
+    }
 
-	@Override
-	public int getForceUnitsImbued() {
-		return 2;
-	}
+    @Override
+    public int getForceUnitsImbued() {
+	return 2;
+    }
 }

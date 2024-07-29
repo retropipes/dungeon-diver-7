@@ -6,14 +6,14 @@
 package org.retropipes.dungeondiver7.utility;
 
 public class InvalidDungeonException extends Exception {
-	// Serialization
-	private static final long serialVersionUID = 999L;
+    // Serialization
+    private static final long serialVersionUID = 999L;
 
-	// Constructors
-	public InvalidDungeonException() {
-	}
+    // Constructors
+    public InvalidDungeonException() {
+    }
 
-	public InvalidDungeonException(final String msg) {
-		super(msg);
-	}
+    public InvalidDungeonException(final String msg) {
+	super(msg);
+    }
 }

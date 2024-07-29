@@ -10,16 +10,16 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractMover;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public class MirrorMover extends AbstractMover {
-	// Constructors
-	public MirrorMover() {
-		super(true);
-		this.setDirection(Direction.NORTH);
-		this.setFrameNumber(1);
-		this.type.set(DungeonObjectTypes.TYPE_MIRROR_MOVER);
-	}
+    // Constructors
+    public MirrorMover() {
+	super(true);
+	this.setDirection(Direction.NORTH);
+	this.setFrameNumber(1);
+	this.type.set(DungeonObjectTypes.TYPE_MIRROR_MOVER);
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 125;
-	}
+    @Override
+    public final int getBaseID() {
+	return 125;
+    }
 }

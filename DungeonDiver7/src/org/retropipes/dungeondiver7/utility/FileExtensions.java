@@ -6,14 +6,14 @@
 package org.retropipes.dungeondiver7.utility;
 
 public class FileExtensions {
-	// Constants
-	private static final String STRING_EXTENSION = "properties";
+    // Constants
+    private static final String STRING_EXTENSION = "properties";
 
-	public static String getStringExtensionWithPeriod() {
-		return "." + FileExtensions.STRING_EXTENSION;
-	}
+    public static String getStringExtensionWithPeriod() {
+	return "." + FileExtensions.STRING_EXTENSION;
+    }
 
-	private FileExtensions() {
-		// Do nothing
-	}
+    private FileExtensions() {
+	// Do nothing
+    }
 }

@@ -17,104 +17,104 @@ import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Strings;
 
 public class Party {
-	static Party read(final DataIOReader worldFile) throws IOException {
-		worldFile.readInt();
-		final var lid = worldFile.readInt();
-		final var apc = worldFile.readInt();
-		final var lvl = worldFile.readInt();
-		final var pty = new Party();
-		pty.leaderID = lid;
-		pty.activePCs = apc;
-		pty.zone = lvl;
-		final var present = worldFile.readBoolean();
-		if (present) {
-			pty.members = PartyMember.read(worldFile);
-		}
-		return pty;
+    static Party read(final DataIOReader worldFile) throws IOException {
+	worldFile.readInt();
+	final var lid = worldFile.readInt();
+	final var apc = worldFile.readInt();
+	final var lvl = worldFile.readInt();
+	final var pty = new Party();
+	pty.leaderID = lid;
+	pty.activePCs = apc;
+	pty.zone = lvl;
+	final var present = worldFile.readBoolean();
+	if (present) {
+	    pty.members = PartyMember.read(worldFile);
 	}
+	return pty;
+    }
 
-	// Fields
-	private PartyMember members;
-	private BattleCharacter battlers;
-	private int leaderID;
-	private int activePCs;
-	private int zone;
+    // Fields
+    private PartyMember members;
+    private BattleCharacter battlers;
+    private int leaderID;
+    private int activePCs;
+    private int zone;
 
-	// Constructors
-	public Party() {
-		this.members = null;
-		this.leaderID = 0;
-		this.activePCs = 0;
-		this.zone = 0;
+    // Constructors
+    public Party() {
+	this.members = null;
+	this.leaderID = 0;
+	this.activePCs = 0;
+	this.zone = 0;
+    }
+
+    boolean addPartyMember(final PartyMember member) {
+	this.members = member;
+	return true;
+    }
+
+    public void checkPartyLevelUp() {
+	// Level Up Check
+	if (this.members.checkLevelUp()) {
+	    this.members.levelUp();
+	    SoundLoader.playSound(Sounds.GAIN_LEVEL);
+	    CommonDialogs.showTitledDialog(this.members.getName() + " reached level " + this.members.getLevel() + "!",
+		    "Level Up");
 	}
+    }
 
-	boolean addPartyMember(final PartyMember member) {
-		this.members = member;
-		return true;
-	}
+    private void generateBattleCharacters() {
+	this.battlers = new BattleCharacter(this.members);
+    }
 
-	public void checkPartyLevelUp() {
-		// Level Up Check
-		if (this.members.checkLevelUp()) {
-			this.members.levelUp();
-			SoundLoader.playSound(Sounds.GAIN_LEVEL);
-			CommonDialogs.showTitledDialog(this.members.getName() + " reached level " + this.members.getLevel() + "!",
-					"Level Up");
-		}
+    public BattleCharacter getBattleCharacters() {
+	if (this.battlers == null) {
+	    this.generateBattleCharacters();
 	}
+	return this.battlers;
+    }
 
-	private void generateBattleCharacters() {
-		this.battlers = new BattleCharacter(this.members);
-	}
+    public PartyMember getLeader() {
+	return this.members;
+    }
 
-	public BattleCharacter getBattleCharacters() {
-		if (this.battlers == null) {
-			this.generateBattleCharacters();
-		}
-		return this.battlers;
-	}
+    public long getPartyMaxToNextLevel() {
+	return this.members.getToNextLevelValue();
+    }
 
-	public PartyMember getLeader() {
-		return this.members;
-	}
+    public int getZone() {
+	return this.zone;
+    }
 
-	public long getPartyMaxToNextLevel() {
-		return this.members.getToNextLevelValue();
-	}
+    public String getZoneString() {
+	return "Zone Name: " + Strings.zone(this.zone);
+    }
 
-	public int getZone() {
-		return this.zone;
-	}
+    public boolean isAlive() {
+	return this.members.isAlive();
+    }
 
-	public String getZoneString() {
-		return "Zone Name: " + Strings.zone(this.zone);
+    public void offsetZone(final int offset) {
+	if (this.zone + offset > AbstractDungeon.getMaxLevels() || this.zone + offset < 0) {
+	    return;
 	}
+	this.zone += offset;
+    }
 
-	public boolean isAlive() {
-		return this.members.isAlive();
-	}
+    void resetZone() {
+	this.zone = 0;
+    }
 
-	public void offsetZone(final int offset) {
-		if (this.zone + offset > AbstractDungeon.getMaxLevels() || this.zone + offset < 0) {
-			return;
-		}
-		this.zone += offset;
+    void write(final DataIOWriter worldFile) throws IOException {
+	worldFile.writeInt(1);
+	worldFile.writeInt(this.leaderID);
+	worldFile.writeInt(this.activePCs);
+	worldFile.writeInt(this.zone);
+	if (this.members == null) {
+	    worldFile.writeBoolean(false);
+	} else {
+	    worldFile.writeBoolean(true);
+	    this.members.write(worldFile);
 	}
-
-	void resetZone() {
-		this.zone = 0;
-	}
-
-	void write(final DataIOWriter worldFile) throws IOException {
-		worldFile.writeInt(1);
-		worldFile.writeInt(this.leaderID);
-		worldFile.writeInt(this.activePCs);
-		worldFile.writeInt(this.zone);
-		if (this.members == null) {
-			worldFile.writeBoolean(false);
-		} else {
-			worldFile.writeBoolean(true);
-			this.members.write(worldFile);
-		}
-	}
+    }
 }

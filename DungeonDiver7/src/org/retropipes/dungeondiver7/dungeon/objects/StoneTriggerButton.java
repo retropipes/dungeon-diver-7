@@ -9,14 +9,14 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractTriggerButton;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class StoneTriggerButton extends AbstractTriggerButton {
-	// Constructors
-	public StoneTriggerButton() {
-		super(new StoneTriggerButtonDoor(), false);
-		this.setMaterial(Materials.STONE);
-	}
+    // Constructors
+    public StoneTriggerButton() {
+	super(new StoneTriggerButtonDoor(), false);
+	this.setMaterial(Materials.STONE);
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 108;
-	}
+    @Override
+    public final int getBaseID() {
+	return 108;
+    }
 }

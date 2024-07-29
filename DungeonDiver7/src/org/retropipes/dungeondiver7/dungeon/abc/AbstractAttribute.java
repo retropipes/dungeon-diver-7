@@ -9,13 +9,13 @@ import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractAttribute extends AbstractPassThroughObject {
-	// Constructors
-	protected AbstractAttribute() {
-		this.type.set(DungeonObjectTypes.TYPE_ATTRIBUTE);
-	}
+    // Constructors
+    protected AbstractAttribute() {
+	this.type.set(DungeonObjectTypes.TYPE_ATTRIBUTE);
+    }
 
-	@Override
-	public int getLayer() {
-		return DungeonConstants.LAYER_UPPER_OBJECTS;
-	}
+    @Override
+    public int getLayer() {
+	return DungeonConstants.LAYER_UPPER_OBJECTS;
+    }
 }

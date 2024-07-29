@@ -13,33 +13,33 @@ import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class PlasticBox extends AbstractMovableObject {
-	// Constructors
-	public PlasticBox() {
-		super(true);
-		this.type.set(DungeonObjectTypes.TYPE_BOX);
-		this.setMaterial(Materials.PLASTIC);
-	}
+    // Constructors
+    public PlasticBox() {
+	super(true);
+	this.type.set(DungeonObjectTypes.TYPE_BOX);
+	this.setMaterial(Materials.PLASTIC);
+    }
 
-	@Override
-	public AbstractDungeonObject changesToOnExposure(final int materialID) {
-		return switch (materialID) {
-		case Materials.ICE -> {
-			final var ib = new IcyBox();
-			ib.setPreviousState(this);
-			yield ib;
-		}
-		case Materials.FIRE -> new HotBox();
-		default -> this;
-		};
+    @Override
+    public AbstractDungeonObject changesToOnExposure(final int materialID) {
+	return switch (materialID) {
+	case Materials.ICE -> {
+	    final var ib = new IcyBox();
+	    ib.setPreviousState(this);
+	    yield ib;
 	}
+	case Materials.FIRE -> new HotBox();
+	default -> this;
+	};
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 72;
-	}
+    @Override
+    public final int getBaseID() {
+	return 72;
+    }
 
-	@Override
-	public void playSoundHook() {
-		SoundLoader.playSound(Sounds.PUSH);
-	}
+    @Override
+    public void playSoundHook() {
+	SoundLoader.playSound(Sounds.PUSH);
+    }
 }

@@ -6,10 +6,10 @@
 package org.retropipes.dungeondiver7.asset;
 
 public class ImageConstants {
-	public static final int MAX_WINDOW_SIZE = 700;
-	public static final int SIZE = 64;
+    public static final int MAX_WINDOW_SIZE = 700;
+    public static final int SIZE = 64;
 
-	private ImageConstants() {
-		// Do nothing
-	}
+    private ImageConstants() {
+	// Do nothing
+    }
 }

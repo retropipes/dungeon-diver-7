@@ -12,21 +12,21 @@ import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
 
 public class GameFinder implements FilenameFilter {
-	private static String getExtension(final String s) {
-		String ext = null;
-		final var i = s.lastIndexOf('.');
-		if (i > 0 && i < s.length() - 1) {
-			ext = s.substring(i).toLowerCase();
-		}
-		return ext;
+    private static String getExtension(final String s) {
+	String ext = null;
+	final var i = s.lastIndexOf('.');
+	if (i > 0 && i < s.length() - 1) {
+	    ext = s.substring(i).toLowerCase();
 	}
+	return ext;
+    }
 
-	@Override
-	public boolean accept(final File f, final String s) {
-		final var extension = GameFinder.getExtension(s);
-		if (extension != null && extension.equals(Strings.fileExtension(FileExtension.SUSPEND))) {
-			return true;
-		}
-		return false;
+    @Override
+    public boolean accept(final File f, final String s) {
+	final var extension = GameFinder.getExtension(s);
+	if (extension != null && extension.equals(Strings.fileExtension(FileExtension.SUSPEND))) {
+	    return true;
 	}
+	return false;
+    }
 }

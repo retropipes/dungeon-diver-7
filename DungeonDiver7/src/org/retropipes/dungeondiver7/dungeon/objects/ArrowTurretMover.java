@@ -10,16 +10,16 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractMover;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public class ArrowTurretMover extends AbstractMover {
-	// Constructors
-	public ArrowTurretMover() {
-		super(true);
-		this.setDirection(Direction.NORTH);
-		this.setFrameNumber(1);
-		this.type.set(DungeonObjectTypes.TYPE_ANTI_MOVER);
-	}
+    // Constructors
+    public ArrowTurretMover() {
+	super(true);
+	this.setDirection(Direction.NORTH);
+	this.setFrameNumber(1);
+	this.type.set(DungeonObjectTypes.TYPE_ANTI_MOVER);
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 1;
-	}
+    @Override
+    public final int getBaseID() {
+	return 1;
+    }
 }

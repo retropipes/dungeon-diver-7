@@ -11,14 +11,14 @@ import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
 
 public class MonsterImageLoader {
-	public static BufferedImageIcon load(final int index) {
-		var filename = Integer.toString(index);
-		return DianeImageLoader.load("monster-" + filename, MonsterImageLoader.class
-				.getResource("/asset/image/monster/" + filename + Strings.fileExtension(FileExtension.IMAGE)));
-	}
+    public static BufferedImageIcon load(final int index) {
+	var filename = Integer.toString(index);
+	return DianeImageLoader.load("monster-" + filename, MonsterImageLoader.class
+		.getResource("/asset/image/monster/" + filename + Strings.fileExtension(FileExtension.IMAGE)));
+    }
 
-	public static BufferedImageIcon loadFinalBoss() {
-		return DianeImageLoader.load("final-boss", MonsterImageLoader.class
-				.getResource("/asset/image/boss/final" + Strings.fileExtension(FileExtension.IMAGE)));
-	}
+    public static BufferedImageIcon loadFinalBoss() {
+	return DianeImageLoader.load("final-boss", MonsterImageLoader.class
+		.getResource("/asset/image/boss/final" + Strings.fileExtension(FileExtension.IMAGE)));
+    }
 }

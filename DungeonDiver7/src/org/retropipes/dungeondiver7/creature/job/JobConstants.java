@@ -6,14 +6,14 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.creature.job;
 
 public class JobConstants {
-	public static final int JOB_ANNIHILATOR = 0;
-	public static final int JOB_BUFFER = 1;
-	public static final int JOB_CURER = 2;
-	public static final int JOB_DEBUFFER = 3;
-	public static final int JOBS_COUNT = 4;
-	public static final String[] JOB_NAMES = { "Annihilator", "Buffer", "Curer", "Debuffer" };
+    public static final int JOB_ANNIHILATOR = 0;
+    public static final int JOB_BUFFER = 1;
+    public static final int JOB_CURER = 2;
+    public static final int JOB_DEBUFFER = 3;
+    public static final int JOBS_COUNT = 4;
+    public static final String[] JOB_NAMES = { "Annihilator", "Buffer", "Curer", "Debuffer" };
 
-	private JobConstants() {
-		// Do nothing
-	}
+    private JobConstants() {
+	// Do nothing
+    }
 }

@@ -9,7 +9,7 @@ import org.retropipes.dungeondiver7.creature.job.Job;
 import org.retropipes.dungeondiver7.creature.job.JobConstants;
 
 public class Curer extends Job {
-	public Curer() {
-		super(JobConstants.JOB_CURER);
-	}
+    public Curer() {
+	super(JobConstants.JOB_CURER);
+    }
 }

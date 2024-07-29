@@ -9,7 +9,7 @@ import org.retropipes.dungeondiver7.creature.job.Job;
 import org.retropipes.dungeondiver7.creature.job.JobConstants;
 
 public class Annihilator extends Job {
-	public Annihilator() {
-		super(JobConstants.JOB_ANNIHILATOR);
-	}
+    public Annihilator() {
+	super(JobConstants.JOB_ANNIHILATOR);
+    }
 }

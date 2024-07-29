@@ -17,58 +17,58 @@ import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class WoodenWall extends AbstractWall {
-	// Constructors
-	public WoodenWall() {
-		this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
-		this.setMaterial(Materials.WOODEN);
-	}
+    // Constructors
+    public WoodenWall() {
+	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
+	this.setMaterial(Materials.WOODEN);
+    }
 
-	@Override
-	public AbstractDungeonObject changesToOnExposure(final int materialID) {
-		return switch (materialID) {
-		case Materials.FIRE -> new Ground();
-		case Materials.ICE -> {
-			final var iw = new IcyWall();
-			iw.setPreviousState(this);
-			yield iw;
-		}
-		default -> this;
-		};
+    @Override
+    public AbstractDungeonObject changesToOnExposure(final int materialID) {
+	return switch (materialID) {
+	case Materials.FIRE -> new Ground();
+	case Materials.ICE -> {
+	    final var iw = new IcyWall();
+	    iw.setPreviousState(this);
+	    yield iw;
 	}
+	default -> this;
+	};
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 56;
-	}
+    @Override
+    public final int getBaseID() {
+	return 56;
+    }
 
-	@Override
-	public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-			final int laserType, final int forceUnits) {
-		return switch (laserType) {
-		case ShotTypes.DISRUPTOR -> {
-			// Disrupt wooden wall
-			SoundLoader.playSound(Sounds.DISRUPTED);
-			DungeonDiver7.getStuffBag().getGameLogic();
-			GameLogic.morph(new DisruptedWoodenWall(), locX, locY, locZ, this.getLayer());
-			yield Direction.NONE;
-		}
-		case ShotTypes.MISSILE -> {
-			// Destroy wooden wall
-			SoundLoader.playSound(Sounds.KABOOM);
-			DungeonDiver7.getStuffBag().getGameLogic();
-			GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
-			yield Direction.NONE;
-		}
-		case ShotTypes.STUNNER -> {
-			// Freeze wooden wall
-			SoundLoader.playSound(Sounds.FROZEN);
-			final var iw = new IcyWall();
-			iw.setPreviousState(this);
-			DungeonDiver7.getStuffBag().getGameLogic();
-			GameLogic.morph(iw, locX, locY, locZ, this.getLayer());
-			yield Direction.NONE;
-		}
-		default -> /* Stop laser */ super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-		};
+    @Override
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+	    final int laserType, final int forceUnits) {
+	return switch (laserType) {
+	case ShotTypes.DISRUPTOR -> {
+	    // Disrupt wooden wall
+	    SoundLoader.playSound(Sounds.DISRUPTED);
+	    DungeonDiver7.getStuffBag().getGameLogic();
+	    GameLogic.morph(new DisruptedWoodenWall(), locX, locY, locZ, this.getLayer());
+	    yield Direction.NONE;
 	}
+	case ShotTypes.MISSILE -> {
+	    // Destroy wooden wall
+	    SoundLoader.playSound(Sounds.KABOOM);
+	    DungeonDiver7.getStuffBag().getGameLogic();
+	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
+	    yield Direction.NONE;
+	}
+	case ShotTypes.STUNNER -> {
+	    // Freeze wooden wall
+	    SoundLoader.playSound(Sounds.FROZEN);
+	    final var iw = new IcyWall();
+	    iw.setPreviousState(this);
+	    DungeonDiver7.getStuffBag().getGameLogic();
+	    GameLogic.morph(iw, locX, locY, locZ, this.getLayer());
+	    yield Direction.NONE;
+	}
+	default -> /* Stop laser */ super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
+	};
+    }
 }

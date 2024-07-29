@@ -8,17 +8,17 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTransientObject;
 
 public class InverseArrow extends AbstractTransientObject {
-	// Constructors
-	public InverseArrow() {
-	}
+    // Constructors
+    public InverseArrow() {
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 6;
-	}
+    @Override
+    public final int getBaseID() {
+	return 6;
+    }
 
-	@Override
-	public int getForceUnitsImbued() {
-		return 1;
-	}
+    @Override
+    public int getForceUnitsImbued() {
+	return 1;
+    }
 }

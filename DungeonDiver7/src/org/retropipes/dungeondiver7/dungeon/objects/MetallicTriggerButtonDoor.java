@@ -9,13 +9,13 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractTriggerButtonDoor;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class MetallicTriggerButtonDoor extends AbstractTriggerButtonDoor {
-	// Constructors
-	public MetallicTriggerButtonDoor() {
-		this.setMaterial(Materials.METALLIC);
-	}
+    // Constructors
+    public MetallicTriggerButtonDoor() {
+	this.setMaterial(Materials.METALLIC);
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 97;
-	}
+    @Override
+    public final int getBaseID() {
+	return 97;
+    }
 }

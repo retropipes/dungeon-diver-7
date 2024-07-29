@@ -10,8 +10,8 @@ import org.retropipes.dungeondiver7.creature.AbstractCreature;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractBattleCharacter;
 
 public class BattleCharacter extends AbstractBattleCharacter {
-	// Constructors
-	public BattleCharacter(final AbstractCreature newTemplate) {
-		super(newTemplate);
-	}
+    // Constructors
+    public BattleCharacter(final AbstractCreature newTemplate) {
+	super(newTemplate);
+    }
 }

@@ -6,5 +6,5 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.battle;
 
 public enum BattleTarget {
-	SELF, ENEMY;
+    SELF, ENEMY;
 }

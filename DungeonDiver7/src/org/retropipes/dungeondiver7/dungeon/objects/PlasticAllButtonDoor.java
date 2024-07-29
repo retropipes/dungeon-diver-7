@@ -9,13 +9,13 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractAllButtonDoor;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class PlasticAllButtonDoor extends AbstractAllButtonDoor {
-	// Constructors
-	public PlasticAllButtonDoor() {
-		this.setMaterial(Materials.PLASTIC);
-	}
+    // Constructors
+    public PlasticAllButtonDoor() {
+	this.setMaterial(Materials.PLASTIC);
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 99;
-	}
+    @Override
+    public final int getBaseID() {
+	return 99;
+    }
 }

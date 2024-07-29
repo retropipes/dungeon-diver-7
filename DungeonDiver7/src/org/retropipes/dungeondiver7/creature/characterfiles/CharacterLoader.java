@@ -21,71 +21,71 @@ import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
 
 public class CharacterLoader {
-	static void deleteCharacter(final String name, final boolean showResults) {
-		final var basePath = CharacterRegistration.getBasePath();
-		final var characterFile = basePath + File.separator + name + Strings.fileExtension(FileExtension.CHARACTER);
-		final var toDelete = new File(characterFile);
-		if (toDelete.exists()) {
-			final var success = toDelete.delete();
-			if (success) {
-				if (showResults) {
-					CommonDialogs.showDialog("Character removed.");
-				} else {
-					CommonDialogs.showDialog("Character " + name + " autoremoved due to version change.");
-				}
-			} else if (showResults) {
-				CommonDialogs.showDialog("Character removal failed!");
-			} else {
-				CommonDialogs.showDialog("Character " + name + " failed to autoremove!");
-			}
-		} else if (showResults) {
-			CommonDialogs.showDialog("The character to be removed does not have a corresponding file.");
+    static void deleteCharacter(final String name, final boolean showResults) {
+	final var basePath = CharacterRegistration.getBasePath();
+	final var characterFile = basePath + File.separator + name + Strings.fileExtension(FileExtension.CHARACTER);
+	final var toDelete = new File(characterFile);
+	if (toDelete.exists()) {
+	    final var success = toDelete.delete();
+	    if (success) {
+		if (showResults) {
+		    CommonDialogs.showDialog("Character removed.");
 		} else {
-			CommonDialogs.showDialog("The character to be autoremoved does not have a corresponding file.");
+		    CommonDialogs.showDialog("Character " + name + " autoremoved due to version change.");
 		}
+	    } else if (showResults) {
+		CommonDialogs.showDialog("Character removal failed!");
+	    } else {
+		CommonDialogs.showDialog("Character " + name + " failed to autoremove!");
+	    }
+	} else if (showResults) {
+	    CommonDialogs.showDialog("The character to be removed does not have a corresponding file.");
+	} else {
+	    CommonDialogs.showDialog("The character to be autoremoved does not have a corresponding file.");
 	}
+    }
 
-	public static PartyMember[] loadAllRegisteredCharacters() {
-		final var registeredNames = CharacterRegistration.getCharacterNameList();
-		if (registeredNames != null) {
-			final var res = new PartyMember[registeredNames.length];
-			// Load characters
-			for (var x = 0; x < registeredNames.length; x++) {
-				final var name = registeredNames[x];
-				final var characterWithName = CharacterLoader.loadCharacter(name);
-				if (characterWithName == null) {
-					// Auto-removed character
-					return CharacterLoader.loadAllRegisteredCharacters();
-				}
-				res[x] = characterWithName;
-			}
-			return res;
+    public static PartyMember[] loadAllRegisteredCharacters() {
+	final var registeredNames = CharacterRegistration.getCharacterNameList();
+	if (registeredNames != null) {
+	    final var res = new PartyMember[registeredNames.length];
+	    // Load characters
+	    for (var x = 0; x < registeredNames.length; x++) {
+		final var name = registeredNames[x];
+		final var characterWithName = CharacterLoader.loadCharacter(name);
+		if (characterWithName == null) {
+		    // Auto-removed character
+		    return CharacterLoader.loadAllRegisteredCharacters();
 		}
-		return null;
+		res[x] = characterWithName;
+	    }
+	    return res;
 	}
+	return null;
+    }
 
-	private static PartyMember loadCharacter(final String name) {
-		final var basePath = CharacterRegistration.getBasePath();
-		final var loadPath = basePath + File.separator + name + Strings.fileExtension(FileExtension.CHARACTER);
-		try (DataIOReader loader = DataIOFactory.createReader(DataMode.CUSTOM_XML, loadPath)) {
-			return PartyMember.read(loader);
-		} catch (VersionException | DataIOException e) {
-			CharacterRegistration.autoremoveCharacter(name);
-			return null;
-		} catch (final IOException e) {
-			DungeonDiver7.logError(e);
-			return null;
-		}
+    private static PartyMember loadCharacter(final String name) {
+	final var basePath = CharacterRegistration.getBasePath();
+	final var loadPath = basePath + File.separator + name + Strings.fileExtension(FileExtension.CHARACTER);
+	try (DataIOReader loader = DataIOFactory.createReader(DataMode.CUSTOM_XML, loadPath)) {
+	    return PartyMember.read(loader);
+	} catch (VersionException | DataIOException e) {
+	    CharacterRegistration.autoremoveCharacter(name);
+	    return null;
+	} catch (final IOException e) {
+	    DungeonDiver7.logError(e);
+	    return null;
 	}
+    }
 
-	public static void saveCharacter(final PartyMember character) {
-		final var basePath = CharacterRegistration.getBasePath();
-		final var name = character.getName();
-		final var characterFile = basePath + File.separator + name + Strings.fileExtension(FileExtension.CHARACTER);
-		try (DataIOWriter saver = DataIOFactory.createWriter(DataMode.CUSTOM_XML, characterFile)) {
-			character.write(saver);
-		} catch (final IOException e) {
-			DungeonDiver7.logError(e);
-		}
+    public static void saveCharacter(final PartyMember character) {
+	final var basePath = CharacterRegistration.getBasePath();
+	final var name = character.getName();
+	final var characterFile = basePath + File.separator + name + Strings.fileExtension(FileExtension.CHARACTER);
+	try (DataIOWriter saver = DataIOFactory.createWriter(DataMode.CUSTOM_XML, characterFile)) {
+	    character.write(saver);
+	} catch (final IOException e) {
+	    DungeonDiver7.logError(e);
 	}
+    }
 }

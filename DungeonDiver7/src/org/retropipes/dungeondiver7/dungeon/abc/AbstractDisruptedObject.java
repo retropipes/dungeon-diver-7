@@ -8,12 +8,12 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 import org.retropipes.dungeondiver7.utility.GameActions;
 
 public abstract class AbstractDisruptedObject extends AbstractPassThroughObject {
-	// Constructors
-	protected AbstractDisruptedObject() {
-	}
+    // Constructors
+    protected AbstractDisruptedObject() {
+    }
 
-	@Override
-	public boolean acceptTick(final int actionType) {
-		return actionType == GameActions.MOVE;
-	}
+    @Override
+    public boolean acceptTick(final int actionType) {
+	return actionType == GameActions.MOVE;
+    }
 }

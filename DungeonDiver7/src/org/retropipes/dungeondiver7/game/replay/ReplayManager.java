@@ -15,65 +15,65 @@ import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 
 public class ReplayManager {
-	private static String getExtension(final String s) {
-		String ext = null;
-		final var i = s.lastIndexOf('.');
-		if (i > 0 && i < s.length() - 1) {
-			ext = s.substring(i + 1).toLowerCase();
-		}
-		return ext;
+    private static String getExtension(final String s) {
+	String ext = null;
+	final var i = s.lastIndexOf('.');
+	if (i > 0 && i < s.length() - 1) {
+	    ext = s.substring(i + 1).toLowerCase();
 	}
+	return ext;
+    }
 
-	private static String getFileNameOnly(final String s) {
-		String fno = null;
-		final var i = s.lastIndexOf(File.separatorChar);
-		if (i > 0 && i < s.length() - 1) {
-			fno = s.substring(i + 1);
-		} else {
-			fno = s;
-		}
-		return fno;
+    private static String getFileNameOnly(final String s) {
+	String fno = null;
+	final var i = s.lastIndexOf(File.separatorChar);
+	if (i > 0 && i < s.length() - 1) {
+	    fno = s.substring(i + 1);
+	} else {
+	    fno = s;
 	}
+	return fno;
+    }
 
-	private static String getNameWithoutExtension(final String s) {
-		String ext = null;
-		final var i = s.lastIndexOf('.');
-		if (i > 0 && i < s.length() - 1) {
-			ext = s.substring(0, i);
-		} else {
-			ext = s;
-		}
-		return ext;
+    private static String getNameWithoutExtension(final String s) {
+	String ext = null;
+	final var i = s.lastIndexOf('.');
+	if (i > 0 && i < s.length() - 1) {
+	    ext = s.substring(0, i);
+	} else {
+	    ext = s;
 	}
+	return ext;
+    }
 
-	public static void loadFile(final String filename) {
-		if (!FilenameChecker
-				.isFilenameOK(ReplayManager.getNameWithoutExtension(ReplayManager.getFileNameOnly(filename)))) {
-			CommonDialogs.showErrorDialog(Strings.dialog(DialogString.ILLEGAL_CHARACTERS),
-					Strings.dialog(DialogString.LOAD));
-		} else {
-			final var lpblt = new ReplayFileLoadTask(filename);
-			lpblt.start();
-		}
+    public static void loadFile(final String filename) {
+	if (!FilenameChecker
+		.isFilenameOK(ReplayManager.getNameWithoutExtension(ReplayManager.getFileNameOnly(filename)))) {
+	    CommonDialogs.showErrorDialog(Strings.dialog(DialogString.ILLEGAL_CHARACTERS),
+		    Strings.dialog(DialogString.LOAD));
+	} else {
+	    final var lpblt = new ReplayFileLoadTask(filename);
+	    lpblt.start();
 	}
+    }
 
-	public static void loadReplay() {
-		String filename, extension;
-		final var lastOpen = Prefs.getLastDirOpen();
-		File file = CommonDialogs.showFileOpenDialog(new File(lastOpen), null, Strings.dialog(DialogString.LOAD));
-		if (file != null) {
-			filename = file.getAbsolutePath();
-			extension = ReplayManager.getExtension(filename);
-			if (extension.equals(Strings.fileExtension(FileExtension.REPLAY))) {
-				ReplayManager.loadFile(filename);
-			} else {
-				CommonDialogs.showDialog(Strings.dialog(DialogString.NON_PLAYBACK_FILE));
-			}
-		}
+    public static void loadReplay() {
+	String filename, extension;
+	final var lastOpen = Prefs.getLastDirOpen();
+	File file = CommonDialogs.showFileOpenDialog(new File(lastOpen), null, Strings.dialog(DialogString.LOAD));
+	if (file != null) {
+	    filename = file.getAbsolutePath();
+	    extension = ReplayManager.getExtension(filename);
+	    if (extension.equals(Strings.fileExtension(FileExtension.REPLAY))) {
+		ReplayManager.loadFile(filename);
+	    } else {
+		CommonDialogs.showDialog(Strings.dialog(DialogString.NON_PLAYBACK_FILE));
+	    }
 	}
+    }
 
-	// Constructors
-	private ReplayManager() {
-		// Do nothing
-	}
+    // Constructors
+    private ReplayManager() {
+	// Do nothing
+    }
 }

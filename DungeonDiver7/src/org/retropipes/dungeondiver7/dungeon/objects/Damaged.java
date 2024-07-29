@@ -13,30 +13,30 @@ import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 
 public class Damaged extends AbstractAttribute {
-	// Constructors
-	public Damaged() {
-	}
+    // Constructors
+    public Damaged() {
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 133;
-	}
+    @Override
+    public final int getBaseID() {
+	return 133;
+    }
 
-	@Override
-	public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-			final int laserType, final int forceUnits) {
-		final var app = DungeonDiver7.getStuffBag();
-		app.getGameLogic();
-		GameLogic.morph(new Crumbling(), locX, locY, locZ, this.getLayer());
-		SoundLoader.playSound(Sounds.EFFECT_CRACK);
-		return Direction.NONE;
-	}
+    @Override
+    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+	    final int laserType, final int forceUnits) {
+	final var app = DungeonDiver7.getStuffBag();
+	app.getGameLogic();
+	GameLogic.morph(new Crumbling(), locX, locY, locZ, this.getLayer());
+	SoundLoader.playSound(Sounds.EFFECT_CRACK);
+	return Direction.NONE;
+    }
 
-	@Override
-	public void moveFailedAction(final int locX, final int locY, final int locZ) {
-		final var app = DungeonDiver7.getStuffBag();
-		app.getGameLogic();
-		GameLogic.morph(new Crumbling(), locX, locY, locZ, this.getLayer());
-		SoundLoader.playSound(Sounds.EFFECT_CRACK);
-	}
+    @Override
+    public void moveFailedAction(final int locX, final int locY, final int locZ) {
+	final var app = DungeonDiver7.getStuffBag();
+	app.getGameLogic();
+	GameLogic.morph(new Crumbling(), locX, locY, locZ, this.getLayer());
+	SoundLoader.playSound(Sounds.EFFECT_CRACK);
+    }
 }

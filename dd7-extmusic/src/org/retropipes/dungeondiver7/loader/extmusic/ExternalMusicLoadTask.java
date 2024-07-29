@@ -10,38 +10,38 @@ import java.io.File;
 import org.retropipes.diane.Diane;
 
 public class ExternalMusicLoadTask extends Thread {
-	private static String getFileNameOnly(final String s) {
-		String fno = null;
-		final var i = s.lastIndexOf(File.separatorChar);
-		if (i > 0 && i < s.length() - 1) {
-			fno = s.substring(i + 1);
-		} else {
-			fno = s;
-		}
-		return fno;
+    private static String getFileNameOnly(final String s) {
+	String fno = null;
+	final var i = s.lastIndexOf(File.separatorChar);
+	if (i > 0 && i < s.length() - 1) {
+	    fno = s.substring(i + 1);
+	} else {
+	    fno = s;
 	}
+	return fno;
+    }
 
-	// Fields
-	private ExternalMusic gameExternalMusic;
-	private final String folder;
-	private final String filename;
+    // Fields
+    private ExternalMusic gameExternalMusic;
+    private final String folder;
+    private final String filename;
 
-	// Constructors
-	public ExternalMusicLoadTask(final String loadFolder, final String loadFilename) {
-		this.folder = loadFolder;
-		this.filename = loadFilename;
-		this.setName("External Music Loader");
+    // Constructors
+    public ExternalMusicLoadTask(final String loadFolder, final String loadFilename) {
+	this.folder = loadFolder;
+	this.filename = loadFilename;
+	this.setName("External Music Loader");
+    }
+
+    @Override
+    public void run() {
+	try {
+	    this.gameExternalMusic = new ExternalMusic();
+	    this.gameExternalMusic.setName(ExternalMusicLoadTask.getFileNameOnly(this.filename));
+	    this.gameExternalMusic.setPath(this.folder);
+	    ExternalMusicLoader.setExternalMusic(this.gameExternalMusic);
+	} catch (final Exception ex) {
+	    Diane.handleError(ex);
 	}
-
-	@Override
-	public void run() {
-		try {
-			this.gameExternalMusic = new ExternalMusic();
-			this.gameExternalMusic.setName(ExternalMusicLoadTask.getFileNameOnly(this.filename));
-			this.gameExternalMusic.setPath(this.folder);
-			ExternalMusicLoader.setExternalMusic(this.gameExternalMusic);
-		} catch (final Exception ex) {
-			Diane.handleError(ex);
-		}
-	}
+    }
 }

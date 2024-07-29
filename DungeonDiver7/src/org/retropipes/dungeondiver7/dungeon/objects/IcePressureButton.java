@@ -9,14 +9,14 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractPressureButton;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class IcePressureButton extends AbstractPressureButton {
-	// Constructors
-	public IcePressureButton() {
-		super(new IcePressureButtonDoor(), false);
-		this.setMaterial(Materials.ICE);
-	}
+    // Constructors
+    public IcePressureButton() {
+	super(new IcePressureButtonDoor(), false);
+	this.setMaterial(Materials.ICE);
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 82;
-	}
+    @Override
+    public final int getBaseID() {
+	return 82;
+    }
 }

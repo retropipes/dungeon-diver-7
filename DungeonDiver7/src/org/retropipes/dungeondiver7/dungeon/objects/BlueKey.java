@@ -13,21 +13,21 @@ import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.PartyInventory;
 
 public class BlueKey extends AbstractKey {
-	// Constructors
-	public BlueKey() {
-	}
+    // Constructors
+    public BlueKey() {
+    }
 
-	@Override
-	public final int getBaseID() {
-		return 5;
-	}
+    @Override
+    public final int getBaseID() {
+	return 5;
+    }
 
-	// Scriptability
-	@Override
-	public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-		SoundLoader.playSound(Sounds.GRAB);
-		PartyInventory.addOneBlueKey();
-		DungeonDiver7.getStuffBag().getGameLogic();
-		GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
-	}
+    // Scriptability
+    @Override
+    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
+	SoundLoader.playSound(Sounds.GRAB);
+	PartyInventory.addOneBlueKey();
+	DungeonDiver7.getStuffBag().getGameLogic();
+	GameLogic.morph(new Empty(), dirX, dirY, dirZ, this.getLayer());
+    }
 }

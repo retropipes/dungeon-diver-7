@@ -14,14 +14,14 @@ import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
 
 public class JobDescriptionManager {
-	public static String getJobDescription(final int j) {
-		final var name = Integer.toString(j);
-		try (final var rsr = new ResourceStreamReader(JobDescriptionManager.class.getResourceAsStream(
-				"/asset/description/job/" + name + Strings.fileExtension(FileExtension.INTERNAL_DATA)))) {
-			return rsr.readString();
-		} catch (final IOException e) {
-			Diane.handleError(e);
-			return null;
-		}
+    public static String getJobDescription(final int j) {
+	final var name = Integer.toString(j);
+	try (final var rsr = new ResourceStreamReader(JobDescriptionManager.class.getResourceAsStream(
+		"/asset/description/job/" + name + Strings.fileExtension(FileExtension.INTERNAL_DATA)))) {
+	    return rsr.readString();
+	} catch (final IOException e) {
+	    Diane.handleError(e);
+	    return null;
 	}
+    }
 }

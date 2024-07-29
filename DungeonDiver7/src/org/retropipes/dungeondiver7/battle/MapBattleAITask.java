@@ -9,45 +9,45 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 
 public class MapBattleAITask extends Thread {
-	// Fields
-	private final AbstractBattle b;
+    // Fields
+    private final AbstractBattle b;
 
-	// Constructors
-	public MapBattleAITask(final AbstractBattle battle) {
-		this.setName("Map AI Runner");
-		this.b = battle;
+    // Constructors
+    public MapBattleAITask(final AbstractBattle battle) {
+	this.setName("Map AI Runner");
+	this.b = battle;
+    }
+
+    public synchronized void aiRun() {
+	this.notify();
+    }
+
+    public synchronized void aiWait() {
+	try {
+	    this.wait();
+	} catch (final InterruptedException e) {
+	    // Ignore
 	}
+    }
 
-	public synchronized void aiRun() {
-		this.notify();
-	}
-
-	public synchronized void aiWait() {
-		try {
-			this.wait();
-		} catch (final InterruptedException e) {
+    @Override
+    public void run() {
+	try {
+	    this.aiWait();
+	    while (true) {
+		this.b.executeNextAIAction();
+		if (this.b.getLastAIActionResult()) {
+		    // Delay, for animation purposes
+		    try {
+			final var battleSpeed = Prefs.getBattleSpeed();
+			Thread.sleep(battleSpeed);
+		    } catch (final InterruptedException i) {
 			// Ignore
+		    }
 		}
+	    }
+	} catch (final Throwable t) {
+	    DungeonDiver7.logError(t);
 	}
-
-	@Override
-	public void run() {
-		try {
-			this.aiWait();
-			while (true) {
-				this.b.executeNextAIAction();
-				if (this.b.getLastAIActionResult()) {
-					// Delay, for animation purposes
-					try {
-						final var battleSpeed = Prefs.getBattleSpeed();
-						Thread.sleep(battleSpeed);
-					} catch (final InterruptedException i) {
-						// Ignore
-					}
-				}
-			}
-		} catch (final Throwable t) {
-			DungeonDiver7.logError(t);
-		}
-	}
+    }
 }

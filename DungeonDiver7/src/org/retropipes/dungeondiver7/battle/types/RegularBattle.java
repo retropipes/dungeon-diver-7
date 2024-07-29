@@ -9,16 +9,16 @@ import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 
 class RegularBattle extends AbstractBattleType {
-	// Fields
-	final BattleCharacter monster;
+    // Fields
+    final BattleCharacter monster;
 
-	// Constructors
-	public RegularBattle() {
-		this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance());
-	}
+    // Constructors
+    public RegularBattle() {
+	this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance());
+    }
 
-	@Override
-	public BattleCharacter getBattlers() {
-		return this.monster;
-	}
+    @Override
+    public BattleCharacter getBattlers() {
+	return this.monster;
+    }
 }
