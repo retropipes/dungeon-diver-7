@@ -223,7 +223,7 @@ public class DungeonObjects {
 		AbstractDungeonObject instance = null;
 		int x;
 		for (x = 0; x < objects.length; x++) {
-			if (objects[x].getName().equals(name)) {
+			if (objects[x].getCacheName().equals(name)) {
 				instance = objects[x];
 				break;
 			}

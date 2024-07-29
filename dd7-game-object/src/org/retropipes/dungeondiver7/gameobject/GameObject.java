@@ -39,6 +39,10 @@ public final class GameObject {
 		this.model.decrementCounter(index);
 	}
 
+	public final String getCacheName() {
+		return Integer.toString(this.id.ordinal());
+	}
+
 	public final int getCounter(final int index) {
 		return this.model.getCounter(index);
 	}
@@ -49,10 +53,6 @@ public final class GameObject {
 
 	public final ObjectImageId getId() {
 		return this.id;
-	}
-
-	public final String getIdentifier() {
-		return Integer.toString(this.id.ordinal());
 	}
 
 	public final BufferedImageIcon getImage() {

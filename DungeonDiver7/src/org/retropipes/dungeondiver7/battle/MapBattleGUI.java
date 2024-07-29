@@ -218,7 +218,7 @@ class MapBattleGUI {
 						final var ugobj = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_UPPER_GROUND);
 						final var lgimg = lgobj.battleRenderHook();
 						final var ugimg = ugobj.battleRenderHook();
-						final var cacheName = Strings.compositeCacheName(lgobj.getName(), ugobj.getName());
+						final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName());
 						final var img = ImageCompositor.composite(cacheName, lgimg, ugimg);
 						this.drawGrid.setImageCell(img, xFix, yFix);
 					} catch (final ArrayIndexOutOfBoundsException ae) {
@@ -246,7 +246,7 @@ class MapBattleGUI {
 				final var lgimg = lgobj.battleRenderHook();
 				final var ugimg = ugobj.battleRenderHook();
 				final var o3img = obj3.battleRenderHook();
-				final var cacheName = Strings.compositeCacheName(lgobj.getName(), ugobj.getName());
+				final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName());
 				final var img = ImageCompositor.composite(cacheName, lgimg, ugimg, o3img);
 				this.drawGrid.setImageCell(img, xFix, yFix);
 				this.battlePane.repaint();

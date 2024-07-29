@@ -1120,17 +1120,18 @@ class GameGUI {
 						if (u == y && v == x) {
 							final AbstractDungeonObject obj3 = new Player();
 							final var img3 = obj3.gameRenderHook(y, x);
-							final var cacheName = Strings.compositeCacheName(obj1.getName(), obj2.getName(), obj3.getName());
+							final var cacheName = Strings.compositeCacheName(obj1.getCacheName(), obj2.getCacheName(),
+									obj3.getCacheName());
 							final var img = ImageCompositor.composite(cacheName, img1, img2, img3);
 							this.drawGrid.setImageCell(img, xFix, yFix);
 						} else {
-							final var cacheName = Strings.compositeCacheName(obj1.getName(), obj2.getName());
+							final var cacheName = Strings.compositeCacheName(obj1.getCacheName(), obj2.getCacheName());
 							final var img = ImageCompositor.composite(cacheName, img1, img2);
 							this.drawGrid.setImageCell(img, xFix, yFix);
 						}
 					} else {
 						this.drawGrid.setImageCell(
-								ObjectImageLoader.load(GameGUI.DARK.getName(), GameGUI.DARK.getBaseID()), xFix,
+								ObjectImageLoader.load(GameGUI.DARK.getCacheName(), GameGUI.DARK.getBaseID()), xFix,
 								yFix);
 					}
 				} catch (final ArrayIndexOutOfBoundsException ae) {

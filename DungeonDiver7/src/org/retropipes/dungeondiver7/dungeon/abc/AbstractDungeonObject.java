@@ -198,7 +198,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	}
 
 	public BufferedImageIcon battleRenderHook() {
-		return ObjectImageLoader.load(this.getName(), this.getBattleBaseID());
+		return ObjectImageLoader.load(this.getCacheName(), this.getBattleBaseID());
 	}
 
 	public boolean canMove() {
@@ -323,17 +323,17 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	 * @return
 	 */
 	public BufferedImageIcon gameRenderHook(final int x, final int y) {
-		return ObjectImageLoader.load(this.getName(), this.getBaseID());
+		return ObjectImageLoader.load(this.getCacheName(), this.getBaseID());
 	}
 
 	abstract public int getBaseID();
 
-	public final String getBaseImageName() {
-		return Strings.objectImage(this.getBaseID());
+	public final String getCacheName() {
+		return Integer.toString(this.getBaseID());
 	}
 
 	public final String getBaseName() {
-		return Strings.object(this.getBaseID() * 3 + 0);
+		return Strings.objectName(this.getBaseID());
 	}
 
 	public int getBattleBaseID() {
@@ -366,7 +366,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	}
 
 	public String getDescription() {
-		return Strings.object(this.getBaseID() * 3 + 2);
+		return Strings.objectDescription(this.getBaseID());
 	}
 
 	public final Direction getDirection() {
@@ -392,15 +392,15 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	}
 
 	private final String getIdentifier() {
-		return this.getBaseImageName();
+		return this.getCacheName();
 	}
 
 	public final String getIdentityName() {
-		return this.getLocalColorPrefix() + Strings.object(this.getBaseID() * 3 + 0);
+		return this.getLocalColorPrefix() + Strings.objectName(this.getBaseID());
 	}
 
 	public final String getImageName() {
-		return this.getBaseImageName() + this.getDirectionSuffix() + this.getFrameSuffix();
+		return this.getCacheName() + this.getDirectionSuffix() + this.getFrameSuffix();
 	}
 
 	abstract public int getLayer();
@@ -434,14 +434,6 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	@Override
 	public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
 		return RandomGenerationRule.NO_LIMIT;
-	}
-
-	public String getName() {
-		return Strings.object(this.getBaseID() * 3 + 0);
-	}
-
-	public String getPluralName() {
-		return Strings.object(this.getBaseID() * 3 + 1);
 	}
 
 	public final AbstractDungeonObject getPreviousState() {
@@ -590,7 +582,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 					locY - dirY, locZ, this.getLayer());
 			if (adj != null && !adj.rangeAction(locX - 2 * dirX, locY - 2 * dirY, locZ, dirX, dirY,
 					ShotTypes.getRangeTypeForLaserType(laserType), 1)) {
-				SoundLoader.playSound(Sounds.LASER_DIE);
+				// Do nothing
 			}
 		}
 		return Direction.NONE;
@@ -654,8 +646,6 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 
 	protected void pushCrushAction(final int x, final int y, final int z) {
 		// Object crushed
-		SoundLoader.playSound(Sounds.CRUSH);
-		DungeonDiver7.getStuffBag().getGameLogic();
 		GameLogic.morph(new Empty(), x, y, z, this.getLayer());
 	}
 
@@ -699,8 +689,6 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 		if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE && this.getMaterial() == Materials.WOODEN
 				&& this.changesToOnExposure(Materials.FIRE) != null) {
 			// Burn wooden object
-			SoundLoader.playSound(Sounds.WOOD_BURN);
-			DungeonDiver7.getStuffBag().getGameLogic();
 			GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 			return true;
 		}
@@ -709,32 +697,24 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 						|| this.getMaterial() == Materials.PLASTIC)
 				&& this.changesToOnExposure(Materials.ICE) != null) {
 			// Freeze metal, wooden, or plastic object
-			SoundLoader.playSound(Sounds.FROZEN);
-			DungeonDiver7.getStuffBag().getGameLogic();
 			GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
 			return true;
 		}
 		if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE && this.getMaterial() == Materials.ICE
 				&& this.changesToOnExposure(Materials.FIRE) != null) {
 			// Melt icy object
-			SoundLoader.playSound(Sounds.DEFROST);
-			DungeonDiver7.getStuffBag().getGameLogic();
 			GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 			return true;
 		}
 		if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE && this.getMaterial() == Materials.FIRE
 				&& this.changesToOnExposure(Materials.ICE) != null) {
 			// Cool hot object
-			SoundLoader.playSound(Sounds.COOL_OFF);
-			DungeonDiver7.getStuffBag().getGameLogic();
 			GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
 			return true;
 		}
 		if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE && this.getMaterial() == Materials.METALLIC
 				&& this.changesToOnExposure(Materials.FIRE) != null) {
 			// Melt metal object
-			SoundLoader.playSound(Sounds.MELT);
-			DungeonDiver7.getStuffBag().getGameLogic();
 			GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 			return true;
 		}

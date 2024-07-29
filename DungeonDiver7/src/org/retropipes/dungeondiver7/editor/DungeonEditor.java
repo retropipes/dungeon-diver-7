@@ -1248,7 +1248,7 @@ public class DungeonEditor implements MenuSection {
 						DungeonConstants.LAYER_UPPER_GROUND);
 				final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getBaseID());
 				final var ugimg = ObjectImageLoader.load(ugobj.getImageName(), ugobj.getBaseID());
-				final var cacheName = Strings.compositeCacheName(lgobj.getName(), ugobj.getName());
+				final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName());
 				final var img = ImageCompositor.composite(cacheName, lgimg, ugimg);
 				drawGrid.setImageCell(img, xFix, yFix);
 			}
@@ -1276,7 +1276,7 @@ public class DungeonEditor implements MenuSection {
 				final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getBaseID());
 				final var ugimg = ObjectImageLoader.load(ugobj.getImageName(), ugobj.getBaseID());
 				final var loimg = ObjectImageLoader.load(loobj.getImageName(), loobj.getBaseID());
-				final var cacheName = Strings.compositeCacheName(lgobj.getName(), ugobj.getName(), loobj.getName());
+				final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName(), loobj.getCacheName());
 				final var img = ImageCompositor.composite(cacheName, lgimg, ugimg, loimg);
 				drawGrid.setImageCell(img, xFix, yFix);
 			}
@@ -1310,8 +1310,8 @@ public class DungeonEditor implements MenuSection {
 				final var loimg = ObjectImageLoader.load(loobj.getImageName(), loobj.getBaseID());
 				final var uoimg = ObjectImageLoader.load(uoobj.getImageName(), uoobj.getBaseID());
 				final var lvimg = ObjectImageLoader.load(lvobj.getImageName(), lvobj.getBaseID());
-				final var cacheName = Strings.compositeCacheName(lgobj.getName(), ugobj.getName(), loobj.getName(),
-						uoobj.getName(), lvobj.getName());
+				final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName(), loobj.getCacheName(),
+						uoobj.getCacheName(), lvobj.getCacheName());
 				final var img = ImageCompositor.composite(cacheName, lgimg, ugimg, loimg, uoimg, lvimg);
 				drawGrid.setImageCell(img, xFix, yFix);
 			}
