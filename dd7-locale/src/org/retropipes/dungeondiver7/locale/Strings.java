@@ -198,6 +198,11 @@ public final class Strings {
 	return ResourceBundle.getBundle("locale.objectdesc").getString(Integer.toString(index));
     }
 
+    public static String objectInteractMessage(final ObjectInteractMessage item) {
+	return ResourceBundle.getBundle("locale.object_interact_message", Strings.ACTIVE)
+		.getString(Integer.toString(item.ordinal()));
+    }
+
     public static String objectName(final int index) {
 	return ResourceBundle.getBundle("locale.objectname").getString(Integer.toString(index));
     }

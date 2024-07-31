@@ -4,6 +4,7 @@ import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.objectmodel.ObjectModel;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
+import org.retropipes.dungeondiver7.loader.sound.Sounds;
 
 public final class GameObject {
     private static final int COUNTER_LAYER = 0;
@@ -16,6 +17,9 @@ public final class GameObject {
     private final ObjectModel model;
     private final ObjectImageId id;
     private BufferedImageIcon image;
+    private String interactMessage;
+    private Sounds interactSound;
+    private ObjectImageId interactMorph;
     private boolean lazyLoaded;
 
     public GameObject(final ObjectImageId oid) {
@@ -45,6 +49,21 @@ public final class GameObject {
 	return this.model.getCounter(COUNTER_HEIGHT);
     }
 
+    public final ObjectImageId getInteractMorph() {
+	this.lazyLoad();
+	return this.interactMorph;
+    }
+
+    public final String getInteractMessage() {
+	this.lazyLoad();
+	return this.interactMessage;
+    }
+
+    public final Sounds getInteractSound() {
+	this.lazyLoad();
+	return this.interactSound;
+    }
+
     public final int getLayer() {
 	this.lazyLoad();
 	return this.model.getCounter(COUNTER_LAYER);
@@ -53,6 +72,11 @@ public final class GameObject {
     public final boolean hasFriction() {
 	this.lazyLoad();
 	return this.model.getFlag(FLAG_FRICTION);
+    }
+
+    public final boolean isInteractive() {
+	this.lazyLoad();
+	return this.getInteractMorph() != this.id;
     }
 
     public final boolean isSightBlocking() {
@@ -68,6 +92,9 @@ public final class GameObject {
     private void lazyLoad() {
 	if (!this.lazyLoaded) {
 	    this.image = ObjectImageLoader.load(this.id);
+	    this.interactMessage = GameObjectDataLoader.interactionMessage(id);
+	    this.interactMorph = GameObjectDataLoader.interactionMorph(id);
+	    this.interactSound = GameObjectDataLoader.interactionSound(id);
 	    this.model.setFlag(FLAG_SOLID, GameObjectDataLoader.solid(this.id));
 	    this.model.setFlag(FLAG_FRICTION, GameObjectDataLoader.friction(this.id));
 	    this.model.setFlag(FLAG_SIGHT_BLOCK, GameObjectDataLoader.sightBlocking(this.id));

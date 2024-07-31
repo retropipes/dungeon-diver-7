@@ -610,7 +610,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
      * @param locZ
      */
     public void moveFailedAction(final int locX, final int locY, final int locZ) {
-	SoundLoader.playSound(Sounds.ACTION_FAILED);
+	SoundLoader.playSound(Sounds.STEP_FAIL);
 	DungeonDiver7.getStuffBag().showMessage("Can't go that way");
     }
 
