@@ -41,7 +41,7 @@ public class DeeperWater extends AbstractGround {
     }
 
     @Override
-    public int getBlockHeight() {
+    public int getHeight() {
 	return -3;
     }
 

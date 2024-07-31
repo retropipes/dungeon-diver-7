@@ -44,7 +44,7 @@ class NormalMapAIRoutine extends AbstractMapAIRoutine {
 		// Drain MP
 		return AbstractMapAIRoutine.ACTION_DRAIN;
 	    }
-	    if (ac.getCharacter().getCurrentAT() > 0) {
+	    if (ac.getCharacter().getAttacksLeft() > 0) {
 		this.moveX = there.x;
 		this.moveY = there.y;
 		return AbstractMapAIRoutine.ACTION_MOVE;
@@ -99,7 +99,7 @@ class NormalMapAIRoutine extends AbstractMapAIRoutine {
 		break;
 	    }
 	}
-	if (ac.getCharacter().getCurrentAP() <= 0) {
+	if (ac.getCharacter().getActionsLeft() <= 0) {
 	    this.failedMoveAttempts = 0;
 	    return AbstractMapAIRoutine.ACTION_END_TURN;
 	}
@@ -136,7 +136,7 @@ class NormalMapAIRoutine extends AbstractMapAIRoutine {
 	    return false;
 	}
 	final var maxIndex = CommonMapAIRoutines.getMaxCastIndex(ac);
-	if (maxIndex <= -1 || ac.getCharacter().getCurrentSP() <= 0) {
+	if (maxIndex <= -1 || ac.getCharacter().getSpellsLeft() <= 0) {
 	    // Can't cast any more spells
 	    return false;
 	}

@@ -639,15 +639,15 @@ public class MapBattleLogic extends AbstractBattle {
     }
 
     private int getActiveActionCounter() {
-	return this.bd.getActiveCharacter().getCurrentAP();
+	return this.bd.getActiveCharacter().getActionsLeft();
     }
 
     private int getActiveAttackCounter() {
-	return this.bd.getActiveCharacter().getCurrentAT();
+	return this.bd.getActiveCharacter().getAttacksLeft();
     }
 
     private int getActiveSpellCounter() {
-	return this.bd.getActiveCharacter().getCurrentSP();
+	return this.bd.getActiveCharacter().getSpellsLeft();
     }
 
     @Override

@@ -76,15 +76,15 @@ public abstract class AbstractBattleCharacter extends AbstractDungeonObject {
 	return ObjectImageConstants.NONE;
     }
 
-    public final int getCurrentAP() {
+    public final int getActionsLeft() {
 	return this.actionCounter;
     }
 
-    public final int getCurrentAT() {
+    public final int getAttacksLeft() {
 	return this.attackCounter;
     }
 
-    public final int getCurrentSP() {
+    public final int getSpellsLeft() {
 	return this.spellCounter;
     }
 

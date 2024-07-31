@@ -7,10 +7,12 @@ import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 
 public final class GameObject {
     private static final int COUNTER_LAYER = 0;
+    private static final int COUNTER_HEIGHT = 1;
+    private static final int MAX_COUNTERS = 2;
     private static final int FLAG_SOLID = 0;
     private static final int FLAG_FRICTION = 1;
-    private static final int MAX_COUNTERS = 1;
-    private static final int MAX_FLAGS = 2;
+    private static final int FLAG_SIGHT_BLOCK = 2;
+    private static final int MAX_FLAGS = 3;
     private final ObjectModel model;
     private final ObjectImageId id;
     private BufferedImageIcon image;
@@ -38,6 +40,11 @@ public final class GameObject {
 	return this.image;
     }
 
+    public final int getHeight() {
+	this.lazyLoad();
+	return this.model.getCounter(COUNTER_HEIGHT);
+    }
+
     public final int getLayer() {
 	this.lazyLoad();
 	return this.model.getCounter(COUNTER_LAYER);
@@ -46,6 +53,11 @@ public final class GameObject {
     public final boolean hasFriction() {
 	this.lazyLoad();
 	return this.model.getFlag(FLAG_FRICTION);
+    }
+
+    public final boolean isSightBlocking() {
+	this.lazyLoad();
+	return this.model.getFlag(FLAG_SIGHT_BLOCK);
     }
 
     public final boolean isSolid() {
@@ -58,7 +70,9 @@ public final class GameObject {
 	    this.image = ObjectImageLoader.load(this.id);
 	    this.model.setFlag(FLAG_SOLID, GameObjectDataLoader.solid(this.id));
 	    this.model.setFlag(FLAG_FRICTION, GameObjectDataLoader.friction(this.id));
+	    this.model.setFlag(FLAG_SIGHT_BLOCK, GameObjectDataLoader.sightBlocking(this.id));
 	    this.model.setCounter(COUNTER_LAYER, GameObjectDataLoader.layer(this.id));
+	    this.model.setCounter(COUNTER_HEIGHT, GameObjectDataLoader.height(this.id));
 	    this.lazyLoaded = true;
 	}
     }

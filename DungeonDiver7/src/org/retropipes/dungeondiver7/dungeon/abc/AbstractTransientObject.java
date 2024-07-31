@@ -14,7 +14,7 @@ public abstract class AbstractTransientObject extends AbstractDungeonObject {
     }
 
     @Override
-    public int getBlockHeight() {
+    public int getHeight() {
 	return 0;
     }
 

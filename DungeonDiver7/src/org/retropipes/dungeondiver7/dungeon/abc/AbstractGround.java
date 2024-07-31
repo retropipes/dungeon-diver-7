@@ -21,7 +21,7 @@ public abstract class AbstractGround extends AbstractDungeonObject {
     }
 
     @Override
-    public int getBlockHeight() {
+    public int getHeight() {
 	return 0;
     }
 

@@ -22,7 +22,7 @@ class CommonMapAIRoutines {
 	    // Not acting
 	    return false;
 	}
-	if (ac.getCharacter().getCurrentAP() > 0) {
+	if (ac.getCharacter().getActionsLeft() > 0) {
 	    return true;
 	}
 	// Can't act any more times

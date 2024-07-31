@@ -343,7 +343,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	return ObjectImageConstants.NONE;
     }
 
-    public int getBlockHeight() {
+    public int getHeight() {
 	return 1;
     }
 
