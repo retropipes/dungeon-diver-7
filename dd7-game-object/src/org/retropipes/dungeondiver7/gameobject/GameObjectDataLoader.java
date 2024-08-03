@@ -60,6 +60,15 @@ final class GameObjectDataLoader {
 		.getObject(Integer.toString(index.ordinal()));
     }
 
+    static ShopType shopType(final ObjectImageId index) {
+	var sid = (int) ResourceBundle.getBundle("asset.data.gameobject.shop")
+		.getObject(Integer.toString(index.ordinal()));
+	if (sid < 0 || sid > 6) {
+	    return null;
+	}
+	return ShopType.values()[sid];
+    }
+
     static boolean sightBlocking(final ObjectImageId index) {
 	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.sightblocking")
 		.getObject(Integer.toString(index.ordinal()));

@@ -27,6 +27,7 @@ public final class GameObject {
     private int interactMessageIndex;
     private Sounds interactSound;
     private ObjectImageId interactMorph;
+    private ShopType shop;
     private boolean lazyLoaded;
 
     public GameObject(final ObjectImageId oid) {
@@ -77,7 +78,8 @@ public final class GameObject {
     }
 
     public final ShopType getShopType() {
-	return ShopType.getFromShopID(this.id.ordinal());
+	this.lazyLoad();
+	return this.shop;
     }
 
     public final boolean hasFriction() {
@@ -122,11 +124,12 @@ public final class GameObject {
     private void lazyLoad() {
 	if (!this.lazyLoaded) {
 	    this.image = ObjectImageLoader.load(this.id);
-	    this.interactMessageIndex = GameObjectDataLoader.interactionMessageIndex(id);
+	    this.interactMessageIndex = GameObjectDataLoader.interactionMessageIndex(this.id);
 	    this.interactMessage = Strings
 		    .objectInteractMessage(ObjectInteractMessage.values()[this.interactMessageIndex]);
-	    this.interactMorph = GameObjectDataLoader.interactionMorph(id);
-	    this.interactSound = GameObjectDataLoader.interactionSound(id);
+	    this.interactMorph = GameObjectDataLoader.interactionMorph(this.id);
+	    this.interactSound = GameObjectDataLoader.interactionSound(this.id);
+	    this.shop = GameObjectDataLoader.shopType(this.id);
 	    this.model.setFlag(FLAG_SOLID, GameObjectDataLoader.solid(this.id));
 	    this.model.setFlag(FLAG_FRICTION, GameObjectDataLoader.friction(this.id));
 	    this.model.setFlag(FLAG_SIGHT_BLOCK, GameObjectDataLoader.sightBlocking(this.id));
