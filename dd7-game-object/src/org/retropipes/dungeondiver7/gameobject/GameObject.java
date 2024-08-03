@@ -16,7 +16,10 @@ public final class GameObject {
     private static final int FLAG_FRICTION = 1;
     private static final int FLAG_SIGHT_BLOCK = 2;
     private static final int FLAG_INTERACT = 3;
-    private static final int MAX_FLAGS = 4;
+    private static final int FLAG_PUSH = 4;
+    private static final int FLAG_PULL = 5;
+    private static final int FLAG_MOVING = 6;
+    private static final int MAX_FLAGS = 7;
     private final ObjectModel model;
     private final ObjectImageId id;
     private BufferedImageIcon image;
@@ -73,6 +76,10 @@ public final class GameObject {
 	return this.model.getCounter(COUNTER_LAYER);
     }
 
+    public final ShopType getShopType() {
+	return ShopType.getFromShopID(this.id.ordinal());
+    }
+
     public final boolean hasFriction() {
 	this.lazyLoad();
 	return this.model.getFlag(FLAG_FRICTION);
@@ -81,6 +88,25 @@ public final class GameObject {
     public final boolean isInteractive() {
 	this.lazyLoad();
 	return this.model.getFlag(FLAG_INTERACT);
+    }
+
+    public final boolean isMoving() {
+	this.lazyLoad();
+	return this.model.getFlag(FLAG_MOVING);
+    }
+
+    public final boolean isPullable() {
+	this.lazyLoad();
+	return this.model.getFlag(FLAG_PULL);
+    }
+
+    public final boolean isPushable() {
+	this.lazyLoad();
+	return this.model.getFlag(FLAG_PUSH);
+    }
+
+    public final boolean isShop() {
+	return this.getShopType() != null;
     }
 
     public final boolean isSightBlocking() {
@@ -105,6 +131,9 @@ public final class GameObject {
 	    this.model.setFlag(FLAG_FRICTION, GameObjectDataLoader.friction(this.id));
 	    this.model.setFlag(FLAG_SIGHT_BLOCK, GameObjectDataLoader.sightBlocking(this.id));
 	    this.model.setFlag(FLAG_INTERACT, GameObjectDataLoader.isInteractive(this.id));
+	    this.model.setFlag(FLAG_PUSH, GameObjectDataLoader.pushable(this.id));
+	    this.model.setFlag(FLAG_PULL, GameObjectDataLoader.pullable(this.id));
+	    this.model.setFlag(FLAG_MOVING, GameObjectDataLoader.isMoving(this.id));
 	    this.model.setCounter(COUNTER_LAYER, GameObjectDataLoader.layer(this.id));
 	    this.model.setCounter(COUNTER_HEIGHT, GameObjectDataLoader.height(this.id));
 	    this.lazyLoaded = true;

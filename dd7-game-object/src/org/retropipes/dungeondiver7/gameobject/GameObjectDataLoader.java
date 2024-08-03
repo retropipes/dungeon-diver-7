@@ -21,6 +21,11 @@ final class GameObjectDataLoader {
 		.getObject(Integer.toString(index.ordinal()));
     }
 
+    static boolean isMoving(final ObjectImageId index) {
+	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.moving")
+		.getObject(Integer.toString(index.ordinal()));
+    }
+
     static ObjectImageId interactionMorph(final ObjectImageId index) {
 	var mid = (int) ResourceBundle.getBundle("asset.data.gameobject.interact_sound")
 		.getObject(Integer.toString(index.ordinal()));
@@ -42,6 +47,16 @@ final class GameObjectDataLoader {
 
     static int layer(final ObjectImageId index) {
 	return (int) ResourceBundle.getBundle("asset.data.gameobject.layer")
+		.getObject(Integer.toString(index.ordinal()));
+    }
+
+    static boolean pullable(final ObjectImageId index) {
+	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.pullable")
+		.getObject(Integer.toString(index.ordinal()));
+    }
+
+    static boolean pushable(final ObjectImageId index) {
+	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.pushable")
 		.getObject(Integer.toString(index.ordinal()));
     }
 

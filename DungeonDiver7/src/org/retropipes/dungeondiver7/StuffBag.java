@@ -17,11 +17,11 @@ import org.retropipes.dungeondiver7.battle.AbstractBattle;
 import org.retropipes.dungeondiver7.battle.MapBattleLogic;
 import org.retropipes.dungeondiver7.editor.DungeonEditor;
 import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.gameobject.ShopType;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.manager.dungeon.DungeonManager;
 import org.retropipes.dungeondiver7.shop.Shop;
-import org.retropipes.dungeondiver7.shop.ShopType;
 import org.retropipes.dungeondiver7.utility.DungeonObjects;
 
 public final class StuffBag {
@@ -88,7 +88,7 @@ public final class StuffBag {
 	this.weapons = new Shop(ShopType.WEAPONS);
 	this.armor = new Shop(ShopType.ARMOR);
 	this.healer = new Shop(ShopType.HEALER);
-	this.regenerator = new Shop(ShopType.REGENERATOR);
+	this.regenerator = new Shop(ShopType.SURGE);
 	this.spells = new Shop(ShopType.SPELLS);
     }
 
@@ -192,7 +192,7 @@ public final class StuffBag {
 	return switch (shopType) {
 	case ARMOR -> this.armor;
 	case HEALER -> this.healer;
-	case REGENERATOR -> this.regenerator;
+	case SURGE -> this.regenerator;
 	case SPELLS -> this.spells;
 	case WEAPONS -> this.weapons;
 	default -> /* Invalid shop type */ null;

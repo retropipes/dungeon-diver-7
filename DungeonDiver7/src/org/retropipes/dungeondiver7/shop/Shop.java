@@ -9,6 +9,7 @@ import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.gameobject.ShopType;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
@@ -25,7 +26,7 @@ public class Shop {
 	    // Play enter shop sound
 	    SoundLoader.playSound(Sounds.SHOP);
 	    final var playerCharacter = PartyManager.getParty().getLeader();
-	    if (Shop.this.type == ShopType.HEALER || Shop.this.type == ShopType.REGENERATOR) {
+	    if (Shop.this.type == ShopType.HEALER || Shop.this.type == ShopType.SURGE) {
 		Shop.this.choices = new String[10];
 		int x;
 		for (x = 0; x < Shop.this.choices.length; x++) {
@@ -53,7 +54,7 @@ public class Shop {
 		CommonDialogs.showDialog("You don't need healing.");
 		return false;
 	    }
-	    if (Shop.this.type == ShopType.REGENERATOR
+	    if (Shop.this.type == ShopType.SURGE
 		    && playerCharacter.getCurrentMP() == playerCharacter.getMaximumMP()) {
 		CommonDialogs.showDialog("You don't need regeneration.");
 		return false;
@@ -88,7 +89,7 @@ public class Shop {
 	    if (Shop.this.type == ShopType.HEALER) {
 		Shop.this.cost = Shop.getHealingCost(playerCharacter.getLevel(), playerCharacter.getCurrentHP(),
 			playerCharacter.getMaximumHP());
-	    } else if (Shop.this.type == ShopType.REGENERATOR) {
+	    } else if (Shop.this.type == ShopType.SURGE) {
 		Shop.this.cost = Shop.getRegenerationCost(playerCharacter.getLevel(), playerCharacter.getCurrentMP(),
 			playerCharacter.getMaximumMP());
 	    } else if (Shop.this.type == ShopType.SPELLS) {
@@ -121,7 +122,7 @@ public class Shop {
 	    if (Shop.this.type == ShopType.HEALER) {
 		playerCharacter.offsetGold(-Shop.this.cost);
 		playerCharacter.healPercentage((Shop.this.index + 1) * 10);
-	    } else if (Shop.this.type == ShopType.REGENERATOR) {
+	    } else if (Shop.this.type == ShopType.SURGE) {
 		playerCharacter.offsetGold(-Shop.this.cost);
 		playerCharacter.regeneratePercentage((Shop.this.index + 1) * 10);
 	    } else if (Shop.this.type == ShopType.SPELLS) {

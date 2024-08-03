@@ -7,7 +7,7 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractShop;
-import org.retropipes.dungeondiver7.shop.ShopType;
+import org.retropipes.dungeondiver7.gameobject.ShopType;
 
 public class WeaponsShop extends AbstractShop {
     // Constructors
