@@ -17,8 +17,8 @@ final class GameObjectDataLoader {
     }
 
     static boolean isInteractive(final ObjectImageId index) {
-	return ((int) ResourceBundle.getBundle("asset.data.gameobject.interact_sound")
-		.getObject(Integer.toString(index.ordinal()))) != 0;
+	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.interact")
+		.getObject(Integer.toString(index.ordinal()));
     }
 
     static ObjectImageId interactionMorph(final ObjectImageId index) {
@@ -30,8 +30,8 @@ final class GameObjectDataLoader {
 	return ObjectImageId.values()[mid];
     }
 
-    static String interactionMessage(final ObjectImageId index) {
-	return (String) ResourceBundle.getBundle("asset.data.gameobject.interact_message")
+    static int interactionMessageIndex(final ObjectImageId index) {
+	return (int) ResourceBundle.getBundle("asset.data.gameobject.interact_message")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
