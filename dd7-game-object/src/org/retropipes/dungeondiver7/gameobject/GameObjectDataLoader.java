@@ -6,6 +6,11 @@ import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 
 final class GameObjectDataLoader {
+    static int damage(final ObjectImageId index) {
+	return (int) ResourceBundle.getBundle("asset.data.gameobject.damaging")
+		.getObject(Integer.toString(index.ordinal()));
+    }
+
     static boolean friction(final ObjectImageId index) {
 	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.friction")
 		.getObject(Integer.toString(index.ordinal()));
@@ -23,6 +28,11 @@ final class GameObjectDataLoader {
 
     static boolean isMoving(final ObjectImageId index) {
 	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.moving")
+		.getObject(Integer.toString(index.ordinal()));
+    }
+
+    static boolean isPlayer(final ObjectImageId index) {
+	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.player")
 		.getObject(Integer.toString(index.ordinal()));
     }
 

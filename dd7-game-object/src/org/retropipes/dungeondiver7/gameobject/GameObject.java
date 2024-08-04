@@ -11,7 +11,8 @@ import org.retropipes.dungeondiver7.locale.Strings;
 public final class GameObject {
     private static final int COUNTER_LAYER = 0;
     private static final int COUNTER_HEIGHT = 1;
-    private static final int MAX_COUNTERS = 2;
+    private static final int COUNTER_DAMAGE = 2;
+    private static final int MAX_COUNTERS = 3;
     private static final int FLAG_SOLID = 0;
     private static final int FLAG_FRICTION = 1;
     private static final int FLAG_SIGHT_BLOCK = 2;
@@ -19,7 +20,8 @@ public final class GameObject {
     private static final int FLAG_PUSH = 4;
     private static final int FLAG_PULL = 5;
     private static final int FLAG_MOVING = 6;
-    private static final int MAX_FLAGS = 7;
+    private static final int FLAG_PLAYER = 7;
+    private static final int MAX_FLAGS = 8;
     private final ObjectModel model;
     private final ObjectImageId id;
     private BufferedImageIcon image;
@@ -39,12 +41,21 @@ public final class GameObject {
 	this.model.addFlags(MAX_FLAGS);
     }
 
+    public final boolean canMove() {
+	return this.isMoving() || this.isPlayer() || this.isPullable() || this.isPushable();
+    }
+
     public final String getCacheName() {
 	return Integer.toString(this.id.ordinal());
     }
 
     public final ObjectImageId getId() {
 	return this.id;
+    }
+
+    public final int getDamage() {
+	this.lazyLoad();
+	return this.model.getCounter(COUNTER_DAMAGE);
     }
 
     public final BufferedImageIcon getImage() {
@@ -87,6 +98,11 @@ public final class GameObject {
 	return this.model.getFlag(FLAG_FRICTION);
     }
 
+    public final boolean isDamaging() {
+	this.lazyLoad();
+	return this.model.getCounter(COUNTER_DAMAGE) > 0;
+    }
+
     public final boolean isInteractive() {
 	this.lazyLoad();
 	return this.model.getFlag(FLAG_INTERACT);
@@ -95,6 +111,11 @@ public final class GameObject {
     public final boolean isMoving() {
 	this.lazyLoad();
 	return this.model.getFlag(FLAG_MOVING);
+    }
+
+    public final boolean isPlayer() {
+	this.lazyLoad();
+	return this.model.getFlag(FLAG_PLAYER);
     }
 
     public final boolean isPullable() {
@@ -137,8 +158,10 @@ public final class GameObject {
 	    this.model.setFlag(FLAG_PUSH, GameObjectDataLoader.pushable(this.id));
 	    this.model.setFlag(FLAG_PULL, GameObjectDataLoader.pullable(this.id));
 	    this.model.setFlag(FLAG_MOVING, GameObjectDataLoader.isMoving(this.id));
+	    this.model.setFlag(FLAG_PLAYER, GameObjectDataLoader.isPlayer(this.id));
 	    this.model.setCounter(COUNTER_LAYER, GameObjectDataLoader.layer(this.id));
 	    this.model.setCounter(COUNTER_HEIGHT, GameObjectDataLoader.height(this.id));
+	    this.model.setCounter(COUNTER_DAMAGE, GameObjectDataLoader.damage(this.id));
 	    this.lazyLoaded = true;
 	}
     }
