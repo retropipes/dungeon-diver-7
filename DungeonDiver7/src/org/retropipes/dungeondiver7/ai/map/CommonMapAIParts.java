@@ -3,13 +3,13 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.ai;
+package org.retropipes.dungeondiver7.ai.map;
 
 import java.awt.Point;
 
 import org.retropipes.diane.random.RandomRange;
 
-class CommonMapAIRoutines {
+class CommonMapAIParts {
     // Constants
     static final int STUCK_THRESHOLD = 16;
     static final int MIN_VISION = 1;
@@ -100,7 +100,7 @@ class CommonMapAIRoutines {
     }
 
     // Constructor
-    private CommonMapAIRoutines() {
+    private CommonMapAIParts() {
 	// Do nothing
     }
 }

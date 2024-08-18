@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.game;
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTransientObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Arrow;
@@ -329,12 +329,12 @@ final class MovingLaserTracker {
 	    this.incX = resX;
 	    this.incY = resY;
 	    if (m.isVerticalWraparoundEnabled()) {
-		this.cumX = MovingLaserTracker.normalizeColumn(this.cumX + this.incX, AbstractDungeon.getMinColumns());
+		this.cumX = MovingLaserTracker.normalizeColumn(this.cumX + this.incX, Dungeon.getMinColumns());
 	    } else {
 		this.cumX += this.incX;
 	    }
 	    if (m.isHorizontalWraparoundEnabled()) {
-		this.cumY = MovingLaserTracker.normalizeRow(this.cumY + this.incY, AbstractDungeon.getMinRows());
+		this.cumY = MovingLaserTracker.normalizeRow(this.cumY + this.incY, Dungeon.getMinRows());
 	    } else {
 		this.cumY += this.incY;
 	    }
@@ -347,13 +347,13 @@ final class MovingLaserTracker {
 		}
 		if (m.isVerticalWraparoundEnabled()) {
 		    this.cumX = MovingLaserTracker.normalizeColumn(this.cumX + this.incX,
-			    AbstractDungeon.getMinColumns());
+			    Dungeon.getMinColumns());
 		} else {
 		    this.cumX += this.incX;
 		}
 		if (m.isHorizontalWraparoundEnabled()) {
 		    this.cumY = MovingLaserTracker.normalizeColumn(this.cumY + this.incY,
-			    AbstractDungeon.getMinColumns());
+			    Dungeon.getMinColumns());
 		} else {
 		    this.cumY += this.incY;
 		}

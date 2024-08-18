@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.shop;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.gameobject.ShopType;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
@@ -218,7 +218,7 @@ public class Shop {
 	this.defaultUI.showShop();
 	MusicLoader.stopMusic();
 	final var zoneID = PartyManager.getParty().getZone();
-	if (zoneID == AbstractDungeon.getMaxLevels() - 1) {
+	if (zoneID == Dungeon.getMaxLevels() - 1) {
 	    MusicLoader.playMusic(Music.VOLCANO);
 	} else {
 	    MusicLoader.playMusic(Music.DUNGEON);

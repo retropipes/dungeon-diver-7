@@ -8,12 +8,12 @@ package org.retropipes.dungeondiver7.utility;
 import java.io.File;
 
 import org.retropipes.diane.fileio.utility.DirectoryUtilities;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 
 public class CleanupTask {
     public static void cleanUp() {
 	try {
-	    final var dirToDelete = new File(AbstractDungeon.getDungeonTempFolder());
+	    final var dirToDelete = new File(Dungeon.getDungeonTempFolder());
 	    DirectoryUtilities.removeDirectory(dirToDelete);
 	} catch (final Throwable t) {
 	    // Ignore

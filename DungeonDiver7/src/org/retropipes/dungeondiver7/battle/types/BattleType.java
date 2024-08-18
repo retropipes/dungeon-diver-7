@@ -2,12 +2,12 @@ package org.retropipes.dungeondiver7.battle.types;
 
 import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 
-public abstract class AbstractBattleType {
-    public static AbstractBattleType createBattle() {
+public abstract class BattleType {
+    public static BattleType createBattle() {
 	return new RegularBattle();
     }
 
-    public static AbstractBattleType createFinalBossBattle() {
+    public static BattleType createFinalBossBattle() {
 	return new FinalBossBattle();
     }
 

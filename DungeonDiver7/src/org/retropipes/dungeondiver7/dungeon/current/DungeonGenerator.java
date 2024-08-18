@@ -5,12 +5,12 @@
  */
 package org.retropipes.dungeondiver7.dungeon.current;
 
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 
 public final class DungeonGenerator {
     /**
      * @param dungeon
      */
-    public static void fillRandomly(final AbstractDungeon dungeon) {
+    public static void fillRandomly(final Dungeon dungeon) {
     }
 }

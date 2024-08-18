@@ -3,9 +3,9 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.ai;
+package org.retropipes.dungeondiver7.ai.map;
 
-public class AutoMapAI extends AbstractMapAIRoutine {
+public class AutoMapAI extends MapAI {
     // Constructor
     public AutoMapAI() {
     }
@@ -17,8 +17,8 @@ public class AutoMapAI extends AbstractMapAIRoutine {
 	    // Something hostile is nearby, so attack it
 	    this.moveX = there.x;
 	    this.moveY = there.y;
-	    return AbstractMapAIRoutine.ACTION_MOVE;
+	    return MapAI.ACTION_MOVE;
 	}
-	return AbstractMapAIRoutine.ACTION_END_TURN;
+	return MapAI.ACTION_END_TURN;
     }
 }

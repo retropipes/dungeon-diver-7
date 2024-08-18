@@ -13,8 +13,8 @@ import javax.swing.JProgressBar;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
-import org.retropipes.dungeondiver7.battle.AbstractBattle;
-import org.retropipes.dungeondiver7.battle.MapBattleLogic;
+import org.retropipes.dungeondiver7.battle.Battle;
+import org.retropipes.dungeondiver7.battle.map.MapBattleLogic;
 import org.retropipes.dungeondiver7.editor.DungeonEditor;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.gameobject.ShopType;
@@ -128,7 +128,7 @@ public final class StuffBag {
 	return this.about;
     }
 
-    public AbstractBattle getBattle() {
+    public Battle getBattle() {
 	if (this.battle == null) {
 	    this.battle = new MapBattleLogic();
 	}

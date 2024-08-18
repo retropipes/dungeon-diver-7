@@ -5,7 +5,7 @@
  */
 package org.retropipes.dungeondiver7.editor;
 
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 
 public final class EditorLocationManager {
     // Fields
@@ -129,7 +129,7 @@ public final class EditorLocationManager {
 	this.checkLimits();
     }
 
-    void setLimitsFromDungeon(final AbstractDungeon m) {
+    void setLimitsFromDungeon(final Dungeon m) {
 	this.minX = 0;
 	this.minY = 0;
 	this.minZ = 0;

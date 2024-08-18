@@ -5,11 +5,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.battle.damage;
 
-import org.retropipes.dungeondiver7.creature.AbstractCreature;
+import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 
-public abstract class AbstractDamageEngine {
-    public static AbstractDamageEngine getEnemyInstance() {
+public abstract class DamageEngine {
+    public static DamageEngine getEnemyInstance() {
 	final var difficulty = Prefs.getGameDifficulty();
 	return switch (difficulty) {
 	case Prefs.DIFFICULTY_VERY_EASY -> new VeryHardDamageEngine();
@@ -21,7 +21,7 @@ public abstract class AbstractDamageEngine {
 	};
     }
 
-    public static AbstractDamageEngine getPlayerInstance() {
+    public static DamageEngine getPlayerInstance() {
 	final var difficulty = Prefs.getGameDifficulty();
 	return switch (difficulty) {
 	case Prefs.DIFFICULTY_VERY_EASY -> new VeryEasyDamageEngine();
@@ -33,7 +33,7 @@ public abstract class AbstractDamageEngine {
 	};
     }
 
-    public abstract int computeDamage(AbstractCreature enemy, AbstractCreature acting);
+    public abstract int computeDamage(Creature enemy, Creature acting);
 
     public abstract boolean enemyDodged();
 

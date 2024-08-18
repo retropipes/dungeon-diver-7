@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.effect;
 import java.util.Arrays;
 import java.util.Objects;
 
-import org.retropipes.dungeondiver7.creature.AbstractCreature;
+import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.StatConstants;
 
 public class Effect {
@@ -266,7 +266,7 @@ public class Effect {
 	}
     }
 
-    public void scaleEffect(final int type, final AbstractCreature scaleTo) {
+    public void scaleEffect(final int type, final Creature scaleTo) {
 	for (var stat = 0; stat < StatConstants.MAX_STATS; stat++) {
 	    final var base = this.effect[type][stat];
 	    final var scst = this.effectScaleStat;
@@ -307,7 +307,7 @@ public class Effect {
 	this.effectScaleStat = scaleStat;
     }
 
-    public void useEffect(final AbstractCreature target) {
+    public void useEffect(final Creature target) {
 	final var hpAddEffect = this.getEffect(Effect.EFFECT_ADD, StatConstants.STAT_CURRENT_HP);
 	final var mpAddEffect = this.getEffect(Effect.EFFECT_ADD, StatConstants.STAT_CURRENT_MP);
 	final var hpMultEffect = this.getEffect(Effect.EFFECT_MULTIPLY, StatConstants.STAT_CURRENT_HP);

@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.battle;
+package org.retropipes.dungeondiver7.battle.map;
 
 import java.io.IOException;
 
@@ -11,17 +11,19 @@ import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.StuffBag;
-import org.retropipes.dungeondiver7.ai.AbstractMapAIRoutine;
-import org.retropipes.dungeondiver7.ai.AutoMapAI;
-import org.retropipes.dungeondiver7.ai.MapAIContext;
-import org.retropipes.dungeondiver7.battle.damage.AbstractDamageEngine;
+import org.retropipes.dungeondiver7.ai.map.MapAI;
+import org.retropipes.dungeondiver7.ai.map.AutoMapAI;
+import org.retropipes.dungeondiver7.ai.map.MapAIContext;
+import org.retropipes.dungeondiver7.battle.Battle;
+import org.retropipes.dungeondiver7.battle.BattleResult;
+import org.retropipes.dungeondiver7.battle.damage.DamageEngine;
 import org.retropipes.dungeondiver7.battle.reward.BattleRewards;
-import org.retropipes.dungeondiver7.battle.types.AbstractBattleType;
-import org.retropipes.dungeondiver7.creature.AbstractCreature;
+import org.retropipes.dungeondiver7.battle.types.BattleType;
+import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.StatConstants;
 import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractBattleCharacter;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
@@ -35,14 +37,14 @@ import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.spell.SpellCaster;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public class MapBattleLogic extends AbstractBattle {
+public class MapBattleLogic extends Battle {
     private static final int STEAL_ACTION_POINTS = 3;
     private static final int DRAIN_ACTION_POINTS = 3;
     // Fields
-    private AbstractBattleType battleType;
+    private BattleType battleType;
     private MapBattleDefinitions bd;
-    private AbstractDamageEngine pde;
-    private AbstractDamageEngine ede;
+    private DamageEngine pde;
+    private DamageEngine ede;
     private final AutoMapAI auto;
     private int damage;
     private BattleResult result;
@@ -163,8 +165,8 @@ public class MapBattleLogic extends AbstractBattle {
 	this.battleGUI.clearStatusMessage();
     }
 
-    private void computeDamage(final AbstractCreature theEnemy, final AbstractCreature acting,
-	    final AbstractDamageEngine activeDE) {
+    private void computeDamage(final Creature theEnemy, final Creature acting,
+	    final DamageEngine activeDE) {
 	// Compute Damage
 	this.damage = 0;
 	final var actual = activeDE.computeDamage(theEnemy, acting);
@@ -177,7 +179,7 @@ public class MapBattleLogic extends AbstractBattle {
 	} else {
 	    theEnemy.doDamage(this.damage);
 	}
-	if (acting.getTeamID() == AbstractCreature.TEAM_PARTY) {
+	if (acting.getTeamID() == Creature.TEAM_PARTY) {
 	    this.displayPartyRoundResults(theEnemy, acting, activeDE);
 	} else {
 	    this.displayEnemyRoundResults(theEnemy, acting, activeDE);
@@ -206,8 +208,8 @@ public class MapBattleLogic extends AbstractBattle {
 	// Do nothing
     }
 
-    private void displayPartyRoundResults(final AbstractCreature theEnemy, final AbstractCreature active,
-	    final AbstractDamageEngine activeDE) {
+    private void displayPartyRoundResults(final Creature theEnemy, final Creature active,
+	    final DamageEngine activeDE) {
 	// Display round results
 	final var hitSound = active.getItems().getWeaponHitSound(active);
 	final var activeName = active.getName();
@@ -267,8 +269,8 @@ public class MapBattleLogic extends AbstractBattle {
 	this.setStatusMessage(displayDamageString);
     }
 
-    private void displayEnemyRoundResults(final AbstractCreature theEnemy, final AbstractCreature active,
-	    final AbstractDamageEngine activeDE) {
+    private void displayEnemyRoundResults(final Creature theEnemy, final Creature active,
+	    final DamageEngine activeDE) {
 	// Display round results
 	final var hitSound = active.getItems().getWeaponHitSound(active);
 	final var activeName = active.getName();
@@ -330,7 +332,7 @@ public class MapBattleLogic extends AbstractBattle {
 
     @Override
     public void doBattle() {
-	this.battleType = AbstractBattleType.createBattle();
+	this.battleType = BattleType.createBattle();
 	if (MusicLoader.isMusicPlaying()) {
 	    MusicLoader.stopMusic();
 	}
@@ -354,9 +356,9 @@ public class MapBattleLogic extends AbstractBattle {
 
     private void doBattleInternal() {
 	// Initialize Battle
-	AbstractDungeon bMap = null;
+	Dungeon bMap = null;
 	try {
-	    bMap = AbstractDungeon.getTemporaryBattleCopy();
+	    bMap = Dungeon.getTemporaryBattleCopy();
 	} catch (final IOException e) {
 	    DungeonDiver7.logError(e);
 	}
@@ -364,8 +366,8 @@ public class MapBattleLogic extends AbstractBattle {
 	DungeonDiver7.getStuffBag().setMode(StuffBag.STATUS_BATTLE);
 	this.bd = new MapBattleDefinitions();
 	this.bd.setBattleDungeon(bMap);
-	this.pde = AbstractDamageEngine.getPlayerInstance();
-	this.ede = AbstractDamageEngine.getEnemyInstance();
+	this.pde = DamageEngine.getPlayerInstance();
+	this.ede = DamageEngine.getEnemyInstance();
 	this.resultDoneAlready = false;
 	this.result = BattleResult.IN_PROGRESS;
 	// Generate Friends
@@ -408,7 +410,7 @@ public class MapBattleLogic extends AbstractBattle {
 
     @Override
     public void doFinalBossBattle() {
-	this.battleType = AbstractBattleType.createFinalBossBattle();
+	this.battleType = BattleType.createFinalBossBattle();
 	if (MusicLoader.isMusicPlaying()) {
 	    MusicLoader.stopMusic();
 	}
@@ -419,13 +421,13 @@ public class MapBattleLogic extends AbstractBattle {
     @Override
     public boolean doPlayerActions(final int action) {
 	switch (action) {
-	case AbstractMapAIRoutine.ACTION_CAST_SPELL:
+	case MapAI.ACTION_CAST_SPELL:
 	    this.castSpell();
 	    break;
-	case AbstractMapAIRoutine.ACTION_DRAIN:
+	case MapAI.ACTION_DRAIN:
 	    this.drain();
 	    break;
-	case AbstractMapAIRoutine.ACTION_STEAL:
+	case MapAI.ACTION_STEAL:
 	    this.steal();
 	    break;
 	default:
@@ -484,7 +486,7 @@ public class MapBattleLogic extends AbstractBattle {
 	    }
 	    return false;
 	}
-	AbstractCreature activeEnemy = null;
+	Creature activeEnemy = null;
 	final AbstractBattleCharacter enemyBC = this.getEnemyBC();
 	if (enemyBC != null) {
 	    activeEnemy = enemyBC.getTemplate();
@@ -564,13 +566,13 @@ public class MapBattleLogic extends AbstractBattle {
 	final var index = this.bd.findBattler(acting.getName());
 	final var action = this.auto.getNextAction(this.bd.getBattlerAIContexts()[index]);
 	switch (action) {
-	case AbstractMapAIRoutine.ACTION_MOVE:
+	case MapAI.ACTION_MOVE:
 	    final var x = this.auto.getMoveX();
 	    final var y = this.auto.getMoveY();
 	    final var activeTID = this.bd.getActiveCharacter().getTeamID();
-	    final var theEnemy = activeTID == AbstractCreature.TEAM_PARTY ? this.enemy
-		    : this.bd.getBattlers()[this.bd.findFirstBattlerOnTeam(AbstractCreature.TEAM_PARTY)];
-	    final var activeDE = activeTID == AbstractCreature.TEAM_PARTY ? this.ede : this.pde;
+	    final var theEnemy = activeTID == Creature.TEAM_PARTY ? this.enemy
+		    : this.bd.getBattlers()[this.bd.findFirstBattlerOnTeam(Creature.TEAM_PARTY)];
+	    final var activeDE = activeTID == Creature.TEAM_PARTY ? this.ede : this.pde;
 	    this.updatePositionInternal(x, y, false, acting, theEnemy, activeDE);
 	    break;
 	default:
@@ -588,21 +590,21 @@ public class MapBattleLogic extends AbstractBattle {
 		final var action = active.getTemplate().getMapAI()
 			.getNextAction(this.bd.getBattlerAIContexts()[this.activeIndex]);
 		switch (action) {
-		case AbstractMapAIRoutine.ACTION_MOVE:
+		case MapAI.ACTION_MOVE:
 		    final var x = active.getTemplate().getMapAI().getMoveX();
 		    final var y = active.getTemplate().getMapAI().getMoveY();
 		    this.lastAIActionResult = this.updatePosition(x, y);
 		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
 		    break;
-		case AbstractMapAIRoutine.ACTION_CAST_SPELL:
+		case MapAI.ACTION_CAST_SPELL:
 		    this.lastAIActionResult = this.castSpell();
 		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
 		    break;
-		case AbstractMapAIRoutine.ACTION_DRAIN:
+		case MapAI.ACTION_DRAIN:
 		    this.lastAIActionResult = this.drain();
 		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
 		    break;
-		case AbstractMapAIRoutine.ACTION_STEAL:
+		case MapAI.ACTION_STEAL:
 		    this.lastAIActionResult = this.steal();
 		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
 		    break;
@@ -651,7 +653,7 @@ public class MapBattleLogic extends AbstractBattle {
     }
 
     @Override
-    public AbstractCreature getEnemy() {
+    public Creature getEnemy() {
 	return this.enemy.getTemplate();
     }
 
@@ -689,23 +691,23 @@ public class MapBattleLogic extends AbstractBattle {
 	if (this.result != BattleResult.IN_PROGRESS) {
 	    return this.result;
 	}
-	if (this.areTeamEnemiesAlive(AbstractCreature.TEAM_PARTY) && !this.isTeamAlive(AbstractCreature.TEAM_PARTY)) {
+	if (this.areTeamEnemiesAlive(Creature.TEAM_PARTY) && !this.isTeamAlive(Creature.TEAM_PARTY)) {
 	    currResult = BattleResult.LOST;
-	} else if (!this.areTeamEnemiesAlive(AbstractCreature.TEAM_PARTY)
-		&& this.isTeamAlive(AbstractCreature.TEAM_PARTY)) {
+	} else if (!this.areTeamEnemiesAlive(Creature.TEAM_PARTY)
+		&& this.isTeamAlive(Creature.TEAM_PARTY)) {
 	    currResult = BattleResult.WON;
-	} else if (!this.areTeamEnemiesAlive(AbstractCreature.TEAM_PARTY)
-		&& !this.isTeamAlive(AbstractCreature.TEAM_PARTY)) {
+	} else if (!this.areTeamEnemiesAlive(Creature.TEAM_PARTY)
+		&& !this.isTeamAlive(Creature.TEAM_PARTY)) {
 	    currResult = BattleResult.DRAW;
-	} else if (this.isTeamAlive(AbstractCreature.TEAM_PARTY) && !this.isTeamGone(AbstractCreature.TEAM_PARTY)
-		&& this.areTeamEnemiesDeadOrGone(AbstractCreature.TEAM_PARTY)) {
+	} else if (this.isTeamAlive(Creature.TEAM_PARTY) && !this.isTeamGone(Creature.TEAM_PARTY)
+		&& this.areTeamEnemiesDeadOrGone(Creature.TEAM_PARTY)) {
 	    currResult = BattleResult.WON;
-	} else if (!this.isTeamAlive(AbstractCreature.TEAM_PARTY) && !this.isTeamGone(AbstractCreature.TEAM_PARTY)
-		&& !this.areTeamEnemiesDeadOrGone(AbstractCreature.TEAM_PARTY)) {
+	} else if (!this.isTeamAlive(Creature.TEAM_PARTY) && !this.isTeamGone(Creature.TEAM_PARTY)
+		&& !this.areTeamEnemiesDeadOrGone(Creature.TEAM_PARTY)) {
 	    currResult = BattleResult.LOST;
-	} else if (this.areTeamEnemiesGone(AbstractCreature.TEAM_PARTY)) {
+	} else if (this.areTeamEnemiesGone(Creature.TEAM_PARTY)) {
 	    currResult = BattleResult.ENEMY_FLED;
-	} else if (this.isTeamGone(AbstractCreature.TEAM_PARTY)) {
+	} else if (this.isTeamGone(Creature.TEAM_PARTY)) {
 	    currResult = BattleResult.FLED;
 	} else {
 	    currResult = BattleResult.IN_PROGRESS;
@@ -788,7 +790,7 @@ public class MapBattleLogic extends AbstractBattle {
 		    }
 		}
 		// Handle low health for party members
-		if (active.isAlive() && active.getTeamID() == AbstractCreature.TEAM_PARTY
+		if (active.isAlive() && active.getTeamID() == Creature.TEAM_PARTY
 			&& active.getCurrentHP() <= active.getMaximumHP() * 3 / 10) {
 		    SoundLoader.playSound(Sounds.LOW_HEALTH);
 		}
@@ -796,7 +798,7 @@ public class MapBattleLogic extends AbstractBattle {
 		active.cullInactiveEffects();
 		// Handle death caused by effects
 		if (!active.isAlive()) {
-		    if (activeBC.getTeamID() != AbstractCreature.TEAM_PARTY) {
+		    if (activeBC.getTeamID() != Creature.TEAM_PARTY) {
 			// Update victory spoils
 			this.battleExp = activeBC.getTemplate().getExperience();
 		    }
@@ -937,7 +939,7 @@ public class MapBattleLogic extends AbstractBattle {
 	    }
 	    return false;
 	}
-	AbstractCreature activeEnemy = null;
+	Creature activeEnemy = null;
 	final AbstractBattleCharacter enemyBC = this.getEnemyBC();
 	if (enemyBC != null) {
 	    activeEnemy = enemyBC.getTemplate();
@@ -1008,9 +1010,9 @@ public class MapBattleLogic extends AbstractBattle {
     @Override
     public boolean updatePosition(final int x, final int y) {
 	final var activeTID = this.bd.getActiveCharacter().getTeamID();
-	var theEnemy = activeTID == AbstractCreature.TEAM_PARTY ? this.enemy
-		: this.bd.getBattlers()[this.bd.findFirstBattlerOnTeam(AbstractCreature.TEAM_PARTY)];
-	final var activeDE = activeTID == AbstractCreature.TEAM_PARTY ? this.ede : this.pde;
+	var theEnemy = activeTID == Creature.TEAM_PARTY ? this.enemy
+		: this.bd.getBattlers()[this.bd.findFirstBattlerOnTeam(Creature.TEAM_PARTY)];
+	final var activeDE = activeTID == Creature.TEAM_PARTY ? this.ede : this.pde;
 	if (x == 0 && y == 0) {
 	    theEnemy = this.bd.getActiveCharacter();
 	}
@@ -1018,7 +1020,7 @@ public class MapBattleLogic extends AbstractBattle {
     }
 
     private boolean updatePositionInternal(final int x, final int y, final boolean useAP,
-	    final BattleCharacter activeBC, final BattleCharacter theEnemy, final AbstractDamageEngine activeDE) {
+	    final BattleCharacter activeBC, final BattleCharacter theEnemy, final DamageEngine activeDE) {
 	final var active = activeBC.getTemplate();
 	this.updateAllAIContexts();
 	var px = activeBC.getX();
@@ -1181,7 +1183,7 @@ public class MapBattleLogic extends AbstractBattle {
 	    activeBC.setSavedObject(m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS));
 	    m.setCell(activeBC, px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	    this.decrementActiveActionCounterBy(MapAIContext.getAPCost());
-	    if (activeBC.getTeamID() == AbstractCreature.TEAM_PARTY) {
+	    if (activeBC.getTeamID() == Creature.TEAM_PARTY) {
 		SoundLoader.playSound(Sounds.STEP_PARTY);
 	    } else {
 		SoundLoader.playSound(Sounds.STEP_ENEMY);
@@ -1212,13 +1214,13 @@ public class MapBattleLogic extends AbstractBattle {
 	    // Do damage
 	    this.computeDamage(theEnemy.getTemplate(), active, activeDE);
 	    // Handle low health for party members
-	    if (theEnemy.getTemplate().isAlive() && theEnemy.getTeamID() == AbstractCreature.TEAM_PARTY
+	    if (theEnemy.getTemplate().isAlive() && theEnemy.getTeamID() == Creature.TEAM_PARTY
 		    && theEnemy.getTemplate().getCurrentHP() <= theEnemy.getTemplate().getMaximumHP() * 3 / 10) {
 		SoundLoader.playSound(Sounds.LOW_HEALTH);
 	    }
 	    // Handle enemy death
 	    if (!theEnemy.getTemplate().isAlive()) {
-		if (theEnemy.getTeamID() != AbstractCreature.TEAM_PARTY) {
+		if (theEnemy.getTeamID() != Creature.TEAM_PARTY) {
 		    // Update victory spoils
 		    this.battleExp = theEnemy.getTemplate().getExperience();
 		}

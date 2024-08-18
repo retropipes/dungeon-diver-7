@@ -3,33 +3,33 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.ai;
+package org.retropipes.dungeondiver7.ai.map;
 
 import org.retropipes.dungeondiver7.prefs.Prefs;
 
-public final class MapAIRoutinePicker {
-    public static AbstractMapAIRoutine getNextRoutine() {
+public final class MapAIPicker {
+    public static MapAI getNextRoutine() {
 	final var difficulty = Prefs.getGameDifficulty();
 	if (difficulty == Prefs.DIFFICULTY_VERY_EASY) {
-	    return new VeryEasyMapAIRoutine();
+	    return new VeryEasyMapAI();
 	}
 	if (difficulty == Prefs.DIFFICULTY_EASY) {
-	    return new EasyMapAIRoutine();
+	    return new EasyMapAI();
 	}
 	if (difficulty == Prefs.DIFFICULTY_NORMAL) {
-	    return new NormalMapAIRoutine();
+	    return new NormalMapAI();
 	}
 	if (difficulty == Prefs.DIFFICULTY_HARD) {
-	    return new HardMapAIRoutine();
+	    return new HardMapAI();
 	}
 	if (difficulty == Prefs.DIFFICULTY_VERY_HARD) {
-	    return new VeryHardMapAIRoutine();
+	    return new VeryHardMapAI();
 	}
-	return new NormalMapAIRoutine();
+	return new NormalMapAI();
     }
 
     // Constructors
-    private MapAIRoutinePicker() {
+    private MapAIPicker() {
 	// Do nothing
     }
 }

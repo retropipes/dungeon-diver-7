@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7;
 import org.retropipes.diane.Diane;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.diane.integration.Integration;
-import org.retropipes.dungeondiver7.creature.AbstractCreature;
+import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.locale.ErrorString;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.prefs.Prefs;
@@ -88,7 +88,7 @@ public class DungeonDiver7 {
     }
 
     private static void preInit() {
-	AbstractCreature.computeActionCap(DungeonDiver7.BATTLE_MAP_SIZE, DungeonDiver7.BATTLE_MAP_SIZE);
+	Creature.computeActionCap(DungeonDiver7.BATTLE_MAP_SIZE, DungeonDiver7.BATTLE_MAP_SIZE);
 	DungeonDiver7.ERROR_TITLE = Strings.error(ErrorString.ERROR_TITLE);
 	DungeonDiver7.ERROR_MESSAGE = Strings.error(ErrorString.ERROR_MESSAGE);
     }

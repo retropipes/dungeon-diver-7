@@ -18,7 +18,7 @@ import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.VersionException;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeon;
 import org.retropipes.dungeondiver7.locale.DialogString;
@@ -51,7 +51,7 @@ public class GameLoadTask extends Thread {
 	    final var app = DungeonDiver7.getStuffBag();
 	    int startW;
 	    app.getGameLogic().setSavedGameFlag(false);
-	    final var tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
+	    final var tempLock = new File(Dungeon.getDungeonTempFolder() + "lock.tmp");
 	    var gameDungeon = new CurrentDungeon();
 	    // Unlock the file
 	    GameFileManager.load(mazeFile, tempLock);

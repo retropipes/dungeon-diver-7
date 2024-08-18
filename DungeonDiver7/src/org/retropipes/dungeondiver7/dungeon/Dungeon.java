@@ -23,7 +23,7 @@ import org.retropipes.dungeondiver7.locale.Untranslated;
 import org.retropipes.dungeondiver7.manager.file.AbstractPrefixIO;
 import org.retropipes.dungeondiver7.manager.file.AbstractSuffixIO;
 
-public abstract class AbstractDungeon {
+public abstract class Dungeon {
     // Constants
     private static final int MIN_LEVELS = 1;
     protected static final int MAX_LEVELS = Integer.MAX_VALUE;
@@ -38,38 +38,38 @@ public abstract class AbstractDungeon {
     }
 
     public static int getMaxColumns() {
-	return AbstractDungeon.MAX_ROWS;
+	return Dungeon.MAX_ROWS;
     }
 
     public static int getMaxFloors() {
-	return AbstractDungeonData.getMaxFloors();
+	return DungeonData.getMaxFloors();
     }
 
     public static int getMaxLevels() {
-	return AbstractDungeon.MAX_LEVELS;
+	return Dungeon.MAX_LEVELS;
     }
 
     public static int getMaxRows() {
-	return AbstractDungeon.MAX_ROWS;
+	return Dungeon.MAX_ROWS;
     }
 
     public static int getMinColumns() {
-	return AbstractDungeon.MAX_COLUMNS;
+	return Dungeon.MAX_COLUMNS;
     }
 
     public static int getMinFloors() {
-	return AbstractDungeonData.getMinFloors();
+	return DungeonData.getMinFloors();
     }
 
     public static int getMinLevels() {
-	return AbstractDungeon.MIN_LEVELS;
+	return Dungeon.MIN_LEVELS;
     }
 
     public static int getMinRows() {
-	return AbstractDungeonData.getMinRows();
+	return DungeonData.getMinRows();
     }
 
-    public static AbstractDungeon getTemporaryBattleCopy() throws IOException {
+    public static Dungeon getTemporaryBattleCopy() throws IOException {
 	final var temp = new CurrentDungeon();
 	temp.addFixedSizeLevel(DungeonDiver7.getBattleDungeonSize(), DungeonDiver7.getBattleDungeonSize(), 1);
 	temp.fillDefault();
@@ -84,7 +84,7 @@ public abstract class AbstractDungeon {
     /**
      * @throws IOException
      */
-    public AbstractDungeon() throws IOException {
+    public Dungeon() throws IOException {
 	// Do nothing
     }
 
@@ -241,7 +241,7 @@ public abstract class AbstractDungeon {
 
     public abstract void postBattle(final AbstractMovingObject m, final int xLoc, final int yLoc, final boolean player);
 
-    public abstract AbstractDungeon readDungeon() throws IOException;
+    public abstract Dungeon readDungeon() throws IOException;
 
     public abstract void redo();
 
@@ -291,7 +291,7 @@ public abstract class AbstractDungeon {
     public abstract void setCell(final AbstractDungeonObject mo, final int row, final int col, final int floor,
 	    final int layer);
 
-    public abstract void setData(AbstractDungeonData newData, int count);
+    public abstract void setData(DungeonData newData, int count);
 
     public abstract void setDifficulty(Difficulty newDifficulty);
 

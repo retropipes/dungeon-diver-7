@@ -13,7 +13,7 @@ import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.polytable.PolyTable;
 import org.retropipes.dungeondiver7.VersionException;
-import org.retropipes.dungeondiver7.creature.AbstractCreature;
+import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.StatConstants;
 import org.retropipes.dungeondiver7.creature.gender.Gender;
 import org.retropipes.dungeondiver7.creature.job.Job;
@@ -23,7 +23,7 @@ import org.retropipes.dungeondiver7.item.ItemInventory;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.FileFormats;
 
-public class PartyMember extends AbstractCreature {
+public class PartyMember extends Creature {
     private static final int START_GOLD = 0;
     private static final double BASE_COEFF = 10.0;
 
@@ -183,19 +183,19 @@ public class PartyMember extends AbstractCreature {
 	final var base = this.getBaseSpeed();
 	switch (difficulty) {
 	case Prefs.DIFFICULTY_VERY_EASY:
-	    return (int) (base * AbstractCreature.SPEED_ADJUST_FASTEST);
+	    return (int) (base * Creature.SPEED_ADJUST_FASTEST);
 	case Prefs.DIFFICULTY_EASY:
-	    return (int) (base * AbstractCreature.SPEED_ADJUST_FAST);
+	    return (int) (base * Creature.SPEED_ADJUST_FAST);
 	case Prefs.DIFFICULTY_NORMAL:
-	    return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
+	    return (int) (base * Creature.SPEED_ADJUST_NORMAL);
 	case Prefs.DIFFICULTY_HARD:
-	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOW);
+	    return (int) (base * Creature.SPEED_ADJUST_SLOW);
 	case Prefs.DIFFICULTY_VERY_HARD:
-	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOWEST);
+	    return (int) (base * Creature.SPEED_ADJUST_SLOWEST);
 	default:
 	    break;
 	}
-	return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
+	return (int) (base * Creature.SPEED_ADJUST_NORMAL);
     }
 
     public String getXPString() {

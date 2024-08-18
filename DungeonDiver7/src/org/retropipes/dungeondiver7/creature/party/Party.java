@@ -10,7 +10,7 @@ import java.io.IOException;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
@@ -95,7 +95,7 @@ public class Party {
     }
 
     public void offsetZone(final int offset) {
-	if (this.zone + offset > AbstractDungeon.getMaxLevels() || this.zone + offset < 0) {
+	if (this.zone + offset > Dungeon.getMaxLevels() || this.zone + offset < 0) {
 	    return;
 	}
 	this.zone += offset;

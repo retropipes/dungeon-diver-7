@@ -5,12 +5,12 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.game;
 
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 
 public final class GameViewingWindowManager {
-    private static final int VIEWING_WINDOW_SIZE_X = AbstractDungeon.getMinColumns();
-    private static final int VIEWING_WINDOW_SIZE_Y = AbstractDungeon.getMinRows();
+    private static final int VIEWING_WINDOW_SIZE_X = Dungeon.getMinColumns();
+    private static final int VIEWING_WINDOW_SIZE_Y = Dungeon.getMinRows();
 
     static int getFixedLowerRightViewingWindowLocationX() {
 	return GameViewingWindowManager.VIEWING_WINDOW_SIZE_X - 1;

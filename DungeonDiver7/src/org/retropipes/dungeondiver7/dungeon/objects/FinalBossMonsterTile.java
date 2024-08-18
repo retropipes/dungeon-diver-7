@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.StuffBag;
 import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import org.retropipes.dungeondiver7.utility.RandomGenerationRule;
 
@@ -26,24 +26,24 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
-	if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
+    public int getMaximumRequiredQuantity(final Dungeon dungeon) {
+	if (dungeon.getActiveLevel() != Dungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
 	}
 	return 1;
     }
 
     @Override
-    public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
-	if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
+    public int getMinimumRequiredQuantity(final Dungeon dungeon) {
+	if (dungeon.getActiveLevel() != Dungeon.getMaxLevels() - 1) {
 	    return RandomGenerationRule.NO_LIMIT;
 	}
 	return 1;
     }
 
     @Override
-    public boolean isRequired(final AbstractDungeon dungeon) {
-	if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
+    public boolean isRequired(final Dungeon dungeon) {
+	if (dungeon.getActiveLevel() != Dungeon.getMaxLevels() - 1) {
 	    return false;
 	}
 	return true;
@@ -57,9 +57,9 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public boolean shouldGenerateObject(final AbstractDungeon dungeon, final int row, final int col, final int level,
+    public boolean shouldGenerateObject(final Dungeon dungeon, final int row, final int col, final int level,
 	    final int layer) {
-	if (dungeon.getActiveLevel() != AbstractDungeon.getMaxLevels() - 1) {
+	if (dungeon.getActiveLevel() != Dungeon.getMaxLevels() - 1) {
 	    return false;
 	}
 	return super.shouldGenerateObject(dungeon, row, col, level, layer);

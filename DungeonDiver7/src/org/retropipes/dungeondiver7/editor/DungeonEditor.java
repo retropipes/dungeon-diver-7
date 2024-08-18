@@ -41,7 +41,7 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.MenuSection;
 import org.retropipes.dungeondiver7.StuffBag;
 import org.retropipes.dungeondiver7.asset.ImageConstants;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractJumpObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Ground;
@@ -515,12 +515,12 @@ public class DungeonEditor implements MenuSection {
 	final var app = DungeonDiver7.getStuffBag();
 	if (app.getMode() == StuffBag.STATUS_EDITOR) {
 	    final var m = app.getDungeonManager().getDungeon();
-	    if (m.getLevels() == AbstractDungeon.getMinLevels()) {
+	    if (m.getLevels() == Dungeon.getMinLevels()) {
 		this.disableRemoveLevel();
 	    } else {
 		this.enableRemoveLevel();
 	    }
-	    if (m.getLevels() == AbstractDungeon.getMaxLevels()) {
+	    if (m.getLevels() == Dungeon.getMaxLevels()) {
 		this.disableAddLevel();
 	    } else {
 		this.enableAddLevel();
@@ -1117,7 +1117,7 @@ public class DungeonEditor implements MenuSection {
 	}
 	if (saved) {
 	    app.getGameLogic().getPlayerManager().resetPlayerLocation();
-	    AbstractDungeon a = null;
+	    Dungeon a = null;
 	    try {
 		a = DungeonManager.createDungeon();
 	    } catch (final IOException ioe) {
@@ -1373,8 +1373,8 @@ public class DungeonEditor implements MenuSection {
     public boolean resizeLevel() {
 	final var app = DungeonDiver7.getStuffBag();
 	int levelSizeZ;
-	final var maxF = AbstractDungeon.getMaxFloors();
-	final var minF = AbstractDungeon.getMinFloors();
+	final var maxF = Dungeon.getMaxFloors();
+	final var minF = Dungeon.getMinFloors();
 	final var msg = Strings.editor(EditorString.RESIZE_LEVEL);
 	var success = true;
 	String input3;

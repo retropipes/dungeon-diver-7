@@ -4,7 +4,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.battle;
+package org.retropipes.dungeondiver7.battle.map;
 
 import org.retropipes.dungeondiver7.prefs.Prefs;
 

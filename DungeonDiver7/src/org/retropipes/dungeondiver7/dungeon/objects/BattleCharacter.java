@@ -6,12 +6,12 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.dungeon.objects;
 
-import org.retropipes.dungeondiver7.creature.AbstractCreature;
+import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractBattleCharacter;
 
 public class BattleCharacter extends AbstractBattleCharacter {
     // Constructors
-    public BattleCharacter(final AbstractCreature newTemplate) {
+    public BattleCharacter(final Creature newTemplate) {
 	super(newTemplate);
     }
 }

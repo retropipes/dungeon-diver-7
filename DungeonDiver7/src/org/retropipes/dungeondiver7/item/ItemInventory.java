@@ -12,7 +12,7 @@ import java.util.Objects;
 
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
-import org.retropipes.dungeondiver7.creature.AbstractCreature;
+import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Slot;
@@ -50,7 +50,7 @@ public class ItemInventory {
 	return true;
     }
 
-    public void equip(final AbstractCreature pc, final Equipment ei, final boolean playSound) {
+    public void equip(final Creature pc, final Equipment ei, final boolean playSound) {
 	// Fix character load, changing gear
 	if (this.equipment[ei.getSlotUsed().ordinal()] != null) {
 	    pc.offsetLoad(-this.equipment[ei.getSlotUsed().ordinal()].getWeight());
@@ -124,12 +124,12 @@ public class ItemInventory {
 	return total;
     }
 
-    public Sounds getWeaponHitSound(final AbstractCreature pc) {
+    public Sounds getWeaponHitSound(final Creature pc) {
 	final var weapon = this.equipment[Slot.WEAPON.ordinal()];
 	if (weapon != null) {
 	    return weapon.getHitSound();
 	}
-	if (pc.getTeamID() == AbstractCreature.TEAM_PARTY) {
+	if (pc.getTeamID() == Creature.TEAM_PARTY) {
 	    return Sounds.ATTACK_PUNCH;
 	}
 	return Sounds.ENEMY_HIT;

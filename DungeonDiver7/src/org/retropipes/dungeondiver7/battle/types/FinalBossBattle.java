@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.battle.types;
 import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 
-class FinalBossBattle extends AbstractBattleType {
+class FinalBossBattle extends BattleType {
     // Fields
     final BattleCharacter monster;
 

@@ -12,7 +12,7 @@ import java.io.IOException;
 import org.retropipes.diane.fileio.utility.ZipUtilities;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
 
@@ -50,7 +50,7 @@ public class GameSaveTask extends Thread {
 		this.filename += Strings.fileExtension(FileExtension.SUSPEND);
 	    }
 	    final var mazeFile = new File(this.filename);
-	    final var tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
+	    final var tempLock = new File(Dungeon.getDungeonTempFolder() + "lock.tmp");
 	    // Set prefix handler
 	    app.getDungeonManager().getDungeon().setPrefixHandler(new PrefixHandler());
 	    // Set suffix handler

@@ -6,7 +6,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.diane.random.RandomRange;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
@@ -43,7 +43,7 @@ public abstract class AbstractTrap extends AbstractDungeonObject {
     }
 
     @Override
-    public boolean shouldGenerateObject(final AbstractDungeon maze, final int row, final int col, final int level,
+    public boolean shouldGenerateObject(final Dungeon maze, final int row, final int col, final int level,
 	    final int layer) {
 	// Generate all traps at 25% rate
 	final var reject = new RandomRange(1, 100);

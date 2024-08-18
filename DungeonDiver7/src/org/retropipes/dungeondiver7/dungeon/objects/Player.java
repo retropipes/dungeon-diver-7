@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
 
 public class Player extends AbstractCharacter {
@@ -27,18 +27,18 @@ public class Player extends AbstractCharacter {
     }
 
     @Override
-    public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
+    public int getMaximumRequiredQuantity(final Dungeon dungeon) {
 	return 1;
     }
 
     @Override
-    public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
+    public int getMinimumRequiredQuantity(final Dungeon dungeon) {
 	return 1;
     }
 
     // Random Generation Rules
     @Override
-    public boolean isRequired(final AbstractDungeon dungeon) {
+    public boolean isRequired(final Dungeon dungeon) {
 	return true;
     }
 }

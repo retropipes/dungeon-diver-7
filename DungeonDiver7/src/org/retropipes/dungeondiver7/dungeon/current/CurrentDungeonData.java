@@ -16,8 +16,8 @@ import org.retropipes.diane.random.RandomRange;
 import org.retropipes.diane.storage.FlagStorage;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.StuffBag;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeonData;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
+import org.retropipes.dungeondiver7.dungeon.DungeonData;
 import org.retropipes.dungeondiver7.dungeon.DungeonDataStorage;
 import org.retropipes.dungeondiver7.dungeon.HistoryStatus;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButton;
@@ -48,7 +48,7 @@ import org.retropipes.dungeondiver7.utility.FileFormats;
 import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.VisionModes;
 
-public final class CurrentDungeonData extends AbstractDungeonData {
+public final class CurrentDungeonData extends DungeonData {
     private class ImageUndoEngine {
 	// Inner classes
 	private class HistoryEntry {
@@ -182,7 +182,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     public static final CurrentDungeonLock LOCK_OBJECT = new CurrentDungeonLock();
 
-    private static CurrentDungeonData readDataG1(final AbstractDungeon dungeon, final DataIOReader reader,
+    private static CurrentDungeonData readDataG1(final Dungeon dungeon, final DataIOReader reader,
 	    final int ver) throws IOException {
 	int y, x, z, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
@@ -224,7 +224,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG2(final AbstractDungeon dungeon, final DataIOReader reader,
+    private static CurrentDungeonData readDataG2(final Dungeon dungeon, final DataIOReader reader,
 	    final int ver) throws IOException {
 	int y, x, z, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
@@ -272,7 +272,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG3(final AbstractDungeon dungeon, final DataIOReader reader,
+    private static CurrentDungeonData readDataG3(final Dungeon dungeon, final DataIOReader reader,
 	    final int ver) throws IOException {
 	int y, x, z, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
@@ -320,7 +320,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG4(final AbstractDungeon dungeon, final DataIOReader reader,
+    private static CurrentDungeonData readDataG4(final Dungeon dungeon, final DataIOReader reader,
 	    final int ver) throws IOException {
 	int y, x, z, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
@@ -368,7 +368,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG5(final AbstractDungeon dungeon, final DataIOReader reader,
+    private static CurrentDungeonData readDataG5(final Dungeon dungeon, final DataIOReader reader,
 	    final int ver) throws IOException {
 	int y, x, z, w, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
@@ -417,7 +417,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return lt;
     }
 
-    private static CurrentDungeonData readDataG6(final AbstractDungeon dungeon, final DataIOReader reader,
+    private static CurrentDungeonData readDataG6(final Dungeon dungeon, final DataIOReader reader,
 	    final int ver) throws IOException {
 	int y, x, z, w, dungeonSizeX, dungeonSizeY, dungeonSizeZ;
 	dungeonSizeX = reader.readInt();
@@ -453,17 +453,17 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     // Constructors
     public CurrentDungeonData() {
-	this.data = new DungeonDataStorage(AbstractDungeonData.MIN_COLUMNS, AbstractDungeonData.MIN_ROWS,
-		AbstractDungeonData.MIN_FLOORS, DungeonConstants.NUM_LAYERS);
-	this.virtualData = new DungeonDataStorage(AbstractDungeonData.MIN_COLUMNS, AbstractDungeonData.MIN_ROWS,
-		AbstractDungeonData.MIN_FLOORS, DungeonConstants.NUM_VIRTUAL_LAYERS);
+	this.data = new DungeonDataStorage(DungeonData.MIN_COLUMNS, DungeonData.MIN_ROWS,
+		DungeonData.MIN_FLOORS, DungeonConstants.NUM_LAYERS);
+	this.virtualData = new DungeonDataStorage(DungeonData.MIN_COLUMNS, DungeonData.MIN_ROWS,
+		DungeonData.MIN_FLOORS, DungeonConstants.NUM_VIRTUAL_LAYERS);
 	this.fillVirtual();
-	this.dirtyData = new FlagStorage(AbstractDungeonData.MIN_COLUMNS, AbstractDungeonData.MIN_ROWS,
-		AbstractDungeonData.MIN_FLOORS);
-	this.visionData = new FlagStorage(AbstractDungeonData.MIN_COLUMNS, AbstractDungeonData.MIN_ROWS,
-		AbstractDungeonData.MIN_FLOORS);
-	this.savedState = new DungeonDataStorage(AbstractDungeonData.MIN_ROWS, AbstractDungeonData.MIN_COLUMNS,
-		AbstractDungeonData.MIN_FLOORS, DungeonConstants.NUM_LAYERS);
+	this.dirtyData = new FlagStorage(DungeonData.MIN_COLUMNS, DungeonData.MIN_ROWS,
+		DungeonData.MIN_FLOORS);
+	this.visionData = new FlagStorage(DungeonData.MIN_COLUMNS, DungeonData.MIN_ROWS,
+		DungeonData.MIN_FLOORS);
+	this.savedState = new DungeonDataStorage(DungeonData.MIN_ROWS, DungeonData.MIN_COLUMNS,
+		DungeonData.MIN_FLOORS, DungeonConstants.NUM_LAYERS);
 	this.foundX = -1;
 	this.foundY = -1;
 	this.iue = new ImageUndoEngine();
@@ -498,7 +498,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	this.visionModeExploreRadius = 2;
     }
 
-    private boolean areCoordsInBounds(final AbstractDungeon dungeon, final int x1, final int y1, final int x2,
+    private boolean areCoordsInBounds(final Dungeon dungeon, final int x1, final int y1, final int x2,
 	    final int y2) {
 	int fx1, fx2, fy1, fy2;
 	if (dungeon.isHorizontalWraparoundEnabled()) {
@@ -520,7 +520,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void checkForEnemies(final AbstractDungeon dungeon, final int floorIn, final int enemyLocXIn,
+    public void checkForEnemies(final Dungeon dungeon, final int floorIn, final int enemyLocXIn,
 	    final int enemyLocYIn, final AbstractCharacter enemy) {
 	if (enemy instanceof ArrowTurretDisguise) {
 	    // Anti Players are fooled by disguises
@@ -582,7 +582,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public int checkForMagnetic(final AbstractDungeon dungeon, final int floor, final int centerX, final int centerY,
+    public int checkForMagnetic(final Dungeon dungeon, final int floor, final int centerX, final int centerY,
 	    final Direction dir) {
 	if (dir == Direction.EAST) {
 	    return this.linearScanMagnetic(dungeon, centerX, centerY, floor, Direction.EAST);
@@ -600,7 +600,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public int[] circularScan(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn, final int r,
+    public int[] circularScan(final Dungeon dungeon, final int xIn, final int yIn, final int zIn, final int r,
 	    final String targetName, final boolean moved) {
 	var xFix = xIn;
 	var yFix = yIn;
@@ -642,7 +642,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public boolean circularScanPlayer(final AbstractDungeon dungeon, final int x, final int y, final int z,
+    public boolean circularScanPlayer(final Dungeon dungeon, final int x, final int y, final int z,
 	    final int r) {
 	final var tankLoc = DungeonDiver7.getStuffBag().getGameLogic().getPlayerLocation();
 	var fX = x;
@@ -664,7 +664,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void circularScanRange(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
+    public void circularScanRange(final Dungeon dungeon, final int xIn, final int yIn, final int zIn,
 	    final int r, final int rangeType, final int forceUnits) {
 	var xFix = xIn;
 	var yFix = yIn;
@@ -699,7 +699,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public int[] circularScanTunnel(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
+    public int[] circularScanTunnel(final Dungeon dungeon, final int xIn, final int yIn, final int zIn,
 	    final int r, final int tx, final int ty, final AbstractTunnel target, final boolean moved) {
 	var xFix = xIn;
 	var yFix = yIn;
@@ -721,7 +721,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		if (v == tx && u == ty && moved) {
 		    continue;
 		}
-		if (v >= 0 && v < AbstractDungeonData.MIN_ROWS && u >= 0 && u < AbstractDungeonData.MIN_COLUMNS) {
+		if (v >= 0 && v < DungeonData.MIN_ROWS && u >= 0 && u < DungeonData.MIN_COLUMNS) {
 		    final var obj = this.getCell(dungeon, v, u, zFix, w);
 		    final var savedObj = obj.getSavedObject();
 		    AbstractDungeonObject test;
@@ -759,7 +759,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void clearVirtualGrid(final AbstractDungeon dungeon) {
+    public void clearVirtualGrid(final Dungeon dungeon) {
 	for (var row = 0; row < this.getRows(); row++) {
 	    for (var col = 0; col < this.getColumns(); col++) {
 		for (var floor = 0; floor < this.getFloors(); floor++) {
@@ -777,7 +777,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void fill(final AbstractDungeon dungeon, final AbstractDungeonObject fill) {
+    public void fill(final Dungeon dungeon, final AbstractDungeonObject fill) {
 	int y, x, z, w;
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
@@ -795,7 +795,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void fillNulls(final AbstractDungeon dungeon, final AbstractDungeonObject fill1,
+    public void fillNulls(final Dungeon dungeon, final AbstractDungeonObject fill1,
 	    final AbstractDungeonObject fill2, final boolean was16) {
 	int y, x, z, w;
 	for (x = 0; x < this.getColumns(); x++) {
@@ -852,10 +852,10 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public int[] findObject(final AbstractDungeon dungeon, final int z, final String targetName) {
+    public int[] findObject(final Dungeon dungeon, final int z, final String targetName) {
 	// Perform the scan
-	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
-	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+	for (var x = 0; x < DungeonData.MIN_COLUMNS; x++) {
+	    for (var y = 0; y < DungeonData.MIN_ROWS; y++) {
 		for (var w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, x, y, z, w);
@@ -873,7 +873,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public int[] findPlayer(final AbstractDungeon dungeon, final int number) {
+    public int[] findPlayer(final Dungeon dungeon, final int number) {
 	final var t = new Party(number);
 	int y, x, z;
 	for (x = 0; x < this.getColumns(); x++) {
@@ -890,18 +890,18 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void fullScanAllButtonClose(final AbstractDungeon dungeon, final int zIn, final AbstractButton source) {
+    public void fullScanAllButtonClose(final Dungeon dungeon, final int zIn, final AbstractButton source) {
 	// Perform the scan
 	var zFix = zIn;
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    zFix = this.normalizeFloor(zFix);
 	}
 	var flag = !source.isTriggered();
-	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
+	for (var x = 0; x < DungeonData.MIN_COLUMNS; x++) {
 	    if (flag) {
 		break;
 	    }
-	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+	    for (var y = 0; y < DungeonData.MIN_ROWS; y++) {
 		if (flag) {
 		    break;
 		}
@@ -925,18 +925,18 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void fullScanAllButtonOpen(final AbstractDungeon dungeon, final int zIn, final AbstractButton source) {
+    public void fullScanAllButtonOpen(final Dungeon dungeon, final int zIn, final AbstractButton source) {
 	// Perform the scan
 	var zFix = zIn;
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    zFix = this.normalizeFloor(zFix);
 	}
 	var flag = true;
-	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
+	for (var x = 0; x < DungeonData.MIN_COLUMNS; x++) {
 	    if (!flag) {
 		break;
 	    }
-	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+	    for (var y = 0; y < DungeonData.MIN_ROWS; y++) {
 		if (!flag) {
 		    break;
 		}
@@ -959,15 +959,15 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void fullScanButtonBind(final AbstractDungeon dungeon, final int dx, final int dy, final int zIn,
+    public void fullScanButtonBind(final Dungeon dungeon, final int dx, final int dy, final int zIn,
 	    final AbstractButtonDoor source) {
 	// Perform the scan
 	var z = zIn;
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    z = this.normalizeFloor(z);
 	}
-	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
-	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+	for (var x = 0; x < DungeonData.MIN_COLUMNS; x++) {
+	    for (var y = 0; y < DungeonData.MIN_ROWS; y++) {
 		final var obj = this.getCell(dungeon, x, y, z, source.getLayer());
 		if (obj instanceof final AbstractButton button
 			&& source.getClass().equals(button.getButtonDoor().getClass())) {
@@ -977,8 +977,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		}
 	    }
 	}
-	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
-	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+	for (var x = 0; x < DungeonData.MIN_COLUMNS; x++) {
+	    for (var y = 0; y < DungeonData.MIN_ROWS; y++) {
 		final var obj = this.getCell(dungeon, x, y, z, source.getLayer());
 		if (obj instanceof final AbstractButtonDoor door && source.getClass().equals(door.getClass())) {
 		    this.setCell(dungeon, new Ground(), x, y, z, source.getLayer());
@@ -988,15 +988,15 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void fullScanButtonCleanup(final AbstractDungeon dungeon, final int px, final int py, final int zIn,
+    public void fullScanButtonCleanup(final Dungeon dungeon, final int px, final int py, final int zIn,
 	    final AbstractButton button) {
 	// Perform the scan
 	var zFix = zIn;
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    zFix = this.normalizeFloor(zFix);
 	}
-	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
-	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+	for (var x = 0; x < DungeonData.MIN_COLUMNS; x++) {
+	    for (var y = 0; y < DungeonData.MIN_ROWS; y++) {
 		if (x == px && y == py) {
 		    continue;
 		}
@@ -1009,15 +1009,15 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void fullScanFindButtonLostDoor(final AbstractDungeon dungeon, final int zIn,
+    public void fullScanFindButtonLostDoor(final Dungeon dungeon, final int zIn,
 	    final AbstractButtonDoor door) {
 	// Perform the scan
 	var zFix = zIn;
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    zFix = this.normalizeFloor(zFix);
 	}
-	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
-	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+	for (var x = 0; x < DungeonData.MIN_COLUMNS; x++) {
+	    for (var y = 0; y < DungeonData.MIN_ROWS; y++) {
 		final var obj = this.getCell(dungeon, x, y, zFix, door.getLayer());
 		if (obj instanceof final AbstractButton button && button.boundToSameButtonDoor(door)) {
 		    button.setTriggered(true);
@@ -1028,10 +1028,10 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void fullScanFreezeGround(final AbstractDungeon dungeon) {
+    public void fullScanFreezeGround(final Dungeon dungeon) {
 	// Perform the scan
-	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
-	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+	for (var x = 0; x < DungeonData.MIN_COLUMNS; x++) {
+	    for (var y = 0; y < DungeonData.MIN_ROWS; y++) {
 		for (var z = 0; z < this.getFloors(); z++) {
 		    final var obj = this.getCell(dungeon, y, x, z, DungeonConstants.LAYER_LOWER_GROUND);
 		    if (!(obj instanceof Ground)) {
@@ -1046,10 +1046,10 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void fullScanKillPlayers(final AbstractDungeon dungeon) {
+    public void fullScanKillPlayers(final Dungeon dungeon) {
 	// Perform the scan
-	for (var x = 0; x < AbstractDungeonData.MIN_COLUMNS; x++) {
-	    for (var y = 0; y < AbstractDungeonData.MIN_ROWS; y++) {
+	for (var x = 0; x < DungeonData.MIN_COLUMNS; x++) {
+	    for (var y = 0; y < DungeonData.MIN_ROWS; y++) {
 		for (var z = 0; z < this.getFloors(); z++) {
 		    final var obj = this.getCell(dungeon, y, x, z, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    if (obj instanceof ArrowTurret) {
@@ -1063,7 +1063,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	}
     }
 
-    private void generateOneMonster(final AbstractDungeon dungeon) {
+    private void generateOneMonster(final Dungeon dungeon) {
 	final var row = new RandomRange(0, this.getRows() - 1);
 	final var column = new RandomRange(0, this.getColumns() - 1);
 	int randomRow, randomColumn;
@@ -1087,7 +1087,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public AbstractDungeonObject getCell(final AbstractDungeon dungeon, final int row, final int col, final int floor,
+    public AbstractDungeonObject getCell(final Dungeon dungeon, final int row, final int col, final int floor,
 	    final int layer) {
 	var fR = row;
 	var fC = col;
@@ -1120,7 +1120,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public AbstractDungeonObject getVirtualCell(final AbstractDungeon dungeon, final int row, final int col,
+    public AbstractDungeonObject getVirtualCell(final Dungeon dungeon, final int row, final int col,
 	    final int floor, final int layer) {
 	var fR = row;
 	var fC = col;
@@ -1143,7 +1143,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public boolean isCellDirty(final AbstractDungeon dungeon, final int row, final int col, final int floor) {
+    public boolean isCellDirty(final Dungeon dungeon, final int row, final int col, final int floor) {
 	var fR = row;
 	var fC = col;
 	var fF = floor;
@@ -1160,7 +1160,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public boolean isSquareVisible(final AbstractDungeon dungeon, final int x1, final int y1, final int x2,
+    public boolean isSquareVisible(final Dungeon dungeon, final int x1, final int y1, final int x2,
 	    final int y2, final int zp) {
 	if (this.visionMode == VisionModes.NONE) {
 	    return true;
@@ -1187,7 +1187,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	return result;
     }
 
-    private boolean isSquareVisibleExplore(final AbstractDungeon dungeon, final int x2, final int y2) {
+    private boolean isSquareVisibleExplore(final Dungeon dungeon, final int x2, final int y2) {
 	int fx2, fy2;
 	if (dungeon.isHorizontalWraparoundEnabled()) {
 	    fx2 = this.normalizeColumn(x2);
@@ -1206,7 +1206,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	}
     }
 
-    private boolean isSquareVisibleLOS(final AbstractDungeon dungeon, final int x1, final int y1, final int x2,
+    private boolean isSquareVisibleLOS(final Dungeon dungeon, final int x1, final int y1, final int x2,
 	    final int y2, final int zp) {
 	int fx1, fx2, fy1, fy2;
 	fx1 = x1;
@@ -1258,7 +1258,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public boolean linearScan(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
+    public boolean linearScan(final Dungeon dungeon, final int xIn, final int yIn, final int zIn,
 	    final Direction d) {
 	// Perform the scan
 	var xFix = xIn;
@@ -1385,7 +1385,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public int linearScanMagnetic(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
+    public int linearScanMagnetic(final Dungeon dungeon, final int xIn, final int yIn, final int zIn,
 	    final Direction d) {
 	// Perform the scan
 	var xFix = xIn;
@@ -1472,7 +1472,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void markAsDirty(final AbstractDungeon dungeon, final int row, final int col, final int floor) {
+    public void markAsDirty(final Dungeon dungeon, final int row, final int col, final int floor) {
 	var fR = row;
 	var fC = col;
 	var fF = floor;
@@ -1489,7 +1489,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void postBattle(final AbstractDungeon dungeon, final AbstractMovingObject m, final int xLoc, final int yLoc,
+    public void postBattle(final Dungeon dungeon, final AbstractMovingObject m, final int xLoc, final int yLoc,
 	    final boolean player) {
 	final var saved = m.getSavedObject();
 	if (!player) {
@@ -1499,7 +1499,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public AbstractDungeonData readData(final AbstractDungeon dungeon, final DataIOReader reader,
+    public DungeonData readData(final Dungeon dungeon, final DataIOReader reader,
 	    final int formatVersion) throws IOException {
 	if (FileFormats.isFormatVersionValidGeneration1(formatVersion)) {
 	    return CurrentDungeonData.readDataG1(dungeon, reader, formatVersion);
@@ -1554,7 +1554,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		}
 	    }
 	}
-	if (saveSizeX != AbstractDungeonData.MIN_COLUMNS || saveSizeY != AbstractDungeonData.MIN_ROWS) {
+	if (saveSizeX != DungeonData.MIN_COLUMNS || saveSizeY != DungeonData.MIN_ROWS) {
 	    this.resizeSavedState(saveSizeZ, new Ground());
 	}
     }
@@ -1573,7 +1573,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		}
 	    }
 	}
-	if (saveSizeX != AbstractDungeonData.MIN_COLUMNS || saveSizeY != AbstractDungeonData.MIN_ROWS) {
+	if (saveSizeX != DungeonData.MIN_COLUMNS || saveSizeY != DungeonData.MIN_ROWS) {
 	    this.resizeSavedState(saveSizeZ, new Ground());
 	}
     }
@@ -1592,7 +1592,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		}
 	    }
 	}
-	if (saveSizeX != AbstractDungeonData.MIN_COLUMNS || saveSizeY != AbstractDungeonData.MIN_ROWS) {
+	if (saveSizeX != DungeonData.MIN_COLUMNS || saveSizeY != DungeonData.MIN_ROWS) {
 	    this.resizeSavedState(saveSizeZ, new Ground());
 	}
     }
@@ -1613,7 +1613,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		}
 	    }
 	}
-	if (saveSizeX != AbstractDungeonData.MIN_COLUMNS || saveSizeY != AbstractDungeonData.MIN_ROWS) {
+	if (saveSizeX != DungeonData.MIN_COLUMNS || saveSizeY != DungeonData.MIN_ROWS) {
 	    this.resizeSavedState(saveSizeZ, new Ground());
 	}
     }
@@ -1634,13 +1634,13 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 		}
 	    }
 	}
-	if (saveSizeX != AbstractDungeonData.MIN_COLUMNS || saveSizeY != AbstractDungeonData.MIN_ROWS) {
+	if (saveSizeX != DungeonData.MIN_COLUMNS || saveSizeY != DungeonData.MIN_ROWS) {
 	    this.resizeSavedState(saveSizeZ, new Ground());
 	}
     }
 
     @Override
-    public void redo(final AbstractDungeon dungeon) {
+    public void redo(final Dungeon dungeon) {
 	this.iue.redo();
 	this.data = this.iue.getImage();
 	this.setAllDirtyFlags();
@@ -1662,9 +1662,9 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void resize(final AbstractDungeon dungeon, final int zIn, final AbstractDungeonObject nullFill) {
-	final var x = AbstractDungeonData.MIN_ROWS;
-	final var y = AbstractDungeonData.MIN_COLUMNS;
+    public void resize(final Dungeon dungeon, final int zIn, final AbstractDungeonObject nullFill) {
+	final var x = DungeonData.MIN_ROWS;
+	final var y = DungeonData.MIN_COLUMNS;
 	var z = zIn;
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    z = this.normalizeFloor(z);
@@ -1698,8 +1698,8 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 
     @Override
     public void resizeSavedState(final int z, final AbstractDungeonObject nullFill) {
-	final var x = AbstractDungeonData.MIN_ROWS;
-	final var y = AbstractDungeonData.MIN_COLUMNS;
+	final var x = DungeonData.MIN_ROWS;
+	final var y = DungeonData.MIN_COLUMNS;
 	// Allocate temporary storage array
 	final var tempStorage = new DungeonDataStorage(y, x, z, DungeonConstants.NUM_LAYERS);
 	// Copy existing maze into temporary array
@@ -1724,7 +1724,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void restore(final AbstractDungeon dungeon) {
+    public void restore(final Dungeon dungeon) {
 	int y, x, z, w;
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
@@ -1739,7 +1739,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void save(final AbstractDungeon dungeon) {
+    public void save(final Dungeon dungeon) {
 	int y, x, z, w;
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
@@ -1760,7 +1760,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void setCell(final AbstractDungeon dungeon, final AbstractDungeonObject mo, final int row, final int col,
+    public void setCell(final Dungeon dungeon, final AbstractDungeonObject mo, final int row, final int col,
 	    final int floor, final int layer) {
 	var fR = row;
 	var fC = col;
@@ -1788,7 +1788,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void setVirtualCell(final AbstractDungeon dungeon, final AbstractDungeonObject mo, final int row,
+    public void setVirtualCell(final Dungeon dungeon, final AbstractDungeonObject mo, final int row,
 	    final int col, final int floor, final int layer) {
 	var fR = row;
 	var fC = col;
@@ -1807,7 +1807,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void tickTimers(final AbstractDungeon dungeon) {
+    public void tickTimers(final Dungeon dungeon) {
 	// Tick all object timers
 	int y, x, z, w;
 	for (x = 0; x < this.getColumns(); x++) {
@@ -1825,7 +1825,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void tickTimers(final AbstractDungeon dungeon, final int floor, final int actionType) {
+    public void tickTimers(final Dungeon dungeon, final int floor, final int actionType) {
 	var floorFix = floor;
 	if (dungeon.isThirdDimensionWraparoundEnabled()) {
 	    floorFix = this.normalizeFloor(floorFix);
@@ -1872,7 +1872,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void undo(final AbstractDungeon dungeon) {
+    public void undo(final Dungeon dungeon) {
 	this.iue.undo();
 	this.data = this.iue.getImage();
 	this.setAllDirtyFlags();
@@ -1880,7 +1880,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void updateMonsterPosition(final AbstractDungeon dungeon, final Direction move, final int xLoc,
+    public void updateMonsterPosition(final Dungeon dungeon, final Direction move, final int xLoc,
 	    final int yLoc, final AbstractMovingObject monster, final int pi) {
 	final var app = DungeonDiver7.getStuffBag();
 	final var dirMove = DirectionResolver.unresolve(move);
@@ -1892,7 +1892,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
 	    final var ground = this.getCell(dungeon, xLoc + dirMove[0], yLoc + dirMove[1], 0,
 		    DungeonConstants.LAYER_LOWER_GROUND);
 	    if (!there.isSolid() && !(there instanceof AbstractMovingObject)) {
-		if (AbstractDungeon.radialScan(xLoc, yLoc, 0, pLocX, pLocY)) {
+		if (Dungeon.radialScan(xLoc, yLoc, 0, pLocX, pLocY)) {
 		    if (app.getMode() != StuffBag.STATUS_BATTLE) {
 			app.getGameLogic().stopMovement();
 			if (monster instanceof FinalBossMonsterTile) {
@@ -1932,7 +1932,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void updateVisibleSquares(final AbstractDungeon dungeon, final int xp, final int yp, final int zp) {
+    public void updateVisibleSquares(final Dungeon dungeon, final int xp, final int yp, final int zp) {
 	if ((this.visionMode | VisionModes.EXPLORE) == this.visionMode) {
 	    for (var x = xp - this.visionModeExploreRadius; x <= xp + this.visionModeExploreRadius; x++) {
 		for (var y = yp - this.visionModeExploreRadius; y <= yp + this.visionModeExploreRadius; y++) {
@@ -1976,7 +1976,7 @@ public final class CurrentDungeonData extends AbstractDungeonData {
     }
 
     @Override
-    public void writeData(final AbstractDungeon dungeon, final DataIOWriter writer) throws IOException {
+    public void writeData(final Dungeon dungeon, final DataIOWriter writer) throws IOException {
 	int y, x, z, w;
 	writer.writeInt(this.getColumns());
 	writer.writeInt(this.getRows());

@@ -5,16 +5,16 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.utility;
 
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 
 public interface RandomGenerationRule {
     int NO_LIMIT = 0;
 
-    int getMaximumRequiredQuantity(AbstractDungeon dungeon);
+    int getMaximumRequiredQuantity(Dungeon dungeon);
 
-    int getMinimumRequiredQuantity(AbstractDungeon dungeon);
+    int getMinimumRequiredQuantity(Dungeon dungeon);
 
-    boolean isRequired(AbstractDungeon dungeon);
+    boolean isRequired(Dungeon dungeon);
 
-    boolean shouldGenerateObject(AbstractDungeon dungeon, int row, int col, int level, int layer);
+    boolean shouldGenerateObject(Dungeon dungeon, int row, int col, int level, int layer);
 }

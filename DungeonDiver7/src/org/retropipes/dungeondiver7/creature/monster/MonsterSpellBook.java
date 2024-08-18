@@ -12,9 +12,9 @@ import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.spell.Spell;
 import org.retropipes.dungeondiver7.spell.SpellBook;
 
-class SystemMonsterSpellBook extends SpellBook {
+class MonsterSpellBook extends SpellBook {
     // Constructor
-    public SystemMonsterSpellBook() {
+    public MonsterSpellBook() {
 	super(6, false);
 	this.setName("System Monster Spell Book");
     }

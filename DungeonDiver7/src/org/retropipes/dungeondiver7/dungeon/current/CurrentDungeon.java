@@ -19,8 +19,8 @@ import org.retropipes.diane.fileio.DataMode;
 import org.retropipes.diane.fileio.utility.FileUtilities;
 import org.retropipes.diane.random.RandomLongRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeonData;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
+import org.retropipes.dungeondiver7.dungeon.DungeonData;
 import org.retropipes.dungeondiver7.dungeon.HistoryStatus;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButton;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButtonDoor;
@@ -41,7 +41,7 @@ import org.retropipes.dungeondiver7.utility.DirectionRotator;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.FileFormats;
 
-public class CurrentDungeon extends AbstractDungeon {
+public class CurrentDungeon extends Dungeon {
     // Properties
     private CurrentDungeonData dungeonData;
     private CurrentDungeonData clipboard;
@@ -85,7 +85,7 @@ public class CurrentDungeon extends AbstractDungeon {
 
     @Override
     public boolean addFixedSizeLevel(final int rows, final int cols, final int floors) {
-	if (this.levelCount >= AbstractDungeon.MAX_LEVELS) {
+	if (this.levelCount >= Dungeon.MAX_LEVELS) {
 	    return false;
 	}
 	if (this.dungeonData != null) {
@@ -100,7 +100,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	// Add all eras for the new level
 	final var saveEra = this.activeEra;
 	this.dungeonData = new CurrentDungeonData(rows, cols, floors);
-	for (var e = 0; e < AbstractDungeon.ERA_COUNT; e++) {
+	for (var e = 0; e < Dungeon.ERA_COUNT; e++) {
 	    this.switchEra(e);
 	    this.dungeonData = new CurrentDungeonData();
 	}
@@ -115,7 +115,7 @@ public class CurrentDungeon extends AbstractDungeon {
 
     @Override
     public boolean addLevel() {
-	if (this.levelCount >= AbstractDungeon.MAX_LEVELS) {
+	if (this.levelCount >= Dungeon.MAX_LEVELS) {
 	    return false;
 	}
 	if (this.dungeonData != null) {
@@ -130,7 +130,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	// Add all eras for the new level
 	final var saveEra = this.activeEra;
 	this.dungeonData = new CurrentDungeonData();
-	for (var e = 0; e < AbstractDungeon.ERA_COUNT; e++) {
+	for (var e = 0; e < Dungeon.ERA_COUNT; e++) {
 	    this.switchEra(e);
 	    this.dungeonData = new CurrentDungeonData();
 	}
@@ -529,7 +529,7 @@ public class CurrentDungeon extends AbstractDungeon {
 
     @Override
     public boolean insertLevelFromClipboard() {
-	if (this.levelCount < AbstractDungeon.MAX_LEVELS) {
+	if (this.levelCount < Dungeon.MAX_LEVELS) {
 	    this.dungeonData = this.clipboard.clone();
 	    this.levelCount++;
 	    return true;
@@ -745,7 +745,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
 	this.dungeonData = null;
 	// Delete all files corresponding to current level
-	for (var e = 0; e < AbstractDungeon.ERA_COUNT; e++) {
+	for (var e = 0; e < Dungeon.ERA_COUNT; e++) {
 	    final var res = this.getLevelFile(this.activeLevel, e).delete();
 	    if (!res) {
 		return false;
@@ -753,7 +753,7 @@ public class CurrentDungeon extends AbstractDungeon {
 	}
 	// Shift all higher-numbered levels down
 	for (var x = this.activeLevel; x < this.levelCount - 1; x++) {
-	    for (var e = 0; e < AbstractDungeon.ERA_COUNT; e++) {
+	    for (var e = 0; e < Dungeon.ERA_COUNT; e++) {
 		final var sourceLocation = this.getLevelFile(x + 1, e);
 		final var targetLocation = this.getLevelFile(x, e);
 		try {
@@ -817,7 +817,7 @@ public class CurrentDungeon extends AbstractDungeon {
     }
 
     @Override
-    public void setData(final AbstractDungeonData newData, final int count) {
+    public void setData(final DungeonData newData, final int count) {
 	if (newData instanceof CurrentDungeonData) {
 	    this.dungeonData = (CurrentDungeonData) newData;
 	    this.levelCount = count;

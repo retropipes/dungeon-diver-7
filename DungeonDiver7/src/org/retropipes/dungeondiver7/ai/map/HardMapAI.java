@@ -3,24 +3,24 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.ai;
+package org.retropipes.dungeondiver7.ai.map;
 
 import org.retropipes.diane.random.RandomRange;
 
-class EasyMapAIRoutine extends AbstractMapAIRoutine {
-    private static final int CAST_SPELL_CHANCE = 10;
-    private static final int STEAL_CHANCE = 2;
-    private static final int DRAIN_CHANCE = 10;
-    private static final int HEAL_THRESHOLD = 10;
-    private static final int MAX_VISION = 3;
-    private static final int FLEE_CHANCE = 20;
+class HardMapAI extends MapAI {
+    private static final int CAST_SPELL_CHANCE = 40;
+    private static final int STEAL_CHANCE = 8;
+    private static final int DRAIN_CHANCE = 40;
+    private static final int HEAL_THRESHOLD = 40;
+    private static final int MAX_VISION = 7;
+    private static final int FLEE_CHANCE = 5;
     // Fields
     private final RandomRange randMove;
     private int failedMoveAttempts;
     private int[] roundsRemaining;
 
     // Constructor
-    public EasyMapAIRoutine() {
+    public HardMapAI() {
 	this.randMove = new RandomRange(-1, 1);
 	this.failedMoveAttempts = 0;
     }
@@ -32,27 +32,27 @@ class EasyMapAIRoutine extends AbstractMapAIRoutine {
 	}
 	if (this.spellCheck(ac)) {
 	    // Cast a spell
-	    return AbstractMapAIRoutine.ACTION_CAST_SPELL;
+	    return MapAI.ACTION_CAST_SPELL;
 	}
 	var there = ac.isEnemyNearby();
 	if (there != null) {
-	    if (CommonMapAIRoutines.check(ac, EasyMapAIRoutine.STEAL_CHANCE)) {
+	    if (CommonMapAIParts.check(ac, HardMapAI.STEAL_CHANCE)) {
 		// Steal
-		return AbstractMapAIRoutine.ACTION_STEAL;
+		return MapAI.ACTION_STEAL;
 	    }
-	    if (CommonMapAIRoutines.check(ac, EasyMapAIRoutine.DRAIN_CHANCE)) {
+	    if (CommonMapAIParts.check(ac, HardMapAI.DRAIN_CHANCE)) {
 		// Drain MP
-		return AbstractMapAIRoutine.ACTION_DRAIN;
+		return MapAI.ACTION_DRAIN;
 	    }
 	    if (ac.getCharacter().getAttacksLeft() > 0) {
 		this.moveX = there.x;
 		this.moveY = there.y;
-		return AbstractMapAIRoutine.ACTION_MOVE;
+		return MapAI.ACTION_MOVE;
 	    }
 	    this.failedMoveAttempts = 0;
-	    return AbstractMapAIRoutine.ACTION_END_TURN;
+	    return MapAI.ACTION_END_TURN;
 	}
-	if (CommonMapAIRoutines.check(ac, EasyMapAIRoutine.FLEE_CHANCE)) {
+	if (CommonMapAIParts.check(ac, HardMapAI.FLEE_CHANCE)) {
 	    // Flee
 	    final var awayDir = ac.runAway();
 	    if (awayDir == null) {
@@ -68,27 +68,27 @@ class EasyMapAIRoutine extends AbstractMapAIRoutine {
 		this.moveX = awayDir.x;
 		this.moveY = awayDir.y;
 	    }
-	    return AbstractMapAIRoutine.ACTION_MOVE;
+	    return MapAI.ACTION_MOVE;
 	}
 	// Look further
-	for (var x = CommonMapAIRoutines.MIN_VISION + 1; x <= EasyMapAIRoutine.MAX_VISION; x++) {
+	for (var x = CommonMapAIParts.MIN_VISION + 1; x <= HardMapAI.MAX_VISION; x++) {
 	    there = ac.isEnemyNearby(x, x);
 	    if (there != null) {
 		// Found something hostile, move towards it
 		if (!this.lastResult) {
 		    this.failedMoveAttempts++;
-		    if (this.failedMoveAttempts >= CommonMapAIRoutines.STUCK_THRESHOLD) {
+		    if (this.failedMoveAttempts >= CommonMapAIParts.STUCK_THRESHOLD) {
 			// We're stuck!
 			this.failedMoveAttempts = 0;
-			return AbstractMapAIRoutine.ACTION_END_TURN;
+			return MapAI.ACTION_END_TURN;
 		    }
 		    // Last move failed, try to move around object
 		    final var randTurn = new RandomRange(0, 1);
 		    final var rt = randTurn.generate();
 		    if (rt == 0) {
-			there = CommonMapAIRoutines.turnRight45(this.moveX, this.moveY);
+			there = CommonMapAIParts.turnRight45(this.moveX, this.moveY);
 		    } else {
-			there = CommonMapAIRoutines.turnLeft45(this.moveX, this.moveY);
+			there = CommonMapAIParts.turnLeft45(this.moveX, this.moveY);
 		    }
 		    this.moveX = there.x;
 		    this.moveY = there.y;
@@ -101,7 +101,7 @@ class EasyMapAIRoutine extends AbstractMapAIRoutine {
 	}
 	if (ac.getCharacter().getActionsLeft() <= 0) {
 	    this.failedMoveAttempts = 0;
-	    return AbstractMapAIRoutine.ACTION_END_TURN;
+	    return MapAI.ACTION_END_TURN;
 	}
 	if (there == null) {
 	    // Wander randomly
@@ -113,7 +113,7 @@ class EasyMapAIRoutine extends AbstractMapAIRoutine {
 		this.moveY = this.randMove.generate();
 	    }
 	}
-	return AbstractMapAIRoutine.ACTION_MOVE;
+	return MapAI.ACTION_MOVE;
     }
 
     @Override
@@ -131,11 +131,11 @@ class EasyMapAIRoutine extends AbstractMapAIRoutine {
     private boolean spellCheck(final MapAIContext ac) {
 	final var random = new RandomRange(1, 100);
 	final var chance = random.generate();
-	if (chance > EasyMapAIRoutine.CAST_SPELL_CHANCE) {
+	if (chance > HardMapAI.CAST_SPELL_CHANCE) {
 	    // Not casting a spell
 	    return false;
 	}
-	final var maxIndex = CommonMapAIRoutines.getMaxCastIndex(ac);
+	final var maxIndex = CommonMapAIParts.getMaxCastIndex(ac);
 	if (maxIndex <= -1 || ac.getCharacter().getSpellsLeft() <= 0) {
 	    // Can't cast any more spells
 	    return false;
@@ -144,9 +144,9 @@ class EasyMapAIRoutine extends AbstractMapAIRoutine {
 	final var randomSpell = new RandomRange(0, maxIndex);
 	final var randomSpellID = randomSpell.generate();
 	// Healing spell was selected - is healing needed?
-	if (randomSpellID == CommonMapAIRoutines.SPELL_INDEX_HEAL
+	if (randomSpellID == CommonMapAIParts.SPELL_INDEX_HEAL
 		&& ac.getCharacter().getTemplate().getCurrentHP() > ac.getCharacter().getTemplate().getMaximumHP()
-			* EasyMapAIRoutine.HEAL_THRESHOLD / 100) {
+			* HardMapAI.HEAL_THRESHOLD / 100) {
 	    // Do not need healing
 	    return false;
 	}

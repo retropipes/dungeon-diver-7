@@ -3,10 +3,10 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.battle;
+package org.retropipes.dungeondiver7.battle.map;
 
-import org.retropipes.dungeondiver7.ai.MapAIContext;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.ai.map.MapAIContext;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 
 public class MapBattleDefinitions {
@@ -15,7 +15,7 @@ public class MapBattleDefinitions {
     private BattleCharacter activeCharacter;
     private final BattleCharacter[] battlers;
     private final MapAIContext[] aiContexts;
-    private AbstractDungeon battleMap;
+    private Dungeon battleMap;
     private int battlerCount;
 
     // Constructors
@@ -64,7 +64,7 @@ public class MapBattleDefinitions {
 	return this.activeCharacter;
     }
 
-    public AbstractDungeon getBattleDungeon() {
+    public Dungeon getBattleDungeon() {
 	return this.battleMap;
     }
 
@@ -102,7 +102,7 @@ public class MapBattleDefinitions {
 	this.activeCharacter = bc;
     }
 
-    public void setBattleDungeon(final AbstractDungeon bMap) {
+    public void setBattleDungeon(final Dungeon bMap) {
 	this.battleMap = bMap;
     }
 }

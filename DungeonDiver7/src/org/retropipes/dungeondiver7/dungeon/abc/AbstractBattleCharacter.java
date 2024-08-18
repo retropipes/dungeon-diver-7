@@ -10,21 +10,21 @@ import java.util.Objects;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
-import org.retropipes.dungeondiver7.creature.AbstractCreature;
+import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.StatConstants;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 public abstract class AbstractBattleCharacter extends AbstractDungeonObject {
     // Fields
-    private final AbstractCreature template;
+    private final Creature template;
     private int actionCounter;
     private int attackCounter;
     private int spellCounter;
     private boolean isActive;
 
     // Constructors
-    protected AbstractBattleCharacter(final AbstractCreature newTemplate) {
+    protected AbstractBattleCharacter(final Creature newTemplate) {
 	super(true, false);
 	this.template = newTemplate;
 	this.actionCounter = newTemplate.getMapBattleActionsPerRound();
@@ -126,7 +126,7 @@ public abstract class AbstractBattleCharacter extends AbstractDungeonObject {
 	return "Team: Enemies " + this.getTemplate().getTeamID();
     }
 
-    public final AbstractCreature getTemplate() {
+    public final Creature getTemplate() {
 	return this.template;
     }
 

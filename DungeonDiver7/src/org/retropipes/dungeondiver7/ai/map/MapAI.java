@@ -3,13 +3,13 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.ai;
+package org.retropipes.dungeondiver7.ai.map;
 
 import java.util.Objects;
 
 import org.retropipes.dungeondiver7.spell.Spell;
 
-public abstract class AbstractMapAIRoutine {
+public abstract class MapAI {
     public static final int ACTION_MOVE = 0;
     public static final int ACTION_CAST_SPELL = 1;
     public static final int ACTION_STEAL = 2;
@@ -22,7 +22,7 @@ public abstract class AbstractMapAIRoutine {
     protected boolean lastResult;
 
     // Constructor
-    protected AbstractMapAIRoutine() {
+    protected MapAI() {
 	this.spell = null;
 	this.moveX = 0;
 	this.moveY = 0;
@@ -34,7 +34,7 @@ public abstract class AbstractMapAIRoutine {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null || !(obj instanceof final AbstractMapAIRoutine other) || this.lastResult != other.lastResult
+	if (obj == null || !(obj instanceof final MapAI other) || this.lastResult != other.lastResult
 		|| this.moveX != other.moveX) {
 	    return false;
 	}

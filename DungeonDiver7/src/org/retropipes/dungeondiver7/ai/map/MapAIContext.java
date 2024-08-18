@@ -3,11 +3,11 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.ai;
+package org.retropipes.dungeondiver7.ai.map;
 
 import java.awt.Point;
 
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
@@ -29,7 +29,7 @@ public class MapAIContext {
     private final int[][] creatureLocations;
 
     // Constructor
-    public MapAIContext(final BattleCharacter context, final AbstractDungeon arena) {
+    public MapAIContext(final BattleCharacter context, final Dungeon arena) {
 	this.aiContext = context;
 	this.myTeam = context.getTeamID();
 	this.apCosts = new int[arena.getRows()][arena.getColumns()];
@@ -102,7 +102,7 @@ public class MapAIContext {
 	return null;
     }
 
-    public void updateContext(final AbstractDungeon arena) {
+    public void updateContext(final Dungeon arena) {
 	for (var x = 0; x < this.apCosts.length; x++) {
 	    for (var y = 0; y < this.apCosts[x].length; y++) {
 		final var obj = arena.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);

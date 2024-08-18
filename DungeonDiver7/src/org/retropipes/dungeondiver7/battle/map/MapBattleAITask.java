@@ -3,17 +3,18 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.battle;
+package org.retropipes.dungeondiver7.battle.map;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
+import org.retropipes.dungeondiver7.battle.Battle;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 
 public class MapBattleAITask extends Thread {
     // Fields
-    private final AbstractBattle b;
+    private final Battle b;
 
     // Constructors
-    public MapBattleAITask(final AbstractBattle battle) {
+    public MapBattleAITask(final Battle battle) {
 	this.setName("Map AI Runner");
 	this.b = battle;
     }

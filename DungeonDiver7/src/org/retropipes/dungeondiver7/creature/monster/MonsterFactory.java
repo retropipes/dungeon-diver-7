@@ -5,15 +5,15 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.creature.monster;
 
-import org.retropipes.dungeondiver7.creature.AbstractCreature;
+import org.retropipes.dungeondiver7.creature.Creature;
 
 public class MonsterFactory {
-    public static AbstractCreature getNewFinalBossInstance() {
+    public static Creature getNewFinalBossInstance() {
 	return new FinalBossMonster();
     }
 
-    public static AbstractCreature getNewMonsterInstance() {
-	return new Monster();
+    public static Creature getNewMonsterInstance() {
+	return new NormalMonster();
     }
 
     private MonsterFactory() {

@@ -7,15 +7,15 @@ package org.retropipes.dungeondiver7.creature.monster;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.random.RandomRange;
-import org.retropipes.dungeondiver7.ai.MapAIRoutinePicker;
-import org.retropipes.dungeondiver7.creature.AbstractCreature;
+import org.retropipes.dungeondiver7.ai.map.MapAIPicker;
+import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.loader.image.monster.MonsterImageLoader;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.spell.SpellBook;
 
-public class FinalBossMonster extends AbstractMonster {
+public class FinalBossMonster extends Monster {
     // Fields
     private static final int MINIMUM_STAT_VALUE_VERY_EASY = 50;
     private static final int MINIMUM_STAT_VALUE_EASY = 60;
@@ -68,8 +68,8 @@ public class FinalBossMonster extends AbstractMonster {
 
     // Constructors
     FinalBossMonster() {
-	this.setMapAI(MapAIRoutinePicker.getNextRoutine());
-	final SpellBook spells = new SystemMonsterSpellBook();
+	this.setMapAI(MapAIPicker.getNextRoutine());
+	final SpellBook spells = new MonsterSpellBook();
 	spells.learnAllSpells();
 	this.setSpellBook(spells);
 	this.loadCreature();
@@ -133,19 +133,19 @@ public class FinalBossMonster extends AbstractMonster {
 	final var base = this.getBaseSpeed();
 	switch (difficulty) {
 	case Prefs.DIFFICULTY_VERY_EASY:
-	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOWEST);
+	    return (int) (base * Creature.SPEED_ADJUST_SLOWEST);
 	case Prefs.DIFFICULTY_EASY:
-	    return (int) (base * AbstractCreature.SPEED_ADJUST_SLOW);
+	    return (int) (base * Creature.SPEED_ADJUST_SLOW);
 	case Prefs.DIFFICULTY_NORMAL:
-	    return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
+	    return (int) (base * Creature.SPEED_ADJUST_NORMAL);
 	case Prefs.DIFFICULTY_HARD:
-	    return (int) (base * AbstractCreature.SPEED_ADJUST_FAST);
+	    return (int) (base * Creature.SPEED_ADJUST_FAST);
 	case Prefs.DIFFICULTY_VERY_HARD:
-	    return (int) (base * AbstractCreature.SPEED_ADJUST_FASTEST);
+	    return (int) (base * Creature.SPEED_ADJUST_FASTEST);
 	default:
 	    break;
 	}
-	return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
+	return (int) (base * Creature.SPEED_ADJUST_NORMAL);
     }
 
     @Override

@@ -11,13 +11,13 @@ import java.util.Objects;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.polytable.PolyTable;
 import org.retropipes.diane.random.RandomRange;
-import org.retropipes.dungeondiver7.ai.AbstractMapAIRoutine;
+import org.retropipes.dungeondiver7.ai.map.MapAI;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.effect.Effect;
 import org.retropipes.dungeondiver7.item.ItemInventory;
 import org.retropipes.dungeondiver7.spell.SpellBook;
 
-public abstract class AbstractCreature {
+public abstract class Creature {
     private static int ACTION_CAP = 1;
     private static final int MAX_EFFECTS = 100;
     private static final int BAR_SPEED_MIN = 100;
@@ -34,7 +34,7 @@ public abstract class AbstractCreature {
 	final var avg = (rows + cols) / 2;
 	final var mult = (int) Math.sqrt(avg);
 	final double temp = avg * mult;
-	AbstractCreature.ACTION_CAP = (int) (Math.round(temp / 10.0) * 10.0);
+	Creature.ACTION_CAP = (int) (Math.round(temp / 10.0) * 10.0);
     }
 
     static int getMaximumLevel() {
@@ -47,7 +47,7 @@ public abstract class AbstractCreature {
     private long experience;
     private final Effect[] effectList;
     private SpellBook spellsKnown;
-    private AbstractMapAIRoutine mapAI;
+    private MapAI mapAI;
     private ItemInventory items;
     private PolyTable toNextLevel;
     private final int teamID;
@@ -56,7 +56,7 @@ public abstract class AbstractCreature {
     private int saveX, saveY;
 
     // Constructor
-    protected AbstractCreature(final int tid) {
+    protected Creature(final int tid) {
 	this.teamID = tid;
 	this.stats = new Statistic[StatConstants.MAX_STORED_STATS];
 	for (var x = 0; x < StatConstants.MAX_STORED_STATS; x++) {
@@ -74,7 +74,7 @@ public abstract class AbstractCreature {
 	this.stats[StatConstants.STAT_AGILITY].setMinVal(1);
 	this.stats[StatConstants.STAT_VITALITY].setValue(1);
 	this.stats[StatConstants.STAT_AGILITY].setValue(1);
-	this.effectList = new Effect[AbstractCreature.MAX_EFFECTS];
+	this.effectList = new Effect[Creature.MAX_EFFECTS];
 	this.spellsKnown = null;
 	this.items = new ItemInventory();
 	this.toNextLevel = null;
@@ -142,7 +142,7 @@ public abstract class AbstractCreature {
 	if (this == obj) {
 	    return true;
 	}
-	if (!super.equals(obj) || !(obj instanceof final AbstractCreature other)
+	if (!super.equals(obj) || !(obj instanceof final Creature other)
 		|| !Arrays.equals(this.effectList, other.effectList) || this.experience != other.experience) {
 	    return false;
 	}
@@ -177,9 +177,9 @@ public abstract class AbstractCreature {
     }
 
     public final int getActionBarSpeed() {
-	return Math.max(AbstractCreature.BAR_SPEED_MIN,
-		Math.min((AbstractCreature.BAR_SPEED_MAX - this.getBaseSpeed()) / AbstractCreature.BAR_SPEED_MIN,
-			AbstractCreature.BAR_SPEED_MAX));
+	return Math.max(Creature.BAR_SPEED_MIN,
+		Math.min((Creature.BAR_SPEED_MAX - this.getBaseSpeed()) / Creature.BAR_SPEED_MIN,
+			Creature.BAR_SPEED_MAX));
     }
 
     public final int getActiveEffectCount() {
@@ -430,19 +430,19 @@ public abstract class AbstractCreature {
 	return this.getStat(StatConstants.STAT_LUCK);
     }
 
-    public final AbstractMapAIRoutine getMapAI() {
+    public final MapAI getMapAI() {
 	return this.mapAI;
     }
 
     public int getMapBattleActionsPerRound() {
 	final var value = (int) Math.sqrt(Math.ceil(
 		this.getEffectedStat(StatConstants.STAT_SPEED) * StatConstants.FACTOR_SPEED_MAP_ACTIONS_PER_ROUND));
-	return Math.max(1, Math.min(AbstractCreature.ACTION_CAP, value));
+	return Math.max(1, Math.min(Creature.ACTION_CAP, value));
     }
 
     private long getMaximumExperience() {
 	if (this.toNextLevel != null) {
-	    return this.toNextLevel.evaluate(AbstractCreature.getMaximumLevel());
+	    return this.toNextLevel.evaluate(Creature.getMaximumLevel());
 	}
 	return Long.MAX_VALUE;
     }
@@ -488,7 +488,7 @@ public abstract class AbstractCreature {
 	    case StatConstants.STAT_HIT -> this.getHit();
 	    case StatConstants.STAT_EVADE -> this.getEvade();
 	    case StatConstants.STAT_CAPACITY -> this.getCapacity();
-	    case StatConstants.STAT_MAX_LEVEL -> AbstractCreature.getMaximumLevel();
+	    case StatConstants.STAT_MAX_LEVEL -> Creature.getMaximumLevel();
 	    default -> 0;
 	    };
 	}
@@ -522,7 +522,7 @@ public abstract class AbstractCreature {
 	if (this.toNextLevel == null) {
 	    return 0;
 	}
-	if (this.getLevel() == AbstractCreature.getMaximumLevel()) {
+	if (this.getLevel() == Creature.getMaximumLevel()) {
 	    return this.getExperience();
 	}
 	return this.toNextLevel.evaluate(this.getLevel() + 1);
@@ -535,7 +535,7 @@ public abstract class AbstractCreature {
     public int getWindowBattleActionsPerRound() {
 	final var value = (int) Math.sqrt(Math.ceil(
 		this.getEffectedStat(StatConstants.STAT_SPEED) * StatConstants.FACTOR_SPEED_WINDOW_ACTIONS_PER_ROUND));
-	return Math.max(1, Math.min(AbstractCreature.ACTION_CAP, value));
+	return Math.max(1, Math.min(Creature.ACTION_CAP, value));
     }
 
     public final int getX() {
@@ -584,13 +584,13 @@ public abstract class AbstractCreature {
 
     public final void healPercentage(final int percent) {
 	var fP = percent;
-	if (fP > AbstractCreature.FULL_HEAL_PERCENTAGE) {
-	    fP = AbstractCreature.FULL_HEAL_PERCENTAGE;
+	if (fP > Creature.FULL_HEAL_PERCENTAGE) {
+	    fP = Creature.FULL_HEAL_PERCENTAGE;
 	}
 	if (fP < 0) {
 	    fP = 0;
 	}
-	final var fPMultiplier = fP / (double) AbstractCreature.FULL_HEAL_PERCENTAGE;
+	final var fPMultiplier = fP / (double) Creature.FULL_HEAL_PERCENTAGE;
 	final var difference = this.getEffectedMaximumHP() - this.getCurrentHP();
 	var modValue = (int) (difference * fPMultiplier);
 	if (modValue <= 0) {
@@ -777,13 +777,13 @@ public abstract class AbstractCreature {
 
     public final void regeneratePercentage(final int percent) {
 	var fP = percent;
-	if (fP > AbstractCreature.FULL_HEAL_PERCENTAGE) {
-	    fP = AbstractCreature.FULL_HEAL_PERCENTAGE;
+	if (fP > Creature.FULL_HEAL_PERCENTAGE) {
+	    fP = Creature.FULL_HEAL_PERCENTAGE;
 	}
 	if (fP < 0) {
 	    fP = 0;
 	}
-	final var fPMultiplier = fP / (double) AbstractCreature.FULL_HEAL_PERCENTAGE;
+	final var fPMultiplier = fP / (double) Creature.FULL_HEAL_PERCENTAGE;
 	final var difference = this.getMaximumMP() - this.getCurrentMP();
 	var modValue = (int) (difference * fPMultiplier);
 	if (modValue <= 0) {
@@ -859,7 +859,7 @@ public abstract class AbstractCreature {
 	this.setStat(StatConstants.STAT_LUCK, value);
     }
 
-    public final void setMapAI(final AbstractMapAIRoutine newAI) {
+    public final void setMapAI(final MapAI newAI) {
 	this.mapAI = newAI;
     }
 

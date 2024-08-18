@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.battle;
+package org.retropipes.dungeondiver7.battle.map;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -25,7 +25,7 @@ import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.ai.AbstractMapAIRoutine;
+import org.retropipes.dungeondiver7.ai.map.MapAI;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Darkness;
 import org.retropipes.dungeondiver7.dungeon.objects.Wall;
@@ -54,13 +54,13 @@ class MapBattleGUI {
 		// Do Player Actions
 		if (cmd.equals("Cast Spell") || cmd.equals("c")) {
 		    // Cast Spell
-		    b.doPlayerActions(AbstractMapAIRoutine.ACTION_CAST_SPELL);
+		    b.doPlayerActions(MapAI.ACTION_CAST_SPELL);
 		} else if (cmd.equals("Steal") || cmd.equals("t")) {
 		    // Steal Money
-		    b.doPlayerActions(AbstractMapAIRoutine.ACTION_STEAL);
+		    b.doPlayerActions(MapAI.ACTION_STEAL);
 		} else if (cmd.equals("Drain") || cmd.equals("d")) {
 		    // Drain Enemy
-		    b.doPlayerActions(AbstractMapAIRoutine.ACTION_DRAIN);
+		    b.doPlayerActions(MapAI.ACTION_DRAIN);
 		} else if (cmd.equals("End Turn") || cmd.equals("e")) {
 		    // End Turn
 		    b.endTurn();

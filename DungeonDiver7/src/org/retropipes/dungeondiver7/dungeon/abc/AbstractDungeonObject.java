@@ -20,7 +20,7 @@ import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
@@ -417,7 +417,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
     }
 
     @Override
-    public int getMaximumRequiredQuantity(final AbstractDungeon dungeon) {
+    public int getMaximumRequiredQuantity(final Dungeon dungeon) {
 	return RandomGenerationRule.NO_LIMIT;
     }
 
@@ -432,7 +432,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
     }
 
     @Override
-    public int getMinimumRequiredQuantity(final AbstractDungeon dungeon) {
+    public int getMinimumRequiredQuantity(final Dungeon dungeon) {
 	return RandomGenerationRule.NO_LIMIT;
     }
 
@@ -514,7 +514,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
     }
 
     @Override
-    public boolean isRequired(final AbstractDungeon dungeon) {
+    public boolean isRequired(final Dungeon dungeon) {
 	return false;
     }
 
@@ -953,7 +953,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
     }
 
     @Override
-    public boolean shouldGenerateObject(final AbstractDungeon dungeon, final int row, final int col, final int level,
+    public boolean shouldGenerateObject(final Dungeon dungeon, final int row, final int col, final int level,
 	    final int layer) {
 	if (layer == DungeonConstants.LAYER_LOWER_OBJECTS) {
 	    // Handle object layer

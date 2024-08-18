@@ -17,7 +17,7 @@ import org.retropipes.diane.gui.MainContent;
 import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.loader.extmusic.ExternalMusicLoader;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.ErrorString;
@@ -59,7 +59,7 @@ public class DungeonLoadTask extends Thread {
 	}
 	try {
 	    final var dungeonFile = new File(this.filename);
-	    final var tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
+	    final var tempLock = new File(Dungeon.getDungeonTempFolder() + "lock.tmp");
 	    var gameDungeon = DungeonManager.createDungeon();
 	    if (this.dungeonProtected) {
 		// Attempt to unprotect the file

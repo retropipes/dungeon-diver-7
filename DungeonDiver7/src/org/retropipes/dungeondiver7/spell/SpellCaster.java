@@ -7,7 +7,7 @@ package org.retropipes.dungeondiver7.spell;
 
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.creature.AbstractCreature;
+import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 
@@ -15,7 +15,7 @@ public class SpellCaster {
     // Fields
     private static boolean NO_SPELLS_FLAG = false;
 
-    public static boolean castSpell(final Spell cast, final AbstractCreature caster) {
+    public static boolean castSpell(final Spell cast, final Creature caster) {
 	if (cast == null) {
 	    return false;
 	}
@@ -42,16 +42,16 @@ public class SpellCaster {
 	return true;
     }
 
-    private static AbstractCreature resolveTarget(final Spell cast, final int teamID) {
+    private static Creature resolveTarget(final Spell cast, final int teamID) {
 	final var target = cast.getTarget();
 	switch (target) {
 	case SELF:
-	    if (teamID == AbstractCreature.TEAM_PARTY) {
+	    if (teamID == Creature.TEAM_PARTY) {
 		return PartyManager.getParty().getLeader();
 	    }
 	    return DungeonDiver7.getStuffBag().getBattle().getEnemy();
 	case ENEMY:
-	    if (teamID == AbstractCreature.TEAM_PARTY) {
+	    if (teamID == Creature.TEAM_PARTY) {
 		return DungeonDiver7.getStuffBag().getBattle().getEnemy();
 	    }
 	    return PartyManager.getParty().getLeader();
@@ -60,7 +60,7 @@ public class SpellCaster {
 	}
     }
 
-    public static boolean selectAndCastSpell(final AbstractCreature caster) {
+    public static boolean selectAndCastSpell(final Creature caster) {
 	var result = false;
 	SpellCaster.NO_SPELLS_FLAG = false;
 	final var s = SpellCaster.selectSpell(caster);
@@ -74,7 +74,7 @@ public class SpellCaster {
 	return result;
     }
 
-    private static Spell selectSpell(final AbstractCreature caster) {
+    private static Spell selectSpell(final Creature caster) {
 	final var book = caster.getSpellBook();
 	if (book == null) {
 	    SpellCaster.NO_SPELLS_FLAG = true;

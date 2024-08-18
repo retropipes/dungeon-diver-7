@@ -14,7 +14,7 @@ import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.StuffBag;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeon;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.EditorString;
@@ -37,7 +37,7 @@ public final class DungeonManager {
     private static final String WIN_DIR = "\\Ignition Igloo Games\\Chrystalz\\Games\\";
     private static final String UNIX_DIR = "/.ignitionigloogames/chrystalz/games/";
 
-    public static AbstractDungeon createDungeon() throws IOException {
+    public static Dungeon createDungeon() throws IOException {
 	return new CurrentDungeon();
     }
 
@@ -202,7 +202,7 @@ public final class DungeonManager {
     }
 
     // Fields
-    private AbstractDungeon gameDungeon;
+    private Dungeon gameDungeon;
     private boolean loaded, isDirty;
     private String scoresFileName;
     private String lastUsedDungeonFile;
@@ -228,7 +228,7 @@ public final class DungeonManager {
 	return this.isDirty;
     }
 
-    public AbstractDungeon getDungeon() {
+    public Dungeon getDungeon() {
 	return this.gameDungeon;
     }
 
@@ -493,7 +493,7 @@ public final class DungeonManager {
 	app.getMenuManager().checkFlags();
     }
 
-    public void setDungeon(final AbstractDungeon newDungeon) {
+    public void setDungeon(final Dungeon newDungeon) {
 	this.gameDungeon = newDungeon;
     }
 

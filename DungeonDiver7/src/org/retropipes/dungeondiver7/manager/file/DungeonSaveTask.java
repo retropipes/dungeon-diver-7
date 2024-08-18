@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import org.retropipes.diane.fileio.utility.ZipUtilities;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
@@ -57,7 +57,7 @@ public class DungeonSaveTask extends Thread {
 	    }
 	}
 	final var dungeonFile = new File(this.filename);
-	final var tempLock = new File(AbstractDungeon.getDungeonTempFolder() + "lock.tmp");
+	final var tempLock = new File(Dungeon.getDungeonTempFolder() + "lock.tmp");
 	try {
 	    // Set prefix handler
 	    app.getDungeonManager().getDungeon().setPrefixHandler(new DungeonFilePrefixHandler());

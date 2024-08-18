@@ -39,7 +39,7 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.creature.characterfiles.CharacterRegistration;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.dungeon.AbstractDungeon;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.current.GenerateDungeonTask;
 import org.retropipes.dungeondiver7.dungeon.objects.Darkness;
@@ -1244,7 +1244,7 @@ class GameGUI {
 	    MusicLoader.stopMusic();
 	}
 	final var zoneID = PartyManager.getParty().getZone();
-	if (zoneID == AbstractDungeon.getMaxLevels() - 1) {
+	if (zoneID == Dungeon.getMaxLevels() - 1) {
 	    MusicLoader.playMusic(Music.LAIR);
 	} else {
 	    MusicLoader.playMusic(Music.DUNGEON);

@@ -5,11 +5,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.battle;
 
-import org.retropipes.dungeondiver7.creature.AbstractCreature;
+import org.retropipes.dungeondiver7.creature.Creature;
 
-public abstract class AbstractBattle {
+public abstract class Battle {
     // Constructors
-    protected AbstractBattle() {
+    protected Battle() {
 	// Do nothing
     }
 
@@ -37,7 +37,7 @@ public abstract class AbstractBattle {
 
     public abstract void executeNextAIAction();
 
-    public abstract AbstractCreature getEnemy();
+    public abstract Creature getEnemy();
 
     public abstract boolean getLastAIActionResult();
 

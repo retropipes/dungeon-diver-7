@@ -12,7 +12,7 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTunnel;
 
-public abstract class AbstractDungeonData implements Cloneable {
+public abstract class DungeonData implements Cloneable {
     // Constants
     protected final static int MIN_FLOORS = 1;
     protected final static int MAX_FLOORS = 9;
@@ -20,38 +20,38 @@ public abstract class AbstractDungeonData implements Cloneable {
     protected final static int MIN_ROWS = 24;
 
     public static int getMaxFloors() {
-	return AbstractDungeonData.MAX_FLOORS;
+	return DungeonData.MAX_FLOORS;
     }
 
     public static int getMinColumns() {
-	return AbstractDungeonData.MIN_COLUMNS;
+	return DungeonData.MIN_COLUMNS;
     }
 
     public static int getMinFloors() {
-	return AbstractDungeonData.MIN_FLOORS;
+	return DungeonData.MIN_FLOORS;
     }
 
     // Static methods
     public static int getMinRows() {
-	return AbstractDungeonData.MIN_ROWS;
+	return DungeonData.MIN_ROWS;
     }
 
-    public abstract void checkForEnemies(final AbstractDungeon dungeon, final int floorIn, final int enemyLocXIn,
+    public abstract void checkForEnemies(final Dungeon dungeon, final int floorIn, final int enemyLocXIn,
 	    final int enemyLocYIn, final AbstractCharacter enemy);
 
-    public abstract int checkForMagnetic(final AbstractDungeon dungeon, final int floor, final int centerX,
+    public abstract int checkForMagnetic(final Dungeon dungeon, final int floor, final int centerX,
 	    final int centerY, final Direction dir);
 
-    public abstract int[] circularScan(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
+    public abstract int[] circularScan(final Dungeon dungeon, final int xIn, final int yIn, final int zIn,
 	    final int r, final String targetName, boolean moved);
 
-    public abstract boolean circularScanPlayer(final AbstractDungeon dungeon, final int x, final int y, final int z,
+    public abstract boolean circularScanPlayer(final Dungeon dungeon, final int x, final int y, final int z,
 	    final int r);
 
-    public abstract void circularScanRange(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
+    public abstract void circularScanRange(final Dungeon dungeon, final int xIn, final int yIn, final int zIn,
 	    final int r, final int rangeType, final int forceUnits);
 
-    public abstract int[] circularScanTunnel(final AbstractDungeon dungeon, final int x, final int y, final int z,
+    public abstract int[] circularScanTunnel(final Dungeon dungeon, final int x, final int y, final int z,
 	    final int maxR, final int tx, final int ty, final AbstractTunnel target, final boolean moved);
 
     public abstract void clearDirtyFlags(final int floor);
@@ -60,44 +60,44 @@ public abstract class AbstractDungeonData implements Cloneable {
 
     public abstract void clearUndoHistory();
 
-    public abstract void clearVirtualGrid(final AbstractDungeon dungeon);
+    public abstract void clearVirtualGrid(final Dungeon dungeon);
 
     @Override
-    public abstract AbstractDungeonData clone();
+    public abstract DungeonData clone();
 
-    public abstract void fill(final AbstractDungeon dungeon, final AbstractDungeonObject fillWith);
+    public abstract void fill(final Dungeon dungeon, final AbstractDungeonObject fillWith);
 
-    public abstract void fillNulls(final AbstractDungeon dungeon, final AbstractDungeonObject fill1,
+    public abstract void fillNulls(final Dungeon dungeon, final AbstractDungeonObject fill1,
 	    final AbstractDungeonObject fill2, final boolean was16);
 
     public abstract void fillSTSNulls(final AbstractDungeonObject fillWith);
 
     public abstract void fillVirtual();
 
-    public abstract int[] findObject(final AbstractDungeon dungeon, final int z, final String targetName);
+    public abstract int[] findObject(final Dungeon dungeon, final int z, final String targetName);
 
-    public abstract int[] findPlayer(final AbstractDungeon dungeon, final int number);
+    public abstract int[] findPlayer(final Dungeon dungeon, final int number);
 
-    public abstract void fullScanAllButtonClose(final AbstractDungeon dungeon, final int zIn,
+    public abstract void fullScanAllButtonClose(final Dungeon dungeon, final int zIn,
 	    final AbstractButton source);
 
-    public abstract void fullScanAllButtonOpen(final AbstractDungeon dungeon, final int zIn,
+    public abstract void fullScanAllButtonOpen(final Dungeon dungeon, final int zIn,
 	    final AbstractButton source);
 
-    public abstract void fullScanButtonBind(final AbstractDungeon dungeon, final int dx, final int dy, final int zIn,
+    public abstract void fullScanButtonBind(final Dungeon dungeon, final int dx, final int dy, final int zIn,
 	    final AbstractButtonDoor source);
 
-    public abstract void fullScanButtonCleanup(final AbstractDungeon dungeon, final int px, final int py, final int zIn,
+    public abstract void fullScanButtonCleanup(final Dungeon dungeon, final int px, final int py, final int zIn,
 	    final AbstractButton button);
 
-    public abstract void fullScanFindButtonLostDoor(final AbstractDungeon dungeon, final int zIn,
+    public abstract void fullScanFindButtonLostDoor(final Dungeon dungeon, final int zIn,
 	    final AbstractButtonDoor door);
 
-    public abstract void fullScanFreezeGround(final AbstractDungeon dungeon);
+    public abstract void fullScanFreezeGround(final Dungeon dungeon);
 
-    public abstract void fullScanKillPlayers(final AbstractDungeon dungeon);
+    public abstract void fullScanKillPlayers(final Dungeon dungeon);
 
-    public abstract AbstractDungeonObject getCell(final AbstractDungeon dungeon, final int row, final int col,
+    public abstract AbstractDungeonObject getCell(final Dungeon dungeon, final int row, final int col,
 	    final int floor, final int layer);
 
     public abstract int getColumns();
@@ -106,23 +106,23 @@ public abstract class AbstractDungeonData implements Cloneable {
 
     public abstract int getRows();
 
-    public abstract AbstractDungeonObject getVirtualCell(final AbstractDungeon dungeon, final int row, final int col,
+    public abstract AbstractDungeonObject getVirtualCell(final Dungeon dungeon, final int row, final int col,
 	    final int floor, final int layer);
 
     public abstract HistoryStatus getWhatWas();
 
-    public abstract boolean isCellDirty(final AbstractDungeon dungeon, final int row, final int col, final int floor);
+    public abstract boolean isCellDirty(final Dungeon dungeon, final int row, final int col, final int floor);
 
-    public abstract boolean isSquareVisible(final AbstractDungeon dungeon, final int x1, final int y1, final int x2,
+    public abstract boolean isSquareVisible(final Dungeon dungeon, final int x1, final int y1, final int x2,
 	    final int y2, final int zp);
 
-    public abstract boolean linearScan(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
+    public abstract boolean linearScan(final Dungeon dungeon, final int xIn, final int yIn, final int zIn,
 	    final Direction d);
 
-    public abstract int linearScanMagnetic(final AbstractDungeon dungeon, final int xIn, final int yIn, final int zIn,
+    public abstract int linearScanMagnetic(final Dungeon dungeon, final int xIn, final int yIn, final int zIn,
 	    final Direction d);
 
-    public abstract void markAsDirty(final AbstractDungeon dungeon, final int row, final int col, final int floor);
+    public abstract void markAsDirty(final Dungeon dungeon, final int row, final int col, final int floor);
 
     protected final int normalizeColumn(final int column) {
 	var fC = column;
@@ -172,58 +172,58 @@ public abstract class AbstractDungeonData implements Cloneable {
 	return fR;
     }
 
-    public abstract void postBattle(final AbstractDungeon dungeon, final AbstractMovingObject m, final int xLoc,
+    public abstract void postBattle(final Dungeon dungeon, final AbstractMovingObject m, final int xLoc,
 	    final int yLoc, final boolean player);
 
-    public abstract AbstractDungeonData readData(final AbstractDungeon dungeon, final DataIOReader reader,
+    public abstract DungeonData readData(final Dungeon dungeon, final DataIOReader reader,
 	    final int ver) throws IOException;
 
     public abstract void readSavedState(final DataIOReader reader, final int formatVersion) throws IOException;
 
-    public abstract void redo(final AbstractDungeon dungeon);
+    public abstract void redo(final Dungeon dungeon);
 
     public abstract void resetHistoryEngine();
 
     public abstract void resetVisibleSquares(final int floor);
 
-    public abstract void resize(final AbstractDungeon dungeon, final int zIn, final AbstractDungeonObject nullFill);
+    public abstract void resize(final Dungeon dungeon, final int zIn, final AbstractDungeonObject nullFill);
 
     public abstract void resizeSavedState(final int z, final AbstractDungeonObject nullFill);
 
-    public abstract void restore(final AbstractDungeon dungeon);
+    public abstract void restore(final Dungeon dungeon);
 
-    public abstract void save(final AbstractDungeon dungeon);
+    public abstract void save(final Dungeon dungeon);
 
     public abstract void setAllDirtyFlags();
 
-    public abstract void setCell(final AbstractDungeon dungeon, final AbstractDungeonObject mo, final int row,
+    public abstract void setCell(final Dungeon dungeon, final AbstractDungeonObject mo, final int row,
 	    final int col, final int floor, final int layer);
 
     public abstract void setDirtyFlags(final int floor);
 
-    public abstract void setVirtualCell(final AbstractDungeon dungeon, final AbstractDungeonObject mo, final int row,
+    public abstract void setVirtualCell(final Dungeon dungeon, final AbstractDungeonObject mo, final int row,
 	    final int col, final int floor, final int layer);
 
-    public abstract void tickTimers(final AbstractDungeon dungeon);
+    public abstract void tickTimers(final Dungeon dungeon);
 
-    public abstract void tickTimers(final AbstractDungeon dungeon, final int floor, final int actionType);
+    public abstract void tickTimers(final Dungeon dungeon, final int floor, final int actionType);
 
     public abstract boolean tryRedo();
 
     public abstract boolean tryUndo();
 
-    public abstract void undo(final AbstractDungeon dungeon);
+    public abstract void undo(final Dungeon dungeon);
 
-    public abstract void updateMonsterPosition(final AbstractDungeon dungeon, final Direction move, final int xLoc,
+    public abstract void updateMonsterPosition(final Dungeon dungeon, final Direction move, final int xLoc,
 	    final int yLoc, final AbstractMovingObject monster, final int pi);
 
     public abstract void updateRedoHistory(final HistoryStatus whatIs);
 
     public abstract void updateUndoHistory(final HistoryStatus whatIs);
 
-    public abstract void updateVisibleSquares(final AbstractDungeon dungeon, final int xp, final int yp, final int zp);
+    public abstract void updateVisibleSquares(final Dungeon dungeon, final int xp, final int yp, final int zp);
 
-    public abstract void writeData(final AbstractDungeon dungeon, final DataIOWriter writer) throws IOException;
+    public abstract void writeData(final Dungeon dungeon, final DataIOWriter writer) throws IOException;
 
     public abstract void writeSavedState(final DataIOWriter writer) throws IOException;
 }

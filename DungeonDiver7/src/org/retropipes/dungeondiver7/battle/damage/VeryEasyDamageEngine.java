@@ -6,10 +6,10 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.battle.damage;
 
 import org.retropipes.diane.random.RandomRange;
-import org.retropipes.dungeondiver7.creature.AbstractCreature;
+import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.StatConstants;
 
-class VeryEasyDamageEngine extends AbstractDamageEngine {
+class VeryEasyDamageEngine extends DamageEngine {
     private static final int MULTIPLIER_MIN = 9000;
     private static final int MULTIPLIER_MAX = 18000;
     private static final int MULTIPLIER_MIN_CRIT = 25000;
@@ -24,7 +24,7 @@ class VeryEasyDamageEngine extends AbstractDamageEngine {
     private boolean fumble = false;
 
     @Override
-    public int computeDamage(final AbstractCreature enemy, final AbstractCreature acting) {
+    public int computeDamage(final Creature enemy, final Creature acting) {
 	// Compute Damage
 	final var attack = acting.getEffectedAttack();
 	final var defense = enemy.getEffectedStat(StatConstants.STAT_DEFENSE);
