@@ -3,12 +3,12 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.creature;
+package org.retropipes.dungeondiver7.battle.ai;
 
 import java.util.Objects;
 
 import org.retropipes.dungeondiver7.battle.BattleAction;
-import org.retropipes.dungeondiver7.battle.ai.AIContext;
+import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.spell.Spell;
 
 public abstract class CreatureAI {

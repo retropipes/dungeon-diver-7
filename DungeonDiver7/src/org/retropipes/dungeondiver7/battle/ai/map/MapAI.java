@@ -8,8 +8,8 @@ package org.retropipes.dungeondiver7.battle.ai.map;
 import java.util.Objects;
 
 import org.retropipes.dungeondiver7.battle.BattleAction;
+import org.retropipes.dungeondiver7.battle.ai.CreatureAI;
 import org.retropipes.dungeondiver7.creature.Creature;
-import org.retropipes.dungeondiver7.creature.CreatureAI;
 import org.retropipes.dungeondiver7.creature.spell.Spell;
 
 public abstract class MapAI extends CreatureAI {
