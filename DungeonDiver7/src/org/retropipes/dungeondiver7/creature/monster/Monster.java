@@ -8,13 +8,12 @@ package org.retropipes.dungeondiver7.creature.monster;
 import java.util.Objects;
 
 import org.retropipes.diane.random.RandomRange;
-import org.retropipes.dungeondiver7.ai.map.MapAI;
-import org.retropipes.dungeondiver7.ai.map.MapAIPicker;
+import org.retropipes.dungeondiver7.battle.ai.map.MapAI;
+import org.retropipes.dungeondiver7.battle.ai.map.MapAIPicker;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.names.Monsters;
+import org.retropipes.dungeondiver7.creature.spell.SpellBook;
 import org.retropipes.dungeondiver7.prefs.Prefs;
-import org.retropipes.dungeondiver7.spell.SpellBook;
 
 public abstract class Monster extends Creature {
     protected static final double MINIMUM_EXPERIENCE_RANDOM_VARIANCE = -5.0 / 2.0;
@@ -80,6 +79,11 @@ public abstract class Monster extends Creature {
 	final var max = tough * Monster.PERFECT_GOLD_MAX;
 	final var r = new RandomRange(min, max);
 	return (int) (r.generate() * this.adjustForLevelDifference());
+    }
+    
+    @Override
+    public int getLevelDifference() {
+	return this.getLevel() - PartyManager.getParty().getLeader().getLevel();
     }
 
     public final int getMonsterID() {

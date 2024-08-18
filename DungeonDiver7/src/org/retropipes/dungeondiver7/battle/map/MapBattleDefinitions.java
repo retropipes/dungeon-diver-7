@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.battle.map;
 
-import org.retropipes.dungeondiver7.ai.AIContext;
+import org.retropipes.dungeondiver7.battle.ai.AIContext;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 

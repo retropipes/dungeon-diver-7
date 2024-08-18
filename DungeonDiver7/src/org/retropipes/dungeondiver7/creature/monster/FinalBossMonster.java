@@ -7,13 +7,13 @@ package org.retropipes.dungeondiver7.creature.monster;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.random.RandomRange;
-import org.retropipes.dungeondiver7.ai.map.MapAIPicker;
+import org.retropipes.dungeondiver7.battle.ai.map.MapAIPicker;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
+import org.retropipes.dungeondiver7.creature.spell.SpellBook;
 import org.retropipes.dungeondiver7.loader.image.monster.MonsterImageLoader;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.prefs.Prefs;
-import org.retropipes.dungeondiver7.spell.SpellBook;
 
 public class FinalBossMonster extends Monster {
     // Fields

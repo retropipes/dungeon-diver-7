@@ -6,8 +6,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.creature.job;
 
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.spell.SpellBook;
-import org.retropipes.dungeondiver7.spell.SpellBookLoader;
+import org.retropipes.dungeondiver7.creature.spell.SpellBook;
+import org.retropipes.dungeondiver7.creature.spell.SpellBookLoader;
 
 public class JobManager {
     private static boolean CACHE_CREATED = false;

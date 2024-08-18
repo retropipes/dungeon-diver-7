@@ -19,7 +19,7 @@ import javax.swing.KeyStroke;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.ai.BattleAction;
+import org.retropipes.dungeondiver7.battle.BattleAction;
 import org.retropipes.dungeondiver7.battle.BattleResult;
 import org.retropipes.dungeondiver7.loader.image.ui.UiImageId;
 import org.retropipes.dungeondiver7.loader.image.ui.UiImageLoader;

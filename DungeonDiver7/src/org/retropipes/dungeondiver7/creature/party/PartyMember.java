@@ -16,10 +16,10 @@ import org.retropipes.dungeondiver7.VersionException;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.StatConstants;
 import org.retropipes.dungeondiver7.creature.gender.Gender;
+import org.retropipes.dungeondiver7.creature.item.ItemInventory;
 import org.retropipes.dungeondiver7.creature.job.Job;
 import org.retropipes.dungeondiver7.creature.job.JobManager;
 import org.retropipes.dungeondiver7.dungeon.current.GenerateDungeonTask;
-import org.retropipes.dungeondiver7.item.ItemInventory;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.FileFormats;
 

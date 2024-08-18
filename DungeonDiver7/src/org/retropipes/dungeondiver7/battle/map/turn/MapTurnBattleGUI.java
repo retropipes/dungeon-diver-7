@@ -25,7 +25,7 @@ import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.ai.BattleAction;
+import org.retropipes.dungeondiver7.battle.BattleAction;
 import org.retropipes.dungeondiver7.battle.map.MapBattleDefinitions;
 import org.retropipes.dungeondiver7.battle.map.MapBattleDraw;
 import org.retropipes.dungeondiver7.battle.map.MapBattleEffects;

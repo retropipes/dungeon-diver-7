@@ -7,21 +7,21 @@ import java.util.TimerTask;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.StuffBag;
-import org.retropipes.dungeondiver7.ai.BattleAction;
 import org.retropipes.dungeondiver7.battle.Battle;
+import org.retropipes.dungeondiver7.battle.BattleAction;
 import org.retropipes.dungeondiver7.battle.BattleResult;
 import org.retropipes.dungeondiver7.battle.damage.DamageEngine;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.StatConstants;
+import org.retropipes.dungeondiver7.creature.effect.Effect;
 import org.retropipes.dungeondiver7.creature.monster.FinalBossMonster;
 import org.retropipes.dungeondiver7.creature.monster.Monster;
 import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.creature.party.PartyMember;
-import org.retropipes.dungeondiver7.effect.Effect;
+import org.retropipes.dungeondiver7.creature.spell.SpellCaster;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.spell.SpellCaster;
 
 public class WindowTimeBattleLogic extends Battle {
     private class EnemyTask extends TimerTask {

@@ -7,11 +7,11 @@ package org.retropipes.dungeondiver7.creature.job.predefined;
 
 import org.retropipes.dungeondiver7.battle.BattleTarget;
 import org.retropipes.dungeondiver7.creature.StatConstants;
+import org.retropipes.dungeondiver7.creature.effect.Effect;
 import org.retropipes.dungeondiver7.creature.job.JobConstants;
-import org.retropipes.dungeondiver7.effect.Effect;
+import org.retropipes.dungeondiver7.creature.spell.Spell;
+import org.retropipes.dungeondiver7.creature.spell.SpellBook;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.spell.Spell;
-import org.retropipes.dungeondiver7.spell.SpellBook;
 
 public class CurerSpellBook extends SpellBook {
     // Constructor

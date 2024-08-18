@@ -11,11 +11,10 @@ import java.util.Objects;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.polytable.PolyTable;
 import org.retropipes.diane.random.RandomRange;
-import org.retropipes.dungeondiver7.ai.CreatureAI;
-import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.effect.Effect;
-import org.retropipes.dungeondiver7.item.ItemInventory;
-import org.retropipes.dungeondiver7.spell.SpellBook;
+import org.retropipes.dungeondiver7.battle.ai.CreatureAI;
+import org.retropipes.dungeondiver7.creature.effect.Effect;
+import org.retropipes.dungeondiver7.creature.item.ItemInventory;
+import org.retropipes.dungeondiver7.creature.spell.SpellBook;
 
 public abstract class Creature {
     private static int ACTION_CAP = 1;
@@ -418,7 +417,7 @@ public abstract class Creature {
     }
 
     public int getLevelDifference() {
-	return this.getLevel() - PartyManager.getParty().getLeader().getLevel();
+	return 0;
     }
 
     public final int getLoad() {
