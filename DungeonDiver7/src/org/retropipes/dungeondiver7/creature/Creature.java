@@ -12,6 +12,7 @@ import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.polytable.PolyTable;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.ai.map.MapAI;
+import org.retropipes.dungeondiver7.ai.window.WindowAI;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.effect.Effect;
 import org.retropipes.dungeondiver7.item.ItemInventory;
@@ -48,6 +49,7 @@ public abstract class Creature {
     private final Effect[] effectList;
     private SpellBook spellsKnown;
     private MapAI mapAI;
+    private WindowAI windowAI;
     private ItemInventory items;
     private PolyTable toNextLevel;
     private final int teamID;
@@ -538,6 +540,10 @@ public abstract class Creature {
 	return Math.max(1, Math.min(Creature.ACTION_CAP, value));
     }
 
+    public final WindowAI getWindowAI() {
+	return this.windowAI;
+    }
+
     public final int getX() {
 	return this.xLoc;
     }
@@ -901,6 +907,10 @@ public abstract class Creature {
 
     public final void setVitality(final int value) {
 	this.setStat(StatConstants.STAT_VITALITY, value);
+    }
+
+    public final void setWindowAI(final WindowAI newAI) {
+	this.windowAI = newAI;
     }
 
     public final void setX(final int newX) {

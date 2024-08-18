@@ -10,7 +10,6 @@ public abstract class WindowAI {
     public static final int ACTION_CAST_SPELL = 2;
     public static final int ACTION_STEAL = 3;
     public static final int ACTION_DRAIN = 4;
-    public static final int ACTION_USE_ITEM = 5;
     // Fields
     protected Spell spell;
 
