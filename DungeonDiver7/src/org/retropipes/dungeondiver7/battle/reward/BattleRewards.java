@@ -8,8 +8,6 @@ public abstract class BattleRewards {
 	    final int bonusGold) {
 	if (bt.isFinalBossBattle()) {
 	    FinalBossBattleRewards.doRewards(br);
-	} else if (bt.isBossBattle()) {
-	    BossBattleRewards.doRewards(br);
 	} else {
 	    RegularBattleRewards.doRewards(br, bonusExp, bonusGold);
 	}

@@ -11,14 +11,9 @@ public abstract class BattleType {
 	return new FinalBossBattle();
     }
 
-    protected boolean boss = false;
     protected boolean finalBoss = false;
 
     public abstract BattleCharacter getBattlers();
-
-    public final boolean isBossBattle() {
-	return this.boss;
-    }
 
     public final boolean isFinalBossBattle() {
 	return this.finalBoss;

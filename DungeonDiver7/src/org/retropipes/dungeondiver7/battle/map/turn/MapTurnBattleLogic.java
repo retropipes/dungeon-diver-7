@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.battle.map;
+package org.retropipes.dungeondiver7.battle.map.turn;
 
 import java.io.IOException;
 
@@ -11,12 +11,14 @@ import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.StuffBag;
-import org.retropipes.dungeondiver7.ai.map.MapAI;
 import org.retropipes.dungeondiver7.ai.map.AutoMapAI;
+import org.retropipes.dungeondiver7.ai.map.MapAI;
 import org.retropipes.dungeondiver7.ai.map.MapAIContext;
 import org.retropipes.dungeondiver7.battle.Battle;
 import org.retropipes.dungeondiver7.battle.BattleResult;
 import org.retropipes.dungeondiver7.battle.damage.DamageEngine;
+import org.retropipes.dungeondiver7.battle.map.MapBattleAITask;
+import org.retropipes.dungeondiver7.battle.map.MapBattleDefinitions;
 import org.retropipes.dungeondiver7.battle.reward.BattleRewards;
 import org.retropipes.dungeondiver7.battle.types.BattleType;
 import org.retropipes.dungeondiver7.creature.Creature;
@@ -37,7 +39,7 @@ import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.spell.SpellCaster;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public class MapBattleLogic extends Battle {
+public class MapTurnBattleLogic extends Battle {
     private static final int STEAL_ACTION_POINTS = 3;
     private static final int DRAIN_ACTION_POINTS = 3;
     // Fields
@@ -57,12 +59,12 @@ public class MapBattleLogic extends Battle {
     private boolean resultDoneAlready;
     private boolean lastAIActionResult;
     private final MapBattleAITask ait;
-    private MapBattleGUI battleGUI;
+    private MapTurnBattleGUI battleGUI;
     private BattleCharacter enemy;
 
     // Constructors
-    public MapBattleLogic() {
-	this.battleGUI = new MapBattleGUI();
+    public MapTurnBattleLogic() {
+	this.battleGUI = new MapTurnBattleGUI();
 	this.auto = new AutoMapAI();
 	this.ait = new MapBattleAITask(this);
 	this.ait.start();
@@ -493,7 +495,7 @@ public class MapBattleLogic extends Battle {
 	}
 	int drainChance;
 	var drainAmount = 0;
-	this.bd.getActiveCharacter().modifyAP(MapBattleLogic.DRAIN_ACTION_POINTS);
+	this.bd.getActiveCharacter().modifyAP(MapTurnBattleLogic.DRAIN_ACTION_POINTS);
 	drainChance = StatConstants.CHANCE_DRAIN;
 	if (activeEnemy == null) {
 	    // Failed - nobody to drain from
@@ -827,7 +829,7 @@ public class MapBattleLogic extends Battle {
 
     @Override
     public void resetGUI() {
-	this.battleGUI = new MapBattleGUI();
+	this.battleGUI = new MapTurnBattleGUI();
     }
 
     private void resetSpeedArray() {
@@ -946,7 +948,7 @@ public class MapBattleLogic extends Battle {
 	}
 	int stealChance;
 	var stealAmount = 0;
-	this.bd.getActiveCharacter().modifyAP(MapBattleLogic.STEAL_ACTION_POINTS);
+	this.bd.getActiveCharacter().modifyAP(MapTurnBattleLogic.STEAL_ACTION_POINTS);
 	stealChance = StatConstants.CHANCE_STEAL;
 	if (activeEnemy == null) {
 	    // Failed - nobody to steal from

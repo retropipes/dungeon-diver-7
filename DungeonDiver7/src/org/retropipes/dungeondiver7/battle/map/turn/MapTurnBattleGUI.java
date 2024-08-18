@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.battle.map;
+package org.retropipes.dungeondiver7.battle.map.turn;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -26,6 +26,11 @@ import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.ai.map.MapAI;
+import org.retropipes.dungeondiver7.battle.map.MapBattleDefinitions;
+import org.retropipes.dungeondiver7.battle.map.MapBattleDraw;
+import org.retropipes.dungeondiver7.battle.map.MapBattleEffects;
+import org.retropipes.dungeondiver7.battle.map.MapBattleStats;
+import org.retropipes.dungeondiver7.battle.map.MapBattleViewingWindowManager;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Darkness;
 import org.retropipes.dungeondiver7.dungeon.objects.Wall;
@@ -35,7 +40,7 @@ import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-class MapBattleGUI {
+class MapTurnBattleGUI {
     private class EventHandler extends AbstractAction implements KeyListener {
 	private static final long serialVersionUID = 20239525230523524L;
 
@@ -80,7 +85,7 @@ class MapBattleGUI {
 		    return;
 		}
 		final var bl = DungeonDiver7.getStuffBag().getBattle();
-		final var bg = MapBattleGUI.this;
+		final var bg = MapTurnBattleGUI.this;
 		if (bg.eventHandlersOn) {
 		    final var keyCode = e.getKeyCode();
 		    switch (keyCode) {
@@ -173,7 +178,7 @@ class MapBattleGUI {
     private JButton spell, steal, drain, end;
 
     // Constructors
-    MapBattleGUI() {
+    MapTurnBattleGUI() {
 	this.vwMgr = new MapBattleViewingWindowManager();
 	this.bs = new MapBattleStats();
 	this.be = new MapBattleEffects();
@@ -257,7 +262,7 @@ class MapBattleGUI {
     }
 
     void setStatusMessage(final String msg) {
-	if (this.messageLabel.getText().length() > MapBattleGUI.MAX_TEXT) {
+	if (this.messageLabel.getText().length() > MapTurnBattleGUI.MAX_TEXT) {
 	    this.clearStatusMessage();
 	}
 	if (!msg.isEmpty() && !msg.matches("\\s+")) {

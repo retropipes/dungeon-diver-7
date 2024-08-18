@@ -14,7 +14,7 @@ import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.battle.Battle;
-import org.retropipes.dungeondiver7.battle.map.MapBattleLogic;
+import org.retropipes.dungeondiver7.battle.map.turn.MapTurnBattleLogic;
 import org.retropipes.dungeondiver7.editor.DungeonEditor;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.gameobject.ShopType;
@@ -77,7 +77,7 @@ public final class StuffBag {
     private int mode, formerMode;
     private final DungeonObjects objects;
     private final Shop weapons, armor, healer, regenerator, spells;
-    private MapBattleLogic battle;
+    private MapTurnBattleLogic battle;
 
     // Constructors
     public StuffBag() {
@@ -130,7 +130,7 @@ public final class StuffBag {
 
     public Battle getBattle() {
 	if (this.battle == null) {
-	    this.battle = new MapBattleLogic();
+	    this.battle = new MapTurnBattleLogic();
 	}
 	return this.battle;
     }

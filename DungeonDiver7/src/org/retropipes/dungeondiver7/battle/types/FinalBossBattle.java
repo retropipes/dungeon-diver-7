@@ -14,7 +14,6 @@ class FinalBossBattle extends BattleType {
 
     // Constructors
     public FinalBossBattle() {
-	this.boss = true;
 	this.finalBoss = true;
 	this.monster = new BattleCharacter(MonsterFactory.getNewFinalBossInstance());
     }
