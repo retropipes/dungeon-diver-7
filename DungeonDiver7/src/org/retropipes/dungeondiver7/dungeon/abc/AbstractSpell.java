@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
-public abstract class AbstractSpell extends AbstractDungeonObject {
+public abstract class AbstractSpell extends DungeonObject {
     // Constructors
     protected AbstractSpell() {
 	this.type.set(DungeonObjectTypes.TYPE_SPELL);
@@ -16,7 +16,7 @@ public abstract class AbstractSpell extends AbstractDungeonObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+	return DungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override

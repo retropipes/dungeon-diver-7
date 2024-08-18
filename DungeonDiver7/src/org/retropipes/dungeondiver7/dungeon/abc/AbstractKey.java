@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
-public abstract class AbstractKey extends AbstractDungeonObject {
+public abstract class AbstractKey extends DungeonObject {
     // Constructors
     protected AbstractKey() {
 	this.type.set(DungeonObjectTypes.TYPE_KEY);
@@ -16,7 +16,7 @@ public abstract class AbstractKey extends AbstractDungeonObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+	return DungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override

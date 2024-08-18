@@ -1,11 +1,9 @@
-/*  Chrystalz: A dungeon-crawling, roguelike game
-Licensed under MIT. See the LICENSE file for details.
-
-All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
- */
-package org.retropipes.dungeondiver7.battle.map.turn;
+/* RetroRPGCS: An RPG */
+package org.retropipes.dungeondiver7.battle.map.time;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
@@ -15,32 +13,34 @@ import java.awt.event.KeyListener;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 
+import org.retropipes.diane.Diane;
 import org.retropipes.diane.asset.image.ImageCompositor;
 import org.retropipes.diane.drawgrid.DrawGrid;
-import org.retropipes.diane.gui.MainContent;
-import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
-import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.ai.map.MapAI;
-import org.retropipes.dungeondiver7.battle.map.MapBattleDefinitions;
 import org.retropipes.dungeondiver7.battle.map.MapBattleDraw;
 import org.retropipes.dungeondiver7.battle.map.MapBattleEffects;
 import org.retropipes.dungeondiver7.battle.map.MapBattleStats;
 import org.retropipes.dungeondiver7.battle.map.MapBattleViewingWindowManager;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
-import org.retropipes.dungeondiver7.dungeon.objects.Darkness;
+import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 import org.retropipes.dungeondiver7.dungeon.objects.Wall;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-class MapTurnBattleGUI {
+class MapTimeBattleGUI {
     private class EventHandler extends AbstractAction implements KeyListener {
 	private static final long serialVersionUID = 20239525230523524L;
 
@@ -51,9 +51,6 @@ class MapTurnBattleGUI {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		if (e.getSource() instanceof JButton) {
-		    SoundLoader.playSound(Sounds.CLICK);
-		}
 		final var cmd = e.getActionCommand();
 		final var b = DungeonDiver7.getStuffBag().getBattle();
 		// Do Player Actions
@@ -66,12 +63,9 @@ class MapTurnBattleGUI {
 		} else if (cmd.equals("Drain") || cmd.equals("d")) {
 		    // Drain Enemy
 		    b.doPlayerActions(MapAI.ACTION_DRAIN);
-		} else if (cmd.equals("End Turn") || cmd.equals("e")) {
-		    // End Turn
-		    b.endTurn();
 		}
 	    } catch (final Throwable t) {
-		DungeonDiver7.logError(t);
+		Diane.handleError(t);
 	    }
 	}
 
@@ -85,7 +79,7 @@ class MapTurnBattleGUI {
 		    return;
 		}
 		final var bl = DungeonDiver7.getStuffBag().getBattle();
-		final var bg = MapTurnBattleGUI.this;
+		final var bg = MapTimeBattleGUI.this;
 		if (bg.eventHandlersOn) {
 		    final var keyCode = e.getKeyCode();
 		    switch (keyCode) {
@@ -130,16 +124,17 @@ class MapTurnBattleGUI {
 			// Confirm before attacking self
 			final var res = CommonDialogs.showConfirmDialog("Are you sure you want to attack yourself?",
 				"Battle");
-			if (res == CommonDialogs.YES_OPTION) {
+			if (res == JOptionPane.YES_OPTION) {
 			    bl.updatePosition(0, 0);
 			}
 			break;
 		    default:
 			break;
 		    }
+		    bg.resetPlayerActionBar();
 		}
 	    } catch (final Exception ex) {
-		DungeonDiver7.logError(ex);
+		Diane.handleError(ex);
 	    }
 	}
 
@@ -165,20 +160,19 @@ class MapTurnBattleGUI {
 
     private static final int MAX_TEXT = 1000;
     // Fields
-    private MainWindow mainWindow;
-    private EventHandler handler;
-    private MainContent borderPane;
+    private JFrame battleFrame;
     private MapBattleDraw battlePane;
     private JLabel messageLabel;
+    private JProgressBar myActionBar, enemyActionBar;
     private final MapBattleViewingWindowManager vwMgr;
     private final MapBattleStats bs;
     private final MapBattleEffects be;
     private DrawGrid drawGrid;
     boolean eventHandlersOn;
-    private JButton spell, steal, drain, end;
+    private JButton spell, steal, drain, item;
 
     // Constructors
-    MapTurnBattleGUI() {
+    MapTimeBattleGUI() {
 	this.vwMgr = new MapBattleViewingWindowManager();
 	this.bs = new MapBattleStats();
 	this.be = new MapBattleEffects();
@@ -194,20 +188,32 @@ class MapTurnBattleGUI {
 	this.messageLabel.setText(" ");
     }
 
+    // Methods
+    JFrame getOutputFrame() {
+	return this.battleFrame;
+    }
+
     MapBattleViewingWindowManager getViewManager() {
 	return this.vwMgr;
     }
 
     void hideBattle() {
-	if (this.mainWindow != null) {
-	    this.mainWindow.removeKeyListener(this.handler);
-	    this.mainWindow.restoreSaved();
+	if (this.battleFrame != null) {
+	    this.battleFrame.setVisible(false);
 	}
     }
 
-    void redrawBattle(final MapBattleDefinitions bd) {
+    boolean isEnemyActionBarFull() {
+	return this.enemyActionBar.getValue() == this.enemyActionBar.getMaximum();
+    }
+
+    boolean isPlayerActionBarFull() {
+	return this.myActionBar.getValue() == this.myActionBar.getMaximum();
+    }
+
+    void redrawBattle(final Dungeon battleMap) {
 	// Draw the battle, if it is visible
-	if (this.mainWindow.checkContent(this.battlePane)) {
+	if (this.battleFrame.isVisible()) {
 	    int x, y;
 	    int xFix, yFix;
 	    final var xView = this.vwMgr.getViewingWindowLocationX();
@@ -219,50 +225,75 @@ class MapTurnBattleGUI {
 		    xFix = x - xView;
 		    yFix = y - yView;
 		    try {
-			final var lgobj = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND);
-			final var ugobj = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_UPPER_GROUND);
-			final var lgimg = lgobj.battleRenderHook();
-			final var ugimg = ugobj.battleRenderHook();
-			final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName());
-			final var img = ImageCompositor.composite(cacheName, lgimg, ugimg);
+			final var obj1 = battleMap.getCell(y, x, 0, DungeonConstants.LAYER_GROUND);
+			final var obj2 = battleMap.getCell(y, x, 0, DungeonConstants.LAYER_OBJECT);
+			final var icon1 = obj1.battleRenderHook();
+			final var icon2 = obj2.battleRenderHook();
+			final var cacheName = Strings.compositeCacheName(obj1.getCacheName(), obj2.getCacheName());
+			final var img = ImageCompositor.composite(cacheName, icon1, icon2);
 			this.drawGrid.setImageCell(img, xFix, yFix);
 		    } catch (final ArrayIndexOutOfBoundsException ae) {
+			final var wall = new Wall();
+			this.drawGrid.setImageCell(wall.battleRenderHook(), xFix, yFix);
+		    } catch (final NullPointerException np) {
 			final var wall = new Wall();
 			this.drawGrid.setImageCell(wall.battleRenderHook(), xFix, yFix);
 		    }
 		}
 	    }
 	    this.battlePane.repaint();
+	    this.battleFrame.pack();
 	}
     }
 
-    void redrawOneBattleSquare(final MapBattleDefinitions bd, final int x, final int y,
-	    final DungeonObject obj3) {
+    void redrawOneBattleSquare(final Dungeon battleMap, final int x, final int y, final DungeonObject obj3) {
 	// Draw the battle, if it is visible
-	if (this.mainWindow.checkContent(this.battlePane)) {
+	if (this.battleFrame.isVisible()) {
 	    try {
 		int xFix, yFix;
 		final var xView = this.vwMgr.getViewingWindowLocationX();
 		final var yView = this.vwMgr.getViewingWindowLocationY();
 		xFix = y - xView;
 		yFix = x - yView;
-		final var lgobj = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND);
-		final var ugobj = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_UPPER_GROUND);
-		final var lgimg = lgobj.battleRenderHook();
-		final var ugimg = ugobj.battleRenderHook();
-		final var o3img = obj3.battleRenderHook();
-		final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName());
-		final var img = ImageCompositor.composite(cacheName, lgimg, ugimg, o3img);
+		final var obj1 = battleMap.getCell(y, x, 0, DungeonConstants.LAYER_GROUND);
+		final var obj2 = battleMap.getCell(y, x, 0, DungeonConstants.LAYER_OBJECT);
+		final var icon1 = obj1.battleRenderHook();
+		final var icon2 = obj2.battleRenderHook();
+		final var icon3 = obj3.battleRenderHook();
+		final var cacheName = Strings.compositeCacheName(obj1.getCacheName(), obj2.getCacheName(),
+			obj3.getCacheName());
+		final var img = ImageCompositor.composite(cacheName, icon1, icon2, icon3);
 		this.drawGrid.setImageCell(img, xFix, yFix);
 		this.battlePane.repaint();
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
 		// Do nothing
+	    } catch (final NullPointerException np) {
+		// Do nothing
 	    }
+	    this.battleFrame.pack();
 	}
     }
 
+    void resetEnemyActionBar() {
+	this.enemyActionBar.setValue(0);
+    }
+
+    void resetPlayerActionBar() {
+	this.myActionBar.setValue(0);
+    }
+
+    void setMaxEnemyActionBarValue(final int max) {
+	this.enemyActionBar.setValue(0);
+	this.enemyActionBar.setMaximum(max);
+    }
+
+    void setMaxPlayerActionBarValue(final int max) {
+	this.myActionBar.setValue(0);
+	this.myActionBar.setMaximum(max);
+    }
+
     void setStatusMessage(final String msg) {
-	if (this.messageLabel.getText().length() > MapTurnBattleGUI.MAX_TEXT) {
+	if (this.messageLabel.getText().length() > MapTimeBattleGUI.MAX_TEXT) {
 	    this.clearStatusMessage();
 	}
 	if (!msg.isEmpty() && !msg.matches("\\s+")) {
@@ -271,30 +302,41 @@ class MapTurnBattleGUI {
     }
 
     private void setUpGUI() {
-	this.handler = new EventHandler();
-	this.mainWindow = MainWindow.mainWindow();
-	this.borderPane = this.mainWindow.createContent();
-	final var buttonPane = this.mainWindow.createContent();
-	this.borderPane.setLayout(new BorderLayout());
+	final var handler = new EventHandler();
+	final var borderPane = new Container();
+	final var buttonPane = new Container();
+	final var effectBarPane = new Container();
+	final var barPane = new Container();
+	borderPane.setLayout(new BorderLayout());
+	barPane.setLayout(new FlowLayout());
+	effectBarPane.setLayout(new BorderLayout());
+	this.myActionBar = new JProgressBar(0);
+	this.enemyActionBar = new JProgressBar(0);
+	barPane.add(this.myActionBar);
+	barPane.add(this.enemyActionBar);
+	effectBarPane.add(barPane, BorderLayout.NORTH);
+	effectBarPane.add(this.be.getEffectsPane(), BorderLayout.CENTER);
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);
+	this.battleFrame = new JFrame("Battle");
+	this.battleFrame.setContentPane(borderPane);
 	this.spell = new JButton("Cast Spell");
 	this.steal = new JButton("Steal");
 	this.drain = new JButton("Drain");
-	this.end = new JButton("End Turn");
-	buttonPane.setLayout(new GridLayout(5, 1));
+	this.item = new JButton("Use Item");
+	buttonPane.setLayout(new GridLayout(4, 1));
 	buttonPane.add(this.spell);
 	buttonPane.add(this.steal);
 	buttonPane.add(this.drain);
-	buttonPane.add(this.end);
+	buttonPane.add(this.item);
 	this.spell.setFocusable(false);
 	this.steal.setFocusable(false);
 	this.drain.setFocusable(false);
-	this.end.setFocusable(false);
-	this.spell.addActionListener(this.handler);
-	this.steal.addActionListener(this.handler);
-	this.drain.addActionListener(this.handler);
-	this.end.addActionListener(this.handler);
+	this.item.setFocusable(false);
+	this.spell.addActionListener(handler);
+	this.steal.addActionListener(handler);
+	this.drain.addActionListener(handler);
+	this.item.addActionListener(handler);
 	int modKey;
 	if (System.getProperty("os.name").equalsIgnoreCase("Mac OS X")) {
 	    modKey = InputEvent.META_DOWN_MASK;
@@ -303,35 +345,37 @@ class MapTurnBattleGUI {
 	}
 	this.spell.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_C, modKey),
 		"Cast Spell");
-	this.spell.getActionMap().put("Cast Spell", this.handler);
+	this.spell.getActionMap().put("Cast Spell", handler);
 	this.steal.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_T, modKey),
 		"Steal");
-	this.steal.getActionMap().put("Steal", this.handler);
+	this.steal.getActionMap().put("Steal", handler);
 	this.drain.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, modKey),
 		"Drain");
-	this.drain.getActionMap().put("Drain", this.handler);
-	this.end.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_E, modKey),
-		"End Turn");
-	this.end.getActionMap().put("End Turn", this.handler);
+	this.drain.getActionMap().put("Drain", handler);
+	this.item.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_I, modKey),
+		"Use Item");
+	this.item.getActionMap().put("Use Item", handler);
+	// Platform.hookFrameIcon(this.battleFrame, LogoManager.getIconLogo());
+	this.battleFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.battleFrame.setResizable(false);
 	this.drawGrid = new DrawGrid(MapBattleViewingWindowManager.getViewingWindowSize());
 	for (var x = 0; x < MapBattleViewingWindowManager.getViewingWindowSize(); x++) {
 	    for (var y = 0; y < MapBattleViewingWindowManager.getViewingWindowSize(); y++) {
-		final DungeonObject dark = new Darkness();
-		this.drawGrid.setImageCell(dark.battleRenderHook(), x, y);
+		this.drawGrid.setImageCell(ObjectImageLoader.load(ObjectImageId.DARKNESS), x, y);
 	    }
 	}
 	this.battlePane = new MapBattleDraw(this.drawGrid);
-	this.borderPane.add(this.battlePane, BorderLayout.CENTER);
-	this.borderPane.add(buttonPane, BorderLayout.WEST);
-	this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
-	this.borderPane.add(this.bs.getStatsPane(), BorderLayout.EAST);
-	this.borderPane.add(this.be.getEffectsPane(), BorderLayout.SOUTH);
+	borderPane.add(this.battlePane, BorderLayout.CENTER);
+	borderPane.add(buttonPane, BorderLayout.WEST);
+	borderPane.add(this.messageLabel, BorderLayout.NORTH);
+	borderPane.add(this.bs.getStatsPane(), BorderLayout.EAST);
+	borderPane.add(effectBarPane, BorderLayout.SOUTH);
+	this.battleFrame.addKeyListener(handler);
     }
 
     void showBattle() {
-	Integration.integrate().setDefaultMenuBar(DungeonDiver7.getStuffBag().getMenus().getMainMenuBar());
-	this.mainWindow.setAndSave(this.borderPane, "Battle");
-	this.mainWindow.addKeyListener(this.handler);
+	this.battleFrame.setVisible(true);
+	this.battleFrame.setJMenuBar(DungeonDiver7.getStuffBag().getMenus().getMainMenuBar());
     }
 
     void turnEventHandlersOff() {
@@ -339,7 +383,7 @@ class MapTurnBattleGUI {
 	this.spell.setEnabled(false);
 	this.steal.setEnabled(false);
 	this.drain.setEnabled(false);
-	this.end.setEnabled(false);
+	this.item.setEnabled(false);
     }
 
     void turnEventHandlersOn() {
@@ -347,11 +391,19 @@ class MapTurnBattleGUI {
 	this.spell.setEnabled(true);
 	this.steal.setEnabled(true);
 	this.drain.setEnabled(true);
-	this.end.setEnabled(true);
+	this.item.setEnabled(true);
     }
 
-    void updateStatsAndEffects(final MapBattleDefinitions bd) {
-	this.bs.updateStats(bd.getActiveCharacter());
-	this.be.updateEffects(bd.getActiveCharacter());
+    void updateEnemyActionBarValue() {
+	this.enemyActionBar.setValue(this.enemyActionBar.getValue() + 1);
+    }
+
+    void updatePlayerActionBarValue() {
+	this.myActionBar.setValue(this.myActionBar.getValue() + 1);
+    }
+
+    void updateStatsAndEffects(final BattleCharacter active) {
+	this.bs.updateStats(active);
+	this.be.updateEffects(active);
     }
 }

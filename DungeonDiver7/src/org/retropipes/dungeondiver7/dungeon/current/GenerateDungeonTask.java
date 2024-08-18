@@ -12,7 +12,7 @@ import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.manager.dungeon.DungeonManager;
@@ -79,7 +79,7 @@ public class GenerateDungeonTask extends Thread {
 	    }
 	    gameDungeon.save();
 	    // Final cleanup
-	    AbstractDungeonObject.setTemplateColor(ImageColors.getColorForLevel(zoneID));
+	    DungeonObject.setTemplateColor(ImageColors.getColorForLevel(zoneID));
 	    if (this.scratch) {
 		app.getGameLogic().stateChanged();
 		app.getGameLogic().playDungeon();

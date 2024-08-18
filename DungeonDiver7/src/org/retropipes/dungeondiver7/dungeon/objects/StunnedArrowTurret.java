@@ -6,7 +6,7 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
@@ -27,7 +27,7 @@ public class StunnedArrowTurret extends AbstractMovableObject {
     }
 
     @Override
-    public AbstractDungeonObject clone() {
+    public DungeonObject clone() {
 	final var copy = (StunnedArrowTurret) super.clone();
 	copy.stunnedLeft = this.stunnedLeft;
 	return copy;

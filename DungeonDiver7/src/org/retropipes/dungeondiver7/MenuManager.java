@@ -45,7 +45,7 @@ public class MenuManager implements MenuSection {
 		    // Toggle accelerators
 		    MenuManager.this.toggleAccelerators();
 		}
-		app.getMenuManager().checkFlags();
+		app.getMenus().checkFlags();
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
 	    }

@@ -19,7 +19,7 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.VersionException;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeon;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Strings;
@@ -79,7 +79,7 @@ public class GameLoadTask extends Thread {
 	    gameDungeon.save();
 	    // Final cleanup
 	    app.getGameLogic().stateChanged();
-	    AbstractDungeonObject.setTemplateColor(ImageColors.getColorForLevel(PartyManager.getParty().getZone()));
+	    DungeonObject.setTemplateColor(ImageColors.getColorForLevel(PartyManager.getParty().getZone()));
 	    app.getDungeonManager().setLoaded(true);
 	    CommonDialogs.showDialog(sg + " loaded.");
 	    app.getGameLogic().playDungeon();

@@ -11,6 +11,8 @@ import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.TimeTravel;
 
 public class DungeonConstants {
+    public static final int LAYER_GROUND = 0;
+    public static final int LAYER_OBJECT = 1;
     public static final int LAYER_LOWER_GROUND = 0;
     public static final int LAYER_UPPER_GROUND = 1;
     public static final int LAYER_LOWER_OBJECTS = 2;

@@ -10,7 +10,7 @@ import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
-public abstract class AbstractTrap extends AbstractDungeonObject {
+public abstract class AbstractTrap extends DungeonObject {
     // Fields
     private final int base;
 
@@ -29,7 +29,7 @@ public abstract class AbstractTrap extends AbstractDungeonObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+	return DungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override

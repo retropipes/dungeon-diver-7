@@ -5,7 +5,7 @@
  */
 package org.retropipes.dungeondiver7.dungeon.objects;
 
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
@@ -22,7 +22,7 @@ public class IcyBox extends AbstractMovableObject {
     }
 
     @Override
-    public AbstractDungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
 	case Materials.FIRE:
 	    if (this.hasPreviousState()) {

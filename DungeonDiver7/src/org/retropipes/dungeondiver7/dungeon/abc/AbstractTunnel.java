@@ -12,7 +12,7 @@ import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
-public abstract class AbstractTunnel extends AbstractDungeonObject {
+public abstract class AbstractTunnel extends DungeonObject {
     // Fields
     private final static boolean[] tunnelsFull = new boolean[Strings.COLOR_COUNT];
     private final static int SCAN_RADIUS = 24;
@@ -53,7 +53,7 @@ public abstract class AbstractTunnel extends AbstractDungeonObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+	return DungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override

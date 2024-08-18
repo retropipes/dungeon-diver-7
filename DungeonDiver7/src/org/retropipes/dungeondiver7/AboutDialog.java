@@ -63,7 +63,7 @@ public class AboutDialog implements AboutHandler, MenuSection {
 			Strings.untranslated(Untranslated.PROGRAM_NAME)))) {
 		    app.getAboutDialog().showAboutDialog();
 		}
-		app.getMenuManager().checkFlags();
+		app.getMenus().checkFlags();
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
 	    }

@@ -94,12 +94,12 @@ public final class StuffBag {
 
     public void activeLanguageChanged() {
 	// Rebuild menus
-	this.getMenuManager().unregisterAllModeManagers();
-	this.getMenuManager().registerModeManager(this.getGUIManager());
-	this.getMenuManager().initMenus();
-	this.getMenuManager().registerModeManager(this.getGameLogic());
-	this.getMenuManager().registerModeManager(this.getEditor());
-	this.getMenuManager().registerModeManager(this.getAboutDialog());
+	this.getMenus().unregisterAllModeManagers();
+	this.getMenus().registerModeManager(this.getGUIManager());
+	this.getMenus().initMenus();
+	this.getMenus().registerModeManager(this.getGameLogic());
+	this.getMenus().registerModeManager(this.getEditor());
+	this.getMenus().registerModeManager(this.getAboutDialog());
 	// Fire hooks
 	this.getGameLogic().activeLanguageChanged();
 	this.getEditor().activeLanguageChanged();
@@ -172,7 +172,7 @@ public final class StuffBag {
 	return this.getDungeonManager().getDungeon().getLevelInfoList();
     }
 
-    public MenuManager getMenuManager() {
+    public MenuManager getMenus() {
 	if (this.menuMgr == null) {
 	    this.menuMgr = new MenuManager();
 	}
@@ -217,29 +217,29 @@ public final class StuffBag {
 
     public void setInEditor() {
 	this.mode = StuffBag.STATUS_EDITOR;
-	this.getMenuManager().modeChanged(this.getEditor());
+	this.getMenus().modeChanged(this.getEditor());
     }
 
     public void setInGame() {
 	this.mode = StuffBag.STATUS_GAME;
-	this.getMenuManager().modeChanged(this.getGameLogic());
+	this.getMenus().modeChanged(this.getGameLogic());
     }
 
     void setInGUI() {
 	this.mode = StuffBag.STATUS_GUI;
-	this.getMenuManager().modeChanged(this.getGUIManager());
+	this.getMenus().modeChanged(this.getGUIManager());
     }
 
     public void setInHelp() {
 	this.formerMode = this.mode;
 	this.mode = StuffBag.STATUS_HELP;
-	this.getMenuManager().modeChanged(null);
+	this.getMenus().modeChanged(null);
     }
 
     public void setInPrefs() {
 	this.formerMode = this.mode;
 	this.mode = StuffBag.STATUS_PREFS;
-	this.getMenuManager().modeChanged(null);
+	this.getMenus().modeChanged(null);
     }
 
     public void setMode(final int newMode) {

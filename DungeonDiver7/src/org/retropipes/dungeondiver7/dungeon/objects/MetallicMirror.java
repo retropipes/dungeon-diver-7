@@ -7,7 +7,7 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.diane.direction.DirectionResolver;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
@@ -38,7 +38,7 @@ public class MetallicMirror extends AbstractMovableObject {
     public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int laserType, final int forceUnits) {
 	final var dir = DirectionResolver.resolveInvert(dirX, dirY);
-	if (AbstractDungeonObject.hitReflectiveSide(dir)) {
+	if (DungeonObject.hitReflectiveSide(dir)) {
 	    // Reflect laser
 	    return this.getDirection();
 	}

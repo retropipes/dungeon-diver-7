@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractAttribute;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
@@ -19,7 +19,7 @@ public class Cloak extends AbstractAttribute {
     }
 
     @Override
-    public AbstractDungeonObject attributeGameRenderHook() {
+    public DungeonObject attributeGameRenderHook() {
 	return new Empty();
     }
 

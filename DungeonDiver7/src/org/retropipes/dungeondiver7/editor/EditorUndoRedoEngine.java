@@ -5,17 +5,17 @@
  */
 package org.retropipes.dungeondiver7.editor;
 
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 
 class EditorUndoRedoEngine {
     // Inner classes
     private static class Link {
 	// Fields
-	public AbstractDungeonObject mo;
+	public DungeonObject mo;
 	public int coordX, coordY, coordZ, coordW, coordU;
 	public Link next;
 
-	Link(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w, final int u) {
+	Link(final DungeonObject obj, final int x, final int y, final int z, final int w, final int u) {
 	    this.mo = obj;
 	    this.coordX = x;
 	    this.coordY = y;
@@ -40,7 +40,7 @@ class EditorUndoRedoEngine {
 	    return temp;
 	}
 
-	public void insertFirst(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w,
+	public void insertFirst(final DungeonObject obj, final int x, final int y, final int z, final int w,
 		final int u) {
 	    final var newLink = new Link(obj, x, y, z, w, u);
 	    newLink.next = this.first;
@@ -68,7 +68,7 @@ class EditorUndoRedoEngine {
 	    return this.theList.deleteFirst();
 	}
 
-	public void push(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w,
+	public void push(final DungeonObject obj, final int x, final int y, final int z, final int w,
 		final int u) {
 	    this.theList.insertFirst(obj, x, y, z, w, u);
 	}
@@ -77,7 +77,7 @@ class EditorUndoRedoEngine {
     // Fields
     private final LinkStack undoHistory;
     private final LinkStack redoHistory;
-    private AbstractDungeonObject object;
+    private DungeonObject object;
     private int destX, destY, destZ, destW, destU;
 
     // Constructors
@@ -92,7 +92,7 @@ class EditorUndoRedoEngine {
 	this.destU = -1;
     }
 
-    AbstractDungeonObject getObject() {
+    DungeonObject getObject() {
 	return this.object;
     }
 
@@ -167,12 +167,12 @@ class EditorUndoRedoEngine {
 	}
     }
 
-    void updateRedoHistory(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w,
+    void updateRedoHistory(final DungeonObject obj, final int x, final int y, final int z, final int w,
 	    final int u) {
 	this.redoHistory.push(obj, x, y, z, w, u);
     }
 
-    void updateUndoHistory(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w,
+    void updateUndoHistory(final DungeonObject obj, final int x, final int y, final int z, final int w,
 	    final int u) {
 	this.undoHistory.push(obj, x, y, z, w, u);
     }

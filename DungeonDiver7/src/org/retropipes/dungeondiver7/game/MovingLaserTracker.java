@@ -9,7 +9,7 @@ import org.retropipes.diane.direction.Direction;
 import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTransientObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Arrow;
 import org.retropipes.dungeondiver7.dungeon.objects.ArrowTurretDisguise;
@@ -40,7 +40,7 @@ final class MovingLaserTracker {
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();
 	final var zproceed = true;
-	AbstractDungeonObject zo = null;
+	DungeonObject zo = null;
 	try {
 	    zo = m.getCell(px + sx, py + sy, pz, DungeonConstants.LAYER_LOWER_OBJECTS);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
@@ -58,7 +58,7 @@ final class MovingLaserTracker {
 	return false;
     }
 
-    private static boolean checkSolid(final AbstractDungeonObject next) {
+    private static boolean checkSolid(final DungeonObject next) {
 	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	// Check cheats
 	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
@@ -117,7 +117,7 @@ final class MovingLaserTracker {
     }
 
     // Fields
-    private AbstractDungeonObject shooter;
+    private DungeonObject shooter;
     private int ox, oy, lt;
     private boolean res;
     private boolean laser;
@@ -130,7 +130,7 @@ final class MovingLaserTracker {
     }
 
     void activateLasers(final int zx, final int zy, final int zox, final int zoy, final int zlt,
-	    final AbstractDungeonObject zshooter) {
+	    final DungeonObject zshooter) {
 	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	this.shooter = zshooter;
 	this.ox = zox;
@@ -242,8 +242,8 @@ final class MovingLaserTracker {
 	final var py = plMgr.getPlayerLocationY();
 	final var pz = plMgr.getPlayerLocationZ();
 	final var m = app.getDungeonManager().getDungeon();
-	AbstractDungeonObject lol = null;
-	AbstractDungeonObject lou = null;
+	DungeonObject lol = null;
+	DungeonObject lou = null;
 	try {
 	    lol = m.getCell(this.ox + this.cumX, this.oy + this.cumY, pz, DungeonConstants.LAYER_LOWER_OBJECTS);
 	    lou = m.getCell(this.ox + this.cumX, this.oy + this.cumY, pz, DungeonConstants.LAYER_UPPER_OBJECTS);

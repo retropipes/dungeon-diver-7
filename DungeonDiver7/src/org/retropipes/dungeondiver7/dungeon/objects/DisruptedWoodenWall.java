@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDisruptedObject;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
@@ -30,7 +30,7 @@ public class DisruptedWoodenWall extends AbstractDisruptedObject {
     }
 
     @Override
-    public AbstractDungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final int materialID) {
 	return switch (materialID) {
 	case Materials.FIRE -> new Ground();
 	case Materials.ICE -> new DisruptedIcyWall();

@@ -157,7 +157,7 @@ public abstract class GenericEditor {
 
     public final void showOutput() {
 	final var app = DungeonDiver7.getStuffBag();
-	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
+	Integration.integrate().setDefaultMenuBar(app.getMenus().getMainMenuBar());
 	this.mainWindow.setAndSave(this.scrollPane, this.getEditorSource());
 	final var wl = this.guiHookWindow();
 	if (wl != null) {

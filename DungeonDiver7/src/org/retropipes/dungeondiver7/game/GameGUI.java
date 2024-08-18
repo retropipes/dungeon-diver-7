@@ -40,7 +40,7 @@ import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.creature.characterfiles.CharacterRegistration;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.current.GenerateDungeonTask;
 import org.retropipes.dungeondiver7.dungeon.objects.Darkness;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
@@ -376,7 +376,7 @@ class GameGUI {
 		    final var m = app.getDungeonManager().getDungeon();
 		    final var px = m.getPlayerLocationX(0);
 		    final var py = m.getPlayerLocationY(0);
-		    AbstractDungeonObject there = new Empty();
+		    DungeonObject there = new Empty();
 		    try {
 			there = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		    } catch (final ArrayIndexOutOfBoundsException ae) {
@@ -756,7 +756,7 @@ class GameGUI {
 		    // View Statistics
 		    StatisticsViewer.viewStatistics();
 		}
-		app.getMenuManager().checkFlags();
+		app.getMenus().checkFlags();
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
 	    }
@@ -855,8 +855,8 @@ class GameGUI {
 
     public void attachMenus() {
 	final var app = DungeonDiver7.getStuffBag();
-	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
-	app.getMenuManager().checkFlags();
+	Integration.integrate().setDefaultMenuBar(app.getMenus().getMainMenuBar());
+	app.getMenus().checkFlags();
     }
 
     public JMenu createCommandsMenu() {
@@ -1096,7 +1096,7 @@ class GameGUI {
 	boolean visible;
 	u = m.getPlayerLocationX(0);
 	v = m.getPlayerLocationY(0);
-	final AbstractDungeonObject wall = new Wall();
+	final DungeonObject wall = new Wall();
 	for (x = this.vwMgr.getViewingWindowLocationX(); x <= this.vwMgr.getLowerRightViewingWindowLocationX(); x++) {
 	    for (y = this.vwMgr.getViewingWindowLocationY(); y <= this.vwMgr
 		    .getLowerRightViewingWindowLocationY(); y++) {
@@ -1110,7 +1110,7 @@ class GameGUI {
 			final var img1 = obj1.gameRenderHook(y, x);
 			final var img2 = obj2.gameRenderHook(y, x);
 			if (u == y && v == x) {
-			    final AbstractDungeonObject obj3 = new Player();
+			    final DungeonObject obj3 = new Player();
 			    final var img3 = obj3.gameRenderHook(y, x);
 			    final var cacheName = Strings.compositeCacheName(obj1.getCacheName(), obj2.getCacheName(),
 				    obj3.getCacheName());
@@ -1262,12 +1262,12 @@ class GameGUI {
 	this.mainWindow.addKeyListener(this.handler);
 	this.mainWindow.addWindowListener(this.handler);
 	this.outputPane.addMouseListener(this.handler);
-	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
+	Integration.integrate().setDefaultMenuBar(app.getMenus().getMainMenuBar());
 	if (this.deferredRedraw) {
 	    this.deferredRedraw = false;
 	    this.redrawDungeon();
 	}
-	app.getMenuManager().checkFlags();
+	app.getMenus().checkFlags();
 	GameGUI.checkMenus();
 	this.updateStats();
     }

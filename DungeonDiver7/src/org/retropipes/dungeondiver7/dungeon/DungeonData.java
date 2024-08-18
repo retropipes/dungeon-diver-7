@@ -8,7 +8,7 @@ import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButton;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButtonDoor;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTunnel;
 
@@ -65,12 +65,12 @@ public abstract class DungeonData implements Cloneable {
     @Override
     public abstract DungeonData clone();
 
-    public abstract void fill(final Dungeon dungeon, final AbstractDungeonObject fillWith);
+    public abstract void fill(final Dungeon dungeon, final DungeonObject fillWith);
 
-    public abstract void fillNulls(final Dungeon dungeon, final AbstractDungeonObject fill1,
-	    final AbstractDungeonObject fill2, final boolean was16);
+    public abstract void fillNulls(final Dungeon dungeon, final DungeonObject fill1,
+	    final DungeonObject fill2, final boolean was16);
 
-    public abstract void fillSTSNulls(final AbstractDungeonObject fillWith);
+    public abstract void fillSTSNulls(final DungeonObject fillWith);
 
     public abstract void fillVirtual();
 
@@ -97,7 +97,7 @@ public abstract class DungeonData implements Cloneable {
 
     public abstract void fullScanKillPlayers(final Dungeon dungeon);
 
-    public abstract AbstractDungeonObject getCell(final Dungeon dungeon, final int row, final int col,
+    public abstract DungeonObject getCell(final Dungeon dungeon, final int row, final int col,
 	    final int floor, final int layer);
 
     public abstract int getColumns();
@@ -106,7 +106,7 @@ public abstract class DungeonData implements Cloneable {
 
     public abstract int getRows();
 
-    public abstract AbstractDungeonObject getVirtualCell(final Dungeon dungeon, final int row, final int col,
+    public abstract DungeonObject getVirtualCell(final Dungeon dungeon, final int row, final int col,
 	    final int floor, final int layer);
 
     public abstract HistoryStatus getWhatWas();
@@ -186,9 +186,9 @@ public abstract class DungeonData implements Cloneable {
 
     public abstract void resetVisibleSquares(final int floor);
 
-    public abstract void resize(final Dungeon dungeon, final int zIn, final AbstractDungeonObject nullFill);
+    public abstract void resize(final Dungeon dungeon, final int zIn, final DungeonObject nullFill);
 
-    public abstract void resizeSavedState(final int z, final AbstractDungeonObject nullFill);
+    public abstract void resizeSavedState(final int z, final DungeonObject nullFill);
 
     public abstract void restore(final Dungeon dungeon);
 
@@ -196,12 +196,12 @@ public abstract class DungeonData implements Cloneable {
 
     public abstract void setAllDirtyFlags();
 
-    public abstract void setCell(final Dungeon dungeon, final AbstractDungeonObject mo, final int row,
+    public abstract void setCell(final Dungeon dungeon, final DungeonObject mo, final int row,
 	    final int col, final int floor, final int layer);
 
     public abstract void setDirtyFlags(final int floor);
 
-    public abstract void setVirtualCell(final Dungeon dungeon, final AbstractDungeonObject mo, final int row,
+    public abstract void setVirtualCell(final Dungeon dungeon, final DungeonObject mo, final int row,
 	    final int col, final int floor, final int layer);
 
     public abstract void tickTimers(final Dungeon dungeon);

@@ -42,7 +42,7 @@ import org.retropipes.dungeondiver7.MenuSection;
 import org.retropipes.dungeondiver7.StuffBag;
 import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractJumpObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Ground;
 import org.retropipes.dungeondiver7.dungeon.objects.Party;
@@ -298,7 +298,7 @@ public class DungeonEditor implements MenuSection {
 		    editor.editorEraFuture.setSelected(false);
 		    editor.editorEraDistantFuture.setSelected(true);
 		}
-		app.getMenuManager().checkFlags();
+		app.getMenus().checkFlags();
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
 	    }
@@ -377,7 +377,7 @@ public class DungeonEditor implements MenuSection {
     private EditorDraw outputPane;
     private JToggleButton lowerGround, upperGround, lowerObjects, upperObjects;
     private JLabel messageLabel;
-    private AbstractDungeonObject savedDungeonObject;
+    private DungeonObject savedDungeonObject;
     private JScrollBar vertScroll, horzScroll;
     private final EventHandler mhandler;
     private final StartEventHandler shandler;
@@ -386,7 +386,7 @@ public class DungeonEditor implements MenuSection {
     private StackedPicturePicker newPicker11;
     private SXSPicturePicker newPicker12;
     private String[] names;
-    private AbstractDungeonObject[] objects;
+    private DungeonObject[] objects;
     private BufferedImageIcon[] editorAppearances;
     private boolean[] objectsEnabled;
     private EditorUndoRedoEngine engine;
@@ -465,8 +465,8 @@ public class DungeonEditor implements MenuSection {
 
     public void attachMenus() {
 	final var app = DungeonDiver7.getStuffBag();
-	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
-	app.getMenuManager().checkFlags();
+	Integration.integrate().setDefaultMenuBar(app.getMenus().getMainMenuBar());
+	app.getMenus().checkFlags();
     }
 
     public void changeLayer() {
@@ -1538,8 +1538,8 @@ public class DungeonEditor implements MenuSection {
 
     public void showOutput() {
 	final var app = DungeonDiver7.getStuffBag();
-	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
-	app.getMenuManager().checkFlags();
+	Integration.integrate().setDefaultMenuBar(app.getMenus().getMainMenuBar());
+	app.getMenus().checkFlags();
 	this.mainWindow.setAndSave(this.borderPane, Strings.editor(EditorString.EDITOR));
 	this.mainWindow.addWindowListener(this.mhandler);
     }
@@ -1671,12 +1671,12 @@ public class DungeonEditor implements MenuSection {
 	}
     }
 
-    private void updateRedoHistory(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w,
+    private void updateRedoHistory(final DungeonObject obj, final int x, final int y, final int z, final int w,
 	    final int u) {
 	this.engine.updateRedoHistory(obj, x, y, z, w, u);
     }
 
-    private void updateUndoHistory(final AbstractDungeonObject obj, final int x, final int y, final int z, final int w,
+    private void updateUndoHistory(final DungeonObject obj, final int x, final int y, final int z, final int w,
 	    final int u) {
 	this.engine.updateUndoHistory(obj, x, y, z, w, u);
     }

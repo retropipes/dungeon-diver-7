@@ -11,7 +11,7 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
-public abstract class AbstractButton extends AbstractDungeonObject {
+public abstract class AbstractButton extends DungeonObject {
     // Fields
     private boolean triggered;
     private int doorX, doorY;
@@ -108,7 +108,7 @@ public abstract class AbstractButton extends AbstractDungeonObject {
 	case 1 -> this.doorX;
 	case 2 -> this.doorY;
 	case 3 -> this.triggered ? 1 : 0;
-	default -> AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+	default -> DungeonObject.DEFAULT_CUSTOM_VALUE;
 	};
     }
 

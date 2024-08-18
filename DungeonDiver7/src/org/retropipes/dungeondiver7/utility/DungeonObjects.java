@@ -11,14 +11,14 @@ import java.lang.reflect.InvocationTargetException;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.*;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 
 public class DungeonObjects {
     // Fields
-    private final AbstractDungeonObject[] allObjects = { new UpperGroundEmpty(), new Empty(), new UpperObjectsEmpty(),
+    private final DungeonObject[] allObjects = { new UpperGroundEmpty(), new Empty(), new UpperObjectsEmpty(),
 	    new Ground(), new PartyMover(), new Ice(), new Water(), new ThinIce(), new Bridge(), new Party(1),
 	    new Party(2), new Party(3), new Party(4), new Party(5), new Party(6), new Party(7), new Party(8),
 	    new Party(9), new Flag(), new Wall(), new ArrowTurret(), new DeadArrowTurret(), new CrystalBlock(),
@@ -53,7 +53,7 @@ public class DungeonObjects {
 	    new WeaponsShop() };
 
     public void enableAllObjects() {
-	for (final AbstractDungeonObject allObject : this.allObjects) {
+	for (final DungeonObject allObject : this.allObjects) {
 	    allObject.setEnabled(true);
 	}
     }
@@ -137,13 +137,13 @@ public class DungeonObjects {
 	return allNamesOnLayer;
     }
 
-    public AbstractDungeonObject[] getAllObjects() {
+    public DungeonObject[] getAllObjects() {
 	return this.allObjects;
     }
 
-    public AbstractDungeonObject[] getAllObjectsOnLayer(final int layer, final boolean useDisable) {
+    public DungeonObject[] getAllObjectsOnLayer(final int layer, final boolean useDisable) {
 	if (useDisable) {
-	    for (final AbstractDungeonObject allObject : this.allObjects) {
+	    for (final DungeonObject allObject : this.allObjects) {
 		if (allObject.getLayer() == layer) {
 		    allObject.setEnabled(true);
 		} else {
@@ -152,21 +152,21 @@ public class DungeonObjects {
 	    }
 	    return this.allObjects;
 	}
-	final var tempAllObjectsOnLayer = new AbstractDungeonObject[this.allObjects.length];
+	final var tempAllObjectsOnLayer = new DungeonObject[this.allObjects.length];
 	var objectCount = 0;
 	for (var x = 0; x < this.allObjects.length; x++) {
 	    if (this.allObjects[x].getLayer() == layer) {
 		tempAllObjectsOnLayer[x] = this.allObjects[x];
 	    }
 	}
-	for (final AbstractDungeonObject element : tempAllObjectsOnLayer) {
+	for (final DungeonObject element : tempAllObjectsOnLayer) {
 	    if (element != null) {
 		objectCount++;
 	    }
 	}
-	final var allObjectsOnLayer = new AbstractDungeonObject[objectCount];
+	final var allObjectsOnLayer = new DungeonObject[objectCount];
 	objectCount = 0;
-	for (final AbstractDungeonObject element : tempAllObjectsOnLayer) {
+	for (final DungeonObject element : tempAllObjectsOnLayer) {
 	    if (element != null) {
 		allObjectsOnLayer[objectCount] = element;
 		objectCount++;
@@ -175,9 +175,9 @@ public class DungeonObjects {
 	return allObjectsOnLayer;
     }
 
-    public final AbstractDungeonObject[] getAllRequired(final CurrentDungeon dungeon, final int layer) {
+    public final DungeonObject[] getAllRequired(final CurrentDungeon dungeon, final int layer) {
 	final var objects = this.getAllObjects();
-	final var tempAllRequired = new AbstractDungeonObject[objects.length];
+	final var tempAllRequired = new DungeonObject[objects.length];
 	int x;
 	var count = 0;
 	for (x = 0; x < objects.length; x++) {
@@ -189,17 +189,17 @@ public class DungeonObjects {
 	if (count == 0) {
 	    return null;
 	}
-	final var allRequired = new AbstractDungeonObject[count];
+	final var allRequired = new DungeonObject[count];
 	for (x = 0; x < count; x++) {
 	    allRequired[x] = tempAllRequired[x];
 	}
 	return allRequired;
     }
 
-    public final AbstractDungeonObject[] getAllWithoutPrerequisiteAndNotRequired(final CurrentDungeon dungeon,
+    public final DungeonObject[] getAllWithoutPrerequisiteAndNotRequired(final CurrentDungeon dungeon,
 	    final int layer) {
 	final var objects = this.getAllObjects();
-	final var tempAllWithoutPrereq = new AbstractDungeonObject[objects.length];
+	final var tempAllWithoutPrereq = new DungeonObject[objects.length];
 	int x;
 	var count = 0;
 	for (x = 0; x < objects.length; x++) {
@@ -211,16 +211,16 @@ public class DungeonObjects {
 	if (count == 0) {
 	    return null;
 	}
-	final var allWithoutPrereq = new AbstractDungeonObject[count];
+	final var allWithoutPrereq = new DungeonObject[count];
 	for (x = 0; x < count; x++) {
 	    allWithoutPrereq[x] = tempAllWithoutPrereq[x];
 	}
 	return allWithoutPrereq;
     }
 
-    public final AbstractDungeonObject getNewInstanceByName(final String name) {
+    public final DungeonObject getNewInstanceByName(final String name) {
 	final var objects = this.getAllObjects();
-	AbstractDungeonObject instance = null;
+	DungeonObject instance = null;
 	int x;
 	for (x = 0; x < objects.length; x++) {
 	    if (objects[x].getCacheName().equals(name)) {
@@ -246,16 +246,16 @@ public class DungeonObjects {
 	return allObjectEnabledStatuses;
     }
 
-    public AbstractDungeonObject readV2(final DataIOReader reader, final int formatVersion) throws IOException {
-	AbstractDungeonObject o = null;
+    public DungeonObject readV2(final DataIOReader reader, final int formatVersion) throws IOException {
+	DungeonObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration1(formatVersion)
 		&& !FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
 	    return null;
 	}
 	final var UID = reader.readString();
-	for (final AbstractDungeonObject allObject : this.allObjects) {
+	for (final DungeonObject allObject : this.allObjects) {
 	    try {
-		final AbstractDungeonObject instance = allObject.getClass().getConstructor().newInstance();
+		final DungeonObject instance = allObject.getClass().getConstructor().newInstance();
 		if (!FileFormats.isFormatVersionValidGeneration1(formatVersion)
 			&& !FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
 		    return null;
@@ -272,15 +272,15 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV3(final DataIOReader reader, final int formatVersion) throws IOException {
-	AbstractDungeonObject o = null;
+    public DungeonObject readV3(final DataIOReader reader, final int formatVersion) throws IOException {
+	DungeonObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
 	    return null;
 	}
 	final var UID = reader.readString();
-	for (final AbstractDungeonObject allObject : this.allObjects) {
+	for (final DungeonObject allObject : this.allObjects) {
 	    try {
-		final AbstractDungeonObject instance = allObject.getClass().getConstructor().newInstance();
+		final DungeonObject instance = allObject.getClass().getConstructor().newInstance();
 		if (!FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
 		    return null;
 		}
@@ -296,15 +296,15 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV4(final DataIOReader reader, final int formatVersion) throws IOException {
-	AbstractDungeonObject o = null;
+    public DungeonObject readV4(final DataIOReader reader, final int formatVersion) throws IOException {
+	DungeonObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
 	    return null;
 	}
 	final var UID = reader.readString();
-	for (final AbstractDungeonObject allObject : this.allObjects) {
+	for (final DungeonObject allObject : this.allObjects) {
 	    try {
-		final AbstractDungeonObject instance = allObject.getClass().getConstructor().newInstance();
+		final DungeonObject instance = allObject.getClass().getConstructor().newInstance();
 		if (!FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
 		    return null;
 		}
@@ -320,15 +320,15 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV5(final DataIOReader reader, final int formatVersion) throws IOException {
-	AbstractDungeonObject o = null;
+    public DungeonObject readV5(final DataIOReader reader, final int formatVersion) throws IOException {
+	DungeonObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
 	    return null;
 	}
 	final var UID = reader.readString();
-	for (final AbstractDungeonObject allObject : this.allObjects) {
+	for (final DungeonObject allObject : this.allObjects) {
 	    try {
-		final AbstractDungeonObject instance = allObject.getClass().getConstructor().newInstance();
+		final DungeonObject instance = allObject.getClass().getConstructor().newInstance();
 		if (!FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
 		    return null;
 		}
@@ -344,15 +344,15 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV6(final DataIOReader reader, final int formatVersion) throws IOException {
-	AbstractDungeonObject o = null;
+    public DungeonObject readV6(final DataIOReader reader, final int formatVersion) throws IOException {
+	DungeonObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
 	    return null;
 	}
 	final var UID = reader.readString();
-	for (final AbstractDungeonObject allObject : this.allObjects) {
+	for (final DungeonObject allObject : this.allObjects) {
 	    try {
-		final AbstractDungeonObject instance = allObject.getClass().getConstructor().newInstance();
+		final DungeonObject instance = allObject.getClass().getConstructor().newInstance();
 		if (!FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
 		    return null;
 		}
@@ -368,15 +368,15 @@ public class DungeonObjects {
 	return null;
     }
 
-    public AbstractDungeonObject readV7(final DataIOReader reader, final int formatVersion) throws IOException {
-	AbstractDungeonObject o = null;
+    public DungeonObject readV7(final DataIOReader reader, final int formatVersion) throws IOException {
+	DungeonObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration7(formatVersion)) {
 	    return null;
 	}
 	final var UID = reader.readString();
-	for (final AbstractDungeonObject allObject : this.allObjects) {
+	for (final DungeonObject allObject : this.allObjects) {
 	    try {
-		final AbstractDungeonObject instance = allObject.getClass().getConstructor().newInstance();
+		final DungeonObject instance = allObject.getClass().getConstructor().newInstance();
 		if (!FileFormats.isFormatVersionValidGeneration7(formatVersion)) {
 		    return null;
 		}

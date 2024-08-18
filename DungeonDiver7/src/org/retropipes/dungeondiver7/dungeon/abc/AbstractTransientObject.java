@@ -7,7 +7,7 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractTransientObject extends AbstractDungeonObject {
+public abstract class AbstractTransientObject extends DungeonObject {
     // Constructors
     protected AbstractTransientObject() {
 	super(true);
@@ -20,7 +20,7 @@ public abstract class AbstractTransientObject extends AbstractDungeonObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+	return DungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     public abstract int getForceUnitsImbued();

@@ -7,7 +7,7 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 
 import java.awt.Color;
 
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractJumpObject;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
@@ -20,7 +20,7 @@ public class ReverseJumpBox extends AbstractJumpObject {
     }
 
     @Override
-    public AbstractDungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final int materialID) {
 	return switch (materialID) {
 	case Materials.ICE -> {
 	    final var ib = new IcyBox();

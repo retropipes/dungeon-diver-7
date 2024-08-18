@@ -27,7 +27,7 @@ import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractBattleCharacter;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.effect.Effect;
@@ -167,8 +167,7 @@ public class MapTurnBattleLogic extends Battle {
 	this.battleGUI.clearStatusMessage();
     }
 
-    private void computeDamage(final Creature theEnemy, final Creature acting,
-	    final DamageEngine activeDE) {
+    private void computeDamage(final Creature theEnemy, final Creature acting, final DamageEngine activeDE) {
 	// Compute Damage
 	this.damage = 0;
 	final var actual = activeDE.computeDamage(theEnemy, acting);
@@ -210,8 +209,7 @@ public class MapTurnBattleLogic extends Battle {
 	// Do nothing
     }
 
-    private void displayPartyRoundResults(final Creature theEnemy, final Creature active,
-	    final DamageEngine activeDE) {
+    private void displayPartyRoundResults(final Creature theEnemy, final Creature active, final DamageEngine activeDE) {
 	// Display round results
 	final var hitSound = active.getItems().getWeaponHitSound(active);
 	final var activeName = active.getName();
@@ -271,8 +269,7 @@ public class MapTurnBattleLogic extends Battle {
 	this.setStatusMessage(displayDamageString);
     }
 
-    private void displayEnemyRoundResults(final Creature theEnemy, final Creature active,
-	    final DamageEngine activeDE) {
+    private void displayEnemyRoundResults(final Creature theEnemy, final Creature active, final DamageEngine activeDE) {
 	// Display round results
 	final var hitSound = active.getItems().getWeaponHitSound(active);
 	final var activeName = active.getName();
@@ -663,7 +660,7 @@ public class MapTurnBattleLogic extends Battle {
 	final var px = this.bd.getActiveCharacter().getX();
 	final var py = this.bd.getActiveCharacter().getY();
 	final var m = this.bd.getBattleDungeon();
-	AbstractDungeonObject next = null;
+	DungeonObject next = null;
 	for (var x = -1; x <= 1; x++) {
 	    for (var y = -1; y <= 1; y++) {
 		if (x == 0 && y == 0) {
@@ -695,11 +692,9 @@ public class MapTurnBattleLogic extends Battle {
 	}
 	if (this.areTeamEnemiesAlive(Creature.TEAM_PARTY) && !this.isTeamAlive(Creature.TEAM_PARTY)) {
 	    currResult = BattleResult.LOST;
-	} else if (!this.areTeamEnemiesAlive(Creature.TEAM_PARTY)
-		&& this.isTeamAlive(Creature.TEAM_PARTY)) {
+	} else if (!this.areTeamEnemiesAlive(Creature.TEAM_PARTY) && this.isTeamAlive(Creature.TEAM_PARTY)) {
 	    currResult = BattleResult.WON;
-	} else if (!this.areTeamEnemiesAlive(Creature.TEAM_PARTY)
-		&& !this.isTeamAlive(Creature.TEAM_PARTY)) {
+	} else if (!this.areTeamEnemiesAlive(Creature.TEAM_PARTY) && !this.isTeamAlive(Creature.TEAM_PARTY)) {
 	    currResult = BattleResult.DRAW;
 	} else if (this.isTeamAlive(Creature.TEAM_PARTY) && !this.isTeamGone(Creature.TEAM_PARTY)
 		&& this.areTeamEnemiesDeadOrGone(Creature.TEAM_PARTY)) {
@@ -918,7 +913,7 @@ public class MapTurnBattleLogic extends Battle {
     }
 
     @Override
-    public void setResult(final int resultCode) {
+    public void setResult(final BattleResult resultCode) {
 	// Do nothing
     }
 
@@ -1028,9 +1023,9 @@ public class MapTurnBattleLogic extends Battle {
 	var px = activeBC.getX();
 	var py = activeBC.getY();
 	final var m = this.bd.getBattleDungeon();
-	AbstractDungeonObject next = null;
-	AbstractDungeonObject nextGround = null;
-	AbstractDungeonObject currGround = null;
+	DungeonObject next = null;
+	DungeonObject nextGround = null;
+	DungeonObject currGround = null;
 	activeBC.saveLocation();
 	this.battleGUI.getViewManager().saveViewingWindow();
 	try {
@@ -1082,14 +1077,14 @@ public class MapTurnBattleLogic extends Battle {
 		return false;
 	    }
 	    // Move
-	    AbstractDungeonObject obj1 = null;
-	    AbstractDungeonObject obj2 = null;
-	    AbstractDungeonObject obj3 = null;
-	    AbstractDungeonObject obj4 = null;
-	    AbstractDungeonObject obj6 = null;
-	    AbstractDungeonObject obj7 = null;
-	    AbstractDungeonObject obj8 = null;
-	    AbstractDungeonObject obj9 = null;
+	    DungeonObject obj1 = null;
+	    DungeonObject obj2 = null;
+	    DungeonObject obj3 = null;
+	    DungeonObject obj4 = null;
+	    DungeonObject obj6 = null;
+	    DungeonObject obj7 = null;
+	    DungeonObject obj8 = null;
+	    DungeonObject obj9 = null;
 	    try {
 		obj1 = m.getCell(px - 1, py - 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	    } catch (final ArrayIndexOutOfBoundsException aioob) {

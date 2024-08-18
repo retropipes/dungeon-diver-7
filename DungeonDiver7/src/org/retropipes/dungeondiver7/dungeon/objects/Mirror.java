@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
@@ -46,7 +46,7 @@ public class Mirror extends AbstractMovableObject {
 	    return Direction.NONE;
 	}
 	final var dir = DirectionResolver.resolveInvert(dirX, dirY);
-	if (AbstractDungeonObject.hitReflectiveSide(dir)) {
+	if (DungeonObject.hitReflectiveSide(dir)) {
 	    // Reflect laser
 	    return this.getDirection();
 	}

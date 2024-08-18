@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
-public abstract class AbstractMovingObject extends AbstractDungeonObject {
+public abstract class AbstractMovingObject extends DungeonObject {
     // Constructors
     public AbstractMovingObject(final boolean solid) {
 	super(solid, false);
@@ -17,7 +17,7 @@ public abstract class AbstractMovingObject extends AbstractDungeonObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+	return DungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override

@@ -154,7 +154,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 		if (cmd.equals(Strings.menu(Menu.QUIT)) && app.getGUIManager().quitHandler()) {
 		    System.exit(0);
 		}
-		app.getMenuManager().checkFlags();
+		app.getMenus().checkFlags();
 	    } catch (final Exception ex) {
 		DungeonDiver7.logError(ex);
 	    }
@@ -200,8 +200,8 @@ public class GUIManager implements MenuSection, QuitHandler {
 
     public void attachMenus() {
 	final var app = DungeonDiver7.getStuffBag();
-	Integration.integrate().setDefaultMenuBar(app.getMenuManager().getMainMenuBar());
-	app.getMenuManager().checkFlags();
+	Integration.integrate().setDefaultMenuBar(app.getMenus().getMainMenuBar());
+	app.getMenus().checkFlags();
     }
 
     @Override
@@ -255,7 +255,7 @@ public class GUIManager implements MenuSection, QuitHandler {
     @Override
     public void disableDirtyCommands() {
 	this.fileSave.setEnabled(false);
-	DungeonDiver7.getStuffBag().getMenuManager().disableDirtyCommands();
+	DungeonDiver7.getStuffBag().getMenus().disableDirtyCommands();
     }
 
     @Override
@@ -263,7 +263,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 	this.fileClose.setEnabled(false);
 	this.fileSaveAs.setEnabled(false);
 	this.fileSaveAsProtected.setEnabled(false);
-	DungeonDiver7.getStuffBag().getMenuManager().disableLoadedCommands();
+	DungeonDiver7.getStuffBag().getMenus().disableLoadedCommands();
     }
 
     @Override
@@ -271,13 +271,13 @@ public class GUIManager implements MenuSection, QuitHandler {
 	this.fileNew.setEnabled(false);
 	this.fileOpen.setEnabled(false);
 	this.fileOpenDefault.setEnabled(false);
-	DungeonDiver7.getStuffBag().getMenuManager().disableModeCommands();
+	DungeonDiver7.getStuffBag().getMenus().disableModeCommands();
     }
 
     @Override
     public void enableDirtyCommands() {
 	this.fileSave.setEnabled(true);
-	DungeonDiver7.getStuffBag().getMenuManager().enableDirtyCommands();
+	DungeonDiver7.getStuffBag().getMenus().enableDirtyCommands();
     }
 
     @Override
@@ -292,7 +292,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 	    this.fileSaveAs.setEnabled(true);
 	    this.fileSaveAsProtected.setEnabled(true);
 	}
-	DungeonDiver7.getStuffBag().getMenuManager().enableLoadedCommands();
+	DungeonDiver7.getStuffBag().getMenus().enableLoadedCommands();
     }
 
     @Override
@@ -300,7 +300,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 	this.fileNew.setEnabled(true);
 	this.fileOpen.setEnabled(true);
 	this.fileOpenDefault.setEnabled(true);
-	DungeonDiver7.getStuffBag().getMenuManager().enableModeCommands();
+	DungeonDiver7.getStuffBag().getMenus().enableModeCommands();
     }
 
     @Override
@@ -362,7 +362,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 	MusicLoader.playMusic(Music.TITLE);
 	this.mainWindow.setAndSave(this.guiPane, Strings.untranslated(Untranslated.PROGRAM_NAME));
 	this.mainWindow.addWindowListener(this.cHandler);
-	app.getMenuManager().checkFlags();
+	app.getMenus().checkFlags();
     }
 
     void updateLogo() {

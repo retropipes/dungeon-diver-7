@@ -25,7 +25,7 @@ import org.retropipes.dungeondiver7.dungeon.HistoryStatus;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButton;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButtonDoor;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTunnel;
 import org.retropipes.dungeondiver7.locale.DialogString;
@@ -402,7 +402,7 @@ public class CurrentDungeon extends Dungeon {
     }
 
     @Override
-    public AbstractDungeonObject getCell(final int row, final int col, final int floor, final int layer) {
+    public DungeonObject getCell(final int row, final int col, final int floor, final int layer) {
 	return this.dungeonData.getCell(this, row, col, floor, layer);
     }
 
@@ -518,7 +518,7 @@ public class CurrentDungeon extends Dungeon {
     }
 
     @Override
-    public AbstractDungeonObject getVirtualCell(final int row, final int col, final int floor, final int layer) {
+    public DungeonObject getVirtualCell(final int row, final int col, final int floor, final int layer) {
 	return this.dungeonData.getVirtualCell(this, row, col, floor, layer);
     }
 
@@ -780,7 +780,7 @@ public class CurrentDungeon extends Dungeon {
     }
 
     @Override
-    public void resize(final int z, final AbstractDungeonObject nullFill) {
+    public void resize(final int z, final DungeonObject nullFill) {
 	this.dungeonData.resize(this, z, nullFill);
     }
 
@@ -811,7 +811,7 @@ public class CurrentDungeon extends Dungeon {
     }
 
     @Override
-    public void setCell(final AbstractDungeonObject mo, final int row, final int col, final int floor,
+    public void setCell(final DungeonObject mo, final int row, final int col, final int floor,
 	    final int layer) {
 	this.dungeonData.setCell(this, mo, row, col, floor, layer);
     }
@@ -907,7 +907,7 @@ public class CurrentDungeon extends Dungeon {
     }
 
     @Override
-    public void setVirtualCell(final AbstractDungeonObject mo, final int row, final int col, final int floor,
+    public void setVirtualCell(final DungeonObject mo, final int row, final int col, final int floor,
 	    final int layer) {
 	this.dungeonData.setVirtualCell(this, mo, row, col, floor, layer);
     }

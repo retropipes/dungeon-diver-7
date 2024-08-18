@@ -36,7 +36,7 @@ import org.retropipes.dungeondiver7.utility.RandomGenerationRule;
 import org.retropipes.dungeondiver7.utility.RangeTypes;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
-public abstract class AbstractDungeonObject implements RandomGenerationRule {
+public abstract class DungeonObject implements RandomGenerationRule {
     private static int templateColor = ImageColors.NONE;
     static final int DEFAULT_CUSTOM_VALUE = 0;
     protected static final int CUSTOM_FORMAT_MANUAL_OVERRIDE = -1;
@@ -46,16 +46,16 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 
     public static final int getImbuedRangeForce(final int material) {
 	if (material == Materials.PLASTIC) {
-	    return AbstractDungeonObject.PLASTIC_MINIMUM_REACTION_FORCE;
+	    return DungeonObject.PLASTIC_MINIMUM_REACTION_FORCE;
 	}
 	if (material == Materials.METALLIC) {
-	    return AbstractDungeonObject.METAL_MINIMUM_REACTION_FORCE;
+	    return DungeonObject.METAL_MINIMUM_REACTION_FORCE;
 	}
-	return AbstractDungeonObject.DEFAULT_MINIMUM_REACTION_FORCE;
+	return DungeonObject.DEFAULT_MINIMUM_REACTION_FORCE;
     }
 
     public static int getTemplateColor() {
-	return AbstractDungeonObject.templateColor;
+	return DungeonObject.templateColor;
     }
 
     public static boolean hitReflectiveSide(final Direction dir) {
@@ -66,7 +66,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
     }
 
     public static void setTemplateColor(final int newTC) {
-	AbstractDungeonObject.templateColor = newTC;
+	DungeonObject.templateColor = newTC;
     }
 
     // Properties
@@ -84,10 +84,10 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
     private int material;
     private boolean imageEnabled;
     private final boolean blocksLOS;
-    private AbstractDungeonObject saved;
-    private AbstractDungeonObject previousState;
+    private DungeonObject saved;
+    private DungeonObject previousState;
 
-    public AbstractDungeonObject() {
+    public DungeonObject() {
 	this.solid = false;
 	this.blocksLOS = false;
 	this.pushable = false;
@@ -103,7 +103,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	this.imageEnabled = true;
     }
 
-    public AbstractDungeonObject(final AbstractDungeonObject source) {
+    public DungeonObject(final DungeonObject source) {
 	this.solid = source.solid;
 	this.blocksLOS = source.blocksLOS;
 	this.pushable = source.pushable;
@@ -120,7 +120,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
     }
 
     // Constructors
-    AbstractDungeonObject(final boolean isSolid) {
+    DungeonObject(final boolean isSolid) {
 	this.solid = isSolid;
 	this.blocksLOS = isSolid;
 	this.pushable = false;
@@ -137,7 +137,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	this.imageEnabled = true;
     }
 
-    public AbstractDungeonObject(final boolean isSolid, final boolean sightBlock) {
+    public DungeonObject(final boolean isSolid, final boolean sightBlock) {
 	this.solid = isSolid;
 	this.friction = true;
 	this.blocksLOS = sightBlock;
@@ -147,7 +147,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	this.timerActive = false;
     }
 
-    public AbstractDungeonObject(final boolean isSolid, final boolean hasFriction, final boolean sightBlock) {
+    public DungeonObject(final boolean isSolid, final boolean hasFriction, final boolean sightBlock) {
 	this.solid = isSolid;
 	this.friction = hasFriction;
 	this.blocksLOS = sightBlock;
@@ -157,7 +157,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	this.timerActive = false;
     }
 
-    AbstractDungeonObject(final boolean isSolid, final boolean isPushable, final boolean hasFriction,
+    DungeonObject(final boolean isSolid, final boolean isPushable, final boolean hasFriction,
 	    final boolean sightBlock) {
 	this.solid = isSolid;
 	this.blocksLOS = sightBlock;
@@ -193,7 +193,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	return !this.isSolid();
     }
 
-    public AbstractDungeonObject attributeGameRenderHook() {
+    public DungeonObject attributeGameRenderHook() {
 	return null;
     }
 
@@ -214,12 +214,12 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
      * @param materialID
      * @return
      */
-    public AbstractDungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final int materialID) {
 	return this;
     }
 
     @Override
-    public AbstractDungeonObject clone() {
+    public DungeonObject clone() {
 	try {
 	    return this.getClass().getConstructor(this.getClass()).newInstance(this);
 	} catch (final InstantiationException | IllegalAccessException | IllegalArgumentException
@@ -271,7 +271,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	// Do nothing
     }
 
-    public AbstractDungeonObject editorPropertiesHook() {
+    public DungeonObject editorPropertiesHook() {
 	if (this.hasDirection()) {
 	    this.toggleDirection();
 	    return this;
@@ -302,7 +302,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null || !(obj instanceof final AbstractDungeonObject other) || this.friction != other.friction
+	if (obj == null || !(obj instanceof final DungeonObject other) || this.friction != other.friction
 		|| this.initialTimerValue != other.initialTimerValue) {
 	    return false;
 	}
@@ -423,12 +423,12 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 
     public final int getMinimumReactionForce() {
 	if (this.material == Materials.PLASTIC) {
-	    return AbstractDungeonObject.PLASTIC_MINIMUM_REACTION_FORCE;
+	    return DungeonObject.PLASTIC_MINIMUM_REACTION_FORCE;
 	}
 	if (this.material == Materials.METALLIC) {
-	    return AbstractDungeonObject.METAL_MINIMUM_REACTION_FORCE;
+	    return DungeonObject.METAL_MINIMUM_REACTION_FORCE;
 	}
-	return AbstractDungeonObject.DEFAULT_MINIMUM_REACTION_FORCE;
+	return DungeonObject.DEFAULT_MINIMUM_REACTION_FORCE;
     }
 
     @Override
@@ -436,11 +436,11 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	return RandomGenerationRule.NO_LIMIT;
     }
 
-    public final AbstractDungeonObject getPreviousState() {
+    public final DungeonObject getPreviousState() {
 	return this.previousState;
     }
 
-    public final AbstractDungeonObject getSavedObject() {
+    public final DungeonObject getSavedObject() {
 	return this.saved;
     }
 
@@ -728,7 +728,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readHookV2(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected DungeonObject readHookV2(final DataIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
@@ -740,7 +740,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readHookV3(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected DungeonObject readHookV3(final DataIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
@@ -752,7 +752,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readHookV4(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected DungeonObject readHookV4(final DataIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
@@ -764,7 +764,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readHookV5(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected DungeonObject readHookV5(final DataIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
@@ -776,7 +776,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readHookV6(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected DungeonObject readHookV6(final DataIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
@@ -788,18 +788,18 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
      * @return
      * @throws IOException
      */
-    protected AbstractDungeonObject readHookV7(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected DungeonObject readHookV7(final DataIOReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }
 
-    public final AbstractDungeonObject readV2(final DataIOReader reader, final String ident, final int ver)
+    public final DungeonObject readV2(final DataIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
-	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+	if (cc == DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 	    this.directions = Direction.values()[reader.readInt()];
 	    reader.readInt();
 	    this.color = Colors.values()[reader.readInt()];
@@ -814,13 +814,13 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	return this;
     }
 
-    public final AbstractDungeonObject readV3(final DataIOReader reader, final String ident, final int ver)
+    public final DungeonObject readV3(final DataIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
-	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+	if (cc == DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 	    this.directions = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    // Discard material
@@ -838,13 +838,13 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	return this;
     }
 
-    public final AbstractDungeonObject readV4(final DataIOReader reader, final String ident, final int ver)
+    public final DungeonObject readV4(final DataIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
-	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+	if (cc == DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 	    this.directions = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    return this.readHookV4(reader, ver);
@@ -858,13 +858,13 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	return this;
     }
 
-    public final AbstractDungeonObject readV5(final DataIOReader reader, final String ident, final int ver)
+    public final DungeonObject readV5(final DataIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
-	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+	if (cc == DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 	    this.directions = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    return this.readHookV5(reader, ver);
@@ -878,13 +878,13 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	return this;
     }
 
-    public final AbstractDungeonObject readV6(final DataIOReader reader, final String ident, final int ver)
+    public final DungeonObject readV6(final DataIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
-	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+	if (cc == DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 	    this.directions = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    return this.readHookV6(reader, ver);
@@ -898,13 +898,13 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	return this;
     }
 
-    public final AbstractDungeonObject readV7(final DataIOReader reader, final String ident, final int ver)
+    public final DungeonObject readV7(final DataIOReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
-	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+	if (cc == DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 	    this.directions = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    return this.readHookV7(reader, ver);
@@ -944,11 +944,11 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
 	this.material = mat;
     }
 
-    public final void setPreviousState(final AbstractDungeonObject obj) {
+    public final void setPreviousState(final DungeonObject obj) {
 	this.previousState = obj;
     }
 
-    public final void setSavedObject(final AbstractDungeonObject obj) {
+    public final void setSavedObject(final DungeonObject obj) {
 	this.saved = obj;
     }
 
@@ -1034,7 +1034,7 @@ public abstract class AbstractDungeonObject implements RandomGenerationRule {
     public final void write(final DataIOWriter writer) throws IOException {
 	writer.writeString(this.getIdentifier());
 	final var cc = this.getCustomFormat();
-	if (cc == AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
+	if (cc == DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
 	    writer.writeInt(this.directions.ordinal());
 	    writer.writeInt(this.color.ordinal());
 	    this.writeHook(writer);

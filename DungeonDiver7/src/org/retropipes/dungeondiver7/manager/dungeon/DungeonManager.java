@@ -257,7 +257,7 @@ public final class DungeonManager {
 	}
 	this.setDirty(false);
 	DungeonDiver7.getStuffBag().getGameLogic().stateChanged();
-	DungeonDiver7.getStuffBag().getMenuManager().checkFlags();
+	DungeonDiver7.getStuffBag().getMenus().checkFlags();
     }
 
     public boolean isDungeonProtected() {
@@ -490,7 +490,7 @@ public final class DungeonManager {
 	if (frame != null) {
 	    frame.setDirty(newDirty);
 	}
-	app.getMenuManager().checkFlags();
+	app.getMenus().checkFlags();
     }
 
     public void setDungeon(final Dungeon newDungeon) {
@@ -512,7 +512,7 @@ public final class DungeonManager {
     public void setLoaded(final boolean status) {
 	final var app = DungeonDiver7.getStuffBag();
 	this.loaded = status;
-	app.getMenuManager().checkFlags();
+	app.getMenus().checkFlags();
     }
 
     public void setScoresFileName(final String filename) {

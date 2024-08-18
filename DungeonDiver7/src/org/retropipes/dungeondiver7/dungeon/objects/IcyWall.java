@@ -7,7 +7,7 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractWall;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
@@ -22,7 +22,7 @@ public class IcyWall extends AbstractWall {
     }
 
     @Override
-    public AbstractDungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final int materialID) {
 	switch (materialID) {
 	case Materials.FIRE:
 	    if (this.hasPreviousState()) {
@@ -57,7 +57,7 @@ public class IcyWall extends AbstractWall {
 	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 	}
 	// Defrost icy wall
-	AbstractDungeonObject ao;
+	DungeonObject ao;
 	if (this.hasPreviousState()) {
 	    ao = this.getPreviousState();
 	} else {

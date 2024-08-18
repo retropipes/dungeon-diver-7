@@ -15,7 +15,7 @@ import org.retropipes.dungeondiver7.creature.StatConstants;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractBattleCharacter extends AbstractDungeonObject {
+public abstract class AbstractBattleCharacter extends DungeonObject {
     // Fields
     private final Creature template;
     private int actionCounter;
@@ -98,7 +98,7 @@ public abstract class AbstractBattleCharacter extends AbstractDungeonObject {
 	return switch (propID) {
 	case 0 -> this.getX();
 	case 1 -> this.getY();
-	default -> AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+	default -> DungeonObject.DEFAULT_CUSTOM_VALUE;
 	};
     }
 

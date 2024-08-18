@@ -25,7 +25,7 @@ import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.HistoryStatus;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.current.GenerateDungeonTask;
 import org.retropipes.dungeondiver7.dungeon.objects.ArrowTurretDisguise;
@@ -101,13 +101,13 @@ public final class GameLogic implements MenuSection {
 	}
     }
 
-    public static void morph(final AbstractDungeonObject morphInto) {
+    public static void morph(final DungeonObject morphInto) {
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();
 	m.setCell(morphInto, m.getPlayerLocationX(0), m.getPlayerLocationY(0), 0, morphInto.getLayer());
     }
 
-    public static void morph(final AbstractDungeonObject morphInto, final int x, final int y, final int z,
+    public static void morph(final DungeonObject morphInto, final int x, final int y, final int z,
 	    final int w) {
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();
@@ -165,7 +165,7 @@ public final class GameLogic implements MenuSection {
     private JLabel otherRangesLeft;
     private JLabel levelInfo;
     private boolean delayedDecayActive;
-    private AbstractDungeonObject delayedDecayObject;
+    private DungeonObject delayedDecayObject;
     boolean shotActive;
     boolean moving;
     private boolean remoteDecay;
@@ -438,7 +438,7 @@ public final class GameLogic implements MenuSection {
 	app.getGUIManager().showGUI();
     }
 
-    public boolean fireLaser(final int ox, final int oy, final AbstractDungeonObject shooter) {
+    public boolean fireLaser(final int ox, final int oy, final DungeonObject shooter) {
 	if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_MISSILES && this.activeShotType == ShotTypes.MISSILE
 		&& PartyInventory.getMissilesLeft() == 0 && !this.getCheatStatus(GameLogic.CHEAT_MISSILES)) {
 	    CommonDialogs.showDialog(Strings.game(GameString.OUT_OF_MISSILES));
@@ -504,7 +504,7 @@ public final class GameLogic implements MenuSection {
 	final var py = this.plMgr.getPlayerLocationY();
 	final var pz = this.plMgr.getPlayerLocationZ();
 	a.circularScanRange(px, py, pz, 1, this.otherRangeMode,
-		AbstractDungeonObject.getImbuedRangeForce(RangeTypes.getMaterialForRangeType(this.otherRangeMode)));
+		DungeonObject.getImbuedRangeForce(RangeTypes.getMaterialForRangeType(this.otherRangeMode)));
 	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().tickTimers(pz, GameActions.NON_MOVE);
 	this.updateScoreText();
     }
@@ -926,7 +926,7 @@ public final class GameLogic implements MenuSection {
 	this.gui.redrawDungeon();
     }
 
-    public void remoteDelayedDecayTo(final AbstractDungeonObject obj) {
+    public void remoteDelayedDecayTo(final DungeonObject obj) {
 	this.delayedDecayActive = true;
 	this.delayedDecayObject = obj;
 	this.remoteDecay = true;
@@ -1381,7 +1381,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void updatePushedIntoPositionAbsolute(final int x, final int y, final int z, final int x2, final int y2,
-	    final int z2, final AbstractMovableObject pushedInto, final AbstractDungeonObject source) {
+	    final int z2, final AbstractMovableObject pushedInto, final DungeonObject source) {
 	final var template = new Party(this.plMgr.getActivePlayerNumber() + 1);
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();

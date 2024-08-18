@@ -11,7 +11,7 @@ import org.retropipes.diane.gui.MainContent;
 import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractDungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.utility.ImageColors;
@@ -42,7 +42,7 @@ public class LevelLoadTask extends Thread {
 	    app.getGameLogic().disableEvents();
 	    gameDungeon.switchLevelOffset(this.level);
 	    PartyManager.getParty().offsetZone(this.level);
-	    AbstractDungeonObject.setTemplateColor(ImageColors.getColorForLevel(PartyManager.getParty().getZone()));
+	    DungeonObject.setTemplateColor(ImageColors.getColorForLevel(PartyManager.getParty().getZone()));
 	    app.getGameLogic().resetViewingWindow();
 	    app.getGameLogic().enableEvents();
 	    app.getGameLogic().redrawDungeon();

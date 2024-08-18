@@ -50,7 +50,7 @@ public abstract class Battle {
     // Generic Methods
     public abstract void resetGUI();
 
-    public abstract void setResult(final int resultCode);
+    public abstract void setResult(final BattleResult resultCode);
 
     public abstract void setStatusMessage(final String msg);
 

@@ -15,7 +15,7 @@ import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
-public abstract class AbstractCharacter extends AbstractDungeonObject {
+public abstract class AbstractCharacter extends DungeonObject {
     // Fields
     private final int characterNumber;
 
@@ -55,12 +55,12 @@ public abstract class AbstractCharacter extends AbstractDungeonObject {
 
     @Override
     public int getCustomFormat() {
-	return AbstractDungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE;
+	return DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE;
     }
 
     @Override
     public int getCustomProperty(final int propID) {
-	return AbstractDungeonObject.DEFAULT_CUSTOM_VALUE;
+	return DungeonObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
@@ -100,37 +100,37 @@ public abstract class AbstractCharacter extends AbstractDungeonObject {
     }
 
     @Override
-    protected AbstractDungeonObject readHookV2(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected DungeonObject readHookV2(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV2(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV3(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected DungeonObject readHookV3(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV3(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV4(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected DungeonObject readHookV4(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV4(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV5(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected DungeonObject readHookV5(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV5(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV6(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected DungeonObject readHookV6(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV6(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected AbstractDungeonObject readHookV7(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected DungeonObject readHookV7(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV7(reader, formatVersion));
 	return this;
     }
