@@ -793,8 +793,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return this;
     }
 
-    public final DungeonObject readV2(final DataIOReader reader, final String ident, final int ver)
-	    throws IOException {
+    public final DungeonObject readV2(final DataIOReader reader, final String ident, final int ver) throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
@@ -814,8 +813,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return this;
     }
 
-    public final DungeonObject readV3(final DataIOReader reader, final String ident, final int ver)
-	    throws IOException {
+    public final DungeonObject readV3(final DataIOReader reader, final String ident, final int ver) throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
@@ -838,8 +836,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return this;
     }
 
-    public final DungeonObject readV4(final DataIOReader reader, final String ident, final int ver)
-	    throws IOException {
+    public final DungeonObject readV4(final DataIOReader reader, final String ident, final int ver) throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
@@ -858,8 +855,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return this;
     }
 
-    public final DungeonObject readV5(final DataIOReader reader, final String ident, final int ver)
-	    throws IOException {
+    public final DungeonObject readV5(final DataIOReader reader, final String ident, final int ver) throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
@@ -878,8 +874,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return this;
     }
 
-    public final DungeonObject readV6(final DataIOReader reader, final String ident, final int ver)
-	    throws IOException {
+    public final DungeonObject readV6(final DataIOReader reader, final String ident, final int ver) throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}
@@ -898,8 +893,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return this;
     }
 
-    public final DungeonObject readV7(final DataIOReader reader, final String ident, final int ver)
-	    throws IOException {
+    public final DungeonObject readV7(final DataIOReader reader, final String ident, final int ver) throws IOException {
 	if (!ident.equals(this.getIdentifier())) {
 	    return null;
 	}

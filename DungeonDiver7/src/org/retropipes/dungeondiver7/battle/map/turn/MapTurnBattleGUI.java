@@ -236,8 +236,7 @@ class MapTurnBattleGUI {
 	}
     }
 
-    void redrawOneBattleSquare(final MapBattleDefinitions bd, final int x, final int y,
-	    final DungeonObject obj3) {
+    void redrawOneBattleSquare(final MapBattleDefinitions bd, final int x, final int y, final DungeonObject obj3) {
 	// Draw the battle, if it is visible
 	if (this.mainWindow.checkContent(this.battlePane)) {
 	    try {

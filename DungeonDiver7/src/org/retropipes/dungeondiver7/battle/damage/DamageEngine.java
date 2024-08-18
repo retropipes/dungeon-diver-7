@@ -7,16 +7,17 @@ package org.retropipes.dungeondiver7.battle.damage;
 
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public abstract class DamageEngine {
     public static DamageEngine getEnemyInstance() {
 	final var difficulty = Prefs.getGameDifficulty();
 	return switch (difficulty) {
-	case Prefs.DIFFICULTY_VERY_EASY -> new VeryHardDamageEngine();
-	case Prefs.DIFFICULTY_EASY -> new HardDamageEngine();
-	case Prefs.DIFFICULTY_NORMAL -> new NormalDamageEngine();
-	case Prefs.DIFFICULTY_HARD -> new EasyDamageEngine();
-	case Prefs.DIFFICULTY_VERY_HARD -> new VeryEasyDamageEngine();
+	case GameDifficulty.VERY_EASY -> new VeryHardDamageEngine();
+	case GameDifficulty.EASY -> new HardDamageEngine();
+	case GameDifficulty.NORMAL -> new NormalDamageEngine();
+	case GameDifficulty.HARD -> new EasyDamageEngine();
+	case GameDifficulty.VERY_HARD -> new VeryEasyDamageEngine();
 	default -> new NormalDamageEngine();
 	};
     }
@@ -24,11 +25,11 @@ public abstract class DamageEngine {
     public static DamageEngine getPlayerInstance() {
 	final var difficulty = Prefs.getGameDifficulty();
 	return switch (difficulty) {
-	case Prefs.DIFFICULTY_VERY_EASY -> new VeryEasyDamageEngine();
-	case Prefs.DIFFICULTY_EASY -> new EasyDamageEngine();
-	case Prefs.DIFFICULTY_NORMAL -> new NormalDamageEngine();
-	case Prefs.DIFFICULTY_HARD -> new HardDamageEngine();
-	case Prefs.DIFFICULTY_VERY_HARD -> new VeryHardDamageEngine();
+	case GameDifficulty.VERY_EASY -> new VeryEasyDamageEngine();
+	case GameDifficulty.EASY -> new EasyDamageEngine();
+	case GameDifficulty.NORMAL -> new NormalDamageEngine();
+	case GameDifficulty.HARD -> new HardDamageEngine();
+	case GameDifficulty.VERY_HARD -> new VeryHardDamageEngine();
 	default -> new NormalDamageEngine();
 	};
     }

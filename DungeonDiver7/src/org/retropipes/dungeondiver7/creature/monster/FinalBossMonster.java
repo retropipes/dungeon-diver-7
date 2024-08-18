@@ -7,13 +7,13 @@ package org.retropipes.dungeondiver7.creature.monster;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.random.RandomRange;
-import org.retropipes.dungeondiver7.battle.ai.map.MapAIPicker;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.creature.spell.SpellBook;
 import org.retropipes.dungeondiver7.loader.image.monster.MonsterImageLoader;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public class FinalBossMonster extends Monster {
     // Fields
@@ -31,15 +31,15 @@ public class FinalBossMonster extends Monster {
     private static int getMinimumStatForDifficulty() {
 	final var difficulty = Prefs.getGameDifficulty();
 	switch (difficulty) {
-	case Prefs.DIFFICULTY_VERY_EASY:
+	case GameDifficulty.VERY_EASY:
 	    return FinalBossMonster.MINIMUM_STAT_VALUE_VERY_EASY;
-	case Prefs.DIFFICULTY_EASY:
+	case GameDifficulty.EASY:
 	    return FinalBossMonster.MINIMUM_STAT_VALUE_EASY;
-	case Prefs.DIFFICULTY_NORMAL:
+	case GameDifficulty.NORMAL:
 	    return FinalBossMonster.MINIMUM_STAT_VALUE_NORMAL;
-	case Prefs.DIFFICULTY_HARD:
+	case GameDifficulty.HARD:
 	    return FinalBossMonster.MINIMUM_STAT_VALUE_HARD;
-	case Prefs.DIFFICULTY_VERY_HARD:
+	case GameDifficulty.VERY_HARD:
 	    return FinalBossMonster.MINIMUM_STAT_VALUE_VERY_HARD;
 	default:
 	    break;
@@ -50,15 +50,15 @@ public class FinalBossMonster extends Monster {
     private static int getStatMultiplierForDifficulty() {
 	final var difficulty = Prefs.getGameDifficulty();
 	switch (difficulty) {
-	case Prefs.DIFFICULTY_VERY_EASY:
+	case GameDifficulty.VERY_EASY:
 	    return FinalBossMonster.STAT_MULT_VERY_EASY;
-	case Prefs.DIFFICULTY_EASY:
+	case GameDifficulty.EASY:
 	    return FinalBossMonster.STAT_MULT_EASY;
-	case Prefs.DIFFICULTY_NORMAL:
+	case GameDifficulty.NORMAL:
 	    return FinalBossMonster.STAT_MULT_NORMAL;
-	case Prefs.DIFFICULTY_HARD:
+	case GameDifficulty.HARD:
 	    return FinalBossMonster.STAT_MULT_HARD;
-	case Prefs.DIFFICULTY_VERY_HARD:
+	case GameDifficulty.VERY_HARD:
 	    return FinalBossMonster.STAT_MULT_VERY_HARD;
 	default:
 	    break;
@@ -68,7 +68,6 @@ public class FinalBossMonster extends Monster {
 
     // Constructors
     FinalBossMonster() {
-	this.setAI(MapAIPicker.getNextRoutine());
 	final SpellBook spells = new MonsterSpellBook();
 	spells.learnAllSpells();
 	this.setSpellBook(spells);
@@ -128,19 +127,18 @@ public class FinalBossMonster extends Monster {
     }
 
     @Override
-    public int getSpeed() {
-	final var difficulty = Prefs.getGameDifficulty();
+    public int getSpeed(GameDifficulty difficulty) {
 	final var base = this.getBaseSpeed();
 	switch (difficulty) {
-	case Prefs.DIFFICULTY_VERY_EASY:
+	case GameDifficulty.VERY_EASY:
 	    return (int) (base * Creature.SPEED_ADJUST_SLOWEST);
-	case Prefs.DIFFICULTY_EASY:
+	case GameDifficulty.EASY:
 	    return (int) (base * Creature.SPEED_ADJUST_SLOW);
-	case Prefs.DIFFICULTY_NORMAL:
+	case GameDifficulty.NORMAL:
 	    return (int) (base * Creature.SPEED_ADJUST_NORMAL);
-	case Prefs.DIFFICULTY_HARD:
+	case GameDifficulty.HARD:
 	    return (int) (base * Creature.SPEED_ADJUST_FAST);
-	case Prefs.DIFFICULTY_VERY_HARD:
+	case GameDifficulty.VERY_HARD:
 	    return (int) (base * Creature.SPEED_ADJUST_FASTEST);
 	default:
 	    break;

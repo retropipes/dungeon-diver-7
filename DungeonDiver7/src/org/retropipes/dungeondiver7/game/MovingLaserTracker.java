@@ -9,8 +9,8 @@ import org.retropipes.diane.direction.Direction;
 import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTransientObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Arrow;
 import org.retropipes.dungeondiver7.dungeon.objects.ArrowTurretDisguise;
 import org.retropipes.dungeondiver7.dungeon.objects.DeathArrow;
@@ -346,14 +346,12 @@ final class MovingLaserTracker {
 		    // Ignore
 		}
 		if (m.isVerticalWraparoundEnabled()) {
-		    this.cumX = MovingLaserTracker.normalizeColumn(this.cumX + this.incX,
-			    Dungeon.getMinColumns());
+		    this.cumX = MovingLaserTracker.normalizeColumn(this.cumX + this.incX, Dungeon.getMinColumns());
 		} else {
 		    this.cumX += this.incX;
 		}
 		if (m.isHorizontalWraparoundEnabled()) {
-		    this.cumY = MovingLaserTracker.normalizeColumn(this.cumY + this.incY,
-			    Dungeon.getMinColumns());
+		    this.cumY = MovingLaserTracker.normalizeColumn(this.cumY + this.incY, Dungeon.getMinColumns());
 		} else {
 		    this.cumY += this.incY;
 		}

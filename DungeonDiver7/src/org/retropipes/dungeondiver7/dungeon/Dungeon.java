@@ -13,9 +13,9 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButton;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButtonDoor;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTunnel;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeon;
 import org.retropipes.dungeondiver7.locale.Difficulty;
 import org.retropipes.dungeondiver7.locale.Strings;
@@ -202,8 +202,7 @@ public abstract class Dungeon {
 
     public abstract int getStartRow(final int pi);
 
-    public abstract DungeonObject getVirtualCell(final int row, final int col, final int floor,
-	    final int layer);
+    public abstract DungeonObject getVirtualCell(final int row, final int col, final int floor, final int layer);
 
     public abstract HistoryStatus getWhatWas();
 

@@ -22,6 +22,7 @@ import org.retropipes.dungeondiver7.locale.PrefKey;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
+import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public class Prefs {
     // Fields
@@ -31,12 +32,7 @@ public class Prefs {
     private final static EditorLayout DEFAULT_EDITOR_LAYOUT = EditorLayout.VERTICAL;
     private static final int BATTLE_SPEED = 1000;
     private static final int VIEWING_WINDOW_SIZE = 11;
-    public static final int DIFFICULTY_VERY_EASY = 0;
-    public static final int DIFFICULTY_EASY = 1;
-    public static final int DIFFICULTY_NORMAL = 2;
-    public static final int DIFFICULTY_HARD = 3;
-    public static final int DIFFICULTY_VERY_HARD = 4;
-    private static final int DEFAULT_DIFFICULTY = Prefs.DIFFICULTY_NORMAL;
+    private static final GameDifficulty DEFAULT_DIFFICULTY = GameDifficulty.NORMAL;
 
     public static void activeLanguageChanged() {
 	Prefs.gui.activeLanguageChanged();
@@ -71,8 +67,9 @@ public class Prefs {
 	return Prefs.file.getBoolean(Strings.prefKey(PrefKey.EDITOR_SHOW_ALL_OBJECTS), true);
     }
 
-    public static int getGameDifficulty() {
-	return Prefs.file.getInteger(Strings.prefKey(PrefKey.GAME_DIFFICULTY), Prefs.DEFAULT_DIFFICULTY);
+    public static GameDifficulty getGameDifficulty() {
+	return GameDifficulty.values()[Prefs.file.getInteger(Strings.prefKey(PrefKey.GAME_DIFFICULTY),
+		Prefs.DEFAULT_DIFFICULTY.ordinal())];
     }
 
     public static int getLanguageID() {

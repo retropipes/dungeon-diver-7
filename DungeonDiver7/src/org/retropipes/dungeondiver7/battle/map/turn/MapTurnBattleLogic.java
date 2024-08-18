@@ -384,8 +384,7 @@ public class MapTurnBattleLogic extends Battle {
 	    }
 	    if (this.bd.getBattlers()[x] != null) {
 		// Create an AI Context
-		this.bd.getBattlerAIContexts()[x] = new AIContext(this.bd.getBattlers()[x],
-			this.bd.getBattleDungeon());
+		this.bd.getBattlerAIContexts()[x] = new AIContext(this.bd.getBattlers()[x], this.bd.getBattleDungeon());
 	    }
 	}
 	// Reset Inactive Indicators and Action Counters

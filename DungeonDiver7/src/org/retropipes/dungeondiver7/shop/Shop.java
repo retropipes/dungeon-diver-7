@@ -54,8 +54,7 @@ public class Shop {
 		CommonDialogs.showDialog("You don't need healing.");
 		return false;
 	    }
-	    if (Shop.this.type == ShopType.SURGE
-		    && playerCharacter.getCurrentMP() == playerCharacter.getMaximumMP()) {
+	    if (Shop.this.type == ShopType.SURGE && playerCharacter.getCurrentMP() == playerCharacter.getMaximumMP()) {
 		CommonDialogs.showDialog("You don't need regeneration.");
 		return false;
 	    }
@@ -158,10 +157,6 @@ public class Shop {
     // Fields
     private static final String[] SHOP_NAMES = { "Weapons", "Armor", "Healer", "Regenerator", "Spells" };
     static final int MAX_ENHANCEMENTS = 9;
-
-    public static int getEquipmentCost(final int x) {
-	return 10 * x * x * x + 10 * x * x + 10 * x + 10;
-    }
 
     static int getHealingCost(final int x, final int y, final int z) {
 	return (int) (Math.log10(x) * (z - y));

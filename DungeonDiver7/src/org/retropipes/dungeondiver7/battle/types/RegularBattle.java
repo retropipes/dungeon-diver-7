@@ -5,6 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.battle.types;
 
+import org.retropipes.dungeondiver7.battle.ai.map.MapAIPicker;
 import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 
@@ -15,6 +16,7 @@ class RegularBattle extends BattleType {
     // Constructors
     public RegularBattle() {
 	this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance());
+	this.monster.getTemplate().setAI(MapAIPicker.getNextRoutine());
     }
 
     @Override

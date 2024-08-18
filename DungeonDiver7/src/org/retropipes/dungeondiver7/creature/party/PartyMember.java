@@ -20,8 +20,8 @@ import org.retropipes.dungeondiver7.creature.item.ItemInventory;
 import org.retropipes.dungeondiver7.creature.job.Job;
 import org.retropipes.dungeondiver7.creature.job.JobManager;
 import org.retropipes.dungeondiver7.dungeon.current.GenerateDungeonTask;
-import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.FileFormats;
+import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public class PartyMember extends Creature {
     private static final int START_GOLD = 0;
@@ -178,19 +178,18 @@ public class PartyMember extends Creature {
     }
 
     @Override
-    public int getSpeed() {
-	final var difficulty = Prefs.getGameDifficulty();
+    public int getSpeed(GameDifficulty difficulty) {
 	final var base = this.getBaseSpeed();
 	switch (difficulty) {
-	case Prefs.DIFFICULTY_VERY_EASY:
+	case GameDifficulty.VERY_EASY:
 	    return (int) (base * Creature.SPEED_ADJUST_FASTEST);
-	case Prefs.DIFFICULTY_EASY:
+	case GameDifficulty.EASY:
 	    return (int) (base * Creature.SPEED_ADJUST_FAST);
-	case Prefs.DIFFICULTY_NORMAL:
+	case GameDifficulty.NORMAL:
 	    return (int) (base * Creature.SPEED_ADJUST_NORMAL);
-	case Prefs.DIFFICULTY_HARD:
+	case GameDifficulty.HARD:
 	    return (int) (base * Creature.SPEED_ADJUST_SLOW);
-	case Prefs.DIFFICULTY_VERY_HARD:
+	case GameDifficulty.VERY_HARD:
 	    return (int) (base * Creature.SPEED_ADJUST_SLOWEST);
 	default:
 	    break;

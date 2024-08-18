@@ -8,8 +8,8 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractReactionWall;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class MetallicRotaryMirror extends AbstractReactionWall {

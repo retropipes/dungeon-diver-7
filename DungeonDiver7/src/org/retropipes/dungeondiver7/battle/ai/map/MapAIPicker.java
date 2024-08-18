@@ -6,23 +6,24 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.battle.ai.map;
 
 import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public final class MapAIPicker {
     public static MapAI getNextRoutine() {
 	final var difficulty = Prefs.getGameDifficulty();
-	if (difficulty == Prefs.DIFFICULTY_VERY_EASY) {
+	if (difficulty == GameDifficulty.VERY_EASY) {
 	    return new VeryEasyMapAI();
 	}
-	if (difficulty == Prefs.DIFFICULTY_EASY) {
+	if (difficulty == GameDifficulty.EASY) {
 	    return new EasyMapAI();
 	}
-	if (difficulty == Prefs.DIFFICULTY_NORMAL) {
+	if (difficulty == GameDifficulty.NORMAL) {
 	    return new NormalMapAI();
 	}
-	if (difficulty == Prefs.DIFFICULTY_HARD) {
+	if (difficulty == GameDifficulty.HARD) {
 	    return new HardMapAI();
 	}
-	if (difficulty == Prefs.DIFFICULTY_VERY_HARD) {
+	if (difficulty == GameDifficulty.VERY_HARD) {
 	    return new VeryHardMapAI();
 	}
 	return new NormalMapAI();

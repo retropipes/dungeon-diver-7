@@ -8,12 +8,10 @@ package org.retropipes.dungeondiver7.creature.monster;
 import java.util.Objects;
 
 import org.retropipes.diane.random.RandomRange;
-import org.retropipes.dungeondiver7.battle.ai.map.MapAI;
-import org.retropipes.dungeondiver7.battle.ai.map.MapAIPicker;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.creature.spell.SpellBook;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public abstract class Monster extends Creature {
     protected static final double MINIMUM_EXPERIENCE_RANDOM_VARIANCE = -5.0 / 2.0;
@@ -22,12 +20,6 @@ public abstract class Monster extends Creature {
     protected static final int PERFECT_GOLD_MAX = 3;
     private static final int BATTLES_SCALE_FACTOR = 2;
     private static final int BATTLES_START = 2;
-
-    // Helper Methods
-    private static MapAI getInitialMapAI() {
-	return MapAIPicker.getNextRoutine();
-    }
-
     // Fields
     private String type;
     private int monID;
@@ -35,7 +27,6 @@ public abstract class Monster extends Creature {
     // Constructors
     Monster() {
 	super(1);
-	this.setAI(Monster.getInitialMapAI());
 	final SpellBook spells = new MonsterSpellBook();
 	spells.learnAllSpells();
 	this.setSpellBook(spells);
@@ -61,8 +52,7 @@ public abstract class Monster extends Creature {
 	if (this == obj) {
 	    return true;
 	}
-	if (!super.equals(obj) || !(obj instanceof final Monster other)
-		|| !Objects.equals(this.type, other.type)) {
+	if (!super.equals(obj) || !(obj instanceof final Monster other) || !Objects.equals(this.type, other.type)) {
 	    return false;
 	}
 	return true;
@@ -80,7 +70,7 @@ public abstract class Monster extends Creature {
 	final var r = new RandomRange(min, max);
 	return (int) (r.generate() * this.adjustForLevelDifference());
     }
-    
+
     @Override
     public int getLevelDifference() {
 	return this.getLevel() - PartyManager.getParty().getLeader().getLevel();
@@ -96,15 +86,14 @@ public abstract class Monster extends Creature {
     }
 
     @Override
-    public int getSpeed() {
-	final var difficulty = Prefs.getGameDifficulty();
+    public int getSpeed(GameDifficulty difficulty) {
 	final var base = this.getBaseSpeed();
 	return switch (difficulty) {
-	case Prefs.DIFFICULTY_VERY_EASY -> (int) (base * Creature.SPEED_ADJUST_SLOWEST);
-	case Prefs.DIFFICULTY_EASY -> (int) (base * Creature.SPEED_ADJUST_SLOW);
-	case Prefs.DIFFICULTY_NORMAL -> (int) (base * Creature.SPEED_ADJUST_NORMAL);
-	case Prefs.DIFFICULTY_HARD -> (int) (base * Creature.SPEED_ADJUST_FAST);
-	case Prefs.DIFFICULTY_VERY_HARD -> (int) (base * Creature.SPEED_ADJUST_FASTEST);
+	case GameDifficulty.VERY_EASY -> (int) (base * Creature.SPEED_ADJUST_SLOWEST);
+	case GameDifficulty.EASY -> (int) (base * Creature.SPEED_ADJUST_SLOW);
+	case GameDifficulty.NORMAL -> (int) (base * Creature.SPEED_ADJUST_NORMAL);
+	case GameDifficulty.HARD -> (int) (base * Creature.SPEED_ADJUST_FAST);
+	case GameDifficulty.VERY_HARD -> (int) (base * Creature.SPEED_ADJUST_FASTEST);
 	default -> (int) (base * Creature.SPEED_ADJUST_NORMAL);
 	};
     }

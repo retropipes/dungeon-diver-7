@@ -25,9 +25,9 @@ import org.retropipes.dungeondiver7.dungeon.HistoryStatus;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButton;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButtonDoor;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTunnel;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Difficulty;
 import org.retropipes.dungeondiver7.locale.ErrorString;
@@ -811,8 +811,7 @@ public class CurrentDungeon extends Dungeon {
     }
 
     @Override
-    public void setCell(final DungeonObject mo, final int row, final int col, final int floor,
-	    final int layer) {
+    public void setCell(final DungeonObject mo, final int row, final int col, final int floor, final int layer) {
 	this.dungeonData.setCell(this, mo, row, col, floor, layer);
     }
 
@@ -907,8 +906,7 @@ public class CurrentDungeon extends Dungeon {
     }
 
     @Override
-    public void setVirtualCell(final DungeonObject mo, final int row, final int col, final int floor,
-	    final int layer) {
+    public void setVirtualCell(final DungeonObject mo, final int row, final int col, final int floor, final int layer) {
 	this.dungeonData.setVirtualCell(this, mo, row, col, floor, layer);
     }
 

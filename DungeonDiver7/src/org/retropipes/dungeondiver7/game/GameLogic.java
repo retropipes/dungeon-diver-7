@@ -25,8 +25,8 @@ import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.HistoryStatus;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.current.GenerateDungeonTask;
 import org.retropipes.dungeondiver7.dungeon.objects.ArrowTurretDisguise;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
@@ -107,8 +107,7 @@ public final class GameLogic implements MenuSection {
 	m.setCell(morphInto, m.getPlayerLocationX(0), m.getPlayerLocationY(0), 0, morphInto.getLayer());
     }
 
-    public static void morph(final DungeonObject morphInto, final int x, final int y, final int z,
-	    final int w) {
+    public static void morph(final DungeonObject morphInto, final int x, final int y, final int z, final int w) {
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();
 	try {

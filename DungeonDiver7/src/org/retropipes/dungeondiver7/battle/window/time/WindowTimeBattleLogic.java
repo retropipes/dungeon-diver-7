@@ -22,6 +22,7 @@ import org.retropipes.dungeondiver7.creature.party.PartyMember;
 import org.retropipes.dungeondiver7.creature.spell.SpellCaster;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
+import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public class WindowTimeBattleLogic extends Battle {
     private class EnemyTask extends TimerTask {
@@ -598,10 +599,12 @@ public class WindowTimeBattleLogic extends Battle {
 	this.setStatusMessage("*** Beginning of Round ***\n");
 	// Determine initiative
 	var enemyGotJump = false;
-	if (this.enemy.getSpeed() > PartyManager.getParty().getLeader().getSpeed()) {
+	if (this.enemy.getSpeed(GameDifficulty.NORMAL) > PartyManager.getParty().getLeader()
+		.getSpeed(GameDifficulty.NORMAL)) {
 	    // Enemy acts first!
 	    enemyGotJump = true;
-	} else if (this.enemy.getSpeed() < PartyManager.getParty().getLeader().getSpeed()) {
+	} else if (this.enemy.getSpeed(GameDifficulty.NORMAL) < PartyManager.getParty().getLeader()
+		.getSpeed(GameDifficulty.NORMAL)) {
 	    // You act first!
 	    enemyGotJump = false;
 	} else {

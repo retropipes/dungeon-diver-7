@@ -9,12 +9,11 @@ class WindowTimeBattleSpeed {
 
     // Method
     static int getSpeed() {
-        return Prefs.getBattleSpeed()
-                / WindowTimeBattleSpeed.SPEED_FACTOR;
+	return Prefs.getBattleSpeed() / WindowTimeBattleSpeed.SPEED_FACTOR;
     }
 
     // Constructor
     private WindowTimeBattleSpeed() {
-        // Do nothing
+	// Do nothing
     }
 }

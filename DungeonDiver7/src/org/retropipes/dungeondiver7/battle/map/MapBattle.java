@@ -10,12 +10,11 @@ public class MapBattle {
 
     // Constructors
     public MapBattle() {
-        this.monster = new BattleCharacter(
-                MonsterFactory.getNewMonsterInstance());
+	this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance());
     }
 
     // Methods
     public BattleCharacter getBattlers() {
-        return this.monster;
+	return this.monster;
     }
 }

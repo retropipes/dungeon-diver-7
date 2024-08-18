@@ -2,24 +2,25 @@
 package org.retropipes.dungeondiver7.battle.ai.window;
 
 import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public final class WindowAIPicker {
     // Methods
     public static WindowAI getNextRoutine() {
-        final var difficulty = Prefs.getGameDifficulty();
-        switch (difficulty) {
-        case Prefs.DIFFICULTY_VERY_EASY:
-            return new VeryEasyWindowAI();
-        case Prefs.DIFFICULTY_EASY:
-            return new EasyWindowAI();
-        case Prefs.DIFFICULTY_NORMAL:
-            return new NormalWindowAI();
-        case Prefs.DIFFICULTY_HARD:
-            return new HardWindowAI();
-        case Prefs.DIFFICULTY_VERY_HARD:
-            return new VeryHardWindowAI();
-        default:
-            return new NormalWindowAI();
-        }
+	final var difficulty = Prefs.getGameDifficulty();
+	switch (difficulty) {
+	case GameDifficulty.VERY_EASY:
+	    return new VeryEasyWindowAI();
+	case GameDifficulty.EASY:
+	    return new EasyWindowAI();
+	case GameDifficulty.NORMAL:
+	    return new NormalWindowAI();
+	case GameDifficulty.HARD:
+	    return new HardWindowAI();
+	case GameDifficulty.VERY_HARD:
+	    return new VeryHardWindowAI();
+	default:
+	    return new NormalWindowAI();
+	}
     }
 }

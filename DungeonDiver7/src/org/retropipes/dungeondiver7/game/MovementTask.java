@@ -39,8 +39,7 @@ final class MovementTask extends Thread {
     }
 
     private static void fireMoveFailedActions(final int x, final int y, final DungeonObject inside,
-	    final DungeonObject below, final DungeonObject nextBelow,
-	    final DungeonObject nextAbove) {
+	    final DungeonObject below, final DungeonObject nextBelow, final DungeonObject nextAbove) {
 	final var insideSolid = inside.isSolid();
 	final var belowSolid = below.isSolid();
 	final var nextBelowSolid = nextBelow.isSolid();

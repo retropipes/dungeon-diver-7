@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.creature.monster;
 
-import org.retropipes.dungeondiver7.battle.BattleTarget;
+import org.retropipes.dungeondiver7.creature.BattleTarget;
 import org.retropipes.dungeondiver7.creature.StatConstants;
 import org.retropipes.dungeondiver7.creature.effect.Effect;
 import org.retropipes.dungeondiver7.creature.spell.Spell;

@@ -11,10 +11,10 @@ import java.util.Objects;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.polytable.PolyTable;
 import org.retropipes.diane.random.RandomRange;
-import org.retropipes.dungeondiver7.battle.ai.CreatureAI;
 import org.retropipes.dungeondiver7.creature.effect.Effect;
 import org.retropipes.dungeondiver7.creature.item.ItemInventory;
 import org.retropipes.dungeondiver7.creature.spell.SpellBook;
+import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public abstract class Creature {
     private static int ACTION_CAP = 1;
@@ -463,7 +463,7 @@ public abstract class Creature {
 	return this.perfectBonusGold;
     }
 
-    public abstract int getSpeed();
+    public abstract int getSpeed(GameDifficulty difficulty);
 
     public final SpellBook getSpellBook() {
 	return this.spellsKnown;
@@ -482,7 +482,7 @@ public abstract class Creature {
 	    case StatConstants.STAT_DEFENSE -> this.getDefense();
 	    case StatConstants.STAT_MAXIMUM_HP -> this.getMaximumHP();
 	    case StatConstants.STAT_MAXIMUM_MP -> this.getMaximumMP();
-	    case StatConstants.STAT_SPEED -> this.getSpeed();
+	    case StatConstants.STAT_SPEED -> this.getSpeed(GameDifficulty.NORMAL);
 	    case StatConstants.STAT_HIT -> this.getHit();
 	    case StatConstants.STAT_EVADE -> this.getEvade();
 	    case StatConstants.STAT_CAPACITY -> this.getCapacity();

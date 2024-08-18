@@ -7,8 +7,8 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 
 import java.awt.Color;
 
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractJumpObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 

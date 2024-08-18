@@ -5,8 +5,8 @@
  */
 package org.retropipes.dungeondiver7.dungeon.objects;
 
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractGround;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class Ground extends AbstractGround {

@@ -133,7 +133,7 @@ class PrefsGUI {
 	this.languageList.setSelectedIndex(Prefs.getLanguageID());
 	this.editorLayoutList.setSelectedIndex(Prefs.getEditorLayout().ordinal());
 	this.editorShowAllObjects.setSelected(Prefs.getEditorShowAllObjects());
-	this.difficultyPicker.setSelectedIndex(Prefs.getGameDifficulty());
+	this.difficultyPicker.setSelectedIndex(Prefs.getGameDifficulty().ordinal());
     }
 
     private void setDefaultPrefs() {

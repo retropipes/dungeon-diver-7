@@ -146,9 +146,8 @@ class NormalMapAI extends MapAI {
 	final var randomSpell = new RandomRange(0, maxIndex);
 	final var randomSpellID = randomSpell.generate();
 	// Healing spell was selected - is healing needed?
-	if (randomSpellID == CommonMapAIParts.SPELL_INDEX_HEAL
-		&& ac.getCharacter().getTemplate().getCurrentHP() > ac.getCharacter().getTemplate().getMaximumHP()
-			* NormalMapAI.HEAL_THRESHOLD / 100) {
+	if (randomSpellID == CommonMapAIParts.SPELL_INDEX_HEAL && ac.getCharacter().getTemplate()
+		.getCurrentHP() > ac.getCharacter().getTemplate().getMaximumHP() * NormalMapAI.HEAL_THRESHOLD / 100) {
 	    // Do not need healing
 	    return false;
 	}

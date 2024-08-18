@@ -8,10 +8,11 @@ package org.retropipes.dungeondiver7.creature.monster;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.random.RandomLongRange;
 import org.retropipes.diane.random.RandomRange;
+import org.retropipes.dungeondiver7.creature.item.ItemPrices;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.loader.image.monster.MonsterImageLoader;
 import org.retropipes.dungeondiver7.prefs.Prefs;
-import org.retropipes.dungeondiver7.shop.Shop;
+import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 class NormalMonster extends Monster {
     // Constants
@@ -34,11 +35,11 @@ class NormalMonster extends Monster {
     private static double getExpMultiplierForDifficulty() {
 	final var difficulty = Prefs.getGameDifficulty();
 	return switch (difficulty) {
-	case Prefs.DIFFICULTY_VERY_EASY -> NormalMonster.EXP_MULT_VERY_EASY;
-	case Prefs.DIFFICULTY_EASY -> NormalMonster.EXP_MULT_EASY;
-	case Prefs.DIFFICULTY_NORMAL -> NormalMonster.EXP_MULT_NORMAL;
-	case Prefs.DIFFICULTY_HARD -> NormalMonster.EXP_MULT_HARD;
-	case Prefs.DIFFICULTY_VERY_HARD -> NormalMonster.EXP_MULT_VERY_HARD;
+	case GameDifficulty.VERY_EASY -> NormalMonster.EXP_MULT_VERY_EASY;
+	case GameDifficulty.EASY -> NormalMonster.EXP_MULT_EASY;
+	case GameDifficulty.NORMAL -> NormalMonster.EXP_MULT_NORMAL;
+	case GameDifficulty.HARD -> NormalMonster.EXP_MULT_HARD;
+	case GameDifficulty.VERY_HARD -> NormalMonster.EXP_MULT_VERY_HARD;
 	default -> NormalMonster.EXP_MULT_NORMAL;
 	};
     }
@@ -46,11 +47,11 @@ class NormalMonster extends Monster {
     private static double getGoldMultiplierForDifficulty() {
 	final var difficulty = Prefs.getGameDifficulty();
 	return switch (difficulty) {
-	case Prefs.DIFFICULTY_VERY_EASY -> NormalMonster.GOLD_MULT_VERY_EASY;
-	case Prefs.DIFFICULTY_EASY -> NormalMonster.GOLD_MULT_EASY;
-	case Prefs.DIFFICULTY_NORMAL -> NormalMonster.GOLD_MULT_NORMAL;
-	case Prefs.DIFFICULTY_HARD -> NormalMonster.GOLD_MULT_HARD;
-	case Prefs.DIFFICULTY_VERY_HARD -> NormalMonster.GOLD_MULT_VERY_HARD;
+	case GameDifficulty.VERY_EASY -> NormalMonster.GOLD_MULT_VERY_EASY;
+	case GameDifficulty.EASY -> NormalMonster.GOLD_MULT_EASY;
+	case GameDifficulty.NORMAL -> NormalMonster.GOLD_MULT_NORMAL;
+	case GameDifficulty.HARD -> NormalMonster.GOLD_MULT_HARD;
+	case GameDifficulty.VERY_HARD -> NormalMonster.GOLD_MULT_VERY_HARD;
 	default -> NormalMonster.GOLD_MULT_NORMAL;
 	};
     }
@@ -58,11 +59,11 @@ class NormalMonster extends Monster {
     private static int getStatMultiplierForDifficulty() {
 	final var difficulty = Prefs.getGameDifficulty();
 	return switch (difficulty) {
-	case Prefs.DIFFICULTY_VERY_EASY -> NormalMonster.STAT_MULT_VERY_EASY;
-	case Prefs.DIFFICULTY_EASY -> NormalMonster.STAT_MULT_EASY;
-	case Prefs.DIFFICULTY_NORMAL -> NormalMonster.STAT_MULT_NORMAL;
-	case Prefs.DIFFICULTY_HARD -> NormalMonster.STAT_MULT_HARD;
-	case Prefs.DIFFICULTY_VERY_HARD -> NormalMonster.STAT_MULT_VERY_HARD;
+	case GameDifficulty.VERY_EASY -> NormalMonster.STAT_MULT_VERY_EASY;
+	case GameDifficulty.EASY -> NormalMonster.STAT_MULT_EASY;
+	case GameDifficulty.NORMAL -> NormalMonster.STAT_MULT_NORMAL;
+	case GameDifficulty.HARD -> NormalMonster.STAT_MULT_HARD;
+	case GameDifficulty.VERY_HARD -> NormalMonster.STAT_MULT_VERY_HARD;
 	default -> NormalMonster.STAT_MULT_NORMAL;
 	};
     }
@@ -95,7 +96,7 @@ class NormalMonster extends Monster {
 
     private int getInitialGold() {
 	final var playerCharacter = PartyManager.getParty().getLeader();
-	final var needed = Shop.getEquipmentCost(playerCharacter.getLevel() + 1) * 4;
+	final var needed = ItemPrices.getEquipmentCost(playerCharacter.getLevel() + 1) * 4;
 	final var factor = this.getBattlesToNextLevel();
 	final var min = 0;
 	final var max = needed / factor * 2;

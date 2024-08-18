@@ -7,8 +7,8 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractWall;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
