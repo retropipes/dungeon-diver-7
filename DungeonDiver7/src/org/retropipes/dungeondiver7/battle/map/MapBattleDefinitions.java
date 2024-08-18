@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.battle.map;
 
-import org.retropipes.dungeondiver7.ai.map.MapAIContext;
+import org.retropipes.dungeondiver7.ai.AIContext;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 
@@ -14,14 +14,14 @@ public class MapBattleDefinitions {
     // Fields
     private BattleCharacter activeCharacter;
     private final BattleCharacter[] battlers;
-    private final MapAIContext[] aiContexts;
+    private final AIContext[] aiContexts;
     private Dungeon battleMap;
     private int battlerCount;
 
     // Constructors
     public MapBattleDefinitions() {
 	this.battlers = new BattleCharacter[MapBattleDefinitions.MAX_BATTLERS];
-	this.aiContexts = new MapAIContext[MapBattleDefinitions.MAX_BATTLERS];
+	this.aiContexts = new AIContext[MapBattleDefinitions.MAX_BATTLERS];
 	this.battlerCount = 0;
     }
 
@@ -68,7 +68,7 @@ public class MapBattleDefinitions {
 	return this.battleMap;
     }
 
-    public MapAIContext[] getBattlerAIContexts() {
+    public AIContext[] getBattlerAIContexts() {
 	return this.aiContexts;
     }
 

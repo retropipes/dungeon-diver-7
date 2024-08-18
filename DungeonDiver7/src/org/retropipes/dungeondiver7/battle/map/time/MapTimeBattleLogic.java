@@ -10,9 +10,9 @@ import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.StuffBag;
+import org.retropipes.dungeondiver7.ai.AIContext;
+import org.retropipes.dungeondiver7.ai.BattleAction;
 import org.retropipes.dungeondiver7.ai.map.AutoMapAI;
-import org.retropipes.dungeondiver7.ai.map.MapAI;
-import org.retropipes.dungeondiver7.ai.map.MapAIContext;
 import org.retropipes.dungeondiver7.battle.Battle;
 import org.retropipes.dungeondiver7.battle.BattleResult;
 import org.retropipes.dungeondiver7.battle.damage.DamageEngine;
@@ -53,8 +53,8 @@ public class MapTimeBattleLogic extends Battle {
     MapTimeBattleGUI battleGUI;
     private BattleCharacter me;
     private BattleCharacter enemy;
-    private MapAIContext myContext;
-    private MapAIContext enemyContext;
+    private AIContext myContext;
+    private AIContext enemyContext;
     private final Timer battleTimer;
 
     // Constructors
@@ -304,7 +304,7 @@ public class MapTimeBattleLogic extends Battle {
 	    }
 	    if (this.bd.getBattlers()[x] != null) {
 		// Create an AI Context
-		this.bd.getBattlerAIContexts()[x] = new MapAIContext(this.bd.getBattlers()[x],
+		this.bd.getBattlerAIContexts()[x] = new AIContext(this.bd.getBattlers()[x],
 			this.bd.getBattleDungeon());
 	    }
 	}
@@ -337,15 +337,15 @@ public class MapTimeBattleLogic extends Battle {
     }
 
     @Override
-    public boolean doPlayerActions(final int action) {
+    public boolean doPlayerActions(final BattleAction action) {
 	switch (action) {
-	case MapAI.ACTION_CAST_SPELL:
+	case BattleAction.CAST_SPELL:
 	    this.castSpell();
 	    break;
-	case MapAI.ACTION_DRAIN:
+	case BattleAction.DRAIN:
 	    this.drain();
 	    break;
-	case MapAI.ACTION_STEAL:
+	case BattleAction.STEAL:
 	    this.steal();
 	    break;
 	default:
@@ -612,10 +612,10 @@ public class MapTimeBattleLogic extends Battle {
     }
 
     private void executeAutoAI(final BattleCharacter acting, final BattleCharacter theEnemy,
-	    final MapAIContext theContext) {
+	    final AIContext theContext) {
 	final var action = this.auto.getNextAction(theContext);
 	switch (action) {
-	case MapAI.ACTION_MOVE:
+	case BattleAction.MOVE:
 	    final var x = this.auto.getMoveX();
 	    final var y = this.auto.getMoveY();
 	    final var activeTID = acting.getTeamID();
@@ -634,22 +634,22 @@ public class MapTimeBattleLogic extends Battle {
 	    if (active.getTemplate().isAlive()) {
 		final var action = active.getTemplate().getMapAI().getNextAction(this.enemyContext);
 		switch (action) {
-		case MapAI.ACTION_MOVE:
+		case BattleAction.MOVE:
 		    final var x = active.getTemplate().getMapAI().getMoveX();
 		    final var y = active.getTemplate().getMapAI().getMoveY();
 		    this.lastAIActionResult = this.updatePositionInternal(x, y, this.enemy, this.me, this.ede,
 			    this.enemyContext, false);
 		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
 		    break;
-		case MapAI.ACTION_CAST_SPELL:
+		case BattleAction.CAST_SPELL:
 		    this.lastAIActionResult = this.castEnemySpell();
 		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
 		    break;
-		case MapAI.ACTION_DRAIN:
+		case BattleAction.DRAIN:
 		    this.lastAIActionResult = this.enemyDrain();
 		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
 		    break;
-		case MapAI.ACTION_STEAL:
+		case BattleAction.STEAL:
 		    this.lastAIActionResult = this.enemySteal();
 		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
 		    break;
@@ -985,7 +985,7 @@ public class MapTimeBattleLogic extends Battle {
     }
 
     private boolean updatePositionInternal(final int x, final int y, final BattleCharacter active,
-	    final BattleCharacter theEnemy, final DamageEngine activeDE, final MapAIContext activeContext,
+	    final BattleCharacter theEnemy, final DamageEngine activeDE, final AIContext activeContext,
 	    final boolean updateView) {
 	final var isPlayer = active.getTeamID() == Creature.TEAM_PARTY;
 	final var stepSound = isPlayer ? Sounds.STEP_PARTY : Sounds.STEP_ENEMY;

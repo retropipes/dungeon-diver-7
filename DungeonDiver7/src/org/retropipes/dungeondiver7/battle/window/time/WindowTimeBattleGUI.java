@@ -20,7 +20,7 @@ import javax.swing.KeyStroke;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.ai.window.WindowAI;
+import org.retropipes.dungeondiver7.ai.BattleAction;
 import org.retropipes.dungeondiver7.battle.BattleResult;
 import org.retropipes.dungeondiver7.loader.image.ui.UiImageId;
 import org.retropipes.dungeondiver7.loader.image.ui.UiImageLoader;
@@ -49,10 +49,10 @@ public class WindowTimeBattleGUI {
 		// Do Player Actions
 		if (cmd.equals("Attack") || cmd.equals("a")) {
 		    // Attack
-		    success = b.doPlayerActions(WindowAI.ACTION_ATTACK);
+		    success = b.doPlayerActions(BattleAction.ATTACK);
 		} else if (cmd.equals("Flee") || cmd.equals("f")) {
 		    // Try to Flee
-		    success = b.doPlayerActions(WindowAI.ACTION_FLEE);
+		    success = b.doPlayerActions(BattleAction.FLEE);
 		    if (success) {
 			// Strip Extra Newline Character
 			wbg.stripExtraNewLine();
@@ -62,7 +62,7 @@ public class WindowTimeBattleGUI {
 			b.doResult();
 			return;
 		    } else {
-			success = b.doPlayerActions(WindowAI.ACTION_ATTACK);
+			success = b.doPlayerActions(BattleAction.ATTACK);
 		    }
 		} else if (cmd.equals("Continue")) {
 		    // Battle Done
@@ -70,7 +70,7 @@ public class WindowTimeBattleGUI {
 		    return;
 		} else if (cmd.equals("Cast Spell") || cmd.equals("c")) {
 		    // Cast Spell
-		    success = b.doPlayerActions(WindowAI.ACTION_CAST_SPELL);
+		    success = b.doPlayerActions(BattleAction.CAST_SPELL);
 		    if (!success) {
 			// Strip Two Extra Newline Characters
 			wbg.stripExtraNewLine();
@@ -82,10 +82,10 @@ public class WindowTimeBattleGUI {
 		    }
 		} else if (cmd.equals("Steal") || cmd.equals("s")) {
 		    // Steal Money
-		    success = b.doPlayerActions(WindowAI.ACTION_STEAL);
+		    success = b.doPlayerActions(BattleAction.STEAL);
 		} else if (cmd.equals("Drain") || cmd.equals("d")) {
 		    // Drain Enemy
-		    success = b.doPlayerActions(WindowAI.ACTION_DRAIN);
+		    success = b.doPlayerActions(BattleAction.DRAIN);
 		}
 		// Maintain Player Effects
 		b.maintainEffects(true);

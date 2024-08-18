@@ -11,9 +11,9 @@ import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.StuffBag;
+import org.retropipes.dungeondiver7.ai.AIContext;
+import org.retropipes.dungeondiver7.ai.BattleAction;
 import org.retropipes.dungeondiver7.ai.map.AutoMapAI;
-import org.retropipes.dungeondiver7.ai.map.MapAI;
-import org.retropipes.dungeondiver7.ai.map.MapAIContext;
 import org.retropipes.dungeondiver7.battle.Battle;
 import org.retropipes.dungeondiver7.battle.BattleResult;
 import org.retropipes.dungeondiver7.battle.damage.DamageEngine;
@@ -384,7 +384,7 @@ public class MapTurnBattleLogic extends Battle {
 	    }
 	    if (this.bd.getBattlers()[x] != null) {
 		// Create an AI Context
-		this.bd.getBattlerAIContexts()[x] = new MapAIContext(this.bd.getBattlers()[x],
+		this.bd.getBattlerAIContexts()[x] = new AIContext(this.bd.getBattlers()[x],
 			this.bd.getBattleDungeon());
 	    }
 	}
@@ -418,15 +418,15 @@ public class MapTurnBattleLogic extends Battle {
     }
 
     @Override
-    public boolean doPlayerActions(final int action) {
+    public boolean doPlayerActions(final BattleAction action) {
 	switch (action) {
-	case MapAI.ACTION_CAST_SPELL:
+	case BattleAction.CAST_SPELL:
 	    this.castSpell();
 	    break;
-	case MapAI.ACTION_DRAIN:
+	case BattleAction.DRAIN:
 	    this.drain();
 	    break;
-	case MapAI.ACTION_STEAL:
+	case BattleAction.STEAL:
 	    this.steal();
 	    break;
 	default:
@@ -565,7 +565,7 @@ public class MapTurnBattleLogic extends Battle {
 	final var index = this.bd.findBattler(acting.getName());
 	final var action = this.auto.getNextAction(this.bd.getBattlerAIContexts()[index]);
 	switch (action) {
-	case MapAI.ACTION_MOVE:
+	case BattleAction.MOVE:
 	    final var x = this.auto.getMoveX();
 	    final var y = this.auto.getMoveY();
 	    final var activeTID = this.bd.getActiveCharacter().getTeamID();
@@ -589,21 +589,21 @@ public class MapTurnBattleLogic extends Battle {
 		final var action = active.getTemplate().getMapAI()
 			.getNextAction(this.bd.getBattlerAIContexts()[this.activeIndex]);
 		switch (action) {
-		case MapAI.ACTION_MOVE:
+		case BattleAction.MOVE:
 		    final var x = active.getTemplate().getMapAI().getMoveX();
 		    final var y = active.getTemplate().getMapAI().getMoveY();
 		    this.lastAIActionResult = this.updatePosition(x, y);
 		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
 		    break;
-		case MapAI.ACTION_CAST_SPELL:
+		case BattleAction.CAST_SPELL:
 		    this.lastAIActionResult = this.castSpell();
 		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
 		    break;
-		case MapAI.ACTION_DRAIN:
+		case BattleAction.DRAIN:
 		    this.lastAIActionResult = this.drain();
 		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
 		    break;
-		case MapAI.ACTION_STEAL:
+		case BattleAction.STEAL:
 		    this.lastAIActionResult = this.steal();
 		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
 		    break;
@@ -1069,7 +1069,7 @@ public class MapTurnBattleLogic extends Battle {
 	    return true;
 	}
 	if (!next.isSolidInBattle()) {
-	    if ((!useAP || this.getActiveActionCounter() < MapAIContext.getAPCost()) && useAP) {
+	    if ((!useAP || this.getActiveActionCounter() < AIContext.getAPCost()) && useAP) {
 		// Deny move - out of actions
 		if (!this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
 		    this.setStatusMessage("Out of moves!");
@@ -1179,7 +1179,7 @@ public class MapTurnBattleLogic extends Battle {
 	    this.battleGUI.getViewManager().offsetViewingWindowLocationY(x);
 	    activeBC.setSavedObject(m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS));
 	    m.setCell(activeBC, px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
-	    this.decrementActiveActionCounterBy(MapAIContext.getAPCost());
+	    this.decrementActiveActionCounterBy(AIContext.getAPCost());
 	    if (activeBC.getTeamID() == Creature.TEAM_PARTY) {
 		SoundLoader.playSound(Sounds.STEP_PARTY);
 	    } else {

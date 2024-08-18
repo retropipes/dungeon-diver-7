@@ -5,6 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.battle;
 
+import org.retropipes.dungeondiver7.ai.BattleAction;
 import org.retropipes.dungeondiver7.creature.Creature;
 
 public abstract class Battle {
@@ -27,7 +28,7 @@ public abstract class Battle {
 
     public abstract void doFinalBossBattle();
 
-    public abstract boolean doPlayerActions(final int actionType);
+    public abstract boolean doPlayerActions(final BattleAction actionType);
 
     public abstract void doResult();
 

@@ -3,16 +3,14 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.ai.map;
+package org.retropipes.dungeondiver7.ai;
 
 import java.util.Objects;
 
-import org.retropipes.dungeondiver7.ai.BattleAction;
-import org.retropipes.dungeondiver7.ai.CreatureAI;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.spell.Spell;
 
-public abstract class MapAI extends CreatureAI {
+public abstract class CreatureAI {
     // Fields
     protected Spell spell;
     protected int moveX;
@@ -20,7 +18,7 @@ public abstract class MapAI extends CreatureAI {
     protected boolean lastResult;
 
     // Constructor
-    protected MapAI() {
+    protected CreatureAI() {
 	this.spell = null;
 	this.moveX = 0;
 	this.moveY = 0;
@@ -32,7 +30,7 @@ public abstract class MapAI extends CreatureAI {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null || !(obj instanceof final MapAI other) || this.lastResult != other.lastResult
+	if (obj == null || !(obj instanceof final CreatureAI other) || this.lastResult != other.lastResult
 		|| this.moveX != other.moveX) {
 	    return false;
 	}
@@ -40,6 +38,22 @@ public abstract class MapAI extends CreatureAI {
 	    return false;
 	}
 	return true;
+    }
+
+    public final int getMoveX() {
+	return this.moveX;
+    }
+
+    public final int getMoveY() {
+	return this.moveY;
+    }
+
+    public abstract BattleAction getNextAction(AIContext ac);
+
+    public abstract BattleAction getNextAction(Creature c);
+
+    public final Spell getSpellToCast() {
+	return this.spell;
     }
 
     @Override
@@ -51,8 +65,7 @@ public abstract class MapAI extends CreatureAI {
 	// Do nothing
     }
 
-    @Override
-    public final BattleAction getNextAction(Creature c) {
-	return null; // Not used
+    public final void setLastResult(final boolean res) {
+	this.lastResult = res;
     }
 }

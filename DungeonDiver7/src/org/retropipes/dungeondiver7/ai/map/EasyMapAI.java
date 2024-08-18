@@ -6,6 +6,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.ai.map;
 
 import org.retropipes.diane.random.RandomRange;
+import org.retropipes.dungeondiver7.ai.AIContext;
+import org.retropipes.dungeondiver7.ai.BattleAction;
 
 class EasyMapAI extends MapAI {
     private static final int CAST_SPELL_CHANCE = 10;
@@ -26,31 +28,31 @@ class EasyMapAI extends MapAI {
     }
 
     @Override
-    public int getNextAction(final MapAIContext ac) {
+    public BattleAction getNextAction(final AIContext ac) {
 	if (this.roundsRemaining == null) {
 	    this.roundsRemaining = new int[ac.getCharacter().getTemplate().getSpellBook().getSpellCount()];
 	}
 	if (this.spellCheck(ac)) {
 	    // Cast a spell
-	    return MapAI.ACTION_CAST_SPELL;
+	    return BattleAction.CAST_SPELL;
 	}
 	var there = ac.isEnemyNearby();
 	if (there != null) {
 	    if (CommonMapAIParts.check(ac, EasyMapAI.STEAL_CHANCE)) {
 		// Steal
-		return MapAI.ACTION_STEAL;
+		return BattleAction.STEAL;
 	    }
 	    if (CommonMapAIParts.check(ac, EasyMapAI.DRAIN_CHANCE)) {
 		// Drain MP
-		return MapAI.ACTION_DRAIN;
+		return BattleAction.DRAIN;
 	    }
 	    if (ac.getCharacter().getAttacksLeft() > 0) {
 		this.moveX = there.x;
 		this.moveY = there.y;
-		return MapAI.ACTION_MOVE;
+		return BattleAction.MOVE;
 	    }
 	    this.failedMoveAttempts = 0;
-	    return MapAI.ACTION_END_TURN;
+	    return BattleAction.END_TURN;
 	}
 	if (CommonMapAIParts.check(ac, EasyMapAI.FLEE_CHANCE)) {
 	    // Flee
@@ -68,7 +70,7 @@ class EasyMapAI extends MapAI {
 		this.moveX = awayDir.x;
 		this.moveY = awayDir.y;
 	    }
-	    return MapAI.ACTION_MOVE;
+	    return BattleAction.MOVE;
 	}
 	// Look further
 	for (var x = CommonMapAIParts.MIN_VISION + 1; x <= EasyMapAI.MAX_VISION; x++) {
@@ -80,7 +82,7 @@ class EasyMapAI extends MapAI {
 		    if (this.failedMoveAttempts >= CommonMapAIParts.STUCK_THRESHOLD) {
 			// We're stuck!
 			this.failedMoveAttempts = 0;
-			return MapAI.ACTION_END_TURN;
+			return BattleAction.END_TURN;
 		    }
 		    // Last move failed, try to move around object
 		    final var randTurn = new RandomRange(0, 1);
@@ -101,7 +103,7 @@ class EasyMapAI extends MapAI {
 	}
 	if (ac.getCharacter().getActionsLeft() <= 0) {
 	    this.failedMoveAttempts = 0;
-	    return MapAI.ACTION_END_TURN;
+	    return BattleAction.END_TURN;
 	}
 	if (there == null) {
 	    // Wander randomly
@@ -113,7 +115,7 @@ class EasyMapAI extends MapAI {
 		this.moveY = this.randMove.generate();
 	    }
 	}
-	return MapAI.ACTION_MOVE;
+	return BattleAction.MOVE;
     }
 
     @Override
@@ -128,7 +130,7 @@ class EasyMapAI extends MapAI {
 	}
     }
 
-    private boolean spellCheck(final MapAIContext ac) {
+    private boolean spellCheck(final AIContext ac) {
 	final var random = new RandomRange(1, 100);
 	final var chance = random.generate();
 	if (chance > EasyMapAI.CAST_SPELL_CHANCE) {

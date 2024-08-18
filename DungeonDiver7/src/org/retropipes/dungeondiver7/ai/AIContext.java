@@ -3,15 +3,16 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.ai.map;
+package org.retropipes.dungeondiver7.ai;
 
 import java.awt.Point;
 
+import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public class MapAIContext {
+public class AIContext {
     private static final int MINIMUM_RADIUS = 1;
     private static final int MAXIMUM_RADIUS = 16;
     private static final int NOTHING_THERE = -1;
@@ -20,47 +21,61 @@ public class MapAIContext {
 
     // Static method
     public static int getAPCost() {
-	return MapAIContext.AP_COST;
+	return AIContext.AP_COST;
     }
 
-    private final BattleCharacter aiContext;
+    private final BattleCharacter battleCharacter;
+    private final Creature creature;
     private final int myTeam;
     private final int[][] apCosts;
     private final int[][] creatureLocations;
 
     // Constructor
-    public MapAIContext(final BattleCharacter context, final Dungeon arena) {
-	this.aiContext = context;
-	this.myTeam = context.getTeamID();
+    public AIContext(final BattleCharacter bc, final Dungeon arena) {
+	this.battleCharacter = bc;
+	this.creature = null;
+	this.myTeam = bc.getTeamID();
 	this.apCosts = new int[arena.getRows()][arena.getColumns()];
 	this.creatureLocations = new int[arena.getRows()][arena.getColumns()];
     }
 
-    public BattleCharacter getCharacter() {
-	return this.aiContext;
+    public AIContext(final Creature c) {
+	this.battleCharacter = null;
+	this.creature = c;
+	this.myTeam = c.getTeamID();
+	this.apCosts = null;
+	this.creatureLocations = null;
     }
 
-    Point isEnemyNearby() {
+    public BattleCharacter getCharacter() {
+	return this.battleCharacter;
+    }
+
+    public Creature getCreature() {
+	return this.battleCharacter != null ? this.battleCharacter.getTemplate() : this.creature;
+    }
+
+    public Point isEnemyNearby() {
 	return this.isEnemyNearby(1, 1);
     }
 
-    Point isEnemyNearby(final int minRadius, final int maxRadius) {
+    public Point isEnemyNearby(final int minRadius, final int maxRadius) {
 	var fMinR = minRadius;
 	var fMaxR = maxRadius;
-	if (fMaxR > MapAIContext.MAXIMUM_RADIUS) {
-	    fMaxR = MapAIContext.MAXIMUM_RADIUS;
+	if (fMaxR > AIContext.MAXIMUM_RADIUS) {
+	    fMaxR = AIContext.MAXIMUM_RADIUS;
 	}
-	if (fMaxR < MapAIContext.MINIMUM_RADIUS) {
-	    fMaxR = MapAIContext.MINIMUM_RADIUS;
+	if (fMaxR < AIContext.MINIMUM_RADIUS) {
+	    fMaxR = AIContext.MINIMUM_RADIUS;
 	}
-	if (fMinR > MapAIContext.MAXIMUM_RADIUS) {
-	    fMinR = MapAIContext.MAXIMUM_RADIUS;
+	if (fMinR > AIContext.MAXIMUM_RADIUS) {
+	    fMinR = AIContext.MAXIMUM_RADIUS;
 	}
-	if (fMinR < MapAIContext.MINIMUM_RADIUS) {
-	    fMinR = MapAIContext.MINIMUM_RADIUS;
+	if (fMinR < AIContext.MINIMUM_RADIUS) {
+	    fMinR = AIContext.MINIMUM_RADIUS;
 	}
-	final var x = this.aiContext.getX();
-	final var y = this.aiContext.getY();
+	final var x = this.battleCharacter.getX();
+	final var y = this.battleCharacter.getY();
 	int u, v;
 	for (u = x - fMaxR; u <= x + fMaxR; u++) {
 	    for (v = y - fMaxR; v <= y + fMaxR; v++) {
@@ -79,11 +94,11 @@ public class MapAIContext {
 	return null;
     }
 
-    Point runAway() {
-	final var fMinR = MapAIContext.MAXIMUM_RADIUS;
-	final var fMaxR = MapAIContext.MAXIMUM_RADIUS;
-	final var x = this.aiContext.getX();
-	final var y = this.aiContext.getY();
+    public Point runAway() {
+	final var fMinR = AIContext.MAXIMUM_RADIUS;
+	final var fMaxR = AIContext.MAXIMUM_RADIUS;
+	final var x = this.battleCharacter.getX();
+	final var y = this.battleCharacter.getY();
 	int u, v;
 	for (u = x - fMaxR; u <= x + fMaxR; u++) {
 	    for (v = y - fMaxR; v <= y + fMaxR; v++) {
@@ -107,9 +122,9 @@ public class MapAIContext {
 	    for (var y = 0; y < this.apCosts[x].length; y++) {
 		final var obj = arena.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 		if (obj.isSolid()) {
-		    this.apCosts[x][y] = MapAIContext.CANNOT_MOVE_THERE;
+		    this.apCosts[x][y] = AIContext.CANNOT_MOVE_THERE;
 		} else {
-		    this.apCosts[x][y] = MapAIContext.AP_COST;
+		    this.apCosts[x][y] = AIContext.AP_COST;
 		}
 	    }
 	}
@@ -119,7 +134,7 @@ public class MapAIContext {
 		if (obj instanceof final BattleCharacter bc) {
 		    this.creatureLocations[x][y] = bc.getTeamID();
 		} else {
-		    this.creatureLocations[x][y] = MapAIContext.NOTHING_THERE;
+		    this.creatureLocations[x][y] = AIContext.NOTHING_THERE;
 		}
 	    }
 	}

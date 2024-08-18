@@ -2,6 +2,7 @@
 package org.retropipes.dungeondiver7.ai.window;
 
 import org.retropipes.diane.random.RandomRange;
+import org.retropipes.dungeondiver7.ai.BattleAction;
 import org.retropipes.dungeondiver7.creature.Creature;
 
 public class VeryHardWindowAI extends WindowAI {
@@ -19,25 +20,25 @@ public class VeryHardWindowAI extends WindowAI {
     }
 
     @Override
-    public int getNextAction(final Creature c) {
+    public BattleAction getNextAction(final Creature c) {
         if (this.roundsRemaining == null) {
             this.roundsRemaining = new int[c.getSpellBook().getSpellCount()];
         }
         if (this.spellCheck(c)) {
             // Cast a spell
-            return WindowAI.ACTION_CAST_SPELL;
+            return BattleAction.CAST_SPELL;
         } else if (CommonWindowAIParts.check(VeryHardWindowAI.STEAL_CHANCE)) {
             // Steal
-            return WindowAI.ACTION_STEAL;
+            return BattleAction.STEAL;
         } else if (CommonWindowAIParts.check(VeryHardWindowAI.DRAIN_CHANCE)) {
             // Drain MP
-            return WindowAI.ACTION_DRAIN;
+            return BattleAction.DRAIN;
         } else if (CommonWindowAIParts.check(VeryHardWindowAI.FLEE_CHANCE)) {
             // Flee
-            return WindowAI.ACTION_FLEE;
+            return BattleAction.FLEE;
         } else {
             // Something hostile is nearby, so attack it
-            return WindowAI.ACTION_ATTACK;
+            return BattleAction.ATTACK;
         }
     }
 

@@ -5,20 +5,23 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.ai.map;
 
+import org.retropipes.dungeondiver7.ai.AIContext;
+import org.retropipes.dungeondiver7.ai.BattleAction;
+
 public class AutoMapAI extends MapAI {
     // Constructor
     public AutoMapAI() {
     }
 
     @Override
-    public int getNextAction(final MapAIContext ac) {
+    public BattleAction getNextAction(final AIContext ac) {
 	final var there = ac.isEnemyNearby();
 	if (there != null) {
 	    // Something hostile is nearby, so attack it
 	    this.moveX = there.x;
 	    this.moveY = there.y;
-	    return MapAI.ACTION_MOVE;
+	    return BattleAction.MOVE;
 	}
-	return MapAI.ACTION_END_TURN;
+	return BattleAction.END_TURN;
     }
 }

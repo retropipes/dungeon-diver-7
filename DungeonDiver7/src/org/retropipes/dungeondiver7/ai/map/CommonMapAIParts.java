@@ -8,6 +8,7 @@ package org.retropipes.dungeondiver7.ai.map;
 import java.awt.Point;
 
 import org.retropipes.diane.random.RandomRange;
+import org.retropipes.dungeondiver7.ai.AIContext;
 
 class CommonMapAIParts {
     // Constants
@@ -15,7 +16,7 @@ class CommonMapAIParts {
     static final int MIN_VISION = 1;
     static final int SPELL_INDEX_HEAL = 1;
 
-    static boolean check(final MapAIContext ac, final int effChance) {
+    static boolean check(final AIContext ac, final int effChance) {
 	final var random = new RandomRange(1, 100);
 	final var chance = random.generate();
 	if (chance > effChance) {
@@ -29,7 +30,7 @@ class CommonMapAIParts {
 	return false;
     }
 
-    static int getMaxCastIndex(final MapAIContext ac) {
+    static int getMaxCastIndex(final AIContext ac) {
 	final var currMP = ac.getCharacter().getTemplate().getCurrentMP();
 	final var allCosts = ac.getCharacter().getTemplate().getSpellBook().getAllSpellCosts();
 	var result = -1;

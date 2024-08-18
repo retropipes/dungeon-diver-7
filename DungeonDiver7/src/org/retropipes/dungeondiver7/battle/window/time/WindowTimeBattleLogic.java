@@ -7,7 +7,7 @@ import java.util.TimerTask;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.StuffBag;
-import org.retropipes.dungeondiver7.ai.window.WindowAI;
+import org.retropipes.dungeondiver7.ai.BattleAction;
 import org.retropipes.dungeondiver7.battle.Battle;
 import org.retropipes.dungeondiver7.battle.BattleResult;
 import org.retropipes.dungeondiver7.battle.damage.DamageEngine;
@@ -392,21 +392,21 @@ public class WindowTimeBattleLogic extends Battle {
     }
 
     @Override
-    public final boolean doPlayerActions(final int actionToPerform) {
+    public final boolean doPlayerActions(final BattleAction actionToPerform) {
 	var success = true;
 	final var playerCharacter = PartyManager.getParty().getLeader();
 	switch (actionToPerform) {
-	case WindowAI.ACTION_ATTACK:
+	case BattleAction.ATTACK:
 	    final var actions = playerCharacter.getWindowBattleActionsPerRound();
 	    for (var x = 0; x < actions; x++) {
 		this.computePlayerDamage();
 		this.displayPlayerRoundResults();
 	    }
 	    break;
-	case WindowAI.ACTION_CAST_SPELL:
+	case BattleAction.CAST_SPELL:
 	    success = this.castSpell();
 	    break;
-	case WindowAI.ACTION_FLEE:
+	case BattleAction.FLEE:
 	    final var rf = new RandomRange(0, 100);
 	    final var runChance = rf.generate();
 	    if (runChance <= this.computeRunChance()) {
@@ -418,7 +418,7 @@ public class WindowTimeBattleLogic extends Battle {
 		this.updateMessageAreaFleeFailed();
 	    }
 	    break;
-	case WindowAI.ACTION_STEAL:
+	case BattleAction.STEAL:
 	    success = this.steal();
 	    if (success) {
 		SoundLoader.playSound(Sounds.EFFECT_DRAIN);
@@ -428,7 +428,7 @@ public class WindowTimeBattleLogic extends Battle {
 		this.updateMessageAreaStealFailed();
 	    }
 	    break;
-	case WindowAI.ACTION_DRAIN:
+	case BattleAction.DRAIN:
 	    success = this.drain();
 	    if (success) {
 		SoundLoader.playSound(Sounds.EFFECT_DRAIN);
@@ -565,17 +565,17 @@ public class WindowTimeBattleLogic extends Battle {
     public final void executeNextAIAction() {
 	final var actionToPerform = this.enemy.getWindowAI().getNextAction(this.enemy);
 	switch (actionToPerform) {
-	case WindowAI.ACTION_ATTACK:
+	case BattleAction.ATTACK:
 	    final var actions = this.enemy.getWindowBattleActionsPerRound();
 	    for (var x = 0; x < actions; x++) {
 		this.computeEnemyDamage();
 		this.displayEnemyRoundResults();
 	    }
 	    break;
-	case WindowAI.ACTION_CAST_SPELL:
+	case BattleAction.CAST_SPELL:
 	    SpellCaster.castSpell(this.enemy.getWindowAI().getSpellToCast(), this.enemy);
 	    break;
-	case WindowAI.ACTION_FLEE:
+	case BattleAction.FLEE:
 	    final var rf = new RandomRange(0, 100);
 	    final var runChance = rf.generate();
 	    if (runChance <= this.computeEnemyRunChance()) {

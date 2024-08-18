@@ -25,7 +25,7 @@ import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.ai.map.MapAI;
+import org.retropipes.dungeondiver7.ai.BattleAction;
 import org.retropipes.dungeondiver7.battle.map.MapBattleDefinitions;
 import org.retropipes.dungeondiver7.battle.map.MapBattleDraw;
 import org.retropipes.dungeondiver7.battle.map.MapBattleEffects;
@@ -59,13 +59,13 @@ class MapTurnBattleGUI {
 		// Do Player Actions
 		if (cmd.equals("Cast Spell") || cmd.equals("c")) {
 		    // Cast Spell
-		    b.doPlayerActions(MapAI.ACTION_CAST_SPELL);
+		    b.doPlayerActions(BattleAction.CAST_SPELL);
 		} else if (cmd.equals("Steal") || cmd.equals("t")) {
 		    // Steal Money
-		    b.doPlayerActions(MapAI.ACTION_STEAL);
+		    b.doPlayerActions(BattleAction.STEAL);
 		} else if (cmd.equals("Drain") || cmd.equals("d")) {
 		    // Drain Enemy
-		    b.doPlayerActions(MapAI.ACTION_DRAIN);
+		    b.doPlayerActions(BattleAction.DRAIN);
 		} else if (cmd.equals("End Turn") || cmd.equals("e")) {
 		    // End Turn
 		    b.endTurn();
