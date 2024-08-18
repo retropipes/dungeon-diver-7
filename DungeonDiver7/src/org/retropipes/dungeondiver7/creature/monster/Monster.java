@@ -36,7 +36,7 @@ public abstract class Monster extends Creature {
     // Constructors
     Monster() {
 	super(1);
-	this.setMapAI(Monster.getInitialMapAI());
+	this.setAI(Monster.getInitialMapAI());
 	final SpellBook spells = new MonsterSpellBook();
 	spells.learnAllSpells();
 	this.setSpellBook(spells);

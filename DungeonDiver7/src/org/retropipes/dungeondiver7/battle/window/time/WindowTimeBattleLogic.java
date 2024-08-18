@@ -563,7 +563,7 @@ public class WindowTimeBattleLogic extends Battle {
 
     @Override
     public final void executeNextAIAction() {
-	final var actionToPerform = this.enemy.getWindowAI().getNextAction(this.enemy);
+	final var actionToPerform = this.enemy.getAI().getNextAction(this.enemy);
 	switch (actionToPerform) {
 	case BattleAction.ATTACK:
 	    final var actions = this.enemy.getWindowBattleActionsPerRound();
@@ -573,7 +573,7 @@ public class WindowTimeBattleLogic extends Battle {
 	    }
 	    break;
 	case BattleAction.CAST_SPELL:
-	    SpellCaster.castSpell(this.enemy.getWindowAI().getSpellToCast(), this.enemy);
+	    SpellCaster.castSpell(this.enemy.getAI().getSpellToCast(), this.enemy);
 	    break;
 	case BattleAction.FLEE:
 	    final var rf = new RandomRange(0, 100);

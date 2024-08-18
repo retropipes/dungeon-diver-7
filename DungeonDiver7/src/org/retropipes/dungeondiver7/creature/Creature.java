@@ -11,8 +11,7 @@ import java.util.Objects;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.polytable.PolyTable;
 import org.retropipes.diane.random.RandomRange;
-import org.retropipes.dungeondiver7.ai.map.MapAI;
-import org.retropipes.dungeondiver7.ai.window.WindowAI;
+import org.retropipes.dungeondiver7.ai.CreatureAI;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.effect.Effect;
 import org.retropipes.dungeondiver7.item.ItemInventory;
@@ -48,8 +47,7 @@ public abstract class Creature {
     private long experience;
     private final Effect[] effectList;
     private SpellBook spellsKnown;
-    private MapAI mapAI;
-    private WindowAI windowAI;
+    private CreatureAI ai;
     private ItemInventory items;
     private PolyTable toNextLevel;
     private final int teamID;
@@ -179,9 +177,8 @@ public abstract class Creature {
     }
 
     public final int getActionBarSpeed() {
-	return Math.max(Creature.BAR_SPEED_MIN,
-		Math.min((Creature.BAR_SPEED_MAX - this.getBaseSpeed()) / Creature.BAR_SPEED_MIN,
-			Creature.BAR_SPEED_MAX));
+	return Math.max(Creature.BAR_SPEED_MIN, Math
+		.min((Creature.BAR_SPEED_MAX - this.getBaseSpeed()) / Creature.BAR_SPEED_MIN, Creature.BAR_SPEED_MAX));
     }
 
     public final int getActiveEffectCount() {
@@ -432,8 +429,8 @@ public abstract class Creature {
 	return this.getStat(StatConstants.STAT_LUCK);
     }
 
-    public final MapAI getMapAI() {
-	return this.mapAI;
+    public final CreatureAI getAI() {
+	return this.ai;
     }
 
     public int getMapBattleActionsPerRound() {
@@ -540,10 +537,6 @@ public abstract class Creature {
 	return Math.max(1, Math.min(Creature.ACTION_CAP, value));
     }
 
-    public final WindowAI getWindowAI() {
-	return this.windowAI;
-    }
-
     public final int getX() {
 	return this.xLoc;
     }
@@ -565,8 +558,8 @@ public abstract class Creature {
 	return prime * result + (this.toNextLevel == null ? 0 : this.toNextLevel.hashCode());
     }
 
-    public final boolean hasMapAI() {
-	return this.mapAI != null;
+    public final boolean hasAI() {
+	return this.ai != null;
     }
 
     public final void heal(final int amount) {
@@ -865,8 +858,8 @@ public abstract class Creature {
 	this.setStat(StatConstants.STAT_LUCK, value);
     }
 
-    public final void setMapAI(final MapAI newAI) {
-	this.mapAI = newAI;
+    public final void setAI(final CreatureAI newAI) {
+	this.ai = newAI;
     }
 
     public final void setSpellBook(final SpellBook book) {
@@ -907,10 +900,6 @@ public abstract class Creature {
 
     public final void setVitality(final int value) {
 	this.setStat(StatConstants.STAT_VITALITY, value);
-    }
-
-    public final void setWindowAI(final WindowAI newAI) {
-	this.windowAI = newAI;
     }
 
     public final void setX(final int newX) {

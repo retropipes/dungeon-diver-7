@@ -68,7 +68,7 @@ public class FinalBossMonster extends Monster {
 
     // Constructors
     FinalBossMonster() {
-	this.setMapAI(MapAIPicker.getNextRoutine());
+	this.setAI(MapAIPicker.getNextRoutine());
 	final SpellBook spells = new MonsterSpellBook();
 	spells.learnAllSpells();
 	this.setSpellBook(spells);

@@ -136,7 +136,7 @@ public class MapTimeBattleLogic extends Battle {
 
     private boolean castEnemySpell() {
 	// Active character has AI, and AI is turned on
-	final var sp = this.enemy.getTemplate().getMapAI().getSpellToCast();
+	final var sp = this.enemy.getTemplate().getAI().getSpellToCast();
 	final var success = SpellCaster.castSpell(sp, this.enemy.getTemplate());
 	final var currResult = this.getResult();
 	if (currResult != BattleResult.IN_PROGRESS) {
@@ -629,29 +629,29 @@ public class MapTimeBattleLogic extends Battle {
 
     @Override
     public void executeNextAIAction() {
-	if (this.enemy != null && this.enemy.getTemplate() != null && this.enemy.getTemplate().getMapAI() != null) {
+	if (this.enemy != null && this.enemy.getTemplate() != null && this.enemy.getTemplate().getAI() != null) {
 	    final var active = this.enemy;
 	    if (active.getTemplate().isAlive()) {
-		final var action = active.getTemplate().getMapAI().getNextAction(this.enemyContext);
+		final var action = active.getTemplate().getAI().getNextAction(this.enemyContext);
 		switch (action) {
 		case BattleAction.MOVE:
-		    final var x = active.getTemplate().getMapAI().getMoveX();
-		    final var y = active.getTemplate().getMapAI().getMoveY();
+		    final var x = active.getTemplate().getAI().getMoveX();
+		    final var y = active.getTemplate().getAI().getMoveY();
 		    this.lastAIActionResult = this.updatePositionInternal(x, y, this.enemy, this.me, this.ede,
 			    this.enemyContext, false);
-		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
+		    active.getTemplate().getAI().setLastResult(this.lastAIActionResult);
 		    break;
 		case BattleAction.CAST_SPELL:
 		    this.lastAIActionResult = this.castEnemySpell();
-		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
+		    active.getTemplate().getAI().setLastResult(this.lastAIActionResult);
 		    break;
 		case BattleAction.DRAIN:
 		    this.lastAIActionResult = this.enemyDrain();
-		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
+		    active.getTemplate().getAI().setLastResult(this.lastAIActionResult);
 		    break;
 		case BattleAction.STEAL:
 		    this.lastAIActionResult = this.enemySteal();
-		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
+		    active.getTemplate().getAI().setLastResult(this.lastAIActionResult);
 		    break;
 		default:
 		    this.lastAIActionResult = true;
@@ -1140,7 +1140,7 @@ public class MapTimeBattleLogic extends Battle {
 		final var bc = (BattleCharacter) next;
 		if (bc.getTeamID() == active.getTeamID()) {
 		    // Attack Friend?
-		    if (!active.getTemplate().hasMapAI()) {
+		    if (!active.getTemplate().hasAI()) {
 			final var confirm = CommonDialogs.showConfirmDialog("Attack Friend?", "Battle");
 			if (confirm != JOptionPane.YES_OPTION) {
 			    return false;
@@ -1180,14 +1180,14 @@ public class MapTimeBattleLogic extends Battle {
 		}
 	    } else {
 		// Move Failed
-		if (!active.getTemplate().hasMapAI()) {
+		if (!active.getTemplate().hasAI()) {
 		    this.setStatusMessage("Can't go that way");
 		}
 		return false;
 	    }
 	} else {
 	    // Confirm Flee
-	    if (!active.getTemplate().hasMapAI()) {
+	    if (!active.getTemplate().hasAI()) {
 		SoundLoader.playSound(Sounds.RUN);
 		final var confirm = CommonDialogs.showConfirmDialog("Embrace Cowardice?", "Battle");
 		if (confirm != JOptionPane.YES_OPTION) {

@@ -127,12 +127,12 @@ public class MapTurnBattleLogic extends Battle {
 	// Check Spell Counter
 	if (this.getActiveSpellCounter() <= 0) {
 	    // Deny cast - out of actions
-	    if (!this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
+	    if (!this.bd.getActiveCharacter().getTemplate().hasAI()) {
 		this.setStatusMessage("Out of actions!");
 	    }
 	    return false;
 	}
-	if (!this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
+	if (!this.bd.getActiveCharacter().getTemplate().hasAI()) {
 	    // Active character has no AI, or AI is turned off
 	    final var success = SpellCaster.selectAndCastSpell(this.bd.getActiveCharacter().getTemplate());
 	    if (success) {
@@ -148,7 +148,7 @@ public class MapTurnBattleLogic extends Battle {
 	    return success;
 	}
 	// Active character has AI, and AI is turned on
-	final var sp = this.bd.getActiveCharacter().getTemplate().getMapAI().getSpellToCast();
+	final var sp = this.bd.getActiveCharacter().getTemplate().getAI().getSpellToCast();
 	final var success = SpellCaster.castSpell(sp, this.bd.getActiveCharacter().getTemplate());
 	if (success) {
 	    SoundLoader.playSound(Sounds.ENEMY_SPELL);
@@ -480,7 +480,7 @@ public class MapTurnBattleLogic extends Battle {
 	// Check Action Counter
 	if (this.getActiveActionCounter() <= 0) {
 	    // Deny drain - out of actions
-	    if (!this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
+	    if (!this.bd.getActiveCharacter().getTemplate().hasAI()) {
 		this.setStatusMessage("Out of actions!");
 	    }
 	    return false;
@@ -583,29 +583,29 @@ public class MapTurnBattleLogic extends Battle {
     public void executeNextAIAction() {
 	if (this.bd != null && this.bd.getActiveCharacter() != null
 		&& this.bd.getActiveCharacter().getTemplate() != null
-		&& this.bd.getActiveCharacter().getTemplate().getMapAI() != null) {
+		&& this.bd.getActiveCharacter().getTemplate().getAI() != null) {
 	    final var active = this.bd.getActiveCharacter();
 	    if (active.getTemplate().isAlive()) {
-		final var action = active.getTemplate().getMapAI()
+		final var action = active.getTemplate().getAI()
 			.getNextAction(this.bd.getBattlerAIContexts()[this.activeIndex]);
 		switch (action) {
 		case BattleAction.MOVE:
-		    final var x = active.getTemplate().getMapAI().getMoveX();
-		    final var y = active.getTemplate().getMapAI().getMoveY();
+		    final var x = active.getTemplate().getAI().getMoveX();
+		    final var y = active.getTemplate().getAI().getMoveY();
 		    this.lastAIActionResult = this.updatePosition(x, y);
-		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
+		    active.getTemplate().getAI().setLastResult(this.lastAIActionResult);
 		    break;
 		case BattleAction.CAST_SPELL:
 		    this.lastAIActionResult = this.castSpell();
-		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
+		    active.getTemplate().getAI().setLastResult(this.lastAIActionResult);
 		    break;
 		case BattleAction.DRAIN:
 		    this.lastAIActionResult = this.drain();
-		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
+		    active.getTemplate().getAI().setLastResult(this.lastAIActionResult);
 		    break;
 		case BattleAction.STEAL:
 		    this.lastAIActionResult = this.steal();
-		    active.getTemplate().getMapAI().setLastResult(this.lastAIActionResult);
+		    active.getTemplate().getAI().setLastResult(this.lastAIActionResult);
 		    break;
 		default:
 		    this.lastAIActionResult = true;
@@ -810,9 +810,9 @@ public class MapTurnBattleLogic extends Battle {
 	    if (this.bd.getBattlers()[x] != null) {
 		// Perform New Round Actions
 		if (this.bd.getBattlerAIContexts()[x] != null
-			&& this.bd.getBattlerAIContexts()[x].getCharacter().getTemplate().hasMapAI()
+			&& this.bd.getBattlerAIContexts()[x].getCharacter().getTemplate().hasAI()
 			&& this.bd.getBattlers()[x].isActive() && this.bd.getBattlers()[x].getTemplate().isAlive()) {
-		    this.bd.getBattlerAIContexts()[x].getCharacter().getTemplate().getMapAI().newRoundHook();
+		    this.bd.getBattlerAIContexts()[x].getCharacter().getTemplate().getAI().newRoundHook();
 		}
 	    }
 	}
@@ -901,7 +901,7 @@ public class MapTurnBattleLogic extends Battle {
 	    return this.setNextActive(isNewRound);
 	}
 	// AI Check
-	if (this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
+	if (this.bd.getActiveCharacter().getTemplate().hasAI()) {
 	    // Run AI
 	    this.waitForAI();
 	    this.ait.aiRun();
@@ -931,7 +931,7 @@ public class MapTurnBattleLogic extends Battle {
 	// Check Action Counter
 	if (this.getActiveActionCounter() <= 0) {
 	    // Deny steal - out of actions
-	    if (!this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
+	    if (!this.bd.getActiveCharacter().getTemplate().hasAI()) {
 		this.setStatusMessage("Out of actions!");
 	    }
 	    return false;
@@ -1037,7 +1037,7 @@ public class MapTurnBattleLogic extends Battle {
 	}
 	if (next == null || nextGround == null || currGround == null) {
 	    // Confirm Flee
-	    if (!active.hasMapAI()) {
+	    if (!active.hasAI()) {
 		SoundLoader.playSound(Sounds.QUESTION);
 		final var confirm = CommonDialogs.showConfirmDialog("Embrace Cowardice?", "Battle");
 		if (confirm != CommonDialogs.YES_OPTION) {
@@ -1071,7 +1071,7 @@ public class MapTurnBattleLogic extends Battle {
 	if (!next.isSolidInBattle()) {
 	    if ((!useAP || this.getActiveActionCounter() < AIContext.getAPCost()) && useAP) {
 		// Deny move - out of actions
-		if (!this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
+		if (!this.bd.getActiveCharacter().getTemplate().hasAI()) {
 		    this.setStatusMessage("Out of moves!");
 		}
 		return false;
@@ -1188,7 +1188,7 @@ public class MapTurnBattleLogic extends Battle {
 	} else if (next instanceof BattleCharacter) {
 	    if ((!useAP || this.getActiveAttackCounter() <= 0) && useAP) {
 		// Deny attack - out of actions
-		if (!this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
+		if (!this.bd.getActiveCharacter().getTemplate().hasAI()) {
 		    this.setStatusMessage("Out of attacks!");
 		}
 		return false;
@@ -1197,7 +1197,7 @@ public class MapTurnBattleLogic extends Battle {
 	    final var bc = (BattleCharacter) next;
 	    if (bc.getTeamID() == activeBC.getTeamID()) {
 		// Attack Friend?
-		if (active.hasMapAI()) {
+		if (active.hasAI()) {
 		    return false;
 		}
 		final var confirm = CommonDialogs.showConfirmDialog("Attack Friend?", "Battle");
@@ -1229,7 +1229,7 @@ public class MapTurnBattleLogic extends Battle {
 	    }
 	} else {
 	    // Move Failed
-	    if (!active.hasMapAI()) {
+	    if (!active.hasAI()) {
 		this.setStatusMessage("Can't go that way");
 	    }
 	    return false;
