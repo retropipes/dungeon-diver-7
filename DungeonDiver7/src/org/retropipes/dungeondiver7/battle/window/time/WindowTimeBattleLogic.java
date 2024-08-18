@@ -11,6 +11,7 @@ import org.retropipes.dungeondiver7.battle.Battle;
 import org.retropipes.dungeondiver7.battle.BattleAction;
 import org.retropipes.dungeondiver7.battle.BattleResult;
 import org.retropipes.dungeondiver7.battle.damage.DamageEngine;
+import org.retropipes.dungeondiver7.battle.types.BattleType;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.StatConstants;
 import org.retropipes.dungeondiver7.creature.effect.Effect;
@@ -20,6 +21,7 @@ import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.creature.party.PartyMember;
 import org.retropipes.dungeondiver7.creature.spell.SpellCaster;
+import org.retropipes.dungeondiver7.dungeon.abc.BattleCharacter;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.GameDifficulty;
@@ -115,7 +117,9 @@ public class WindowTimeBattleLogic extends Battle {
     private int damage;
     private boolean enemyDidDamage;
     private boolean playerDidDamage;
+    private BattleType battleType;
     private Creature enemy;
+    private BattleCharacter enemyBC;
     private BattleResult result;
     private final DamageEngine pde;
     private final DamageEngine ede;
@@ -336,10 +340,13 @@ public class WindowTimeBattleLogic extends Battle {
 	    if (app.getMode() != StuffBag.STATUS_BATTLE) {
 		SoundLoader.playSound(Sounds.DRAW_SWORD);
 	    }
+	    this.battleType = BattleType.createBattle(0, 0);
 	    app.setMode(StuffBag.STATUS_BATTLE);
 	    gm.hideOutput();
 	    gm.stopMovement();
-	    this.enemy = MonsterFactory.getNewMonsterInstance();
+	    this.enemyBC = this.battleType.getBattlers();
+	    this.enemy = this.enemyBC.getTemplate();
+	    this.enemy.healAndRegenerateFully();
 	    this.enemy.loadCreature();
 	    this.battleGUI.setMaxPlayerActionBarValue(PartyManager.getParty().getLeader().getActionBarSpeed());
 	    this.battleGUI.setMaxEnemyActionBarValue(this.enemy.getActionBarSpeed());
@@ -377,10 +384,13 @@ public class WindowTimeBattleLogic extends Battle {
 	    if (app.getMode() != StuffBag.STATUS_BATTLE) {
 		SoundLoader.playSound(Sounds.DRAW_SWORD);
 	    }
+	    this.battleType = BattleType.createFinalBossBattle(0, 0);
 	    app.setMode(StuffBag.STATUS_BATTLE);
 	    gm.hideOutput();
 	    gm.stopMovement();
-	    this.enemy = MonsterFactory.getNewFinalBossInstance();
+	    this.enemyBC = this.battleType.getBattlers();
+	    this.enemy = this.enemyBC.getTemplate();
+	    this.enemy.healAndRegenerateFully();
 	    this.enemy.loadCreature();
 	    this.enemyDidDamage = false;
 	    this.playerDidDamage = false;
@@ -564,7 +574,7 @@ public class WindowTimeBattleLogic extends Battle {
 
     @Override
     public final void executeNextAIAction() {
-	final var actionToPerform = this.enemy.getAI().getNextAction(this.enemy);
+	final var actionToPerform = this.enemyBC.getAI().getNextAction(this.enemy);
 	switch (actionToPerform) {
 	case BattleAction.ATTACK:
 	    final var actions = this.enemy.getWindowBattleActionsPerRound();
@@ -574,7 +584,7 @@ public class WindowTimeBattleLogic extends Battle {
 	    }
 	    break;
 	case BattleAction.CAST_SPELL:
-	    SpellCaster.castSpell(this.enemy.getAI().getSpellToCast(), this.enemy);
+	    SpellCaster.castSpell(this.enemyBC.getAI().getSpellToCast(), this.enemy);
 	    break;
 	case BattleAction.FLEE:
 	    final var rf = new RandomRange(0, 100);

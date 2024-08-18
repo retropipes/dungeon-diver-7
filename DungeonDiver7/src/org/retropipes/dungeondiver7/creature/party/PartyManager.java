@@ -13,12 +13,12 @@ import org.retropipes.diane.ack.AvatarImageModel;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
+import org.retropipes.dungeondiver7.creature.characterfile.CharacterLoader;
+import org.retropipes.dungeondiver7.creature.characterfile.CharacterRegistration;
 import org.retropipes.dungeondiver7.creature.gender.GenderManager;
 import org.retropipes.dungeondiver7.creature.job.JobManager;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.locale.Music;
-import org.retropipes.dungeondiver7.manager.file.character.CharacterLoader;
-import org.retropipes.dungeondiver7.manager.file.character.CharacterRegistration;
 
 public class PartyManager {
     // Fields

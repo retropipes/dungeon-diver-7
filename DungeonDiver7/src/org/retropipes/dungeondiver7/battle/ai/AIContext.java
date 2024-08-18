@@ -9,14 +9,13 @@ import java.awt.Point;
 
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
+import org.retropipes.dungeondiver7.dungeon.abc.BattleCharacter;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 public class AIContext {
     private static final int MINIMUM_RADIUS = 1;
     private static final int MAXIMUM_RADIUS = 16;
     private static final int NOTHING_THERE = -1;
-    private static final int CANNOT_MOVE_THERE = -1;
     private static final int AP_COST = 1;
 
     // Static method
@@ -27,24 +26,14 @@ public class AIContext {
     private final BattleCharacter battleCharacter;
     private final Creature creature;
     private final int myTeam;
-    private final int[][] apCosts;
     private final int[][] creatureLocations;
 
     // Constructor
-    public AIContext(final BattleCharacter bc, final Dungeon arena) {
+    public AIContext(final BattleCharacter bc, final int rows, final int columns) {
 	this.battleCharacter = bc;
-	this.creature = null;
+	this.creature = bc.getTemplate();
 	this.myTeam = bc.getTeamID();
-	this.apCosts = new int[arena.getRows()][arena.getColumns()];
-	this.creatureLocations = new int[arena.getRows()][arena.getColumns()];
-    }
-
-    public AIContext(final Creature c) {
-	this.battleCharacter = null;
-	this.creature = c;
-	this.myTeam = c.getTeamID();
-	this.apCosts = null;
-	this.creatureLocations = null;
+	this.creatureLocations = new int[rows][columns];
     }
 
     public BattleCharacter getCharacter() {
@@ -52,7 +41,7 @@ public class AIContext {
     }
 
     public Creature getCreature() {
-	return this.battleCharacter != null ? this.battleCharacter.getTemplate() : this.creature;
+	return this.creature;
     }
 
     public Point isEnemyNearby() {
@@ -118,16 +107,6 @@ public class AIContext {
     }
 
     public void updateContext(final Dungeon arena) {
-	for (var x = 0; x < this.apCosts.length; x++) {
-	    for (var y = 0; y < this.apCosts[x].length; y++) {
-		final var obj = arena.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
-		if (obj.isSolid()) {
-		    this.apCosts[x][y] = AIContext.CANNOT_MOVE_THERE;
-		} else {
-		    this.apCosts[x][y] = AIContext.AP_COST;
-		}
-	    }
-	}
 	for (var x = 0; x < this.creatureLocations.length; x++) {
 	    for (var y = 0; y < this.creatureLocations[x].length; y++) {
 		final var obj = arena.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);

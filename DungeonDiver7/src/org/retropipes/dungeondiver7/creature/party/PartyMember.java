@@ -12,14 +12,13 @@ import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.polytable.PolyTable;
-import org.retropipes.dungeondiver7.VersionException;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.StatConstants;
+import org.retropipes.dungeondiver7.creature.characterfile.CharacterVersionException;
 import org.retropipes.dungeondiver7.creature.gender.Gender;
 import org.retropipes.dungeondiver7.creature.item.ItemInventory;
 import org.retropipes.dungeondiver7.creature.job.Job;
 import org.retropipes.dungeondiver7.creature.job.JobManager;
-import org.retropipes.dungeondiver7.dungeon.current.GenerateDungeonTask;
 import org.retropipes.dungeondiver7.utility.FileFormats;
 import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
@@ -30,7 +29,7 @@ public class PartyMember extends Creature {
     public static PartyMember read(final DataIOReader worldFile) throws IOException {
 	final int version = worldFile.readByte();
 	if (version < FileFormats.CHARACTER_2) {
-	    throw new VersionException("Invalid character version found: " + version);
+	    throw new CharacterVersionException("Invalid character version found: " + version);
 	}
 	final var k = worldFile.readInt();
 	final var pAtk = worldFile.readInt();
@@ -225,7 +224,6 @@ public class PartyMember extends Creature {
 	this.setToNextLevel(nextLevelEquation);
 	this.setSpellBook(JobManager.getSpellBookByID(this.job.getJobID()));
 	PartyManager.getParty().resetZone();
-	new GenerateDungeonTask(true).start();
     }
 
     // Transformers

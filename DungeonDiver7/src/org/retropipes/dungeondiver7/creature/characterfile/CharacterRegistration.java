@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.manager.file.character;
+package org.retropipes.dungeondiver7.creature.characterfile;
 
 import java.io.BufferedWriter;
 import java.io.File;

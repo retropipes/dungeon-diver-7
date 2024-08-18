@@ -28,9 +28,8 @@ import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.creature.spell.SpellCaster;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractBattleCharacter;
+import org.retropipes.dungeondiver7.dungeon.abc.BattleCharacter;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
-import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
@@ -127,12 +126,12 @@ public class MapTurnBattleLogic extends Battle {
 	// Check Spell Counter
 	if (this.getActiveSpellCounter() <= 0) {
 	    // Deny cast - out of actions
-	    if (!this.bd.getActiveCharacter().getTemplate().hasAI()) {
+	    if (!this.bd.getActiveCharacter().hasAI()) {
 		this.setStatusMessage("Out of actions!");
 	    }
 	    return false;
 	}
-	if (!this.bd.getActiveCharacter().getTemplate().hasAI()) {
+	if (!this.bd.getActiveCharacter().hasAI()) {
 	    // Active character has no AI, or AI is turned off
 	    final var success = SpellCaster.selectAndCastSpell(this.bd.getActiveCharacter().getTemplate());
 	    if (success) {
@@ -148,7 +147,7 @@ public class MapTurnBattleLogic extends Battle {
 	    return success;
 	}
 	// Active character has AI, and AI is turned on
-	final var sp = this.bd.getActiveCharacter().getTemplate().getAI().getSpellToCast();
+	final var sp = this.bd.getActiveCharacter().getAI().getSpellToCast();
 	final var success = SpellCaster.castSpell(sp, this.bd.getActiveCharacter().getTemplate());
 	if (success) {
 	    SoundLoader.playSound(Sounds.ENEMY_SPELL);
@@ -331,12 +330,19 @@ public class MapTurnBattleLogic extends Battle {
 
     @Override
     public void doBattle() {
-	this.battleType = BattleType.createBattle();
+	// Initialize Battle
+	Dungeon bMap = null;
+	try {
+	    bMap = Dungeon.getTemporaryBattleCopy();
+	} catch (final IOException e) {
+	    DungeonDiver7.logError(e);
+	}
+	this.battleType = BattleType.createBattle(bMap.getRows(), bMap.getColumns());
 	if (MusicLoader.isMusicPlaying()) {
 	    MusicLoader.stopMusic();
 	}
 	MusicLoader.playMusic(Music.BATTLE);
-	this.doBattleInternal();
+	this.doBattleInternal(bMap);
     }
 
     @Override
@@ -353,14 +359,7 @@ public class MapTurnBattleLogic extends Battle {
 	}
     }
 
-    private void doBattleInternal() {
-	// Initialize Battle
-	Dungeon bMap = null;
-	try {
-	    bMap = Dungeon.getTemporaryBattleCopy();
-	} catch (final IOException e) {
-	    DungeonDiver7.logError(e);
-	}
+    private void doBattleInternal(final Dungeon bMap) {
 	DungeonDiver7.getStuffBag().getGameLogic().hideOutput();
 	DungeonDiver7.getStuffBag().setMode(StuffBag.STATUS_BATTLE);
 	this.bd = new MapBattleDefinitions();
@@ -370,23 +369,12 @@ public class MapTurnBattleLogic extends Battle {
 	this.resultDoneAlready = false;
 	this.result = BattleResult.IN_PROGRESS;
 	// Generate Friends
-	final var friends = PartyManager.getParty().getBattleCharacters();
+	this.bd.addBattler(new BattleCharacter(PartyManager.getParty().getLeader(), bMap.getRows(), bMap.getColumns()));
 	// Generate Enemies
 	this.enemy = this.battleType.getBattlers();
 	this.enemy.getTemplate().healAndRegenerateFully();
 	this.enemy.getTemplate().loadCreature();
-	// Merge and Create AI Contexts
-	for (var x = 0; x < 2; x++) {
-	    if (x == 0) {
-		this.bd.addBattler(friends);
-	    } else {
-		this.bd.addBattler(this.enemy);
-	    }
-	    if (this.bd.getBattlers()[x] != null) {
-		// Create an AI Context
-		this.bd.getBattlerAIContexts()[x] = new AIContext(this.bd.getBattlers()[x], this.bd.getBattleDungeon());
-	    }
-	}
+	this.bd.addBattler(this.enemy);
 	// Reset Inactive Indicators and Action Counters
 	this.bd.resetBattlers();
 	// Generate Speed Array
@@ -408,12 +396,19 @@ public class MapTurnBattleLogic extends Battle {
 
     @Override
     public void doFinalBossBattle() {
-	this.battleType = BattleType.createFinalBossBattle();
+	// Initialize Battle
+	Dungeon bMap = null;
+	try {
+	    bMap = Dungeon.getTemporaryBattleCopy();
+	} catch (final IOException e) {
+	    DungeonDiver7.logError(e);
+	}
+	this.battleType = BattleType.createFinalBossBattle(bMap.getRows(), bMap.getColumns());
 	if (MusicLoader.isMusicPlaying()) {
 	    MusicLoader.stopMusic();
 	}
 	MusicLoader.playMusic(Music.BOSS);
-	this.doBattleInternal();
+	this.doBattleInternal(bMap);
     }
 
     @Override
@@ -479,13 +474,13 @@ public class MapTurnBattleLogic extends Battle {
 	// Check Action Counter
 	if (this.getActiveActionCounter() <= 0) {
 	    // Deny drain - out of actions
-	    if (!this.bd.getActiveCharacter().getTemplate().hasAI()) {
+	    if (!this.bd.getActiveCharacter().hasAI()) {
 		this.setStatusMessage("Out of actions!");
 	    }
 	    return false;
 	}
 	Creature activeEnemy = null;
-	final AbstractBattleCharacter enemyBC = this.getEnemyBC();
+	final BattleCharacter enemyBC = this.getEnemyBC();
 	if (enemyBC != null) {
 	    activeEnemy = enemyBC.getTemplate();
 	}
@@ -582,29 +577,29 @@ public class MapTurnBattleLogic extends Battle {
     public void executeNextAIAction() {
 	if (this.bd != null && this.bd.getActiveCharacter() != null
 		&& this.bd.getActiveCharacter().getTemplate() != null
-		&& this.bd.getActiveCharacter().getTemplate().getAI() != null) {
+		&& this.bd.getActiveCharacter().getAI() != null) {
 	    final var active = this.bd.getActiveCharacter();
 	    if (active.getTemplate().isAlive()) {
-		final var action = active.getTemplate().getAI()
+		final var action = active.getAI()
 			.getNextAction(this.bd.getBattlerAIContexts()[this.activeIndex]);
 		switch (action) {
 		case BattleAction.MOVE:
-		    final var x = active.getTemplate().getAI().getMoveX();
-		    final var y = active.getTemplate().getAI().getMoveY();
+		    final var x = active.getAI().getMoveX();
+		    final var y = active.getAI().getMoveY();
 		    this.lastAIActionResult = this.updatePosition(x, y);
-		    active.getTemplate().getAI().setLastResult(this.lastAIActionResult);
+		    active.getAI().setLastResult(this.lastAIActionResult);
 		    break;
 		case BattleAction.CAST_SPELL:
 		    this.lastAIActionResult = this.castSpell();
-		    active.getTemplate().getAI().setLastResult(this.lastAIActionResult);
+		    active.getAI().setLastResult(this.lastAIActionResult);
 		    break;
 		case BattleAction.DRAIN:
 		    this.lastAIActionResult = this.drain();
-		    active.getTemplate().getAI().setLastResult(this.lastAIActionResult);
+		    active.getAI().setLastResult(this.lastAIActionResult);
 		    break;
 		case BattleAction.STEAL:
 		    this.lastAIActionResult = this.steal();
-		    active.getTemplate().getAI().setLastResult(this.lastAIActionResult);
+		    active.getAI().setLastResult(this.lastAIActionResult);
 		    break;
 		default:
 		    this.lastAIActionResult = true;
@@ -809,9 +804,9 @@ public class MapTurnBattleLogic extends Battle {
 	    if (this.bd.getBattlers()[x] != null) {
 		// Perform New Round Actions
 		if (this.bd.getBattlerAIContexts()[x] != null
-			&& this.bd.getBattlerAIContexts()[x].getCharacter().getTemplate().hasAI()
+			&& this.bd.getBattlerAIContexts()[x].getCharacter().hasAI()
 			&& this.bd.getBattlers()[x].isActive() && this.bd.getBattlers()[x].getTemplate().isAlive()) {
-		    this.bd.getBattlerAIContexts()[x].getCharacter().getTemplate().getAI().newRoundHook();
+		    this.bd.getBattlerAIContexts()[x].getCharacter().getAI().newRoundHook();
 		}
 	    }
 	}
@@ -900,7 +895,7 @@ public class MapTurnBattleLogic extends Battle {
 	    return this.setNextActive(isNewRound);
 	}
 	// AI Check
-	if (this.bd.getActiveCharacter().getTemplate().hasAI()) {
+	if (this.bd.getActiveCharacter().hasAI()) {
 	    // Run AI
 	    this.waitForAI();
 	    this.ait.aiRun();
@@ -930,13 +925,13 @@ public class MapTurnBattleLogic extends Battle {
 	// Check Action Counter
 	if (this.getActiveActionCounter() <= 0) {
 	    // Deny steal - out of actions
-	    if (!this.bd.getActiveCharacter().getTemplate().hasAI()) {
+	    if (!this.bd.getActiveCharacter().hasAI()) {
 		this.setStatusMessage("Out of actions!");
 	    }
 	    return false;
 	}
 	Creature activeEnemy = null;
-	final AbstractBattleCharacter enemyBC = this.getEnemyBC();
+	final BattleCharacter enemyBC = this.getEnemyBC();
 	if (enemyBC != null) {
 	    activeEnemy = enemyBC.getTemplate();
 	}
@@ -1036,7 +1031,7 @@ public class MapTurnBattleLogic extends Battle {
 	}
 	if (next == null || nextGround == null || currGround == null) {
 	    // Confirm Flee
-	    if (!active.hasAI()) {
+	    if (!activeBC.hasAI()) {
 		SoundLoader.playSound(Sounds.QUESTION);
 		final var confirm = CommonDialogs.showConfirmDialog("Embrace Cowardice?", "Battle");
 		if (confirm != CommonDialogs.YES_OPTION) {
@@ -1070,7 +1065,7 @@ public class MapTurnBattleLogic extends Battle {
 	if (!next.isSolidInBattle()) {
 	    if ((!useAP || this.getActiveActionCounter() < AIContext.getAPCost()) && useAP) {
 		// Deny move - out of actions
-		if (!this.bd.getActiveCharacter().getTemplate().hasAI()) {
+		if (!this.bd.getActiveCharacter().hasAI()) {
 		    this.setStatusMessage("Out of moves!");
 		}
 		return false;
@@ -1187,7 +1182,7 @@ public class MapTurnBattleLogic extends Battle {
 	} else if (next instanceof BattleCharacter) {
 	    if ((!useAP || this.getActiveAttackCounter() <= 0) && useAP) {
 		// Deny attack - out of actions
-		if (!this.bd.getActiveCharacter().getTemplate().hasAI()) {
+		if (!this.bd.getActiveCharacter().hasAI()) {
 		    this.setStatusMessage("Out of attacks!");
 		}
 		return false;
@@ -1196,7 +1191,7 @@ public class MapTurnBattleLogic extends Battle {
 	    final var bc = (BattleCharacter) next;
 	    if (bc.getTeamID() == activeBC.getTeamID()) {
 		// Attack Friend?
-		if (active.hasAI()) {
+		if (activeBC.hasAI()) {
 		    return false;
 		}
 		final var confirm = CommonDialogs.showConfirmDialog("Attack Friend?", "Battle");
@@ -1228,7 +1223,7 @@ public class MapTurnBattleLogic extends Battle {
 	    }
 	} else {
 	    // Move Failed
-	    if (!active.hasAI()) {
+	    if (!activeBC.hasAI()) {
 		this.setStatusMessage("Can't go that way");
 	    }
 	    return false;

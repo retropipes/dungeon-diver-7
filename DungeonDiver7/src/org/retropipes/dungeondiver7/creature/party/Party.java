@@ -11,7 +11,6 @@ import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Strings;
@@ -35,7 +34,6 @@ public class Party {
 
     // Fields
     private PartyMember members;
-    private BattleCharacter battlers;
     private int leaderID;
     private int activePCs;
     private int zone;
@@ -61,17 +59,6 @@ public class Party {
 	    CommonDialogs.showTitledDialog(this.members.getName() + " reached level " + this.members.getLevel() + "!",
 		    "Level Up");
 	}
-    }
-
-    private void generateBattleCharacters() {
-	this.battlers = new BattleCharacter(this.members);
-    }
-
-    public BattleCharacter getBattleCharacters() {
-	if (this.battlers == null) {
-	    this.generateBattleCharacters();
-	}
-	return this.battlers;
     }
 
     public PartyMember getLeader() {

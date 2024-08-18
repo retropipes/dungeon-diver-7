@@ -3,19 +3,18 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.manager.file.character;
+package org.retropipes.dungeondiver7.creature.characterfile;
 
 import java.io.File;
 import java.io.IOException;
 
+import org.retropipes.diane.Diane;
 import org.retropipes.diane.fileio.DataIOException;
 import org.retropipes.diane.fileio.DataIOFactory;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.fileio.DataMode;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
-import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.VersionException;
 import org.retropipes.dungeondiver7.creature.party.PartyMember;
 import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
@@ -69,11 +68,11 @@ public class CharacterLoader {
 	final var loadPath = basePath + File.separator + name + Strings.fileExtension(FileExtension.CHARACTER);
 	try (DataIOReader loader = DataIOFactory.createReader(DataMode.CUSTOM_XML, loadPath)) {
 	    return PartyMember.read(loader);
-	} catch (VersionException | DataIOException e) {
+	} catch (CharacterVersionException | DataIOException e) {
 	    CharacterRegistration.autoremoveCharacter(name);
 	    return null;
 	} catch (final IOException e) {
-	    DungeonDiver7.logError(e);
+	    Diane.handleError(e);
 	    return null;
 	}
     }
@@ -85,7 +84,7 @@ public class CharacterLoader {
 	try (DataIOWriter saver = DataIOFactory.createWriter(DataMode.CUSTOM_XML, characterFile)) {
 	    character.write(saver);
 	} catch (final IOException e) {
-	    DungeonDiver7.logError(e);
+	    Diane.handleError(e);
 	}
     }
 }

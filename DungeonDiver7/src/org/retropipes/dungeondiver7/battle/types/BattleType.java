@@ -1,14 +1,14 @@
 package org.retropipes.dungeondiver7.battle.types;
 
-import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
+import org.retropipes.dungeondiver7.dungeon.abc.BattleCharacter;
 
 public abstract class BattleType {
-    public static BattleType createBattle() {
-	return new RegularBattle();
+    public static BattleType createBattle(final int rows, final int columns) {
+	return new RegularBattle(rows, columns);
     }
 
-    public static BattleType createFinalBossBattle() {
-	return new FinalBossBattle();
+    public static BattleType createFinalBossBattle(final int rows, final int columns) {
+	return new FinalBossBattle(rows, columns);
     }
 
     protected boolean finalBoss = false;

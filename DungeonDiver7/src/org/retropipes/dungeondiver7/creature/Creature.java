@@ -11,7 +11,6 @@ import java.util.Objects;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.polytable.PolyTable;
 import org.retropipes.diane.random.RandomRange;
-import org.retropipes.dungeondiver7.battle.ai.CreatureAI;
 import org.retropipes.dungeondiver7.creature.effect.Effect;
 import org.retropipes.dungeondiver7.creature.item.ItemInventory;
 import org.retropipes.dungeondiver7.creature.spell.SpellBook;
@@ -47,7 +46,6 @@ public abstract class Creature {
     private long experience;
     private final Effect[] effectList;
     private SpellBook spellsKnown;
-    private CreatureAI ai;
     private ItemInventory items;
     private PolyTable toNextLevel;
     private final int teamID;
@@ -429,10 +427,6 @@ public abstract class Creature {
 	return this.getStat(StatConstants.STAT_LUCK);
     }
 
-    public final CreatureAI getAI() {
-	return this.ai;
-    }
-
     public int getMapBattleActionsPerRound() {
 	final var value = (int) Math.sqrt(Math.ceil(
 		this.getEffectedStat(StatConstants.STAT_SPEED) * StatConstants.FACTOR_SPEED_MAP_ACTIONS_PER_ROUND));
@@ -556,10 +550,6 @@ public abstract class Creature {
 	result = prime * result + Arrays.hashCode(this.stats);
 	result = prime * result + this.teamID;
 	return prime * result + (this.toNextLevel == null ? 0 : this.toNextLevel.hashCode());
-    }
-
-    public final boolean hasAI() {
-	return this.ai != null;
     }
 
     public final void heal(final int amount) {
@@ -856,10 +846,6 @@ public abstract class Creature {
 
     public final void setLuck(final int value) {
 	this.setStat(StatConstants.STAT_LUCK, value);
-    }
-
-    public final void setAI(final CreatureAI newAI) {
-	this.ai = newAI;
     }
 
     public final void setSpellBook(final SpellBook book) {

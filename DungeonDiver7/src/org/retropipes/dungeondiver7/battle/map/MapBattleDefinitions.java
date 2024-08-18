@@ -7,7 +7,7 @@ package org.retropipes.dungeondiver7.battle.map;
 
 import org.retropipes.dungeondiver7.battle.ai.AIContext;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
+import org.retropipes.dungeondiver7.dungeon.abc.BattleCharacter;
 
 public class MapBattleDefinitions {
     private static final int MAX_BATTLERS = 100;

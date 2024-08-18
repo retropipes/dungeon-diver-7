@@ -7,16 +7,16 @@ package org.retropipes.dungeondiver7.battle.types;
 
 import org.retropipes.dungeondiver7.battle.ai.map.MapAIPicker;
 import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
-import org.retropipes.dungeondiver7.dungeon.objects.BattleCharacter;
+import org.retropipes.dungeondiver7.dungeon.abc.BattleCharacter;
 
 class RegularBattle extends BattleType {
     // Fields
     final BattleCharacter monster;
 
     // Constructors
-    public RegularBattle() {
-	this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance());
-	this.monster.getTemplate().setAI(MapAIPicker.getNextRoutine());
+    public RegularBattle(final int rows, final int columns) {
+	this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance(), rows, columns);
+	this.monster.setAI(MapAIPicker.getNextRoutine());
     }
 
     @Override

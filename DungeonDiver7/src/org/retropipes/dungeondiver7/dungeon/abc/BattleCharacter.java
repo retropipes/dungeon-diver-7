@@ -10,21 +10,25 @@ import java.util.Objects;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
+import org.retropipes.dungeondiver7.battle.ai.AIContext;
+import org.retropipes.dungeondiver7.battle.ai.CreatureAI;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.StatConstants;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractBattleCharacter extends DungeonObject {
+public class BattleCharacter extends DungeonObject {
     // Fields
     private final Creature template;
+    private final AIContext aic;
+    private CreatureAI ai;
     private int actionCounter;
     private int attackCounter;
     private int spellCounter;
     private boolean isActive;
 
     // Constructors
-    protected AbstractBattleCharacter(final Creature newTemplate) {
+    public BattleCharacter(final Creature newTemplate, final int rows, final int columns) {
 	super(true, false);
 	this.template = newTemplate;
 	this.actionCounter = newTemplate.getMapBattleActionsPerRound();
@@ -32,6 +36,7 @@ public abstract class AbstractBattleCharacter extends DungeonObject {
 	this.spellCounter = (int) newTemplate.getEffectedStat(StatConstants.STAT_SPELLS_PER_ROUND);
 	this.isActive = true;
 	this.setSavedObject(new Empty());
+	this.aic = new AIContext(this, rows, columns);
     }
 
     public final void activate() {
@@ -52,7 +57,7 @@ public abstract class AbstractBattleCharacter extends DungeonObject {
 	if (this == obj) {
 	    return true;
 	}
-	if (!super.equals(obj) || !(obj instanceof final AbstractBattleCharacter other)
+	if (!super.equals(obj) || !(obj instanceof final BattleCharacter other)
 		|| this.actionCounter != other.actionCounter || this.attackCounter != other.attackCounter) {
 	    return false;
 	}
@@ -82,6 +87,14 @@ public abstract class AbstractBattleCharacter extends DungeonObject {
 
     public final int getAttacksLeft() {
 	return this.attackCounter;
+    }
+
+    public final CreatureAI getAI() {
+	return this.ai;
+    }
+
+    public final AIContext getAIContext() {
+	return this.aic;
     }
 
     public final int getSpellsLeft() {
@@ -136,6 +149,10 @@ public abstract class AbstractBattleCharacter extends DungeonObject {
 
     public final int getY() {
 	return this.template.getY();
+    }
+
+    public final boolean hasAI() {
+	return this.ai != null;
     }
 
     @Override
@@ -207,6 +224,10 @@ public abstract class AbstractBattleCharacter extends DungeonObject {
 
     public final void saveLocation() {
 	this.template.saveLocation();
+    }
+
+    public final void setAI(final CreatureAI newAI) {
+	this.ai = newAI;
     }
 
     @Override
