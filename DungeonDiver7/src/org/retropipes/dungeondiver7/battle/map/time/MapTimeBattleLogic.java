@@ -137,7 +137,7 @@ public class MapTimeBattleLogic extends Battle {
     private boolean castEnemySpell() {
 	// Active character has AI, and AI is turned on
 	final var sp = this.enemy.getAI().getSpellToCast();
-	final var success = SpellCaster.castSpell(sp, this.enemy.getTemplate());
+	final var success = SpellCaster.castSpell(sp, this.enemy.getTemplate(), PartyManager.getParty().getLeader());
 	final var currResult = this.getResult();
 	if (currResult != BattleResult.IN_PROGRESS) {
 	    // Battle Done
@@ -149,7 +149,7 @@ public class MapTimeBattleLogic extends Battle {
 
     @Override
     public boolean castSpell() {
-	final var success = SpellCaster.selectAndCastSpell(this.me.getTemplate());
+	final var success = SpellCaster.selectAndCastSpell(this.me.getTemplate(), this.enemy.getTemplate());
 	final var currResult = this.getResult();
 	if (currResult != BattleResult.IN_PROGRESS) {
 	    // Battle Done
@@ -267,7 +267,7 @@ public class MapTimeBattleLogic extends Battle {
 
     @Override
     public void doBattleByProxy() {
-	final var m = MonsterFactory.getNewMonsterInstance();
+	final var m = MonsterFactory.getNewMonsterInstance(Prefs.getGameDifficulty());
 	final var playerCharacter = PartyManager.getParty().getLeader();
 	playerCharacter.offsetExperience(m.getExperience());
 	playerCharacter.offsetGold(m.getGold());

@@ -13,22 +13,22 @@ import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.polytable.PolyTable;
 import org.retropipes.dungeondiver7.creature.Creature;
+import org.retropipes.dungeondiver7.creature.GameDifficulty;
 import org.retropipes.dungeondiver7.creature.StatConstants;
+import org.retropipes.dungeondiver7.creature.characterfile.CharacterFileFormats;
 import org.retropipes.dungeondiver7.creature.characterfile.CharacterVersionException;
 import org.retropipes.dungeondiver7.creature.gender.Gender;
 import org.retropipes.dungeondiver7.creature.item.ItemInventory;
 import org.retropipes.dungeondiver7.creature.job.Job;
 import org.retropipes.dungeondiver7.creature.job.JobManager;
-import org.retropipes.dungeondiver7.utility.FileFormats;
-import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public class PartyMember extends Creature {
     private static final int START_GOLD = 0;
     private static final double BASE_COEFF = 10.0;
 
-    public static PartyMember read(final DataIOReader worldFile) throws IOException {
+    public static PartyMember read(final DataIOReader worldFile, final GameDifficulty diff) throws IOException {
 	final int version = worldFile.readByte();
-	if (version < FileFormats.CHARACTER_2) {
+	if (version < CharacterFileFormats.CHARACTER_1) {
 	    throw new CharacterVersionException("Invalid character version found: " + version);
 	}
 	final var k = worldFile.readInt();
@@ -59,7 +59,7 @@ public class PartyMember extends Creature {
 	}
 	final var n = worldFile.readString();
 	final var aid = worldFile.readString();
-	final var pm = PartyManager.getNewPCInstance(c, g, n, aid);
+	final var pm = PartyManager.getNewPCInstance(c, g, n, aid, diff);
 	pm.setStrength(strength);
 	pm.setBlock(block);
 	pm.setAgility(agility);
@@ -90,8 +90,8 @@ public class PartyMember extends Creature {
     private final String avatarID;
 
     // Constructors
-    PartyMember(final Job c, final Gender g, final String n, final String aid) {
-	super(0);
+    PartyMember(final Job c, final Gender g, final String n, final String aid, final GameDifficulty diff) {
+	super(0, diff);
 	this.avatarID = aid;
 	this.name = n;
 	this.job = c;
@@ -287,7 +287,7 @@ public class PartyMember extends Creature {
     }
 
     public void write(final DataIOWriter worldFile) throws IOException {
-	worldFile.writeByte(FileFormats.CHARACTER_LATEST);
+	worldFile.writeByte(CharacterFileFormats.CHARACTER_LATEST);
 	worldFile.writeInt(this.kills);
 	worldFile.writeInt(this.getPermanentAttackPoints());
 	worldFile.writeInt(this.getPermanentDefensePoints());

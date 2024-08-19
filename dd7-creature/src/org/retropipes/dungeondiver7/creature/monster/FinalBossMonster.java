@@ -8,12 +8,11 @@ package org.retropipes.dungeondiver7.creature.monster;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.creature.Creature;
+import org.retropipes.dungeondiver7.creature.GameDifficulty;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.creature.spell.SpellBook;
 import org.retropipes.dungeondiver7.loader.image.monster.MonsterImageLoader;
 import org.retropipes.dungeondiver7.locale.Strings;
-import org.retropipes.dungeondiver7.prefs.Prefs;
-import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public class FinalBossMonster extends Monster {
     // Fields
@@ -28,9 +27,8 @@ public class FinalBossMonster extends Monster {
     private static final int STAT_MULT_HARD = 8;
     private static final int STAT_MULT_VERY_HARD = 9;
 
-    private static int getMinimumStatForDifficulty() {
-	final var difficulty = Prefs.getGameDifficulty();
-	switch (difficulty) {
+    private int getMinimumStatForDifficulty() {
+	switch (this.difficulty) {
 	case GameDifficulty.VERY_EASY:
 	    return FinalBossMonster.MINIMUM_STAT_VALUE_VERY_EASY;
 	case GameDifficulty.EASY:
@@ -47,9 +45,8 @@ public class FinalBossMonster extends Monster {
 	return FinalBossMonster.MINIMUM_STAT_VALUE_NORMAL;
     }
 
-    private static int getStatMultiplierForDifficulty() {
-	final var difficulty = Prefs.getGameDifficulty();
-	switch (difficulty) {
+    private int getStatMultiplierForDifficulty() {
+	switch (this.difficulty) {
 	case GameDifficulty.VERY_EASY:
 	    return FinalBossMonster.STAT_MULT_VERY_EASY;
 	case GameDifficulty.EASY:
@@ -67,7 +64,8 @@ public class FinalBossMonster extends Monster {
     }
 
     // Constructors
-    FinalBossMonster() {
+    FinalBossMonster(final GameDifficulty diff) {
+	super(diff);
 	final SpellBook spells = new MonsterSpellBook();
 	spells.learnAllSpells();
 	this.setSpellBook(spells);
@@ -80,16 +78,16 @@ public class FinalBossMonster extends Monster {
     }
 
     private int getInitialAgility() {
-	final var min = FinalBossMonster.getMinimumStatForDifficulty();
+	final var min = this.getMinimumStatForDifficulty();
 	final var r = new RandomRange(min,
-		Math.max(this.getLevel() * FinalBossMonster.getStatMultiplierForDifficulty(), min));
+		Math.max(this.getLevel() * this.getStatMultiplierForDifficulty(), min));
 	return r.generate();
     }
 
     private int getInitialBlock() {
-	final var min = FinalBossMonster.getMinimumStatForDifficulty();
+	final var min = this.getMinimumStatForDifficulty();
 	final var r = new RandomRange(min,
-		Math.max(this.getLevel() * FinalBossMonster.getStatMultiplierForDifficulty(), min));
+		Math.max(this.getLevel() * this.getStatMultiplierForDifficulty(), min));
 	return r.generate();
     }
 
@@ -99,30 +97,30 @@ public class FinalBossMonster extends Monster {
     }
 
     private int getInitialIntelligence() {
-	final var min = FinalBossMonster.getMinimumStatForDifficulty();
+	final var min = this.getMinimumStatForDifficulty();
 	final var r = new RandomRange(min,
-		Math.max(this.getLevel() * FinalBossMonster.getStatMultiplierForDifficulty(), min));
+		Math.max(this.getLevel() * this.getStatMultiplierForDifficulty(), min));
 	return r.generate();
     }
 
     private int getInitialLuck() {
-	final var min = FinalBossMonster.getMinimumStatForDifficulty();
+	final var min = this.getMinimumStatForDifficulty();
 	final var r = new RandomRange(min,
-		Math.max(this.getLevel() * FinalBossMonster.getStatMultiplierForDifficulty(), min));
+		Math.max(this.getLevel() * this.getStatMultiplierForDifficulty(), min));
 	return r.generate();
     }
 
     private int getInitialStrength() {
-	final var min = FinalBossMonster.getMinimumStatForDifficulty();
+	final var min = this.getMinimumStatForDifficulty();
 	final var r = new RandomRange(min,
-		Math.max(this.getLevel() * FinalBossMonster.getStatMultiplierForDifficulty(), min));
+		Math.max(this.getLevel() * this.getStatMultiplierForDifficulty(), min));
 	return r.generate();
     }
 
     private int getInitialVitality() {
-	final var min = FinalBossMonster.getMinimumStatForDifficulty();
+	final var min = this.getMinimumStatForDifficulty();
 	final var r = new RandomRange(min,
-		Math.max(this.getLevel() * FinalBossMonster.getStatMultiplierForDifficulty(), min));
+		Math.max(this.getLevel() * this.getStatMultiplierForDifficulty(), min));
 	return r.generate();
     }
 

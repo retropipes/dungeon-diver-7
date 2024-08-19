@@ -6,7 +6,6 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.creature.spell;
 
 import org.retropipes.diane.gui.dialog.CommonDialogs;
-import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
@@ -15,7 +14,7 @@ public class SpellCaster {
     // Fields
     private static boolean NO_SPELLS_FLAG = false;
 
-    public static boolean castSpell(final Spell cast, final Creature caster) {
+    public static boolean castSpell(final Spell cast, final Creature caster, final Creature enemy) {
 	if (cast == null) {
 	    return false;
 	}
@@ -32,7 +31,7 @@ public class SpellCaster {
 	final var snd = cast.getSound();
 	SoundLoader.playSound(snd);
 	b.resetEffect();
-	final var target = SpellCaster.resolveTarget(cast, caster.getTeamID());
+	final var target = SpellCaster.resolveTarget(cast, caster.getTeamID(), enemy);
 	if (target.isEffectActive(b)) {
 	    target.extendEffect(b, b.getInitialRounds());
 	} else {
@@ -42,17 +41,17 @@ public class SpellCaster {
 	return true;
     }
 
-    private static Creature resolveTarget(final Spell cast, final int teamID) {
+    private static Creature resolveTarget(final Spell cast, final int teamID, final Creature enemy) {
 	final var target = cast.getTarget();
 	switch (target) {
 	case SELF:
 	    if (teamID == Creature.TEAM_PARTY) {
 		return PartyManager.getParty().getLeader();
 	    }
-	    return DungeonDiver7.getStuffBag().getBattle().getEnemy();
+	    return enemy;
 	case ENEMY:
 	    if (teamID == Creature.TEAM_PARTY) {
-		return DungeonDiver7.getStuffBag().getBattle().getEnemy();
+		return enemy;
 	    }
 	    return PartyManager.getParty().getLeader();
 	default:
@@ -60,12 +59,12 @@ public class SpellCaster {
 	}
     }
 
-    public static boolean selectAndCastSpell(final Creature caster) {
+    public static boolean selectAndCastSpell(final Creature caster, final Creature enemy) {
 	var result = false;
 	SpellCaster.NO_SPELLS_FLAG = false;
 	final var s = SpellCaster.selectSpell(caster);
 	if (s != null) {
-	    result = SpellCaster.castSpell(s, caster);
+	    result = SpellCaster.castSpell(s, caster, enemy);
 	    if (!result && !SpellCaster.NO_SPELLS_FLAG) {
 		CommonDialogs.showErrorDialog("You try to cast a spell, but realize you don't have enough MP!",
 			"Select Spell");

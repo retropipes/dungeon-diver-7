@@ -8,6 +8,7 @@ package org.retropipes.dungeondiver7.battle.types;
 import org.retropipes.dungeondiver7.battle.ai.map.MapAIPicker;
 import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.dungeon.abc.BattleCharacter;
+import org.retropipes.dungeondiver7.prefs.Prefs;
 
 class FinalBossBattle extends BattleType {
     // Fields
@@ -16,7 +17,7 @@ class FinalBossBattle extends BattleType {
     // Constructors
     public FinalBossBattle(final int rows, final int columns) {
 	this.finalBoss = true;
-	this.monster = new BattleCharacter(MonsterFactory.getNewFinalBossInstance(), rows, columns);
+	this.monster = new BattleCharacter(MonsterFactory.getNewFinalBossInstance(Prefs.getGameDifficulty()), rows, columns);
 	this.monster.setAI(MapAIPicker.getNextRoutine());
     }
 

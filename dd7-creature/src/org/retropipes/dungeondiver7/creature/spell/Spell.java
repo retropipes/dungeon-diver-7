@@ -7,7 +7,7 @@ package org.retropipes.dungeondiver7.creature.spell;
 
 import java.util.Objects;
 
-import org.retropipes.dungeondiver7.battle.BattleTarget;
+import org.retropipes.dungeondiver7.creature.BattleTarget;
 import org.retropipes.dungeondiver7.creature.effect.Effect;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 

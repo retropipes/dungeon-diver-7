@@ -133,7 +133,7 @@ public class MapTurnBattleLogic extends Battle {
 	}
 	if (!this.bd.getActiveCharacter().hasAI()) {
 	    // Active character has no AI, or AI is turned off
-	    final var success = SpellCaster.selectAndCastSpell(this.bd.getActiveCharacter().getTemplate());
+	    final var success = SpellCaster.selectAndCastSpell(this.bd.getActiveCharacter().getTemplate(), this.enemy.getTemplate());
 	    if (success) {
 		SoundLoader.playSound(Sounds.PARTY_SPELL);
 		this.decrementActiveSpellCounter();
@@ -148,7 +148,7 @@ public class MapTurnBattleLogic extends Battle {
 	}
 	// Active character has AI, and AI is turned on
 	final var sp = this.bd.getActiveCharacter().getAI().getSpellToCast();
-	final var success = SpellCaster.castSpell(sp, this.bd.getActiveCharacter().getTemplate());
+	final var success = SpellCaster.castSpell(sp, this.bd.getActiveCharacter().getTemplate(), this.enemy.getTemplate());
 	if (success) {
 	    SoundLoader.playSound(Sounds.ENEMY_SPELL);
 	    this.decrementActiveSpellCounter();
@@ -347,7 +347,7 @@ public class MapTurnBattleLogic extends Battle {
 
     @Override
     public void doBattleByProxy() {
-	final var m = MonsterFactory.getNewMonsterInstance();
+	final var m = MonsterFactory.getNewMonsterInstance(Prefs.getGameDifficulty());
 	final var playerCharacter = PartyManager.getParty().getLeader();
 	playerCharacter.offsetExperience(m.getExperience());
 	playerCharacter.offsetGold(m.getGold());

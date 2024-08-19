@@ -19,8 +19,6 @@ public class FileFormats {
     private static final int DUNGEON_17 = 17;
     private static final int DUNGEON_18 = 18;
     public static final int DUNGEON_LATEST = 18;
-    public static final byte CHARACTER_2 = 2;
-    public static final byte CHARACTER_LATEST = 3;
 
     public static final boolean isFormatVersionValidGeneration1(final int ver) {
 	return ver == FileFormats.DUNGEON_5 || ver == FileFormats.DUNGEON_6;

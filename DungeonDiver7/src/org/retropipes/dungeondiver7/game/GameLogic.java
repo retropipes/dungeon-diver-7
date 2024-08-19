@@ -738,7 +738,7 @@ public final class GameLogic implements MenuSection {
 	if (this.savedGameFlag && PartyManager.getParty() != null) {
 	    return true;
 	}
-	return PartyManager.createParty();
+	return PartyManager.createParty(Prefs.getGameDifficulty());
     }
 
     public void playDungeon() {

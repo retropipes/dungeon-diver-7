@@ -6,8 +6,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.battle.damage;
 
 import org.retropipes.dungeondiver7.creature.Creature;
+import org.retropipes.dungeondiver7.creature.GameDifficulty;
 import org.retropipes.dungeondiver7.prefs.Prefs;
-import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public abstract class DamageEngine {
     public static DamageEngine getEnemyInstance() {

@@ -1,8 +1,8 @@
 /* RetroRPGCS: An RPG */
 package org.retropipes.dungeondiver7.battle.ai.window;
 
+import org.retropipes.dungeondiver7.creature.GameDifficulty;
 import org.retropipes.dungeondiver7.prefs.Prefs;
-import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public final class WindowAIPicker {
     // Methods

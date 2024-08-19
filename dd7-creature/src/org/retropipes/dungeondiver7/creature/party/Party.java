@@ -10,13 +10,13 @@ import java.io.IOException;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
-import org.retropipes.dungeondiver7.dungeon.Dungeon;
+import org.retropipes.dungeondiver7.creature.GameDifficulty;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Strings;
 
 public class Party {
-    static Party read(final DataIOReader worldFile) throws IOException {
+    static Party read(final DataIOReader worldFile, final GameDifficulty diff) throws IOException {
 	worldFile.readInt();
 	final var lid = worldFile.readInt();
 	final var apc = worldFile.readInt();
@@ -27,7 +27,7 @@ public class Party {
 	pty.zone = lvl;
 	final var present = worldFile.readBoolean();
 	if (present) {
-	    pty.members = PartyMember.read(worldFile);
+	    pty.members = PartyMember.read(worldFile, diff);
 	}
 	return pty;
     }
@@ -82,7 +82,7 @@ public class Party {
     }
 
     public void offsetZone(final int offset) {
-	if (this.zone + offset > Dungeon.getMaxLevels() || this.zone + offset < 0) {
+	if (this.zone + offset > Integer.MAX_VALUE || this.zone + offset < 0) {
 	    return;
 	}
 	this.zone += offset;

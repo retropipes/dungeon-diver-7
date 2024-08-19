@@ -15,6 +15,7 @@ import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.fileio.DataMode;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
+import org.retropipes.dungeondiver7.creature.GameDifficulty;
 import org.retropipes.dungeondiver7.creature.party.PartyMember;
 import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
@@ -44,17 +45,17 @@ public class CharacterLoader {
 	}
     }
 
-    public static PartyMember[] loadAllRegisteredCharacters() {
+    public static PartyMember[] loadAllRegisteredCharacters(final GameDifficulty diff) {
 	final var registeredNames = CharacterRegistration.getCharacterNameList();
 	if (registeredNames != null) {
 	    final var res = new PartyMember[registeredNames.length];
 	    // Load characters
 	    for (var x = 0; x < registeredNames.length; x++) {
 		final var name = registeredNames[x];
-		final var characterWithName = CharacterLoader.loadCharacter(name);
+		final var characterWithName = CharacterLoader.loadCharacter(name, diff);
 		if (characterWithName == null) {
 		    // Auto-removed character
-		    return CharacterLoader.loadAllRegisteredCharacters();
+		    return CharacterLoader.loadAllRegisteredCharacters(diff);
 		}
 		res[x] = characterWithName;
 	    }
@@ -63,11 +64,11 @@ public class CharacterLoader {
 	return null;
     }
 
-    private static PartyMember loadCharacter(final String name) {
+    private static PartyMember loadCharacter(final String name, final GameDifficulty diff) {
 	final var basePath = CharacterRegistration.getBasePath();
 	final var loadPath = basePath + File.separator + name + Strings.fileExtension(FileExtension.CHARACTER);
 	try (DataIOReader loader = DataIOFactory.createReader(DataMode.CUSTOM_XML, loadPath)) {
-	    return PartyMember.read(loader);
+	    return PartyMember.read(loader, diff);
 	} catch (CharacterVersionException | DataIOException e) {
 	    CharacterRegistration.autoremoveCharacter(name);
 	    return null;

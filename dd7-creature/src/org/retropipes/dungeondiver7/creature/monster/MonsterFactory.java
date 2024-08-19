@@ -6,14 +6,15 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.creature.monster;
 
 import org.retropipes.dungeondiver7.creature.Creature;
+import org.retropipes.dungeondiver7.creature.GameDifficulty;
 
 public class MonsterFactory {
-    public static Creature getNewFinalBossInstance() {
-	return new FinalBossMonster();
+    public static Creature getNewFinalBossInstance(final GameDifficulty diff) {
+	return new FinalBossMonster(diff);
     }
 
-    public static Creature getNewMonsterInstance() {
-	return new NormalMonster();
+    public static Creature getNewMonsterInstance(final GameDifficulty diff) {
+	return new NormalMonster(diff);
     }
 
     private MonsterFactory() {

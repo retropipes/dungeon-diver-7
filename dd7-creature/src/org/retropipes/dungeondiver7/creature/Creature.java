@@ -14,7 +14,6 @@ import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.creature.effect.Effect;
 import org.retropipes.dungeondiver7.creature.item.ItemInventory;
 import org.retropipes.dungeondiver7.creature.spell.SpellBook;
-import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public abstract class Creature {
     private static int ACTION_CAP = 1;
@@ -52,9 +51,10 @@ public abstract class Creature {
     private final int perfectBonusGold;
     private int xLoc, yLoc;
     private int saveX, saveY;
+    protected final GameDifficulty difficulty;
 
     // Constructor
-    protected Creature(final int tid) {
+    protected Creature(final int tid, final GameDifficulty diff) {
 	this.teamID = tid;
 	this.stats = new Statistic[StatConstants.MAX_STORED_STATS];
 	for (var x = 0; x < StatConstants.MAX_STORED_STATS; x++) {
@@ -81,6 +81,7 @@ public abstract class Creature {
 	this.yLoc = -1;
 	this.saveX = -1;
 	this.saveY = -1;
+	this.difficulty = diff;
     }
 
     public final void applyEffect(final Effect e) {

@@ -13,6 +13,7 @@ import org.retropipes.diane.ack.AvatarImageModel;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
+import org.retropipes.dungeondiver7.creature.GameDifficulty;
 import org.retropipes.dungeondiver7.creature.characterfile.CharacterLoader;
 import org.retropipes.dungeondiver7.creature.characterfile.CharacterRegistration;
 import org.retropipes.dungeondiver7.creature.gender.GenderManager;
@@ -51,7 +52,7 @@ public class PartyManager {
 	return names;
     }
 
-    private static PartyMember createNewPC() {
+    private static PartyMember createNewPC(final GameDifficulty diff) {
 	final var name = CommonDialogs.showTextInputDialog("Character Name", "Create Character");
 	if (name != null) {
 	    final var job = JobManager.selectJob();
@@ -62,7 +63,7 @@ public class PartyManager {
 		    avatar = AvatarConstructionKit.constructAvatar();
 		    if (avatar != null) {
 			final var aid = avatar.getAvatarImageID();
-			return new PartyMember(job, gender, name, aid);
+			return new PartyMember(job, gender, name, aid, diff);
 		    }
 		}
 	    }
@@ -70,19 +71,19 @@ public class PartyManager {
 	return null;
     }
 
-    public static boolean createParty() {
+    public static boolean createParty(final GameDifficulty diff) {
 	if (MusicLoader.isMusicPlaying()) {
 	    MusicLoader.stopMusic();
 	}
 	MusicLoader.playMusic(Music.CREATE);
 	PartyManager.party = new Party();
 	var mem = 0;
-	final var pickMembers = CharacterLoader.loadAllRegisteredCharacters();
+	final var pickMembers = CharacterLoader.loadAllRegisteredCharacters(diff);
 	for (var x = 0; x < PartyManager.PARTY_SIZE; x++) {
 	    PartyMember pc = null;
 	    if (pickMembers == null) {
 		// No characters registered - must create one
-		pc = PartyManager.createNewPC();
+		pc = PartyManager.createNewPC(diff);
 		if (pc != null) {
 		    CharacterRegistration.autoregisterCharacter(pc.getName());
 		    CharacterLoader.saveCharacter(pc);
@@ -93,7 +94,7 @@ public class PartyManager {
 		if (response == 2) {
 		    pc = PartyManager.pickOnePartyMemberCreate(pickMembers);
 		} else if (response == 1) {
-		    pc = PartyManager.createNewPC();
+		    pc = PartyManager.createNewPC(diff);
 		    if (pc != null) {
 			CharacterRegistration.autoregisterCharacter(pc.getName());
 			CharacterLoader.saveCharacter(pc);
@@ -116,22 +117,22 @@ public class PartyManager {
 	return PartyManager.bank;
     }
 
-    public static PartyMember getNewPCInstance(final int c, final int g, final String n, final String aid) {
+    public static PartyMember getNewPCInstance(final int c, final int g, final String n, final String aid, final GameDifficulty diff) {
 	final var job = JobManager.getJob(c);
 	final var gender = GenderManager.getGender(g);
-	return new PartyMember(job, gender, n, aid);
+	return new PartyMember(job, gender, n, aid, diff);
     }
 
     public static Party getParty() {
 	return PartyManager.party;
     }
 
-    public static void loadGameHook(final DataIOReader partyFile) throws IOException {
+    public static void loadGameHook(final DataIOReader partyFile, final GameDifficulty diff) throws IOException {
 	final var containsPCData = partyFile.readBoolean();
 	if (containsPCData) {
 	    final var gib = partyFile.readInt();
 	    PartyManager.setGoldInBank(gib);
-	    PartyManager.party = Party.read(partyFile);
+	    PartyManager.party = Party.read(partyFile, diff);
 	}
     }
 

@@ -13,6 +13,7 @@ import org.retropipes.dungeondiver7.battle.BattleResult;
 import org.retropipes.dungeondiver7.battle.damage.DamageEngine;
 import org.retropipes.dungeondiver7.battle.types.BattleType;
 import org.retropipes.dungeondiver7.creature.Creature;
+import org.retropipes.dungeondiver7.creature.GameDifficulty;
 import org.retropipes.dungeondiver7.creature.StatConstants;
 import org.retropipes.dungeondiver7.creature.effect.Effect;
 import org.retropipes.dungeondiver7.creature.monster.FinalBossMonster;
@@ -24,7 +25,7 @@ import org.retropipes.dungeondiver7.creature.spell.SpellCaster;
 import org.retropipes.dungeondiver7.dungeon.abc.BattleCharacter;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.GameDifficulty;
+import org.retropipes.dungeondiver7.prefs.Prefs;
 
 public class WindowTimeBattleLogic extends Battle {
     private class EnemyTask extends TimerTask {
@@ -153,7 +154,7 @@ public class WindowTimeBattleLogic extends Battle {
     @Override
     public boolean castSpell() {
 	final var playerCharacter = PartyManager.getParty().getLeader();
-	return SpellCaster.selectAndCastSpell(playerCharacter);
+	return SpellCaster.selectAndCastSpell(playerCharacter, this.enemy);
     }
 
     final void clearMessageArea() {
@@ -362,7 +363,7 @@ public class WindowTimeBattleLogic extends Battle {
 
     @Override
     public void doBattleByProxy() {
-	this.enemy = MonsterFactory.getNewMonsterInstance();
+	this.enemy = MonsterFactory.getNewMonsterInstance(Prefs.getGameDifficulty());
 	this.enemy.loadCreature();
 	final var playerCharacter = PartyManager.getParty().getLeader();
 	final var m = this.enemy;
@@ -584,7 +585,7 @@ public class WindowTimeBattleLogic extends Battle {
 	    }
 	    break;
 	case BattleAction.CAST_SPELL:
-	    SpellCaster.castSpell(this.enemyBC.getAI().getSpellToCast(), this.enemy);
+	    SpellCaster.castSpell(this.enemyBC.getAI().getSpellToCast(), this.enemy, PartyManager.getParty().getLeader());
 	    break;
 	case BattleAction.FLEE:
 	    final var rf = new RandomRange(0, 100);

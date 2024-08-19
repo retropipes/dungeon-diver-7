@@ -8,11 +8,10 @@ package org.retropipes.dungeondiver7.creature.monster;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.random.RandomLongRange;
 import org.retropipes.diane.random.RandomRange;
+import org.retropipes.dungeondiver7.creature.GameDifficulty;
 import org.retropipes.dungeondiver7.creature.item.ItemPrices;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.loader.image.monster.MonsterImageLoader;
-import org.retropipes.dungeondiver7.prefs.Prefs;
-import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 class NormalMonster extends Monster {
     // Constants
@@ -32,9 +31,8 @@ class NormalMonster extends Monster {
     private static final double EXP_MULT_HARD = 0.9;
     private static final double EXP_MULT_VERY_HARD = 0.8;
 
-    private static double getExpMultiplierForDifficulty() {
-	final var difficulty = Prefs.getGameDifficulty();
-	return switch (difficulty) {
+    private double getExpMultiplierForDifficulty() {
+	return switch (this.difficulty) {
 	case GameDifficulty.VERY_EASY -> NormalMonster.EXP_MULT_VERY_EASY;
 	case GameDifficulty.EASY -> NormalMonster.EXP_MULT_EASY;
 	case GameDifficulty.NORMAL -> NormalMonster.EXP_MULT_NORMAL;
@@ -44,9 +42,8 @@ class NormalMonster extends Monster {
 	};
     }
 
-    private static double getGoldMultiplierForDifficulty() {
-	final var difficulty = Prefs.getGameDifficulty();
-	return switch (difficulty) {
+    private double getGoldMultiplierForDifficulty() {
+	return switch (this.difficulty) {
 	case GameDifficulty.VERY_EASY -> NormalMonster.GOLD_MULT_VERY_EASY;
 	case GameDifficulty.EASY -> NormalMonster.GOLD_MULT_EASY;
 	case GameDifficulty.NORMAL -> NormalMonster.GOLD_MULT_NORMAL;
@@ -56,9 +53,8 @@ class NormalMonster extends Monster {
 	};
     }
 
-    private static int getStatMultiplierForDifficulty() {
-	final var difficulty = Prefs.getGameDifficulty();
-	return switch (difficulty) {
+    private int getStatMultiplierForDifficulty() {
+	return switch (this.difficulty) {
 	case GameDifficulty.VERY_EASY -> NormalMonster.STAT_MULT_VERY_EASY;
 	case GameDifficulty.EASY -> NormalMonster.STAT_MULT_EASY;
 	case GameDifficulty.NORMAL -> NormalMonster.STAT_MULT_NORMAL;
@@ -69,17 +65,18 @@ class NormalMonster extends Monster {
     }
 
     // Constructors
-    NormalMonster() {
+    NormalMonster(final GameDifficulty diff) {
+	super(diff);
 	this.image = this.getInitialImage();
     }
 
     private int getInitialAgility() {
-	final var r = new RandomRange(1, Math.max(this.getLevel() * NormalMonster.getStatMultiplierForDifficulty(), 1));
+	final var r = new RandomRange(1, Math.max(this.getLevel() * this.getStatMultiplierForDifficulty(), 1));
 	return r.generate();
     }
 
     private int getInitialBlock() {
-	final var r = new RandomRange(0, this.getLevel() * NormalMonster.getStatMultiplierForDifficulty());
+	final var r = new RandomRange(0, this.getLevel() * this.getStatMultiplierForDifficulty());
 	return r.generate();
     }
 
@@ -91,7 +88,7 @@ class NormalMonster extends Monster {
 	final var expbase = PartyManager.getParty().getPartyMaxToNextLevel();
 	final long factor = this.getBattlesToNextLevel();
 	return (int) (expbase / factor
-		+ r.generate() * this.adjustForLevelDifference() * NormalMonster.getExpMultiplierForDifficulty());
+		+ r.generate() * this.adjustForLevelDifference() * this.getExpMultiplierForDifficulty());
     }
 
     private int getInitialGold() {
@@ -101,7 +98,7 @@ class NormalMonster extends Monster {
 	final var min = 0;
 	final var max = needed / factor * 2;
 	final var r = new RandomRange(min, max);
-	return (int) (r.generate() * this.adjustForLevelDifference() * NormalMonster.getGoldMultiplierForDifficulty());
+	return (int) (r.generate() * this.adjustForLevelDifference() * this.getGoldMultiplierForDifficulty());
     }
 
     @Override
@@ -111,22 +108,22 @@ class NormalMonster extends Monster {
     }
 
     private int getInitialIntelligence() {
-	final var r = new RandomRange(0, this.getLevel() * NormalMonster.getStatMultiplierForDifficulty());
+	final var r = new RandomRange(0, this.getLevel() * this.getStatMultiplierForDifficulty());
 	return r.generate();
     }
 
     private int getInitialLuck() {
-	final var r = new RandomRange(0, this.getLevel() * NormalMonster.getStatMultiplierForDifficulty());
+	final var r = new RandomRange(0, this.getLevel() * this.getStatMultiplierForDifficulty());
 	return r.generate();
     }
 
     private int getInitialStrength() {
-	final var r = new RandomRange(1, Math.max(this.getLevel() * NormalMonster.getStatMultiplierForDifficulty(), 1));
+	final var r = new RandomRange(1, Math.max(this.getLevel() * this.getStatMultiplierForDifficulty(), 1));
 	return r.generate();
     }
 
     private int getInitialVitality() {
-	final var r = new RandomRange(1, Math.max(this.getLevel() * NormalMonster.getStatMultiplierForDifficulty(), 1));
+	final var r = new RandomRange(1, Math.max(this.getLevel() * this.getStatMultiplierForDifficulty(), 1));
 	return r.generate();
     }
 

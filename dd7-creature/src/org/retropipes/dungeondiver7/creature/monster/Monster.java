@@ -9,9 +9,9 @@ import java.util.Objects;
 
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.creature.Creature;
+import org.retropipes.dungeondiver7.creature.GameDifficulty;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.creature.spell.SpellBook;
-import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public abstract class Monster extends Creature {
     protected static final double MINIMUM_EXPERIENCE_RANDOM_VARIANCE = -5.0 / 2.0;
@@ -25,8 +25,8 @@ public abstract class Monster extends Creature {
     private int monID;
 
     // Constructors
-    Monster() {
-	super(1);
+    Monster(final GameDifficulty diff) {
+	super(1, diff);
 	final SpellBook spells = new MonsterSpellBook();
 	spells.learnAllSpells();
 	this.setSpellBook(spells);

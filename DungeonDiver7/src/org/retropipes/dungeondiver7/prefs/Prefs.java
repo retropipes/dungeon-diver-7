@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
+import org.retropipes.dungeondiver7.creature.GameDifficulty;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Ground;
 import org.retropipes.dungeondiver7.locale.EditorLayout;
@@ -22,7 +23,6 @@ import org.retropipes.dungeondiver7.locale.PrefKey;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.GameDifficulty;
 
 public class Prefs {
     // Fields
