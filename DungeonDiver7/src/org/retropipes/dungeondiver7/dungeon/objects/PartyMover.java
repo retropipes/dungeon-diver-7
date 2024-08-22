@@ -18,7 +18,7 @@ public class PartyMover extends AbstractMover {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 37;
     }
 }

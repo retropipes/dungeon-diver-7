@@ -34,7 +34,7 @@ public class Box extends AbstractMovableObject {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 7;
     }
 

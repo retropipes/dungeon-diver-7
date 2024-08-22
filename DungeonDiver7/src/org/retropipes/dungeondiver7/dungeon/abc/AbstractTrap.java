@@ -23,7 +23,7 @@ public abstract class AbstractTrap extends DungeonObject {
 
     // Scriptability
     @Override
-    public int getBaseID() {
+    public int getId() {
 	return this.base;
     }
 

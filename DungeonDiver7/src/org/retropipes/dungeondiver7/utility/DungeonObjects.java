@@ -70,7 +70,7 @@ public class DungeonObjects {
 	final var allEditorAppearances = new BufferedImageIcon[this.allObjects.length];
 	for (var x = 0; x < allEditorAppearances.length; x++) {
 	    allEditorAppearances[x] = ObjectImageLoader.load(this.allObjects[x].getImageName(),
-		    this.allObjects[x].getBaseID());
+		    this.allObjects[x].getId());
 	}
 	return allEditorAppearances;
     }
@@ -85,7 +85,7 @@ public class DungeonObjects {
 		    this.allObjects[x].setEnabled(false);
 		}
 		allEditorAppearancesOnLayer[x] = ObjectImageLoader.load(this.allObjects[x].getImageName(),
-			this.allObjects[x].getBaseID());
+			this.allObjects[x].getId());
 	    }
 	    return allEditorAppearancesOnLayer;
 	}
@@ -94,7 +94,7 @@ public class DungeonObjects {
 	for (var x = 0; x < this.allObjects.length; x++) {
 	    if (this.allObjects[x].getLayer() == layer) {
 		tempAllEditorAppearancesOnLayer[x] = ObjectImageLoader.load(this.allObjects[x].getImageName(),
-			this.allObjects[x].getBaseID());
+			this.allObjects[x].getId());
 	    }
 	}
 	for (final BufferedImageIcon element : tempAllEditorAppearancesOnLayer) {

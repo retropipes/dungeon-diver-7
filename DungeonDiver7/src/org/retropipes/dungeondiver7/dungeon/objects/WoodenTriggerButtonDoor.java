@@ -15,7 +15,7 @@ public class WoodenTriggerButtonDoor extends AbstractTriggerButtonDoor {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 121;
     }
 }

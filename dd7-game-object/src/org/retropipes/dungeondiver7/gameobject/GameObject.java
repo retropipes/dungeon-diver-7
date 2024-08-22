@@ -31,6 +31,7 @@ public final class GameObject {
     private ObjectImageId interactMorph;
     private ShopType shop;
     private boolean lazyLoaded;
+    private transient int teamId;
 
     public GameObject(final ObjectImageId oid) {
 	this.id = oid;
@@ -91,6 +92,10 @@ public final class GameObject {
     public final ShopType getShopType() {
 	this.lazyLoad();
 	return this.shop;
+    }
+
+    public final int getTeamID() {
+	return this.teamId;
     }
 
     public final boolean hasFriction() {
@@ -164,5 +169,9 @@ public final class GameObject {
 	    this.model.setCounter(COUNTER_DAMAGE, GameObjectDataLoader.damage(this.id));
 	    this.lazyLoaded = true;
 	}
+    }
+
+    public final void setTeamID(final int tid) {
+	this.teamId = tid;
     }
 }

@@ -18,7 +18,7 @@ public class BlueKey extends AbstractKey {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 5;
     }
 

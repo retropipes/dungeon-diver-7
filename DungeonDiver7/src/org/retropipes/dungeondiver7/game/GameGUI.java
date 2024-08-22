@@ -272,7 +272,7 @@ class GameGUI {
 			}
 		    } else {
 			this.drawGrid.setImageCell(
-				ObjectImageLoader.load(GameGUI.DARK.getCacheName(), GameGUI.DARK.getBaseID()), xFix,
+				ObjectImageLoader.load(GameGUI.DARK.getCacheName(), GameGUI.DARK.getId()), xFix,
 				yFix);
 		    }
 		} catch (final ArrayIndexOutOfBoundsException ae) {

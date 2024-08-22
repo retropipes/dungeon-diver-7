@@ -7,9 +7,10 @@ package org.retropipes.dungeondiver7.battle.ai;
 
 import java.awt.Point;
 
+import org.retropipes.dungeondiver7.battle.BattleCharacter;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.BattleCharacter;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 public class AIContext {
@@ -110,8 +111,8 @@ public class AIContext {
 	for (var x = 0; x < this.creatureLocations.length; x++) {
 	    for (var y = 0; y < this.creatureLocations[x].length; y++) {
 		final var obj = arena.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
-		if (obj instanceof final BattleCharacter bc) {
-		    this.creatureLocations[x][y] = bc.getTeamID();
+		if (obj.getId() == ObjectImageId._CREATURE.ordinal()) {
+		    this.creatureLocations[x][y] = obj.getTeamID();
 		} else {
 		    this.creatureLocations[x][y] = AIContext.NOTHING_THERE;
 		}

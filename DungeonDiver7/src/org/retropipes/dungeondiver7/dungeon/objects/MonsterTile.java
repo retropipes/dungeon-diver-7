@@ -23,7 +23,7 @@ public class MonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public int getBaseID() {
+    public int getId() {
 	return ObjectImageConstants.NONE;
     }
 

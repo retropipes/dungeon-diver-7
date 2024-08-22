@@ -16,7 +16,7 @@ public class Regenerator extends AbstractShop {
     }
 
     @Override
-    public int getBaseID() {
+    public int getId() {
 	return ObjectImageConstants.REGENERATOR;
     }
 }

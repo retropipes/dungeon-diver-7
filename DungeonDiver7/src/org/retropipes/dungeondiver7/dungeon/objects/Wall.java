@@ -35,7 +35,7 @@ public class Wall extends AbstractWall {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 45;
     }
 

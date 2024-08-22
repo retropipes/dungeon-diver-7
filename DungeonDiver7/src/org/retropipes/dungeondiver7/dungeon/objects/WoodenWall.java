@@ -37,7 +37,7 @@ public class WoodenWall extends AbstractWall {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 56;
     }
 

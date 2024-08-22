@@ -22,7 +22,7 @@ public class Player extends AbstractCharacter {
     }
 
     @Override
-    public int getBaseID() {
+    public int getId() {
 	return ObjectImageConstants.NONE;
     }
 

@@ -15,7 +15,7 @@ public class StoneAllButtonDoor extends AbstractAllButtonDoor {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 105;
     }
 }

@@ -16,7 +16,7 @@ public class SpellShop extends AbstractShop {
     }
 
     @Override
-    public int getBaseID() {
+    public int getId() {
 	return ObjectImageConstants.SPELL_SHOP;
     }
 }

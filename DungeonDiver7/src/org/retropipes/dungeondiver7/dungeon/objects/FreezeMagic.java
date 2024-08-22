@@ -15,7 +15,7 @@ public class FreezeMagic extends AbstractSpell {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 142;
     }
 

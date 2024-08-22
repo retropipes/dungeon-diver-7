@@ -4,20 +4,16 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.dungeon.abc;
-
-import java.util.Objects;
+package org.retropipes.dungeondiver7.battle;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
-import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
 import org.retropipes.dungeondiver7.battle.ai.AIContext;
 import org.retropipes.dungeondiver7.battle.ai.CreatureAI;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.StatConstants;
-import org.retropipes.dungeondiver7.dungeon.objects.Empty;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 
-public class BattleCharacter extends DungeonObject {
+public class BattleCharacter {
     // Fields
     private final Creature creature;
     private final AIContext aic;
@@ -25,47 +21,29 @@ public class BattleCharacter extends DungeonObject {
     private int actionCounter;
     private int attackCounter;
     private int spellCounter;
-    private boolean isBattleCharacterActive;
+    private boolean isActive;
+    private DungeonObject tile;
 
     // Constructors
     public BattleCharacter(final Creature newTemplate, final int rows, final int columns) {
-	super(true, false);
 	this.creature = newTemplate;
 	this.actionCounter = newTemplate.getMapBattleActionsPerRound();
 	this.attackCounter = (int) newTemplate.getEffectedStat(StatConstants.STAT_ATTACKS_PER_ROUND);
 	this.spellCounter = (int) newTemplate.getEffectedStat(StatConstants.STAT_SPELLS_PER_ROUND);
-	this.isBattleCharacterActive = true;
-	this.setSavedObject(new Empty());
+	this.isActive = true;
 	this.aic = new AIContext(this, rows, columns);
     }
 
     public final void activate() {
-	this.isBattleCharacterActive = true;
+	this.isActive = true;
     }
 
-    @Override
-    public BufferedImageIcon battleRenderHook() {
+    public BufferedImageIcon battleRender() {
 	return this.creature.getImage();
     }
 
     public final void deactivate() {
-	this.isBattleCharacterActive = false;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (!super.equals(obj) || !(obj instanceof final BattleCharacter other)
-		|| this.actionCounter != other.actionCounter || this.attackCounter != other.attackCounter) {
-	    return false;
-	}
-	if (this.isBattleCharacterActive != other.isBattleCharacterActive || this.spellCounter != other.spellCounter
-		|| !Objects.equals(this.creature, other.creature)) {
-	    return false;
-	}
-	return true;
+	this.isActive = false;
     }
 
     public final String getAPString() {
@@ -74,11 +52,6 @@ public class BattleCharacter extends DungeonObject {
 
     public final String getAttackString() {
 	return "Attacks Left: " + (this.attackCounter >= 0 ? this.attackCounter : 0);
-    }
-
-    @Override
-    public int getBaseID() {
-	return ObjectImageConstants.NONE;
     }
 
     public final int getActionsLeft() {
@@ -101,25 +74,6 @@ public class BattleCharacter extends DungeonObject {
 	return this.spellCounter;
     }
 
-    @Override
-    public int getCustomFormat() {
-	return 2;
-    }
-
-    @Override
-    public int getCustomProperty(final int propID) {
-	return switch (propID) {
-	case 0 -> this.getX();
-	case 1 -> this.getY();
-	default -> DungeonObject.DEFAULT_CUSTOM_VALUE;
-	};
-    }
-
-    @Override
-    public int getLayer() {
-	return DungeonConstants.LAYER_LOWER_OBJECTS;
-    }
-
     public String getName() {
 	return this.creature.getName();
     }
@@ -139,6 +93,10 @@ public class BattleCharacter extends DungeonObject {
 	return "Team: Enemies " + this.getCreature().getTeamID();
     }
 
+    public final DungeonObject getTile() {
+	return this.tile;
+    }
+
     public final Creature getCreature() {
 	return this.creature;
     }
@@ -155,19 +113,8 @@ public class BattleCharacter extends DungeonObject {
 	return this.ai != null;
     }
 
-    @Override
-    public int hashCode() {
-	final var prime = 31;
-	var result = super.hashCode();
-	result = prime * result + this.actionCounter;
-	result = prime * result + this.attackCounter;
-	result = prime * result + (this.isBattleCharacterActive ? 1231 : 1237);
-	result = prime * result + this.spellCounter;
-	return prime * result + (this.creature == null ? 0 : this.creature.hashCode());
-    }
-
     public final boolean isActive() {
-	return this.isBattleCharacterActive;
+	return this.isActive;
     }
 
     public final void modifyAP(final int mod) {
@@ -188,11 +135,6 @@ public class BattleCharacter extends DungeonObject {
 
     public final void offsetY(final int newY) {
 	this.creature.offsetY(newY);
-    }
-
-    @Override
-    public void postMoveAction(final int dirX, final int dirY, final int dirZ) {
-	// Do nothing
     }
 
     public final void resetAll() {
@@ -230,18 +172,8 @@ public class BattleCharacter extends DungeonObject {
 	this.ai = newAI;
     }
 
-    @Override
-    public void setCustomProperty(final int propID, final int value) {
-	switch (propID) {
-	case 0:
-	    this.setX(value);
-	    break;
-	case 1:
-	    this.setY(value);
-	    break;
-	default:
-	    break;
-	}
+    public final void setTile(final DungeonObject newTile) {
+	this.tile = newTile;
     }
 
     public final void setX(final int newX) {

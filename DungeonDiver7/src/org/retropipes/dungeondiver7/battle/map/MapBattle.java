@@ -1,8 +1,8 @@
 /* RetroRPGCS: An RPG */
 package org.retropipes.dungeondiver7.battle.map;
 
+import org.retropipes.dungeondiver7.battle.BattleCharacter;
 import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
-import org.retropipes.dungeondiver7.dungeon.abc.BattleCharacter;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 
 public class MapBattle {

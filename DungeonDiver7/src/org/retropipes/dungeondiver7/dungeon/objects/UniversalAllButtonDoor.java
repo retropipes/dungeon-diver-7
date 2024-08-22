@@ -15,7 +15,7 @@ public class UniversalAllButtonDoor extends AbstractAllButtonDoor {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 111;
     }
 }

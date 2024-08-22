@@ -13,6 +13,7 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.StuffBag;
 import org.retropipes.dungeondiver7.battle.Battle;
 import org.retropipes.dungeondiver7.battle.BattleAction;
+import org.retropipes.dungeondiver7.battle.BattleCharacter;
 import org.retropipes.dungeondiver7.battle.BattleResult;
 import org.retropipes.dungeondiver7.battle.ai.AIContext;
 import org.retropipes.dungeondiver7.battle.ai.map.AutoMapAI;
@@ -28,9 +29,9 @@ import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.creature.spell.SpellCaster;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.BattleCharacter;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
@@ -651,26 +652,7 @@ public class MapTurnBattleLogic extends Battle {
     }
 
     private BattleCharacter getEnemyBC() {
-	final var px = this.bd.getActiveCharacter().getX();
-	final var py = this.bd.getActiveCharacter().getY();
-	final var m = this.bd.getBattleDungeon();
-	DungeonObject next = null;
-	for (var x = -1; x <= 1; x++) {
-	    for (var y = -1; y <= 1; y++) {
-		if (x == 0 && y == 0) {
-		    continue;
-		}
-		try {
-		    next = m.getCell(px + x, py + y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
-		} catch (final ArrayIndexOutOfBoundsException aioob) {
-		    // Ignore
-		}
-		if (next != null && next.isSolidInBattle() && next instanceof BattleCharacter) {
-		    return (BattleCharacter) next;
-		}
-	    }
-	}
-	return null;
+	return this.bd.getFirstBattlerNotOnTeam(this.bd.getActiveCharacter().getTeamID());
     }
 
     @Override
@@ -858,7 +840,7 @@ public class MapTurnBattleLogic extends Battle {
 		}
 		this.bd.getBattlers()[x].setX(rx);
 		this.bd.getBattlers()[x].setY(ry);
-		this.bd.getBattleDungeon().setCell(this.bd.getBattlers()[x], rx, ry, 0,
+		this.bd.getBattleDungeon().setCell(this.bd.getBattlers()[x].getTile(), rx, ry, 0,
 			DungeonConstants.LAYER_LOWER_OBJECTS);
 	    }
 	}
@@ -1120,66 +1102,86 @@ public class MapTurnBattleLogic extends Battle {
 		// Ignore
 	    }
 	    // Auto-attack check
-	    if (obj1 instanceof BattleCharacter) {
+	    if (obj1.getId() == ObjectImageId._CREATURE.ordinal()) {
 		if ((x != -1 || y != 0) && (x != -1 || y != -1) && (x != 0 || y != -1)) {
-		    final var bc1 = (BattleCharacter) obj1;
-		    if (bc1.getTeamID() != activeBC.getTeamID()) {
+		    final var bc1 = this.bd.getFirstBattlerOnTeam(obj1.getTeamID());
+		    if (bc1 != null && obj1.getTeamID() != activeBC.getTeamID()) {
 			this.executeAutoAI(bc1);
 		    }
 		}
 	    }
-	    if (obj2 instanceof final BattleCharacter bc2 && y == 1 && bc2.getTeamID() != activeBC.getTeamID()) {
-		this.executeAutoAI(bc2);
+	    if (obj2.getId() == ObjectImageId._CREATURE.ordinal()) {
+		if (y == 1) {
+		    final var bc2 = this.bd.getFirstBattlerOnTeam(obj2.getTeamID());
+		    if (bc2 != null && obj2.getTeamID() != activeBC.getTeamID()) {
+			this.executeAutoAI(bc2);
+		    }
+		}
 	    }
-	    if (obj3 instanceof BattleCharacter) {
+	    if (obj3.getId() == ObjectImageId._CREATURE.ordinal()) {
 		if ((x != 0 || y != -1) && (x != 1 || y != -1) && (x != 1 || y != 0)) {
-		    final var bc3 = (BattleCharacter) obj3;
-		    if (bc3.getTeamID() != activeBC.getTeamID()) {
+		    final var bc3 = this.bd.getFirstBattlerOnTeam(obj3.getTeamID());
+		    if (bc3 != null && obj3.getTeamID() != activeBC.getTeamID()) {
 			this.executeAutoAI(bc3);
 		    }
 		}
 	    }
-	    if (obj4 instanceof final BattleCharacter bc4 && x == 1 && bc4.getTeamID() != activeBC.getTeamID()) {
-		this.executeAutoAI(bc4);
+	    if (obj4.getId() == ObjectImageId._CREATURE.ordinal()) {
+		if (x == 1) {
+		    final var bc4 = this.bd.getFirstBattlerOnTeam(obj4.getTeamID());
+		    if (bc4 != null && obj4.getTeamID() != activeBC.getTeamID()) {
+			this.executeAutoAI(bc4);
+		    }
+		}
 	    }
-	    if (obj6 instanceof final BattleCharacter bc6 && x == -1 && bc6.getTeamID() != activeBC.getTeamID()) {
-		this.executeAutoAI(bc6);
+	    if (obj6.getId() == ObjectImageId._CREATURE.ordinal()) {
+		if (x == -1) {
+		    final var bc6 = this.bd.getFirstBattlerOnTeam(obj6.getTeamID());
+		    if (bc6 != null && obj6.getTeamID() != activeBC.getTeamID()) {
+			this.executeAutoAI(bc6);
+		    }
+		}
 	    }
-	    if (obj7 instanceof BattleCharacter) {
+	    if (obj7.getId() == ObjectImageId._CREATURE.ordinal()) {
 		if ((x != -1 || y != 0) && (x != -1 || y != 1) && (x != 0 || y != 1)) {
-		    final var bc7 = (BattleCharacter) obj7;
-		    if (bc7.getTeamID() != activeBC.getTeamID()) {
+		    final var bc7 = this.bd.getFirstBattlerOnTeam(obj7.getTeamID());
+		    if (bc7 != null && obj7.getTeamID() != activeBC.getTeamID()) {
 			this.executeAutoAI(bc7);
 		    }
 		}
 	    }
-	    if (obj8 instanceof final BattleCharacter bc8 && y == -1 && bc8.getTeamID() != activeBC.getTeamID()) {
-		this.executeAutoAI(bc8);
+	    if (obj8.getId() == ObjectImageId._CREATURE.ordinal()) {
+		if (y == -1) {
+		    final var bc8 = this.bd.getFirstBattlerOnTeam(obj8.getTeamID());
+		    if (bc8 != null && obj8.getTeamID() != activeBC.getTeamID()) {
+			this.executeAutoAI(bc8);
+		    }
+		}
 	    }
-	    if (obj9 instanceof BattleCharacter) {
+	    if (obj9.getId() == ObjectImageId._CREATURE.ordinal()) {
 		if ((x != 0 || y != 1) && (x != 1 || y != 1) && (x != 1 || y != 0)) {
-		    final var bc9 = (BattleCharacter) obj9;
-		    if (bc9.getTeamID() != activeBC.getTeamID()) {
+		    final var bc9 = this.bd.getFirstBattlerOnTeam(obj9.getTeamID());
+		    if (bc9 != null && obj9.getTeamID() != activeBC.getTeamID()) {
 			this.executeAutoAI(bc9);
 		    }
 		}
 	    }
-	    m.setCell(activeBC.getSavedObject(), px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    m.setCell(activeBC.getTile().getSavedObject(), px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	    activeBC.offsetX(x);
 	    activeBC.offsetY(y);
 	    px += x;
 	    py += y;
 	    this.battleGUI.getViewManager().offsetViewingWindowLocationX(y);
 	    this.battleGUI.getViewManager().offsetViewingWindowLocationY(x);
-	    activeBC.setSavedObject(m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS));
-	    m.setCell(activeBC, px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    activeBC.getTile().setSavedObject(m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS));
+	    m.setCell(activeBC.getTile(), px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	    this.decrementActiveActionCounterBy(AIContext.getAPCost());
 	    if (activeBC.getTeamID() == Creature.TEAM_PARTY) {
 		SoundLoader.playSound(Sounds.STEP_PARTY);
 	    } else {
 		SoundLoader.playSound(Sounds.STEP_ENEMY);
 	    }
-	} else if (next instanceof BattleCharacter) {
+	} else if (next != null && next.getId() == ObjectImageId._CREATURE.ordinal()) {
 	    if ((!useAP || this.getActiveAttackCounter() <= 0) && useAP) {
 		// Deny attack - out of actions
 		if (!this.bd.getActiveCharacter().hasAI()) {
@@ -1188,7 +1190,7 @@ public class MapTurnBattleLogic extends Battle {
 		return false;
 	    }
 	    // Attack
-	    final var bc = (BattleCharacter) next;
+	    final var bc = this.bd.getFirstBattlerOnTeam(next.getTeamID());
 	    if (bc.getTeamID() == activeBC.getTeamID()) {
 		// Attack Friend?
 		if (activeBC.hasAI()) {

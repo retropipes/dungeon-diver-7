@@ -35,7 +35,7 @@ public class IcyBox extends AbstractMovableObject {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 21;
     }
 

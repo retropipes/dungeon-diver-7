@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 
 import org.retropipes.diane.gui.MainContent;
 import org.retropipes.diane.gui.MainWindow;
-import org.retropipes.dungeondiver7.dungeon.abc.BattleCharacter;
+import org.retropipes.dungeondiver7.battle.BattleCharacter;
 
 public class MapBattleEffects {
     // Fields

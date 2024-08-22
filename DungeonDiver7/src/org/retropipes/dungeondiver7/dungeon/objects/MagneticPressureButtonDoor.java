@@ -15,7 +15,7 @@ public class MagneticPressureButtonDoor extends AbstractPressureButtonDoor {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 89;
     }
 }

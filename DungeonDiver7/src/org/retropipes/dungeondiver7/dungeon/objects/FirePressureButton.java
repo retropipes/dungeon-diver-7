@@ -16,7 +16,7 @@ public class FirePressureButton extends AbstractPressureButton {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 76;
     }
 }

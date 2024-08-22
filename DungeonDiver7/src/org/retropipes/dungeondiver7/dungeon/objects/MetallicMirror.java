@@ -30,7 +30,7 @@ public class MetallicMirror extends AbstractMovableObject {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 65;
     }
 

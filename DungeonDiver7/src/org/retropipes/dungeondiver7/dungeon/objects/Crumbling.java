@@ -19,7 +19,7 @@ public class Crumbling extends AbstractAttribute {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 132;
     }
 

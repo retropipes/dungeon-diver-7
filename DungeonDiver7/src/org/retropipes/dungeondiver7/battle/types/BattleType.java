@@ -1,6 +1,6 @@
 package org.retropipes.dungeondiver7.battle.types;
 
-import org.retropipes.dungeondiver7.dungeon.abc.BattleCharacter;
+import org.retropipes.dungeondiver7.battle.BattleCharacter;
 
 public abstract class BattleType {
     public static BattleType createBattle(final int rows, final int columns) {

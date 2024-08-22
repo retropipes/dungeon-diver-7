@@ -14,7 +14,7 @@ public class Tile extends AbstractGround {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return ObjectImageConstants.TILE;
     }
 }

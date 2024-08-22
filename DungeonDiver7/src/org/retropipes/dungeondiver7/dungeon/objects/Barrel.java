@@ -23,7 +23,7 @@ public class Barrel extends AbstractReactionWall {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 3;
     }
 

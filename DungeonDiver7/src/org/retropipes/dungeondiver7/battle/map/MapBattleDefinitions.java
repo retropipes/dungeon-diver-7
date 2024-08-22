@@ -5,9 +5,9 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.battle.map;
 
+import org.retropipes.dungeondiver7.battle.BattleCharacter;
 import org.retropipes.dungeondiver7.battle.ai.AIContext;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.BattleCharacter;
 
 public class MapBattleDefinitions {
     private static final int MAX_BATTLERS = 100;
@@ -58,6 +58,31 @@ public class MapBattleDefinitions {
 	    }
 	}
 	return -1;
+    }
+
+    private int findFirstBattlerNotOnTeam(final int teamID, final int start, final int limit) {
+	for (var x = start; x < limit; x++) {
+	    if (this.battlers[x] != null && this.battlers[x].getTeamID() != teamID) {
+		return x;
+	    }
+	}
+	return -1;
+    }
+
+    public BattleCharacter getFirstBattlerOnTeam(final int teamID) {
+	var pos = this.findFirstBattlerOnTeam(teamID, 0, this.battlers.length);
+	if (pos >= 0 && pos < this.battlers.length) {
+	    return this.battlers[pos];
+	}
+	return null;
+    }
+
+    public BattleCharacter getFirstBattlerNotOnTeam(final int teamID) {
+	var pos = this.findFirstBattlerNotOnTeam(teamID, 0, this.battlers.length);
+	if (pos >= 0 && pos < this.battlers.length) {
+	    return this.battlers[pos];
+	}
+	return null;
     }
 
     public BattleCharacter getActiveCharacter() {

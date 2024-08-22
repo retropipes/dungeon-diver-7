@@ -15,7 +15,7 @@ public class Empty extends AbstractPassThroughObject {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 130;
     }
 }

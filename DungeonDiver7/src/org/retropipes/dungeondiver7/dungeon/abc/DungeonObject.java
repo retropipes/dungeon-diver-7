@@ -38,7 +38,7 @@ import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public abstract class DungeonObject implements RandomGenerationRule {
     private static int templateColor = ImageColors.NONE;
-    static final int DEFAULT_CUSTOM_VALUE = 0;
+    protected static final int DEFAULT_CUSTOM_VALUE = 0;
     protected static final int CUSTOM_FORMAT_MANUAL_OVERRIDE = -1;
     private static final int PLASTIC_MINIMUM_REACTION_FORCE = 0;
     private static final int DEFAULT_MINIMUM_REACTION_FORCE = 1;
@@ -86,6 +86,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
     private final boolean blocksLOS;
     private DungeonObject saved;
     private DungeonObject previousState;
+    private int teamID;
 
     public DungeonObject() {
 	this.solid = false;
@@ -323,22 +324,22 @@ public abstract class DungeonObject implements RandomGenerationRule {
      * @return
      */
     public BufferedImageIcon gameRenderHook(final int x, final int y) {
-	return ObjectImageLoader.load(this.getCacheName(), this.getBaseID());
+	return ObjectImageLoader.load(this.getCacheName(), this.getId());
     }
 
-    abstract public int getBaseID();
+    abstract public int getId();
 
     public String getCacheName() {
-	return Integer.toString(this.getBaseID());
+	return Integer.toString(this.getId());
     }
 
     public final String getBaseName() {
-	return Strings.objectName(this.getBaseID());
+	return Strings.objectName(this.getId());
     }
 
     public int getBattleBaseID() {
 	if (this.enabledInBattle()) {
-	    return this.getBaseID();
+	    return this.getId();
 	}
 	return ObjectImageConstants.NONE;
     }
@@ -366,7 +367,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public String getDescription() {
-	return Strings.objectDescription(this.getBaseID());
+	return Strings.objectDescription(this.getId());
     }
 
     public final Direction getDirection() {
@@ -396,7 +397,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public final String getIdentityName() {
-	return this.getLocalColorPrefix() + Strings.objectName(this.getBaseID());
+	return this.getLocalColorPrefix() + Strings.objectName(this.getId());
     }
 
     public final String getImageName() {
@@ -442,6 +443,10 @@ public abstract class DungeonObject implements RandomGenerationRule {
 
     public final DungeonObject getSavedObject() {
 	return this.saved;
+    }
+
+    public final int getTeamID() {
+	return this.teamID;
     }
 
     private final boolean hasColor() {
@@ -944,6 +949,10 @@ public abstract class DungeonObject implements RandomGenerationRule {
 
     public final void setSavedObject(final DungeonObject obj) {
 	this.saved = obj;
+    }
+
+    public final void setTeamID(final int tid) {
+	this.teamID = tid;
     }
 
     @Override

@@ -19,7 +19,7 @@ public class BoxMover extends AbstractMover {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 122;
     }
 }

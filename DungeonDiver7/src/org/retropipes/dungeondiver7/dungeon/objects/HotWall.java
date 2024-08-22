@@ -30,7 +30,7 @@ public class HotWall extends AbstractWall {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 60;
     }
 

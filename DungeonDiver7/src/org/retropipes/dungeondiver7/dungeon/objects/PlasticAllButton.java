@@ -16,7 +16,7 @@ public class PlasticAllButton extends AbstractAllButton {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 98;
     }
 }

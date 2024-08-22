@@ -43,7 +43,7 @@ public class ReverseJumpBox extends AbstractJumpObject {
     }
 
     @Override
-    public final int getBaseID() {
+    public final int getId() {
 	return 124;
     }
 
