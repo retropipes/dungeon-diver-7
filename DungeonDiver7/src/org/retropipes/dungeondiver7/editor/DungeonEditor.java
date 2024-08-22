@@ -9,13 +9,6 @@ import java.awt.Adjustable;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.IOException;
 
 import javax.swing.ButtonGroup;
@@ -59,316 +52,6 @@ import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.RCLGenerator;
 
 public class DungeonEditor implements MenuSection {
-    private class EventHandler implements MouseListener, MouseMotionListener, WindowListener {
-	// handle scroll bars
-	public EventHandler() {
-	    // Do nothing
-	}
-
-	@Override
-	public void mouseClicked(final MouseEvent e) {
-	    try {
-		final var me = DungeonEditor.this;
-		final var x = e.getX();
-		final var y = e.getY();
-		if (e.isAltDown() || e.isAltGraphDown() || e.isControlDown()) {
-		    me.editObjectProperties(x, y);
-		} else if (e.isShiftDown()) {
-		    me.probeObjectProperties(x, y);
-		} else {
-		    me.editObject(x, y);
-		}
-	    } catch (final Exception ex) {
-		DungeonDiver7.logError(ex);
-	    }
-	}
-
-	@Override
-	public void mouseDragged(final MouseEvent e) {
-	    try {
-		final var me = DungeonEditor.this;
-		final var x = e.getX();
-		final var y = e.getY();
-		me.editObject(x, y);
-	    } catch (final Exception ex) {
-		DungeonDiver7.logError(ex);
-	    }
-	}
-
-	@Override
-	public void mouseEntered(final MouseEvent e) {
-	    // Do nothing
-	}
-
-	@Override
-	public void mouseExited(final MouseEvent e) {
-	    // Do nothing
-	}
-
-	@Override
-	public void mouseMoved(final MouseEvent e) {
-	    // Do nothing
-	}
-
-	// handle mouse
-	@Override
-	public void mousePressed(final MouseEvent e) {
-	    // Do nothing
-	}
-
-	@Override
-	public void mouseReleased(final MouseEvent e) {
-	    // Do nothing
-	}
-
-	// Handle windows
-	@Override
-	public void windowActivated(final WindowEvent we) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowClosed(final WindowEvent we) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowClosing(final WindowEvent we) {
-	    DungeonEditor.this.handleCloseWindow();
-	    DungeonDiver7.getStuffBag().getGUIManager().showGUI();
-	}
-
-	@Override
-	public void windowDeactivated(final WindowEvent we) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowDeiconified(final WindowEvent we) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowIconified(final WindowEvent we) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowOpened(final WindowEvent we) {
-	    // Do nothing
-	}
-    }
-
-    private class MenuHandler implements ActionListener {
-	public MenuHandler() {
-	    // Do nothing
-	}
-
-	// Handle menus
-	@Override
-	public void actionPerformed(final ActionEvent e) {
-	    try {
-		final var app = DungeonDiver7.getStuffBag();
-		final var cmd = e.getActionCommand();
-		final var editor = DungeonEditor.this;
-		if (cmd.equals(Strings.menu(Menu.UNDO))) {
-		    // Undo most recent action
-		    if (app.getMode() == StuffBag.STATUS_EDITOR) {
-			editor.undo();
-		    } else if (app.getMode() == StuffBag.STATUS_GAME) {
-			app.getGameLogic().abortAndWaitForMLOLoop();
-			app.getGameLogic().undoLastMove();
-		    }
-		} else if (cmd.equals(Strings.menu(Menu.REDO))) {
-		    // Redo most recent undone action
-		    if (app.getMode() == StuffBag.STATUS_EDITOR) {
-			editor.redo();
-		    } else if (app.getMode() == StuffBag.STATUS_GAME) {
-			app.getGameLogic().abortAndWaitForMLOLoop();
-			app.getGameLogic().redoLastMove();
-		    }
-		} else if (cmd.equals(Strings.menu(Menu.CUT_LEVEL))) {
-		    // Cut Level
-		    final var level = editor.getLocationManager().getEditorLocationU();
-		    app.getDungeonManager().getDungeon().cutLevel();
-		    editor.fixLimits();
-		    editor.updateEditorLevelAbsolute(level);
-		} else if (cmd.equals(Strings.menu(Menu.COPY_LEVEL))) {
-		    // Copy Level
-		    app.getDungeonManager().getDungeon().copyLevel();
-		} else if (cmd.equals(Strings.menu(Menu.PASTE_LEVEL))) {
-		    // Paste Level
-		    app.getDungeonManager().getDungeon().pasteLevel();
-		    editor.fixLimits();
-		    editor.redrawEditor();
-		} else if (cmd.equals(Strings.menu(Menu.INSERT_LEVEL_FROM_CLIPBOARD))) {
-		    // Insert Level From Clipboard
-		    app.getDungeonManager().getDungeon().insertLevelFromClipboard();
-		    editor.fixLimits();
-		} else if (cmd.equals(Strings.menu(Menu.CLEAR_HISTORY))) {
-		    // Clear undo/redo history, confirm first
-		    final var res = CommonDialogs.showConfirmDialog(Strings.menu(Menu.CONFIRM_CLEAR_HISTORY),
-			    Strings.editor(EditorString.EDITOR));
-		    if (res == CommonDialogs.YES_OPTION) {
-			editor.clearHistory();
-		    }
-		} else if (cmd.equals(Strings.menu(Menu.GO_TO_LEVEL))) {
-		    // Go To Level
-		    editor.goToLevelHandler();
-		} else if (cmd.equals(Strings.menu(Menu.UP_ONE_FLOOR))) {
-		    // Go up one floor
-		    editor.updateEditorPosition(1, 0);
-		} else if (cmd.equals(Strings.menu(Menu.DOWN_ONE_FLOOR))) {
-		    // Go down one floor
-		    editor.updateEditorPosition(-1, 0);
-		} else if (cmd.equals(Strings.menu(Menu.UP_ONE_LEVEL))) {
-		    // Go up one level
-		    editor.updateEditorPosition(0, 1);
-		} else if (cmd.equals(Strings.menu(Menu.DOWN_ONE_LEVEL))) {
-		    // Go down one level
-		    editor.updateEditorPosition(0, -1);
-		} else if (cmd.equals(Strings.menu(Menu.ADD_A_LEVEL))) {
-		    // Add a level
-		    editor.addLevel();
-		} else if (cmd.equals(Strings.menu(Menu.REMOVE_A_LEVEL))) {
-		    // Remove a level
-		    editor.removeLevel();
-		} else if (cmd.equals(Strings.menu(Menu.FILL_CURRENT_LEVEL))) {
-		    // Fill level
-		    editor.fillLevel();
-		} else if (cmd.equals(Strings.menu(Menu.RESIZE_CURRENT_LEVEL))) {
-		    // Resize level
-		    editor.resizeLevel();
-		} else if (cmd.equals(Strings.menu(Menu.LEVEL_PREFERENCES))) {
-		    // Set Level Preferences
-		    editor.setLevelPrefs();
-		} else if (cmd.equals(Strings.menu(Menu.SET_START_POINT))) {
-		    // Set Start Point
-		    editor.editPlayerLocation();
-		} else if (cmd.equals(Strings.menu(Menu.SET_MUSIC))) {
-		    // Set Music
-		    editor.defineDungeonMusic();
-		} else if (cmd.equals(Strings.menu(Menu.CHANGE_LAYER))) {
-		    // Change Layer
-		    editor.changeLayer();
-		} else if (cmd.equals(Strings.menu(Menu.ENABLE_GLOBAL_MOVE_SHOOT))) {
-		    // Enable Global Move-Shoot
-		    editor.enableGlobalMoveShoot();
-		} else if (cmd.equals(Strings.menu(Menu.DISABLE_GLOBAL_MOVE_SHOOT))) {
-		    // Disable Global Move-Shoot
-		    editor.disableGlobalMoveShoot();
-		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_PAST))) {
-		    // Time Travel: Distant Past
-		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_PAST);
-		    editor.editorEraDistantPast.setSelected(true);
-		    editor.editorEraPast.setSelected(false);
-		    editor.editorEraPresent.setSelected(false);
-		    editor.editorEraFuture.setSelected(false);
-		    editor.editorEraDistantFuture.setSelected(false);
-		} else if (cmd.equals(Strings.timeTravel(TimeTravel.PAST))) {
-		    // Time Travel: Past
-		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PAST);
-		    editor.editorEraDistantPast.setSelected(false);
-		    editor.editorEraPast.setSelected(true);
-		    editor.editorEraPresent.setSelected(false);
-		    editor.editorEraFuture.setSelected(false);
-		    editor.editorEraDistantFuture.setSelected(false);
-		} else if (cmd.equals(Strings.timeTravel(TimeTravel.PRESENT))) {
-		    // Time Travel: Present
-		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PRESENT);
-		    editor.editorEraDistantPast.setSelected(false);
-		    editor.editorEraPast.setSelected(false);
-		    editor.editorEraPresent.setSelected(true);
-		    editor.editorEraFuture.setSelected(false);
-		    editor.editorEraDistantFuture.setSelected(false);
-		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FUTURE))) {
-		    // Time Travel: Future
-		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_FUTURE);
-		    editor.editorEraDistantPast.setSelected(false);
-		    editor.editorEraPast.setSelected(false);
-		    editor.editorEraPresent.setSelected(false);
-		    editor.editorEraFuture.setSelected(true);
-		    editor.editorEraDistantFuture.setSelected(false);
-		} else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_FUTURE))) {
-		    // Time Travel: Distant Future
-		    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_FUTURE);
-		    editor.editorEraDistantPast.setSelected(false);
-		    editor.editorEraPast.setSelected(false);
-		    editor.editorEraPresent.setSelected(false);
-		    editor.editorEraFuture.setSelected(false);
-		    editor.editorEraDistantFuture.setSelected(true);
-		}
-		app.getMenus().checkFlags();
-	    } catch (final Exception ex) {
-		DungeonDiver7.logError(ex);
-	    }
-	}
-    }
-
-    private class StartEventHandler implements MouseListener {
-	// handle scroll bars
-	public StartEventHandler() {
-	    // Do nothing
-	}
-
-	@Override
-	public void mouseClicked(final MouseEvent e) {
-	    try {
-		final var x = e.getX();
-		final var y = e.getY();
-		DungeonEditor.this.setPlayerLocation(x, y);
-	    } catch (final Exception ex) {
-		DungeonDiver7.logError(ex);
-	    }
-	}
-
-	@Override
-	public void mouseEntered(final MouseEvent e) {
-	    // Do nothing
-	}
-
-	@Override
-	public void mouseExited(final MouseEvent e) {
-	    // Do nothing
-	}
-
-	// handle mouse
-	@Override
-	public void mousePressed(final MouseEvent e) {
-	    // Do nothing
-	}
-
-	@Override
-	public void mouseReleased(final MouseEvent e) {
-	    // Do nothing
-	}
-    }
-
-    private class SwitcherHandler implements ActionListener {
-	SwitcherHandler() {
-	    // Do nothing
-	}
-
-	@Override
-	public void actionPerformed(final ActionEvent e) {
-	    try {
-		final var cmd = e.getActionCommand();
-		final var ae = DungeonEditor.this;
-		if (cmd.equals(Strings.editor(EditorString.LOWER_GROUND_LAYER))) {
-		    ae.changeLayerImpl(DungeonConstants.LAYER_LOWER_GROUND);
-		} else if (cmd.equals(Strings.editor(EditorString.UPPER_GROUND_LAYER))) {
-		    ae.changeLayerImpl(DungeonConstants.LAYER_UPPER_GROUND);
-		} else if (cmd.equals(Strings.editor(EditorString.LOWER_OBJECTS_LAYER))) {
-		    ae.changeLayerImpl(DungeonConstants.LAYER_LOWER_OBJECTS);
-		} else if (cmd.equals(Strings.editor(EditorString.UPPER_OBJECTS_LAYER))) {
-		    ae.changeLayerImpl(DungeonConstants.LAYER_UPPER_OBJECTS);
-		}
-	    } catch (final Exception ex) {
-		DungeonDiver7.logError(ex);
-	    }
-	}
-    }
-
     private static final int STACK_COUNT = 10;
     private static final String[] JUMP_LIST = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
     // Declarations
@@ -379,8 +62,8 @@ public class DungeonEditor implements MenuSection {
     private JLabel messageLabel;
     private DungeonObject savedDungeonObject;
     private JScrollBar vertScroll, horzScroll;
-    private final EventHandler mhandler;
-    private final StartEventHandler shandler;
+    private final DungeonEditorEventHandler mhandler;
+    private final DungeonEditorStartEventHandler shandler;
     private final LevelPreferencesManager lPrefs;
     private PicturePicker oldPicker;
     private StackedPicturePicker newPicker11;
@@ -405,8 +88,8 @@ public class DungeonEditor implements MenuSection {
     public DungeonEditor() {
 	this.savedDungeonObject = new Ground();
 	this.lPrefs = new LevelPreferencesManager();
-	this.mhandler = new EventHandler();
-	this.shandler = new StartEventHandler();
+	this.mhandler = new DungeonEditorEventHandler(this);
+	this.shandler = new DungeonEditorStartEventHandler(this);
 	this.engine = new EditorUndoRedoEngine();
 	final var objectList = DungeonDiver7.getStuffBag().getObjects();
 	this.names = objectList.getAllNamesOnLayer(DungeonConstants.LAYER_LOWER_GROUND);
@@ -604,7 +287,7 @@ public class DungeonEditor implements MenuSection {
 
     @Override
     public JMenu createCommandsMenu() {
-	final var menuHandler = new MenuHandler();
+	final var menuHandler = new DungeonEditorMenuHandler(this);
 	final var editorMenu = new JMenu(Strings.menu(Menu.EDITOR));
 	this.editorUndo = new JMenuItem(Strings.menu(Menu.UNDO));
 	this.editorRedo = new JMenuItem(Strings.menu(Menu.REDO));
@@ -1514,7 +1197,7 @@ public class DungeonEditor implements MenuSection {
 	this.secondaryPane.addMouseListener(this.mhandler);
 	this.secondaryPane.addMouseMotionListener(this.mhandler);
 	this.switcherPane = this.mainWindow.createContent();
-	final var switcherHandler = new SwitcherHandler();
+	final var switcherHandler = new DungeonEditorSwitcherHandler(this);
 	final var switcherGroup = new ButtonGroup();
 	this.lowerGround = new JToggleButton(Strings.editor(EditorString.LOWER_GROUND_LAYER));
 	this.upperGround = new JToggleButton(Strings.editor(EditorString.UPPER_GROUND_LAYER));
