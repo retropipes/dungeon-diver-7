@@ -78,7 +78,7 @@ public class MapBattleDefinitions {
 
     public void resetBattlers() {
 	for (final BattleCharacter battler : this.battlers) {
-	    if (battler != null && battler.getTemplate().isAlive()) {
+	    if (battler != null && battler.getCreature().isAlive()) {
 		battler.activate();
 		battler.resetAP();
 		battler.resetAttacks();
@@ -90,7 +90,7 @@ public class MapBattleDefinitions {
 
     public void roundResetBattlers() {
 	for (final BattleCharacter battler : this.battlers) {
-	    if (battler != null && battler.getTemplate().isAlive()) {
+	    if (battler != null && battler.getCreature().isAlive()) {
 		battler.resetAP();
 		battler.resetAttacks();
 		battler.resetSpells();

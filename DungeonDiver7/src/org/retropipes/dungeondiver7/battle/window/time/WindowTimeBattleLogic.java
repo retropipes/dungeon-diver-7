@@ -346,7 +346,7 @@ public class WindowTimeBattleLogic extends Battle {
 	    gm.hideOutput();
 	    gm.stopMovement();
 	    this.enemyBC = this.battleType.getBattlers();
-	    this.enemy = this.enemyBC.getTemplate();
+	    this.enemy = this.enemyBC.getCreature();
 	    this.enemy.healAndRegenerateFully();
 	    this.enemy.loadCreature();
 	    this.battleGUI.setMaxPlayerActionBarValue(PartyManager.getParty().getLeader().getActionBarSpeed());
@@ -390,7 +390,7 @@ public class WindowTimeBattleLogic extends Battle {
 	    gm.hideOutput();
 	    gm.stopMovement();
 	    this.enemyBC = this.battleType.getBattlers();
-	    this.enemy = this.enemyBC.getTemplate();
+	    this.enemy = this.enemyBC.getCreature();
 	    this.enemy.healAndRegenerateFully();
 	    this.enemy.loadCreature();
 	    this.enemyDidDamage = false;

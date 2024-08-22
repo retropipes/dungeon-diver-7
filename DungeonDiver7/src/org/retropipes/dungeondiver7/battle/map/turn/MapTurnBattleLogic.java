@@ -72,7 +72,7 @@ public class MapTurnBattleLogic extends Battle {
     private boolean areTeamEnemiesAlive(final int teamID) {
 	for (var x = 0; x < this.bd.getBattlers().length; x++) {
 	    if (this.bd.getBattlers()[x] != null && this.bd.getBattlers()[x].getTeamID() != teamID) {
-		final var res = this.bd.getBattlers()[x].getTemplate().isAlive();
+		final var res = this.bd.getBattlers()[x].getCreature().isAlive();
 		if (res) {
 		    return true;
 		}
@@ -85,11 +85,11 @@ public class MapTurnBattleLogic extends Battle {
 	var deadCount = 0;
 	for (var x = 0; x < this.bd.getBattlers().length; x++) {
 	    if (this.bd.getBattlers()[x] != null && this.bd.getBattlers()[x].getTeamID() != teamID) {
-		final var res = this.bd.getBattlers()[x].getTemplate().isAlive() && this.bd.getBattlers()[x].isActive();
+		final var res = this.bd.getBattlers()[x].getCreature().isAlive() && this.bd.getBattlers()[x].isActive();
 		if (res) {
 		    return false;
 		}
-		if (!this.bd.getBattlers()[x].getTemplate().isAlive()) {
+		if (!this.bd.getBattlers()[x].getCreature().isAlive()) {
 		    deadCount++;
 		}
 	    }
@@ -101,7 +101,7 @@ public class MapTurnBattleLogic extends Battle {
 	var res = true;
 	for (var x = 0; x < this.bd.getBattlers().length; x++) {
 	    if (this.bd.getBattlers()[x] != null && this.bd.getBattlers()[x].getTeamID() != teamID
-		    && this.bd.getBattlers()[x].getTemplate().isAlive()) {
+		    && this.bd.getBattlers()[x].getCreature().isAlive()) {
 		res = res && !this.bd.getBattlers()[x].isActive();
 		if (!res) {
 		    return false;
@@ -133,8 +133,8 @@ public class MapTurnBattleLogic extends Battle {
 	}
 	if (!this.bd.getActiveCharacter().hasAI()) {
 	    // Active character has no AI, or AI is turned off
-	    final var success = SpellCaster.selectAndCastSpell(this.bd.getActiveCharacter().getTemplate(),
-		    this.enemy.getTemplate());
+	    final var success = SpellCaster.selectAndCastSpell(this.bd.getActiveCharacter().getCreature(),
+		    this.enemy.getCreature());
 	    if (success) {
 		SoundLoader.playSound(Sounds.PARTY_SPELL);
 		this.decrementActiveSpellCounter();
@@ -149,8 +149,8 @@ public class MapTurnBattleLogic extends Battle {
 	}
 	// Active character has AI, and AI is turned on
 	final var sp = this.bd.getActiveCharacter().getAI().getSpellToCast();
-	final var success = SpellCaster.castSpell(sp, this.bd.getActiveCharacter().getTemplate(),
-		this.enemy.getTemplate());
+	final var success = SpellCaster.castSpell(sp, this.bd.getActiveCharacter().getCreature(),
+		this.enemy.getCreature());
 	if (success) {
 	    SoundLoader.playSound(Sounds.ENEMY_SPELL);
 	    this.decrementActiveSpellCounter();
@@ -374,8 +374,8 @@ public class MapTurnBattleLogic extends Battle {
 	this.bd.addBattler(new BattleCharacter(PartyManager.getParty().getLeader(), bMap.getRows(), bMap.getColumns()));
 	// Generate Enemies
 	this.enemy = this.battleType.getBattlers();
-	this.enemy.getTemplate().healAndRegenerateFully();
-	this.enemy.getTemplate().loadCreature();
+	this.enemy.getCreature().healAndRegenerateFully();
+	this.enemy.getCreature().loadCreature();
 	this.bd.addBattler(this.enemy);
 	// Reset Inactive Indicators and Action Counters
 	this.bd.resetBattlers();
@@ -484,7 +484,7 @@ public class MapTurnBattleLogic extends Battle {
 	Creature activeEnemy = null;
 	final BattleCharacter enemyBC = this.getEnemyBC();
 	if (enemyBC != null) {
-	    activeEnemy = enemyBC.getTemplate();
+	    activeEnemy = enemyBC.getCreature();
 	}
 	int drainChance;
 	var drainAmount = 0;
@@ -511,7 +511,7 @@ public class MapTurnBattleLogic extends Battle {
 		return false;
 	    }
 	    activeEnemy.offsetCurrentMP(-drainAmount);
-	    this.bd.getActiveCharacter().getTemplate().offsetCurrentMP(drainAmount);
+	    this.bd.getActiveCharacter().getCreature().offsetCurrentMP(drainAmount);
 	    this.setStatusMessage(this.bd.getActiveCharacter().getName() + " tries to drain, and successfully drains "
 		    + drainAmount + " MP!");
 	    return true;
@@ -532,7 +532,7 @@ public class MapTurnBattleLogic extends Battle {
 	    return false;
 	}
 	activeEnemy.offsetCurrentMP(-drainAmount);
-	this.bd.getActiveCharacter().getTemplate().offsetCurrentMP(drainAmount);
+	this.bd.getActiveCharacter().getCreature().offsetCurrentMP(drainAmount);
 	this.setStatusMessage(this.bd.getActiveCharacter().getName() + " tries to drain, and successfully drains "
 		+ drainAmount + " MP!");
 	return true;
@@ -578,9 +578,9 @@ public class MapTurnBattleLogic extends Battle {
     @Override
     public void executeNextAIAction() {
 	if (this.bd != null && this.bd.getActiveCharacter() != null
-		&& this.bd.getActiveCharacter().getTemplate() != null && this.bd.getActiveCharacter().getAI() != null) {
+		&& this.bd.getActiveCharacter().getCreature() != null && this.bd.getActiveCharacter().getAI() != null) {
 	    final var active = this.bd.getActiveCharacter();
-	    if (active.getTemplate().isAlive()) {
+	    if (active.getCreature().isAlive()) {
 		final var action = active.getAI().getNextAction(this.bd.getBattlerAIContexts()[this.activeIndex]);
 		switch (action) {
 		case BattleAction.MOVE:
@@ -647,7 +647,7 @@ public class MapTurnBattleLogic extends Battle {
 
     @Override
     public Creature getEnemy() {
-	return this.enemy.getTemplate();
+	return this.enemy.getCreature();
     }
 
     private BattleCharacter getEnemyBC() {
@@ -709,7 +709,7 @@ public class MapTurnBattleLogic extends Battle {
     private void handleDeath(final BattleCharacter activeBC) {
 	// Something has died
 	SoundLoader.playSound(Sounds.DEATH);
-	final var active = activeBC.getTemplate();
+	final var active = activeBC.getCreature();
 	// Set dead character to inactive
 	activeBC.deactivate();
 	// Remove effects from dead character
@@ -730,7 +730,7 @@ public class MapTurnBattleLogic extends Battle {
     private boolean isTeamAlive(final int teamID) {
 	for (var x = 0; x < this.bd.getBattlers().length; x++) {
 	    if (this.bd.getBattlers()[x] != null && this.bd.getBattlers()[x].getTeamID() == teamID) {
-		final var res = this.bd.getBattlers()[x].getTemplate().isAlive();
+		final var res = this.bd.getBattlers()[x].getCreature().isAlive();
 		if (res) {
 		    return true;
 		}
@@ -743,7 +743,7 @@ public class MapTurnBattleLogic extends Battle {
 	var res = true;
 	for (var x = 0; x < this.bd.getBattlers().length; x++) {
 	    if (this.bd.getBattlers()[x] != null && this.bd.getBattlers()[x].getTeamID() == teamID
-		    && this.bd.getBattlers()[x].getTemplate().isAlive()) {
+		    && this.bd.getBattlers()[x].getCreature().isAlive()) {
 		res = res && !this.bd.getBattlers()[x].isActive();
 		if (!res) {
 		    return false;
@@ -764,11 +764,11 @@ public class MapTurnBattleLogic extends Battle {
 	    // Maintain Effects
 	    final var activeBC = this.bd.getBattlers()[x];
 	    if (activeBC != null && activeBC.isActive()) {
-		final var active = activeBC.getTemplate();
+		final var active = activeBC.getCreature();
 		// Use Effects
 		active.useEffects();
 		// Display all effect messages
-		final var effectMessages = activeBC.getTemplate().getAllCurrentEffectMessages();
+		final var effectMessages = activeBC.getCreature().getAllCurrentEffectMessages();
 		final var individualEffectMessages = effectMessages.split("\n");
 		for (final String message : individualEffectMessages) {
 		    if (!message.equals(Effect.getNullMessage())) {
@@ -791,7 +791,7 @@ public class MapTurnBattleLogic extends Battle {
 		if (!active.isAlive()) {
 		    if (activeBC.getTeamID() != Creature.TEAM_PARTY) {
 			// Update victory spoils
-			this.battleExp = activeBC.getTemplate().getExperience();
+			this.battleExp = activeBC.getCreature().getExperience();
 		    }
 		    this.handleDeath(activeBC);
 		}
@@ -805,7 +805,7 @@ public class MapTurnBattleLogic extends Battle {
 		// Perform New Round Actions
 		if (this.bd.getBattlerAIContexts()[x] != null
 			&& this.bd.getBattlerAIContexts()[x].getCharacter().hasAI()
-			&& this.bd.getBattlers()[x].isActive() && this.bd.getBattlers()[x].getTemplate().isAlive()) {
+			&& this.bd.getBattlers()[x].isActive() && this.bd.getBattlers()[x].getCreature().isAlive()) {
 		    this.bd.getBattlerAIContexts()[x].getCharacter().getAI().newRoundHook();
 		}
 	    }
@@ -823,8 +823,8 @@ public class MapTurnBattleLogic extends Battle {
 
     private void resetSpeedArray() {
 	for (var x = 0; x < this.speedArray.length; x++) {
-	    if (this.bd.getBattlers()[x] != null && this.bd.getBattlers()[x].getTemplate().isAlive()) {
-		this.speedArray[x] = (int) this.bd.getBattlers()[x].getTemplate()
+	    if (this.bd.getBattlers()[x] != null && this.bd.getBattlers()[x].getCreature().isAlive()) {
+		this.speedArray[x] = (int) this.bd.getBattlers()[x].getCreature()
 			.getEffectedStat(StatConstants.STAT_AGILITY);
 	    } else {
 		this.speedArray[x] = Integer.MIN_VALUE;
@@ -846,8 +846,8 @@ public class MapTurnBattleLogic extends Battle {
 	// Set Character Locations
 	for (var x = 0; x < this.bd.getBattlers().length; x++) {
 	    if (this.bd.getBattlers()[x] != null && this.bd.getBattlers()[x].isActive()
-		    && this.bd.getBattlers()[x].getTemplate().getX() == -1
-		    && this.bd.getBattlers()[x].getTemplate().getY() == -1) {
+		    && this.bd.getBattlers()[x].getCreature().getX() == -1
+		    && this.bd.getBattlers()[x].getCreature().getY() == -1) {
 		rx = randX.generate();
 		ry = randY.generate();
 		var obj = this.bd.getBattleDungeon().getCell(rx, ry, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
@@ -933,7 +933,7 @@ public class MapTurnBattleLogic extends Battle {
 	Creature activeEnemy = null;
 	final BattleCharacter enemyBC = this.getEnemyBC();
 	if (enemyBC != null) {
-	    activeEnemy = enemyBC.getTemplate();
+	    activeEnemy = enemyBC.getCreature();
 	}
 	int stealChance;
 	var stealAmount = 0;
@@ -959,7 +959,7 @@ public class MapTurnBattleLogic extends Battle {
 			this.bd.getActiveCharacter().getName() + " tries to steal, but no Gold is left to steal!");
 		return false;
 	    }
-	    this.bd.getActiveCharacter().getTemplate().offsetGold(stealAmount);
+	    this.bd.getActiveCharacter().getCreature().offsetGold(stealAmount);
 	    this.setStatusMessage(this.bd.getActiveCharacter().getName() + " tries to steal, and successfully steals "
 		    + stealAmount + " gold!");
 	    return true;
@@ -979,7 +979,7 @@ public class MapTurnBattleLogic extends Battle {
 		    this.bd.getActiveCharacter().getName() + " tries to steal, but no Gold is left to steal!");
 	    return false;
 	}
-	this.bd.getActiveCharacter().getTemplate().offsetGold(stealAmount);
+	this.bd.getActiveCharacter().getCreature().offsetGold(stealAmount);
 	this.setStatusMessage(this.bd.getActiveCharacter().getName() + " tries to steal, and successfully steals "
 		+ stealAmount + " gold!");
 	return true;
@@ -1012,7 +1012,7 @@ public class MapTurnBattleLogic extends Battle {
 
     private boolean updatePositionInternal(final int x, final int y, final boolean useAP,
 	    final BattleCharacter activeBC, final BattleCharacter theEnemy, final DamageEngine activeDE) {
-	final var active = activeBC.getTemplate();
+	final var active = activeBC.getCreature();
 	this.updateAllAIContexts();
 	var px = activeBC.getX();
 	var py = activeBC.getY();
@@ -1203,17 +1203,17 @@ public class MapTurnBattleLogic extends Battle {
 		this.decrementActiveAttackCounter();
 	    }
 	    // Do damage
-	    this.computeDamage(theEnemy.getTemplate(), active, activeDE);
+	    this.computeDamage(theEnemy.getCreature(), active, activeDE);
 	    // Handle low health for party members
-	    if (theEnemy.getTemplate().isAlive() && theEnemy.getTeamID() == Creature.TEAM_PARTY
-		    && theEnemy.getTemplate().getCurrentHP() <= theEnemy.getTemplate().getMaximumHP() * 3 / 10) {
+	    if (theEnemy.getCreature().isAlive() && theEnemy.getTeamID() == Creature.TEAM_PARTY
+		    && theEnemy.getCreature().getCurrentHP() <= theEnemy.getCreature().getMaximumHP() * 3 / 10) {
 		SoundLoader.playSound(Sounds.LOW_HEALTH);
 	    }
 	    // Handle enemy death
-	    if (!theEnemy.getTemplate().isAlive()) {
+	    if (!theEnemy.getCreature().isAlive()) {
 		if (theEnemy.getTeamID() != Creature.TEAM_PARTY) {
 		    // Update victory spoils
-		    this.battleExp = theEnemy.getTemplate().getExperience();
+		    this.battleExp = theEnemy.getCreature().getExperience();
 		}
 		this.handleDeath(bc);
 	    }

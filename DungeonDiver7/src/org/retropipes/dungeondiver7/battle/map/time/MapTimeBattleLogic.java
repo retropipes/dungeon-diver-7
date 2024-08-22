@@ -68,9 +68,9 @@ public class MapTimeBattleLogic extends Battle {
 
     private boolean areTeamEnemiesAlive(final int teamID) {
 	if (teamID == Creature.TEAM_PARTY) {
-	    return this.enemy.getTemplate().isAlive();
+	    return this.enemy.getCreature().isAlive();
 	} else {
-	    return this.me.getTemplate().isAlive();
+	    return this.me.getCreature().isAlive();
 	}
     }
 
@@ -78,11 +78,11 @@ public class MapTimeBattleLogic extends Battle {
 	if (teamID == Creature.TEAM_PARTY) {
 	    var deadCount = 0;
 	    if (this.enemy != null) {
-		final var res = this.enemy.getTemplate().isAlive() && this.enemy.isActive();
+		final var res = this.enemy.getCreature().isAlive() && this.enemy.isActive();
 		if (res) {
 		    return false;
 		}
-		if (!this.enemy.getTemplate().isAlive()) {
+		if (!this.enemy.getCreature().isAlive()) {
 		    deadCount++;
 		}
 	    }
@@ -90,11 +90,11 @@ public class MapTimeBattleLogic extends Battle {
 	} else {
 	    var deadCount = 0;
 	    if (this.me != null) {
-		final var res = this.me.getTemplate().isAlive() && this.me.isActive();
+		final var res = this.me.getCreature().isAlive() && this.me.isActive();
 		if (res) {
 		    return false;
 		}
-		if (!this.me.getTemplate().isAlive()) {
+		if (!this.me.getCreature().isAlive()) {
 		    deadCount++;
 		}
 	    }
@@ -105,7 +105,7 @@ public class MapTimeBattleLogic extends Battle {
     private boolean areTeamEnemiesGone(final int teamID) {
 	if (teamID == Creature.TEAM_PARTY) {
 	    var res = true;
-	    if ((this.enemy != null) && this.enemy.getTemplate().isAlive()) {
+	    if ((this.enemy != null) && this.enemy.getCreature().isAlive()) {
 		res = res && !this.enemy.isActive();
 		if (!res) {
 		    return false;
@@ -114,7 +114,7 @@ public class MapTimeBattleLogic extends Battle {
 	    return true;
 	} else {
 	    var res = true;
-	    if ((this.me != null) && this.me.getTemplate().isAlive()) {
+	    if ((this.me != null) && this.me.getCreature().isAlive()) {
 		res = res && !this.me.isActive();
 		if (!res) {
 		    return false;
@@ -137,7 +137,7 @@ public class MapTimeBattleLogic extends Battle {
     private boolean castEnemySpell() {
 	// Active character has AI, and AI is turned on
 	final var sp = this.enemy.getAI().getSpellToCast();
-	final var success = SpellCaster.castSpell(sp, this.enemy.getTemplate(), PartyManager.getParty().getLeader());
+	final var success = SpellCaster.castSpell(sp, this.enemy.getCreature(), PartyManager.getParty().getLeader());
 	final var currResult = this.getResult();
 	if (currResult != BattleResult.IN_PROGRESS) {
 	    // Battle Done
@@ -149,7 +149,7 @@ public class MapTimeBattleLogic extends Battle {
 
     @Override
     public boolean castSpell() {
-	final var success = SpellCaster.selectAndCastSpell(this.me.getTemplate(), this.enemy.getTemplate());
+	final var success = SpellCaster.selectAndCastSpell(this.me.getCreature(), this.enemy.getCreature());
 	final var currResult = this.getResult();
 	if (currResult != BattleResult.IN_PROGRESS) {
 	    // Battle Done
@@ -293,14 +293,14 @@ public class MapTimeBattleLogic extends Battle {
 	this.bd.addBattler(new BattleCharacter(PartyManager.getParty().getLeader(), bMap.getRows(), bMap.getColumns()));
 	// Generate Enemies
 	this.enemy = this.battleType.getBattlers();
-	this.enemy.getTemplate().healAndRegenerateFully();
-	this.enemy.getTemplate().loadCreature();
+	this.enemy.getCreature().healAndRegenerateFully();
+	this.enemy.getCreature().loadCreature();
 	this.bd.addBattler(this.enemy);
 	// Reset Inactive Indicators and Action Counters
 	this.bd.resetBattlers();
 	// Set Action Bars
 	this.battleGUI.setMaxPlayerActionBarValue(PartyManager.getParty().getLeader().getActionBarSpeed());
-	this.battleGUI.setMaxEnemyActionBarValue(this.enemy.getTemplate().getActionBarSpeed());
+	this.battleGUI.setMaxEnemyActionBarValue(this.enemy.getCreature().getActionBarSpeed());
 	// Set Character Locations
 	this.setCharacterLocations();
 	// Clear status message
@@ -431,7 +431,7 @@ public class MapTimeBattleLogic extends Battle {
     public boolean drain() {
 	Creature activeEnemy = null;
 	try {
-	    activeEnemy = this.getEnemyBC(this.me).getTemplate();
+	    activeEnemy = this.getEnemyBC(this.me).getCreature();
 	} catch (final NullPointerException npe) {
 	    // Ignore
 	}
@@ -456,7 +456,7 @@ public class MapTimeBattleLogic extends Battle {
 		return false;
 	    } else {
 		activeEnemy.offsetCurrentMP(-drainAmount);
-		this.me.getTemplate().offsetCurrentMP(drainAmount);
+		this.me.getCreature().offsetCurrentMP(drainAmount);
 		this.setStatusMessage(
 			this.me.getName() + " tries to drain, and successfully drains " + drainAmount + " MP!");
 		return true;
@@ -473,7 +473,7 @@ public class MapTimeBattleLogic extends Battle {
 		    return false;
 		} else {
 		    activeEnemy.offsetCurrentMP(-drainAmount);
-		    this.me.getTemplate().offsetCurrentMP(drainAmount);
+		    this.me.getCreature().offsetCurrentMP(drainAmount);
 		    this.setStatusMessage(
 			    this.me.getName() + " tries to drain, and successfully drains " + drainAmount + " MP!");
 		    return true;
@@ -494,7 +494,7 @@ public class MapTimeBattleLogic extends Battle {
     private boolean enemyDrain() {
 	Creature activeEnemy = null;
 	try {
-	    activeEnemy = this.getEnemyBC(this.enemy).getTemplate();
+	    activeEnemy = this.getEnemyBC(this.enemy).getCreature();
 	} catch (final NullPointerException npe) {
 	    // Ignore
 	}
@@ -519,7 +519,7 @@ public class MapTimeBattleLogic extends Battle {
 		return false;
 	    } else {
 		activeEnemy.offsetCurrentMP(-drainAmount);
-		this.enemy.getTemplate().offsetCurrentMP(drainAmount);
+		this.enemy.getCreature().offsetCurrentMP(drainAmount);
 		this.setStatusMessage(
 			this.enemy.getName() + " tries to drain, and successfully drains " + drainAmount + " MP!");
 		return true;
@@ -536,7 +536,7 @@ public class MapTimeBattleLogic extends Battle {
 		    return false;
 		} else {
 		    activeEnemy.offsetCurrentMP(-drainAmount);
-		    this.enemy.getTemplate().offsetCurrentMP(drainAmount);
+		    this.enemy.getCreature().offsetCurrentMP(drainAmount);
 		    this.setStatusMessage(
 			    this.enemy.getName() + " tries to drain, and successfully drains " + drainAmount + " MP!");
 		    return true;
@@ -552,7 +552,7 @@ public class MapTimeBattleLogic extends Battle {
     private boolean enemySteal() {
 	Creature activeEnemy = null;
 	try {
-	    activeEnemy = this.getEnemyBC(this.enemy).getTemplate();
+	    activeEnemy = this.getEnemyBC(this.enemy).getCreature();
 	} catch (final NullPointerException npe) {
 	    // Ignore
 	}
@@ -576,7 +576,7 @@ public class MapTimeBattleLogic extends Battle {
 		this.setStatusMessage(this.enemy.getName() + " tries to steal, but no Gold is left to steal!");
 		return false;
 	    } else {
-		this.enemy.getTemplate().offsetGold(stealAmount);
+		this.enemy.getCreature().offsetGold(stealAmount);
 		this.setStatusMessage(
 			this.enemy.getName() + " tries to steal, and successfully steals " + stealAmount + " gold!");
 		return true;
@@ -592,7 +592,7 @@ public class MapTimeBattleLogic extends Battle {
 		    this.setStatusMessage(this.enemy.getName() + " tries to steal, but no Gold is left to steal!");
 		    return false;
 		} else {
-		    this.enemy.getTemplate().offsetGold(stealAmount);
+		    this.enemy.getCreature().offsetGold(stealAmount);
 		    this.setStatusMessage(this.enemy.getName() + " tries to steal, and successfully steals "
 			    + stealAmount + " gold!");
 		    return true;
@@ -623,9 +623,9 @@ public class MapTimeBattleLogic extends Battle {
 
     @Override
     public void executeNextAIAction() {
-	if (this.enemy != null && this.enemy.getTemplate() != null && this.enemy.getAI() != null) {
+	if (this.enemy != null && this.enemy.getCreature() != null && this.enemy.getAI() != null) {
 	    final var active = this.enemy;
-	    if (active.getTemplate().isAlive()) {
+	    if (active.getCreature().isAlive()) {
 		final var action = active.getAI().getNextAction(this.enemyContext);
 		switch (action) {
 		case BattleAction.MOVE:
@@ -657,7 +657,7 @@ public class MapTimeBattleLogic extends Battle {
 
     @Override
     public Creature getEnemy() {
-	return this.enemy.getTemplate();
+	return this.enemy.getCreature();
     }
 
     private BattleCharacter getEnemyBC(final BattleCharacter acting) {
@@ -686,7 +686,7 @@ public class MapTimeBattleLogic extends Battle {
     }
 
     private int getGold() {
-	return this.enemy.getTemplate().getGold();
+	return this.enemy.getCreature().getGold();
     }
 
     @Override
@@ -728,16 +728,16 @@ public class MapTimeBattleLogic extends Battle {
 
     private boolean isTeamAlive(final int teamID) {
 	if (teamID == Creature.TEAM_PARTY) {
-	    return this.me.getTemplate().isAlive();
+	    return this.me.getCreature().isAlive();
 	} else {
-	    return this.enemy.getTemplate().isAlive();
+	    return this.enemy.getCreature().isAlive();
 	}
     }
 
     private boolean isTeamGone(final int teamID) {
 	if (teamID == Creature.TEAM_PARTY) {
 	    var res = true;
-	    if ((this.me != null) && this.me.getTemplate().isAlive()) {
+	    if ((this.me != null) && this.me.getCreature().isAlive()) {
 		res = res && !this.me.isActive();
 		if (!res) {
 		    return false;
@@ -746,7 +746,7 @@ public class MapTimeBattleLogic extends Battle {
 	    return true;
 	} else {
 	    var res = true;
-	    if ((this.enemy != null) && this.enemy.getTemplate().isAlive()) {
+	    if ((this.enemy != null) && this.enemy.getCreature().isAlive()) {
 		res = res && !this.enemy.isActive();
 		if (!res) {
 		    return false;
@@ -765,11 +765,11 @@ public class MapTimeBattleLogic extends Battle {
     public void maintainEffects(final boolean player) {
 	if (player) {
 	    if (this.me != null && this.me.isActive()) {
-		final var active = this.me.getTemplate();
+		final var active = this.me.getCreature();
 		// Use Effects
 		active.useEffects();
 		// Display all effect messages
-		final var effectMessages = this.me.getTemplate().getAllCurrentEffectMessages();
+		final var effectMessages = this.me.getCreature().getAllCurrentEffectMessages();
 		final var individualEffectMessages = effectMessages.split("\n");
 		for (final String message : individualEffectMessages) {
 		    if (!message.equals(Effect.getNullMessage())) {
@@ -792,7 +792,7 @@ public class MapTimeBattleLogic extends Battle {
 		if (!active.isAlive()) {
 		    if (this.me.getTeamID() != Creature.TEAM_PARTY) {
 			// Update victory spoils
-			this.battleExp = this.me.getTemplate().getExperience();
+			this.battleExp = this.me.getCreature().getExperience();
 		    }
 		    // Set dead character to inactive
 		    this.me.deactivate();
@@ -804,11 +804,11 @@ public class MapTimeBattleLogic extends Battle {
 		}
 	    }
 	} else if (this.enemy != null && this.enemy.isActive()) {
-	    final var active = this.enemy.getTemplate();
+	    final var active = this.enemy.getCreature();
 	    // Use Effects
 	    active.useEffects();
 	    // Display all effect messages
-	    final var effectMessages = this.enemy.getTemplate().getAllCurrentEffectMessages();
+	    final var effectMessages = this.enemy.getCreature().getAllCurrentEffectMessages();
 	    final var individualEffectMessages = effectMessages.split("\n");
 	    for (final String message : individualEffectMessages) {
 		if (!message.equals(Effect.getNullMessage())) {
@@ -831,7 +831,7 @@ public class MapTimeBattleLogic extends Battle {
 	    if (!active.isAlive()) {
 		if (this.enemy.getTeamID() != Creature.TEAM_PARTY) {
 		    // Update victory spoils
-		    this.battleExp = this.enemy.getTemplate().getExperience();
+		    this.battleExp = this.enemy.getCreature().getExperience();
 		}
 		// Set dead character to inactive
 		this.enemy.deactivate();
@@ -862,7 +862,7 @@ public class MapTimeBattleLogic extends Battle {
 	int rx, ry;
 	// Set Player Location
 	if ((this.me != null)
-		&& (this.me.isActive() && this.me.getTemplate().getX() == -1 && this.me.getTemplate().getY() == -1)) {
+		&& (this.me.isActive() && this.me.getCreature().getX() == -1 && this.me.getCreature().getY() == -1)) {
 	    rx = randX.generate();
 	    ry = randY.generate();
 	    var obj = this.battleMap.getCell(rx, ry, 0, DungeonConstants.LAYER_OBJECT);
@@ -876,8 +876,8 @@ public class MapTimeBattleLogic extends Battle {
 	    this.battleMap.setCell(this.me, rx, ry, 0, DungeonConstants.LAYER_OBJECT);
 	}
 	// Set Enemy Location
-	if ((this.enemy != null) && (this.enemy.isActive() && this.enemy.getTemplate().getX() == -1
-		&& this.enemy.getTemplate().getY() == -1)) {
+	if ((this.enemy != null) && (this.enemy.isActive() && this.enemy.getCreature().getX() == -1
+		&& this.enemy.getCreature().getY() == -1)) {
 	    rx = randX.generate();
 	    ry = randY.generate();
 	    var obj = this.battleMap.getCell(rx, ry, 0, DungeonConstants.LAYER_OBJECT);
@@ -910,7 +910,7 @@ public class MapTimeBattleLogic extends Battle {
     public boolean steal() {
 	Creature activeEnemy = null;
 	try {
-	    activeEnemy = this.getEnemyBC(this.me).getTemplate();
+	    activeEnemy = this.getEnemyBC(this.me).getCreature();
 	} catch (final NullPointerException npe) {
 	    // Ignore
 	}
@@ -934,7 +934,7 @@ public class MapTimeBattleLogic extends Battle {
 		this.setStatusMessage(this.me.getName() + " tries to steal, but no Gold is left to steal!");
 		return false;
 	    } else {
-		this.me.getTemplate().offsetGold(stealAmount);
+		this.me.getCreature().offsetGold(stealAmount);
 		this.setStatusMessage(
 			this.me.getName() + " tries to steal, and successfully steals " + stealAmount + " gold!");
 		return true;
@@ -950,7 +950,7 @@ public class MapTimeBattleLogic extends Battle {
 		    this.setStatusMessage(this.me.getName() + " tries to steal, but no Gold is left to steal!");
 		    return false;
 		} else {
-		    this.me.getTemplate().offsetGold(stealAmount);
+		    this.me.getCreature().offsetGold(stealAmount);
 		    this.setStatusMessage(
 			    this.me.getName() + " tries to steal, and successfully steals " + stealAmount + " gold!");
 		    return true;
@@ -1144,29 +1144,29 @@ public class MapTimeBattleLogic extends Battle {
 		    }
 		}
 		// Do damage
-		this.computeDamage(theEnemy.getTemplate(), active.getTemplate(), activeDE);
+		this.computeDamage(theEnemy.getCreature(), active.getCreature(), activeDE);
 		// Handle low health for party members
-		if (theEnemy.getTemplate().isAlive() && theEnemy.getTeamID() == Creature.TEAM_PARTY
-			&& theEnemy.getTemplate().getCurrentHP() <= theEnemy.getTemplate().getMaximumHP() * 3 / 10) {
+		if (theEnemy.getCreature().isAlive() && theEnemy.getTeamID() == Creature.TEAM_PARTY
+			&& theEnemy.getCreature().getCurrentHP() <= theEnemy.getCreature().getMaximumHP() * 3 / 10) {
 		    SoundLoader.playSound(Sounds.LOW_HEALTH);
 		}
 		// Handle enemy death
-		if (!theEnemy.getTemplate().isAlive()) {
+		if (!theEnemy.getCreature().isAlive()) {
 		    if (theEnemy.getTeamID() != Creature.TEAM_PARTY) {
 			// Update victory spoils
-			this.battleExp = theEnemy.getTemplate().getExperience();
+			this.battleExp = theEnemy.getCreature().getExperience();
 		    }
 		    // Remove effects from dead character
-		    bc.getTemplate().stripAllEffects();
+		    bc.getCreature().stripAllEffects();
 		    // Set dead character to inactive
 		    bc.deactivate();
 		    // Remove character from battle
 		    m.setCell(new Empty(), bc.getX(), bc.getY(), 0, DungeonConstants.LAYER_OBJECT);
 		}
 		// Handle self death
-		if (!active.getTemplate().isAlive()) {
+		if (!active.getCreature().isAlive()) {
 		    // Remove effects from dead character
-		    active.getTemplate().stripAllEffects();
+		    active.getCreature().stripAllEffects();
 		    // Set dead character to inactive
 		    active.deactivate();
 		    // Remove character from battle

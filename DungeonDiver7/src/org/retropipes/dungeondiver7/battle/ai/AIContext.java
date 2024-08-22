@@ -31,7 +31,7 @@ public class AIContext {
     // Constructor
     public AIContext(final BattleCharacter bc, final int rows, final int columns) {
 	this.battleCharacter = bc;
-	this.creature = bc.getTemplate();
+	this.creature = bc.getCreature();
 	this.myTeam = bc.getTeamID();
 	this.creatureLocations = new int[rows][columns];
     }

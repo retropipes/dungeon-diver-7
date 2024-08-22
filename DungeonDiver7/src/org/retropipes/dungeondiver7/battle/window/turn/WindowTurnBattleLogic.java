@@ -258,7 +258,7 @@ public class WindowTurnBattleLogic extends Battle {
 	    gm.hideOutput();
 	    gm.stopMovement();
 	    this.enemyBC = this.battleType.getBattlers();
-	    this.enemy = this.enemyBC.getTemplate();
+	    this.enemy = this.enemyBC.getCreature();
 	    this.enemy.healAndRegenerateFully();
 	    this.enemy.loadCreature();
 	    this.enemyDidDamage = false;
@@ -300,7 +300,7 @@ public class WindowTurnBattleLogic extends Battle {
 	    gm.hideOutput();
 	    gm.stopMovement();
 	    this.enemyBC = this.battleType.getBattlers();
-	    this.enemy = this.enemyBC.getTemplate();
+	    this.enemy = this.enemyBC.getCreature();
 	    this.enemy.healAndRegenerateFully();
 	    this.enemy.loadCreature();
 	    this.enemyDidDamage = false;

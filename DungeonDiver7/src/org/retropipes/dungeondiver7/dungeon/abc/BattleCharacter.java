@@ -19,37 +19,37 @@ import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 public class BattleCharacter extends DungeonObject {
     // Fields
-    private final Creature template;
+    private final Creature creature;
     private final AIContext aic;
     private CreatureAI ai;
     private int actionCounter;
     private int attackCounter;
     private int spellCounter;
-    private boolean isActive;
+    private boolean isBattleCharacterActive;
 
     // Constructors
     public BattleCharacter(final Creature newTemplate, final int rows, final int columns) {
 	super(true, false);
-	this.template = newTemplate;
+	this.creature = newTemplate;
 	this.actionCounter = newTemplate.getMapBattleActionsPerRound();
 	this.attackCounter = (int) newTemplate.getEffectedStat(StatConstants.STAT_ATTACKS_PER_ROUND);
 	this.spellCounter = (int) newTemplate.getEffectedStat(StatConstants.STAT_SPELLS_PER_ROUND);
-	this.isActive = true;
+	this.isBattleCharacterActive = true;
 	this.setSavedObject(new Empty());
 	this.aic = new AIContext(this, rows, columns);
     }
 
     public final void activate() {
-	this.isActive = true;
+	this.isBattleCharacterActive = true;
     }
 
     @Override
     public BufferedImageIcon battleRenderHook() {
-	return this.template.getImage();
+	return this.creature.getImage();
     }
 
     public final void deactivate() {
-	this.isActive = false;
+	this.isBattleCharacterActive = false;
     }
 
     @Override
@@ -61,8 +61,8 @@ public class BattleCharacter extends DungeonObject {
 		|| this.actionCounter != other.actionCounter || this.attackCounter != other.attackCounter) {
 	    return false;
 	}
-	if (this.isActive != other.isActive || this.spellCounter != other.spellCounter
-		|| !Objects.equals(this.template, other.template)) {
+	if (this.isBattleCharacterActive != other.isBattleCharacterActive || this.spellCounter != other.spellCounter
+		|| !Objects.equals(this.creature, other.creature)) {
 	    return false;
 	}
 	return true;
@@ -121,7 +121,7 @@ public class BattleCharacter extends DungeonObject {
     }
 
     public String getName() {
-	return this.template.getName();
+	return this.creature.getName();
     }
 
     public final String getSpellString() {
@@ -129,26 +129,26 @@ public class BattleCharacter extends DungeonObject {
     }
 
     public final int getTeamID() {
-	return this.template.getTeamID();
+	return this.creature.getTeamID();
     }
 
     public final String getTeamString() {
-	if (this.getTemplate().getTeamID() == 0) {
+	if (this.getCreature().getTeamID() == 0) {
 	    return "Team: Party";
 	}
-	return "Team: Enemies " + this.getTemplate().getTeamID();
+	return "Team: Enemies " + this.getCreature().getTeamID();
     }
 
-    public final Creature getTemplate() {
-	return this.template;
+    public final Creature getCreature() {
+	return this.creature;
     }
 
     public final int getX() {
-	return this.template.getX();
+	return this.creature.getX();
     }
 
     public final int getY() {
-	return this.template.getY();
+	return this.creature.getY();
     }
 
     public final boolean hasAI() {
@@ -161,13 +161,13 @@ public class BattleCharacter extends DungeonObject {
 	var result = super.hashCode();
 	result = prime * result + this.actionCounter;
 	result = prime * result + this.attackCounter;
-	result = prime * result + (this.isActive ? 1231 : 1237);
+	result = prime * result + (this.isBattleCharacterActive ? 1231 : 1237);
 	result = prime * result + this.spellCounter;
-	return prime * result + (this.template == null ? 0 : this.template.hashCode());
+	return prime * result + (this.creature == null ? 0 : this.creature.hashCode());
     }
 
     public final boolean isActive() {
-	return this.isActive;
+	return this.isBattleCharacterActive;
     }
 
     public final void modifyAP(final int mod) {
@@ -183,11 +183,11 @@ public class BattleCharacter extends DungeonObject {
     }
 
     public final void offsetX(final int newX) {
-	this.template.offsetX(newX);
+	this.creature.offsetX(newX);
     }
 
     public final void offsetY(final int newY) {
-	this.template.offsetY(newY);
+	this.creature.offsetY(newY);
     }
 
     @Override
@@ -202,28 +202,28 @@ public class BattleCharacter extends DungeonObject {
     }
 
     public final void resetAP() {
-	this.actionCounter = this.template.getMapBattleActionsPerRound();
+	this.actionCounter = this.creature.getMapBattleActionsPerRound();
     }
 
     public final void resetAttacks() {
-	this.attackCounter = (int) this.template.getEffectedStat(StatConstants.STAT_ATTACKS_PER_ROUND);
+	this.attackCounter = (int) this.creature.getEffectedStat(StatConstants.STAT_ATTACKS_PER_ROUND);
     }
 
     public final void resetLocation() {
-	this.template.setX(-1);
-	this.template.setY(-1);
+	this.creature.setX(-1);
+	this.creature.setY(-1);
     }
 
     public final void resetSpells() {
-	this.spellCounter = (int) this.template.getEffectedStat(StatConstants.STAT_SPELLS_PER_ROUND);
+	this.spellCounter = (int) this.creature.getEffectedStat(StatConstants.STAT_SPELLS_PER_ROUND);
     }
 
     public final void restoreLocation() {
-	this.template.restoreLocation();
+	this.creature.restoreLocation();
     }
 
     public final void saveLocation() {
-	this.template.saveLocation();
+	this.creature.saveLocation();
     }
 
     public final void setAI(final CreatureAI newAI) {
@@ -245,10 +245,10 @@ public class BattleCharacter extends DungeonObject {
     }
 
     public final void setX(final int newX) {
-	this.template.setX(newX);
+	this.creature.setX(newX);
     }
 
     public final void setY(final int newY) {
-	this.template.setY(newY);
+	this.creature.setY(newY);
     }
 }

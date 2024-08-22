@@ -31,8 +31,8 @@ class CommonMapAIParts {
     }
 
     static int getMaxCastIndex(final AIContext ac) {
-	final var currMP = ac.getCharacter().getTemplate().getCurrentMP();
-	final var allCosts = ac.getCharacter().getTemplate().getSpellBook().getAllSpellCosts();
+	final var currMP = ac.getCharacter().getCreature().getCurrentMP();
+	final var allCosts = ac.getCharacter().getCreature().getSpellBook().getAllSpellCosts();
 	var result = -1;
 	if (currMP > 0) {
 	    for (var x = 0; x < allCosts.length; x++) {

@@ -30,7 +30,7 @@ class VeryEasyMapAI extends MapAI {
     @Override
     public BattleAction getNextAction(final AIContext ac) {
 	if (this.roundsRemaining == null) {
-	    this.roundsRemaining = new int[ac.getCharacter().getTemplate().getSpellBook().getSpellCount()];
+	    this.roundsRemaining = new int[ac.getCharacter().getCreature().getSpellBook().getSpellCount()];
 	}
 	if (this.spellCheck(ac)) {
 	    // Cast a spell
@@ -146,13 +146,13 @@ class VeryEasyMapAI extends MapAI {
 	final var randomSpell = new RandomRange(0, maxIndex);
 	final var randomSpellID = randomSpell.generate();
 	// Healing spell was selected - is healing needed?
-	if (randomSpellID == CommonMapAIParts.SPELL_INDEX_HEAL && ac.getCharacter().getTemplate()
-		.getCurrentHP() > ac.getCharacter().getTemplate().getMaximumHP() * VeryEasyMapAI.HEAL_THRESHOLD / 100) {
+	if (randomSpellID == CommonMapAIParts.SPELL_INDEX_HEAL && ac.getCharacter().getCreature()
+		.getCurrentHP() > ac.getCharacter().getCreature().getMaximumHP() * VeryEasyMapAI.HEAL_THRESHOLD / 100) {
 	    // Do not need healing
 	    return false;
 	}
 	if (this.roundsRemaining[randomSpellID] == 0) {
-	    this.spell = ac.getCharacter().getTemplate().getSpellBook().getSpellByID(randomSpellID);
+	    this.spell = ac.getCharacter().getCreature().getSpellBook().getSpellByID(randomSpellID);
 	    this.roundsRemaining[randomSpellID] = this.spell.getEffect().getInitialRounds();
 	    return true;
 	}

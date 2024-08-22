@@ -43,10 +43,10 @@ public class MapBattleEffects {
     }
 
     public void updateEffects(final BattleCharacter bc) {
-	final var count = bc.getTemplate().getActiveEffectCount();
+	final var count = bc.getCreature().getActiveEffectCount();
 	if (count > 0) {
 	    this.setUpGUI(count);
-	    final var es = bc.getTemplate().getCompleteEffectStringArray();
+	    final var es = bc.getCreature().getCompleteEffectStringArray();
 	    for (var x = 0; x < count; x++) {
 		this.effectLabels[x].setText(es[x]);
 	    }
