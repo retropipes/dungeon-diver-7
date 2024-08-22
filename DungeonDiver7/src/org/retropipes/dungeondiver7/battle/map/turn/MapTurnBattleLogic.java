@@ -133,7 +133,8 @@ public class MapTurnBattleLogic extends Battle {
 	}
 	if (!this.bd.getActiveCharacter().hasAI()) {
 	    // Active character has no AI, or AI is turned off
-	    final var success = SpellCaster.selectAndCastSpell(this.bd.getActiveCharacter().getTemplate(), this.enemy.getTemplate());
+	    final var success = SpellCaster.selectAndCastSpell(this.bd.getActiveCharacter().getTemplate(),
+		    this.enemy.getTemplate());
 	    if (success) {
 		SoundLoader.playSound(Sounds.PARTY_SPELL);
 		this.decrementActiveSpellCounter();
@@ -148,7 +149,8 @@ public class MapTurnBattleLogic extends Battle {
 	}
 	// Active character has AI, and AI is turned on
 	final var sp = this.bd.getActiveCharacter().getAI().getSpellToCast();
-	final var success = SpellCaster.castSpell(sp, this.bd.getActiveCharacter().getTemplate(), this.enemy.getTemplate());
+	final var success = SpellCaster.castSpell(sp, this.bd.getActiveCharacter().getTemplate(),
+		this.enemy.getTemplate());
 	if (success) {
 	    SoundLoader.playSound(Sounds.ENEMY_SPELL);
 	    this.decrementActiveSpellCounter();
@@ -576,12 +578,10 @@ public class MapTurnBattleLogic extends Battle {
     @Override
     public void executeNextAIAction() {
 	if (this.bd != null && this.bd.getActiveCharacter() != null
-		&& this.bd.getActiveCharacter().getTemplate() != null
-		&& this.bd.getActiveCharacter().getAI() != null) {
+		&& this.bd.getActiveCharacter().getTemplate() != null && this.bd.getActiveCharacter().getAI() != null) {
 	    final var active = this.bd.getActiveCharacter();
 	    if (active.getTemplate().isAlive()) {
-		final var action = active.getAI()
-			.getNextAction(this.bd.getBattlerAIContexts()[this.activeIndex]);
+		final var action = active.getAI().getNextAction(this.bd.getBattlerAIContexts()[this.activeIndex]);
 		switch (action) {
 		case BattleAction.MOVE:
 		    final var x = active.getAI().getMoveX();

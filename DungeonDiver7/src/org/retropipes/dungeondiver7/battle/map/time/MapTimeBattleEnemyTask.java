@@ -8,14 +8,10 @@ import org.retropipes.dungeondiver7.StuffBag;
 import org.retropipes.dungeondiver7.battle.BattleResult;
 
 class MapTimeBattleEnemyTask extends TimerTask {
-    /**
-     * 
-     */
     private final MapTimeBattleLogic logic;
 
     public MapTimeBattleEnemyTask(MapTimeBattleLogic mapTimeBattleLogic) {
 	logic = mapTimeBattleLogic;
-	// Do nothing
     }
 
     private void enemyAct() {

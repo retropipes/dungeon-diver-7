@@ -9,14 +9,10 @@ import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 
 class MapTimeBattlePlayerTask extends TimerTask {
-    /**
-     * 
-     */
     private final MapTimeBattleLogic logic;
 
     public MapTimeBattlePlayerTask(MapTimeBattleLogic mapTimeBattleLogic) {
 	logic = mapTimeBattleLogic;
-	// Do nothing
     }
 
     @Override

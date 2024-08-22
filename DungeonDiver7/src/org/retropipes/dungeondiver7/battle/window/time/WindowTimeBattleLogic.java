@@ -585,7 +585,8 @@ public class WindowTimeBattleLogic extends Battle {
 	    }
 	    break;
 	case BattleAction.CAST_SPELL:
-	    SpellCaster.castSpell(this.enemyBC.getAI().getSpellToCast(), this.enemy, PartyManager.getParty().getLeader());
+	    SpellCaster.castSpell(this.enemyBC.getAI().getSpellToCast(), this.enemy,
+		    PartyManager.getParty().getLeader());
 	    break;
 	case BattleAction.FLEE:
 	    final var rf = new RandomRange(0, 100);

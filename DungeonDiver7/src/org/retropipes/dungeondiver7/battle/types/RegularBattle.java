@@ -16,7 +16,8 @@ class RegularBattle extends BattleType {
 
     // Constructors
     public RegularBattle(final int rows, final int columns) {
-	this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance(Prefs.getGameDifficulty()), rows, columns);
+	this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance(Prefs.getGameDifficulty()), rows,
+		columns);
 	this.monster.setAI(MapAIPicker.getNextRoutine());
     }
 

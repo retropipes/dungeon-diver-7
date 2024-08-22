@@ -11,7 +11,8 @@ public class MapBattle {
 
     // Constructors
     public MapBattle(final int rows, final int columns) {
-	this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance(Prefs.getGameDifficulty()), rows, columns);
+	this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance(Prefs.getGameDifficulty()), rows,
+		columns);
     }
 
     // Methods

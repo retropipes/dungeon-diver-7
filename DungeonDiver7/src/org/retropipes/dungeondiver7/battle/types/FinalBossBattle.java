@@ -17,7 +17,8 @@ class FinalBossBattle extends BattleType {
     // Constructors
     public FinalBossBattle(final int rows, final int columns) {
 	this.finalBoss = true;
-	this.monster = new BattleCharacter(MonsterFactory.getNewFinalBossInstance(Prefs.getGameDifficulty()), rows, columns);
+	this.monster = new BattleCharacter(MonsterFactory.getNewFinalBossInstance(Prefs.getGameDifficulty()), rows,
+		columns);
 	this.monster.setAI(MapAIPicker.getNextRoutine());
     }
 
