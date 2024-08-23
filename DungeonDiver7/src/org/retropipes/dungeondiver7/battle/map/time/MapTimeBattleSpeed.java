@@ -4,12 +4,9 @@ package org.retropipes.dungeondiver7.battle.map.time;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 
 class MapTimeBattleSpeed {
-    // Constants
-    private static int SPEED_FACTOR = 50;
-
     // Method
     static int getSpeed() {
-	return Prefs.getBattleSpeed() / MapTimeBattleSpeed.SPEED_FACTOR;
+	return Prefs.getBattleSpeed() / 100;
     }
 
     // Constructor

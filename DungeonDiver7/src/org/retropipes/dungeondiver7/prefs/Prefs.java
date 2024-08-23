@@ -32,7 +32,6 @@ public class Prefs {
     private static PrefsGUI gui;
     private final static int FALLBACK_LANGUAGE = 0;
     private final static EditorLayout DEFAULT_EDITOR_LAYOUT = EditorLayout.VERTICAL;
-    private static final int BATTLE_SPEED = 1000;
     private static final int VIEWING_WINDOW_SIZE = 11;
     private static final GameDifficulty DEFAULT_DIFFICULTY = GameDifficulty.NORMAL;
     private static final BattleMechanic DEFAULT_BATTLE_MECHANIC = BattleMechanic.TAKE_TURNS;
@@ -50,12 +49,12 @@ public class Prefs {
 	return Prefs.file.getInteger(Strings.prefKey(PrefKey.ACTION_DELAY), 2);
     }
 
-    public static long getActionSpeed() {
+    public static int getActionSpeed() {
 	return (Prefs.getActionDelay() + 1) * 5;
     }
 
     public static int getBattleSpeed() {
-	return Prefs.BATTLE_SPEED;
+	return (Prefs.getActionDelay() + 1) * 200 + 400;
     }
 
     public static BattleMechanic getBattleMechanic() {
