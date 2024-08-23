@@ -32,9 +32,11 @@ public final class GameObject {
     private ShopType shop;
     private boolean lazyLoaded;
     private transient int teamId;
+    private boolean imageOverridden;
 
     public GameObject(final ObjectImageId oid) {
 	this.id = oid;
+	this.imageOverridden = false;
 	this.model = new ObjectModel();
 	this.model.setId(oid);
 	this.lazyLoaded = false;
@@ -149,7 +151,9 @@ public final class GameObject {
 
     private void lazyLoad() {
 	if (!this.lazyLoaded) {
-	    this.image = ObjectImageLoader.load(this.id);
+	    if (!this.imageOverridden) {
+		this.image = ObjectImageLoader.load(this.id);
+	    }
 	    this.interactMessageIndex = GameObjectDataLoader.interactionMessageIndex(this.id);
 	    this.interactMessage = Strings
 		    .objectInteractMessage(ObjectInteractMessage.values()[this.interactMessageIndex]);
@@ -169,6 +173,11 @@ public final class GameObject {
 	    this.model.setCounter(COUNTER_DAMAGE, GameObjectDataLoader.damage(this.id));
 	    this.lazyLoaded = true;
 	}
+    }
+
+    public final void overrideImage(final BufferedImageIcon imageOverride) {
+	this.imageOverridden = true;
+	this.image = imageOverride;
     }
 
     public final void setTeamID(final int tid) {
