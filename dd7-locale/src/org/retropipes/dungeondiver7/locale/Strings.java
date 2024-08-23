@@ -16,6 +16,8 @@ public final class Strings {
     private static final String CACHE_DELIM = " & ";
     private static final String NAMED_DELIM = "$$";
     public static final int ARMOR_TYPES_COUNT = 6;
+    public static final int BATTLE_MECHANICS_COUNT = 2;
+    public static final int BATTLE_STYLES_COUNT = 2;
     public static final int WEAPON_TYPES_COUNT = 6;
     public static final int COLOR_COUNT = 8;
     private static final int CHEATS_COUNT = 25;
@@ -29,6 +31,24 @@ public final class Strings {
 	final var result = new String[Strings.ARMOR_TYPES_COUNT];
 	for (var index = 0; index < result.length; index++) {
 	    result[index] = ResourceBundle.getBundle("locale.armortype", Strings.ACTIVE)
+		    .getString(Integer.toString(index));
+	}
+	return result;
+    }
+
+    public static String[] allBattleMechanics() {
+	final var result = new String[Strings.BATTLE_MECHANICS_COUNT];
+	for (var index = 0; index < result.length; index++) {
+	    result[index] = ResourceBundle.getBundle("locale.battlemechanic", Strings.ACTIVE)
+		    .getString(Integer.toString(index));
+	}
+	return result;
+    }
+
+    public static String[] allBattleStyles() {
+	final var result = new String[Strings.BATTLE_STYLES_COUNT];
+	for (var index = 0; index < result.length; index++) {
+	    result[index] = ResourceBundle.getBundle("locale.battlestyle", Strings.ACTIVE)
 		    .getString(Integer.toString(index));
 	}
 	return result;

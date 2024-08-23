@@ -8,10 +8,6 @@ package org.retropipes.dungeondiver7.prefs;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -27,69 +23,12 @@ import org.retropipes.dungeondiver7.locale.PrefString;
 import org.retropipes.dungeondiver7.locale.Strings;
 
 class PrefsGUI {
-    private class EventHandler implements ActionListener, WindowListener {
-	public EventHandler() {
-	    // Do nothing
-	}
-
-	// Handle buttons
-	@Override
-	public void actionPerformed(final ActionEvent e) {
-	    try {
-		final var pm = PrefsGUI.this;
-		final var cmd = e.getActionCommand();
-		if (cmd.equals(Strings.dialog(DialogString.OK_BUTTON))) {
-		    pm.setPrefs();
-		} else if (cmd.equals(Strings.dialog(DialogString.CANCEL_BUTTON))) {
-		    pm.hidePrefs();
-		}
-	    } catch (final Exception ex) {
-		DungeonDiver7.logError(ex);
-	    }
-	}
-
-	@Override
-	public void windowActivated(final WindowEvent e) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowClosed(final WindowEvent e) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowClosing(final WindowEvent e) {
-	    final var pm = PrefsGUI.this;
-	    pm.hidePrefs();
-	}
-
-	@Override
-	public void windowDeactivated(final WindowEvent e) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowDeiconified(final WindowEvent e) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowIconified(final WindowEvent e) {
-	    // Do nothing
-	}
-
-	@Override
-	public void windowOpened(final WindowEvent e) {
-	    // Do nothing
-	}
-    }
-
     private static String[] DIFFICULTY_NAMES = Strings.allDifficulties();
-    private static final int GRID_LENGTH = 14;
+    private static final int GRID_LENGTH = 18;
     // Fields
     private MainWindow mainWindow;
-    private EventHandler handler;
+    private PrefsGUIActionHandler ahandler;
+    private PrefsGUIWindowHandler whandler;
     private MainContent mainPrefPane;
     private JCheckBox sounds;
     private JCheckBox music;
@@ -101,6 +40,8 @@ class PrefsGUI {
     private JComboBox<String> editorLayoutList;
     private JCheckBox editorShowAllObjects;
     private JComboBox<String> difficultyPicker;
+    private JComboBox<String> battleMechanicPicker;
+    private JComboBox<String> battleStylePicker;
 
     // Constructors
     PrefsGUI() {
@@ -118,7 +59,7 @@ class PrefsGUI {
     void hidePrefs() {
 	final var app = DungeonDiver7.getStuffBag();
 	app.restoreFormerMode();
-	this.mainWindow.removeWindowListener(this.handler);
+	this.mainWindow.removeWindowListener(this.whandler);
 	this.mainWindow.restoreSaved();
 	Prefs.writePrefs();
     }
@@ -156,7 +97,8 @@ class PrefsGUI {
     }
 
     private void setUpGUI() {
-	this.handler = new EventHandler();
+	this.ahandler = new PrefsGUIActionHandler(this);
+	this.whandler = new PrefsGUIWindowHandler(this);
 	this.mainWindow = MainWindow.mainWindow();
 	this.mainPrefPane = this.mainWindow.createContent();
 	final var buttonPane = this.mainWindow.createContent();
@@ -178,6 +120,8 @@ class PrefsGUI {
 	this.editorLayoutList = new JComboBox<>(Strings.allEditorLayouts());
 	this.editorShowAllObjects = new JCheckBox(Strings.prefs(PrefString.SHOW_ALL_OBJECTS), true);
 	this.difficultyPicker = new JComboBox<>(PrefsGUI.DIFFICULTY_NAMES);
+	this.battleMechanicPicker = new JComboBox<>(Strings.allBattleMechanics());
+	this.battleStylePicker = new JComboBox<>(Strings.allBattleStyles());
 	this.mainPrefPane.setLayout(new BorderLayout());
 	settingsPane.setLayout(new GridLayout(PrefsGUI.GRID_LENGTH, 1));
 	settingsPane.add(this.sounds);
@@ -192,21 +136,25 @@ class PrefsGUI {
 	settingsPane.add(new JLabel(Strings.prefs(PrefString.EDITOR_LAYOUT_LABEL)));
 	settingsPane.add(this.editorLayoutList);
 	settingsPane.add(this.editorShowAllObjects);
-	settingsPane.add(new JLabel("Game Difficulty"));
+	settingsPane.add(new JLabel(Strings.prefs(PrefString.GAME_DIFFICULTY)));
 	settingsPane.add(this.difficultyPicker);
+	settingsPane.add(new JLabel(Strings.prefs(PrefString.BATTLE_MECHANIC)));
+	settingsPane.add(this.battleMechanicPicker);
+	settingsPane.add(new JLabel(Strings.prefs(PrefString.BATTLE_STYLE)));
+	settingsPane.add(this.battleStylePicker);
 	buttonPane.setLayout(new FlowLayout());
 	buttonPane.add(prefsOK);
 	buttonPane.add(prefsCancel);
 	this.mainPrefPane.add(settingsPane, BorderLayout.CENTER);
 	this.mainPrefPane.add(buttonPane, BorderLayout.SOUTH);
-	prefsOK.addActionListener(this.handler);
-	prefsCancel.addActionListener(this.handler);
+	prefsOK.addActionListener(this.ahandler);
+	prefsCancel.addActionListener(this.ahandler);
     }
 
     public void showPrefs() {
 	final var app = DungeonDiver7.getStuffBag();
 	app.setInPrefs();
 	this.mainWindow.setAndSave(this.mainPrefPane, Strings.prefs(PrefString.TITLE));
-	this.mainWindow.addWindowListener(this.handler);
+	this.mainWindow.addWindowListener(this.whandler);
     }
 }

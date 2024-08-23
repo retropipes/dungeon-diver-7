@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.Locale;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
+import org.retropipes.dungeondiver7.battle.BattleMechanic;
+import org.retropipes.dungeondiver7.battle.BattleStyle;
 import org.retropipes.dungeondiver7.creature.GameDifficulty;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Ground;
@@ -33,6 +35,8 @@ public class Prefs {
     private static final int BATTLE_SPEED = 1000;
     private static final int VIEWING_WINDOW_SIZE = 11;
     private static final GameDifficulty DEFAULT_DIFFICULTY = GameDifficulty.NORMAL;
+    private static final BattleMechanic DEFAULT_BATTLE_MECHANIC = BattleMechanic.TAKE_TURNS;
+    private static final BattleStyle DEFAULT_BATTLE_STYLE = BattleStyle.MAP;
 
     public static void activeLanguageChanged() {
 	Prefs.gui.activeLanguageChanged();
@@ -52,6 +56,16 @@ public class Prefs {
 
     public static int getBattleSpeed() {
 	return Prefs.BATTLE_SPEED;
+    }
+
+    public static BattleMechanic getBattleMechanic() {
+	return BattleMechanic.values()[Prefs.file.getInteger(Strings.prefKey(PrefKey.BATTLE_MECHANIC),
+		Prefs.DEFAULT_BATTLE_MECHANIC.ordinal())];
+    }
+
+    public static BattleStyle getBattleStyle() {
+	return BattleStyle.values()[Prefs.file.getInteger(Strings.prefKey(PrefKey.BATTLE_STYLE),
+		Prefs.DEFAULT_BATTLE_STYLE.ordinal())];
     }
 
     public static DungeonObject getEditorDefaultFill() {
@@ -209,6 +223,14 @@ public class Prefs {
 
     static void setActionDelay(final int value) {
 	Prefs.file.setInteger(Strings.prefKey(PrefKey.ACTION_DELAY), value);
+    }
+
+    public static void setBattleMechanic(final BattleMechanic value) {
+	Prefs.file.setInteger(Strings.prefKey(PrefKey.BATTLE_MECHANIC), value.ordinal());
+    }
+
+    public static void setBattleStyle(final BattleStyle value) {
+	Prefs.file.setInteger(Strings.prefKey(PrefKey.BATTLE_STYLE), value.ordinal());
     }
 
     static void setCheckUpdatesAtStartup(final boolean value) {

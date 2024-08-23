@@ -14,13 +14,19 @@ import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.battle.Battle;
+import org.retropipes.dungeondiver7.battle.BattleMechanic;
+import org.retropipes.dungeondiver7.battle.BattleStyle;
+import org.retropipes.dungeondiver7.battle.map.time.MapTimeBattleLogic;
 import org.retropipes.dungeondiver7.battle.map.turn.MapTurnBattleLogic;
+import org.retropipes.dungeondiver7.battle.window.time.WindowTimeBattleLogic;
+import org.retropipes.dungeondiver7.battle.window.turn.WindowTurnBattleLogic;
 import org.retropipes.dungeondiver7.editor.DungeonEditor;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.gameobject.ShopType;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.manager.dungeon.DungeonManager;
+import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.shop.Shop;
 import org.retropipes.dungeondiver7.utility.DungeonObjects;
 
@@ -77,7 +83,11 @@ public final class StuffBag {
     private int mode, formerMode;
     private final DungeonObjects objects;
     private final Shop weapons, armor, healer, regenerator, spells;
-    private MapTurnBattleLogic battle;
+    private Battle battle;
+    private MapTimeBattleLogic mabattle;
+    private MapTurnBattleLogic mtbattle;
+    private WindowTimeBattleLogic wabattle;
+    private WindowTurnBattleLogic wtbattle;
 
     // Constructors
     public StuffBag() {
@@ -129,9 +139,44 @@ public final class StuffBag {
     }
 
     public Battle getBattle() {
+	// If battles aren't initialized, do so
 	if (this.battle == null) {
-	    this.battle = new MapTurnBattleLogic();
+	    this.mabattle = new MapTimeBattleLogic();
+	    this.mtbattle = new MapTurnBattleLogic();
+	    this.wabattle = new WindowTimeBattleLogic();
+	    this.wtbattle = new WindowTurnBattleLogic();
 	}
+	// Select battle type from user settings
+	BattleMechanic bm = Prefs.getBattleMechanic();
+	BattleStyle bs = Prefs.getBattleStyle();
+	switch (bm) {
+	case ACTION_BAR:
+	    switch (bs) {
+	    case MAP:
+		this.battle = this.mabattle;
+	    case WINDOW:
+		this.battle = this.wabattle;
+	    default:
+		this.battle = this.mtbattle;
+		break;
+	    }
+	    break;
+	case TAKE_TURNS:
+	    switch (bs) {
+	    case MAP:
+		this.battle = this.mtbattle;
+	    case WINDOW:
+		this.battle = this.wtbattle;
+	    default:
+		this.battle = this.mtbattle;
+		break;
+	    }
+	    break;
+	default:
+	    this.battle = this.mtbattle;
+	    break;
+	}
+	// Return corresponding battle object
 	return this.battle;
     }
 
