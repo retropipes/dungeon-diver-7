@@ -19,7 +19,7 @@ public class MirrorMover extends AbstractMover {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 125;
     }
 }

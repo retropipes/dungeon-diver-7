@@ -220,7 +220,6 @@ class GameGUI {
     }
 
     boolean newGame() {
-	DungeonDiver7.getStuffBag().getObjects().enableAllObjects();
 	this.difficultyList.clearSelection();
 	final var retVal = GameGUI.getEnabledDifficulties();
 	this.difficultyList.setSelectedIndices(retVal);
@@ -272,7 +271,7 @@ class GameGUI {
 			}
 		    } else {
 			this.drawGrid.setImageCell(
-				ObjectImageLoader.load(GameGUI.DARK.getCacheName(), GameGUI.DARK.getId()), xFix,
+				ObjectImageLoader.load(GameGUI.DARK.getCacheName(), GameGUI.DARK.getIdValue()), xFix,
 				yFix);
 		    }
 		} catch (final ArrayIndexOutOfBoundsException ae) {

@@ -15,7 +15,7 @@ public class WoodenAllButtonDoor extends AbstractAllButtonDoor {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 117;
     }
 }

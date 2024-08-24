@@ -20,7 +20,7 @@ public class Bricks extends AbstractReactionWall {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 8;
     }
 

@@ -43,7 +43,7 @@ public class DisruptedHotWall extends AbstractDisruptedObject {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 59;
     }
 

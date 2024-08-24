@@ -20,7 +20,7 @@ public class TenBoosts extends AbstractInventoryModifier {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 39;
     }
 

@@ -20,7 +20,7 @@ public class TenMagnets extends AbstractInventoryModifier {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 40;
     }
 

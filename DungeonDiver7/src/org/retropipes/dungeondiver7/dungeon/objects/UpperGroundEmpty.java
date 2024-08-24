@@ -16,7 +16,7 @@ public class UpperGroundEmpty extends AbstractPassThroughObject {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 130;
     }
 

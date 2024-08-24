@@ -66,7 +66,7 @@ public abstract class AbstractButton extends DungeonObject {
     @Override
     public void editorPlaceHook(final int x, final int y, final int z) {
 	final var app = DungeonDiver7.getStuffBag();
-	final var loc = app.getDungeonManager().getDungeon().findObject(z, this.getButtonDoor().getBaseName());
+	final var loc = app.getDungeonManager().getDungeon().findObject(z, this.getButtonDoor().getName());
 	if (loc != null) {
 	    this.setDoorX(loc[0]);
 	    this.setDoorY(loc[1]);

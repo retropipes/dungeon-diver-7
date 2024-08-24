@@ -15,7 +15,7 @@ public class FireTriggerButtonDoor extends AbstractTriggerButtonDoor {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 79;
     }
 }

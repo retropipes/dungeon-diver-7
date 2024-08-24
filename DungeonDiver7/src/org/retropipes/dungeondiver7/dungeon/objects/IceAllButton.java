@@ -16,7 +16,7 @@ public class IceAllButton extends AbstractAllButton {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 80;
     }
 }

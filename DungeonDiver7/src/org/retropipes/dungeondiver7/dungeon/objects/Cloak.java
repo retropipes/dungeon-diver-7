@@ -24,7 +24,7 @@ public class Cloak extends AbstractAttribute {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 135;
     }
 

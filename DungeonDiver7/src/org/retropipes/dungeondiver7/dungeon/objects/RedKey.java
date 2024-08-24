@@ -18,7 +18,7 @@ public class RedKey extends AbstractKey {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 29;
     }
 

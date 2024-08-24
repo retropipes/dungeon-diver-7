@@ -16,7 +16,7 @@ public class PlasticTriggerButton extends AbstractTriggerButton {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 102;
     }
 }

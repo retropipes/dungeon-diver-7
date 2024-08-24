@@ -26,7 +26,7 @@ public class MetallicRotaryMirror extends AbstractReactionWall {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 66;
     }
 

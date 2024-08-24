@@ -906,7 +906,7 @@ public class DungeonEditor implements MenuSection {
 		yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
 		final var lgobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			DungeonConstants.LAYER_LOWER_GROUND);
-		final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getId());
+		final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getIdValue());
 		final var img = lgimg;
 		drawGrid.setImageCell(img, xFix, yFix);
 	    }
@@ -929,8 +929,8 @@ public class DungeonEditor implements MenuSection {
 			DungeonConstants.LAYER_LOWER_GROUND);
 		final var ugobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			DungeonConstants.LAYER_UPPER_GROUND);
-		final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getId());
-		final var ugimg = ObjectImageLoader.load(ugobj.getImageName(), ugobj.getId());
+		final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getIdValue());
+		final var ugimg = ObjectImageLoader.load(ugobj.getImageName(), ugobj.getIdValue());
 		final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName());
 		final var img = ImageCompositor.composite(cacheName, lgimg, ugimg);
 		drawGrid.setImageCell(img, xFix, yFix);
@@ -956,9 +956,9 @@ public class DungeonEditor implements MenuSection {
 			DungeonConstants.LAYER_UPPER_GROUND);
 		final var loobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			DungeonConstants.LAYER_LOWER_OBJECTS);
-		final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getId());
-		final var ugimg = ObjectImageLoader.load(ugobj.getImageName(), ugobj.getId());
-		final var loimg = ObjectImageLoader.load(loobj.getImageName(), loobj.getId());
+		final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getIdValue());
+		final var ugimg = ObjectImageLoader.load(ugobj.getImageName(), ugobj.getIdValue());
+		final var loimg = ObjectImageLoader.load(loobj.getImageName(), loobj.getIdValue());
 		final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName(),
 			loobj.getCacheName());
 		final var img = ImageCompositor.composite(cacheName, lgimg, ugimg, loimg);
@@ -989,11 +989,11 @@ public class DungeonEditor implements MenuSection {
 			DungeonConstants.LAYER_UPPER_OBJECTS);
 		final var lvobj = app.getDungeonManager().getDungeon().getVirtualCell(y, x,
 			this.elMgr.getEditorLocationZ(), DungeonConstants.LAYER_VIRTUAL);
-		final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getId());
-		final var ugimg = ObjectImageLoader.load(ugobj.getImageName(), ugobj.getId());
-		final var loimg = ObjectImageLoader.load(loobj.getImageName(), loobj.getId());
-		final var uoimg = ObjectImageLoader.load(uoobj.getImageName(), uoobj.getId());
-		final var lvimg = ObjectImageLoader.load(lvobj.getImageName(), lvobj.getId());
+		final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getIdValue());
+		final var ugimg = ObjectImageLoader.load(ugobj.getImageName(), ugobj.getIdValue());
+		final var loimg = ObjectImageLoader.load(loobj.getImageName(), loobj.getIdValue());
+		final var uoimg = ObjectImageLoader.load(uoobj.getImageName(), uoobj.getIdValue());
+		final var lvimg = ObjectImageLoader.load(lvobj.getImageName(), lvobj.getIdValue());
 		final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName(),
 			loobj.getCacheName(), uoobj.getCacheName(), lvobj.getCacheName());
 		final var img = ImageCompositor.composite(cacheName, lgimg, ugimg, loimg, uoimg, lvimg);

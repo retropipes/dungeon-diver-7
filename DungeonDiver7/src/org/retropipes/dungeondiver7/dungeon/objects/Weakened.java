@@ -18,7 +18,7 @@ public class Weakened extends AbstractAttribute {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 134;
     }
 

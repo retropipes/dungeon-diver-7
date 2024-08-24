@@ -16,7 +16,7 @@ public class StairsUp extends AbstractTeleport {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 33;
     }
 

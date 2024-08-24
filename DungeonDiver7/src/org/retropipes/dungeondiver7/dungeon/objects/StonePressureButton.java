@@ -16,7 +16,7 @@ public class StonePressureButton extends AbstractPressureButton {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 106;
     }
 }

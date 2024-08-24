@@ -17,7 +17,7 @@ public class Ball extends AbstractMovableObject {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 2;
     }
 

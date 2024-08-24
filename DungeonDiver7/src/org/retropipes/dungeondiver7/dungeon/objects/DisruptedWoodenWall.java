@@ -39,7 +39,7 @@ public class DisruptedWoodenWall extends AbstractDisruptedObject {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 57;
     }
 

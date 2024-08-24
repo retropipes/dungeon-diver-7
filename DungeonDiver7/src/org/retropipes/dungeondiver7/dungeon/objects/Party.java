@@ -28,7 +28,7 @@ public class Party extends AbstractCharacter {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 36;
     }
 }

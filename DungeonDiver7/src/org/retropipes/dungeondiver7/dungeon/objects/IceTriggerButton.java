@@ -16,7 +16,7 @@ public class IceTriggerButton extends AbstractTriggerButton {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 84;
     }
 }

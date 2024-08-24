@@ -18,7 +18,7 @@ public class Cracked extends AbstractAttribute {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 131;
     }
 

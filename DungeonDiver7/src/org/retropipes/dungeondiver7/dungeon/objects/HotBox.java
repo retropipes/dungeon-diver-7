@@ -29,7 +29,7 @@ public class HotBox extends AbstractMovableObject {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 63;
     }
 

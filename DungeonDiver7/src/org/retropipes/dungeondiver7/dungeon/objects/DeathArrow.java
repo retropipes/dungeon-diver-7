@@ -13,7 +13,7 @@ public class DeathArrow extends AbstractTransientObject {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 30;
     }
 

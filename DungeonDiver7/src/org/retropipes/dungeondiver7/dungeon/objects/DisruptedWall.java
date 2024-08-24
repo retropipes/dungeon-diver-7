@@ -48,7 +48,7 @@ public class DisruptedWall extends AbstractDisruptedObject {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 52;
     }
 

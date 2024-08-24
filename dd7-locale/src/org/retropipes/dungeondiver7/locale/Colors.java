@@ -6,5 +6,5 @@
 package org.retropipes.dungeondiver7.locale;
 
 public enum Colors {
-    GRAY, BLUE, CYAN, GREEN, MAGENTA, RED, WHITE, YELLOW, NONE
+    _NONE, GRAY, BLUE, CYAN, GREEN, MAGENTA, RED, WHITE, YELLOW
 }

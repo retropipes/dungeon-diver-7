@@ -18,7 +18,7 @@ public class OpenDoor extends AbstractPassThroughObject {
     }
 
     @Override
-    public int getId() {
+    public int getIdValue() {
 	return ObjectImageConstants.OPEN_DOOR;
     }
 

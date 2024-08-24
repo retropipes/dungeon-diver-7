@@ -34,7 +34,7 @@ public class DisruptedHotCrystalBlock extends AbstractReactionDisruptedObject {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 128;
     }
 

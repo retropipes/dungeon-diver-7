@@ -14,7 +14,7 @@ public class FrostField extends AbstractField {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 14;
     }
 

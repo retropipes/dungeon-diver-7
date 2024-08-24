@@ -19,7 +19,7 @@ public class Tunnel extends AbstractTunnel {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 44;
     }
 }

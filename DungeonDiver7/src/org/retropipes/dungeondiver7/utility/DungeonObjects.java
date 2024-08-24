@@ -58,19 +58,11 @@ public class DungeonObjects {
 	}
     }
 
-    public String[] getAllDescriptions() {
-	final var allDescriptions = new String[this.allObjects.length];
-	for (var x = 0; x < this.allObjects.length; x++) {
-	    allDescriptions[x] = this.allObjects[x].getDescription();
-	}
-	return allDescriptions;
-    }
-
     public BufferedImageIcon[] getAllEditorAppearances() {
 	final var allEditorAppearances = new BufferedImageIcon[this.allObjects.length];
 	for (var x = 0; x < allEditorAppearances.length; x++) {
 	    allEditorAppearances[x] = ObjectImageLoader.load(this.allObjects[x].getImageName(),
-		    this.allObjects[x].getId());
+		    this.allObjects[x].getIdValue());
 	}
 	return allEditorAppearances;
     }
@@ -85,7 +77,7 @@ public class DungeonObjects {
 		    this.allObjects[x].setEnabled(false);
 		}
 		allEditorAppearancesOnLayer[x] = ObjectImageLoader.load(this.allObjects[x].getImageName(),
-			this.allObjects[x].getId());
+			this.allObjects[x].getIdValue());
 	    }
 	    return allEditorAppearancesOnLayer;
 	}
@@ -94,7 +86,7 @@ public class DungeonObjects {
 	for (var x = 0; x < this.allObjects.length; x++) {
 	    if (this.allObjects[x].getLayer() == layer) {
 		tempAllEditorAppearancesOnLayer[x] = ObjectImageLoader.load(this.allObjects[x].getImageName(),
-			this.allObjects[x].getId());
+			this.allObjects[x].getIdValue());
 	    }
 	}
 	for (final BufferedImageIcon element : tempAllEditorAppearancesOnLayer) {
@@ -118,7 +110,7 @@ public class DungeonObjects {
 	var objectCount = 0;
 	for (var x = 0; x < this.allObjects.length; x++) {
 	    if (this.allObjects[x].getLayer() == layer) {
-		tempAllNamesOnLayer[x] = this.allObjects[x].getBaseName();
+		tempAllNamesOnLayer[x] = this.allObjects[x].getName();
 	    }
 	}
 	for (final String element : tempAllNamesOnLayer) {

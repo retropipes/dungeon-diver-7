@@ -21,7 +21,7 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public int getId() {
+    public int getIdValue() {
 	return ObjectImageConstants.FINAL_BOSS;
     }
 

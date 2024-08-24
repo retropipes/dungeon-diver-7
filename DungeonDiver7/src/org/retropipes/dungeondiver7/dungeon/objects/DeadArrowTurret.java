@@ -21,7 +21,7 @@ public class DeadArrowTurret extends AbstractMovableObject {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 11;
     }
 

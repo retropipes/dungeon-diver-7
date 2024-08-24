@@ -19,7 +19,7 @@ public class GreenDoor extends AbstractDoor {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 16;
     }
 

@@ -15,7 +15,7 @@ public class IceAllButtonDoor extends AbstractAllButtonDoor {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 81;
     }
 }

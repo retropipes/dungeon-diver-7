@@ -20,7 +20,7 @@ public class TenStunners extends AbstractInventoryModifier {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 42;
     }
 

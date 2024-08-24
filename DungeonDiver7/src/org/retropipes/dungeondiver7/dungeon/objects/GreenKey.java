@@ -18,7 +18,7 @@ public class GreenKey extends AbstractKey {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 17;
     }
 

@@ -15,7 +15,7 @@ public class FirePressureButtonDoor extends AbstractPressureButtonDoor {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 77;
     }
 }

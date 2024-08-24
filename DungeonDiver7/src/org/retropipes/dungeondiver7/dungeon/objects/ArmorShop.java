@@ -17,7 +17,7 @@ public class ArmorShop extends AbstractShop {
     }
 
     @Override
-    public int getId() {
+    public int getIdValue() {
 	return ObjectImageConstants.ARMOR_SHOP;
     }
 }

@@ -16,7 +16,7 @@ public class StoneAllButton extends AbstractAllButton {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 104;
     }
 }

@@ -16,7 +16,7 @@ public class MagneticPressureButton extends AbstractPressureButton {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 88;
     }
 }

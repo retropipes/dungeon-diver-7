@@ -33,7 +33,7 @@ public class JumpBox extends AbstractJumpObject {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 123;
     }
 

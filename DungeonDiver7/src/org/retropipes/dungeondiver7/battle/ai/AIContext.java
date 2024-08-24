@@ -111,7 +111,7 @@ public class AIContext {
 	for (var x = 0; x < this.creatureLocations.length; x++) {
 	    for (var y = 0; y < this.creatureLocations[x].length; y++) {
 		final var obj = arena.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
-		if (obj.getId() == ObjectImageId._CREATURE.ordinal()) {
+		if (obj.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		    this.creatureLocations[x][y] = obj.getTeamID();
 		} else {
 		    this.creatureLocations[x][y] = AIContext.NOTHING_THERE;

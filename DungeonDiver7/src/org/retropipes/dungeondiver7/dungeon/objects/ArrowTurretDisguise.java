@@ -38,7 +38,7 @@ public class ArrowTurretDisguise extends AbstractCharacter {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 0;
     }
 

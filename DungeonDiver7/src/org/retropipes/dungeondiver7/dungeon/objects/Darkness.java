@@ -13,7 +13,7 @@ public class Darkness extends AbstractAttribute {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 136;
     }
 }

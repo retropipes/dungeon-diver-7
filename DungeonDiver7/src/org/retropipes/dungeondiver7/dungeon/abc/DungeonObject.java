@@ -99,7 +99,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	this.frameNumber = 0;
 	this.directions = Direction.NONE;
 	this.diagonalOnly = false;
-	this.color = Colors.NONE;
+	this.color = Colors._NONE;
 	this.material = Materials.DEFAULT;
 	this.imageEnabled = true;
     }
@@ -133,7 +133,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	this.frameNumber = 0;
 	this.directions = Direction.NONE;
 	this.diagonalOnly = false;
-	this.color = Colors.NONE;
+	this.color = Colors._NONE;
 	this.material = Materials.DEFAULT;
 	this.imageEnabled = true;
     }
@@ -170,7 +170,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	this.frameNumber = 0;
 	this.directions = Direction.NONE;
 	this.diagonalOnly = false;
-	this.color = Colors.NONE;
+	this.color = Colors._NONE;
 	this.material = Materials.DEFAULT;
 	this.imageEnabled = true;
     }
@@ -324,22 +324,22 @@ public abstract class DungeonObject implements RandomGenerationRule {
      * @return
      */
     public BufferedImageIcon gameRenderHook(final int x, final int y) {
-	return ObjectImageLoader.load(this.getCacheName(), this.getId());
+	return ObjectImageLoader.load(this.getCacheName(), this.getIdValue());
     }
 
-    abstract public int getId();
+    abstract public int getIdValue();
 
     public String getCacheName() {
-	return Integer.toString(this.getId());
+	return Integer.toString(this.getIdValue());
     }
 
-    public final String getBaseName() {
-	return Strings.objectName(this.getId());
+    public final String getName() {
+	return Strings.objectName(this.getIdValue());
     }
 
     public int getBattleBaseID() {
 	if (this.enabledInBattle()) {
-	    return this.getId();
+	    return this.getIdValue();
 	}
 	return ObjectImageConstants.NONE;
     }
@@ -367,7 +367,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public String getDescription() {
-	return Strings.objectDescription(this.getId());
+	return Strings.objectDescription(this.getIdValue());
     }
 
     public final Direction getDirection() {
@@ -397,7 +397,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public final String getIdentityName() {
-	return this.getLocalColorPrefix() + Strings.objectName(this.getId());
+	return this.getLocalColorPrefix() + Strings.objectName(this.getIdValue());
     }
 
     public final String getImageName() {
@@ -450,7 +450,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     private final boolean hasColor() {
-	return this.color != null && this.color != Colors.NONE;
+	return this.color != null && this.color != Colors._NONE;
     }
 
     private final boolean hasDirection() {

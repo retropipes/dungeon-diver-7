@@ -15,7 +15,7 @@ public class ArrowBelt extends AbstractSpell {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 144;
     }
 

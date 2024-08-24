@@ -21,7 +21,7 @@ public class MagneticWall extends AbstractWall {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 24;
     }
 

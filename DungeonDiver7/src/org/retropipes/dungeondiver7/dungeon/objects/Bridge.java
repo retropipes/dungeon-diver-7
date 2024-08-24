@@ -13,7 +13,7 @@ public class Bridge extends AbstractGround {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 9;
     }
 }

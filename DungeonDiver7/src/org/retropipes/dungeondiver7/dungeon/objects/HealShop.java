@@ -16,7 +16,7 @@ public class HealShop extends AbstractShop {
     }
 
     @Override
-    public int getId() {
+    public int getIdValue() {
 	return ObjectImageConstants.HEAL_SHOP;
     }
 }

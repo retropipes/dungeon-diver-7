@@ -1102,7 +1102,7 @@ public class MapTurnBattleLogic extends Battle {
 		// Ignore
 	    }
 	    // Auto-attack check
-	    if (obj1.getId() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj1.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if ((x != -1 || y != 0) && (x != -1 || y != -1) && (x != 0 || y != -1)) {
 		    final var bc1 = this.bd.getFirstBattlerOnTeam(obj1.getTeamID());
 		    if (bc1 != null && obj1.getTeamID() != activeBC.getTeamID()) {
@@ -1110,7 +1110,7 @@ public class MapTurnBattleLogic extends Battle {
 		    }
 		}
 	    }
-	    if (obj2.getId() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj2.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if (y == 1) {
 		    final var bc2 = this.bd.getFirstBattlerOnTeam(obj2.getTeamID());
 		    if (bc2 != null && obj2.getTeamID() != activeBC.getTeamID()) {
@@ -1118,7 +1118,7 @@ public class MapTurnBattleLogic extends Battle {
 		    }
 		}
 	    }
-	    if (obj3.getId() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj3.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if ((x != 0 || y != -1) && (x != 1 || y != -1) && (x != 1 || y != 0)) {
 		    final var bc3 = this.bd.getFirstBattlerOnTeam(obj3.getTeamID());
 		    if (bc3 != null && obj3.getTeamID() != activeBC.getTeamID()) {
@@ -1126,7 +1126,7 @@ public class MapTurnBattleLogic extends Battle {
 		    }
 		}
 	    }
-	    if (obj4.getId() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj4.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if (x == 1) {
 		    final var bc4 = this.bd.getFirstBattlerOnTeam(obj4.getTeamID());
 		    if (bc4 != null && obj4.getTeamID() != activeBC.getTeamID()) {
@@ -1134,7 +1134,7 @@ public class MapTurnBattleLogic extends Battle {
 		    }
 		}
 	    }
-	    if (obj6.getId() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj6.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if (x == -1) {
 		    final var bc6 = this.bd.getFirstBattlerOnTeam(obj6.getTeamID());
 		    if (bc6 != null && obj6.getTeamID() != activeBC.getTeamID()) {
@@ -1142,7 +1142,7 @@ public class MapTurnBattleLogic extends Battle {
 		    }
 		}
 	    }
-	    if (obj7.getId() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj7.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if ((x != -1 || y != 0) && (x != -1 || y != 1) && (x != 0 || y != 1)) {
 		    final var bc7 = this.bd.getFirstBattlerOnTeam(obj7.getTeamID());
 		    if (bc7 != null && obj7.getTeamID() != activeBC.getTeamID()) {
@@ -1150,7 +1150,7 @@ public class MapTurnBattleLogic extends Battle {
 		    }
 		}
 	    }
-	    if (obj8.getId() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj8.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if (y == -1) {
 		    final var bc8 = this.bd.getFirstBattlerOnTeam(obj8.getTeamID());
 		    if (bc8 != null && obj8.getTeamID() != activeBC.getTeamID()) {
@@ -1158,7 +1158,7 @@ public class MapTurnBattleLogic extends Battle {
 		    }
 		}
 	    }
-	    if (obj9.getId() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj9.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if ((x != 0 || y != 1) && (x != 1 || y != 1) && (x != 1 || y != 0)) {
 		    final var bc9 = this.bd.getFirstBattlerOnTeam(obj9.getTeamID());
 		    if (bc9 != null && obj9.getTeamID() != activeBC.getTeamID()) {
@@ -1181,7 +1181,7 @@ public class MapTurnBattleLogic extends Battle {
 	    } else {
 		SoundLoader.playSound(Sounds.STEP_ENEMY);
 	    }
-	} else if (next != null && next.getId() == ObjectImageId._CREATURE.ordinal()) {
+	} else if (next != null && next.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 	    if ((!useAP || this.getActiveAttackCounter() <= 0) && useAP) {
 		// Deny attack - out of actions
 		if (!this.bd.getActiveCharacter().hasAI()) {

@@ -28,7 +28,7 @@ public class RotaryMirror extends AbstractReactionWall {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 31;
     }
 

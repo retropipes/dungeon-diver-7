@@ -855,7 +855,7 @@ public final class CurrentDungeonData extends DungeonData {
 		for (var w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, x, y, z, w);
-			final var testName = obj.getBaseName();
+			final var testName = obj.getName();
 			if (testName.equals(targetName)) {
 			    return new int[] { x, y };
 			}

@@ -36,7 +36,7 @@ public class DeeperWater extends AbstractGround {
     }
 
     @Override
-    public final int getId() {
+    public final int getIdValue() {
 	return 68;
     }
 
