@@ -31,18 +31,18 @@ public final class GameObject {
     private static final int MAX_FLAGS = 9;
     private final ObjectModel model;
     private final ObjectImageId id;
-    private BufferedImageIcon image;
-    private String interactMessage;
-    private int interactMessageIndex;
-    private Sounds interactSound;
-    private ObjectImageId interactMorph;
-    private ShopType shop;
-    private boolean lazyLoaded;
+    private transient BufferedImageIcon image;
+    private transient String interactMessage;
+    private transient int interactMessageIndex;
+    private transient Sounds interactSound;
+    private transient ObjectImageId interactMorph;
+    private transient ShopType shop;
+    private transient boolean lazyLoaded;
     private transient int teamId;
-    private boolean imageOverridden;
-    private Direction direction;
-    private Colors color;
-    private ObjectImageId saved;
+    private transient boolean imageOverridden;
+    private transient Direction direction;
+    private transient Colors color;
+    private transient ObjectImageId saved;
 
     public GameObject(final ObjectImageId oid) {
 	this.id = oid;
