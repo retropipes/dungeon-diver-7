@@ -12,7 +12,6 @@ import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
@@ -20,7 +19,6 @@ public class WoodenBox extends AbstractMovableObject {
     // Constructors
     public WoodenBox() {
 	super(true);
-	this.type.set(DungeonObjectTypes.TYPE_BOX);
 	this.setMaterial(Materials.WOODEN);
     }
 
@@ -58,9 +56,9 @@ public class WoodenBox extends AbstractMovableObject {
 	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
 	} else {
 	    if (laserType == ShotTypes.BLUE && mor != null
-		    && (mor.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mor.isSolid())) {
+		    && (mor.isPlayer() || !mor.isSolid())) {
 		app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
-	    } else if (mof != null && (mof.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mof.isSolid())) {
+	    } else if (mof != null && (mof.isPlayer() || !mof.isSolid())) {
 		app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
 	    } else {
 		// Object doesn't react to this type of laser

@@ -621,7 +621,7 @@ public final class CurrentDungeonData extends DungeonData {
 			final var obj = this.getCell(dungeon, v, u, zFix, w);
 			final var savedObj = obj.getSavedObject();
 			String testName;
-			if (!obj.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || moved) {
+			if (!obj.isPlayer() || moved) {
 			    testName = obj.getImageName();
 			} else {
 			    testName = savedObj.getImageName();
@@ -721,7 +721,7 @@ public final class CurrentDungeonData extends DungeonData {
 		    final var obj = this.getCell(dungeon, v, u, zFix, w);
 		    final var savedObj = obj.getSavedObject();
 		    DungeonObject test;
-		    if (obj.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
+		    if (obj.isPlayer()) {
 			test = savedObj;
 		    } else {
 			test = obj;

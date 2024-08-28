@@ -10,7 +10,6 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDisruptedObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
@@ -21,14 +20,12 @@ public class DisruptedHotWall extends AbstractDisruptedObject {
 
     // Constructors
     public DisruptedHotWall() {
-	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.disruptionLeft = DisruptedHotWall.DISRUPTION_START;
 	this.activateTimer(1);
 	this.setMaterial(Materials.FIRE);
     }
 
     DisruptedHotWall(final int disruption) {
-	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.disruptionLeft = disruption;
 	this.activateTimer(1);
 	this.setMaterial(Materials.FIRE);

@@ -10,7 +10,6 @@ import org.retropipes.dungeondiver7.dungeon.objects.Tunnel;
 import org.retropipes.dungeondiver7.locale.Colors;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractTunnel extends DungeonObject {
     // Fields
@@ -48,7 +47,6 @@ public abstract class AbstractTunnel extends DungeonObject {
     // Constructors
     protected AbstractTunnel() {
 	super(false, false, true);
-	this.type.set(DungeonObjectTypes.TYPE_TUNNEL);
     }
 
     @Override

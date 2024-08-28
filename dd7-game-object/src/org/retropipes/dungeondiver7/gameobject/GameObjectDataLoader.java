@@ -33,6 +33,11 @@ final class GameObjectDataLoader {
 	return Direction.values()[did];
     }
 
+    static boolean isField(final ObjectImageId index) {
+	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.field")
+		.getObject(Integer.toString(index.ordinal()));
+    }
+
     static boolean friction(final ObjectImageId index) {
 	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.friction")
 		.getObject(Integer.toString(index.ordinal()));

@@ -6,14 +6,12 @@
 package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public abstract class AbstractWall extends DungeonObject {
     // Constructors
     protected AbstractWall() {
 	super(true);
-	this.type.set(DungeonObjectTypes.TYPE_WALL);
 	this.setMaterial(Materials.STONE);
     }
 

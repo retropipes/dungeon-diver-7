@@ -16,7 +16,7 @@ import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 final class MovingObjectTracker {
     private static boolean checkSolid(final DungeonObject next) {
 	final var nextSolid = next.isConditionallySolid();
-	if (!nextSolid || next.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
+	if (!nextSolid || next.isPlayer()) {
 	    return true;
 	}
 	return false;
@@ -120,19 +120,17 @@ final class MovingObjectTracker {
 		final var oldObjIncY = this.objIncY;
 		if (this.belowUpper == null || this.belowLower == null) {
 		    this.objectCheck = false;
-		} else if (jumper.isOfType(DungeonObjectTypes.TYPE_ICY)) {
+		} else if (!jumper.hasFriction()) {
 		    // Handle icy objects
 		    this.objectCheck = true;
-		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_ANTI_MOVER)
-			&& jumper.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
+		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_ANTI_MOVER) && jumper.canShoot()) {
 		    // Handle anti-tank on anti-tank mover
 		    final var dir = this.belowUpper.getDirection();
 		    final var unres = DirectionResolver.unresolve(dir);
 		    this.objIncX = unres[0];
 		    this.objIncY = unres[1];
 		    this.objectCheck = true;
-		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_BOX_MOVER)
-			&& jumper.isOfType(DungeonObjectTypes.TYPE_BOX)) {
+		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_BOX_MOVER) && jumper.canMove()) {
 		    // Handle box on box mover
 		    this.jumpOnMover = true;
 		    final var dir = this.belowUpper.getDirection();
@@ -229,13 +227,11 @@ final class MovingObjectTracker {
 		final var oldObjIncY = this.objIncY;
 		if (this.belowUpper == null || this.belowLower == null) {
 		    this.objectCheck = false;
-		} else if (this.movingObj.isOfType(DungeonObjectTypes.TYPE_ICY)) {
+		} else if (!this.movingObj.hasFriction()) {
 		    // Handle icy objects
 		    this.objectCheck = true;
-		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_ANTI_MOVER)
-			&& this.movingObj.isOfType(DungeonObjectTypes.TYPE_ANTI)
-			|| this.belowUpper.isOfType(DungeonObjectTypes.TYPE_BOX_MOVER)
-				&& this.movingObj.isOfType(DungeonObjectTypes.TYPE_BOX)) {
+		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_ANTI_MOVER) && this.movingObj.canShoot()
+			|| this.belowUpper.isOfType(DungeonObjectTypes.TYPE_BOX_MOVER) && this.movingObj.canMove()) {
 		    // Handle anti-tank on anti-tank mover
 		    final var dir = this.belowUpper.getDirection();
 		    final var unres = DirectionResolver.unresolve(dir);

@@ -9,14 +9,12 @@ import java.awt.Color;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractJumpObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class ReverseJumpBox extends AbstractJumpObject {
     // Constructors
     public ReverseJumpBox() {
-	this.type.set(DungeonObjectTypes.TYPE_BOX);
-	this.setMaterial(Materials.STONE);
+ 	this.setMaterial(Materials.STONE);
     }
 
     @Override

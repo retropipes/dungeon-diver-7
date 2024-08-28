@@ -18,7 +18,6 @@ public class MagneticBox extends AbstractMovableObject {
     // Constructors
     public MagneticBox() {
 	super(true);
-	this.type.set(DungeonObjectTypes.TYPE_BOX);
 	this.type.set(DungeonObjectTypes.TYPE_MAGNETIC_BOX);
 	this.setMaterial(Materials.MAGNETIC);
     }
@@ -33,11 +32,10 @@ public class MagneticBox extends AbstractMovableObject {
 	    final int laserType, final int forceUnits) {
 	final var app = DungeonDiver7.getStuffBag();
 	final var mo = app.getDungeonManager().getDungeon().getCell(locX - dirX, locY - dirY, locZ, this.getLayer());
-	if (laserType == ShotTypes.BLUE && mo != null
-		&& (mo.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mo.isSolid())) {
+	if (laserType == ShotTypes.BLUE && mo != null && (mo.isPlayer() || !mo.isSolid())) {
 	    app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
 	    this.playSoundHook();
-	} else if (mo != null && (mo.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mo.isSolid())) {
+	} else if (mo != null && (mo.isPlayer() || !mo.isSolid())) {
 	    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
 	    this.playSoundHook();
 	} else if (laserType == ShotTypes.MISSILE) {

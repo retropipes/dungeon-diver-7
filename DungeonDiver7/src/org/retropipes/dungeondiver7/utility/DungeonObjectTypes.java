@@ -6,15 +6,8 @@
 package org.retropipes.dungeondiver7.utility;
 
 public class DungeonObjectTypes {
-    public static final int TYPE_GROUND = 0;
     public static final int TYPE_CHARACTER = 1;
     public static final int TYPE_PASS_THROUGH = 2;
-    public static final int TYPE_TUNNEL = 3;
-    public static final int TYPE_WALL = 4;
-    public static final int TYPE_MOVABLE = 5;
-    public static final int TYPE_PLAIN_WALL = 6;
-    public static final int TYPE_EMPTY_SPACE = 7;
-    public static final int TYPE_BOX = 8;
     public static final int TYPE_MOVER = 9;
     public static final int TYPE_ANTI = 10;
     public static final int TYPE_ANTI_MOVER = 11;

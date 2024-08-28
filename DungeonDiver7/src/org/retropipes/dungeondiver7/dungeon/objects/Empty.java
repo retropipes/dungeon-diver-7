@@ -6,12 +6,10 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractPassThroughObject;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public class Empty extends AbstractPassThroughObject {
     // Constructors
     public Empty() {
-	this.type.set(DungeonObjectTypes.TYPE_EMPTY_SPACE);
     }
 
     @Override

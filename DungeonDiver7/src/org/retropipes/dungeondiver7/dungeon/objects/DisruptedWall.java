@@ -10,7 +10,6 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDisruptedObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
@@ -21,14 +20,12 @@ public class DisruptedWall extends AbstractDisruptedObject {
 
     // Constructors
     public DisruptedWall() {
-	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.disruptionLeft = DisruptedWall.DISRUPTION_START;
 	this.activateTimer(1);
 	this.setMaterial(Materials.METALLIC);
     }
 
     DisruptedWall(final int disruption) {
-	this.type.set(DungeonObjectTypes.TYPE_PLAIN_WALL);
 	this.disruptionLeft = disruption;
 	this.activateTimer(1);
 	this.setMaterial(Materials.METALLIC);

@@ -56,10 +56,10 @@ public class MagneticMirror extends AbstractMovableObject {
 	final var app = DungeonDiver7.getStuffBag();
 	final var mo = app.getDungeonManager().getDungeon().getCell(locX - dirX, locY - dirY, locZ, this.getLayer());
 	if (laserType == ShotTypes.BLUE && mo != null
-		&& (mo.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mo.isSolid())) {
+		&& (mo.isPlayer() || !mo.isSolid())) {
 	    app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
 	    this.playSoundHook();
-	} else if (mo != null && (mo.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mo.isSolid())) {
+	} else if (mo != null && (mo.isPlayer() || !mo.isSolid())) {
 	    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
 	    this.playSoundHook();
 	} else if (laserType == ShotTypes.MISSILE) {

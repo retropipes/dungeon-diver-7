@@ -506,12 +506,20 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return this.imageEnabled;
     }
 
+    public final boolean isField() {
+	return this.isOfType(DungeonObjectTypes.TYPE_FIELD);
+    }
+
     public boolean isMoving() {
 	return false;
     }
 
     public final boolean isOfType(final int testType) {
 	return this.type.get(testType);
+    }
+
+    public final boolean isPlayer() {
+	return this.isOfType(DungeonObjectTypes.TYPE_CHARACTER);
     }
 
     public final boolean isPushable() {
@@ -970,7 +978,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	    }
 	    return false;
 	}
-	if (!this.isOfType(DungeonObjectTypes.TYPE_FIELD)) {
+	if (!this.isField()) {
 	    // Generate other ground at 100%
 	    return true;
 	}

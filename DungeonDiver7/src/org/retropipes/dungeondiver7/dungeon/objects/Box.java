@@ -9,14 +9,12 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class Box extends AbstractMovableObject {
     // Constructors
     public Box() {
 	super(true);
-	this.type.set(DungeonObjectTypes.TYPE_BOX);
 	this.setMaterial(Materials.STONE);
     }
 

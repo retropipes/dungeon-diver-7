@@ -47,7 +47,6 @@ import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.AlreadyDeadException;
 import org.retropipes.dungeondiver7.utility.CustomDialogs;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.GameActions;
 import org.retropipes.dungeondiver7.utility.InvalidDungeonException;
 import org.retropipes.dungeondiver7.utility.PartyInventory;
@@ -1390,10 +1389,10 @@ public final class GameLogic implements MenuSection {
 	    if (!m.getCell(x, y, z, pushedInto.getLayer()).isConditionallySolid()) {
 		final var saved = m.getCell(x, y, z, pushedInto.getLayer());
 		final var there = m.getCell(x2, y2, z2, pushedInto.getLayer());
-		if (there.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
+		if (there.isPlayer()) {
 		    needsFixup1 = true;
 		}
-		if (saved.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
+		if (saved.isPlayer()) {
 		    needsFixup2 = true;
 		}
 		if (needsFixup2) {

@@ -16,7 +16,6 @@ public class IcyBox extends AbstractMovableObject {
     // Constructors
     public IcyBox() {
 	super(true);
-	this.type.set(DungeonObjectTypes.TYPE_BOX);
 	this.type.set(DungeonObjectTypes.TYPE_ICY);
 	this.setMaterial(Materials.ICE);
     }

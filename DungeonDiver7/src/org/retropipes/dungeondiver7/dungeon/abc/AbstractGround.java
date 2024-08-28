@@ -6,18 +6,15 @@
 package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractGround extends DungeonObject {
     // Constructors
     protected AbstractGround() {
 	super(false, false, true);
-	this.type.set(DungeonObjectTypes.TYPE_GROUND);
     }
 
     protected AbstractGround(final boolean hasFriction) {
 	super(false, false, hasFriction);
-	this.type.set(DungeonObjectTypes.TYPE_GROUND);
     }
 
     @Override

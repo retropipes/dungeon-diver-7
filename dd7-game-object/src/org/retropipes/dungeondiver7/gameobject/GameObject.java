@@ -20,6 +20,7 @@ public final class GameObject {
     private transient boolean canMove;
     private transient boolean canPush;
     private transient boolean canPull;
+    private transient boolean isField;
     private transient boolean isPlayer;
     private transient int layer;
     private transient int blockHeight;
@@ -67,6 +68,10 @@ public final class GameObject {
 	return this.isMoving() || this.isPlayer() || this.isPullable() || this.isPushable();
     }
 
+    public final boolean canShoot() {
+	return false;
+    }
+
     public GameObject editorPropertiesHook() {
 	if (this.hasDirection()) {
 	    this.toggleDirection();
@@ -100,6 +105,11 @@ public final class GameObject {
     public final Direction getDirection() {
 	this.lazyLoad();
 	return this.direction;
+    }
+
+    public final int getFrameNumber() {
+	this.lazyLoad();
+	return this.frameNumber;
     }
 
     public final int getHeight() {
@@ -183,6 +193,11 @@ public final class GameObject {
 	return this.damageDealt > 0;
     }
 
+    public final boolean isField() {
+	this.lazyLoad();
+	return this.isField;
+    }
+
     public final boolean isInteractive() {
 	this.lazyLoad();
 	return this.interactive;
@@ -242,6 +257,7 @@ public final class GameObject {
 	    this.canPush = GameObjectDataLoader.pushable(this.id);
 	    this.canPull = GameObjectDataLoader.pullable(this.id);
 	    this.canMove = GameObjectDataLoader.isMoving(this.id);
+	    this.isField = GameObjectDataLoader.isField(this.id);
 	    this.isPlayer = GameObjectDataLoader.isPlayer(this.id);
 	    this.layer = GameObjectDataLoader.layer(this.id);
 	    this.blockHeight = GameObjectDataLoader.height(this.id);

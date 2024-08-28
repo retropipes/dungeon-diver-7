@@ -12,7 +12,6 @@ import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class DeepWater extends AbstractGround {
@@ -57,7 +56,7 @@ public class DeepWater extends AbstractGround {
 	app.getGameLogic();
 	// Get rid of pushed object
 	GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
-	if (pushed.isOfType(DungeonObjectTypes.TYPE_BOX)) {
+	if (pushed.canMove()) {
 	    if (pushed.getMaterial() == Materials.WOODEN) {
 		app.getGameLogic();
 		GameLogic.morph(new Bridge(), x, y, z, this.getLayer());

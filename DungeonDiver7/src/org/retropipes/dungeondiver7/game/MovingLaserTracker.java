@@ -65,7 +65,7 @@ final class MovingLaserTracker {
 	    return true;
 	}
 	final var nextSolid = next.isConditionallySolid();
-	if (!nextSolid || next.isOfType(DungeonObjectTypes.TYPE_CHARACTER)) {
+	if (!nextSolid || next.isPlayer()) {
 	    return true;
 	}
 	return false;

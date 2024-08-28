@@ -13,7 +13,6 @@ import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
@@ -26,7 +25,6 @@ public abstract class AbstractMovableObject extends DungeonObject {
 	super(true, pushable, true);
 	this.setSavedObject(new Empty());
 	this.waitingOnTunnel = false;
-	this.type.set(DungeonObjectTypes.TYPE_MOVABLE);
     }
 
     @Override
@@ -78,18 +76,18 @@ public abstract class AbstractMovableObject extends DungeonObject {
 		    this.getLayer());
 	    if (this.getMaterial() == Materials.MAGNETIC) {
 		if (laserType == ShotTypes.BLUE && mof != null
-			&& (mof.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mof.isSolid())) {
+			&& (mof.isPlayer() || !mof.isSolid())) {
 		    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
-		} else if (mor != null && (mor.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mor.isSolid())) {
+		} else if (mor != null && (mor.isPlayer() || !mor.isSolid())) {
 		    app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
 		} else {
 		    // Object doesn't react to this type of laser
 		    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
 		}
 	    } else if (laserType == ShotTypes.BLUE && mor != null
-		    && (mor.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mor.isSolid())) {
+		    && (mor.isPlayer() || !mor.isSolid())) {
 		app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
-	    } else if (mof != null && (mof.isOfType(DungeonObjectTypes.TYPE_CHARACTER) || !mof.isSolid())) {
+	    } else if (mof != null && (mof.isPlayer() || !mof.isSolid())) {
 		app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
 	    } else {
 		// Object doesn't react to this type of laser
