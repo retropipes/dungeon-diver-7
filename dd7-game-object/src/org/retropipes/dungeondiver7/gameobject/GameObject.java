@@ -42,9 +42,21 @@ public final class GameObject {
     private boolean imageOverridden;
     private Direction direction;
     private Colors color;
+    private ObjectImageId saved;
 
     public GameObject(final ObjectImageId oid) {
 	this.id = oid;
+	this.imageOverridden = false;
+	this.model = new ObjectModel();
+	this.model.setId(oid);
+	this.lazyLoaded = false;
+	this.model.addCounters(MAX_COUNTERS);
+	this.model.addFlags(MAX_FLAGS);
+    }
+
+    private GameObject(final ObjectImageId oid, final ObjectImageId savedOid) {
+	this.id = oid;
+	this.saved = savedOid;
 	this.imageOverridden = false;
 	this.model = new ObjectModel();
 	this.model.setId(oid);
@@ -137,6 +149,13 @@ public final class GameObject {
 
     public final String getName() {
 	return Strings.objectName(this.id.ordinal());
+    }
+
+    public final GameObject getSavedObject() {
+	if (this.saved == null || this.saved == this.id) {
+	    return this;
+	}
+	return new GameObject(this.saved, this.id);
     }
 
     public final ShopType getShopType() {
@@ -243,6 +262,10 @@ public final class GameObject {
     public final void overrideImage(final BufferedImageIcon imageOverride) {
 	this.imageOverridden = true;
 	this.image = imageOverride;
+    }
+
+    public final void setSavedObject(final GameObject savedObject) {
+	this.saved = savedObject.getId();
     }
 
     public final void setTeamID(final int tid) {
