@@ -11,35 +11,32 @@ import org.retropipes.dungeondiver7.locale.ObjectInteractMessage;
 import org.retropipes.dungeondiver7.locale.Strings;
 
 public final class GameObject {
-    private static final int COUNTER_LAYER = 0;
-    private static final int COUNTER_HEIGHT = 1;
-    private static final int COUNTER_DAMAGE = 2;
-    private static final int COUNTER_TIMER = 3;
-    private static final int COUNTER_INITIAL_TIMER = 4;
-    private static final int COUNTER_FRAME = 5;
-    private static final int COUNTER_MAX_FRAME = 6;
-    private static final int MAX_COUNTERS = 7;
-    private static final int FLAG_SOLID = 0;
-    private static final int FLAG_FRICTION = 1;
-    private static final int FLAG_SIGHT_BLOCK = 2;
-    private static final int FLAG_INTERACT = 3;
-    private static final int FLAG_PUSH = 4;
-    private static final int FLAG_PULL = 5;
-    private static final int FLAG_MOVING = 6;
-    private static final int FLAG_PLAYER = 7;
-    private static final int FLAG_TIMER_ACTIVE = 8;
-    private static final int MAX_FLAGS = 9;
     private final ObjectModel model;
     private final ObjectImageId id;
+    private transient boolean solid;
+    private transient boolean friction;
+    private transient boolean sightBlock;
+    private transient boolean interactive;
+    private transient boolean canMove;
+    private transient boolean canPush;
+    private transient boolean canPull;
+    private transient boolean isPlayer;
+    private transient int layer;
+    private transient int blockHeight;
+    private transient int damageDealt;
+    private transient int timerValue;
+    private transient int frameNumber;
+    private transient int maxFrameNumber;
+    private transient int interactMessageIndex;
     private transient BufferedImageIcon image;
     private transient String interactMessage;
-    private transient int interactMessageIndex;
     private transient Sounds interactSound;
     private transient ObjectImageId interactMorph;
     private transient ShopType shop;
     private transient boolean lazyLoaded;
     private transient int teamId;
     private transient boolean imageOverridden;
+    private transient boolean timerActive;
     private transient Direction direction;
     private transient Colors color;
     private transient ObjectImageId saved;
@@ -50,8 +47,6 @@ public final class GameObject {
 	this.model = new ObjectModel();
 	this.model.setId(oid);
 	this.lazyLoaded = false;
-	this.model.addCounters(MAX_COUNTERS);
-	this.model.addFlags(MAX_FLAGS);
     }
 
     private GameObject(final ObjectImageId oid, final ObjectImageId savedOid) {
@@ -61,13 +56,11 @@ public final class GameObject {
 	this.model = new ObjectModel();
 	this.model.setId(oid);
 	this.lazyLoaded = false;
-	this.model.addCounters(MAX_COUNTERS);
-	this.model.addFlags(MAX_FLAGS);
     }
 
     public final void activateTimer(final int ticks) {
-	this.model.setFlag(FLAG_TIMER_ACTIVE, true);
-	this.model.setCounter(COUNTER_TIMER, ticks);
+	this.timerActive = true;
+	this.timerValue = ticks;
     }
 
     public final boolean canMove() {
@@ -97,7 +90,7 @@ public final class GameObject {
 
     public final int getDamage() {
 	this.lazyLoad();
-	return this.model.getCounter(COUNTER_DAMAGE);
+	return this.damageDealt;
     }
 
     public final String getDescription() {
@@ -111,7 +104,7 @@ public final class GameObject {
 
     public final int getHeight() {
 	this.lazyLoad();
-	return this.model.getCounter(COUNTER_HEIGHT);
+	return this.blockHeight;
     }
 
     public final ObjectImageId getId() {
@@ -144,7 +137,7 @@ public final class GameObject {
 
     public final int getLayer() {
 	this.lazyLoad();
-	return this.model.getCounter(COUNTER_LAYER);
+	return this.layer;
     }
 
     public final String getName() {
@@ -177,42 +170,42 @@ public final class GameObject {
 
     public final boolean hasFriction() {
 	this.lazyLoad();
-	return this.model.getFlag(FLAG_FRICTION);
+	return this.friction;
     }
 
     public final boolean isAnimated() {
 	this.lazyLoad();
-	return this.model.getCounter(COUNTER_MAX_FRAME) > 0;
+	return this.maxFrameNumber > 0;
     }
 
     public final boolean isDamaging() {
 	this.lazyLoad();
-	return this.model.getCounter(COUNTER_DAMAGE) > 0;
+	return this.damageDealt > 0;
     }
 
     public final boolean isInteractive() {
 	this.lazyLoad();
-	return this.model.getFlag(FLAG_INTERACT);
+	return this.interactive;
     }
 
     public final boolean isMoving() {
 	this.lazyLoad();
-	return this.model.getFlag(FLAG_MOVING);
+	return this.canMove;
     }
 
     public final boolean isPlayer() {
 	this.lazyLoad();
-	return this.model.getFlag(FLAG_PLAYER);
+	return this.isPlayer;
     }
 
     public final boolean isPullable() {
 	this.lazyLoad();
-	return this.model.getFlag(FLAG_PULL);
+	return this.canPull;
     }
 
     public final boolean isPushable() {
 	this.lazyLoad();
-	return this.model.getFlag(FLAG_PUSH);
+	return this.canPush;
     }
 
     public final boolean isShop() {
@@ -221,12 +214,12 @@ public final class GameObject {
 
     public final boolean isSightBlocking() {
 	this.lazyLoad();
-	return this.model.getFlag(FLAG_SIGHT_BLOCK);
+	return this.sightBlock;
     }
 
     public final boolean isSolid() {
 	this.lazyLoad();
-	return this.model.getFlag(FLAG_SOLID);
+	return this.solid;
     }
 
     private void lazyLoad() {
@@ -242,19 +235,19 @@ public final class GameObject {
 	    this.color = GameObjectDataLoader.color(this.id);
 	    this.direction = GameObjectDataLoader.direction(this.id);
 	    this.shop = GameObjectDataLoader.shopType(this.id);
-	    this.model.setFlag(FLAG_SOLID, GameObjectDataLoader.solid(this.id));
-	    this.model.setFlag(FLAG_FRICTION, GameObjectDataLoader.friction(this.id));
-	    this.model.setFlag(FLAG_SIGHT_BLOCK, GameObjectDataLoader.sightBlocking(this.id));
-	    this.model.setFlag(FLAG_INTERACT, GameObjectDataLoader.isInteractive(this.id));
-	    this.model.setFlag(FLAG_PUSH, GameObjectDataLoader.pushable(this.id));
-	    this.model.setFlag(FLAG_PULL, GameObjectDataLoader.pullable(this.id));
-	    this.model.setFlag(FLAG_MOVING, GameObjectDataLoader.isMoving(this.id));
-	    this.model.setFlag(FLAG_PLAYER, GameObjectDataLoader.isPlayer(this.id));
-	    this.model.setCounter(COUNTER_LAYER, GameObjectDataLoader.layer(this.id));
-	    this.model.setCounter(COUNTER_HEIGHT, GameObjectDataLoader.height(this.id));
-	    this.model.setCounter(COUNTER_DAMAGE, GameObjectDataLoader.damage(this.id));
-	    this.model.setCounter(COUNTER_INITIAL_TIMER, GameObjectDataLoader.initialTimer(this.id));
-	    this.model.setCounter(COUNTER_MAX_FRAME, GameObjectDataLoader.maxFrame(this.id));
+	    this.solid = GameObjectDataLoader.solid(this.id);
+	    this.friction = GameObjectDataLoader.friction(this.id);
+	    this.sightBlock = GameObjectDataLoader.sightBlocking(this.id);
+	    this.interactive = GameObjectDataLoader.isInteractive(this.id);
+	    this.canPush = GameObjectDataLoader.pushable(this.id);
+	    this.canPull = GameObjectDataLoader.pullable(this.id);
+	    this.canMove = GameObjectDataLoader.isMoving(this.id);
+	    this.isPlayer = GameObjectDataLoader.isPlayer(this.id);
+	    this.layer = GameObjectDataLoader.layer(this.id);
+	    this.blockHeight = GameObjectDataLoader.height(this.id);
+	    this.damageDealt = GameObjectDataLoader.damage(this.id);
+	    this.timerValue = GameObjectDataLoader.initialTimer(this.id);
+	    this.maxFrameNumber = GameObjectDataLoader.maxFrame(this.id);
 	    this.lazyLoaded = true;
 	}
     }
@@ -273,10 +266,10 @@ public final class GameObject {
     }
 
     public final void tickTimer() {
-	if (this.model.getFlag(FLAG_TIMER_ACTIVE)) {
-	    this.model.decrementCounter(COUNTER_TIMER);
-	    if (this.model.getCounter(COUNTER_TIMER) == 0) {
-		this.model.setFlag(FLAG_TIMER_ACTIVE, false);
+	if (this.timerActive) {
+	    this.timerValue--;
+	    if (this.timerValue == 0) {
+		this.timerActive = false;
 		// Time's up!
 	    }
 	}
@@ -303,14 +296,11 @@ public final class GameObject {
     }
 
     public final void toggleFrameNumber() {
-	var maxFrame = this.model.getCounter(COUNTER_MAX_FRAME);
-	var frame = this.model.getCounter(COUNTER_FRAME);
 	if (this.isAnimated()) {
-	    frame++;
-	    if (frame > maxFrame) {
-		frame = 0;
+	    this.frameNumber++;
+	    if (this.frameNumber > this.maxFrameNumber) {
+		this.frameNumber = 0;
 	    }
-	    this.model.setCounter(COUNTER_FRAME, frame);
 	}
     }
 }
