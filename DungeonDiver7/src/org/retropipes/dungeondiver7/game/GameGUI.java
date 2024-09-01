@@ -255,11 +255,11 @@ class GameGUI {
 		    if (visible) {
 			final var obj1 = m.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND);
 			final var obj2 = m.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
-			final var img1 = obj1.gameRenderHook(y, x);
-			final var img2 = obj2.gameRenderHook(y, x);
+			final var img1 = obj1.getImage();
+			final var img2 = obj2.getImage();
 			if (u == y && v == x) {
 			    final DungeonObject obj3 = new Player();
-			    final var img3 = obj3.gameRenderHook(y, x);
+			    final var img3 = obj3.getImage();
 			    final var cacheName = Strings.compositeCacheName(obj1.getCacheName(), obj2.getCacheName(),
 				    obj3.getCacheName());
 			    final var img = ImageCompositor.composite(cacheName, img1, img2, img3);
@@ -275,7 +275,7 @@ class GameGUI {
 				yFix);
 		    }
 		} catch (final ArrayIndexOutOfBoundsException ae) {
-		    this.drawGrid.setImageCell(wall.gameRenderHook(y, x), xFix, yFix);
+		    this.drawGrid.setImageCell(wall.getImage(), xFix, yFix);
 		}
 	    }
 	}

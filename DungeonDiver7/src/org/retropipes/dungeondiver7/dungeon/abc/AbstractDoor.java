@@ -6,7 +6,6 @@
 package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractDoor extends DungeonObject {
     // Fields
@@ -16,7 +15,6 @@ public abstract class AbstractDoor extends DungeonObject {
     protected AbstractDoor(final AbstractKey mgk) {
 	super(true);
 	this.key = mgk;
-	this.type.set(DungeonObjectTypes.TYPE_DOOR);
     }
 
     @Override

@@ -6,13 +6,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractTrigger extends DungeonObject {
     // Constructors
     protected AbstractTrigger() {
 	super(false, true, false);
-	this.type.set(DungeonObjectTypes.TYPE_TRIGGER);
     }
 
     @Override

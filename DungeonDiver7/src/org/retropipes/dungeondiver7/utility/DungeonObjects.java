@@ -52,40 +52,21 @@ public class DungeonObjects {
 	    new FinalBossMonsterTile(), new OpenDoor(), new Regenerator(), new SpellShop(), new Tile(),
 	    new WeaponsShop() };
 
-    public void enableAllObjects() {
-	for (final DungeonObject allObject : this.allObjects) {
-	    allObject.setEnabled(true);
-	}
-    }
-
     public BufferedImageIcon[] getAllEditorAppearances() {
 	final var allEditorAppearances = new BufferedImageIcon[this.allObjects.length];
 	for (var x = 0; x < allEditorAppearances.length; x++) {
-	    allEditorAppearances[x] = ObjectImageLoader.load(this.allObjects[x].getImageName(),
+	    allEditorAppearances[x] = ObjectImageLoader.load(this.allObjects[x].getCacheName(),
 		    this.allObjects[x].getIdValue());
 	}
 	return allEditorAppearances;
     }
 
-    public BufferedImageIcon[] getAllEditorAppearancesOnLayer(final int layer, final boolean useDisable) {
-	if (useDisable) {
-	    final var allEditorAppearancesOnLayer = new BufferedImageIcon[this.allObjects.length];
-	    for (var x = 0; x < this.allObjects.length; x++) {
-		if (this.allObjects[x].getLayer() == layer) {
-		    this.allObjects[x].setEnabled(true);
-		} else {
-		    this.allObjects[x].setEnabled(false);
-		}
-		allEditorAppearancesOnLayer[x] = ObjectImageLoader.load(this.allObjects[x].getImageName(),
-			this.allObjects[x].getIdValue());
-	    }
-	    return allEditorAppearancesOnLayer;
-	}
+    public BufferedImageIcon[] getAllEditorAppearancesOnLayer(final int layer) {
 	final var tempAllEditorAppearancesOnLayer = new BufferedImageIcon[this.allObjects.length];
 	var objectCount = 0;
 	for (var x = 0; x < this.allObjects.length; x++) {
 	    if (this.allObjects[x].getLayer() == layer) {
-		tempAllEditorAppearancesOnLayer[x] = ObjectImageLoader.load(this.allObjects[x].getImageName(),
+		tempAllEditorAppearancesOnLayer[x] = ObjectImageLoader.load(this.allObjects[x].getCacheName(),
 			this.allObjects[x].getIdValue());
 	    }
 	}
@@ -133,17 +114,7 @@ public class DungeonObjects {
 	return this.allObjects;
     }
 
-    public DungeonObject[] getAllObjectsOnLayer(final int layer, final boolean useDisable) {
-	if (useDisable) {
-	    for (final DungeonObject allObject : this.allObjects) {
-		if (allObject.getLayer() == layer) {
-		    allObject.setEnabled(true);
-		} else {
-		    allObject.setEnabled(false);
-		}
-	    }
-	    return this.allObjects;
-	}
+    public DungeonObject[] getAllObjectsOnLayer(final int layer) {
 	final var tempAllObjectsOnLayer = new DungeonObject[this.allObjects.length];
 	var objectCount = 0;
 	for (var x = 0; x < this.allObjects.length; x++) {

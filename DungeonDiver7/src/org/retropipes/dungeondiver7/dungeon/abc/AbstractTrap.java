@@ -8,7 +8,6 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractTrap extends DungeonObject {
     // Fields
@@ -18,7 +17,6 @@ public abstract class AbstractTrap extends DungeonObject {
     protected AbstractTrap(final int baseName) {
 	super(false, false);
 	this.base = baseName;
-	this.type.set(DungeonObjectTypes.TYPE_TRAP);
     }
 
     // Scriptability

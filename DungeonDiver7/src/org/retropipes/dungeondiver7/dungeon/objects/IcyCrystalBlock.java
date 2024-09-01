@@ -27,7 +27,7 @@ public class IcyCrystalBlock extends AbstractReactionWall {
 	switch (materialID) {
 	case Materials.FIRE:
 	    if (this.hasPreviousState()) {
-		return this.getPreviousState();
+		return this.getPreviousStateObject();
 	    }
 	    return new CrystalBlock();
 	default:
@@ -54,7 +54,7 @@ public class IcyCrystalBlock extends AbstractReactionWall {
 	    // Disrupt icy crystal block
 	    final var dicb = new DisruptedIcyCrystalBlock();
 	    if (this.hasPreviousState()) {
-		dicb.setPreviousState(this.getPreviousState());
+		dicb.setPreviousStateObject(this.getPreviousStateObject());
 	    }
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(dicb, locX, locY, locZ, this.getLayer());

@@ -24,7 +24,7 @@ public class IcyWall extends AbstractWall {
 	switch (materialID) {
 	case Materials.FIRE:
 	    if (this.hasPreviousState()) {
-		return this.getPreviousState();
+		return this.getPreviousStateObject();
 	    }
 	    return new Wall();
 	default:
@@ -44,7 +44,7 @@ public class IcyWall extends AbstractWall {
 	    // Disrupt icy wall
 	    final var diw = new DisruptedIcyWall();
 	    if (this.hasPreviousState()) {
-		diw.setPreviousState(this.getPreviousState());
+		diw.setPreviousStateObject(this.getPreviousStateObject());
 	    }
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(diw, locX, locY, locZ, this.getLayer());
@@ -57,7 +57,7 @@ public class IcyWall extends AbstractWall {
 	// Defrost icy wall
 	DungeonObject ao;
 	if (this.hasPreviousState()) {
-	    ao = this.getPreviousState();
+	    ao = this.getPreviousStateObject();
 	} else {
 	    ao = new Wall();
 	}

@@ -10,13 +10,11 @@ import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractPressureButton extends AbstractButton {
     // Constructors
     protected AbstractPressureButton(final AbstractPressureButtonDoor pbd, final boolean isUniversal) {
 	super(pbd, isUniversal);
-	this.type.set(DungeonObjectTypes.TYPE_PRESSURE_BUTTON);
     }
 
     @Override

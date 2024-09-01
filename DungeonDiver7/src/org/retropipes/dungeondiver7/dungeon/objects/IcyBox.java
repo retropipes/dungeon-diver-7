@@ -9,14 +9,12 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class IcyBox extends AbstractMovableObject {
     // Constructors
     public IcyBox() {
 	super(true);
-	this.type.set(DungeonObjectTypes.TYPE_ICY);
 	this.setMaterial(Materials.ICE);
     }
 
@@ -25,7 +23,7 @@ public class IcyBox extends AbstractMovableObject {
 	switch (materialID) {
 	case Materials.FIRE:
 	    if (this.hasPreviousState()) {
-		return this.getPreviousState();
+		return this.getPreviousStateObject();
 	    }
 	    return new Box();
 	default:

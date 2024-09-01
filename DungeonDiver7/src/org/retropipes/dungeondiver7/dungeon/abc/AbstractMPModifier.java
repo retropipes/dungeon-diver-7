@@ -6,13 +6,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractMPModifier extends DungeonObject {
     // Constructors
     protected AbstractMPModifier() {
 	super(false, false);
-	this.type.set(DungeonObjectTypes.TYPE_MP_MODIFIER);
     }
 
     @Override

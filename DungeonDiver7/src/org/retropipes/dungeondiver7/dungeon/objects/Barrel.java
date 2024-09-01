@@ -8,17 +8,15 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractReactionWall;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class Barrel extends AbstractReactionWall {
     // Constructors
     public Barrel() {
-	this.type.set(DungeonObjectTypes.TYPE_BARREL);
 	this.setMaterial(Materials.WOODEN);
     }
 
@@ -50,9 +48,9 @@ public class Barrel extends AbstractReactionWall {
     }
 
     @Override
-    public void pushCollideAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-	// React to balls hitting barrels
-	if (pushed.isOfType(DungeonObjectTypes.TYPE_BALL)) {
+    public void pushCollideAction(final DungeonObject pushed, final int x, final int y, final int z) {
+	// React to movable objects hitting barrels
+	if (pushed.canMove()) {
 	    this.laserEnteredAction(x, y, z, 0, 0, ShotTypes.GREEN, 1);
 	}
     }

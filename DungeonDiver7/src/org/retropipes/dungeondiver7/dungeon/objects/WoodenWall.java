@@ -27,7 +27,7 @@ public class WoodenWall extends AbstractWall {
 	case Materials.FIRE -> new Ground();
 	case Materials.ICE -> {
 	    final var iw = new IcyWall();
-	    iw.setPreviousState(this);
+	    iw.setPreviousStateObject(this);
 	    yield iw;
 	}
 	default -> this;
@@ -59,7 +59,7 @@ public class WoodenWall extends AbstractWall {
 	case ShotTypes.STUNNER -> {
 	    // Freeze wooden wall
 	    final var iw = new IcyWall();
-	    iw.setPreviousState(this);
+	    iw.setPreviousStateObject(this);
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(iw, locX, locY, locZ, this.getLayer());
 	    yield Direction.NONE;

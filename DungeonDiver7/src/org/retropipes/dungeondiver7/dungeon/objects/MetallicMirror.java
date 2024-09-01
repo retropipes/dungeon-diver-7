@@ -11,7 +11,6 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 
 public class MetallicMirror extends AbstractMovableObject {
@@ -19,9 +18,12 @@ public class MetallicMirror extends AbstractMovableObject {
     public MetallicMirror() {
 	super(true);
 	this.setDirection(Direction.NORTH_EAST);
-	this.setDiagonalOnly(true);
-	this.type.set(DungeonObjectTypes.TYPE_MOVABLE_MIRROR);
 	this.setMaterial(Materials.METALLIC);
+    }
+
+    @Override
+    public final boolean canMove() {
+	return true;
     }
 
     @Override

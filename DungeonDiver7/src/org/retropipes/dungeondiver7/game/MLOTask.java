@@ -26,7 +26,6 @@ import org.retropipes.dungeondiver7.locale.Untranslated;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.AlreadyDeadException;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.GameActions;
 
 final class MLOTask extends Thread {
@@ -514,7 +513,7 @@ final class MLOTask extends Thread {
 		    ugo.postMoveAction(px, py, pz);
 		    loo.postMoveAction(px, py, pz);
 		    uoo.postMoveAction(px, py, pz);
-		    if (ugo.isOfType(DungeonObjectTypes.TYPE_MOVER)) {
+		    if (ugo.canMoveParty()) {
 			final var dir = ugo.getDirection();
 			final var unres = DirectionResolver.unresolve(dir);
 			this.sx = unres[0];
@@ -548,7 +547,7 @@ final class MLOTask extends Thread {
 		    }
 		    uoo.moveFailedAction(plMgr.getPlayerLocationX() + this.sx, plMgr.getPlayerLocationY() + this.sy,
 			    plMgr.getPlayerLocationZ());
-		    if (gm.getPlayer().getSavedObject().isOfType(DungeonObjectTypes.TYPE_MOVER)) {
+		    if (gm.getPlayer().getSavedObject().canMoveParty()) {
 			final var dir = gm.getPlayer().getSavedObject().getDirection();
 			final var unres = DirectionResolver.unresolve(dir);
 			this.sx = unres[0];

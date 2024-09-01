@@ -13,7 +13,7 @@ public abstract class AbstractReactionDisruptedObject extends AbstractReactionPa
     }
 
     @Override
-    public boolean acceptTick(final int actionType) {
+    public boolean acceptsTick(final int actionType) {
 	return actionType == GameActions.MOVE;
     }
 }

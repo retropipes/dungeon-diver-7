@@ -7,7 +7,6 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractJumpObject extends AbstractMovableObject {
     // Fields
@@ -26,7 +25,6 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 	this.jumpRows = 0;
 	this.jumpCols = 0;
 	this.jumpShot = false;
-	this.type.set(DungeonObjectTypes.TYPE_JUMP_OBJECT);
     }
 
     @Override

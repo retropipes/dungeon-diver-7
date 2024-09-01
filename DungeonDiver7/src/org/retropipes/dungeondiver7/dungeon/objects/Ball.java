@@ -6,14 +6,11 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public class Ball extends AbstractMovableObject {
     // Constructors
     public Ball() {
 	super(true);
-	this.type.set(DungeonObjectTypes.TYPE_BALL);
-	this.type.set(DungeonObjectTypes.TYPE_ICY);
     }
 
     @Override

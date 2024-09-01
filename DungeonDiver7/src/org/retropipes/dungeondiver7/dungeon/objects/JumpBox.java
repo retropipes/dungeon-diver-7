@@ -22,7 +22,7 @@ public class JumpBox extends AbstractJumpObject {
 	return switch (materialID) {
 	case Materials.ICE -> {
 	    final var ib = new IcyBox();
-	    ib.setPreviousState(this);
+	    ib.setPreviousStateObject(this);
 	    yield ib;
 	}
 	case Materials.FIRE -> new HotBox();

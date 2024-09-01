@@ -43,7 +43,6 @@ import org.retropipes.dungeondiver7.locale.Difficulty;
 import org.retropipes.dungeondiver7.locale.ErrorString;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.FileFormats;
 import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.VisionModes;
@@ -622,9 +621,9 @@ public final class CurrentDungeonData extends DungeonData {
 			final var savedObj = obj.getSavedObject();
 			String testName;
 			if (!obj.isPlayer() || moved) {
-			    testName = obj.getImageName();
+			    testName = obj.getCacheName();
 			} else {
-			    testName = savedObj.getImageName();
+			    testName = savedObj.getCacheName();
 			}
 			if (testName.equals(targetName)) {
 			    return new int[] { v, u, zFix };
@@ -1277,7 +1276,7 @@ public final class CurrentDungeonData extends DungeonData {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, xFix, u, zFix, w);
-			if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
+			if (obj.canShoot()) {
 			    final var unres = DirectionResolver.unresolve(obj.getDirection());
 			    final var invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
 			    if (d == invert) {
@@ -1305,7 +1304,7 @@ public final class CurrentDungeonData extends DungeonData {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, xFix, u, zFix, w);
-			if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
+			if (obj.canShoot()) {
 			    final var unres = DirectionResolver.unresolve(obj.getDirection());
 			    final var invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
 			    if (d == invert) {
@@ -1331,7 +1330,7 @@ public final class CurrentDungeonData extends DungeonData {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, u, yFix, zFix, w);
-			if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
+			if (obj.canShoot()) {
 			    final var unres = DirectionResolver.unresolve(obj.getDirection());
 			    final var invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
 			    if (d == invert) {
@@ -1357,7 +1356,7 @@ public final class CurrentDungeonData extends DungeonData {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, u, yFix, zFix, w);
-			if (obj.isOfType(DungeonObjectTypes.TYPE_ANTI)) {
+			if (obj.canShoot()) {
 			    final var unres = DirectionResolver.unresolve(obj.getDirection());
 			    final var invert = DirectionResolver.resolveInvert(unres[0], unres[1]);
 			    if (d == invert) {

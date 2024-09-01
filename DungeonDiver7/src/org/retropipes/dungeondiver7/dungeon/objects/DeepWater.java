@@ -26,7 +26,7 @@ public class DeepWater extends AbstractGround {
 	return switch (materialID) {
 	case Materials.ICE -> {
 	    final var i = new Ice();
-	    i.setPreviousState(this);
+	    i.setPreviousStateObject(this);
 	    yield i;
 	}
 	case Materials.FIRE -> new Water();

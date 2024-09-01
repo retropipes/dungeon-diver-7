@@ -36,7 +36,7 @@ public class DisruptedWall extends AbstractDisruptedObject {
 	return switch (materialID) {
 	case Materials.ICE -> {
 	    final var diw = new DisruptedIcyWall(this.disruptionLeft);
-	    diw.setPreviousState(this);
+	    diw.setPreviousStateObject(this);
 	    yield diw;
 	}
 	case Materials.FIRE -> new DisruptedHotWall(this.disruptionLeft);

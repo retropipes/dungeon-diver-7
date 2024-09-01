@@ -13,7 +13,6 @@ import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractCharacter extends DungeonObject {
     // Fields
@@ -24,7 +23,6 @@ public abstract class AbstractCharacter extends DungeonObject {
 	super(true);
 	this.setSavedObject(new Empty());
 	this.activateTimer(1);
-	this.type.set(DungeonObjectTypes.TYPE_CHARACTER);
 	this.characterNumber = 1;
     }
 
@@ -32,7 +30,6 @@ public abstract class AbstractCharacter extends DungeonObject {
 	super(true);
 	this.setSavedObject(new Empty());
 	this.activateTimer(1);
-	this.type.set(DungeonObjectTypes.TYPE_CHARACTER);
 	this.characterNumber = number;
     }
 
@@ -92,6 +89,11 @@ public abstract class AbstractCharacter extends DungeonObject {
 	final var prime = 31;
 	final var result = super.hashCode();
 	return prime * result + this.characterNumber;
+    }
+
+    @Override
+    public final boolean isPlayer() {
+	return true;
     }
 
     @Override

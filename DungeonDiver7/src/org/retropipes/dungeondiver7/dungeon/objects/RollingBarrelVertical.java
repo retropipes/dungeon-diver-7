@@ -9,16 +9,14 @@ import org.retropipes.diane.direction.Direction;
 import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
+import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class RollingBarrelVertical extends AbstractMovableObject {
     // Constructors
     public RollingBarrelVertical() {
 	super(true);
-	this.type.set(DungeonObjectTypes.TYPE_BARREL);
-	this.type.set(DungeonObjectTypes.TYPE_ICY);
     }
 
     @Override
@@ -59,7 +57,7 @@ public class RollingBarrelVertical extends AbstractMovableObject {
     }
 
     @Override
-    public void pushCollideAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
+    public void pushCollideAction(final DungeonObject pushed, final int x, final int y, final int z) {
 	// Break up
 	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	// Boom!

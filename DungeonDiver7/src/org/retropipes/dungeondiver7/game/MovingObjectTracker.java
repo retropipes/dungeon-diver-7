@@ -11,7 +11,6 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractJumpObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 final class MovingObjectTracker {
     private static boolean checkSolid(final DungeonObject next) {
@@ -123,14 +122,7 @@ final class MovingObjectTracker {
 		} else if (!jumper.hasFriction()) {
 		    // Handle icy objects
 		    this.objectCheck = true;
-		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_ANTI_MOVER) && jumper.canShoot()) {
-		    // Handle anti-tank on anti-tank mover
-		    final var dir = this.belowUpper.getDirection();
-		    final var unres = DirectionResolver.unresolve(dir);
-		    this.objIncX = unres[0];
-		    this.objIncY = unres[1];
-		    this.objectCheck = true;
-		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_BOX_MOVER) && jumper.canMove()) {
+		} else if (this.belowUpper.canMoveBoxes() && jumper.canMove()) {
 		    // Handle box on box mover
 		    this.jumpOnMover = true;
 		    final var dir = this.belowUpper.getDirection();
@@ -138,8 +130,8 @@ final class MovingObjectTracker {
 		    this.objIncX = unres[0];
 		    this.objIncY = unres[1];
 		    this.objectCheck = true;
-		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_MIRROR_MOVER)
-			&& this.movingObj.isOfType(DungeonObjectTypes.TYPE_MOVABLE_MIRROR)) {
+		} else if (this.belowUpper.canMoveMirrors()
+			&& this.movingObj.canMove()) {
 		    // Handle mirror on mirror mover
 		    final var dir = this.belowUpper.getDirection();
 		    final var unres = DirectionResolver.unresolve(dir);
@@ -230,16 +222,15 @@ final class MovingObjectTracker {
 		} else if (!this.movingObj.hasFriction()) {
 		    // Handle icy objects
 		    this.objectCheck = true;
-		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_ANTI_MOVER) && this.movingObj.canShoot()
-			|| this.belowUpper.isOfType(DungeonObjectTypes.TYPE_BOX_MOVER) && this.movingObj.canMove()) {
-		    // Handle anti-tank on anti-tank mover
+		} else if (this.belowUpper.canMoveBoxes() && this.movingObj.canMove()) {
+		    // Handle box on box mover
 		    final var dir = this.belowUpper.getDirection();
 		    final var unres = DirectionResolver.unresolve(dir);
 		    this.objIncX = unres[0];
 		    this.objIncY = unres[1];
 		    this.objectCheck = true;
-		} else if (this.belowUpper.isOfType(DungeonObjectTypes.TYPE_MIRROR_MOVER)
-			&& this.movingObj.isOfType(DungeonObjectTypes.TYPE_MOVABLE_MIRROR)) {
+		} else if (this.belowUpper.canMoveMirrors()
+			&& this.movingObj.canMove()) {
 		    // Handle mirror on mirror mover
 		    final var dir = this.belowUpper.getDirection();
 		    final var unres = DirectionResolver.unresolve(dir);

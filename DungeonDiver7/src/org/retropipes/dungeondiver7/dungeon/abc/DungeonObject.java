@@ -8,8 +8,6 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 import java.awt.Color;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.BitSet;
-import java.util.Objects;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.direction.Direction;
@@ -29,7 +27,6 @@ import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Colors;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.ImageColors;
 import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.RandomGenerationRule;
@@ -73,16 +70,12 @@ public abstract class DungeonObject implements RandomGenerationRule {
     private final boolean solid;
     private boolean pushable;
     private final boolean friction;
-    protected BitSet type;
     private int timerValue;
-    private int initialTimerValue;
     private boolean timerActive;
     private int frameNumber;
-    private Direction directions;
-    private boolean diagonalOnly;
+    private Direction direction;
     private Colors color;
     private int material;
-    private boolean imageEnabled;
     private final boolean blocksLOS;
     private DungeonObject saved;
     private DungeonObject previousState;
@@ -93,31 +86,12 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	this.blocksLOS = false;
 	this.pushable = false;
 	this.friction = true;
-	this.type = new BitSet(DungeonObjectTypes.TYPES_COUNT);
 	this.timerValue = 0;
 	this.timerActive = false;
 	this.frameNumber = 0;
-	this.directions = Direction.NONE;
-	this.diagonalOnly = false;
+	this.direction = Direction.NONE;
 	this.color = Colors._NONE;
 	this.material = Materials.DEFAULT;
-	this.imageEnabled = true;
-    }
-
-    public DungeonObject(final DungeonObject source) {
-	this.solid = source.solid;
-	this.blocksLOS = source.blocksLOS;
-	this.pushable = source.pushable;
-	this.friction = source.friction;
-	this.type = (BitSet) source.type.clone();
-	this.timerValue = source.timerValue;
-	this.timerActive = source.timerActive;
-	this.frameNumber = source.frameNumber;
-	this.directions = source.directions;
-	this.diagonalOnly = source.diagonalOnly;
-	this.color = source.color;
-	this.material = source.material;
-	this.imageEnabled = source.imageEnabled;
     }
 
     // Constructors
@@ -126,25 +100,19 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	this.blocksLOS = isSolid;
 	this.pushable = false;
 	this.friction = true;
-	this.type = new BitSet(DungeonObjectTypes.TYPES_COUNT);
 	this.timerValue = 0;
-	this.initialTimerValue = 0;
 	this.timerActive = false;
 	this.frameNumber = 0;
-	this.directions = Direction.NONE;
-	this.diagonalOnly = false;
+	this.direction = Direction.NONE;
 	this.color = Colors._NONE;
 	this.material = Materials.DEFAULT;
-	this.imageEnabled = true;
     }
 
     public DungeonObject(final boolean isSolid, final boolean sightBlock) {
 	this.solid = isSolid;
 	this.friction = true;
 	this.blocksLOS = sightBlock;
-	this.type = new BitSet(DungeonObjectTypes.TYPES_COUNT);
 	this.timerValue = 0;
-	this.initialTimerValue = 0;
 	this.timerActive = false;
     }
 
@@ -152,9 +120,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	this.solid = isSolid;
 	this.friction = hasFriction;
 	this.blocksLOS = sightBlock;
-	this.type = new BitSet(DungeonObjectTypes.TYPES_COUNT);
 	this.timerValue = 0;
-	this.initialTimerValue = 0;
 	this.timerActive = false;
     }
 
@@ -164,15 +130,25 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	this.blocksLOS = sightBlock;
 	this.pushable = isPushable;
 	this.friction = hasFriction;
-	this.type = new BitSet(DungeonObjectTypes.TYPES_COUNT);
 	this.timerValue = 0;
 	this.timerActive = false;
 	this.frameNumber = 0;
-	this.directions = Direction.NONE;
-	this.diagonalOnly = false;
+	this.direction = Direction.NONE;
 	this.color = Colors._NONE;
 	this.material = Materials.DEFAULT;
-	this.imageEnabled = true;
+    }
+
+    public DungeonObject(final DungeonObject source) {
+	this.solid = source.solid;
+	this.blocksLOS = source.blocksLOS;
+	this.pushable = source.pushable;
+	this.friction = source.friction;
+	this.timerValue = source.timerValue;
+	this.timerActive = source.timerActive;
+	this.frameNumber = source.frameNumber;
+	this.direction = source.direction;
+	this.color = source.color;
+	this.material = source.material;
     }
 
     /**
@@ -180,14 +156,13 @@ public abstract class DungeonObject implements RandomGenerationRule {
      * @param actionType
      * @return
      */
-    public boolean acceptTick(final int actionType) {
+    public boolean acceptsTick(final int actionType) {
 	return true;
     }
 
     public final void activateTimer(final int ticks) {
 	this.timerActive = true;
 	this.timerValue = ticks;
-	this.initialTimerValue = ticks;
     }
 
     public boolean arrowHitBattleCheck() {
@@ -203,6 +178,18 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public boolean canMove() {
+	return false;
+    }
+
+    public boolean canMoveBoxes() {
+	return false;
+    }
+
+    public boolean canMoveMirrors() {
+	return false;
+    }
+
+    public boolean canMoveParty() {
 	return false;
     }
 
@@ -303,12 +290,11 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null || !(obj instanceof final DungeonObject other) || this.friction != other.friction
-		|| this.initialTimerValue != other.initialTimerValue) {
+	if (obj == null || !(obj instanceof final DungeonObject other) || this.friction != other.friction) {
 	    return false;
 	}
-	if (this.pushable != other.pushable || this.solid != other.solid || !Objects.equals(this.type, other.type)
-		|| this.directions != other.directions) {
+	if (this.pushable != other.pushable || this.solid != other.solid
+		|| this.direction != other.direction) {
 	    return false;
 	}
 	if (this.color != other.color || this.material != other.material || this.blocksLOS != other.blocksLOS) {
@@ -317,24 +303,8 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return true;
     }
 
-    /**
-     *
-     * @param x
-     * @param y
-     * @return
-     */
-    public BufferedImageIcon gameRenderHook(final int x, final int y) {
+    public BufferedImageIcon getImage() {
 	return ObjectImageLoader.load(this.getCacheName(), this.getIdValue());
-    }
-
-    abstract public int getIdValue();
-
-    public String getCacheName() {
-	return Integer.toString(this.getIdValue());
-    }
-
-    public final String getName() {
-	return Strings.objectName(this.getIdValue());
     }
 
     public int getBattleBaseID() {
@@ -344,8 +314,8 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return ObjectImageConstants.NONE;
     }
 
-    public int getHeight() {
-	return 1;
+    public String getCacheName() {
+	return Integer.toString(this.getIdValue()) + this.getDirectionSuffix() + this.getFrameSuffix();
     }
 
     public final Colors getColor() {
@@ -371,12 +341,12 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public final Direction getDirection() {
-	return this.directions;
+	return this.direction;
     }
 
     private final String getDirectionSuffix() {
 	if (this.hasDirection()) {
-	    return Strings.SPACE + DirectionStrings.directionSuffix(this.directions);
+	    return Strings.SPACE + DirectionStrings.directionSuffix(this.direction);
 	}
 	return Strings.EMPTY;
     }
@@ -392,17 +362,15 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return Strings.EMPTY;
     }
 
-    private final String getIdentifier() {
-	return this.getCacheName();
+    public int getHeight() {
+	return 1;
     }
 
     public final String getIdentityName() {
 	return this.getLocalColorPrefix() + Strings.objectName(this.getIdValue());
     }
 
-    public final String getImageName() {
-	return this.getCacheName() + this.getDirectionSuffix() + this.getFrameSuffix();
-    }
+    abstract public int getIdValue();
 
     abstract public int getLayer();
 
@@ -437,7 +405,11 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return RandomGenerationRule.NO_LIMIT;
     }
 
-    public final DungeonObject getPreviousState() {
+    public final String getName() {
+	return Strings.objectName(this.getIdValue());
+    }
+
+    public final DungeonObject getPreviousStateObject() {
 	return this.previousState;
     }
 
@@ -454,7 +426,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     private final boolean hasDirection() {
-	return this.directions != null && this.directions != Direction.NONE && this.directions != Direction.NONE;
+	return this.direction != null && this.direction != Direction.NONE && this.direction != Direction.NONE;
     }
 
     public final boolean hasFriction() {
@@ -466,13 +438,11 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	final var prime = 31;
 	var result = 1;
 	result = prime * result + (this.friction ? 1231 : 1237);
-	result = prime * result + this.initialTimerValue;
 	result = prime * result + (this.pushable ? 1231 : 1237);
 	result = prime * result + (this.solid ? 1231 : 1237);
 	result = prime * result + (this.timerActive ? 1231 : 1237);
 	result = prime * result + this.timerValue;
-	result = prime * result + (this.type == null ? 0 : this.type.hashCode());
-	result = prime * result + this.directions.hashCode();
+	result = prime * result + this.direction.hashCode();
 	result = prime * result + this.color.ordinal();
 	result = prime * result + (this.blocksLOS ? 1231 : 1237);
 	return prime * result + this.material;
@@ -502,24 +472,20 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return this.solid;
     }
 
-    public boolean isEnabled() {
-	return this.imageEnabled;
-    }
-
-    public final boolean isField() {
-	return this.isOfType(DungeonObjectTypes.TYPE_FIELD);
+    public boolean isField() {
+	return false;
     }
 
     public boolean isMoving() {
 	return false;
     }
 
-    public final boolean isOfType(final int testType) {
-	return this.type.get(testType);
+    public boolean isPassThrough() {
+	return false;
     }
 
-    public final boolean isPlayer() {
-	return this.isOfType(DungeonObjectTypes.TYPE_CHARACTER);
+    public boolean isPlayer() {
+	return false;
     }
 
     public final boolean isPushable() {
@@ -653,7 +619,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
      * @param y
      * @param z
      */
-    public void pushCollideAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
+    public void pushCollideAction(final DungeonObject pushed, final int x, final int y, final int z) {
 	// Do nothing
     }
 
@@ -807,17 +773,17 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public final DungeonObject readV2(final DataIOReader reader, final String ident, final int ver) throws IOException {
-	if (!ident.equals(this.getIdentifier())) {
+	if (!ident.equals(this.getCacheName())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
 	if (cc == DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    this.directions = Direction.values()[reader.readInt()];
+	    this.direction = Direction.values()[reader.readInt()];
 	    reader.readInt();
 	    this.color = Colors.values()[reader.readInt()];
 	    return this.readHookV2(reader, ver);
 	}
-	this.directions = Direction.values()[reader.readInt()];
+	this.direction = Direction.values()[reader.readInt()];
 	this.color = Colors.values()[reader.readInt()];
 	for (var x = 0; x < cc; x++) {
 	    final var cx = reader.readInt();
@@ -827,18 +793,18 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public final DungeonObject readV3(final DataIOReader reader, final String ident, final int ver) throws IOException {
-	if (!ident.equals(this.getIdentifier())) {
+	if (!ident.equals(this.getCacheName())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
 	if (cc == DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    this.directions = Direction.values()[reader.readInt()];
+	    this.direction = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    // Discard material
 	    reader.readInt();
 	    return this.readHookV3(reader, ver);
 	}
-	this.directions = Direction.values()[reader.readInt()];
+	this.direction = Direction.values()[reader.readInt()];
 	this.color = Colors.values()[reader.readInt()];
 	// Discard material
 	reader.readInt();
@@ -850,16 +816,16 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public final DungeonObject readV4(final DataIOReader reader, final String ident, final int ver) throws IOException {
-	if (!ident.equals(this.getIdentifier())) {
+	if (!ident.equals(this.getCacheName())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
 	if (cc == DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    this.directions = Direction.values()[reader.readInt()];
+	    this.direction = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    return this.readHookV4(reader, ver);
 	}
-	this.directions = Direction.values()[reader.readInt()];
+	this.direction = Direction.values()[reader.readInt()];
 	this.color = Colors.values()[reader.readInt()];
 	for (var x = 0; x < cc; x++) {
 	    final var cx = reader.readInt();
@@ -869,16 +835,16 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public final DungeonObject readV5(final DataIOReader reader, final String ident, final int ver) throws IOException {
-	if (!ident.equals(this.getIdentifier())) {
+	if (!ident.equals(this.getCacheName())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
 	if (cc == DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    this.directions = Direction.values()[reader.readInt()];
+	    this.direction = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    return this.readHookV5(reader, ver);
 	}
-	this.directions = Direction.values()[reader.readInt()];
+	this.direction = Direction.values()[reader.readInt()];
 	this.color = Colors.values()[reader.readInt()];
 	for (var x = 0; x < cc; x++) {
 	    final var cx = reader.readInt();
@@ -888,16 +854,16 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public final DungeonObject readV6(final DataIOReader reader, final String ident, final int ver) throws IOException {
-	if (!ident.equals(this.getIdentifier())) {
+	if (!ident.equals(this.getCacheName())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
 	if (cc == DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    this.directions = Direction.values()[reader.readInt()];
+	    this.direction = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    return this.readHookV6(reader, ver);
 	}
-	this.directions = Direction.values()[reader.readInt()];
+	this.direction = Direction.values()[reader.readInt()];
 	this.color = Colors.values()[reader.readInt()];
 	for (var x = 0; x < cc; x++) {
 	    final var cx = reader.readInt();
@@ -907,16 +873,16 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public final DungeonObject readV7(final DataIOReader reader, final String ident, final int ver) throws IOException {
-	if (!ident.equals(this.getIdentifier())) {
+	if (!ident.equals(this.getCacheName())) {
 	    return null;
 	}
 	final var cc = this.getCustomFormat();
 	if (cc == DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    this.directions = Direction.values()[reader.readInt()];
+	    this.direction = Direction.values()[reader.readInt()];
 	    this.color = Colors.values()[reader.readInt()];
 	    return this.readHookV7(reader, ver);
 	}
-	this.directions = Direction.values()[reader.readInt()];
+	this.direction = Direction.values()[reader.readInt()];
 	this.color = Colors.values()[reader.readInt()];
 	for (var x = 0; x < cc; x++) {
 	    final var cx = reader.readInt();
@@ -931,16 +897,8 @@ public abstract class DungeonObject implements RandomGenerationRule {
 
     abstract public void setCustomProperty(int propID, int value);
 
-    public final void setDiagonalOnly(final boolean value) {
-	this.diagonalOnly = value;
-    }
-
     public final void setDirection(final Direction dir) {
-	this.directions = dir;
-    }
-
-    public void setEnabled(final boolean value) {
-	this.imageEnabled = value;
+	this.direction = dir;
     }
 
     public final void setFrameNumber(final int frame) {
@@ -951,7 +909,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	this.material = mat;
     }
 
-    public final void setPreviousState(final DungeonObject obj) {
+    public final void setPreviousStateObject(final DungeonObject obj) {
 	this.previousState = obj;
     }
 
@@ -969,7 +927,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	if (layer == DungeonConstants.LAYER_LOWER_OBJECTS) {
 	    // Handle object layer
 	    // Limit generation of other objects to 20%, unless required
-	    if (this.isOfType(DungeonObjectTypes.TYPE_PASS_THROUGH) || this.isRequired(dungeon)) {
+	    if (this.isPassThrough() || this.isRequired(dungeon)) {
 		return true;
 	    }
 	    final var r = new RandomRange(1, 100);
@@ -995,11 +953,10 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public final void tickTimer(final int dirX, final int dirY, final int actionType) {
-	if (this.timerActive && this.acceptTick(actionType)) {
+	if (this.timerActive && this.acceptsTick(actionType)) {
 	    this.timerValue--;
 	    if (this.timerValue == 0) {
 		this.timerActive = false;
-		this.initialTimerValue = 0;
 		this.timerExpiredAction(dirX, dirY);
 	    }
 	}
@@ -1030,7 +987,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public final void toggleDirection() {
-	this.directions = DungeonConstants.nextDirOrtho(this.directions);
+	this.direction = DungeonConstants.nextDirOrtho(this.direction);
     }
 
     public final void toggleFrameNumber() {
@@ -1043,14 +1000,14 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public final void write(final DataIOWriter writer) throws IOException {
-	writer.writeString(this.getIdentifier());
+	writer.writeString(this.getCacheName());
 	final var cc = this.getCustomFormat();
 	if (cc == DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
-	    writer.writeInt(this.directions.ordinal());
+	    writer.writeInt(this.direction.ordinal());
 	    writer.writeInt(this.color.ordinal());
 	    this.writeHook(writer);
 	} else {
-	    writer.writeInt(this.directions.ordinal());
+	    writer.writeInt(this.direction.ordinal());
 	    writer.writeInt(this.color.ordinal());
 	    for (var x = 0; x < cc; x++) {
 		final var cx = this.getCustomProperty(x + 1);

@@ -26,7 +26,6 @@ import org.retropipes.dungeondiver7.dungeon.objects.Wall;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.PartyInventory;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
@@ -380,7 +379,7 @@ final class MovingLaserTracker {
 	var sy = nsy;
 	var mover = nMover;
 	if (!this.res && this.laser) {
-	    if (gm.getPlayer().getSavedObject().isOfType(DungeonObjectTypes.TYPE_MOVER)) {
+	    if (gm.getPlayer().getSavedObject().canMoveParty()) {
 		final var dir = gm.getPlayer().getSavedObject().getDirection();
 		final var unres = DirectionResolver.unresolve(dir);
 		sx = unres[0];

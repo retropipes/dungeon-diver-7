@@ -11,7 +11,6 @@ import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public class StunnedArrowTurret extends AbstractMovableObject {
     private static final int STUNNED_START = 10;
@@ -23,7 +22,6 @@ public class StunnedArrowTurret extends AbstractMovableObject {
 	super(true);
 	this.activateTimer(1);
 	this.stunnedLeft = StunnedArrowTurret.STUNNED_START;
-	this.type.set(DungeonObjectTypes.TYPE_ANTI);
     }
 
     @Override

@@ -10,13 +10,11 @@ import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractTriggerButton extends AbstractButton {
     // Constructors
     protected AbstractTriggerButton(final AbstractTriggerButtonDoor tbd, final boolean isUniversal) {
 	super(tbd, isUniversal);
-	this.type.set(DungeonObjectTypes.TYPE_TRIGGER_BUTTON);
     }
 
     @Override

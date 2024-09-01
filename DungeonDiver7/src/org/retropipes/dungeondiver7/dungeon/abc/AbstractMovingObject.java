@@ -6,13 +6,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractMovingObject extends DungeonObject {
     // Constructors
     public AbstractMovingObject(final boolean solid) {
 	super(solid, false);
-	this.type.set(DungeonObjectTypes.TYPE_DUNGEON);
     }
 
     @Override

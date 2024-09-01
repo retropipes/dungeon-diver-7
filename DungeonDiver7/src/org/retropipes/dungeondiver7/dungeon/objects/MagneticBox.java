@@ -10,7 +10,6 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
@@ -18,7 +17,6 @@ public class MagneticBox extends AbstractMovableObject {
     // Constructors
     public MagneticBox() {
 	super(true);
-	this.type.set(DungeonObjectTypes.TYPE_MAGNETIC_BOX);
 	this.setMaterial(Materials.MAGNETIC);
     }
 

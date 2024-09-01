@@ -10,12 +10,10 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractAttribute;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public class Cloak extends AbstractAttribute {
     // Constructors
     public Cloak() {
-	this.type.set(DungeonObjectTypes.TYPE_CLOAK);
     }
 
     @Override

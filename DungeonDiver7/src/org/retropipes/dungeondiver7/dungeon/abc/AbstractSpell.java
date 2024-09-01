@@ -6,12 +6,10 @@
 package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractSpell extends DungeonObject {
     // Constructors
     protected AbstractSpell() {
-	this.type.set(DungeonObjectTypes.TYPE_SPELL);
     }
 
     @Override

@@ -12,13 +12,11 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.GameActions;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class ArrowTurret extends AbstractMovableObject {
     // Fields
-    private boolean autoMove;
     private boolean canShoot;
 
     // Constructors
@@ -28,12 +26,10 @@ public class ArrowTurret extends AbstractMovableObject {
 	this.setFrameNumber(1);
 	this.activateTimer(1);
 	this.canShoot = true;
-	this.autoMove = false;
-	this.type.set(DungeonObjectTypes.TYPE_ANTI);
     }
 
     @Override
-    public boolean acceptTick(final int actionType) {
+    public boolean acceptsTick(final int actionType) {
 	return actionType == GameActions.MOVE;
     }
 
@@ -92,23 +88,5 @@ public class ArrowTurret extends AbstractMovableObject {
     @Override
     public void playSoundHook() {
 	SoundLoader.playSound(Sounds.PUSH);
-    }
-
-    @Override
-    public void timerExpiredAction(final int locX, final int locY) {
-	if (this.getSavedObject().isOfType(DungeonObjectTypes.TYPE_ANTI_MOVER)) {
-	    final var moveDir = this.getSavedObject().getDirection();
-	    final var unres = DirectionResolver.unresolve(moveDir);
-	    if (GameLogic.canObjectMove(locX, locY, unres[0], unres[1])) {
-		if (this.autoMove) {
-		    this.autoMove = false;
-		    DungeonDiver7.getStuffBag().getGameLogic().updatePushedPosition(locX, locY, locX + unres[0],
-			    locY + unres[1], this);
-		}
-	    } else {
-		this.autoMove = true;
-	    }
-	}
-	this.activateTimer(1);
     }
 }

@@ -19,7 +19,6 @@ public class RotaryMirror extends AbstractReactionWall {
     // Constructors
     public RotaryMirror() {
 	this.setDirection(Direction.NORTH_EAST);
-	this.setDiagonalOnly(true);
     }
 
     @Override

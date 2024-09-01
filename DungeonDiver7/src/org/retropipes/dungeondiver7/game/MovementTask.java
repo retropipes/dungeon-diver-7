@@ -14,7 +14,6 @@ import org.retropipes.dungeondiver7.dungeon.objects.Wall;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 final class MovementTask extends Thread {
     private static void checkGameOver() {
@@ -221,7 +220,7 @@ final class MovementTask extends Thread {
 			    groundInto = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_GROUND);
 			    if (groundInto.overridesDefaultPostMove()) {
 				groundInto.postMoveAction(px, py, pz);
-				if (!this.saved.isOfType(DungeonObjectTypes.TYPE_PASS_THROUGH)) {
+				if (!this.saved.isPassThrough()) {
 				    this.saved.postMoveAction(px, py, pz);
 				}
 			    } else {

@@ -54,7 +54,7 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
 	// Defrost icy wall
 	final var dw = new DisruptedWall();
 	if (this.hasPreviousState()) {
-	    dw.setPreviousState(this.getPreviousState());
+	    dw.setPreviousStateObject(this.getPreviousStateObject());
 	}
 	DungeonDiver7.getStuffBag().getGameLogic();
 	GameLogic.morph(dw, locX, locY, locZ, this.getLayer());
@@ -68,7 +68,7 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
 	    final var z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
 	    final var iw = new IcyWall();
 	    if (this.hasPreviousState()) {
-		iw.setPreviousState(this.getPreviousState());
+		iw.setPreviousStateObject(this.getPreviousStateObject());
 	    }
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(iw, locX, locY, z, this.getLayer());

@@ -81,7 +81,7 @@ public class DisruptedIcyCrystalBlock extends AbstractReactionDisruptedObject {
 	    final var z = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
 	    final var icb = new IcyCrystalBlock();
 	    if (this.hasPreviousState()) {
-		icb.setPreviousState(this.getPreviousState());
+		icb.setPreviousStateObject(this.getPreviousStateObject());
 	    }
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    GameLogic.morph(icb, locX, locY, z, this.getLayer());

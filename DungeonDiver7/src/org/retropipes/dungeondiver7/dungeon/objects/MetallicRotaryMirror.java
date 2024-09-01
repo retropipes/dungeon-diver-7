@@ -16,7 +16,6 @@ public class MetallicRotaryMirror extends AbstractReactionWall {
     // Constructors
     public MetallicRotaryMirror() {
 	this.setDirection(Direction.NORTH_EAST);
-	this.setDiagonalOnly(true);
 	this.setMaterial(Materials.METALLIC);
     }
 

@@ -6,13 +6,11 @@
 package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractTeleport extends DungeonObject {
     // Constructors
     protected AbstractTeleport() {
 	super(false);
-	this.type.set(DungeonObjectTypes.TYPE_TELEPORT);
     }
 
     @Override

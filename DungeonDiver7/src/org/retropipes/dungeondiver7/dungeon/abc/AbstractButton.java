@@ -9,7 +9,6 @@ import java.util.Objects;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractButton extends DungeonObject {
     // Fields
@@ -26,7 +25,6 @@ public abstract class AbstractButton extends DungeonObject {
 	this.doorY = -1;
 	this.buttonDoor = bd;
 	this.universal = isUniversal;
-	this.type.set(DungeonObjectTypes.TYPE_BUTTON);
     }
 
     public boolean boundButtonDoorEquals(final AbstractButton other) {

@@ -27,7 +27,7 @@ public class MirrorCrystalBlock extends AbstractReactionWall {
 	return switch (materialID) {
 	case Materials.ICE -> {
 	    final var icb = new IcyCrystalBlock();
-	    icb.setPreviousState(this);
+	    icb.setPreviousStateObject(this);
 	    yield icb;
 	}
 	case Materials.FIRE -> new HotCrystalBlock();

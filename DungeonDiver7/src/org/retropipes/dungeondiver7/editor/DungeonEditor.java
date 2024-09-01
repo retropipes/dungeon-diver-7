@@ -93,10 +93,8 @@ public class DungeonEditor implements MenuSection {
 	this.engine = new EditorUndoRedoEngine();
 	final var objectList = DungeonDiver7.getStuffBag().getObjects();
 	this.names = objectList.getAllNamesOnLayer(DungeonConstants.LAYER_LOWER_GROUND);
-	this.objects = objectList.getAllObjectsOnLayer(DungeonConstants.LAYER_LOWER_GROUND,
-		Prefs.getEditorShowAllObjects());
-	this.editorAppearances = objectList.getAllEditorAppearancesOnLayer(DungeonConstants.LAYER_LOWER_GROUND,
-		Prefs.getEditorShowAllObjects());
+	this.objects = objectList.getAllObjectsOnLayer(DungeonConstants.LAYER_LOWER_GROUND);
+	this.editorAppearances = objectList.getAllEditorAppearancesOnLayer(DungeonConstants.LAYER_LOWER_GROUND);
 	this.objectsEnabled = objectList.getObjectEnabledStatuses(DungeonConstants.LAYER_LOWER_GROUND);
 	this.dungeonChanged = true;
 	this.eme = new ExternalMusicEditor();
@@ -906,7 +904,7 @@ public class DungeonEditor implements MenuSection {
 		yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
 		final var lgobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			DungeonConstants.LAYER_LOWER_GROUND);
-		final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getIdValue());
+		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
 		final var img = lgimg;
 		drawGrid.setImageCell(img, xFix, yFix);
 	    }
@@ -929,8 +927,8 @@ public class DungeonEditor implements MenuSection {
 			DungeonConstants.LAYER_LOWER_GROUND);
 		final var ugobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			DungeonConstants.LAYER_UPPER_GROUND);
-		final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getIdValue());
-		final var ugimg = ObjectImageLoader.load(ugobj.getImageName(), ugobj.getIdValue());
+		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
+		final var ugimg = ObjectImageLoader.load(ugobj.getCacheName(), ugobj.getIdValue());
 		final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName());
 		final var img = ImageCompositor.composite(cacheName, lgimg, ugimg);
 		drawGrid.setImageCell(img, xFix, yFix);
@@ -956,9 +954,9 @@ public class DungeonEditor implements MenuSection {
 			DungeonConstants.LAYER_UPPER_GROUND);
 		final var loobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			DungeonConstants.LAYER_LOWER_OBJECTS);
-		final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getIdValue());
-		final var ugimg = ObjectImageLoader.load(ugobj.getImageName(), ugobj.getIdValue());
-		final var loimg = ObjectImageLoader.load(loobj.getImageName(), loobj.getIdValue());
+		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
+		final var ugimg = ObjectImageLoader.load(ugobj.getCacheName(), ugobj.getIdValue());
+		final var loimg = ObjectImageLoader.load(loobj.getCacheName(), loobj.getIdValue());
 		final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName(),
 			loobj.getCacheName());
 		final var img = ImageCompositor.composite(cacheName, lgimg, ugimg, loimg);
@@ -989,11 +987,11 @@ public class DungeonEditor implements MenuSection {
 			DungeonConstants.LAYER_UPPER_OBJECTS);
 		final var lvobj = app.getDungeonManager().getDungeon().getVirtualCell(y, x,
 			this.elMgr.getEditorLocationZ(), DungeonConstants.LAYER_VIRTUAL);
-		final var lgimg = ObjectImageLoader.load(lgobj.getImageName(), lgobj.getIdValue());
-		final var ugimg = ObjectImageLoader.load(ugobj.getImageName(), ugobj.getIdValue());
-		final var loimg = ObjectImageLoader.load(loobj.getImageName(), loobj.getIdValue());
-		final var uoimg = ObjectImageLoader.load(uoobj.getImageName(), uoobj.getIdValue());
-		final var lvimg = ObjectImageLoader.load(lvobj.getImageName(), lvobj.getIdValue());
+		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
+		final var ugimg = ObjectImageLoader.load(ugobj.getCacheName(), ugobj.getIdValue());
+		final var loimg = ObjectImageLoader.load(loobj.getCacheName(), loobj.getIdValue());
+		final var uoimg = ObjectImageLoader.load(uoobj.getCacheName(), uoobj.getIdValue());
+		final var lvimg = ObjectImageLoader.load(lvobj.getCacheName(), lvobj.getIdValue());
 		final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName(),
 			loobj.getCacheName(), uoobj.getCacheName(), lvobj.getCacheName());
 		final var img = ImageCompositor.composite(cacheName, lgimg, ugimg, loimg, uoimg, lvimg);
@@ -1328,10 +1326,8 @@ public class DungeonEditor implements MenuSection {
 	if (this.elMgr != null) {
 	    final var objectList = DungeonDiver7.getStuffBag().getObjects();
 	    this.names = objectList.getAllNamesOnLayer(this.elMgr.getEditorLocationW());
-	    this.objects = objectList.getAllObjectsOnLayer(this.elMgr.getEditorLocationW(),
-		    Prefs.getEditorShowAllObjects());
-	    this.editorAppearances = objectList.getAllEditorAppearancesOnLayer(this.elMgr.getEditorLocationW(),
-		    Prefs.getEditorShowAllObjects());
+	    this.objects = objectList.getAllObjectsOnLayer(this.elMgr.getEditorLocationW());
+	    this.editorAppearances = objectList.getAllEditorAppearancesOnLayer(this.elMgr.getEditorLocationW());
 	    this.objectsEnabled = objectList.getObjectEnabledStatuses(this.elMgr.getEditorLocationW());
 	    if (Prefs.getEditorLayout() == EditorLayout.VERTICAL) {
 		this.updateOldPicker();

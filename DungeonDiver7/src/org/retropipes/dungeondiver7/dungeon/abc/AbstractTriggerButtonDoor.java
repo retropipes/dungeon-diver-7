@@ -5,11 +5,8 @@
  */
 package org.retropipes.dungeondiver7.dungeon.abc;
 
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
-
 public abstract class AbstractTriggerButtonDoor extends AbstractButtonDoor {
     // Constructors
     protected AbstractTriggerButtonDoor() {
-	this.type.set(DungeonObjectTypes.TYPE_TRIGGER_BUTTON_DOOR);
     }
 }

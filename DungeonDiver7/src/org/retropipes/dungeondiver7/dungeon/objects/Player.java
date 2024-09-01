@@ -17,7 +17,7 @@ public class Player extends AbstractCharacter {
     }
 
     @Override
-    public BufferedImageIcon gameRenderHook(final int x, final int y) {
+    public BufferedImageIcon getImage() {
 	return PartyManager.getParty().getLeader().getImage();
     }
 

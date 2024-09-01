@@ -6,13 +6,11 @@
 package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractField extends DungeonObject {
     // Constructors
     protected AbstractField() {
 	super(false);
-	this.type.set(DungeonObjectTypes.TYPE_FIELD);
     }
 
     @Override
@@ -23,6 +21,11 @@ public abstract class AbstractField extends DungeonObject {
     @Override
     public int getLayer() {
 	return DungeonConstants.LAYER_LOWER_OBJECTS;
+    }
+
+    @Override
+    public final boolean isField() {
+	return true;
     }
 
     @Override

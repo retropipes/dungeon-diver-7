@@ -10,7 +10,6 @@ import org.retropipes.dungeondiver7.gameobject.ShopType;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 
 public abstract class AbstractShop extends DungeonObject {
     // Fields
@@ -20,7 +19,6 @@ public abstract class AbstractShop extends DungeonObject {
     public AbstractShop(final ShopType newShopType) {
 	super(false, false);
 	this.shopType = newShopType;
-	this.type.set(DungeonObjectTypes.TYPE_SHOP);
     }
 
     @Override

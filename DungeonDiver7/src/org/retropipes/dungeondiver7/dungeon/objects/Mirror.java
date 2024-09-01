@@ -13,7 +13,6 @@ import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.DungeonObjectTypes;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class Mirror extends AbstractMovableObject {
@@ -21,8 +20,11 @@ public class Mirror extends AbstractMovableObject {
     public Mirror() {
 	super(true);
 	this.setDirection(Direction.NORTH_EAST);
-	this.setDiagonalOnly(true);
-	this.type.set(DungeonObjectTypes.TYPE_MOVABLE_MIRROR);
+    }
+
+    @Override
+    public final boolean canMove() {
+	return true;
     }
 
     @Override
