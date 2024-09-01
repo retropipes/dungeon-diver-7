@@ -1,7 +1,12 @@
 package org.retropipes.dungeondiver7.gameobject;
 
+import java.io.IOException;
+
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.direction.Direction;
+import org.retropipes.diane.direction.DirectionStrings;
+import org.retropipes.diane.fileio.DataIOReader;
+import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.objectmodel.ObjectModel;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
@@ -21,6 +26,7 @@ public final class GameObject {
     private transient boolean canPush;
     private transient boolean canPull;
     private transient boolean isField;
+    private transient boolean isPassThrough;
     private transient boolean isPlayer;
     private transient int layer;
     private transient int blockHeight;
@@ -38,13 +44,22 @@ public final class GameObject {
     private transient int teamId;
     private transient boolean imageOverridden;
     private transient boolean timerActive;
+    private transient boolean deferSetProperties;
+    private transient boolean killsOnMove;
+    private transient boolean solvesOnMove;
     private transient Direction direction;
     private transient Colors color;
     private transient ObjectImageId saved;
+    private transient ObjectImageId bound;
+    private transient ObjectImageId previousState;
+    private transient int boundX;
+    private transient int boundY;
+    private transient boolean triggered;
 
     public GameObject(final ObjectImageId oid) {
 	this.id = oid;
 	this.imageOverridden = false;
+	this.triggered = false;
 	this.model = new ObjectModel();
 	this.model.setId(oid);
 	this.lazyLoaded = false;
@@ -54,9 +69,15 @@ public final class GameObject {
 	this.id = oid;
 	this.saved = savedOid;
 	this.imageOverridden = false;
+	this.triggered = false;
 	this.model = new ObjectModel();
 	this.model.setId(oid);
 	this.lazyLoaded = false;
+    }
+
+    public static GameObject read(final DataIOReader reader) throws IOException {
+	int nid = reader.readInt();
+	return new GameObject(ObjectImageId.values()[nid]);
     }
 
     public final void activateTimer(final int ticks) {
@@ -68,8 +89,25 @@ public final class GameObject {
 	return this.isMoving() || this.isPlayer() || this.isPullable() || this.isPushable();
     }
 
+    public final boolean canMoveBoxes() {
+	return false;
+    }
+
+    public final boolean canMoveMirrors() {
+	return false;
+    }
+
+    public final boolean canMoveParty() {
+	return false;
+    }
+
     public final boolean canShoot() {
 	return false;
+    }
+
+    public final boolean defersSetProperties() {
+	this.lazyLoad();
+	return this.deferSetProperties;
     }
 
     public GameObject editorPropertiesHook() {
@@ -85,7 +123,7 @@ public final class GameObject {
     }
 
     public final String getCacheName() {
-	return Integer.toString(this.id.ordinal());
+	return Integer.toString(this.id.ordinal()) + this.getDirectionSuffix() + this.getFrameSuffix();
     }
 
     public final Colors getColor() {
@@ -107,9 +145,23 @@ public final class GameObject {
 	return this.direction;
     }
 
+    private final String getDirectionSuffix() {
+	if (this.hasDirection()) {
+	    return Strings.SPACE + DirectionStrings.directionSuffix(this.direction);
+	}
+	return Strings.EMPTY;
+    }
+
     public final int getFrameNumber() {
 	this.lazyLoad();
 	return this.frameNumber;
+    }
+
+    private final String getFrameSuffix() {
+	if (this.isAnimated()) {
+	    return Strings.SPACE + this.frameNumber;
+	}
+	return Strings.EMPTY;
     }
 
     public final int getHeight() {
@@ -119,6 +171,10 @@ public final class GameObject {
 
     public final ObjectImageId getId() {
 	return this.id;
+    }
+
+    public final String getIdentityName() {
+	return this.getLocalColorPrefix() + Strings.objectName(this.getIdValue());
     }
 
     public final int getIdValue() {
@@ -150,8 +206,38 @@ public final class GameObject {
 	return this.layer;
     }
 
+    private final String getLocalColorPrefix() {
+	if (this.hasColor()) {
+	    return Strings.color(this.color) + Strings.SPACE;
+	}
+	return Strings.EMPTY;
+    }
+
     public final String getName() {
 	return Strings.objectName(this.id.ordinal());
+    }
+
+    public final GameObject getBoundObject() {
+	this.lazyLoad();
+	if (this.bound == null || this.bound == this.id) {
+	    return this;
+	}
+	return new GameObject(this.bound, this.id);
+    }
+
+    public final int getBoundObjectX() {
+	return this.boundX;
+    }
+
+    public final int getBoundObjectY() {
+	return this.boundY;
+    }
+
+    public final GameObject getPreviousStateObject() {
+	if (this.previousState == null || this.previousState == this.id) {
+	    return this;
+	}
+	return new GameObject(this.previousState, this.id);
     }
 
     public final GameObject getSavedObject() {
@@ -183,6 +269,13 @@ public final class GameObject {
 	return this.friction;
     }
 
+    public final boolean hasSameBoundObject(final GameObject testObject) {
+	if (this.bound == null && testObject.bound == null) {
+	    return true;
+	}
+	return this.bound == testObject.bound;
+    }
+
     public final boolean isAnimated() {
 	this.lazyLoad();
 	return this.maxFrameNumber > 0;
@@ -206,6 +299,11 @@ public final class GameObject {
     public final boolean isMoving() {
 	this.lazyLoad();
 	return this.canMove;
+    }
+
+    public final boolean isPassThrough() {
+	this.lazyLoad();
+	return this.isPassThrough;
     }
 
     public final boolean isPlayer() {
@@ -237,6 +335,15 @@ public final class GameObject {
 	return this.solid;
     }
 
+    public boolean isTriggered() {
+	return this.triggered;
+    }
+
+    public boolean killsOnMove() {
+	this.lazyLoad();
+	return this.killsOnMove;
+    }
+
     private void lazyLoad() {
 	if (!this.lazyLoaded) {
 	    if (!this.imageOverridden) {
@@ -264,6 +371,11 @@ public final class GameObject {
 	    this.damageDealt = GameObjectDataLoader.damage(this.id);
 	    this.timerValue = GameObjectDataLoader.initialTimer(this.id);
 	    this.maxFrameNumber = GameObjectDataLoader.maxFrame(this.id);
+	    // this.bound = ...
+	    // this.deferSetProperties = ...
+	    // this.killsOnMove = ...
+	    // this.solvesOnMove = ...
+	    // this.isPassThrough = ...
 	    this.lazyLoaded = true;
 	}
     }
@@ -273,12 +385,33 @@ public final class GameObject {
 	this.image = imageOverride;
     }
 
+    public final void setBoundObjectX(final int newBX) {
+	this.boundX = newBX;
+    }
+
+    public final void setBoundObjectY(final int newBY) {
+	this.boundY = newBY;
+    }
+
+    public final void setPreviousStateObject(final GameObject savedObject) {
+	this.previousState = savedObject.getId();
+    }
+
     public final void setSavedObject(final GameObject savedObject) {
 	this.saved = savedObject.getId();
     }
 
     public final void setTeamID(final int tid) {
 	this.teamId = tid;
+    }
+
+    public final void setTriggered(final boolean isTriggered) {
+	this.triggered = isTriggered;
+    }
+
+    public boolean solvesOnMove() {
+	this.lazyLoad();
+	return this.solvesOnMove;
     }
 
     public final void tickTimer() {
@@ -318,5 +451,9 @@ public final class GameObject {
 		this.frameNumber = 0;
 	    }
 	}
+    }
+
+    public final void write(final DataIOWriter writer) throws IOException {
+	writer.writeInt(this.id.ordinal());
     }
 }
