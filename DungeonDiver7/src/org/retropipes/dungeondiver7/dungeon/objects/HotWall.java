@@ -10,19 +10,19 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractWall;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class HotWall extends AbstractWall {
     // Constructors
     public HotWall() {
-	this.setMaterial(Materials.FIRE);
+	this.setMaterial(Material.FIRE);
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final Material materialID) {
 	return switch (materialID) {
-	case Materials.ICE -> new Wall();
+	case Material.ICE -> new Wall();
 	default -> this;
 	};
     }

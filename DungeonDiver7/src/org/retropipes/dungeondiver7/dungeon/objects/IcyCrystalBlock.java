@@ -10,22 +10,22 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.RangeTypes;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class IcyCrystalBlock extends AbstractReactionWall {
     // Constructors
     public IcyCrystalBlock() {
-	this.setMaterial(Materials.ICE);
+	this.setMaterial(Material.ICE);
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final Material materialID) {
 	switch (materialID) {
-	case Materials.FIRE:
+	case Material.FIRE:
 	    if (this.hasPreviousState()) {
 		return this.getPreviousStateObject();
 	    }
@@ -67,17 +67,17 @@ public class IcyCrystalBlock extends AbstractReactionWall {
     @Override
     public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
-	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.METALLIC) {
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Material.METALLIC) {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy icy crystal block
 	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	}
-	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE) {
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Material.FIRE) {
 	    // Heat up crystal block
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
-	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE) {
+	    GameLogic.morph(this.changesToOnExposure(Material.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
+	} else if (RangeTypes.getMaterialForRangeType(rangeType) == Material.ICE) {
 	}
 	return true;
     }

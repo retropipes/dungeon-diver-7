@@ -10,26 +10,26 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractGround;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.Materials;
 
 public class Water extends AbstractGround {
     // Constructors
     public Water() {
 	this.setFrameNumber(1);
-	this.setMaterial(Materials.WOODEN);
+	this.setMaterial(Material.WOODEN);
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final Material materialID) {
 	return switch (materialID) {
-	case Materials.ICE -> {
+	case Material.ICE -> {
 	    final var i = new Ice();
 	    i.setPreviousStateObject(this);
 	    yield i;
 	}
-	case Materials.FIRE -> new Ground();
+	case Material.FIRE -> new Ground();
 	default -> this;
 	};
     }
@@ -57,7 +57,7 @@ public class Water extends AbstractGround {
 	// Get rid of pushed object
 	GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
 	if (pushed.canMove()) {
-	    if (pushed.getMaterial() == Materials.ICE) {
+	    if (pushed.getMaterial() == Material.ICE) {
 		app.getGameLogic();
 		GameLogic.morph(new IceBridge(), x, y, z, this.getLayer());
 	    } else {

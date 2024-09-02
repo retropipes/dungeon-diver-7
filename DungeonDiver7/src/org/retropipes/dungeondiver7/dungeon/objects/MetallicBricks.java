@@ -10,13 +10,13 @@ import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class MetallicBricks extends AbstractReactionWall {
     // Constructors
     public MetallicBricks() {
-	this.setMaterial(Materials.METALLIC);
+	this.setMaterial(Material.METALLIC);
     }
 
     @Override

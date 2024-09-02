@@ -6,13 +6,13 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTriggerButton;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class IceTriggerButton extends AbstractTriggerButton {
     // Constructors
     public IceTriggerButton() {
 	super(new IceTriggerButtonDoor(), false);
-	this.setMaterial(Materials.ICE);
+	this.setMaterial(Material.ICE);
     }
 
     @Override

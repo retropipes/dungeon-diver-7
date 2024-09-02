@@ -6,12 +6,12 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractAllButtonDoor;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class MetallicAllButtonDoor extends AbstractAllButtonDoor {
     // Constructors
     public MetallicAllButtonDoor() {
-	this.setMaterial(Materials.METALLIC);
+	this.setMaterial(Material.METALLIC);
     }
 
     @Override

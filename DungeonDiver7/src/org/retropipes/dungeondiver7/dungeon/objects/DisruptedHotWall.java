@@ -10,7 +10,7 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDisruptedObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class DisruptedHotWall extends AbstractDisruptedObject {
@@ -22,19 +22,19 @@ public class DisruptedHotWall extends AbstractDisruptedObject {
     public DisruptedHotWall() {
 	this.disruptionLeft = DisruptedHotWall.DISRUPTION_START;
 	this.activateTimer(1);
-	this.setMaterial(Materials.FIRE);
+	this.setMaterial(Material.FIRE);
     }
 
     DisruptedHotWall(final int disruption) {
 	this.disruptionLeft = disruption;
 	this.activateTimer(1);
-	this.setMaterial(Materials.FIRE);
+	this.setMaterial(Material.FIRE);
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final Material materialID) {
 	return switch (materialID) {
-	case Materials.ICE -> new DisruptedWall(this.disruptionLeft);
+	case Material.ICE -> new DisruptedWall(this.disruptionLeft);
 	default -> this;
 	};
     }

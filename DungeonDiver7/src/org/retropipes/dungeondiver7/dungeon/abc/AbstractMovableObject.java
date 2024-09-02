@@ -12,8 +12,8 @@ import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public abstract class AbstractMovableObject extends DungeonObject {
@@ -74,7 +74,7 @@ public abstract class AbstractMovableObject extends DungeonObject {
 		    this.getLayer());
 	    final var mor = app.getDungeonManager().getDungeon().getCell(locX - dirX, locY - dirY, locZ,
 		    this.getLayer());
-	    if (this.getMaterial() == Materials.MAGNETIC) {
+	    if (this.getMaterial() == Material.MAGNETIC) {
 		if (laserType == ShotTypes.BLUE && mof != null
 			&& (mof.isPlayer() || !mof.isSolid())) {
 		    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);

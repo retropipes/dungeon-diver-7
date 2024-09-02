@@ -6,13 +6,13 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractAllButton;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class FireAllButton extends AbstractAllButton {
     // Constructors
     public FireAllButton() {
 	super(new FireAllButtonDoor(), false);
-	this.setMaterial(Materials.FIRE);
+	this.setMaterial(Material.FIRE);
     }
 
     @Override

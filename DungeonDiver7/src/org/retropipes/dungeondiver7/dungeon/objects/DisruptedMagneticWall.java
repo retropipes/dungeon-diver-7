@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDisruptedObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class DisruptedMagneticWall extends AbstractDisruptedObject {
     private static final int DISRUPTION_START = 20;
@@ -19,7 +19,7 @@ public class DisruptedMagneticWall extends AbstractDisruptedObject {
     public DisruptedMagneticWall() {
 	this.disruptionLeft = DisruptedMagneticWall.DISRUPTION_START;
 	this.activateTimer(1);
-	this.setMaterial(Materials.MAGNETIC);
+	this.setMaterial(Material.MAGNETIC);
     }
 
     @Override

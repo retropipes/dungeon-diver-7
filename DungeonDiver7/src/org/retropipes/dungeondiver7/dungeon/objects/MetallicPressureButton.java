@@ -6,13 +6,13 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractPressureButton;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class MetallicPressureButton extends AbstractPressureButton {
     // Constructors
     public MetallicPressureButton() {
 	super(new MetallicPressureButtonDoor(), false);
-	this.setMaterial(Materials.METALLIC);
+	this.setMaterial(Material.METALLIC);
     }
 
     @Override

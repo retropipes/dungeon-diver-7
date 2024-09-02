@@ -10,27 +10,27 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class WoodenBox extends AbstractMovableObject {
     // Constructors
     public WoodenBox() {
 	super(true);
-	this.setMaterial(Materials.WOODEN);
+	this.setMaterial(Material.WOODEN);
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final Material materialID) {
 	return switch (materialID) {
-	case Materials.ICE -> {
+	case Material.ICE -> {
 	    final var ib = new IcyBox();
 	    ib.setPreviousStateObject(this);
 	    yield ib;
 	}
-	case Materials.FIRE -> new Ground();
+	case Material.FIRE -> new Ground();
 	default -> this;
 	};
     }

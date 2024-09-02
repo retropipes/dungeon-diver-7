@@ -13,11 +13,11 @@ import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.gameobject.ImageColors;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.manager.dungeon.DungeonManager;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.ImageColors;
 
 public class GenerateDungeonTask extends Thread {
     // Fields

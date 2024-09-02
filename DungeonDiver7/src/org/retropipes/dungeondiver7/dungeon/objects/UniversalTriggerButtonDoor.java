@@ -6,12 +6,12 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTriggerButtonDoor;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class UniversalTriggerButtonDoor extends AbstractTriggerButtonDoor {
     // Constructors
     public UniversalTriggerButtonDoor() {
-	this.setMaterial(Materials.DEFAULT);
+	this.setMaterial(Material.DEFAULT);
     }
 
     @Override

@@ -10,22 +10,22 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.RangeTypes;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class HotCrystalBlock extends AbstractReactionWall {
     // Constructors
     public HotCrystalBlock() {
-	this.setMaterial(Materials.FIRE);
+	this.setMaterial(Material.FIRE);
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final Material materialID) {
 	return switch (materialID) {
-	case Materials.ICE -> new CrystalBlock();
+	case Material.ICE -> new CrystalBlock();
 	default -> this;
 	};
     }
@@ -58,18 +58,18 @@ public class HotCrystalBlock extends AbstractReactionWall {
     @Override
     public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
-	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.METALLIC) {
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Material.METALLIC) {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy hot crystal block
 	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	}
-	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE
-		|| RangeTypes.getMaterialForRangeType(rangeType) != Materials.ICE) {
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Material.FIRE
+		|| RangeTypes.getMaterialForRangeType(rangeType) != Material.ICE) {
 	} else {
 	    // Freeze crystal block
 	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
+	    GameLogic.morph(this.changesToOnExposure(Material.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	}
 	// Do nothing
 	return true;

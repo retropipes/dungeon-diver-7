@@ -21,9 +21,9 @@ import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeon;
+import org.retropipes.dungeondiver7.gameobject.ImageColors;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Strings;
-import org.retropipes.dungeondiver7.utility.ImageColors;
 
 public class GameLoadTask extends Thread {
     // Fields

@@ -6,12 +6,12 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractAllButtonDoor;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class IceAllButtonDoor extends AbstractAllButtonDoor {
     // Constructors
     public IceAllButtonDoor() {
-	this.setMaterial(Materials.ICE);
+	this.setMaterial(Material.ICE);
     }
 
     @Override

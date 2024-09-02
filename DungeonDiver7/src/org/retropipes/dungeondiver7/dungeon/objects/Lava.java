@@ -10,18 +10,18 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractGround;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class Lava extends AbstractGround {
     // Constructors
     public Lava() {
-	this.setMaterial(Materials.FIRE);
+	this.setMaterial(Material.FIRE);
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final Material materialID) {
 	return switch (materialID) {
-	case Materials.ICE -> new Ground();
+	case Material.ICE -> new Ground();
 	default -> this;
 	};
     }

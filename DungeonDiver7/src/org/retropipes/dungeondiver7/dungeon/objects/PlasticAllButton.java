@@ -6,13 +6,13 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractAllButton;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class PlasticAllButton extends AbstractAllButton {
     // Constructors
     public PlasticAllButton() {
 	super(new PlasticAllButtonDoor(), false);
-	this.setMaterial(Materials.PLASTIC);
+	this.setMaterial(Material.PLASTIC);
     }
 
     @Override

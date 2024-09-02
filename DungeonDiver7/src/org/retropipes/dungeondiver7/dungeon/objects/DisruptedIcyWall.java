@@ -10,7 +10,7 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDisruptedObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class DisruptedIcyWall extends AbstractDisruptedObject {
@@ -22,19 +22,19 @@ public class DisruptedIcyWall extends AbstractDisruptedObject {
     public DisruptedIcyWall() {
 	this.disruptionLeft = DisruptedIcyWall.DISRUPTION_START;
 	this.activateTimer(1);
-	this.setMaterial(Materials.ICE);
+	this.setMaterial(Material.ICE);
     }
 
     DisruptedIcyWall(final int disruption) {
 	this.disruptionLeft = disruption;
 	this.activateTimer(1);
-	this.setMaterial(Materials.ICE);
+	this.setMaterial(Material.ICE);
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final Material materialID) {
 	return switch (materialID) {
-	case Materials.FIRE -> new DisruptedWall(this.disruptionLeft);
+	case Material.FIRE -> new DisruptedWall(this.disruptionLeft);
 	default -> this;
 	};
     }

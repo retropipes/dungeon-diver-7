@@ -10,26 +10,26 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractGround;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.Materials;
 
 public class DeepestWater extends AbstractGround {
     // Constructors
     public DeepestWater() {
 	this.setFrameNumber(1);
-	this.setMaterial(Materials.WOODEN);
+	this.setMaterial(Material.WOODEN);
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final Material materialID) {
 	return switch (materialID) {
-	case Materials.ICE -> {
+	case Material.ICE -> {
 	    final var i = new Ice();
 	    i.setPreviousStateObject(this);
 	    yield i;
 	}
-	case Materials.FIRE -> new DeeperWater();
+	case Material.FIRE -> new DeeperWater();
 	default -> this;
 	};
     }
@@ -57,7 +57,7 @@ public class DeepestWater extends AbstractGround {
 	// Get rid of pushed object
 	GameLogic.morph(new Empty(), x, y, z, pushed.getLayer());
 	if (pushed.canMove()) {
-	    if (pushed.getMaterial() == Materials.WOODEN) {
+	    if (pushed.getMaterial() == Material.WOODEN) {
 		app.getGameLogic();
 		GameLogic.morph(new Bridge(), x, y, z, this.getLayer());
 	    } else {

@@ -10,9 +10,9 @@ import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractReactionDisruptedObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.RangeTypes;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
@@ -25,7 +25,7 @@ public class DisruptedIcyCrystalBlock extends AbstractReactionDisruptedObject {
     public DisruptedIcyCrystalBlock() {
 	this.disruptionLeft = DisruptedIcyCrystalBlock.DISRUPTION_START;
 	this.activateTimer(1);
-	this.setMaterial(Materials.ICE);
+	this.setMaterial(Material.ICE);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class DisruptedIcyCrystalBlock extends AbstractReactionDisruptedObject {
     @Override
     public boolean rangeActionHook(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
-	if (rangeType == RangeTypes.BOMB || RangeTypes.getMaterialForRangeType(rangeType) == Materials.METALLIC) {
+	if (rangeType == RangeTypes.BOMB || RangeTypes.getMaterialForRangeType(rangeType) == Material.METALLIC) {
 	    DungeonDiver7.getStuffBag().getGameLogic();
 	    // Destroy disrupted icy crystal block
 	    GameLogic.morph(new Empty(), locX + dirX, locY + dirY, locZ, this.getLayer());

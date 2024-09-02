@@ -5,13 +5,13 @@
  */
 package org.retropipes.dungeondiver7.dungeon.abc;
 
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.Materials;
 
 public abstract class AbstractInventoryModifier extends AbstractGround {
     // Constructors
     protected AbstractInventoryModifier() {
-	this.setMaterial(Materials.NOT_APPLICABLE);
+	this.setMaterial(Material.DEFAULT);
     }
 
     @Override

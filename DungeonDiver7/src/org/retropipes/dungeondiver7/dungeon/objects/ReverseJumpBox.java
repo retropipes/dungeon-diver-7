@@ -9,23 +9,23 @@ import java.awt.Color;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractJumpObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class ReverseJumpBox extends AbstractJumpObject {
     // Constructors
     public ReverseJumpBox() {
- 	this.setMaterial(Materials.STONE);
+ 	this.setMaterial(Material.STONE);
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final Material materialID) {
 	return switch (materialID) {
-	case Materials.ICE -> {
+	case Material.ICE -> {
 	    final var ib = new IcyBox();
 	    ib.setPreviousStateObject(this);
 	    yield ib;
 	}
-	case Materials.FIRE -> new HotBox();
+	case Material.FIRE -> new HotBox();
 	default -> this;
 	};
     }

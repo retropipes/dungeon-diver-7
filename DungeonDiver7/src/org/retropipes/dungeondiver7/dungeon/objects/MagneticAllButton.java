@@ -6,13 +6,13 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractAllButton;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class MagneticAllButton extends AbstractAllButton {
     // Constructors
     public MagneticAllButton() {
 	super(new MagneticAllButtonDoor(), false);
-	this.setMaterial(Materials.MAGNETIC);
+	this.setMaterial(Material.MAGNETIC);
     }
 
     @Override

@@ -11,9 +11,9 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class ExplodingBarrel extends AbstractReactionWall {
@@ -65,7 +65,7 @@ public class ExplodingBarrel extends AbstractReactionWall {
 
     // Constructors
     public ExplodingBarrel() {
-	this.setMaterial(Materials.WOODEN);
+	this.setMaterial(Material.WOODEN);
 	this.destroyed = false;
     }
 

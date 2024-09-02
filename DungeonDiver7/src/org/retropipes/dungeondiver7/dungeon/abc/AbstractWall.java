@@ -5,14 +5,14 @@
  */
 package org.retropipes.dungeondiver7.dungeon.abc;
 
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.Materials;
 
 public abstract class AbstractWall extends DungeonObject {
     // Constructors
     protected AbstractWall() {
 	super(true);
-	this.setMaterial(Materials.STONE);
+	this.setMaterial(Material.STONE);
     }
 
     @Override

@@ -7,23 +7,23 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractGround;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class Ground extends AbstractGround {
     // Constructors
     public Ground() {
-	this.setMaterial(Materials.METALLIC);
+	this.setMaterial(Material.METALLIC);
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final Material materialID) {
 	return switch (materialID) {
-	case Materials.ICE -> {
+	case Material.ICE -> {
 	    final var i = new Ice();
 	    i.setPreviousStateObject(this);
 	    yield i;
 	}
-	case Materials.FIRE -> new Lava();
+	case Material.FIRE -> new Lava();
 	default -> this;
 	};
     }

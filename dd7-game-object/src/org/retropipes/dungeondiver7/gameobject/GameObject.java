@@ -1,5 +1,6 @@
 package org.retropipes.dungeondiver7.gameobject;
 
+import java.awt.Color;
 import java.io.IOException;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
@@ -16,6 +17,7 @@ import org.retropipes.dungeondiver7.locale.ObjectInteractMessage;
 import org.retropipes.dungeondiver7.locale.Strings;
 
 public final class GameObject {
+    private static Color templateColor = ImageColors.NONE;
     private final ObjectModel model;
     private final ObjectImageId id;
     private transient boolean solid;
@@ -49,6 +51,7 @@ public final class GameObject {
     private transient boolean solvesOnMove;
     private transient Direction direction;
     private transient Colors color;
+    private transient Material material;
     private transient ObjectImageId saved;
     private transient ObjectImageId bound;
     private transient ObjectImageId previousState;
@@ -75,9 +78,24 @@ public final class GameObject {
 	this.lazyLoaded = false;
     }
 
+    public static Color getTemplateColor() {
+	return templateColor;
+    }
+
+    public static boolean hitReflectiveSide(final Direction dir) {
+	Direction trigger1, trigger2;
+	trigger1 = GameObjectDirectionsHelper.previousDir(dir);
+	trigger2 = GameObjectDirectionsHelper.nextDir(dir);
+	return dir == trigger1 || dir == trigger2;
+    }
+
     public static GameObject read(final DataIOReader reader) throws IOException {
 	int nid = reader.readInt();
 	return new GameObject(ObjectImageId.values()[nid]);
+    }
+
+    public static void setTemplateColor(final Color newTC) {
+	templateColor = newTC;
     }
 
     public final void activateTimer(final int ticks) {
@@ -211,6 +229,11 @@ public final class GameObject {
 	    return Strings.color(this.color) + Strings.SPACE;
 	}
 	return Strings.EMPTY;
+    }
+
+    public final Material getMaterial() {
+	this.lazyLoad();
+	return this.material;
     }
 
     public final String getName() {
@@ -376,6 +399,7 @@ public final class GameObject {
 	    // this.killsOnMove = ...
 	    // this.solvesOnMove = ...
 	    // this.isPassThrough = ...
+	    // this.material = ...
 	    this.lazyLoaded = true;
 	}
     }

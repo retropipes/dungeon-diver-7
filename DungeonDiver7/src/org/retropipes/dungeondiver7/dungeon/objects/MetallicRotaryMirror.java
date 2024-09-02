@@ -10,13 +10,13 @@ import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
-import org.retropipes.dungeondiver7.utility.Materials;
+import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class MetallicRotaryMirror extends AbstractReactionWall {
     // Constructors
     public MetallicRotaryMirror() {
 	this.setDirection(Direction.NORTH_EAST);
-	this.setMaterial(Materials.METALLIC);
+	this.setMaterial(Material.METALLIC);
     }
 
     @Override

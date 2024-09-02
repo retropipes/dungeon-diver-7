@@ -7,21 +7,21 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.Materials;
 
 public class HotBox extends AbstractMovableObject {
     // Constructors
     public HotBox() {
 	super(true);
-	this.setMaterial(Materials.FIRE);
+	this.setMaterial(Material.FIRE);
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final Material materialID) {
 	return switch (materialID) {
-	case Materials.ICE -> new Box();
+	case Material.ICE -> new Box();
 	default -> this;
 	};
     }

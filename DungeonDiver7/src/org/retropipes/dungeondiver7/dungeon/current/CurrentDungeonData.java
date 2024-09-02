@@ -37,6 +37,7 @@ import org.retropipes.dungeondiver7.dungeon.objects.MonsterTile;
 import org.retropipes.dungeondiver7.dungeon.objects.Party;
 import org.retropipes.dungeondiver7.dungeon.objects.Wall;
 import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Difficulty;
@@ -44,7 +45,6 @@ import org.retropipes.dungeondiver7.locale.ErrorString;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.FileFormats;
-import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.VisionModes;
 
 public final class CurrentDungeonData extends DungeonData {
@@ -1031,7 +1031,7 @@ public final class CurrentDungeonData extends DungeonData {
 		    if (!(obj instanceof Ground)) {
 			DungeonDiver7.getStuffBag().getGameLogic();
 			// Freeze the ground
-			GameLogic.morph(obj.changesToOnExposure(Materials.ICE), y, x, z,
+			GameLogic.morph(obj.changesToOnExposure(Material.ICE), y, x, z,
 				DungeonConstants.LAYER_LOWER_GROUND);
 		    }
 		}
@@ -1399,7 +1399,7 @@ public final class CurrentDungeonData extends DungeonData {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, xFix, u, zFix, w);
-			if (obj.getMaterial() == Materials.MAGNETIC) {
+			if (obj.getMaterial() == Material.MAGNETIC) {
 			    return yFix - u - 1;
 			}
 			if (obj.isSolid()) {
@@ -1417,7 +1417,7 @@ public final class CurrentDungeonData extends DungeonData {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, xFix, u, zFix, w);
-			if (obj.getMaterial() == Materials.MAGNETIC) {
+			if (obj.getMaterial() == Material.MAGNETIC) {
 			    return u - yFix - 1;
 			}
 			if (obj.isSolid()) {
@@ -1433,7 +1433,7 @@ public final class CurrentDungeonData extends DungeonData {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, u, yFix, zFix, w);
-			if (obj.getMaterial() == Materials.MAGNETIC) {
+			if (obj.getMaterial() == Material.MAGNETIC) {
 			    return xFix - u - 1;
 			}
 			if (obj.isSolid()) {
@@ -1449,7 +1449,7 @@ public final class CurrentDungeonData extends DungeonData {
 		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, u, yFix, zFix, w);
-			if (obj.getMaterial() == Materials.MAGNETIC) {
+			if (obj.getMaterial() == Material.MAGNETIC) {
 			    return u - xFix - 1;
 			}
 			if (obj.isSolid()) {

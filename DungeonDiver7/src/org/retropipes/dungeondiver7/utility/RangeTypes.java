@@ -5,17 +5,19 @@
  */
 package org.retropipes.dungeondiver7.utility;
 
+import org.retropipes.dungeondiver7.gameobject.Material;
+
 public class RangeTypes {
     public static final int BOMB = 0;
     public static final int HEAT_BOMB = 1;
     public static final int ICE_BOMB = 2;
 
-    public static final int getMaterialForRangeType(final int rt) {
+    public static final Material getMaterialForRangeType(final int rt) {
 	return switch (rt) {
-	case BOMB -> Materials.METALLIC;
-	case HEAT_BOMB -> Materials.FIRE;
-	case ICE_BOMB -> Materials.ICE;
-	default -> Materials.DEFAULT;
+	case BOMB -> Material.METALLIC;
+	case HEAT_BOMB -> Material.FIRE;
+	case ICE_BOMB -> Material.ICE;
+	default -> Material.DEFAULT;
 	};
     }
 

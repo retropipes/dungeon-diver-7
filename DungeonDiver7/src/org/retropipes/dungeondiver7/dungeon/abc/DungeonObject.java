@@ -21,37 +21,37 @@ import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.gameobject.ImageColors;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Colors;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.ImageColors;
-import org.retropipes.dungeondiver7.utility.Materials;
 import org.retropipes.dungeondiver7.utility.RandomGenerationRule;
 import org.retropipes.dungeondiver7.utility.RangeTypes;
 import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public abstract class DungeonObject implements RandomGenerationRule {
-    private static int templateColor = ImageColors.NONE;
+    private static Color templateColor = ImageColors.NONE;
     protected static final int DEFAULT_CUSTOM_VALUE = 0;
     protected static final int CUSTOM_FORMAT_MANUAL_OVERRIDE = -1;
     private static final int PLASTIC_MINIMUM_REACTION_FORCE = 0;
     private static final int DEFAULT_MINIMUM_REACTION_FORCE = 1;
     private static final int METAL_MINIMUM_REACTION_FORCE = 2;
 
-    public static final int getImbuedRangeForce(final int material) {
-	if (material == Materials.PLASTIC) {
+    public static final int getImbuedRangeForce(final Material material) {
+	if (material == Material.PLASTIC) {
 	    return DungeonObject.PLASTIC_MINIMUM_REACTION_FORCE;
 	}
-	if (material == Materials.METALLIC) {
+	if (material == Material.METALLIC) {
 	    return DungeonObject.METAL_MINIMUM_REACTION_FORCE;
 	}
 	return DungeonObject.DEFAULT_MINIMUM_REACTION_FORCE;
     }
 
-    public static int getTemplateColor() {
+    public static Color getTemplateColor() {
 	return DungeonObject.templateColor;
     }
 
@@ -62,7 +62,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return dir == trigger1 || dir == trigger2;
     }
 
-    public static void setTemplateColor(final int newTC) {
+    public static void setTemplateColor(final Color newTC) {
 	DungeonObject.templateColor = newTC;
     }
 
@@ -75,7 +75,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
     private int frameNumber;
     private Direction direction;
     private Colors color;
-    private int material;
+    private Material material;
     private final boolean blocksLOS;
     private DungeonObject saved;
     private DungeonObject previousState;
@@ -91,7 +91,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	this.frameNumber = 0;
 	this.direction = Direction.NONE;
 	this.color = Colors._NONE;
-	this.material = Materials.DEFAULT;
+	this.material = Material.DEFAULT;
     }
 
     // Constructors
@@ -105,7 +105,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	this.frameNumber = 0;
 	this.direction = Direction.NONE;
 	this.color = Colors._NONE;
-	this.material = Materials.DEFAULT;
+	this.material = Material.DEFAULT;
     }
 
     public DungeonObject(final boolean isSolid, final boolean sightBlock) {
@@ -135,7 +135,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	this.frameNumber = 0;
 	this.direction = Direction.NONE;
 	this.color = Colors._NONE;
-	this.material = Materials.DEFAULT;
+	this.material = Material.DEFAULT;
     }
 
     public DungeonObject(final DungeonObject source) {
@@ -202,7 +202,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
      * @param materialID
      * @return
      */
-    public DungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final Material materialID) {
 	return this;
     }
 
@@ -381,7 +381,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return Strings.EMPTY;
     }
 
-    public final int getMaterial() {
+    public final Material getMaterial() {
 	return this.material;
     }
 
@@ -391,10 +391,10 @@ public abstract class DungeonObject implements RandomGenerationRule {
     }
 
     public final int getMinimumReactionForce() {
-	if (this.material == Materials.PLASTIC) {
+	if (this.material == Material.PLASTIC) {
 	    return DungeonObject.PLASTIC_MINIMUM_REACTION_FORCE;
 	}
-	if (this.material == Materials.METALLIC) {
+	if (this.material == Material.METALLIC) {
 	    return DungeonObject.METAL_MINIMUM_REACTION_FORCE;
 	}
 	return DungeonObject.DEFAULT_MINIMUM_REACTION_FORCE;
@@ -445,7 +445,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	result = prime * result + this.direction.hashCode();
 	result = prime * result + this.color.ordinal();
 	result = prime * result + (this.blocksLOS ? 1231 : 1237);
-	return prime * result + this.material;
+	return prime * result + this.material.ordinal();
     }
 
     public final boolean hasPreviousState() {
@@ -665,36 +665,36 @@ public abstract class DungeonObject implements RandomGenerationRule {
      */
     public boolean rangeAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
 	    final int rangeType, final int forceUnits) {
-	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE && this.getMaterial() == Materials.WOODEN
-		&& this.changesToOnExposure(Materials.FIRE) != null) {
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Material.FIRE && this.getMaterial() == Material.WOODEN
+		&& this.changesToOnExposure(Material.FIRE) != null) {
 	    // Burn wooden object
-	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
+	    GameLogic.morph(this.changesToOnExposure(Material.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	}
-	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE
-		&& (this.getMaterial() == Materials.METALLIC || this.getMaterial() == Materials.WOODEN
-			|| this.getMaterial() == Materials.PLASTIC)
-		&& this.changesToOnExposure(Materials.ICE) != null) {
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Material.ICE
+		&& (this.getMaterial() == Material.METALLIC || this.getMaterial() == Material.WOODEN
+			|| this.getMaterial() == Material.PLASTIC)
+		&& this.changesToOnExposure(Material.ICE) != null) {
 	    // Freeze metal, wooden, or plastic object
-	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
+	    GameLogic.morph(this.changesToOnExposure(Material.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	}
-	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE && this.getMaterial() == Materials.ICE
-		&& this.changesToOnExposure(Materials.FIRE) != null) {
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Material.FIRE && this.getMaterial() == Material.ICE
+		&& this.changesToOnExposure(Material.FIRE) != null) {
 	    // Melt icy object
-	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
+	    GameLogic.morph(this.changesToOnExposure(Material.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	}
-	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.ICE && this.getMaterial() == Materials.FIRE
-		&& this.changesToOnExposure(Materials.ICE) != null) {
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Material.ICE && this.getMaterial() == Material.FIRE
+		&& this.changesToOnExposure(Material.ICE) != null) {
 	    // Cool hot object
-	    GameLogic.morph(this.changesToOnExposure(Materials.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
+	    GameLogic.morph(this.changesToOnExposure(Material.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	}
-	if (RangeTypes.getMaterialForRangeType(rangeType) == Materials.FIRE && this.getMaterial() == Materials.METALLIC
-		&& this.changesToOnExposure(Materials.FIRE) != null) {
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Material.FIRE && this.getMaterial() == Material.METALLIC
+		&& this.changesToOnExposure(Material.FIRE) != null) {
 	    // Melt metal object
-	    GameLogic.morph(this.changesToOnExposure(Materials.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
+	    GameLogic.morph(this.changesToOnExposure(Material.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	}
 	return false;
@@ -905,7 +905,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	this.frameNumber = frame;
     }
 
-    protected final void setMaterial(final int mat) {
+    protected final void setMaterial(final Material mat) {
 	this.material = mat;
     }
 

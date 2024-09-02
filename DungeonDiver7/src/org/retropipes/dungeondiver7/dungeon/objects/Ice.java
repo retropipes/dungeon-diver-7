@@ -10,20 +10,20 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractGround;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.Materials;
 
 public class Ice extends AbstractGround {
     public Ice() {
 	super(false);
-	this.setMaterial(Materials.ICE);
+	this.setMaterial(Material.ICE);
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final int materialID) {
+    public DungeonObject changesToOnExposure(final Material materialID) {
 	switch (materialID) {
-	case Materials.FIRE:
+	case Material.FIRE:
 	    if (this.hasPreviousState()) {
 		return this.getPreviousStateObject();
 	    }

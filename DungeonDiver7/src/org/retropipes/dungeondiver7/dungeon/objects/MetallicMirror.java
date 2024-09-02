@@ -9,16 +9,16 @@ import org.retropipes.diane.direction.Direction;
 import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.Materials;
 
 public class MetallicMirror extends AbstractMovableObject {
     // Constructors
     public MetallicMirror() {
 	super(true);
 	this.setDirection(Direction.NORTH_EAST);
-	this.setMaterial(Materials.METALLIC);
+	this.setMaterial(Material.METALLIC);
     }
 
     @Override
