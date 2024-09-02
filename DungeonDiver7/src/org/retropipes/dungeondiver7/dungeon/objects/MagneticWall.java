@@ -5,12 +5,8 @@
  */
 package org.retropipes.dungeondiver7.dungeon.objects;
 
-import org.retropipes.diane.direction.Direction;
-import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractWall;
-import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.gameobject.Material;
-import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class MagneticWall extends AbstractWall {
     // Constructors
@@ -21,18 +17,5 @@ public class MagneticWall extends AbstractWall {
     @Override
     public final int getIdValue() {
 	return 24;
-    }
-
-    @Override
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType, final int forceUnits) {
-	if (laserType == ShotTypes.DISRUPTOR) {
-	    // Disrupt magnetic wall
-	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new DisruptedMagneticWall(), locX, locY, locZ, this.getLayer());
-	    return Direction.NONE;
-	}
-	// Stop laser
-	return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
     }
 }

@@ -91,14 +91,14 @@ class MapTurnBattleGUI {
 		    try {
 			final var lgobj = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND);
 			final var ugobj = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_UPPER_GROUND);
-			final var lgimg = lgobj.battleRenderHook();
-			final var ugimg = ugobj.battleRenderHook();
+			final var lgimg = lgobj.getImage();
+			final var ugimg = ugobj.getImage();
 			final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName());
 			final var img = ImageCompositor.composite(cacheName, lgimg, ugimg);
 			this.drawGrid.setImageCell(img, xFix, yFix);
 		    } catch (final ArrayIndexOutOfBoundsException ae) {
 			final var wall = new Wall();
-			this.drawGrid.setImageCell(wall.battleRenderHook(), xFix, yFix);
+			this.drawGrid.setImageCell(wall.getImage(), xFix, yFix);
 		    }
 		}
 	    }
@@ -117,9 +117,9 @@ class MapTurnBattleGUI {
 		yFix = x - yView;
 		final var lgobj = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND);
 		final var ugobj = bd.getBattleDungeon().getCell(y, x, 0, DungeonConstants.LAYER_UPPER_GROUND);
-		final var lgimg = lgobj.battleRenderHook();
-		final var ugimg = ugobj.battleRenderHook();
-		final var o3img = obj3.battleRenderHook();
+		final var lgimg = lgobj.getImage();
+		final var ugimg = ugobj.getImage();
+		final var o3img = obj3.getImage();
 		final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName());
 		final var img = ImageCompositor.composite(cacheName, lgimg, ugimg, o3img);
 		this.drawGrid.setImageCell(img, xFix, yFix);
@@ -186,7 +186,7 @@ class MapTurnBattleGUI {
 	for (var x = 0; x < MapBattleViewingWindowManager.getViewingWindowSize(); x++) {
 	    for (var y = 0; y < MapBattleViewingWindowManager.getViewingWindowSize(); y++) {
 		final DungeonObject dark = new Darkness();
-		this.drawGrid.setImageCell(dark.battleRenderHook(), x, y);
+		this.drawGrid.setImageCell(dark.getImage(), x, y);
 	    }
 	}
 	this.battlePane = new MapBattleDraw(this.drawGrid);

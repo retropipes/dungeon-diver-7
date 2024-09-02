@@ -5,13 +5,11 @@
  */
 package org.retropipes.dungeondiver7.dungeon.objects;
 
-import org.retropipes.diane.direction.Direction;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractDisruptedObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.gameobject.Material;
-import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class DisruptedWall extends AbstractDisruptedObject {
     private static final int DISRUPTION_START = 20;
@@ -47,25 +45,6 @@ public class DisruptedWall extends AbstractDisruptedObject {
     @Override
     public final int getIdValue() {
 	return 52;
-    }
-
-    @Override
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType, final int forceUnits) {
-	if (laserType == ShotTypes.MISSILE) {
-	    // Heat up wall
-	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new DisruptedHotWall(this.disruptionLeft), locX, locY, locZ, this.getLayer());
-	    return Direction.NONE;
-	}
-	if (laserType == ShotTypes.STUNNER) {
-	    // Freeze wall
-	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new DisruptedIcyWall(this.disruptionLeft), locX, locY, locZ, this.getLayer());
-	    return Direction.NONE;
-	}
-	// Stop laser
-	return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
     }
 
     @Override

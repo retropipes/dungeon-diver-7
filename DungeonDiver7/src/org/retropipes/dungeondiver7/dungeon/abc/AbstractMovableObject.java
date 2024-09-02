@@ -7,14 +7,11 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 
 import java.io.IOException;
 
-import org.retropipes.diane.direction.Direction;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
-import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public abstract class AbstractMovableObject extends DungeonObject {
     // Fields
@@ -42,11 +39,6 @@ public abstract class AbstractMovableObject extends DungeonObject {
     }
 
     @Override
-    public boolean doLasersPassThrough() {
-	return false;
-    }
-
-    @Override
     public int getCustomFormat() {
 	return DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE;
     }
@@ -59,46 +51,6 @@ public abstract class AbstractMovableObject extends DungeonObject {
     @Override
     public int getLayer() {
 	return DungeonConstants.LAYER_LOWER_OBJECTS;
-    }
-
-    @Override
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType, final int forceUnits) {
-	final var app = DungeonDiver7.getStuffBag();
-	if (!this.canMove() || forceUnits < this.getMinimumReactionForce()) {
-	    // Not enough force
-	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-	}
-	try {
-	    final var mof = app.getDungeonManager().getDungeon().getCell(locX + dirX, locY + dirY, locZ,
-		    this.getLayer());
-	    final var mor = app.getDungeonManager().getDungeon().getCell(locX - dirX, locY - dirY, locZ,
-		    this.getLayer());
-	    if (this.getMaterial() == Material.MAGNETIC) {
-		if (laserType == ShotTypes.BLUE && mof != null
-			&& (mof.isPlayer() || !mof.isSolid())) {
-		    app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
-		} else if (mor != null && (mor.isPlayer() || !mor.isSolid())) {
-		    app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
-		} else {
-		    // Object doesn't react to this type of laser
-		    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-		}
-	    } else if (laserType == ShotTypes.BLUE && mor != null
-		    && (mor.isPlayer() || !mor.isSolid())) {
-		app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
-	    } else if (mof != null && (mof.isPlayer() || !mof.isSolid())) {
-		app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
-	    } else {
-		// Object doesn't react to this type of laser
-		return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-	    }
-	    this.playSoundHook();
-	} catch (final ArrayIndexOutOfBoundsException aioobe) {
-	    // Object can't go that way
-	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-	}
-	return Direction.NONE;
     }
 
     public abstract void playSoundHook();

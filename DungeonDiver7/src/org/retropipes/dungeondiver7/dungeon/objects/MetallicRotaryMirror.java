@@ -6,10 +6,8 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.diane.direction.Direction;
-import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractReactionWall;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class MetallicRotaryMirror extends AbstractReactionWall {
@@ -20,64 +18,8 @@ public class MetallicRotaryMirror extends AbstractReactionWall {
     }
 
     @Override
-    public boolean doLasersPassThrough() {
-	return true;
-    }
-
-    @Override
     public final int getIdValue() {
 	return 66;
-    }
-
-    @Override
-    public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
-	    final int dirY, final int laserType, final int forceUnits) {
-	final var dir = DirectionResolver.resolveInvert(dirX, dirY);
-	if (DungeonObject.hitReflectiveSide(dir)) {
-	    // Reflect laser
-	    return this.getDirection();
-	}
-	// Rotate mirror
-	this.toggleDirection();
-	return Direction.NONE;
-    }
-
-    @Override
-    public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType) {
-	// Finish reflecting laser
-	final var oldlaser = DirectionResolver.resolveInvert(locX, locY);
-	final var currdir = this.getDirection();
-	if (oldlaser == Direction.NORTH) {
-	    if (currdir == Direction.NORTH_WEST) {
-		return Direction.WEST;
-	    }
-	    if (currdir == Direction.NORTH_EAST) {
-		return Direction.EAST;
-	    }
-	} else if (oldlaser == Direction.SOUTH) {
-	    if (currdir == Direction.SOUTH_WEST) {
-		return Direction.WEST;
-	    }
-	    if (currdir == Direction.SOUTH_EAST) {
-		return Direction.EAST;
-	    }
-	} else if (oldlaser == Direction.WEST) {
-	    if (currdir == Direction.SOUTH_WEST) {
-		return Direction.SOUTH;
-	    }
-	    if (currdir == Direction.NORTH_WEST) {
-		return Direction.NORTH;
-	    }
-	} else if (oldlaser == Direction.EAST) {
-	    if (currdir == Direction.SOUTH_EAST) {
-		return Direction.SOUTH;
-	    }
-	    if (currdir == Direction.NORTH_EAST) {
-		return Direction.NORTH;
-	    }
-	}
-	return Direction.NONE;
     }
 
     @Override

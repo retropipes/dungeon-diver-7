@@ -604,7 +604,6 @@ public final class GameLogic implements MenuSection {
 	final var destY = y / ImageConstants.SIZE;
 	final var destZ = this.plMgr.getPlayerLocationZ();
 	final var target = m.getCell(destX, destY, destZ, DungeonConstants.LAYER_LOWER_OBJECTS);
-	target.determineCurrentAppearance(destX, destY, destZ);
 	final var gameName = target.getIdentityName();
 	final var desc = target.getDescription();
 	CommonDialogs.showTitledDialog(desc, gameName);
@@ -1426,25 +1425,6 @@ public final class GameLogic implements MenuSection {
 	if (!this.mlot.isAlive()) {
 	    this.mlot.start();
 	}
-    }
-
-    public void updatePushedPositionLater(final int x, final int y, final int pushX, final int pushY,
-	    final AbstractMovableObject o, final int x2, final int y2, final AbstractMovableObject other,
-	    final int laserType, final int forceUnits) {
-	new Thread() {
-	    @Override
-	    public void run() {
-		try {
-		    other.laserEnteredAction(x2, y2, GameLogic.this.plMgr.getPlayerLocationZ(), pushX, pushY, laserType,
-			    forceUnits);
-		    GameLogic.this.waitForMLOLoop();
-		    GameLogic.this.updatePushedPosition(x, y, x + pushX, y + pushY, o);
-		    GameLogic.this.waitForMLOLoop();
-		} catch (final Throwable t) {
-		    DungeonDiver7.logError(t);
-		}
-	    }
-	}.start();
     }
 
     void updateReplay(final boolean laser, final int x, final int y) {

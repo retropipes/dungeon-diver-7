@@ -15,11 +15,6 @@ public class TenStunners extends AbstractInventoryModifier {
     }
 
     @Override
-    public boolean doLasersPassThrough() {
-	return true;
-    }
-
-    @Override
     public final int getIdValue() {
 	return 42;
     }

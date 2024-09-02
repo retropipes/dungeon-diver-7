@@ -5,14 +5,10 @@
  */
 package org.retropipes.dungeondiver7.dungeon.objects;
 
-import org.retropipes.diane.direction.Direction;
-import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractReactionWall;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.gameobject.Material;
-import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class Barrel extends AbstractReactionWall {
     // Constructors
@@ -23,36 +19,6 @@ public class Barrel extends AbstractReactionWall {
     @Override
     public final int getIdValue() {
 	return 3;
-    }
-
-    @Override
-    public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
-	    final int dirY, final int laserType, final int forceUnits) {
-	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	// Boom!
-	DungeonDiver7.getStuffBag().getGameLogic();
-	// Destroy barrel
-	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
-	// Check for tank in range of explosion
-	final var target = a.circularScanPlayer(locX, locY, locZ, 1);
-	if (target) {
-	    // Kill tank
-	    DungeonDiver7.getStuffBag().getGameLogic().gameOver();
-	}
-	if (laserType == ShotTypes.POWER) {
-	    // Laser keeps going
-	    return DirectionResolver.resolve(dirX, dirY);
-	}
-	// Laser stops
-	return Direction.NONE;
-    }
-
-    @Override
-    public void pushCollideAction(final DungeonObject pushed, final int x, final int y, final int z) {
-	// React to movable objects hitting barrels
-	if (pushed.canMove()) {
-	    this.laserEnteredAction(x, y, z, 0, 0, ShotTypes.GREEN, 1);
-	}
     }
 
     @Override

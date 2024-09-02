@@ -5,13 +5,9 @@
  */
 package org.retropipes.dungeondiver7.dungeon.objects;
 
-import org.retropipes.diane.direction.Direction;
-import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractWall;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
-import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.gameobject.Material;
-import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class IcyWall extends AbstractWall {
     // Constructors
@@ -35,34 +31,5 @@ public class IcyWall extends AbstractWall {
     @Override
     public final int getIdValue() {
 	return 58;
-    }
-
-    @Override
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType, final int forceUnits) {
-	if (laserType == ShotTypes.DISRUPTOR) {
-	    // Disrupt icy wall
-	    final var diw = new DisruptedIcyWall();
-	    if (this.hasPreviousState()) {
-		diw.setPreviousStateObject(this.getPreviousStateObject());
-	    }
-	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(diw, locX, locY, locZ, this.getLayer());
-	    return Direction.NONE;
-	}
-	if (laserType != ShotTypes.MISSILE) {
-	    // Stop laser
-	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-	}
-	// Defrost icy wall
-	DungeonObject ao;
-	if (this.hasPreviousState()) {
-	    ao = this.getPreviousStateObject();
-	} else {
-	    ao = new Wall();
-	}
-	DungeonDiver7.getStuffBag().getGameLogic();
-	GameLogic.morph(ao, locX, locY, locZ, this.getLayer());
-	return Direction.NONE;
     }
 }

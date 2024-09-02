@@ -102,17 +102,17 @@ class MapTimeBattleGUI {
 		    try {
 			final var obj1 = battleMap.getCell(y, x, 0, DungeonConstants.LAYER_GROUND);
 			final var obj2 = battleMap.getCell(y, x, 0, DungeonConstants.LAYER_OBJECT);
-			final var icon1 = obj1.battleRenderHook();
-			final var icon2 = obj2.battleRenderHook();
+			final var icon1 = obj1.getImage();
+			final var icon2 = obj2.getImage();
 			final var cacheName = Strings.compositeCacheName(obj1.getCacheName(), obj2.getCacheName());
 			final var img = ImageCompositor.composite(cacheName, icon1, icon2);
 			this.drawGrid.setImageCell(img, xFix, yFix);
 		    } catch (final ArrayIndexOutOfBoundsException ae) {
 			final var wall = new Wall();
-			this.drawGrid.setImageCell(wall.battleRenderHook(), xFix, yFix);
+			this.drawGrid.setImageCell(wall.getImage(), xFix, yFix);
 		    } catch (final NullPointerException np) {
 			final var wall = new Wall();
-			this.drawGrid.setImageCell(wall.battleRenderHook(), xFix, yFix);
+			this.drawGrid.setImageCell(wall.getImage(), xFix, yFix);
 		    }
 		}
 	    }
@@ -132,9 +132,9 @@ class MapTimeBattleGUI {
 		yFix = x - yView;
 		final var obj1 = battleMap.getCell(y, x, 0, DungeonConstants.LAYER_GROUND);
 		final var obj2 = battleMap.getCell(y, x, 0, DungeonConstants.LAYER_OBJECT);
-		final var icon1 = obj1.battleRenderHook();
-		final var icon2 = obj2.battleRenderHook();
-		final var icon3 = obj3.battleRenderHook();
+		final var icon1 = obj1.getImage();
+		final var icon2 = obj2.getImage();
+		final var icon3 = obj3.getImage();
 		final var cacheName = Strings.compositeCacheName(obj1.getCacheName(), obj2.getCacheName(),
 			obj3.getCacheName());
 		final var img = ImageCompositor.composite(cacheName, icon1, icon2, icon3);

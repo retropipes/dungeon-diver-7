@@ -5,15 +5,11 @@
  */
 package org.retropipes.dungeondiver7.dungeon.objects;
 
-import org.retropipes.diane.direction.Direction;
-import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
-import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class WoodenBox extends AbstractMovableObject {
     // Constructors
@@ -38,35 +34,6 @@ public class WoodenBox extends AbstractMovableObject {
     @Override
     public final int getIdValue() {
 	return 70;
-    }
-
-    @Override
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType, final int forceUnits) {
-	final var app = DungeonDiver7.getStuffBag();
-	if (forceUnits < this.getMinimumReactionForce()) {
-	    // Not enough force
-	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-	}
-	final var mof = app.getDungeonManager().getDungeon().getCell(locX + dirX, locY + dirY, locZ, this.getLayer());
-	final var mor = app.getDungeonManager().getDungeon().getCell(locX - dirX, locY - dirY, locZ, this.getLayer());
-	if (laserType == ShotTypes.MISSILE) {
-	    // Destroy wooden box
-	    app.getGameLogic();
-	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
-	} else {
-	    if (laserType == ShotTypes.BLUE && mor != null
-		    && (mor.isPlayer() || !mor.isSolid())) {
-		app.getGameLogic().updatePushedPosition(locX, locY, locX - dirX, locY - dirY, this);
-	    } else if (mof != null && (mof.isPlayer() || !mof.isSolid())) {
-		app.getGameLogic().updatePushedPosition(locX, locY, locX + dirX, locY + dirY, this);
-	    } else {
-		// Object doesn't react to this type of laser
-		return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-	    }
-	    this.playSoundHook();
-	}
-	return Direction.NONE;
     }
 
     @Override

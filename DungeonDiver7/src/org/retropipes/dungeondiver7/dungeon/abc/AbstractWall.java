@@ -16,11 +16,6 @@ public abstract class AbstractWall extends DungeonObject {
     }
 
     @Override
-    public boolean doLasersPassThrough() {
-	return false;
-    }
-
-    @Override
     public int getCustomProperty(final int propID) {
 	return DungeonObject.DEFAULT_CUSTOM_VALUE;
     }

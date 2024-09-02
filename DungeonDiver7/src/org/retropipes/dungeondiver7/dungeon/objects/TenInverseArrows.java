@@ -15,11 +15,6 @@ public class TenInverseArrows extends AbstractInventoryModifier {
     }
 
     @Override
-    public boolean doLasersPassThrough() {
-	return true;
-    }
-
-    @Override
     public final int getIdValue() {
 	return 38;
     }

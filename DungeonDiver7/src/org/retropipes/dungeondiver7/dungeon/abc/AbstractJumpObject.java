@@ -5,12 +5,10 @@
  */
 package org.retropipes.dungeondiver7.dungeon.abc;
 
-import org.retropipes.diane.direction.Direction;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 
 public abstract class AbstractJumpObject extends AbstractMovableObject {
     // Fields
-    private boolean jumpShot;
     private boolean flip;
     private int dir1X;
     private int dir1Y;
@@ -24,7 +22,6 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 	super(true);
 	this.jumpRows = 0;
 	this.jumpCols = 0;
-	this.jumpShot = false;
     }
 
     @Override
@@ -120,39 +117,6 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 
     public final void jumpSound(final boolean success) {
 	// Do nothing
-    }
-
-    @Override
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType, final int forceUnits) {
-	final var app = DungeonDiver7.getStuffBag();
-	final var px = app.getGameLogic().getPlayerManager().getPlayerLocationX();
-	final var py = app.getGameLogic().getPlayerManager().getPlayerLocationY();
-	if (forceUnits > this.getMinimumReactionForce() && this.jumpRows == 0 && this.jumpCols == 0) {
-	    this.pushCrushAction(locX, locY, locZ);
-	    return Direction.NONE;
-	}
-	if (!this.jumpShot) {
-	    this.jumpShot = true;
-	    this.dir1X = (int) Math.signum(px - locX);
-	    this.dir1Y = (int) Math.signum(py - locY);
-	    return Direction.NONE;
-	}
-	this.jumpShot = false;
-	this.dir2X = (int) Math.signum(px - locX);
-	this.dir2Y = (int) Math.signum(py - locY);
-	if (this.dir1X != 0 && this.dir2X != 0 || this.dir1Y != 0 && this.dir2Y != 0) {
-	    return Direction.NONE;
-	}
-	if (this.dir1X == 0 && this.dir2X == 1 && this.dir1Y == -1 && this.dir2Y == 0
-		|| this.dir1X == 0 && this.dir2X == -1 && this.dir1Y == 1 && this.dir2Y == 0
-		|| this.dir1X == 1 && this.dir2X == 0 && this.dir1Y == 0 && this.dir2Y == -1
-		|| this.dir1X == -1 && this.dir2X == 0 && this.dir1Y == 0 && this.dir2Y == 1) {
-	    this.flip = true;
-	} else {
-	    this.flip = false;
-	}
-	return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
     }
 
     @Override

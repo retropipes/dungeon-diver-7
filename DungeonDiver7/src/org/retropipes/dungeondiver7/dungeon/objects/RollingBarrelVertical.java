@@ -5,13 +5,10 @@
  */
 package org.retropipes.dungeondiver7.dungeon.objects;
 
-import org.retropipes.diane.direction.Direction;
-import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class RollingBarrelVertical extends AbstractMovableObject {
     // Constructors
@@ -22,34 +19,6 @@ public class RollingBarrelVertical extends AbstractMovableObject {
     @Override
     public final int getIdValue() {
 	return 141;
-    }
-
-    @Override
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType, final int forceUnits) {
-	final var dir = DirectionResolver.resolve(dirX, dirY);
-	if (dir == Direction.NORTH || dir == Direction.SOUTH) {
-	    // Roll
-	    return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-	}
-	// Break up
-	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	// Boom!
-	DungeonDiver7.getStuffBag().getGameLogic();
-	// Destroy barrel
-	GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
-	// Check for tank in range of explosion
-	final var target = a.circularScanPlayer(locX, locY, locZ, 1);
-	if (target) {
-	    // Kill tank
-	    DungeonDiver7.getStuffBag().getGameLogic().gameOver();
-	}
-	if (laserType == ShotTypes.POWER) {
-	    // Laser keeps going
-	    return DirectionResolver.resolve(dirX, dirY);
-	}
-	// Laser stops
-	return Direction.NONE;
     }
 
     @Override

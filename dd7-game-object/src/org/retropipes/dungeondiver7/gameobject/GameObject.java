@@ -1,6 +1,5 @@
 package org.retropipes.dungeondiver7.gameobject;
 
-import java.awt.Color;
 import java.io.IOException;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
@@ -17,7 +16,9 @@ import org.retropipes.dungeondiver7.locale.ObjectInteractMessage;
 import org.retropipes.dungeondiver7.locale.Strings;
 
 public final class GameObject {
-    private static Color templateColor = ImageColors.NONE;
+    private static final int PLASTIC_MINIMUM_REACTION_FORCE = 0;
+    private static final int DEFAULT_MINIMUM_REACTION_FORCE = 1;
+    private static final int METAL_MINIMUM_REACTION_FORCE = 2;
     private final ObjectModel model;
     private final ObjectImageId id;
     private transient boolean solid;
@@ -78,24 +79,19 @@ public final class GameObject {
 	this.lazyLoaded = false;
     }
 
-    public static Color getTemplateColor() {
-	return templateColor;
-    }
-
-    public static boolean hitReflectiveSide(final Direction dir) {
-	Direction trigger1, trigger2;
-	trigger1 = GameObjectDirectionsHelper.previousDir(dir);
-	trigger2 = GameObjectDirectionsHelper.nextDir(dir);
-	return dir == trigger1 || dir == trigger2;
+    public static final int getImbuedRangeForce(final Material material) {
+	if (material == Material.PLASTIC) {
+	    return PLASTIC_MINIMUM_REACTION_FORCE;
+	}
+	if (material == Material.METALLIC) {
+	    return METAL_MINIMUM_REACTION_FORCE;
+	}
+	return DEFAULT_MINIMUM_REACTION_FORCE;
     }
 
     public static GameObject read(final DataIOReader reader) throws IOException {
 	int nid = reader.readInt();
 	return new GameObject(ObjectImageId.values()[nid]);
-    }
-
-    public static void setTemplateColor(final Color newTC) {
-	templateColor = newTC;
     }
 
     public final void activateTimer(final int ticks) {
@@ -121,6 +117,10 @@ public final class GameObject {
 
     public final boolean canShoot() {
 	return false;
+    }
+
+    public GameObject changesToOnExposure(final Material materialID) {
+	return this;
     }
 
     public final boolean defersSetProperties() {

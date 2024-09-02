@@ -846,7 +846,7 @@ public class MapTimeBattleLogic extends Battle {
 	    rx = randX.generate();
 	    ry = randY.generate();
 	    var obj = this.battleMap.getCell(rx, ry, 0, DungeonConstants.LAYER_OBJECT);
-	    while (obj.isSolidInBattle()) {
+	    while (obj.isSolid()) {
 		rx = randX.generate();
 		ry = randY.generate();
 		obj = this.battleMap.getCell(rx, ry, 0, DungeonConstants.LAYER_OBJECT);
@@ -861,7 +861,7 @@ public class MapTimeBattleLogic extends Battle {
 	    rx = randX.generate();
 	    ry = randY.generate();
 	    var obj = this.battleMap.getCell(rx, ry, 0, DungeonConstants.LAYER_OBJECT);
-	    while (obj.isSolidInBattle()) {
+	    while (obj.isSolid()) {
 		rx = randX.generate();
 		ry = randY.generate();
 		obj = this.battleMap.getCell(rx, ry, 0, DungeonConstants.LAYER_OBJECT);
@@ -982,7 +982,7 @@ public class MapTimeBattleLogic extends Battle {
 	    // Ignore
 	}
 	if (next != null && nextGround != null && currGround != null) {
-	    if (!next.isSolidInBattle()) {
+	    if (!next.isSolid()) {
 		// Move
 		DungeonObject obj1 = null;
 		DungeonObject obj2 = null;

@@ -5,7 +5,6 @@
  */
 package org.retropipes.dungeondiver7.dungeon.objects;
 
-import org.retropipes.diane.direction.Direction;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractAttribute;
 import org.retropipes.dungeondiver7.game.GameLogic;
@@ -20,16 +19,6 @@ public class Weakened extends AbstractAttribute {
     @Override
     public final int getIdValue() {
 	return 134;
-    }
-
-    @Override
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType, final int forceUnits) {
-	final var app = DungeonDiver7.getStuffBag();
-	app.getGameLogic();
-	GameLogic.morph(new Cracked(), locX, locY, locZ, this.getLayer());
-	SoundLoader.playSound(Sounds.EFFECT_CRACK);
-	return Direction.NONE;
     }
 
     @Override

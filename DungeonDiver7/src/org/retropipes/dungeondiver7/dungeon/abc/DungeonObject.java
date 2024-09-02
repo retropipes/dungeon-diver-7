@@ -11,17 +11,14 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.direction.Direction;
-import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.diane.direction.DirectionStrings;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.asset.ObjectImageConstants;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.game.GameLogic;
-import org.retropipes.dungeondiver7.gameobject.ImageColors;
 import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
@@ -31,10 +28,8 @@ import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.RandomGenerationRule;
 import org.retropipes.dungeondiver7.utility.RangeTypes;
-import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public abstract class DungeonObject implements RandomGenerationRule {
-    private static Color templateColor = ImageColors.NONE;
     protected static final int DEFAULT_CUSTOM_VALUE = 0;
     protected static final int CUSTOM_FORMAT_MANUAL_OVERRIDE = -1;
     private static final int PLASTIC_MINIMUM_REACTION_FORCE = 0;
@@ -49,21 +44,6 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	    return DungeonObject.METAL_MINIMUM_REACTION_FORCE;
 	}
 	return DungeonObject.DEFAULT_MINIMUM_REACTION_FORCE;
-    }
-
-    public static Color getTemplateColor() {
-	return DungeonObject.templateColor;
-    }
-
-    public static boolean hitReflectiveSide(final Direction dir) {
-	Direction trigger1, trigger2;
-	trigger1 = DungeonConstants.previousDir(dir);
-	trigger2 = DungeonConstants.nextDir(dir);
-	return dir == trigger1 || dir == trigger2;
-    }
-
-    public static void setTemplateColor(final Color newTC) {
-	DungeonObject.templateColor = newTC;
     }
 
     // Properties
@@ -165,18 +145,6 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	this.timerValue = ticks;
     }
 
-    public boolean arrowHitBattleCheck() {
-	return !this.isSolid();
-    }
-
-    public DungeonObject attributeGameRenderHook() {
-	return null;
-    }
-
-    public BufferedImageIcon battleRenderHook() {
-	return ObjectImageLoader.load(this.getCacheName(), this.getBattleBaseID());
-    }
-
     public boolean canMove() {
 	return false;
     }
@@ -232,29 +200,6 @@ public abstract class DungeonObject implements RandomGenerationRule {
      * @param y
      * @param z
      */
-    public final void determineCurrentAppearance(final int x, final int y, final int z) {
-	// Do nothing
-    }
-
-    public boolean doLasersPassThrough() {
-	return true;
-    }
-
-    /**
-     *
-     * @param x
-     * @param y
-     */
-    public void editorGenerateHook(final int x, final int y) {
-	// Do nothing
-    }
-
-    /**
-     *
-     * @param x
-     * @param y
-     * @param z
-     */
     public void editorPlaceHook(final int x, final int y, final int z) {
 	// Do nothing
     }
@@ -293,8 +238,7 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	if (obj == null || !(obj instanceof final DungeonObject other) || this.friction != other.friction) {
 	    return false;
 	}
-	if (this.pushable != other.pushable || this.solid != other.solid
-		|| this.direction != other.direction) {
+	if (this.pushable != other.pushable || this.solid != other.solid || this.direction != other.direction) {
 	    return false;
 	}
 	if (this.color != other.color || this.material != other.material || this.blocksLOS != other.blocksLOS) {
@@ -305,13 +249,6 @@ public abstract class DungeonObject implements RandomGenerationRule {
 
     public BufferedImageIcon getImage() {
 	return ObjectImageLoader.load(this.getCacheName(), this.getIdValue());
-    }
-
-    public int getBattleBaseID() {
-	if (this.enabledInBattle()) {
-	    return this.getIdValue();
-	}
-	return ObjectImageConstants.NONE;
     }
 
     public String getCacheName() {
@@ -505,81 +442,8 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	return this.solid;
     }
 
-    public boolean isSolidInBattle() {
-	if (this.enabledInBattle()) {
-	    return this.isSolid();
-	}
-	return false;
-    }
-
     public boolean killsOnMove() {
 	return false;
-    }
-
-    public void laserDoneAction() {
-	// Do nothing
-    }
-
-    /**
-     *
-     * @param locX
-     * @param locY
-     * @param locZ
-     * @param dirX
-     * @param dirY
-     * @param laserType
-     * @param forceUnits
-     * @return
-     */
-    public Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType, final int forceUnits) {
-	if (!this.isSolid()) {
-	    return DirectionResolver.resolve(dirX, dirY);
-	}
-	if (forceUnits > this.getMinimumReactionForce() && this.canMove()) {
-	    try {
-		final var nextObj = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(locX + dirX,
-			locY + dirY, locZ, this.getLayer());
-		final var nextObj2 = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon()
-			.getCell(locX + dirX * 2, locY + dirY * 2, locZ, this.getLayer());
-		if (this instanceof final AbstractMovableObject gmo
-			&& nextObj instanceof final AbstractMovableObject gmo2 && nextObj.canMove()
-			&& (nextObj2 != null && !nextObj2.isConditionallySolid() || forceUnits > 2)) {
-		    DungeonDiver7.getStuffBag().getGameLogic().updatePushedPositionLater(locX, locY, dirX, dirY, gmo,
-			    locX + dirX, locY + dirY, gmo2, laserType,
-			    forceUnits - Math.max(1, this.getMinimumReactionForce()));
-		} else {
-		    // Object crushed by impact
-		    this.pushCrushAction(locX, locY, locZ);
-		}
-	    } catch (final ArrayIndexOutOfBoundsException aioob) {
-		// Object crushed by impact
-		this.pushCrushAction(locX, locY, locZ);
-	    }
-	} else {
-	    final var adj = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(locX - dirX,
-		    locY - dirY, locZ, this.getLayer());
-	    if (adj != null && !adj.rangeAction(locX - 2 * dirX, locY - 2 * dirY, locZ, dirX, dirY,
-		    ShotTypes.getRangeTypeForLaserType(laserType), 1)) {
-		// Do nothing
-	    }
-	}
-	return Direction.NONE;
-    }
-
-    /**
-     *
-     * @param locX
-     * @param locY
-     * @param locZ
-     * @param dirX
-     * @param dirY
-     * @param laserType
-     * @return
-     */
-    public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType) {
-	return DirectionResolver.resolve(dirX, dirY);
     }
 
     /**
@@ -591,10 +455,6 @@ public abstract class DungeonObject implements RandomGenerationRule {
     public void moveFailedAction(final int locX, final int locY, final int locZ) {
 	SoundLoader.playSound(Sounds.STEP_FAIL);
 	DungeonDiver7.getStuffBag().showMessage("Can't go that way");
-    }
-
-    public boolean overridesDefaultPostMove() {
-	return false;
     }
 
     public abstract void postMoveAction(final int dirX, final int dirY, int dirZ);
@@ -671,9 +531,8 @@ public abstract class DungeonObject implements RandomGenerationRule {
 	    GameLogic.morph(this.changesToOnExposure(Material.FIRE), locX + dirX, locY + dirY, locZ, this.getLayer());
 	    return true;
 	}
-	if (RangeTypes.getMaterialForRangeType(rangeType) == Material.ICE
-		&& (this.getMaterial() == Material.METALLIC || this.getMaterial() == Material.WOODEN
-			|| this.getMaterial() == Material.PLASTIC)
+	if (RangeTypes.getMaterialForRangeType(rangeType) == Material.ICE && (this.getMaterial() == Material.METALLIC
+		|| this.getMaterial() == Material.WOODEN || this.getMaterial() == Material.PLASTIC)
 		&& this.changesToOnExposure(Material.ICE) != null) {
 	    // Freeze metal, wooden, or plastic object
 	    GameLogic.morph(this.changesToOnExposure(Material.ICE), locX + dirX, locY + dirY, locZ, this.getLayer());

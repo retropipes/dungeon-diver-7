@@ -833,7 +833,7 @@ public class MapTurnBattleLogic extends Battle {
 		rx = randX.generate();
 		ry = randY.generate();
 		var obj = this.bd.getBattleDungeon().getCell(rx, ry, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
-		while (obj.isSolidInBattle()) {
+		while (obj.isSolid()) {
 		    rx = randX.generate();
 		    ry = randY.generate();
 		    obj = this.bd.getBattleDungeon().getCell(rx, ry, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
@@ -1044,7 +1044,7 @@ public class MapTurnBattleLogic extends Battle {
 	    this.redrawBattle();
 	    return true;
 	}
-	if (!next.isSolidInBattle()) {
+	if (!next.isSolid()) {
 	    if ((!useAP || this.getActiveActionCounter() < AIContext.getAPCost()) && useAP) {
 		// Deny move - out of actions
 		if (!this.bd.getActiveCharacter().hasAI()) {

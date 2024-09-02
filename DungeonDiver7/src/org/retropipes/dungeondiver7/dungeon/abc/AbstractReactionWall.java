@@ -5,24 +5,10 @@
  */
 package org.retropipes.dungeondiver7.dungeon.abc;
 
-import org.retropipes.diane.direction.Direction;
-
 public abstract class AbstractReactionWall extends AbstractWall {
     // Constructors
     protected AbstractReactionWall() {
     }
-
-    @Override
-    public final Direction laserEnteredAction(final int locX, final int locY, final int locZ, final int dirX,
-	    final int dirY, final int laserType, final int forceUnits) {
-	if (forceUnits >= this.getMinimumReactionForce()) {
-	    return this.laserEnteredActionHook(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-	}
-	return super.laserEnteredAction(locX, locY, locZ, dirX, dirY, laserType, forceUnits);
-    }
-
-    public abstract Direction laserEnteredActionHook(int locX, int locY, int locZ, int dirX, int dirY, int laserType,
-	    int forceUnits);
 
     @Override
     public final boolean rangeAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
@@ -33,6 +19,9 @@ public abstract class AbstractReactionWall extends AbstractWall {
 	return super.rangeAction(locX, locY, locZ, dirX, dirY, rangeType, forceUnits);
     }
 
-    public abstract boolean rangeActionHook(int locX, int locY, int locZ, int dirX, int dirY, int laserType,
-	    int forceUnits);
+    public boolean rangeActionHook(int locX, int locY, int locZ, int dirX, int dirY, int laserType,
+	    int forceUnits) {
+	// By default, do nothing
+	return false;
+    }
 }

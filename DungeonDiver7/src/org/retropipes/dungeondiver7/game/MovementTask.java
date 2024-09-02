@@ -201,7 +201,6 @@ final class MovementTask extends Thread {
 		this.vwMgr.saveViewingWindow();
 		try {
 		    if (MovementTask.checkSolid(this.saved, below, nextBelow, nextAbove)) {
-			DungeonObject groundInto;
 			m.offsetPlayerLocationX(fX, 0);
 			m.offsetPlayerLocationY(fY, 0);
 			px += fX;
@@ -217,15 +216,6 @@ final class MovementTask extends Thread {
 			}
 			if (this.proceed) {
 			    this.saved = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
-			    groundInto = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_GROUND);
-			    if (groundInto.overridesDefaultPostMove()) {
-				groundInto.postMoveAction(px, py, pz);
-				if (!this.saved.isPassThrough()) {
-				    this.saved.postMoveAction(px, py, pz);
-				}
-			    } else {
-				this.saved.postMoveAction(px, py, pz);
-			    }
 			}
 		    } else {
 			// Move failed - object is solid in that direction

@@ -5,17 +5,12 @@
  */
 package org.retropipes.dungeondiver7.dungeon.objects;
 
-import org.retropipes.diane.direction.Direction;
-import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractReactionWall;
 import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.gameobject.Material;
-import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
-import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.RangeTypes;
-import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public class CrystalBlock extends AbstractReactionWall {
     // Constructors
@@ -36,41 +31,8 @@ public class CrystalBlock extends AbstractReactionWall {
     }
 
     @Override
-    public boolean doLasersPassThrough() {
-	return true;
-    }
-
-    @Override
     public final int getIdValue() {
 	return 10;
-    }
-
-    @Override
-    public Direction laserEnteredActionHook(final int locX, final int locY, final int locZ, final int dirX,
-	    final int dirY, final int laserType, final int forceUnits) {
-	return switch (laserType) {
-	case ShotTypes.MISSILE -> {
-	    // Destroy crystal block
-	    SoundLoader.playSound(Sounds.KABOOM);
-	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new Empty(), locX, locY, locZ, this.getLayer());
-	    yield Direction.NONE;
-	}
-	case ShotTypes.BLUE -> /* Reflect laser */ DirectionResolver.resolveInvert(dirX, dirY);
-	case ShotTypes.DISRUPTOR -> {
-	    // Disrupt crystal block
-	    DungeonDiver7.getStuffBag().getGameLogic();
-	    GameLogic.morph(new DisruptedCrystalBlock(), locX, locY, locZ, this.getLayer());
-	    yield Direction.NONE;
-	}
-	default -> /* Pass laser through */ DirectionResolver.resolve(dirX, dirY);
-	};
-    }
-
-    @Override
-    public Direction laserExitedAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
-	    final int laserType) {
-	return DirectionResolver.resolve(dirX, dirY);
     }
 
     @Override
