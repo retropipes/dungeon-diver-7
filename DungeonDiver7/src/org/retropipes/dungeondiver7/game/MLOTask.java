@@ -12,13 +12,9 @@ import org.retropipes.diane.direction.Direction;
 import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
-import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeonData;
-import org.retropipes.dungeondiver7.dungeon.objects.FrozenParty;
-import org.retropipes.dungeondiver7.dungeon.objects.Ground;
-import org.retropipes.dungeondiver7.dungeon.objects.Party;
-import org.retropipes.dungeondiver7.dungeon.objects.Wall;
+import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Strings;
@@ -39,7 +35,7 @@ final class MLOTask extends Thread {
 	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
 	    return true;
 	}
-	return !next.isConditionallySolid();
+	return !next.isSolid();
     }
 
     static boolean checkSolid(final int zx, final int zy) {
@@ -50,20 +46,7 @@ final class MLOTask extends Thread {
 	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
 	    return true;
 	}
-	return !next.isConditionallySolid();
-    }
-
-    private static void freezePlayer() {
-	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
-	final var tank = gm.getPlayer();
-	final var dir = tank.getDirection();
-	final var px = gm.getPlayerManager().getPlayerLocationX();
-	final var py = gm.getPlayerManager().getPlayerLocationY();
-	final var pz = gm.getPlayerManager().getPlayerLocationZ();
-	final var ft = new FrozenParty(dir, tank.getNumber());
-	ft.setSavedObject(tank.getSavedObject());
-	GameLogic.morph(ft, px, py, pz, ft.getLayer());
-	gm.updatePlayer();
+	return !next.isSolid();
     }
 
     private static int normalizeColumn(final int column, final int columns) {
@@ -107,7 +90,6 @@ final class MLOTask extends Thread {
     private boolean frozen;
     private boolean magnet;
     private boolean loopCheck;
-    private final ArrayList<MovingLaserTracker> laserTrackers;
     private final ArrayList<MovingObjectTracker> objectTrackers;
 
     // Constructors
@@ -115,7 +97,6 @@ final class MLOTask extends Thread {
 	this.setName(Strings.untranslated(Untranslated.MLOH_NAME));
 	this.setPriority(Thread.MIN_PRIORITY);
 	this.abort = false;
-	this.laserTrackers = new ArrayList<>();
 	this.objectTrackers = new ArrayList<>();
 	this.frozen = false;
 	this.magnet = false;
@@ -123,28 +104,6 @@ final class MLOTask extends Thread {
 
     void abortLoop() {
 	this.abort = true;
-    }
-
-    void activateFrozenMovement(final int zx, final int zy) {
-	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
-	// Moving under the influence of a Frost Field
-	this.frozen = true;
-	MLOTask.freezePlayer();
-	gm.updateScore(1, 0, 0);
-	this.sx = zx;
-	this.sy = zy;
-	GameLogic.updateUndo(false, false, false, false, false, false, false, false, false, false);
-	this.move = true;
-	if (!gm.isReplaying()) {
-	    gm.updateReplay(false, zx, zy);
-	}
-    }
-
-    void activateLasers(final int zx, final int zy, final int zox, final int zoy, final int zlt,
-	    final GameObject zshooter) {
-	final var tracker = new MovingLaserTracker();
-	tracker.activateLasers(zx, zy, zox, zoy, zlt, zshooter);
-	this.laserTrackers.add(tracker);
     }
 
     void activateMovement(final int zx, final int zy) {
@@ -201,37 +160,16 @@ final class MLOTask extends Thread {
 	}
     }
 
-    void activateObjects(final int zx, final int zy, final int pushX, final int pushY,
-	    final AbstractMovableObject gmo) {
+    void activateObjects(final int zx, final int zy, final int pushX, final int pushY, final GameObject gmo) {
 	final var tracker = new MovingObjectTracker();
 	tracker.activateObject(zx, zy, pushX, pushY, gmo);
 	this.objectTrackers.add(tracker);
-    }
-
-    private boolean areLaserTrackersChecking() {
-	var result = false;
-	for (final MovingLaserTracker tracker : this.laserTrackers) {
-	    if (tracker.isChecking()) {
-		result = true;
-	    }
-	}
-	return result;
     }
 
     private boolean areObjectTrackersChecking() {
 	var result = false;
 	for (final MovingObjectTracker tracker : this.objectTrackers) {
 	    if (tracker.isChecking()) {
-		result = true;
-	    }
-	}
-	return result;
-    }
-
-    private boolean areObjectTrackersTracking() {
-	var result = false;
-	for (final MovingObjectTracker tracker : this.objectTrackers) {
-	    if (tracker.isTracking()) {
 		result = true;
 	    }
 	}
@@ -254,22 +192,22 @@ final class MLOTask extends Thread {
 	try {
 	    lgo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_GROUND);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
-	    lgo = new Wall();
+	    lgo = new GameObject(ObjectImageId.WALL);
 	}
 	try {
 	    ugo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_UPPER_GROUND);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
-	    ugo = new Wall();
+	    ugo = new GameObject(ObjectImageId.WALL);
 	}
 	try {
 	    loo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_OBJECTS);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
-	    loo = new Wall();
+	    loo = new GameObject(ObjectImageId.WALL);
 	}
 	try {
 	    uoo = m.getCell(px + this.sx, py + this.sy, pz, pw);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
-	    uoo = new Wall();
+	    uoo = new GameObject(ObjectImageId.WALL);
 	}
 	return MLOTask.checkSolid(lgo) && MLOTask.checkSolid(ugo) && MLOTask.checkSolid(loo) && MLOTask.checkSolid(uoo);
     }
@@ -287,12 +225,12 @@ final class MLOTask extends Thread {
 	try {
 	    lgo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_GROUND);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
-	    lgo = new Wall();
+	    lgo = new GameObject(ObjectImageId.WALL);
 	}
 	try {
 	    ugo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_UPPER_GROUND);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
-	    ugo = new Wall();
+	    ugo = new GameObject(ObjectImageId.WALL);
 	}
 	return zproceed && (!lgo.hasFriction() || !ugo.hasFriction() || this.mover || this.frozen)
 		&& this.canMoveThere();
@@ -306,29 +244,6 @@ final class MLOTask extends Thread {
 		this.objectTrackers.add(tracker);
 	    }
 	}
-	final var tempArray2 = this.laserTrackers.toArray(new MovingLaserTracker[this.laserTrackers.size()]);
-	this.laserTrackers.clear();
-	for (final MovingLaserTracker tracker : tempArray2) {
-	    if (tracker != null && tracker.isTracking()) {
-		this.laserTrackers.add(tracker);
-	    }
-	}
-    }
-
-    private void defrostPlayer() {
-	if (this.frozen) {
-	    this.frozen = false;
-	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
-	    final var tank = gm.getPlayer();
-	    final var dir = tank.getDirection();
-	    final var px = gm.getPlayerManager().getPlayerLocationX();
-	    final var py = gm.getPlayerManager().getPlayerLocationY();
-	    final var pz = gm.getPlayerManager().getPlayerLocationZ();
-	    final var t = new Party(dir, tank.getNumber());
-	    t.setSavedObject(tank.getSavedObject());
-	    GameLogic.morph(t, px, py, pz, t.getLayer());
-	    gm.updatePlayer();
-	}
     }
 
     private void doMovementLasersObjects() {
@@ -338,25 +253,16 @@ final class MLOTask extends Thread {
 	    final var pz = plMgr.getPlayerLocationZ();
 	    this.loopCheck = true;
 	    var objs = new GameObject[4];
-	    objs[DungeonConstants.LAYER_LOWER_GROUND] = new Wall();
-	    objs[DungeonConstants.LAYER_UPPER_GROUND] = new Wall();
-	    objs[DungeonConstants.LAYER_LOWER_OBJECTS] = new Wall();
-	    objs[DungeonConstants.LAYER_UPPER_OBJECTS] = new Wall();
+	    objs[DungeonConstants.LAYER_LOWER_GROUND] = new GameObject(ObjectImageId.WALL);
+	    objs[DungeonConstants.LAYER_UPPER_GROUND] = new GameObject(ObjectImageId.WALL);
+	    objs[DungeonConstants.LAYER_LOWER_OBJECTS] = new GameObject(ObjectImageId.WALL);
+	    objs[DungeonConstants.LAYER_UPPER_OBJECTS] = new GameObject(ObjectImageId.WALL);
 	    do {
 		try {
 		    if (this.move && this.loopCheck) {
 			objs = this.doMovementOnce();
 		    }
 		    // Abort check 1
-		    if (this.abort) {
-			break;
-		    }
-		    for (final MovingLaserTracker tracker : this.laserTrackers) {
-			if (tracker.isTracking()) {
-			    tracker.trackPart1(this.areObjectTrackersTracking());
-			}
-		    }
-		    // Abort check 2
 		    if (this.abort) {
 			break;
 		    }
@@ -375,11 +281,6 @@ final class MLOTask extends Thread {
 		    } else {
 			actionType = GameActions.NON_MOVE;
 		    }
-		    for (final MovingLaserTracker tracker : this.laserTrackers) {
-			if (tracker.isTracking()) {
-			    this.mover = tracker.trackPart2(this.sx, this.sy, this.mover);
-			}
-		    }
 		    for (final MovingObjectTracker tracker : this.objectTrackers) {
 			if (tracker.isTracking()) {
 			    tracker.trackPart2();
@@ -394,14 +295,8 @@ final class MLOTask extends Thread {
 			    this.abort = true;
 			    if (this.move) {
 				DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
-				this.defrostPlayer();
 				gm.moveLoopDone();
 				this.move = false;
-			    }
-			    for (final MovingLaserTracker tracker : this.laserTrackers) {
-				if (tracker.isTracking()) {
-				    tracker.clearLastLaser();
-				}
 			    }
 			    gm.solvedLevel(true);
 			    return;
@@ -411,7 +306,6 @@ final class MLOTask extends Thread {
 		    }
 		    if (this.move && !this.loopCheck) {
 			DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
-			this.defrostPlayer();
 			gm.moveLoopDone();
 			this.move = false;
 		    }
@@ -427,10 +321,6 @@ final class MLOTask extends Thread {
 			this.loopCheck = true;
 		    }
 		    DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().tickTimers(pz, actionType);
-		    final var px = plMgr.getPlayerLocationX();
-		    final var py = plMgr.getPlayerLocationY();
-		    DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().checkForEnemies(pz, px, py,
-			    DungeonDiver7.getStuffBag().getGameLogic().getPlayer());
 		    // Delay
 		    try {
 			Thread.sleep(Prefs.getActionSpeed());
@@ -446,8 +336,7 @@ final class MLOTask extends Thread {
 		} catch (final ConcurrentModificationException cme) {
 		    // Ignore
 		}
-	    } while (!this.abort
-		    && (this.loopCheck || this.areLaserTrackersChecking() || this.areObjectTrackersChecking()));
+	    } while (!this.abort && (this.loopCheck || this.areObjectTrackersChecking()));
 	    // Check cheats
 	    if (objs[DungeonConstants.LAYER_LOWER_GROUND].killsOnMove()
 		    && !gm.getCheatStatus(GameLogic.CHEAT_SWIMMING)) {
@@ -474,22 +363,22 @@ final class MLOTask extends Thread {
 	try {
 	    lgo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_GROUND);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
-	    lgo = new Wall();
+	    lgo = new GameObject(ObjectImageId.WALL);
 	}
 	try {
 	    ugo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_UPPER_GROUND);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
-	    ugo = new Wall();
+	    ugo = new GameObject(ObjectImageId.WALL);
 	}
 	try {
 	    loo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_OBJECTS);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
-	    loo = new Wall();
+	    loo = new GameObject(ObjectImageId.WALL);
 	}
 	try {
 	    uoo = m.getCell(px + this.sx, py + this.sy, pz, pw);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
-	    uoo = new Wall();
+	    uoo = new GameObject(ObjectImageId.WALL);
 	}
 	if (this.proceed) {
 	    plMgr.savePlayerLocation();
@@ -499,7 +388,7 @@ final class MLOTask extends Thread {
 			gm.doDelayedDecay();
 		    }
 		    // Preserve other objects
-		    if (m.getCell(px, py, pz, pw) instanceof AbstractMovableObject) {
+		    if (m.getCell(px, py, pz, pw).canMove()) {
 			gm.getPlayer().setSavedObject(m.getCell(px, py, pz, pw));
 		    }
 		    m.setCell(gm.getPlayer().getSavedObject(), px, py, pz, pw);
@@ -528,22 +417,22 @@ final class MLOTask extends Thread {
 			gm.doDelayedDecay();
 		    }
 		    if (lgo == null) {
-			lgo = new Ground();
+			lgo = new GameObject(ObjectImageId.GRASS);
 		    }
 		    lgo.moveFailedAction(plMgr.getPlayerLocationX() + this.sx, plMgr.getPlayerLocationY() + this.sy,
 			    plMgr.getPlayerLocationZ());
 		    if (ugo == null) {
-			ugo = new Ground();
+			ugo = new GameObject(ObjectImageId.GRASS);
 		    }
 		    ugo.moveFailedAction(plMgr.getPlayerLocationX() + this.sx, plMgr.getPlayerLocationY() + this.sy,
 			    plMgr.getPlayerLocationZ());
 		    if (loo == null) {
-			loo = new Ground();
+			loo = new GameObject(ObjectImageId.GRASS);
 		    }
 		    loo.moveFailedAction(plMgr.getPlayerLocationX() + this.sx, plMgr.getPlayerLocationY() + this.sy,
 			    plMgr.getPlayerLocationZ());
 		    if (uoo == null) {
-			uoo = new Ground();
+			uoo = new GameObject(ObjectImageId.GRASS);
 		    }
 		    uoo.moveFailedAction(plMgr.getPlayerLocationX() + this.sx, plMgr.getPlayerLocationY() + this.sy,
 			    plMgr.getPlayerLocationZ());
@@ -564,22 +453,22 @@ final class MLOTask extends Thread {
 			plMgr.getPlayerLocationZ(), pw);
 		// Move failed - attempted to go outside the dungeon
 		if (lgo == null) {
-		    lgo = new Ground();
+		    lgo = new GameObject(ObjectImageId.GRASS);
 		}
 		lgo.moveFailedAction(plMgr.getPlayerLocationX() + this.sx, plMgr.getPlayerLocationY() + this.sy,
 			plMgr.getPlayerLocationZ());
 		if (ugo == null) {
-		    ugo = new Ground();
+		    ugo = new GameObject(ObjectImageId.GRASS);
 		}
 		ugo.moveFailedAction(plMgr.getPlayerLocationX() + this.sx, plMgr.getPlayerLocationY() + this.sy,
 			plMgr.getPlayerLocationZ());
 		if (loo == null) {
-		    loo = new Ground();
+		    loo = new GameObject(ObjectImageId.GRASS);
 		}
 		loo.moveFailedAction(plMgr.getPlayerLocationX() + this.sx, plMgr.getPlayerLocationY() + this.sy,
 			plMgr.getPlayerLocationZ());
 		if (uoo == null) {
-		    uoo = new Ground();
+		    uoo = new GameObject(ObjectImageId.GRASS);
 		}
 		uoo.moveFailedAction(plMgr.getPlayerLocationX() + this.sx, plMgr.getPlayerLocationY() + this.sy,
 			plMgr.getPlayerLocationZ());

@@ -29,8 +29,7 @@ import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.creature.spell.SpellCaster;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
-import org.retropipes.dungeondiver7.dungeon.objects.Empty;
+import org.retropipes.dungeondiver7.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
@@ -697,7 +696,7 @@ public class MapTurnBattleLogic extends Battle {
 	// Remove effects from dead character
 	active.stripAllEffects();
 	// Remove character from battle
-	this.bd.getBattleDungeon().setCell(new Empty(), activeBC.getX(), activeBC.getY(), 0,
+	this.bd.getBattleDungeon().setCell(new GameObject(ObjectImageId.EMPTY), activeBC.getX(), activeBC.getY(), 0,
 		DungeonConstants.LAYER_LOWER_OBJECTS);
 	if (this.bd.getActiveCharacter().getName().equals(activeBC.getName())) {
 	    // Active character died, end turn
@@ -1029,7 +1028,7 @@ public class MapTurnBattleLogic extends Battle {
 	    // Set fled character to inactive
 	    activeBC.deactivate();
 	    // Remove character from battle
-	    m.setCell(new Empty(), activeBC.getX(), activeBC.getY(), 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    m.setCell(new GameObject(ObjectImageId.EMPTY), activeBC.getX(), activeBC.getY(), 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	    // End Turn
 	    this.endTurn();
 	    this.updateStatsAndEffects();

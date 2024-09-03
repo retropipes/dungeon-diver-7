@@ -9,6 +9,7 @@ import org.retropipes.diane.direction.DirectionStrings;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.objectmodel.ObjectModel;
+import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
@@ -16,13 +17,57 @@ import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Colors;
 import org.retropipes.dungeondiver7.locale.ObjectInteractMessage;
 import org.retropipes.dungeondiver7.locale.Strings;
+import org.retropipes.dungeondiver7.utility.DungeonConstants;
+import org.retropipes.dungeondiver7.utility.RandomGenerationRule;
 
-public final class GameObject {
+public final class GameObject implements RandomGenerationRule {
     private static final int PLASTIC_MINIMUM_REACTION_FORCE = 0;
     private static final int DEFAULT_MINIMUM_REACTION_FORCE = 1;
     private static final int METAL_MINIMUM_REACTION_FORCE = 2;
     private final static boolean[] tunnelsFull = new boolean[Strings.COLOR_COUNT];
     private final static int SCAN_RADIUS = 24;
+
+    public static void checkTunnels(final int tx, final int ty, final Dungeon dungeon) {
+	for (var x = 0; x < Strings.COLOR_COUNT; x++) {
+	    GameObject.checkTunnelsOfColor(tx, ty, dungeon, Colors.values()[x]);
+	}
+    }
+
+    protected static void checkTunnelsOfColor(final int tx, final int ty, final Dungeon dungeon, final Colors color) {
+	final var pgrmdest = dungeon.circularScanTunnel(0, 0, 0, GameObject.SCAN_RADIUS, tx, ty,
+		GameObject.getTunnelOfColor(color), false);
+	if (pgrmdest != null) {
+	    GameObject.tunnelsFull[color.ordinal()] = false;
+	} else {
+	    GameObject.tunnelsFull[color.ordinal()] = true;
+	}
+    }
+
+    public static final int getImbuedRangeForce(final Material material) {
+	if (material == Material.PLASTIC) {
+	    return PLASTIC_MINIMUM_REACTION_FORCE;
+	}
+	if (material == Material.METALLIC) {
+	    return METAL_MINIMUM_REACTION_FORCE;
+	}
+	return DEFAULT_MINIMUM_REACTION_FORCE;
+    }
+
+    protected static GameObject getTunnelOfColor(final Colors color) {
+	var tunnel = new GameObject(ObjectImageId.TUNNEL);
+	tunnel.color = color;
+	return tunnel;
+    }
+
+    public static GameObject read(final DataIOReader reader) throws IOException {
+	int nid = reader.readInt();
+	return new GameObject(ObjectImageId.values()[nid]);
+    }
+
+    public static boolean tunnelsFull(final Colors color) {
+	return GameObject.tunnelsFull[color.ordinal()];
+    }
+
     private final ObjectModel model;
     private final ObjectImageId id;
     private transient boolean solid;
@@ -65,6 +110,54 @@ public final class GameObject {
     private transient int boundX;
     private transient int boundY;
     private transient boolean triggered;
+    private transient boolean waitingOnTunnel;
+
+    public GameObject(final GameObject source) {
+	this.model = new ObjectModel();
+	this.model.setId(source.id);
+	this.id = source.id;
+	this.solid = source.solid;
+	this.friction = source.friction;
+	this.sightBlock = source.sightBlock;
+	this.interactive = source.interactive;
+	this.canMove = source.canMove;
+	this.canPush = source.canPush;
+	this.canPull = source.canPull;
+	this.isField = source.isField;
+	this.isPassThrough = source.isPassThrough;
+	this.isPlayer = source.isPlayer;
+	this.layer = source.layer;
+	this.blockHeight = source.blockHeight;
+	this.damageDealt = source.damageDealt;
+	this.initialTimerValue = source.initialTimerValue;
+	this.timerValue = source.timerValue;
+	this.frameNumber = source.frameNumber;
+	this.maxFrameNumber = source.maxFrameNumber;
+	this.interactMessageIndex = source.interactMessageIndex;
+	this.image = source.image;
+	this.interactMessage = source.interactMessage;
+	this.interactSound = source.interactSound;
+	this.interactMorph = source.interactMorph;
+	this.shop = source.shop;
+	this.lazyLoaded = source.lazyLoaded;
+	this.teamId = source.teamId;
+	this.imageOverridden = source.imageOverridden;
+	this.timerActive = source.timerActive;
+	this.deferSetProperties = source.deferSetProperties;
+	this.killsOnMove = source.killsOnMove;
+	this.solvesOnMove = source.solvesOnMove;
+	this.boundUniversal = source.boundUniversal;
+	this.direction = source.direction;
+	this.color = source.color;
+	this.material = source.material;
+	this.saved = source.saved;
+	this.bound = source.bound;
+	this.previousState = source.previousState;
+	this.boundX = source.boundX;
+	this.boundY = source.boundY;
+	this.triggered = source.triggered;
+	this.waitingOnTunnel = source.waitingOnTunnel;
+    }
 
     public GameObject(final ObjectImageId oid) {
 	this.id = oid;
@@ -83,47 +176,6 @@ public final class GameObject {
 	this.model = new ObjectModel();
 	this.model.setId(oid);
 	this.lazyLoaded = false;
-    }
-
-    public static final int getImbuedRangeForce(final Material material) {
-	if (material == Material.PLASTIC) {
-	    return PLASTIC_MINIMUM_REACTION_FORCE;
-	}
-	if (material == Material.METALLIC) {
-	    return METAL_MINIMUM_REACTION_FORCE;
-	}
-	return DEFAULT_MINIMUM_REACTION_FORCE;
-    }
-
-    public static void checkTunnels(final int tx, final int ty, final Dungeon dungeon) {
-	for (var x = 0; x < Strings.COLOR_COUNT; x++) {
-	    GameObject.checkTunnelsOfColor(tx, ty, dungeon, Colors.values()[x]);
-	}
-    }
-
-    protected static void checkTunnelsOfColor(final int tx, final int ty, final Dungeon dungeon, final Colors color) {
-	final var pgrmdest = dungeon.circularScanTunnel(0, 0, 0,
-		GameObject.SCAN_RADIUS, tx, ty, GameObject.getTunnelOfColor(color), false);
-	if (pgrmdest != null) {
-	    GameObject.tunnelsFull[color.ordinal()] = false;
-	} else {
-	    GameObject.tunnelsFull[color.ordinal()] = true;
-	}
-    }
-
-    protected static GameObject getTunnelOfColor(final Colors color) {
-	var tunnel = new GameObject(ObjectImageId.TUNNEL);
-	tunnel.color = color;
-	return tunnel;
-    }
-
-    public static boolean tunnelsFull(final Colors color) {
-	return GameObject.tunnelsFull[color.ordinal()];
-    }
-
-    public static GameObject read(final DataIOReader reader) throws IOException {
-	int nid = reader.readInt();
-	return new GameObject(ObjectImageId.values()[nid]);
     }
 
     public final void activateTimer() {
@@ -171,6 +223,10 @@ public final class GameObject {
 	return this.deferSetProperties;
     }
 
+    public final void editorPlaceHook(final int x, final int y, final int z) {
+	// Do nothing
+    }
+
     public GameObject editorPropertiesHook() {
 	if (this.hasDirection()) {
 	    this.toggleDirection();
@@ -181,6 +237,26 @@ public final class GameObject {
 	    return this;
 	}
 	return null;
+    }
+
+    public final void editorRemoveHook(final int x, final int y, final int z) {
+	// Do nothing
+    }
+
+    public final GameObject getBoundObject() {
+	this.lazyLoad();
+	if (this.bound == null || this.bound == this.id) {
+	    return this;
+	}
+	return new GameObject(this.bound, this.id);
+    }
+
+    public final int getBoundObjectX() {
+	return this.boundX;
+    }
+
+    public final int getBoundObjectY() {
+	return this.boundY;
     }
 
     public final String getCacheName() {
@@ -279,24 +355,18 @@ public final class GameObject {
 	return this.material;
     }
 
+    @Override
+    public int getMaximumRequiredQuantity(final Dungeon dungeon) {
+	return RandomGenerationRule.NO_LIMIT;
+    }
+
+    @Override
+    public int getMinimumRequiredQuantity(final Dungeon dungeon) {
+	return RandomGenerationRule.NO_LIMIT;
+    }
+
     public final String getName() {
 	return Strings.objectName(this.id.ordinal());
-    }
-
-    public final GameObject getBoundObject() {
-	this.lazyLoad();
-	if (this.bound == null || this.bound == this.id) {
-	    return this;
-	}
-	return new GameObject(this.bound, this.id);
-    }
-
-    public final int getBoundObjectX() {
-	return this.boundX;
-    }
-
-    public final int getBoundObjectY() {
-	return this.boundY;
     }
 
     public final GameObject getPreviousStateObject() {
@@ -342,6 +412,10 @@ public final class GameObject {
 	return this.bound == testObject.bound;
     }
 
+    public final void interactAction() {
+	// Do nothing
+    }
+
     public final boolean isAnimated() {
 	this.lazyLoad();
 	return this.maxFrameNumber > 0;
@@ -360,6 +434,10 @@ public final class GameObject {
     public final boolean isField() {
 	this.lazyLoad();
 	return this.isField;
+    }
+
+    public final boolean isFinalBoss() {
+	return false;
     }
 
     public final boolean isInteractive() {
@@ -390,6 +468,11 @@ public final class GameObject {
     public final boolean isPushable() {
 	this.lazyLoad();
 	return this.canPush;
+    }
+
+    @Override
+    public boolean isRequired(final Dungeon dungeon) {
+	return false;
     }
 
     public final boolean isShop() {
@@ -458,12 +541,42 @@ public final class GameObject {
 	this.image = imageOverride;
     }
 
+    public final void moveFailedAction(final int x, final int y, final int z) {
+	// Do nothing
+    }
+
+    public final void postMoveAction(final int x, final int y, final int z) {
+	// Do nothing
+    }
+
+    public final boolean preMoveAction(final boolean ie, final int x, final int y) {
+	// Do nothing
+	return true;
+    }
+
+    public final void pushCollideAction(final GameObject moving, final int x, final int y, final int z) {
+	// Do nothing
+    }
+
+    public final boolean pushIntoAction(final GameObject moving, final int x, final int y, final int z) {
+	// Do nothing
+	return false;
+    }
+
+    public final void pushOutAction(final GameObject moving, final int x, final int y, final int z) {
+	// Do nothing
+    }
+
     public final void setBoundObjectX(final int newBX) {
 	this.boundX = newBX;
     }
 
     public final void setBoundObjectY(final int newBY) {
 	this.boundY = newBY;
+    }
+
+    public final void setDirection(final Direction dir) {
+	this.direction = dir;
     }
 
     public final void setPreviousStateObject(final GameObject savedObject) {
@@ -480,6 +593,37 @@ public final class GameObject {
 
     public final void setTriggered(final boolean isTriggered) {
 	this.triggered = isTriggered;
+    }
+
+    public void setWaitingOnTunnel(final boolean value) {
+	this.waitingOnTunnel = value;
+    }
+
+    @Override
+    public boolean shouldGenerateObject(final Dungeon dungeon, final int row, final int col, final int level,
+	    final int layer) {
+	if (layer == DungeonConstants.LAYER_LOWER_OBJECTS) {
+	    // Handle object layer
+	    // Limit generation of other objects to 20%, unless required
+	    if (this.isPassThrough() || this.isRequired(dungeon)) {
+		return true;
+	    }
+	    final var r = new RandomRange(1, 100);
+	    if (r.generate() <= 20) {
+		return true;
+	    }
+	    return false;
+	}
+	if (!this.isField()) {
+	    // Generate other ground at 100%
+	    return true;
+	}
+	// Limit generation of fields to 20%
+	final var r = new RandomRange(1, 100);
+	if (r.generate() <= 20) {
+	    return true;
+	}
+	return false;
     }
 
     public boolean solvesOnMove() {
@@ -524,6 +668,10 @@ public final class GameObject {
 		this.frameNumber = 0;
 	    }
 	}
+    }
+
+    public boolean waitingOnTunnel() {
+	return this.waitingOnTunnel;
     }
 
     public final void write(final DataIOWriter writer) throws IOException {

@@ -6,7 +6,7 @@
 package org.retropipes.dungeondiver7.dungeon;
 
 import org.retropipes.diane.storage.ObjectStorage;
-import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
+import org.retropipes.dungeondiver7.gameobject.GameObject;
 
 public class DungeonDataStorage extends ObjectStorage<GameObject> {
     public DungeonDataStorage(final DungeonDataStorage source) {

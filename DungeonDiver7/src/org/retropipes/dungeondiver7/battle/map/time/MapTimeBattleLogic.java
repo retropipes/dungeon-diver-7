@@ -28,8 +28,7 @@ import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.creature.spell.SpellCaster;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
-import org.retropipes.dungeondiver7.dungeon.objects.Empty;
+import org.retropipes.dungeondiver7.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
@@ -779,7 +778,7 @@ public class MapTimeBattleLogic extends Battle {
 		    // Remove effects from dead character
 		    active.stripAllEffects();
 		    // Remove character from battle
-		    this.battleMap.setCell(new Empty(), this.me.getX(), this.me.getY(), 0,
+		    this.battleMap.setCell(new GameObject(ObjectImageId.EMPTY), this.me.getX(), this.me.getY(), 0,
 			    DungeonConstants.LAYER_OBJECT);
 		}
 	    }
@@ -818,7 +817,7 @@ public class MapTimeBattleLogic extends Battle {
 		// Remove effects from dead character
 		active.stripAllEffects();
 		// Remove character from battle
-		this.battleMap.setCell(new Empty(), this.enemy.getX(), this.enemy.getY(), 0,
+		this.battleMap.setCell(new GameObject(ObjectImageId.EMPTY), this.enemy.getX(), this.enemy.getY(), 0,
 			DungeonConstants.LAYER_OBJECT);
 	    }
 	}
@@ -1141,7 +1140,7 @@ public class MapTimeBattleLogic extends Battle {
 		    // Set dead character to inactive
 		    bc.deactivate();
 		    // Remove character from battle
-		    m.setCell(new Empty(), bc.getX(), bc.getY(), 0, DungeonConstants.LAYER_OBJECT);
+		    m.setCell(new GameObject(ObjectImageId.EMPTY), bc.getX(), bc.getY(), 0, DungeonConstants.LAYER_OBJECT);
 		}
 		// Handle self death
 		if (!active.getCreature().isAlive()) {
@@ -1150,7 +1149,7 @@ public class MapTimeBattleLogic extends Battle {
 		    // Set dead character to inactive
 		    active.deactivate();
 		    // Remove character from battle
-		    m.setCell(new Empty(), active.getX(), active.getY(), 0, DungeonConstants.LAYER_OBJECT);
+		    m.setCell(new GameObject(ObjectImageId.EMPTY), active.getX(), active.getY(), 0, DungeonConstants.LAYER_OBJECT);
 		}
 	    } else {
 		// Move Failed
@@ -1180,7 +1179,7 @@ public class MapTimeBattleLogic extends Battle {
 	    // Set fled character to inactive
 	    active.deactivate();
 	    // Remove character from battle
-	    m.setCell(new Empty(), active.getX(), active.getY(), 0, DungeonConstants.LAYER_OBJECT);
+	    m.setCell(new GameObject(ObjectImageId.EMPTY), active.getX(), active.getY(), 0, DungeonConstants.LAYER_OBJECT);
 	    // End Turn
 	    this.endTurn();
 	    this.updateStatsAndEffects();

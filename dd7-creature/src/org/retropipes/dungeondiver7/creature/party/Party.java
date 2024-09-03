@@ -61,6 +61,10 @@ public class Party {
 	}
     }
 
+    public int getLayer() {
+	return 3; // DungeonConstants.LAYER_UPPER_OBJECTS
+    }
+
     public PartyMember getLeader() {
 	return this.members;
     }

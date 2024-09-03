@@ -22,11 +22,7 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.DungeonData;
 import org.retropipes.dungeondiver7.dungeon.HistoryStatus;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractButton;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractButtonDoor;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
-import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
+import org.retropipes.dungeondiver7.gameobject.GameObject;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Difficulty;
 import org.retropipes.dungeondiver7.locale.ErrorString;
@@ -143,11 +139,6 @@ public class CurrentDungeon extends Dungeon {
     }
 
     @Override
-    public void checkForEnemies(final int floor, final int ex, final int ey, final AbstractCharacter e) {
-	this.dungeonData.checkForEnemies(this, floor, ex, ey, e);
-    }
-
-    @Override
     public int checkForMagnetic(final int floor, final int centerX, final int centerY, final Direction dir) {
 	return this.dungeonData.checkForMagnetic(this, floor, centerX, centerY, dir);
     }
@@ -161,12 +152,6 @@ public class CurrentDungeon extends Dungeon {
     @Override
     public boolean circularScanPlayer(final int x, final int y, final int z, final int maxR) {
 	return this.dungeonData.circularScanPlayer(this, x, y, z, maxR);
-    }
-
-    @Override
-    public void circularScanRange(final int x, final int y, final int z, final int maxR, final int rangeType,
-	    final int forceUnits) {
-	this.dungeonData.circularScanRange(this, x, y, z, maxR, rangeType, forceUnits);
     }
 
     @Override
@@ -328,38 +313,33 @@ public class CurrentDungeon extends Dungeon {
     }
 
     @Override
-    public void fullScanAllButtonClose(final int z, final AbstractButton source) {
+    public void fullScanAllButtonClose(final int z, final GameObject source) {
 	this.dungeonData.fullScanAllButtonClose(this, z, source);
     }
 
     @Override
-    public void fullScanAllButtonOpen(final int z, final AbstractButton source) {
+    public void fullScanAllButtonOpen(final int z, final GameObject source) {
 	this.dungeonData.fullScanAllButtonOpen(this, z, source);
     }
 
     @Override
-    public void fullScanButtonBind(final int dx, final int dy, final int z, final AbstractButtonDoor source) {
+    public void fullScanButtonBind(final int dx, final int dy, final int z, final GameObject source) {
 	this.dungeonData.fullScanButtonBind(this, dx, dy, z, source);
     }
 
     @Override
-    public void fullScanButtonCleanup(final int px, final int py, final int z, final AbstractButton button) {
+    public void fullScanButtonCleanup(final int px, final int py, final int z, final GameObject button) {
 	this.dungeonData.fullScanButtonCleanup(this, px, py, z, button);
     }
 
     @Override
-    public void fullScanFindButtonLostDoor(final int z, final AbstractButtonDoor door) {
+    public void fullScanFindButtonLostDoor(final int z, final GameObject door) {
 	this.dungeonData.fullScanFindButtonLostDoor(this, z, door);
     }
 
     @Override
     public void fullScanFreezeGround() {
 	this.dungeonData.fullScanFreezeGround(this);
-    }
-
-    @Override
-    public void fullScanKillPlayers() {
-	this.dungeonData.fullScanKillPlayers(this);
     }
 
     private String generateCurrentLevelInfo() {
@@ -617,7 +597,7 @@ public class CurrentDungeon extends Dungeon {
     }
 
     @Override
-    public void postBattle(final AbstractMovingObject m, final int xLoc, final int yLoc, final boolean player) {
+    public void postBattle(final GameObject m, final int xLoc, final int yLoc, final boolean player) {
 	this.dungeonData.postBattle(this, m, xLoc, yLoc, player);
     }
 
@@ -980,7 +960,7 @@ public class CurrentDungeon extends Dungeon {
 
     @Override
     public void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
-	    final AbstractMovingObject monster, final int pi) {
+	    final GameObject monster, final int pi) {
 	this.dungeonData.updateMonsterPosition(this, move, xLoc, yLoc, monster, pi);
     }
 

@@ -10,12 +10,8 @@ import java.io.IOException;
 
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractButton;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractButtonDoor;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
-import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeon;
+import org.retropipes.dungeondiver7.gameobject.GameObject;
 import org.retropipes.dungeondiver7.locale.Difficulty;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
@@ -91,17 +87,12 @@ public abstract class Dungeon {
 
     public abstract boolean addLevel();
 
-    public abstract void checkForEnemies(final int floor, final int ex, final int ey, final AbstractCharacter e);
-
     public abstract int checkForMagnetic(int floor, int centerX, int centerY, Direction dir);
 
     public abstract int[] circularScan(final int x, final int y, final int z, final int maxR, final String targetName,
 	    final boolean moved);
 
     public abstract boolean circularScanPlayer(final int x, final int y, final int z, final int maxR);
-
-    public abstract void circularScanRange(final int x, final int y, final int z, final int maxR, final int rangeType,
-	    final int forceUnits);
 
     public abstract int[] circularScanTunnel(final int x, final int y, final int z, final int maxR, final int tx,
 	    final int ty, final GameObject target, final boolean moved);
@@ -141,19 +132,17 @@ public abstract class Dungeon {
 
     public abstract int[] findPlayer(final int number);
 
-    public abstract void fullScanAllButtonClose(int z, AbstractButton source);
+    public abstract void fullScanAllButtonClose(int z, GameObject source);
 
-    public abstract void fullScanAllButtonOpen(int z, AbstractButton source);
+    public abstract void fullScanAllButtonOpen(int z, GameObject source);
 
-    public abstract void fullScanButtonBind(int dx, int dy, int z, AbstractButtonDoor source);
+    public abstract void fullScanButtonBind(int dx, int dy, int z, GameObject source);
 
-    public abstract void fullScanButtonCleanup(int px, int py, int z, AbstractButton button);
+    public abstract void fullScanButtonCleanup(int px, int py, int z, GameObject button);
 
-    public abstract void fullScanFindButtonLostDoor(int z, AbstractButtonDoor door);
+    public abstract void fullScanFindButtonLostDoor(int z, GameObject door);
 
     public abstract void fullScanFreezeGround();
-
-    public abstract void fullScanKillPlayers();
 
     public abstract void generateLevelInfoList();
 
@@ -237,7 +226,7 @@ public abstract class Dungeon {
 
     public abstract void pasteLevel();
 
-    public abstract void postBattle(final AbstractMovingObject m, final int xLoc, final int yLoc, final boolean player);
+    public abstract void postBattle(final GameObject m, final int xLoc, final int yLoc, final boolean player);
 
     public abstract Dungeon readDungeon() throws IOException;
 
@@ -389,7 +378,7 @@ public abstract class Dungeon {
     public abstract void undo();
 
     public abstract void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
-	    final AbstractMovingObject monster, final int pi);
+	    final GameObject monster, final int pi);
 
     public abstract void updateRedoHistory(final HistoryStatus whatIs);
 

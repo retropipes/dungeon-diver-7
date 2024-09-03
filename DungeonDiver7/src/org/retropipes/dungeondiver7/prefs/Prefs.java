@@ -17,8 +17,8 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.battle.BattleMechanic;
 import org.retropipes.dungeondiver7.battle.BattleStyle;
 import org.retropipes.dungeondiver7.creature.GameDifficulty;
-import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
-import org.retropipes.dungeondiver7.dungeon.objects.Ground;
+import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.locale.EditorLayout;
 import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.PrefKey;
@@ -68,7 +68,7 @@ public class Prefs {
     }
 
     public static GameObject getEditorDefaultFill() {
-	return new Ground();
+	return new GameObject(ObjectImageId.GRASS);
     }
 
     public static EditorLayout getEditorLayout() {

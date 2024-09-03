@@ -26,9 +26,8 @@ import org.retropipes.dungeondiver7.battle.map.MapBattleDraw;
 import org.retropipes.dungeondiver7.battle.map.MapBattleEffects;
 import org.retropipes.dungeondiver7.battle.map.MapBattleStats;
 import org.retropipes.dungeondiver7.battle.map.MapBattleViewingWindowManager;
-import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
-import org.retropipes.dungeondiver7.dungeon.objects.Darkness;
-import org.retropipes.dungeondiver7.dungeon.objects.Wall;
+import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
@@ -97,7 +96,7 @@ class MapTurnBattleGUI {
 			final var img = ImageCompositor.composite(cacheName, lgimg, ugimg);
 			this.drawGrid.setImageCell(img, xFix, yFix);
 		    } catch (final ArrayIndexOutOfBoundsException ae) {
-			final var wall = new Wall();
+			final var wall = new GameObject(ObjectImageId.WALL);
 			this.drawGrid.setImageCell(wall.getImage(), xFix, yFix);
 		    }
 		}
@@ -185,7 +184,7 @@ class MapTurnBattleGUI {
 	this.drawGrid = new DrawGrid(MapBattleViewingWindowManager.getViewingWindowSize());
 	for (var x = 0; x < MapBattleViewingWindowManager.getViewingWindowSize(); x++) {
 	    for (var y = 0; y < MapBattleViewingWindowManager.getViewingWindowSize(); y++) {
-		final GameObject dark = new Darkness();
+		final GameObject dark = new GameObject(ObjectImageId.DARKNESS);
 		this.drawGrid.setImageCell(dark.getImage(), x, y);
 	    }
 	}

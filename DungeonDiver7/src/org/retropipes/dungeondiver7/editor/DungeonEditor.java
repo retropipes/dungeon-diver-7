@@ -35,11 +35,9 @@ import org.retropipes.dungeondiver7.MenuSection;
 import org.retropipes.dungeondiver7.StuffBag;
 import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractJumpObject;
-import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
-import org.retropipes.dungeondiver7.dungeon.objects.Ground;
-import org.retropipes.dungeondiver7.dungeon.objects.Party;
 import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.locale.EditorLayout;
 import org.retropipes.dungeondiver7.locale.EditorString;
@@ -53,7 +51,6 @@ import org.retropipes.dungeondiver7.utility.RCLGenerator;
 
 public class DungeonEditor implements MenuSection {
     private static final int STACK_COUNT = 10;
-    private static final String[] JUMP_LIST = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
     // Declarations
     private MainWindow mainWindow;
     private MainContent secondaryPane, borderPane, outerOutputPane, switcherPane;
@@ -86,7 +83,7 @@ public class DungeonEditor implements MenuSection {
 	    editorGlobalMoveShoot;
 
     public DungeonEditor() {
-	this.savedGameObject = new Ground();
+	this.savedGameObject = new GameObject(ObjectImageId.GRASS);
 	this.lPrefs = new LevelPreferencesManager();
 	this.mhandler = new DungeonEditorEventHandler(this);
 	this.shandler = new DungeonEditorStartEventHandler(this);
@@ -505,23 +502,6 @@ public class DungeonEditor implements MenuSection {
 	}
     }
 
-    public void editJumpBox(final AbstractJumpObject jumper) {
-	final var currentX = jumper.getJumpCols();
-	final var currentY = jumper.getJumpRows();
-	final var newXStr = CommonDialogs.showInputDialog(Strings.editor(EditorString.HORZ_JUMP),
-		Strings.editor(EditorString.EDITOR), DungeonEditor.JUMP_LIST, DungeonEditor.JUMP_LIST[currentX]);
-	if (newXStr != null) {
-	    final var newYStr = CommonDialogs.showInputDialog(Strings.editor(EditorString.VERT_JUMP),
-		    Strings.editor(EditorString.EDITOR), DungeonEditor.JUMP_LIST, DungeonEditor.JUMP_LIST[currentY]);
-	    if (newYStr != null) {
-		final var newX = Integer.parseInt(newXStr);
-		final var newY = Integer.parseInt(newYStr);
-		jumper.setJumpCols(newX);
-		jumper.setJumpRows(newY);
-	    }
-	}
-    }
-
     void editObject(final int x, final int y) {
 	final var app = DungeonDiver7.getStuffBag();
 	var currentObjectIndex = 0;
@@ -546,7 +526,7 @@ public class DungeonEditor implements MenuSection {
 	}
 	final var choices = this.objects;
 	final var mo = choices[currentObjectIndex];
-	final var instance = mo.clone();
+	final var instance = new GameObject(mo);
 	this.elMgr.setEditorLocationX(gridX);
 	this.elMgr.setEditorLocationY(gridY);
 	this.savedGameObject.editorRemoveHook(gridX, gridY, this.elMgr.getEditorLocationZ());
@@ -1070,7 +1050,7 @@ public class DungeonEditor implements MenuSection {
 		if (levelSizeZ > maxF) {
 		    throw new NumberFormatException(Strings.editor(EditorString.FLOORS_TOO_HIGH));
 		}
-		app.getDungeonManager().getDungeon().resize(levelSizeZ, new Ground());
+		app.getDungeonManager().getDungeon().resize(levelSizeZ, new GameObject(ObjectImageId.GRASS));
 		this.fixLimits();
 		// Save the entire level
 		app.getDungeonManager().getDungeon().save();
@@ -1102,14 +1082,15 @@ public class DungeonEditor implements MenuSection {
     }
 
     public void setPlayerLocation() {
-	final var template = new Party(this.activePlayer + 1);
+	final var template = new GameObject(ObjectImageId.PARTY);
 	final var app = DungeonDiver7.getStuffBag();
 	final var oldX = app.getDungeonManager().getDungeon().getStartColumn(this.activePlayer);
 	final var oldY = app.getDungeonManager().getDungeon().getStartRow(this.activePlayer);
 	final var oldZ = app.getDungeonManager().getDungeon().getStartFloor(this.activePlayer);
 	// Erase old player
 	try {
-	    app.getDungeonManager().getDungeon().setCell(new Ground(), oldX, oldY, oldZ, template.getLayer());
+	    app.getDungeonManager().getDungeon().setCell(new GameObject(ObjectImageId.GRASS), oldX, oldY, oldZ,
+		    template.getLayer());
 	} catch (final ArrayIndexOutOfBoundsException aioob) {
 	    // Ignore
 	}
@@ -1122,7 +1103,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     void setPlayerLocation(final int x, final int y) {
-	final var template = new Party(this.activePlayer + 1);
+	final var template = new GameObject(ObjectImageId.PARTY);
 	final var app = DungeonDiver7.getStuffBag();
 	final var xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
 	final var yOffset = this.horzScroll.getValue() - this.horzScroll.getMinimum();
@@ -1135,7 +1116,8 @@ public class DungeonEditor implements MenuSection {
 	final var oldZ = app.getDungeonManager().getDungeon().getStartFloor(this.activePlayer);
 	// Erase old player
 	try {
-	    app.getDungeonManager().getDungeon().setCell(new Ground(), oldX, oldY, oldZ, template.getLayer());
+	    app.getDungeonManager().getDungeon().setCell(new GameObject(ObjectImageId.GRASS), oldX, oldY, oldZ,
+		    template.getLayer());
 	} catch (final ArrayIndexOutOfBoundsException aioob) {
 	    // Ignore
 	}

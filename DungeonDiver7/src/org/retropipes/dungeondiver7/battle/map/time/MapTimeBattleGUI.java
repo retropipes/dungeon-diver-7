@@ -25,8 +25,7 @@ import org.retropipes.dungeondiver7.battle.map.MapBattleEffects;
 import org.retropipes.dungeondiver7.battle.map.MapBattleStats;
 import org.retropipes.dungeondiver7.battle.map.MapBattleViewingWindowManager;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
-import org.retropipes.dungeondiver7.dungeon.objects.Wall;
+import org.retropipes.dungeondiver7.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.locale.Strings;
@@ -108,10 +107,10 @@ class MapTimeBattleGUI {
 			final var img = ImageCompositor.composite(cacheName, icon1, icon2);
 			this.drawGrid.setImageCell(img, xFix, yFix);
 		    } catch (final ArrayIndexOutOfBoundsException ae) {
-			final var wall = new Wall();
+			final var wall = new GameObject(ObjectImageId.WALL);
 			this.drawGrid.setImageCell(wall.getImage(), xFix, yFix);
 		    } catch (final NullPointerException np) {
-			final var wall = new Wall();
+			final var wall = new GameObject(ObjectImageId.WALL);
 			this.drawGrid.setImageCell(wall.getImage(), xFix, yFix);
 		    }
 		}

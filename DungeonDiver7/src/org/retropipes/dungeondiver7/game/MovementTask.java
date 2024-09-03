@@ -8,9 +8,8 @@ package org.retropipes.dungeondiver7.game;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
-import org.retropipes.dungeondiver7.dungeon.objects.Empty;
-import org.retropipes.dungeondiver7.dungeon.objects.Wall;
+import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
@@ -71,7 +70,7 @@ final class MovementTask extends Thread {
 	this.setName("Movement Handler");
 	this.vwMgr = view;
 	this.gui = gameGUI;
-	this.saved = new Empty();
+	this.saved = new GameObject(ObjectImageId.EMPTY);
     }
 
     private boolean checkLoopCondition(final GameObject below, final GameObject nextBelow,
@@ -174,22 +173,22 @@ final class MovementTask extends Thread {
 	this.proceed = false;
 	GameObject below = null;
 	GameObject nextBelow = null;
-	GameObject nextAbove = new Wall();
+	GameObject nextAbove = new GameObject(ObjectImageId.WALL);
 	do {
 	    try {
 		below = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_GROUND);
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
-		below = new Empty();
+		below = new GameObject(ObjectImageId.EMPTY);
 	    }
 	    try {
 		nextBelow = m.getCell(px + fX, py + fY, 0, DungeonConstants.LAYER_LOWER_GROUND);
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
-		nextBelow = new Empty();
+		nextBelow = new GameObject(ObjectImageId.EMPTY);
 	    }
 	    try {
 		nextAbove = m.getCell(px + fX, py + fY, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
-		nextAbove = new Wall();
+		nextAbove = new GameObject(ObjectImageId.WALL);
 	    }
 	    try {
 		this.proceed = nextAbove.preMoveAction(true, px + fX, py + fY);
@@ -228,7 +227,7 @@ final class MovementTask extends Thread {
 		    // Move failed - attempted to go outside the maze
 		    nextAbove.moveFailedAction(px, py, pz);
 		    app.showMessage("Can't go that way");
-		    nextAbove = new Empty();
+		    nextAbove = new GameObject(ObjectImageId.EMPTY);
 		    this.proceed = false;
 		}
 		this.fireStepActions();

@@ -22,18 +22,14 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.MenuSection;
 import org.retropipes.dungeondiver7.StuffBag;
 import org.retropipes.dungeondiver7.asset.ImageConstants;
+import org.retropipes.dungeondiver7.creature.party.Party;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.HistoryStatus;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
-import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.current.GenerateDungeonTask;
-import org.retropipes.dungeondiver7.dungeon.objects.ArrowTurretDisguise;
-import org.retropipes.dungeondiver7.dungeon.objects.Empty;
-import org.retropipes.dungeondiver7.dungeon.objects.Party;
-import org.retropipes.dungeondiver7.dungeon.objects.PowerfulParty;
+import org.retropipes.dungeondiver7.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.extmusic.ExternalMusicImporter;
 import org.retropipes.dungeondiver7.loader.extmusic.ExternalMusicLoader;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.DialogString;
@@ -47,11 +43,8 @@ import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.AlreadyDeadException;
 import org.retropipes.dungeondiver7.utility.CustomDialogs;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
-import org.retropipes.dungeondiver7.utility.GameActions;
 import org.retropipes.dungeondiver7.utility.InvalidDungeonException;
 import org.retropipes.dungeondiver7.utility.PartyInventory;
-import org.retropipes.dungeondiver7.utility.RangeTypes;
-import org.retropipes.dungeondiver7.utility.ShotTypes;
 
 public final class GameLogic implements MenuSection {
     static final int OTHER_AMMO_MODE_MISSILES = 0;
@@ -147,11 +140,10 @@ public final class GameLogic implements MenuSection {
     // Fields
     private boolean savedGameFlag;
     private final GameViewingWindowManager vwMgr;
-    AbstractCharacter player;
+    GameObject player;
     private boolean stateChanged;
     private final GameGUI gui;
     private final MovementTask mt;
-    private int activeShotType;
     final PlayerLocationManager plMgr;
     private final CheatManager cMgr;
     private final ScoreTracker st;
@@ -195,7 +187,6 @@ public final class GameLogic implements MenuSection {
 	this.delayedDecayActive = false;
 	this.delayedDecayObject = null;
 	this.shotActive = false;
-	this.activeShotType = ShotTypes.GREEN;
 	this.remoteDecay = false;
 	this.moving = false;
 	this.gre = new GameReplayEngine();
@@ -316,11 +307,11 @@ public final class GameLogic implements MenuSection {
 
     public void decay() {
 	if (this.player != null) {
-	    this.player.setSavedObject(new Empty());
+	    this.player.setSavedObject(new GameObject(ObjectImageId.EMPTY));
 	}
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();
-	m.setCell(new Empty(), m.getPlayerLocationX(0), m.getPlayerLocationY(0), 0,
+	m.setCell(new GameObject(ObjectImageId.EMPTY), m.getPlayerLocationX(0), m.getPlayerLocationY(0), 0,
 		DungeonConstants.LAYER_LOWER_OBJECTS);
     }
 
@@ -352,7 +343,7 @@ public final class GameLogic implements MenuSection {
 	this.delayedDecayActive = false;
     }
 
-    void doRemoteDelayedDecay(final AbstractMovableObject o) {
+    void doRemoteDelayedDecay(final GameObject o) {
 	o.setSavedObject(this.delayedDecayObject);
 	this.remoteDecay = false;
 	this.delayedDecayActive = false;
@@ -436,77 +427,6 @@ public final class GameLogic implements MenuSection {
 	app.getGUIManager().showGUI();
     }
 
-    public boolean fireLaser(final int ox, final int oy, final GameObject shooter) {
-	if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_MISSILES && this.activeShotType == ShotTypes.MISSILE
-		&& PartyInventory.getMissilesLeft() == 0 && !this.getCheatStatus(GameLogic.CHEAT_MISSILES)) {
-	    CommonDialogs.showDialog(Strings.game(GameString.OUT_OF_MISSILES));
-	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_STUNNERS && this.activeShotType == ShotTypes.STUNNER
-		&& PartyInventory.getStunnersLeft() == 0 && !this.getCheatStatus(GameLogic.CHEAT_STUNNERS)) {
-	    CommonDialogs.showDialog(Strings.game(GameString.OUT_OF_STUNNERS));
-	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_BLUE_LASERS && this.activeShotType == ShotTypes.BLUE
-		&& PartyInventory.getBlueLasersLeft() == 0 && !this.getCheatStatus(GameLogic.CHEAT_BLUE_LASERS)) {
-	    CommonDialogs.showDialog(Strings.game(GameString.OUT_OF_BLUE_LASERS));
-	} else if (this.otherAmmoMode == GameLogic.OTHER_AMMO_MODE_DISRUPTORS
-		&& this.activeShotType == ShotTypes.DISRUPTOR && PartyInventory.getDisruptorsLeft() == 0
-		&& !this.getCheatStatus(GameLogic.CHEAT_DISRUPTORS)) {
-	    CommonDialogs.showDialog(Strings.game(GameString.OUT_OF_DISRUPTORS));
-	} else {
-	    final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	    if (!a.isMoveShootAllowed() && !this.shotActive || a.isMoveShootAllowed()) {
-		this.shotActive = true;
-		final var currDirection = DirectionResolver.unresolve(shooter.getDirection());
-		final var x = currDirection[0];
-		final var y = currDirection[1];
-		if (this.mlot == null || !this.mlot.isAlive()) {
-		    this.mlot = new MLOTask();
-		}
-		this.mlot.activateLasers(x, y, ox, oy, this.activeShotType, shooter);
-		if (!this.mlot.isAlive()) {
-		    this.mlot.start();
-		}
-		if (this.replaying) {
-		    // Wait
-		    while (this.shotActive) {
-			try {
-			    Thread.sleep(100);
-			} catch (final InterruptedException ie) {
-			    // Ignore
-			}
-		    }
-		}
-		return true;
-	    }
-	}
-	return false;
-    }
-
-    void fireRange() {
-	// Boom!
-	SoundLoader.playSound(Sounds.KABOOM);
-	this.updateScore(0, 0, 1);
-	switch (this.otherRangeMode) {
-	case GameLogic.OTHER_RANGE_MODE_BOMBS:
-	    GameLogic.updateUndo(false, false, false, false, false, false, false, true, false, false);
-	    break;
-	case GameLogic.OTHER_RANGE_MODE_HEAT_BOMBS:
-	    GameLogic.updateUndo(false, false, false, false, false, false, false, false, true, false);
-	    break;
-	case GameLogic.OTHER_RANGE_MODE_ICE_BOMBS:
-	    GameLogic.updateUndo(false, false, false, false, false, false, false, false, false, true);
-	    break;
-	default:
-	    break;
-	}
-	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
-	final var px = this.plMgr.getPlayerLocationX();
-	final var py = this.plMgr.getPlayerLocationY();
-	final var pz = this.plMgr.getPlayerLocationZ();
-	a.circularScanRange(px, py, pz, 1, this.otherRangeMode,
-		GameObject.getImbuedRangeForce(RangeTypes.getMaterialForRangeType(this.otherRangeMode)));
-	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().tickTimers(pz, GameActions.NON_MOVE);
-	this.updateScoreText();
-    }
-
     public void gameOver() {
 	// Check cheats
 	if (this.getCheatStatus(GameLogic.CHEAT_INVINCIBLE)) {
@@ -557,7 +477,7 @@ public final class GameLogic implements MenuSection {
 	return this.cheatStatus[cheatID];
     }
 
-    public AbstractCharacter getPlayer() {
+    public GameObject getPlayer() {
 	return this.player;
     }
 
@@ -764,7 +684,7 @@ public final class GameLogic implements MenuSection {
 		    return;
 		}
 		this.updatePlayer();
-		this.player.setSavedObject(new Empty());
+		this.player.setSavedObject(new GameObject(ObjectImageId.EMPTY));
 		this.st.setScoreFile(app.getDungeonManager().getScoresFileName());
 		if (!this.savedGameFlag) {
 		    this.st.resetScore(app.getDungeonManager().getScoresFileName());
@@ -936,22 +856,15 @@ public final class GameLogic implements MenuSection {
     boolean replayLastMove() {
 	if (this.gre.tryRedo()) {
 	    this.gre.redo();
-	    final var laser = this.gre.wasLaser();
 	    final var x = this.gre.getX();
 	    final var y = this.gre.getY();
-	    final var px = this.plMgr.getPlayerLocationX();
-	    final var py = this.plMgr.getPlayerLocationY();
-	    if (laser) {
-		this.fireLaser(px, py, this.player);
+	    final var currDir = this.player.getDirection();
+	    final var newDir = DirectionResolver.resolve(x, y);
+	    if (currDir != newDir) {
+		this.player.setDirection(newDir);
+		this.redrawDungeon();
 	    } else {
-		final var currDir = this.player.getDirection();
-		final var newDir = DirectionResolver.resolve(x, y);
-		if (currDir != newDir) {
-		    this.player.setDirection(newDir);
-		    this.redrawDungeon();
-		} else {
-		    this.updatePositionRelative(x, y);
-		}
+		this.updatePositionRelative(x, y);
 	    }
 	    return true;
 	}
@@ -1047,13 +960,6 @@ public final class GameLogic implements MenuSection {
 	GameLogic.checkMenus();
     }
 
-    private void resetPlayer() {
-	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().setCell(this.player,
-		this.plMgr.getPlayerLocationX(), this.plMgr.getPlayerLocationY(), this.plMgr.getPlayerLocationZ(),
-		this.player.getLayer());
-	this.markPlayerAsDirty();
-    }
-
     public void resetPlayerLocation() throws InvalidDungeonException {
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();
@@ -1098,31 +1004,9 @@ public final class GameLogic implements MenuSection {
 	this.autoMove = true;
     }
 
-    public void setDisguisedPlayer() {
-	final var savePlayer = this.player;
-	this.player = new ArrowTurretDisguise(savePlayer.getDirection(), savePlayer.getNumber());
-	this.resetPlayer();
-    }
-
     @Override
     public void setInitialState() {
 	this.gui.setInitialState();
-    }
-
-    public void setLaserType(final int type) {
-	this.activeShotType = type;
-    }
-
-    public void setNormalPlayer() {
-	final var savePlayer = this.player;
-	this.player = new Party(savePlayer.getDirection(), savePlayer.getNumber());
-	this.resetPlayer();
-    }
-
-    public void setPowerfulPlayer() {
-	final var savePlayer = this.player;
-	this.player = new PowerfulParty(savePlayer.getDirection(), savePlayer.getNumber());
-	this.resetPlayer();
     }
 
     public void setSavedGameFlag(final boolean value) {
@@ -1282,8 +1166,8 @@ public final class GameLogic implements MenuSection {
     }
 
     void updatePlayer() {
-	final var template = new Party(this.plMgr.getActivePlayerNumber() + 1);
-	this.player = (AbstractCharacter) DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
+	final var template = new Party();
+	this.player = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
 		this.plMgr.getPlayerLocationX(), this.plMgr.getPlayerLocationY(), this.plMgr.getPlayerLocationZ(),
 		template.getLayer());
     }
@@ -1299,12 +1183,12 @@ public final class GameLogic implements MenuSection {
     }
 
     public void updatePositionAbsoluteNoEvents(final int x, final int y, final int z) {
-	final var template = new Party(this.plMgr.getActivePlayerNumber() + 1);
+	final var template = new Party();
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();
 	this.plMgr.savePlayerLocation();
 	try {
-	    if (!m.getCell(x, y, z, template.getLayer()).isConditionallySolid()) {
+	    if (!m.getCell(x, y, z, template.getLayer()).isSolid()) {
 		if (z != 0) {
 		    this.suspendAnimator();
 		    m.setDirtyFlags(this.plMgr.getPlayerLocationZ());
@@ -1353,39 +1237,15 @@ public final class GameLogic implements MenuSection {
 	}
     }
 
-    public void updatePositionRelativeFrozen() {
-	if (this.mlot == null || !this.mlot.isAlive()) {
-	    this.mlot = new MLOTask();
-	}
-	final var dir = this.getPlayer().getDirection();
-	final var unres = DirectionResolver.unresolve(dir);
-	final var x = unres[0];
-	final var y = unres[1];
-	this.mlot.activateFrozenMovement(x, y);
-	if (!this.mlot.isAlive()) {
-	    this.mlot.start();
-	}
-	if (this.replaying) {
-	    // Wait
-	    while (this.moving) {
-		try {
-		    Thread.sleep(100);
-		} catch (final InterruptedException ie) {
-		    // Ignore
-		}
-	    }
-	}
-    }
-
     public void updatePushedIntoPositionAbsolute(final int x, final int y, final int z, final int x2, final int y2,
 	    final int z2, final GameObject pushedInto, final GameObject source) {
-	final var template = new Party(this.plMgr.getActivePlayerNumber() + 1);
+	final var template = new Party();
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();
 	var needsFixup1 = false;
 	var needsFixup2 = false;
 	try {
-	    if (!m.getCell(x, y, z, pushedInto.getLayer()).isConditionallySolid()) {
+	    if (!m.getCell(x, y, z, pushedInto.getLayer()).isSolid()) {
 		final var saved = m.getCell(x, y, z, pushedInto.getLayer());
 		final var there = m.getCell(x2, y2, z2, pushedInto.getLayer());
 		if (there.isPlayer()) {
@@ -1411,13 +1271,13 @@ public final class GameLogic implements MenuSection {
 		app.getDungeonManager().setDirty(true);
 	    }
 	} catch (final ArrayIndexOutOfBoundsException ae) {
-	    final var e = new Empty();
+	    final var e = new GameObject(ObjectImageId.EMPTY);
 	    m.setCell(e, x2, y2, z2, pushedInto.getLayer());
 	}
     }
 
     public synchronized void updatePushedPosition(final int x, final int y, final int pushX, final int pushY,
-	    final AbstractMovableObject o) {
+	    final GameObject o) {
 	if (this.mlot == null || !this.mlot.isAlive()) {
 	    this.mlot = new MLOTask();
 	}

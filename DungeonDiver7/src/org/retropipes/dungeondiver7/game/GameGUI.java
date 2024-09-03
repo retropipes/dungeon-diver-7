@@ -25,10 +25,8 @@ import org.retropipes.dungeondiver7.Accelerators;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
-import org.retropipes.dungeondiver7.dungeon.objects.Darkness;
-import org.retropipes.dungeondiver7.dungeon.objects.Player;
-import org.retropipes.dungeondiver7.dungeon.objects.Wall;
+import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.locale.DialogString;
@@ -42,7 +40,7 @@ import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.RCLGenerator;
 
 class GameGUI {
-    private static Darkness DARK = new Darkness();
+    private static GameObject DARK = new GameObject(ObjectImageId.DARKNESS);
 
     private static void checkMenus() {
 	GameMenuGUI.checkMenus();
@@ -244,7 +242,7 @@ class GameGUI {
 	boolean visible;
 	u = m.getPlayerLocationX(0);
 	v = m.getPlayerLocationY(0);
-	final GameObject wall = new Wall();
+	final GameObject wall = new GameObject(ObjectImageId.WALL);
 	for (x = this.vwMgr.getViewingWindowLocationX(); x <= this.vwMgr.getLowerRightViewingWindowLocationX(); x++) {
 	    for (y = this.vwMgr.getViewingWindowLocationY(); y <= this.vwMgr
 		    .getLowerRightViewingWindowLocationY(); y++) {
@@ -258,7 +256,7 @@ class GameGUI {
 			final var img1 = obj1.getImage();
 			final var img2 = obj2.getImage();
 			if (u == y && v == x) {
-			    final GameObject obj3 = new Player();
+			    final GameObject obj3 = new GameObject(ObjectImageId.PARTY);
 			    final var img3 = obj3.getImage();
 			    final var cacheName = Strings.compositeCacheName(obj1.getCacheName(), obj2.getCacheName(),
 				    obj3.getCacheName());

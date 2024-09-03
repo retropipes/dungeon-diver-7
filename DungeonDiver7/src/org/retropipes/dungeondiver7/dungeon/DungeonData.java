@@ -5,11 +5,7 @@ import java.io.IOException;
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractButton;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractButtonDoor;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
-import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
+import org.retropipes.dungeondiver7.gameobject.GameObject;
 
 public abstract class DungeonData implements Cloneable {
     // Constants
@@ -35,9 +31,6 @@ public abstract class DungeonData implements Cloneable {
 	return DungeonData.MIN_ROWS;
     }
 
-    public abstract void checkForEnemies(final Dungeon dungeon, final int floorIn, final int enemyLocXIn,
-	    final int enemyLocYIn, final AbstractCharacter enemy);
-
     public abstract int checkForMagnetic(final Dungeon dungeon, final int floor, final int centerX, final int centerY,
 	    final Direction dir);
 
@@ -46,9 +39,6 @@ public abstract class DungeonData implements Cloneable {
 
     public abstract boolean circularScanPlayer(final Dungeon dungeon, final int x, final int y, final int z,
 	    final int r);
-
-    public abstract void circularScanRange(final Dungeon dungeon, final int xIn, final int yIn, final int zIn,
-	    final int r, final int rangeType, final int forceUnits);
 
     public abstract int[] circularScanTunnel(final Dungeon dungeon, final int x, final int y, final int z,
 	    final int maxR, final int tx, final int ty, final GameObject target, final boolean moved);
@@ -77,22 +67,20 @@ public abstract class DungeonData implements Cloneable {
 
     public abstract int[] findPlayer(final Dungeon dungeon, final int number);
 
-    public abstract void fullScanAllButtonClose(final Dungeon dungeon, final int zIn, final AbstractButton source);
+    public abstract void fullScanAllButtonClose(final Dungeon dungeon, final int zIn, final GameObject source);
 
-    public abstract void fullScanAllButtonOpen(final Dungeon dungeon, final int zIn, final AbstractButton source);
+    public abstract void fullScanAllButtonOpen(final Dungeon dungeon, final int zIn, final GameObject source);
 
     public abstract void fullScanButtonBind(final Dungeon dungeon, final int dx, final int dy, final int zIn,
-	    final AbstractButtonDoor source);
+	    final GameObject source);
 
     public abstract void fullScanButtonCleanup(final Dungeon dungeon, final int px, final int py, final int zIn,
-	    final AbstractButton button);
+	    final GameObject button);
 
     public abstract void fullScanFindButtonLostDoor(final Dungeon dungeon, final int zIn,
-	    final AbstractButtonDoor door);
+	    final GameObject door);
 
     public abstract void fullScanFreezeGround(final Dungeon dungeon);
-
-    public abstract void fullScanKillPlayers(final Dungeon dungeon);
 
     public abstract GameObject getCell(final Dungeon dungeon, final int row, final int col, final int floor,
 	    final int layer);
@@ -169,7 +157,7 @@ public abstract class DungeonData implements Cloneable {
 	return fR;
     }
 
-    public abstract void postBattle(final Dungeon dungeon, final AbstractMovingObject m, final int xLoc, final int yLoc,
+    public abstract void postBattle(final Dungeon dungeon, final GameObject m, final int xLoc, final int yLoc,
 	    final boolean player);
 
     public abstract DungeonData readData(final Dungeon dungeon, final DataIOReader reader, final int ver)
@@ -212,7 +200,7 @@ public abstract class DungeonData implements Cloneable {
     public abstract void undo(final Dungeon dungeon);
 
     public abstract void updateMonsterPosition(final Dungeon dungeon, final Direction move, final int xLoc,
-	    final int yLoc, final AbstractMovingObject monster, final int pi);
+	    final int yLoc, final GameObject monster, final int pi);
 
     public abstract void updateRedoHistory(final HistoryStatus whatIs);
 
