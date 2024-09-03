@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractWall extends DungeonObject {
+public abstract class AbstractWall extends GameObject {
     // Constructors
     protected AbstractWall() {
 	super(true);
@@ -17,7 +17,7 @@ public abstract class AbstractWall extends DungeonObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return DungeonObject.DEFAULT_CUSTOM_VALUE;
+	return GameObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override

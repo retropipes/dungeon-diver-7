@@ -11,14 +11,14 @@ import java.lang.reflect.InvocationTargetException;
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.*;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 
 public class DungeonObjects {
     // Fields
-    private final DungeonObject[] allObjects = { new UpperGroundEmpty(), new Empty(), new UpperObjectsEmpty(),
+    private final GameObject[] allObjects = { new UpperGroundEmpty(), new Empty(), new UpperObjectsEmpty(),
 	    new Ground(), new PartyMover(), new Ice(), new Water(), new ThinIce(), new Bridge(), new Party(1),
 	    new Party(2), new Party(3), new Party(4), new Party(5), new Party(6), new Party(7), new Party(8),
 	    new Party(9), new Flag(), new Wall(), new ArrowTurret(), new DeadArrowTurret(), new CrystalBlock(),
@@ -110,26 +110,26 @@ public class DungeonObjects {
 	return allNamesOnLayer;
     }
 
-    public DungeonObject[] getAllObjects() {
+    public GameObject[] getAllObjects() {
 	return this.allObjects;
     }
 
-    public DungeonObject[] getAllObjectsOnLayer(final int layer) {
-	final var tempAllObjectsOnLayer = new DungeonObject[this.allObjects.length];
+    public GameObject[] getAllObjectsOnLayer(final int layer) {
+	final var tempAllObjectsOnLayer = new GameObject[this.allObjects.length];
 	var objectCount = 0;
 	for (var x = 0; x < this.allObjects.length; x++) {
 	    if (this.allObjects[x].getLayer() == layer) {
 		tempAllObjectsOnLayer[x] = this.allObjects[x];
 	    }
 	}
-	for (final DungeonObject element : tempAllObjectsOnLayer) {
+	for (final GameObject element : tempAllObjectsOnLayer) {
 	    if (element != null) {
 		objectCount++;
 	    }
 	}
-	final var allObjectsOnLayer = new DungeonObject[objectCount];
+	final var allObjectsOnLayer = new GameObject[objectCount];
 	objectCount = 0;
-	for (final DungeonObject element : tempAllObjectsOnLayer) {
+	for (final GameObject element : tempAllObjectsOnLayer) {
 	    if (element != null) {
 		allObjectsOnLayer[objectCount] = element;
 		objectCount++;
@@ -138,9 +138,9 @@ public class DungeonObjects {
 	return allObjectsOnLayer;
     }
 
-    public final DungeonObject[] getAllRequired(final CurrentDungeon dungeon, final int layer) {
+    public final GameObject[] getAllRequired(final CurrentDungeon dungeon, final int layer) {
 	final var objects = this.getAllObjects();
-	final var tempAllRequired = new DungeonObject[objects.length];
+	final var tempAllRequired = new GameObject[objects.length];
 	int x;
 	var count = 0;
 	for (x = 0; x < objects.length; x++) {
@@ -152,17 +152,17 @@ public class DungeonObjects {
 	if (count == 0) {
 	    return null;
 	}
-	final var allRequired = new DungeonObject[count];
+	final var allRequired = new GameObject[count];
 	for (x = 0; x < count; x++) {
 	    allRequired[x] = tempAllRequired[x];
 	}
 	return allRequired;
     }
 
-    public final DungeonObject[] getAllWithoutPrerequisiteAndNotRequired(final CurrentDungeon dungeon,
+    public final GameObject[] getAllWithoutPrerequisiteAndNotRequired(final CurrentDungeon dungeon,
 	    final int layer) {
 	final var objects = this.getAllObjects();
-	final var tempAllWithoutPrereq = new DungeonObject[objects.length];
+	final var tempAllWithoutPrereq = new GameObject[objects.length];
 	int x;
 	var count = 0;
 	for (x = 0; x < objects.length; x++) {
@@ -174,16 +174,16 @@ public class DungeonObjects {
 	if (count == 0) {
 	    return null;
 	}
-	final var allWithoutPrereq = new DungeonObject[count];
+	final var allWithoutPrereq = new GameObject[count];
 	for (x = 0; x < count; x++) {
 	    allWithoutPrereq[x] = tempAllWithoutPrereq[x];
 	}
 	return allWithoutPrereq;
     }
 
-    public final DungeonObject getNewInstanceByName(final String name) {
+    public final GameObject getNewInstanceByName(final String name) {
 	final var objects = this.getAllObjects();
-	DungeonObject instance = null;
+	GameObject instance = null;
 	int x;
 	for (x = 0; x < objects.length; x++) {
 	    if (objects[x].getCacheName().equals(name)) {
@@ -209,16 +209,16 @@ public class DungeonObjects {
 	return allObjectEnabledStatuses;
     }
 
-    public DungeonObject readV2(final DataIOReader reader, final int formatVersion) throws IOException {
-	DungeonObject o = null;
+    public GameObject readV2(final DataIOReader reader, final int formatVersion) throws IOException {
+	GameObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration1(formatVersion)
 		&& !FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
 	    return null;
 	}
 	final var UID = reader.readString();
-	for (final DungeonObject allObject : this.allObjects) {
+	for (final GameObject allObject : this.allObjects) {
 	    try {
-		final DungeonObject instance = allObject.getClass().getConstructor().newInstance();
+		final GameObject instance = allObject.getClass().getConstructor().newInstance();
 		if (!FileFormats.isFormatVersionValidGeneration1(formatVersion)
 			&& !FileFormats.isFormatVersionValidGeneration2(formatVersion)) {
 		    return null;
@@ -235,15 +235,15 @@ public class DungeonObjects {
 	return null;
     }
 
-    public DungeonObject readV3(final DataIOReader reader, final int formatVersion) throws IOException {
-	DungeonObject o = null;
+    public GameObject readV3(final DataIOReader reader, final int formatVersion) throws IOException {
+	GameObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
 	    return null;
 	}
 	final var UID = reader.readString();
-	for (final DungeonObject allObject : this.allObjects) {
+	for (final GameObject allObject : this.allObjects) {
 	    try {
-		final DungeonObject instance = allObject.getClass().getConstructor().newInstance();
+		final GameObject instance = allObject.getClass().getConstructor().newInstance();
 		if (!FileFormats.isFormatVersionValidGeneration3(formatVersion)) {
 		    return null;
 		}
@@ -259,15 +259,15 @@ public class DungeonObjects {
 	return null;
     }
 
-    public DungeonObject readV4(final DataIOReader reader, final int formatVersion) throws IOException {
-	DungeonObject o = null;
+    public GameObject readV4(final DataIOReader reader, final int formatVersion) throws IOException {
+	GameObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
 	    return null;
 	}
 	final var UID = reader.readString();
-	for (final DungeonObject allObject : this.allObjects) {
+	for (final GameObject allObject : this.allObjects) {
 	    try {
-		final DungeonObject instance = allObject.getClass().getConstructor().newInstance();
+		final GameObject instance = allObject.getClass().getConstructor().newInstance();
 		if (!FileFormats.isFormatVersionValidGeneration4(formatVersion)) {
 		    return null;
 		}
@@ -283,15 +283,15 @@ public class DungeonObjects {
 	return null;
     }
 
-    public DungeonObject readV5(final DataIOReader reader, final int formatVersion) throws IOException {
-	DungeonObject o = null;
+    public GameObject readV5(final DataIOReader reader, final int formatVersion) throws IOException {
+	GameObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
 	    return null;
 	}
 	final var UID = reader.readString();
-	for (final DungeonObject allObject : this.allObjects) {
+	for (final GameObject allObject : this.allObjects) {
 	    try {
-		final DungeonObject instance = allObject.getClass().getConstructor().newInstance();
+		final GameObject instance = allObject.getClass().getConstructor().newInstance();
 		if (!FileFormats.isFormatVersionValidGeneration5(formatVersion)) {
 		    return null;
 		}
@@ -307,15 +307,15 @@ public class DungeonObjects {
 	return null;
     }
 
-    public DungeonObject readV6(final DataIOReader reader, final int formatVersion) throws IOException {
-	DungeonObject o = null;
+    public GameObject readV6(final DataIOReader reader, final int formatVersion) throws IOException {
+	GameObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
 	    return null;
 	}
 	final var UID = reader.readString();
-	for (final DungeonObject allObject : this.allObjects) {
+	for (final GameObject allObject : this.allObjects) {
 	    try {
-		final DungeonObject instance = allObject.getClass().getConstructor().newInstance();
+		final GameObject instance = allObject.getClass().getConstructor().newInstance();
 		if (!FileFormats.isFormatVersionValidGeneration6(formatVersion)) {
 		    return null;
 		}
@@ -331,15 +331,15 @@ public class DungeonObjects {
 	return null;
     }
 
-    public DungeonObject readV7(final DataIOReader reader, final int formatVersion) throws IOException {
-	DungeonObject o = null;
+    public GameObject readV7(final DataIOReader reader, final int formatVersion) throws IOException {
+	GameObject o = null;
 	if (!FileFormats.isFormatVersionValidGeneration7(formatVersion)) {
 	    return null;
 	}
 	final var UID = reader.readString();
-	for (final DungeonObject allObject : this.allObjects) {
+	for (final GameObject allObject : this.allObjects) {
 	    try {
-		final DungeonObject instance = allObject.getClass().getConstructor().newInstance();
+		final GameObject instance = allObject.getClass().getConstructor().newInstance();
 		if (!FileFormats.isFormatVersionValidGeneration7(formatVersion)) {
 		    return null;
 		}

@@ -6,7 +6,7 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractGround;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class Ground extends AbstractGround {
@@ -16,7 +16,7 @@ public class Ground extends AbstractGround {
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final Material materialID) {
+    public GameObject changesToOnExposure(final Material materialID) {
 	return switch (materialID) {
 	case Material.ICE -> {
 	    final var i = new Ice();

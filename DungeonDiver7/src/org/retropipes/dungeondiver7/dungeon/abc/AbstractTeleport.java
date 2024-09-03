@@ -7,7 +7,7 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractTeleport extends DungeonObject {
+public abstract class AbstractTeleport extends GameObject {
     // Constructors
     protected AbstractTeleport() {
 	super(false);
@@ -15,7 +15,7 @@ public abstract class AbstractTeleport extends DungeonObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return DungeonObject.DEFAULT_CUSTOM_VALUE;
+	return GameObject.DEFAULT_CUSTOM_VALUE;
     }
 
     public abstract int getDestinationFloor();

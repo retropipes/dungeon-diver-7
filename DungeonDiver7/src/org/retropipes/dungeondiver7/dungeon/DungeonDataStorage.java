@@ -6,9 +6,9 @@
 package org.retropipes.dungeondiver7.dungeon;
 
 import org.retropipes.diane.storage.ObjectStorage;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 
-public class DungeonDataStorage extends ObjectStorage<DungeonObject> {
+public class DungeonDataStorage extends ObjectStorage<GameObject> {
     public DungeonDataStorage(final DungeonDataStorage source) {
 	super(source);
     }
@@ -18,11 +18,11 @@ public class DungeonDataStorage extends ObjectStorage<DungeonObject> {
 	super(shape);
     }
 
-    public DungeonObject getDungeonDataCell(final int... loc) {
-	return (DungeonObject) this.getCell(loc);
+    public GameObject getDungeonDataCell(final int... loc) {
+	return (GameObject) this.getCell(loc);
     }
 
-    public void setDungeonDataCell(final DungeonObject obj, final int... loc) {
+    public void setDungeonDataCell(final GameObject obj, final int... loc) {
 	this.setCell(obj, loc);
     }
 }

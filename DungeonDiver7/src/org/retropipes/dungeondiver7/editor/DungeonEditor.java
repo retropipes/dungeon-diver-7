@@ -36,7 +36,7 @@ import org.retropipes.dungeondiver7.StuffBag;
 import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractJumpObject;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Ground;
 import org.retropipes.dungeondiver7.dungeon.objects.Party;
 import org.retropipes.dungeondiver7.game.GameLogic;
@@ -60,7 +60,7 @@ public class DungeonEditor implements MenuSection {
     private EditorDraw outputPane;
     private JToggleButton lowerGround, upperGround, lowerObjects, upperObjects;
     private JLabel messageLabel;
-    private DungeonObject savedDungeonObject;
+    private GameObject savedGameObject;
     private JScrollBar vertScroll, horzScroll;
     private final DungeonEditorEventHandler mhandler;
     private final DungeonEditorStartEventHandler shandler;
@@ -69,7 +69,7 @@ public class DungeonEditor implements MenuSection {
     private StackedPicturePicker newPicker11;
     private SXSPicturePicker newPicker12;
     private String[] names;
-    private DungeonObject[] objects;
+    private GameObject[] objects;
     private BufferedImageIcon[] editorAppearances;
     private boolean[] objectsEnabled;
     private EditorUndoRedoEngine engine;
@@ -86,7 +86,7 @@ public class DungeonEditor implements MenuSection {
 	    editorGlobalMoveShoot;
 
     public DungeonEditor() {
-	this.savedDungeonObject = new Ground();
+	this.savedGameObject = new Ground();
 	this.lPrefs = new LevelPreferencesManager();
 	this.mhandler = new DungeonEditorEventHandler(this);
 	this.shandler = new DungeonEditorStartEventHandler(this);
@@ -539,7 +539,7 @@ public class DungeonEditor implements MenuSection {
 	final var gridY = y / ImageConstants.SIZE + EditorViewingWindowManager.getViewingWindowLocationY() + xOffset
 		- yOffset;
 	try {
-	    this.savedDungeonObject = app.getDungeonManager().getDungeon().getCell(gridX, gridY,
+	    this.savedGameObject = app.getDungeonManager().getDungeon().getCell(gridX, gridY,
 		    this.elMgr.getEditorLocationZ(), this.elMgr.getEditorLocationW());
 	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    return;
@@ -549,10 +549,10 @@ public class DungeonEditor implements MenuSection {
 	final var instance = mo.clone();
 	this.elMgr.setEditorLocationX(gridX);
 	this.elMgr.setEditorLocationY(gridY);
-	this.savedDungeonObject.editorRemoveHook(gridX, gridY, this.elMgr.getEditorLocationZ());
+	this.savedGameObject.editorRemoveHook(gridX, gridY, this.elMgr.getEditorLocationZ());
 	mo.editorPlaceHook(gridX, gridY, this.elMgr.getEditorLocationZ());
 	try {
-	    this.updateUndoHistory(this.savedDungeonObject, gridX, gridY, this.elMgr.getEditorLocationZ(),
+	    this.updateUndoHistory(this.savedGameObject, gridX, gridY, this.elMgr.getEditorLocationZ(),
 		    this.elMgr.getEditorLocationW(), this.elMgr.getEditorLocationU());
 	    app.getDungeonManager().getDungeon().setCell(instance, gridX, gridY, this.elMgr.getEditorLocationZ(),
 		    this.elMgr.getEditorLocationW());
@@ -560,7 +560,7 @@ public class DungeonEditor implements MenuSection {
 	    this.checkMenus();
 	    this.redrawEditor();
 	} catch (final ArrayIndexOutOfBoundsException aioob) {
-	    app.getDungeonManager().getDungeon().setCell(this.savedDungeonObject, gridX, gridY,
+	    app.getDungeonManager().getDungeon().setCell(this.savedGameObject, gridX, gridY,
 		    this.elMgr.getEditorLocationZ(), this.elMgr.getEditorLocationW());
 	    this.redrawEditor();
 	}
@@ -584,7 +584,7 @@ public class DungeonEditor implements MenuSection {
 		if (mo2 == null) {
 		    DungeonDiver7.getStuffBag().showMessage(Strings.editor(EditorString.NO_PROPERTIES));
 		} else {
-		    this.updateUndoHistory(this.savedDungeonObject, gridX, gridY, this.elMgr.getEditorLocationZ(),
+		    this.updateUndoHistory(this.savedGameObject, gridX, gridY, this.elMgr.getEditorLocationZ(),
 			    this.elMgr.getEditorLocationW(), this.elMgr.getEditorLocationU());
 		    app.getDungeonManager().getDungeon().setCell(mo2, gridX, gridY, this.elMgr.getEditorLocationZ(),
 			    this.elMgr.getEditorLocationW());
@@ -1350,12 +1350,12 @@ public class DungeonEditor implements MenuSection {
 	}
     }
 
-    private void updateRedoHistory(final DungeonObject obj, final int x, final int y, final int z, final int w,
+    private void updateRedoHistory(final GameObject obj, final int x, final int y, final int z, final int w,
 	    final int u) {
 	this.engine.updateRedoHistory(obj, x, y, z, w, u);
     }
 
-    private void updateUndoHistory(final DungeonObject obj, final int x, final int y, final int z, final int w,
+    private void updateUndoHistory(final GameObject obj, final int x, final int y, final int z, final int w,
 	    final int u) {
 	this.engine.updateUndoHistory(obj, x, y, z, w, u);
     }

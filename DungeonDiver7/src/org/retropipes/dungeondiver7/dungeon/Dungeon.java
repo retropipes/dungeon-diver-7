@@ -15,7 +15,7 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractButtonDoor;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTunnel;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeon;
 import org.retropipes.dungeondiver7.locale.Difficulty;
 import org.retropipes.dungeondiver7.locale.Strings;
@@ -166,7 +166,7 @@ public abstract class Dungeon {
 
     public abstract String getBasePath();
 
-    public abstract DungeonObject getCell(final int row, final int col, final int floor, final int layer);
+    public abstract GameObject getCell(final int row, final int col, final int floor, final int layer);
 
     public abstract int getColumns();
 
@@ -202,7 +202,7 @@ public abstract class Dungeon {
 
     public abstract int getStartRow(final int pi);
 
-    public abstract DungeonObject getVirtualCell(final int row, final int col, final int floor, final int layer);
+    public abstract GameObject getVirtualCell(final int row, final int col, final int floor, final int layer);
 
     public abstract HistoryStatus getWhatWas();
 
@@ -275,7 +275,7 @@ public abstract class Dungeon {
 
     public abstract void resetVisibleSquares(final int floor);
 
-    public abstract void resize(int z, DungeonObject nullFill);
+    public abstract void resize(int z, GameObject nullFill);
 
     public abstract void restore();
 
@@ -287,7 +287,7 @@ public abstract class Dungeon {
 
     public abstract void setAuthor(String newAuthor);
 
-    public abstract void setCell(final DungeonObject mo, final int row, final int col, final int floor,
+    public abstract void setCell(final GameObject mo, final int row, final int col, final int floor,
 	    final int layer);
 
     public abstract void setData(DungeonData newData, int count);
@@ -324,7 +324,7 @@ public abstract class Dungeon {
 
     public abstract void setSuffixHandler(AbstractSuffixIO xsh);
 
-    public abstract void setVirtualCell(final DungeonObject mo, final int row, final int col, final int floor,
+    public abstract void setVirtualCell(final GameObject mo, final int row, final int col, final int floor,
 	    final int layer);
 
     public abstract void switchEra(final int era);

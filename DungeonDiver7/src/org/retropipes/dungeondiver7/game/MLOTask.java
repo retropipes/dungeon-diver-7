@@ -13,7 +13,7 @@ import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeonData;
 import org.retropipes.dungeondiver7.dungeon.objects.FrozenParty;
 import org.retropipes.dungeondiver7.dungeon.objects.Ground;
@@ -33,7 +33,7 @@ final class MLOTask extends Thread {
 	DungeonDiver7.getStuffBag().getGameLogic().scheduleAutoMove();
     }
 
-    private static boolean checkSolid(final DungeonObject next) {
+    private static boolean checkSolid(final GameObject next) {
 	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	// Check cheats
 	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
@@ -141,7 +141,7 @@ final class MLOTask extends Thread {
     }
 
     void activateLasers(final int zx, final int zy, final int zox, final int zoy, final int zlt,
-	    final DungeonObject zshooter) {
+	    final GameObject zshooter) {
 	final var tracker = new MovingLaserTracker();
 	tracker.activateLasers(zx, zy, zox, zoy, zlt, zshooter);
 	this.laserTrackers.add(tracker);
@@ -247,10 +247,10 @@ final class MLOTask extends Thread {
 	final var pz = plMgr.getPlayerLocationZ();
 	final var pw = DungeonConstants.LAYER_UPPER_OBJECTS;
 	final var m = app.getDungeonManager().getDungeon();
-	DungeonObject lgo = null;
-	DungeonObject ugo = null;
-	DungeonObject loo = null;
-	DungeonObject uoo = null;
+	GameObject lgo = null;
+	GameObject ugo = null;
+	GameObject loo = null;
+	GameObject uoo = null;
 	try {
 	    lgo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_GROUND);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
@@ -282,8 +282,8 @@ final class MLOTask extends Thread {
 	final var py = plMgr.getPlayerLocationY();
 	final var pz = plMgr.getPlayerLocationZ();
 	final var m = app.getDungeonManager().getDungeon();
-	DungeonObject lgo = null;
-	DungeonObject ugo = null;
+	GameObject lgo = null;
+	GameObject ugo = null;
 	try {
 	    lgo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_GROUND);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
@@ -337,7 +337,7 @@ final class MLOTask extends Thread {
 	    final var plMgr = gm.getPlayerManager();
 	    final var pz = plMgr.getPlayerLocationZ();
 	    this.loopCheck = true;
-	    var objs = new DungeonObject[4];
+	    var objs = new GameObject[4];
 	    objs[DungeonConstants.LAYER_LOWER_GROUND] = new Wall();
 	    objs[DungeonConstants.LAYER_UPPER_GROUND] = new Wall();
 	    objs[DungeonConstants.LAYER_LOWER_OBJECTS] = new Wall();
@@ -456,7 +456,7 @@ final class MLOTask extends Thread {
 	}
     }
 
-    private DungeonObject[] doMovementOnce() {
+    private GameObject[] doMovementOnce() {
 	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	final var plMgr = gm.getPlayerManager();
 	var px = plMgr.getPlayerLocationX();
@@ -467,10 +467,10 @@ final class MLOTask extends Thread {
 	final var m = app.getDungeonManager().getDungeon();
 	this.proceed = true;
 	this.mover = false;
-	DungeonObject lgo = null;
-	DungeonObject ugo = null;
-	DungeonObject loo = null;
-	DungeonObject uoo = null;
+	GameObject lgo = null;
+	GameObject ugo = null;
+	GameObject loo = null;
+	GameObject uoo = null;
 	try {
 	    lgo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_GROUND);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
@@ -594,7 +594,7 @@ final class MLOTask extends Thread {
 	    this.proceed = false;
 	}
 	gm.redrawDungeon();
-	return new DungeonObject[] { lgo, ugo, loo, uoo };
+	return new GameObject[] { lgo, ugo, loo, uoo };
     }
 
     void haltMovingObjects() {

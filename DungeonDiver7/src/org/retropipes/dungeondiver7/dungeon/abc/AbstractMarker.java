@@ -9,7 +9,7 @@ import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractMarker extends DungeonObject {
+public abstract class AbstractMarker extends GameObject {
     // Constructors
     protected AbstractMarker() {
 	super(false, false);
@@ -17,7 +17,7 @@ public abstract class AbstractMarker extends DungeonObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return DungeonObject.DEFAULT_CUSTOM_VALUE;
+	return GameObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override

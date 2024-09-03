@@ -9,7 +9,7 @@ import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractTrap extends DungeonObject {
+public abstract class AbstractTrap extends GameObject {
     // Fields
     private final int base;
 
@@ -27,7 +27,7 @@ public abstract class AbstractTrap extends DungeonObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return DungeonObject.DEFAULT_CUSTOM_VALUE;
+	return GameObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override

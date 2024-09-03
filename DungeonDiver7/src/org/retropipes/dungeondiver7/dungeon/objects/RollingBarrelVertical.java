@@ -7,7 +7,7 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 
 public class RollingBarrelVertical extends AbstractMovableObject {
@@ -26,7 +26,7 @@ public class RollingBarrelVertical extends AbstractMovableObject {
     }
 
     @Override
-    public void pushCollideAction(final DungeonObject pushed, final int x, final int y, final int z) {
+    public void pushCollideAction(final GameObject pushed, final int x, final int y, final int z) {
 	// Break up
 	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	// Boom!

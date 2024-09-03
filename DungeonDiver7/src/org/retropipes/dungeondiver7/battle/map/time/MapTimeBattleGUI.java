@@ -25,7 +25,7 @@ import org.retropipes.dungeondiver7.battle.map.MapBattleEffects;
 import org.retropipes.dungeondiver7.battle.map.MapBattleStats;
 import org.retropipes.dungeondiver7.battle.map.MapBattleViewingWindowManager;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Wall;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
@@ -121,7 +121,7 @@ class MapTimeBattleGUI {
 	}
     }
 
-    void redrawOneBattleSquare(final Dungeon battleMap, final int x, final int y, final DungeonObject obj3) {
+    void redrawOneBattleSquare(final Dungeon battleMap, final int x, final int y, final GameObject obj3) {
 	// Draw the battle, if it is visible
 	if (this.battleFrame.isVisible()) {
 	    try {

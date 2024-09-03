@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.game;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.dungeon.objects.Wall;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
@@ -25,8 +25,8 @@ final class MovementTask extends Thread {
 	}
     }
 
-    private static boolean checkSolid(final DungeonObject inside, final DungeonObject below,
-	    final DungeonObject nextBelow, final DungeonObject nextAbove) {
+    private static boolean checkSolid(final GameObject inside, final GameObject below,
+	    final GameObject nextBelow, final GameObject nextAbove) {
 	final var insideSolid = inside.isSolid();
 	final var belowSolid = below.isSolid();
 	final var nextBelowSolid = nextBelow.isSolid();
@@ -37,8 +37,8 @@ final class MovementTask extends Thread {
 	return true;
     }
 
-    private static void fireMoveFailedActions(final int x, final int y, final DungeonObject inside,
-	    final DungeonObject below, final DungeonObject nextBelow, final DungeonObject nextAbove) {
+    private static void fireMoveFailedActions(final int x, final int y, final GameObject inside,
+	    final GameObject below, final GameObject nextBelow, final GameObject nextAbove) {
 	final var insideSolid = inside.isSolid();
 	final var belowSolid = below.isSolid();
 	final var nextBelowSolid = nextBelow.isSolid();
@@ -61,7 +61,7 @@ final class MovementTask extends Thread {
     // Fields
     private final GameViewingWindowManager vwMgr;
     private final GameGUI gui;
-    private DungeonObject saved;
+    private GameObject saved;
     private boolean proceed;
     private boolean relative;
     private int moveX, moveY;
@@ -74,8 +74,8 @@ final class MovementTask extends Thread {
 	this.saved = new Empty();
     }
 
-    private boolean checkLoopCondition(final DungeonObject below, final DungeonObject nextBelow,
-	    final DungeonObject nextAbove) {
+    private boolean checkLoopCondition(final GameObject below, final GameObject nextBelow,
+	    final GameObject nextAbove) {
 	return this.proceed && !nextBelow.hasFriction()
 		&& MovementTask.checkSolid(this.saved, below, nextBelow, nextAbove);
     }
@@ -172,9 +172,9 @@ final class MovementTask extends Thread {
 	final var fX = dirX;
 	final var fY = dirY;
 	this.proceed = false;
-	DungeonObject below = null;
-	DungeonObject nextBelow = null;
-	DungeonObject nextAbove = new Wall();
+	GameObject below = null;
+	GameObject nextBelow = null;
+	GameObject nextAbove = new Wall();
 	do {
 	    try {
 		below = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_GROUND);

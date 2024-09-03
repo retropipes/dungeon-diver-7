@@ -6,7 +6,7 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractWall;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.gameobject.Material;
 
 public class HotWall extends AbstractWall {
@@ -16,7 +16,7 @@ public class HotWall extends AbstractWall {
     }
 
     @Override
-    public DungeonObject changesToOnExposure(final Material materialID) {
+    public GameObject changesToOnExposure(final Material materialID) {
 	return switch (materialID) {
 	case Material.ICE -> new Wall();
 	default -> this;

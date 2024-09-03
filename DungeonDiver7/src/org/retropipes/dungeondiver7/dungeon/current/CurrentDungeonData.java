@@ -26,7 +26,7 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTunnel;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.objects.ArrowTurret;
 import org.retropipes.dungeondiver7.dungeon.objects.ArrowTurretDisguise;
 import org.retropipes.dungeondiver7.dungeon.objects.DeadArrowTurret;
@@ -719,7 +719,7 @@ public final class CurrentDungeonData extends DungeonData {
 		if (v >= 0 && v < DungeonData.MIN_ROWS && u >= 0 && u < DungeonData.MIN_COLUMNS) {
 		    final var obj = this.getCell(dungeon, v, u, zFix, w);
 		    final var savedObj = obj.getSavedObject();
-		    DungeonObject test;
+		    GameObject test;
 		    if (obj.isPlayer()) {
 			test = savedObj;
 		    } else {
@@ -772,7 +772,7 @@ public final class CurrentDungeonData extends DungeonData {
     }
 
     @Override
-    public void fill(final Dungeon dungeon, final DungeonObject fill) {
+    public void fill(final Dungeon dungeon, final GameObject fill) {
 	int y, x, z, w;
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
@@ -790,7 +790,7 @@ public final class CurrentDungeonData extends DungeonData {
     }
 
     @Override
-    public void fillNulls(final Dungeon dungeon, final DungeonObject fill1, final DungeonObject fill2,
+    public void fillNulls(final Dungeon dungeon, final GameObject fill1, final GameObject fill2,
 	    final boolean was16) {
 	int y, x, z, w;
 	for (x = 0; x < this.getColumns(); x++) {
@@ -813,7 +813,7 @@ public final class CurrentDungeonData extends DungeonData {
     }
 
     @Override
-    public void fillSTSNulls(final DungeonObject fill) {
+    public void fillSTSNulls(final GameObject fill) {
 	int y, x, z, w;
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
@@ -1081,7 +1081,7 @@ public final class CurrentDungeonData extends DungeonData {
     }
 
     @Override
-    public DungeonObject getCell(final Dungeon dungeon, final int row, final int col, final int floor,
+    public GameObject getCell(final Dungeon dungeon, final int row, final int col, final int floor,
 	    final int layer) {
 	var fR = row;
 	var fC = col;
@@ -1114,7 +1114,7 @@ public final class CurrentDungeonData extends DungeonData {
     }
 
     @Override
-    public DungeonObject getVirtualCell(final Dungeon dungeon, final int row, final int col, final int floor,
+    public GameObject getVirtualCell(final Dungeon dungeon, final int row, final int col, final int floor,
 	    final int layer) {
 	var fR = row;
 	var fC = col;
@@ -1268,7 +1268,7 @@ public final class CurrentDungeonData extends DungeonData {
 	}
 	int u, w;
 	if (d == Direction.NORTH) {
-	    final DungeonObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
+	    final GameObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    }
@@ -1296,7 +1296,7 @@ public final class CurrentDungeonData extends DungeonData {
 	    return false;
 	}
 	if (d == Direction.SOUTH) {
-	    final DungeonObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
+	    final GameObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    }
@@ -1322,7 +1322,7 @@ public final class CurrentDungeonData extends DungeonData {
 		}
 	    }
 	} else if (d == Direction.WEST) {
-	    final DungeonObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
+	    final GameObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    }
@@ -1348,7 +1348,7 @@ public final class CurrentDungeonData extends DungeonData {
 		}
 	    }
 	} else if (d == Direction.EAST) {
-	    final DungeonObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
+	    final GameObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    }
@@ -1655,7 +1655,7 @@ public final class CurrentDungeonData extends DungeonData {
     }
 
     @Override
-    public void resize(final Dungeon dungeon, final int zIn, final DungeonObject nullFill) {
+    public void resize(final Dungeon dungeon, final int zIn, final GameObject nullFill) {
 	final var x = DungeonData.MIN_ROWS;
 	final var y = DungeonData.MIN_COLUMNS;
 	var z = zIn;
@@ -1690,7 +1690,7 @@ public final class CurrentDungeonData extends DungeonData {
     }
 
     @Override
-    public void resizeSavedState(final int z, final DungeonObject nullFill) {
+    public void resizeSavedState(final int z, final GameObject nullFill) {
 	final var x = DungeonData.MIN_ROWS;
 	final var y = DungeonData.MIN_COLUMNS;
 	// Allocate temporary storage array
@@ -1723,7 +1723,7 @@ public final class CurrentDungeonData extends DungeonData {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			this.setCell(dungeon, ((DungeonObject) this.savedState.getCell(x, y, z, w)).clone(), y, x, z,
+			this.setCell(dungeon, ((GameObject) this.savedState.getCell(x, y, z, w)).clone(), y, x, z,
 				w);
 		    }
 		}
@@ -1753,7 +1753,7 @@ public final class CurrentDungeonData extends DungeonData {
     }
 
     @Override
-    public void setCell(final Dungeon dungeon, final DungeonObject mo, final int row, final int col, final int floor,
+    public void setCell(final Dungeon dungeon, final GameObject mo, final int row, final int col, final int floor,
 	    final int layer) {
 	var fR = row;
 	var fC = col;
@@ -1781,7 +1781,7 @@ public final class CurrentDungeonData extends DungeonData {
     }
 
     @Override
-    public void setVirtualCell(final Dungeon dungeon, final DungeonObject mo, final int row, final int col,
+    public void setVirtualCell(final Dungeon dungeon, final GameObject mo, final int row, final int col,
 	    final int floor, final int layer) {
 	var fR = row;
 	var fC = col;
@@ -1995,7 +1995,7 @@ public final class CurrentDungeonData extends DungeonData {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
 		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			((DungeonObject) this.savedState.getCell(y, x, z, w)).write(writer);
+			((GameObject) this.savedState.getCell(y, x, z, w)).write(writer);
 		    }
 		}
 	    }

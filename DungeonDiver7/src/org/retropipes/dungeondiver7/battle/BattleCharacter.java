@@ -11,7 +11,7 @@ import org.retropipes.dungeondiver7.battle.ai.AIContext;
 import org.retropipes.dungeondiver7.battle.ai.CreatureAI;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.StatConstants;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 
 public class BattleCharacter {
     // Fields
@@ -22,7 +22,7 @@ public class BattleCharacter {
     private int attackCounter;
     private int spellCounter;
     private boolean isActive;
-    private DungeonObject tile;
+    private GameObject tile;
 
     // Constructors
     public BattleCharacter(final Creature newTemplate, final int rows, final int columns) {
@@ -93,7 +93,7 @@ public class BattleCharacter {
 	return "Team: Enemies " + this.getCreature().getTeamID();
     }
 
-    public final DungeonObject getTile() {
+    public final GameObject getTile() {
 	return this.tile;
     }
 
@@ -172,7 +172,7 @@ public class BattleCharacter {
 	this.ai = newAI;
     }
 
-    public final void setTile(final DungeonObject newTile) {
+    public final void setTile(final GameObject newTile) {
 	this.tile = newTile;
     }
 

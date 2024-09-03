@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractButtonDoor extends DungeonObject {
+public abstract class AbstractButtonDoor extends GameObject {
     // Constructors
     protected AbstractButtonDoor() {
 	super(true);
@@ -30,7 +30,7 @@ public abstract class AbstractButtonDoor extends DungeonObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return DungeonObject.DEFAULT_CUSTOM_VALUE;
+	return GameObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override

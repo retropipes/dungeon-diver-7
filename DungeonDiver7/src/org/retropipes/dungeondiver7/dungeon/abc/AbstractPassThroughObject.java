@@ -7,7 +7,7 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractPassThroughObject extends DungeonObject {
+public abstract class AbstractPassThroughObject extends GameObject {
     // Constructors
     protected AbstractPassThroughObject() {
 	super(false);
@@ -15,7 +15,7 @@ public abstract class AbstractPassThroughObject extends DungeonObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return DungeonObject.DEFAULT_CUSTOM_VALUE;
+	return GameObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override

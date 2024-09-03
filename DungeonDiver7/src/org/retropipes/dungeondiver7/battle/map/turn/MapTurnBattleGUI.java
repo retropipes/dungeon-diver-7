@@ -26,7 +26,7 @@ import org.retropipes.dungeondiver7.battle.map.MapBattleDraw;
 import org.retropipes.dungeondiver7.battle.map.MapBattleEffects;
 import org.retropipes.dungeondiver7.battle.map.MapBattleStats;
 import org.retropipes.dungeondiver7.battle.map.MapBattleViewingWindowManager;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Darkness;
 import org.retropipes.dungeondiver7.dungeon.objects.Wall;
 import org.retropipes.dungeondiver7.locale.Strings;
@@ -106,7 +106,7 @@ class MapTurnBattleGUI {
 	}
     }
 
-    void redrawOneBattleSquare(final MapBattleDefinitions bd, final int x, final int y, final DungeonObject obj3) {
+    void redrawOneBattleSquare(final MapBattleDefinitions bd, final int x, final int y, final GameObject obj3) {
 	// Draw the battle, if it is visible
 	if (this.mainWindow.checkContent(this.battlePane)) {
 	    try {
@@ -185,7 +185,7 @@ class MapTurnBattleGUI {
 	this.drawGrid = new DrawGrid(MapBattleViewingWindowManager.getViewingWindowSize());
 	for (var x = 0; x < MapBattleViewingWindowManager.getViewingWindowSize(); x++) {
 	    for (var y = 0; y < MapBattleViewingWindowManager.getViewingWindowSize(); y++) {
-		final DungeonObject dark = new Darkness();
+		final GameObject dark = new Darkness();
 		this.drawGrid.setImageCell(dark.getImage(), x, y);
 	    }
 	}

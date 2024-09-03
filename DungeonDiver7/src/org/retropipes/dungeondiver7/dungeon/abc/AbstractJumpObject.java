@@ -33,7 +33,7 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
     }
 
     @Override
-    public DungeonObject editorPropertiesHook() {
+    public GameObject editorPropertiesHook() {
 	DungeonDiver7.getStuffBag().getEditor().editJumpBox(this);
 	return this;
     }
@@ -86,7 +86,7 @@ public abstract class AbstractJumpObject extends AbstractMovableObject {
 	return switch (propID) {
 	case 1 -> this.jumpRows;
 	case 2 -> this.jumpCols;
-	default -> DungeonObject.DEFAULT_CUSTOM_VALUE;
+	default -> GameObject.DEFAULT_CUSTOM_VALUE;
 	};
     }
 

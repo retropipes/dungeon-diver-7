@@ -9,11 +9,11 @@ import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractJumpObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 final class MovingObjectTracker {
-    private static boolean checkSolid(final DungeonObject next) {
+    private static boolean checkSolid(final GameObject next) {
 	final var nextSolid = next.isConditionallySolid();
 	if (!nextSolid || next.isPlayer()) {
 	    return true;
@@ -25,8 +25,8 @@ final class MovingObjectTracker {
     private boolean objectMoving;
     private int objCumX, objCumY, objIncX, objIncY;
     private int objMultX, objMultY;
-    private DungeonObject belowUpper;
-    private DungeonObject belowLower;
+    private GameObject belowUpper;
+    private GameObject belowLower;
     private AbstractMovableObject movingObj;
     private boolean objectCheck;
     private boolean objectNewlyActivated;

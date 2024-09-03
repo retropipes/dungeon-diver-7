@@ -11,7 +11,7 @@ import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractShop extends DungeonObject {
+public abstract class AbstractShop extends GameObject {
     // Fields
     private final ShopType shopType;
 
@@ -23,7 +23,7 @@ public abstract class AbstractShop extends DungeonObject {
 
     @Override
     public int getCustomProperty(final int propID) {
-	return DungeonObject.DEFAULT_CUSTOM_VALUE;
+	return GameObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override

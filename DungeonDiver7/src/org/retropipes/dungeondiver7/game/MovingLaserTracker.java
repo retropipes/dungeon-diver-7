@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.game;
 import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractTransientObject;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Arrow;
 import org.retropipes.dungeondiver7.dungeon.objects.ArrowTurretDisguise;
 import org.retropipes.dungeondiver7.dungeon.objects.DeathArrow;
@@ -36,7 +36,7 @@ final class MovingLaserTracker {
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();
 	final var zproceed = true;
-	DungeonObject zo = null;
+	GameObject zo = null;
 	try {
 	    zo = m.getCell(px + sx, py + sy, pz, DungeonConstants.LAYER_LOWER_OBJECTS);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
@@ -54,7 +54,7 @@ final class MovingLaserTracker {
 	return false;
     }
 
-    private static boolean checkSolid(final DungeonObject next) {
+    private static boolean checkSolid(final GameObject next) {
 	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	// Check cheats
 	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
@@ -81,7 +81,7 @@ final class MovingLaserTracker {
     }
 
     // Fields
-    private DungeonObject shooter;
+    private GameObject shooter;
     private int ox, oy, lt;
     private boolean res;
     private boolean laser;
@@ -94,7 +94,7 @@ final class MovingLaserTracker {
     }
 
     void activateLasers(final int zx, final int zy, final int zox, final int zoy, final int zlt,
-	    final DungeonObject zshooter) {
+	    final GameObject zshooter) {
 	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	this.shooter = zshooter;
 	this.ox = zox;

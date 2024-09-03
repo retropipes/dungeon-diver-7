@@ -6,7 +6,7 @@
 package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractPassThroughObject;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 
 public class Flag extends AbstractPassThroughObject {
     // Constructors
@@ -21,7 +21,7 @@ public class Flag extends AbstractPassThroughObject {
     }
 
     @Override
-    public DungeonObject editorPropertiesHook() {
+    public GameObject editorPropertiesHook() {
 	return null;
     }
 

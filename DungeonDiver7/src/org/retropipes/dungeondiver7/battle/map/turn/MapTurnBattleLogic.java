@@ -29,7 +29,7 @@ import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.creature.spell.SpellCaster;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
@@ -999,9 +999,9 @@ public class MapTurnBattleLogic extends Battle {
 	var px = activeBC.getX();
 	var py = activeBC.getY();
 	final var m = this.bd.getBattleDungeon();
-	DungeonObject next = null;
-	DungeonObject nextGround = null;
-	DungeonObject currGround = null;
+	GameObject next = null;
+	GameObject nextGround = null;
+	GameObject currGround = null;
 	activeBC.saveLocation();
 	this.battleGUI.getViewManager().saveViewingWindow();
 	try {
@@ -1053,14 +1053,14 @@ public class MapTurnBattleLogic extends Battle {
 		return false;
 	    }
 	    // Move
-	    DungeonObject obj1 = null;
-	    DungeonObject obj2 = null;
-	    DungeonObject obj3 = null;
-	    DungeonObject obj4 = null;
-	    DungeonObject obj6 = null;
-	    DungeonObject obj7 = null;
-	    DungeonObject obj8 = null;
-	    DungeonObject obj9 = null;
+	    GameObject obj1 = null;
+	    GameObject obj2 = null;
+	    GameObject obj3 = null;
+	    GameObject obj4 = null;
+	    GameObject obj6 = null;
+	    GameObject obj7 = null;
+	    GameObject obj8 = null;
+	    GameObject obj9 = null;
 	    try {
 		obj1 = m.getCell(px - 1, py - 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
 	    } catch (final ArrayIndexOutOfBoundsException aioob) {

@@ -25,7 +25,7 @@ import org.retropipes.dungeondiver7.Accelerators;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Darkness;
 import org.retropipes.dungeondiver7.dungeon.objects.Player;
 import org.retropipes.dungeondiver7.dungeon.objects.Wall;
@@ -244,7 +244,7 @@ class GameGUI {
 	boolean visible;
 	u = m.getPlayerLocationX(0);
 	v = m.getPlayerLocationY(0);
-	final DungeonObject wall = new Wall();
+	final GameObject wall = new Wall();
 	for (x = this.vwMgr.getViewingWindowLocationX(); x <= this.vwMgr.getLowerRightViewingWindowLocationX(); x++) {
 	    for (y = this.vwMgr.getViewingWindowLocationY(); y <= this.vwMgr
 		    .getLowerRightViewingWindowLocationY(); y++) {
@@ -258,7 +258,7 @@ class GameGUI {
 			final var img1 = obj1.getImage();
 			final var img2 = obj2.getImage();
 			if (u == y && v == x) {
-			    final DungeonObject obj3 = new Player();
+			    final GameObject obj3 = new Player();
 			    final var img3 = obj3.getImage();
 			    final var cacheName = Strings.compositeCacheName(obj1.getCacheName(), obj2.getCacheName(),
 				    obj3.getCacheName());

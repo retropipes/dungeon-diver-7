@@ -13,7 +13,7 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractMovableObject extends DungeonObject {
+public abstract class AbstractMovableObject extends GameObject {
     // Fields
     private boolean waitingOnTunnel;
 
@@ -30,7 +30,7 @@ public abstract class AbstractMovableObject extends DungeonObject {
     }
 
     @Override
-    public DungeonObject clone() {
+    public GameObject clone() {
 	final var copy = (AbstractMovableObject) super.clone();
 	if (this.getSavedObject() != null) {
 	    copy.setSavedObject(this.getSavedObject().clone());
@@ -40,12 +40,12 @@ public abstract class AbstractMovableObject extends DungeonObject {
 
     @Override
     public int getCustomFormat() {
-	return DungeonObject.CUSTOM_FORMAT_MANUAL_OVERRIDE;
+	return GameObject.CUSTOM_FORMAT_MANUAL_OVERRIDE;
     }
 
     @Override
     public int getCustomProperty(final int propID) {
-	return DungeonObject.DEFAULT_CUSTOM_VALUE;
+	return GameObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
@@ -61,37 +61,37 @@ public abstract class AbstractMovableObject extends DungeonObject {
     }
 
     @Override
-    protected DungeonObject readHookV2(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected GameObject readHookV2(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV2(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected DungeonObject readHookV3(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected GameObject readHookV3(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV3(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected DungeonObject readHookV4(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected GameObject readHookV4(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV4(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected DungeonObject readHookV5(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected GameObject readHookV5(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV5(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected DungeonObject readHookV6(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected GameObject readHookV6(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV6(reader, formatVersion));
 	return this;
     }
 
     @Override
-    protected DungeonObject readHookV7(final DataIOReader reader, final int formatVersion) throws IOException {
+    protected GameObject readHookV7(final DataIOReader reader, final int formatVersion) throws IOException {
 	this.setSavedObject(DungeonDiver7.getStuffBag().getObjects().readV7(reader, formatVersion));
 	return this;
     }

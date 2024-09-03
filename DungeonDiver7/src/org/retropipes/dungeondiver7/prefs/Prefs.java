@@ -17,7 +17,7 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.battle.BattleMechanic;
 import org.retropipes.dungeondiver7.battle.BattleStyle;
 import org.retropipes.dungeondiver7.creature.GameDifficulty;
-import org.retropipes.dungeondiver7.dungeon.abc.DungeonObject;
+import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.objects.Ground;
 import org.retropipes.dungeondiver7.locale.EditorLayout;
 import org.retropipes.dungeondiver7.locale.FileExtension;
@@ -67,7 +67,7 @@ public class Prefs {
 		Prefs.DEFAULT_BATTLE_STYLE.ordinal())];
     }
 
-    public static DungeonObject getEditorDefaultFill() {
+    public static GameObject getEditorDefaultFill() {
 	return new Ground();
     }
 

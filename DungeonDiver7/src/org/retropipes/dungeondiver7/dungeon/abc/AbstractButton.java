@@ -10,7 +10,7 @@ import java.util.Objects;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-public abstract class AbstractButton extends DungeonObject {
+public abstract class AbstractButton extends GameObject {
     // Fields
     private boolean triggered;
     private int doorX, doorY;
@@ -106,7 +106,7 @@ public abstract class AbstractButton extends DungeonObject {
 	case 1 -> this.doorX;
 	case 2 -> this.doorY;
 	case 3 -> this.triggered ? 1 : 0;
-	default -> DungeonObject.DEFAULT_CUSTOM_VALUE;
+	default -> GameObject.DEFAULT_CUSTOM_VALUE;
 	};
     }
 
