@@ -23,9 +23,7 @@ import org.retropipes.dungeondiver7.dungeon.HistoryStatus;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButton;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButtonDoor;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractTunnel;
 import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.objects.ArrowTurret;
 import org.retropipes.dungeondiver7.dungeon.objects.ArrowTurretDisguise;
@@ -695,7 +693,7 @@ public final class CurrentDungeonData extends DungeonData {
 
     @Override
     public int[] circularScanTunnel(final Dungeon dungeon, final int xIn, final int yIn, final int zIn, final int r,
-	    final int tx, final int ty, final AbstractTunnel target, final boolean moved) {
+	    final int tx, final int ty, final GameObject target, final boolean moved) {
 	var xFix = xIn;
 	var yFix = yIn;
 	var zFix = zIn;
@@ -901,7 +899,7 @@ public final class CurrentDungeonData extends DungeonData {
 		    break;
 		}
 		final var obj = this.getCell(dungeon, y, x, zFix, source.getLayer());
-		if (obj instanceof final AbstractButton button && source.boundButtonDoorEquals(button)
+		if (obj instanceof final AbstractButton button && source.hasSameBoundObject(button)
 			&& !button.isTriggered()) {
 		    flag = true;
 		}
@@ -909,11 +907,11 @@ public final class CurrentDungeonData extends DungeonData {
 	}
 	if (flag) {
 	    // Scan said OK to proceed
-	    final var dx = source.getDoorX();
-	    final var dy = source.getDoorY();
+	    final var dx = source.getBoundObjectX();
+	    final var dy = source.getBoundObjectY();
 	    if (!this.getCell(dungeon, dx, dy, zFix, source.getLayer()).getClass()
-		    .equals(source.getButtonDoor().getClass())) {
-		this.setCell(dungeon, source.getButtonDoor(), dx, dy, zFix, source.getLayer());
+		    .equals(source.getBoundObject().getClass())) {
+		this.setCell(dungeon, source.getBoundObject(), dx, dy, zFix, source.getLayer());
 		SoundLoader.playSound(Sounds.DOOR_CLOSES);
 	    }
 	}
@@ -936,7 +934,7 @@ public final class CurrentDungeonData extends DungeonData {
 		    break;
 		}
 		final var obj = this.getCell(dungeon, y, x, zFix, source.getLayer());
-		if (obj instanceof final AbstractButton button && source.boundButtonDoorEquals(button)
+		if (obj instanceof final AbstractButton button && source.hasSameBoundObject(button)
 			&& !button.isTriggered()) {
 		    flag = false;
 		}
@@ -944,8 +942,8 @@ public final class CurrentDungeonData extends DungeonData {
 	}
 	if (flag) {
 	    // Scan said OK to proceed
-	    final var dx = source.getDoorX();
-	    final var dy = source.getDoorY();
+	    final var dx = source.getBoundObjectX();
+	    final var dy = source.getBoundObjectY();
 	    if (!(this.getCell(dungeon, dx, dy, zFix, source.getLayer()) instanceof Ground)) {
 		this.setCell(dungeon, new Ground(), dx, dy, zFix, source.getLayer());
 		SoundLoader.playSound(Sounds.DOOR_OPENS);
@@ -965,9 +963,9 @@ public final class CurrentDungeonData extends DungeonData {
 	    for (var y = 0; y < DungeonData.MIN_ROWS; y++) {
 		final var obj = this.getCell(dungeon, x, y, z, source.getLayer());
 		if (obj instanceof final AbstractButton button
-			&& source.getClass().equals(button.getButtonDoor().getClass())) {
-		    button.setDoorX(dx);
-		    button.setDoorY(dy);
+			&& source.getClass().equals(button.getBoundObject().getClass())) {
+		    button.setBoundObjectX(dx);
+		    button.setBoundObjectY(dy);
 		    button.setTriggered(false);
 		}
 	    }
@@ -996,7 +994,7 @@ public final class CurrentDungeonData extends DungeonData {
 		    continue;
 		}
 		final var obj = this.getCell(dungeon, x, y, zFix, button.getLayer());
-		if (obj instanceof AbstractButton && ((AbstractButton) obj).boundButtonDoorEquals(button)) {
+		if (obj instanceof AbstractButton && ((AbstractButton) obj).hasSameBoundObject(button)) {
 		    this.setCell(dungeon, new Ground(), x, y, zFix, button.getLayer());
 		}
 	    }
@@ -1013,7 +1011,7 @@ public final class CurrentDungeonData extends DungeonData {
 	for (var x = 0; x < DungeonData.MIN_COLUMNS; x++) {
 	    for (var y = 0; y < DungeonData.MIN_ROWS; y++) {
 		final var obj = this.getCell(dungeon, x, y, zFix, door.getLayer());
-		if (obj instanceof final AbstractButton button && button.boundToSameButtonDoor(door)) {
+		if (obj instanceof final AbstractButton button && button.boundToSameObject(door)) {
 		    button.setTriggered(true);
 		    return;
 		}
@@ -1825,7 +1823,7 @@ public final class CurrentDungeonData extends DungeonData {
 	}
 	int x, y, z, w;
 	// Tick all DungeonObject timers
-	AbstractTunnel.checkTunnels();
+	GameObject.checkTunnels();
 	for (z = Direction.NORTH.ordinal(); z <= Direction.NORTH_WEST.ordinal(); z += 2) {
 	    for (x = 0; x < this.getColumns(); x++) {
 		for (y = 0; y < this.getRows(); y++) {
@@ -1833,15 +1831,15 @@ public final class CurrentDungeonData extends DungeonData {
 			final var mo = this.getCell(dungeon, y, x, floorFix, w);
 			if (mo != null && z == Direction.NORTH.ordinal()) {
 			    // Handle objects waiting for a tunnel to open
-			    if (mo instanceof final AbstractMovableObject gmo) {
+			    if (mo instanceof final GameObject gmo) {
 				final var saved = gmo.getSavedObject();
-				if (saved instanceof AbstractTunnel) {
+				if (saved instanceof GameObject) {
 				    final var color = saved.getColor();
-				    if (gmo.waitingOnTunnel() && !AbstractTunnel.tunnelsFull(color)) {
+				    if (gmo.waitingOnTunnel() && !GameObject.tunnelsFull(color)) {
 					gmo.setWaitingOnTunnel(false);
 					saved.pushIntoAction(gmo, y, x, floorFix);
 				    }
-				    if (AbstractTunnel.tunnelsFull(color)) {
+				    if (GameObject.tunnelsFull(color)) {
 					gmo.setWaitingOnTunnel(true);
 				    }
 				}

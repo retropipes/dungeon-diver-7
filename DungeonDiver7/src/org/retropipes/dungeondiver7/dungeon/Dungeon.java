@@ -14,7 +14,6 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractButton;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButtonDoor;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractTunnel;
 import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeon;
 import org.retropipes.dungeondiver7.locale.Difficulty;
@@ -105,7 +104,7 @@ public abstract class Dungeon {
 	    final int forceUnits);
 
     public abstract int[] circularScanTunnel(final int x, final int y, final int z, final int maxR, final int tx,
-	    final int ty, final AbstractTunnel target, final boolean moved);
+	    final int ty, final GameObject target, final boolean moved);
 
     public abstract void clearDirtyFlags(int floor);
 

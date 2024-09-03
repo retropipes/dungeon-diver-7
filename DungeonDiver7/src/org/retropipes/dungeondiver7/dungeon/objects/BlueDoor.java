@@ -15,7 +15,7 @@ import org.retropipes.dungeondiver7.utility.PartyInventory;
 public class BlueDoor extends AbstractDoor {
     // Constructors
     public BlueDoor() {
-	super(new BlueKey());
+	super();
     }
 
     @Override

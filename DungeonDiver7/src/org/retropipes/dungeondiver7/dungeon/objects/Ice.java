@@ -7,7 +7,6 @@ package org.retropipes.dungeondiver7.dungeon.objects;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractGround;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovableObject;
 import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.gameobject.Material;
@@ -44,7 +43,7 @@ public class Ice extends AbstractGround {
     }
 
     @Override
-    public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
+    public boolean pushIntoAction(final GameObject pushed, final int x, final int y, final int z) {
 	if (pushed instanceof HotBox) {
 	    final var g = new Ground();
 	    DungeonDiver7.getStuffBag().getGameLogic();

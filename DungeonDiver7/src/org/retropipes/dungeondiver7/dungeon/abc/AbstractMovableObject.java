@@ -14,14 +14,10 @@ import org.retropipes.dungeondiver7.dungeon.objects.Empty;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 public abstract class AbstractMovableObject extends GameObject {
-    // Fields
-    private boolean waitingOnTunnel;
-
     // Constructors
     protected AbstractMovableObject(final boolean pushable) {
 	super(true, pushable, true);
 	this.setSavedObject(new Empty());
-	this.waitingOnTunnel = false;
     }
 
     @Override
@@ -99,14 +95,6 @@ public abstract class AbstractMovableObject extends GameObject {
     @Override
     public void setCustomProperty(final int propID, final int value) {
 	// Do nothing
-    }
-
-    public final void setWaitingOnTunnel(final boolean value) {
-	this.waitingOnTunnel = value;
-    }
-
-    public final boolean waitingOnTunnel() {
-	return this.waitingOnTunnel;
     }
 
     @Override

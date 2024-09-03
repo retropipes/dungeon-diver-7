@@ -16,8 +16,8 @@ public abstract class AbstractAllButton extends AbstractButton {
     }
 
     @Override
-    public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-	if (this.isUniversal() || pushed.getMaterial() == this.getMaterial()) {
+    public boolean pushIntoAction(final GameObject pushed, final int x, final int y, final int z) {
+	if (this.isBoundUniversally() || pushed.getMaterial() == this.getMaterial()) {
 	    SoundLoader.playSound(Sounds.BUTTON);
 	    if (!this.isTriggered()) {
 		// Check to open door at location
@@ -29,8 +29,8 @@ public abstract class AbstractAllButton extends AbstractButton {
     }
 
     @Override
-    public void pushOutAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
-	if ((this.isUniversal() || pushed.getMaterial() == this.getMaterial()) && this.isTriggered()) {
+    public void pushOutAction(final GameObject pushed, final int x, final int y, final int z) {
+	if ((this.isBoundUniversally() || pushed.getMaterial() == this.getMaterial()) && this.isTriggered()) {
 	    // Check to close door at location
 	    this.setTriggered(false);
 	    DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().fullScanAllButtonClose(z, this);

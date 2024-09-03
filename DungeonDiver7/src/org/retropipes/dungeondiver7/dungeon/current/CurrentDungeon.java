@@ -26,7 +26,6 @@ import org.retropipes.dungeondiver7.dungeon.abc.AbstractButton;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractButtonDoor;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractCharacter;
 import org.retropipes.dungeondiver7.dungeon.abc.AbstractMovingObject;
-import org.retropipes.dungeondiver7.dungeon.abc.AbstractTunnel;
 import org.retropipes.dungeondiver7.dungeon.abc.GameObject;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Difficulty;
@@ -172,7 +171,7 @@ public class CurrentDungeon extends Dungeon {
 
     @Override
     public int[] circularScanTunnel(final int x, final int y, final int z, final int maxR, final int tx, final int ty,
-	    final AbstractTunnel target, final boolean moved) {
+	    final GameObject target, final boolean moved) {
 	return this.dungeonData.circularScanTunnel(this, x, y, z, maxR, tx, ty, target, moved);
     }
 

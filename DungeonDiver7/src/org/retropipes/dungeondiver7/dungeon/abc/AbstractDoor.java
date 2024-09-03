@@ -8,32 +8,9 @@ package org.retropipes.dungeondiver7.dungeon.abc;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 public abstract class AbstractDoor extends GameObject {
-    // Fields
-    private AbstractKey key;
-
     // Constructors
-    protected AbstractDoor(final AbstractKey mgk) {
+    protected AbstractDoor() {
 	super(true);
-	this.key = mgk;
-    }
-
-    @Override
-    public AbstractDoor clone() {
-	final var copy = (AbstractDoor) super.clone();
-	copy.key = (AbstractKey) this.key.clone();
-	return copy;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-	if (obj == null || this.getClass() != obj.getClass()) {
-	    return false;
-	}
-	final var other = (AbstractDoor) obj;
-	if (this.key != other.key && (this.key == null || !this.key.equals(other.key))) {
-	    return false;
-	}
-	return true;
     }
 
     @Override
@@ -44,12 +21,6 @@ public abstract class AbstractDoor extends GameObject {
     @Override
     public int getLayer() {
 	return DungeonConstants.LAYER_LOWER_OBJECTS;
-    }
-
-    @Override
-    public int hashCode() {
-	final var hash = 7;
-	return 71 * hash + (this.key != null ? this.key.hashCode() : 0);
     }
 
     @Override

@@ -18,6 +18,11 @@ final class GameObjectDataLoader {
 	return ObjectImageId.values()[oid];
     }
 
+    static boolean boundUniversal(final ObjectImageId index) {
+	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.bound_universal")
+		.getObject(Integer.toString(index.ordinal()));
+    }
+
     static Colors color(final ObjectImageId index) {
 	var maxCid = Colors.values().length;
 	var cid = (int) ResourceBundle.getBundle("asset.data.gameobject.color")

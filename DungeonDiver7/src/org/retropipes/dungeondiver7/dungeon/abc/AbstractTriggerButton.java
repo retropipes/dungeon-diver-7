@@ -18,20 +18,20 @@ public abstract class AbstractTriggerButton extends AbstractButton {
     }
 
     @Override
-    public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
+    public boolean pushIntoAction(final GameObject pushed, final int x, final int y, final int z) {
 	final var app = DungeonDiver7.getStuffBag();
-	if (this.isUniversal() || pushed.getMaterial() == this.getMaterial()) {
+	if (this.isBoundUniversally() || pushed.getMaterial() == this.getMaterial()) {
 	    SoundLoader.playSound(Sounds.BUTTON);
 	    if (this.isTriggered()) {
 		app.getGameLogic();
 		// Close door at location
-		GameLogic.morph(this.getButtonDoor(), this.getDoorX(), this.getDoorY(), z, this.getLayer());
+		GameLogic.morph(this.getBoundObject(), this.getBoundObjectX(), this.getBoundObjectY(), z, this.getLayer());
 		SoundLoader.playSound(Sounds.DOOR_CLOSES);
 		this.setTriggered(false);
 	    } else {
 		app.getGameLogic();
 		// Open door at location
-		GameLogic.morph(new Empty(), this.getDoorX(), this.getDoorY(), z, this.getLayer());
+		GameLogic.morph(new Empty(), this.getBoundObjectX(), this.getBoundObjectY(), z, this.getLayer());
 		SoundLoader.playSound(Sounds.DOOR_OPENS);
 		this.setTriggered(true);
 	    }
@@ -40,7 +40,7 @@ public abstract class AbstractTriggerButton extends AbstractButton {
     }
 
     @Override
-    public void pushOutAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
+    public void pushOutAction(final GameObject pushed, final int x, final int y, final int z) {
 	// Do nothing
     }
 }

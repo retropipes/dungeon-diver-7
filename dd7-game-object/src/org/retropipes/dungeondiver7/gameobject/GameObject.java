@@ -51,6 +51,7 @@ public final class GameObject {
     private transient boolean deferSetProperties;
     private transient boolean killsOnMove;
     private transient boolean solvesOnMove;
+    private transient boolean boundUniversal;
     private transient Direction direction;
     private transient Colors color;
     private transient Material material;
@@ -98,6 +99,17 @@ public final class GameObject {
     public final void activateTimer() {
 	this.timerActive = true;
 	this.timerValue = this.initialTimerValue;
+    }
+
+    public boolean boundToSameObject(final GameObject boundTo) {
+	if (this.getBoundObject() == null) {
+	    if (boundTo != null) {
+		return false;
+	    }
+	} else if (!this.getBoundObject().getClass().equals(boundTo.getClass())) {
+	    return false;
+	}
+	return true;
     }
 
     public final boolean canMove() {
@@ -305,6 +317,11 @@ public final class GameObject {
 	return this.maxFrameNumber > 0;
     }
 
+    public final boolean isBoundUniversally() {
+	this.lazyLoad();
+	return this.boundUniversal;
+    }
+
     public final boolean isDamaging() {
 	this.lazyLoad();
 	return this.damageDealt > 0;
@@ -401,6 +418,7 @@ public final class GameObject {
 	    this.solvesOnMove = GameObjectDataLoader.solvesOnMove(this.id);
 	    this.isPassThrough = GameObjectDataLoader.isPassThrough(this.id);
 	    this.material = GameObjectDataLoader.material(this.id);
+	    this.boundUniversal = GameObjectDataLoader.boundUniversal(this.id);
 	    this.lazyLoaded = true;
 	}
     }

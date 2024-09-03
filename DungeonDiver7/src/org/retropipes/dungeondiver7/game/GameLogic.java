@@ -1378,7 +1378,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void updatePushedIntoPositionAbsolute(final int x, final int y, final int z, final int x2, final int y2,
-	    final int z2, final AbstractMovableObject pushedInto, final GameObject source) {
+	    final int z2, final GameObject pushedInto, final GameObject source) {
 	final var template = new Party(this.plMgr.getActivePlayerNumber() + 1);
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();

@@ -18,6 +18,7 @@ import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.objects.Empty;
+import org.retropipes.dungeondiver7.dungeon.objects.Tunnel;
 import org.retropipes.dungeondiver7.game.GameLogic;
 import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
@@ -35,6 +36,9 @@ public abstract class GameObject implements RandomGenerationRule {
     private static final int PLASTIC_MINIMUM_REACTION_FORCE = 0;
     private static final int DEFAULT_MINIMUM_REACTION_FORCE = 1;
     private static final int METAL_MINIMUM_REACTION_FORCE = 2;
+    private final static boolean[] tunnelsFull = new boolean[Strings.COLOR_COUNT];
+    private final static int SCAN_RADIUS = 24;
+
 
     public static final int getImbuedRangeForce(final Material material) {
 	if (material == Material.PLASTIC) {
@@ -44,6 +48,33 @@ public abstract class GameObject implements RandomGenerationRule {
 	    return GameObject.METAL_MINIMUM_REACTION_FORCE;
 	}
 	return GameObject.DEFAULT_MINIMUM_REACTION_FORCE;
+    }
+
+    public static void checkTunnels() {
+	for (var x = 0; x < Strings.COLOR_COUNT; x++) {
+	    GameObject.checkTunnelsOfColor(Colors.values()[x]);
+	}
+    }
+
+    protected static void checkTunnelsOfColor(final Colors color) {
+	final var app = DungeonDiver7.getStuffBag();
+	final var tx = app.getGameLogic().getPlayerManager().getPlayerLocationX();
+	final var ty = app.getGameLogic().getPlayerManager().getPlayerLocationY();
+	final var pgrmdest = app.getDungeonManager().getDungeon().circularScanTunnel(0, 0, 0,
+		GameObject.SCAN_RADIUS, tx, ty, GameObject.getTunnelOfColor(color), false);
+	if (pgrmdest != null) {
+	    GameObject.tunnelsFull[color.ordinal()] = false;
+	} else {
+	    GameObject.tunnelsFull[color.ordinal()] = true;
+	}
+    }
+
+    protected static GameObject getTunnelOfColor(final Colors color) {
+	return new Tunnel(color);
+    }
+
+    public static boolean tunnelsFull(final Colors color) {
+	return GameObject.tunnelsFull[color.ordinal()];
     }
 
     // Properties
@@ -60,6 +91,11 @@ public abstract class GameObject implements RandomGenerationRule {
     private GameObject saved;
     private GameObject previousState;
     private int teamID;
+    private boolean triggered;
+    private int boundObjectX, boundObjectY;
+    private GameObject boundObject;
+    private final boolean universal;
+    private boolean waitingOnTunnel;
 
     public GameObject() {
 	this.solid = false;
@@ -72,6 +108,12 @@ public abstract class GameObject implements RandomGenerationRule {
 	this.direction = Direction.NONE;
 	this.color = Colors._NONE;
 	this.material = Material.DEFAULT;
+	this.triggered = false;
+	this.boundObject = null;
+	this.boundObjectX = -1;
+	this.boundObjectY = -1;
+	this.universal = false;
+	this.waitingOnTunnel = false;
     }
 
     // Constructors
@@ -86,6 +128,12 @@ public abstract class GameObject implements RandomGenerationRule {
 	this.direction = Direction.NONE;
 	this.color = Colors._NONE;
 	this.material = Material.DEFAULT;
+	this.triggered = false;
+	this.boundObject = null;
+	this.boundObjectX = -1;
+	this.boundObjectY = -1;
+	this.universal = false;
+	this.waitingOnTunnel = false;
     }
 
     public GameObject(final boolean isSolid, final boolean sightBlock) {
@@ -94,6 +142,16 @@ public abstract class GameObject implements RandomGenerationRule {
 	this.blocksLOS = sightBlock;
 	this.timerValue = 0;
 	this.timerActive = false;
+	this.frameNumber = 0;
+	this.direction = Direction.NONE;
+	this.color = Colors._NONE;
+	this.material = Material.DEFAULT;
+	this.triggered = false;
+	this.boundObject = null;
+	this.boundObjectX = -1;
+	this.boundObjectY = -1;
+	this.universal = false;
+	this.waitingOnTunnel = false;
     }
 
     public GameObject(final boolean isSolid, final boolean hasFriction, final boolean sightBlock) {
@@ -102,6 +160,16 @@ public abstract class GameObject implements RandomGenerationRule {
 	this.blocksLOS = sightBlock;
 	this.timerValue = 0;
 	this.timerActive = false;
+	this.frameNumber = 0;
+	this.direction = Direction.NONE;
+	this.color = Colors._NONE;
+	this.material = Material.DEFAULT;
+	this.triggered = false;
+	this.boundObject = null;
+	this.boundObjectX = -1;
+	this.boundObjectY = -1;
+	this.universal = false;
+	this.waitingOnTunnel = false;
     }
 
     GameObject(final boolean isSolid, final boolean isPushable, final boolean hasFriction,
@@ -116,6 +184,31 @@ public abstract class GameObject implements RandomGenerationRule {
 	this.direction = Direction.NONE;
 	this.color = Colors._NONE;
 	this.material = Material.DEFAULT;
+	this.triggered = false;
+	this.boundObject = null;
+	this.boundObjectX = -1;
+	this.boundObjectY = -1;
+	this.universal = false;
+	this.waitingOnTunnel = false;
+    }
+
+    protected GameObject(final GameObject boundTo, final boolean universalBind) {
+	this.solid = false;
+	this.blocksLOS = false;
+	this.pushable = false;
+	this.friction = true;
+	this.timerValue = 0;
+	this.timerActive = false;
+	this.frameNumber = 0;
+	this.direction = Direction.NONE;
+	this.color = Colors._NONE;
+	this.material = Material.DEFAULT;
+	this.triggered = false;
+	this.boundObject = boundTo;
+	this.boundObjectX = -1;
+	this.boundObjectY = -1;
+	this.universal = universalBind;
+	this.waitingOnTunnel = false;
     }
 
     public GameObject(final GameObject source) {
@@ -129,6 +222,12 @@ public abstract class GameObject implements RandomGenerationRule {
 	this.direction = source.direction;
 	this.color = source.color;
 	this.material = source.material;
+	this.triggered = source.triggered;
+	this.boundObject = source.boundObject;
+	this.boundObjectX = source.boundObjectX;
+	this.boundObjectY = source.boundObjectY;
+	this.universal = source.universal;
+	this.waitingOnTunnel = source.waitingOnTunnel;
     }
 
     /**
@@ -143,6 +242,17 @@ public abstract class GameObject implements RandomGenerationRule {
     public final void activateTimer(final int ticks) {
 	this.timerActive = true;
 	this.timerValue = ticks;
+    }
+
+    public boolean boundToSameObject(final GameObject boundTo) {
+	if (this.getBoundObject() == null) {
+	    if (boundTo != null) {
+		return false;
+	    }
+	} else if (!this.getBoundObject().getClass().equals(boundTo.getClass())) {
+	    return false;
+	}
+	return true;
     }
 
     public boolean canMove() {
@@ -496,7 +606,7 @@ public abstract class GameObject implements RandomGenerationRule {
      * @param z
      * @return
      */
-    public boolean pushIntoAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
+    public boolean pushIntoAction(final GameObject pushed, final int x, final int y, final int z) {
 	// Do nothing
 	return true;
     }
@@ -508,7 +618,7 @@ public abstract class GameObject implements RandomGenerationRule {
      * @param y
      * @param z
      */
-    public void pushOutAction(final AbstractMovableObject pushed, final int x, final int y, final int z) {
+    public void pushOutAction(final GameObject pushed, final int x, final int y, final int z) {
 	// Do nothing
     }
 
@@ -882,5 +992,59 @@ public abstract class GameObject implements RandomGenerationRule {
      */
     protected void writeHook(final DataIOWriter writer) throws IOException {
 	// Do nothing - but let subclasses override
+    }
+
+    public final GameObject getBoundObject() {
+	return this.boundObject;
+    }
+
+    public int getBoundObjectX() {
+	return this.boundObjectX;
+    }
+
+    public int getBoundObjectY() {
+	return this.boundObjectY;
+    }
+
+    public boolean hasSameBoundObject(final GameObject other) {
+	if (this == other) {
+	    return true;
+	}
+	if (this.boundObject == null) {
+	    if (other.boundObject != null) {
+		return false;
+	    }
+	} else if (!this.boundObject.getClass().equals(other.boundObject.getClass())) {
+	    return false;
+	}
+	return true;
+    }
+
+    public final boolean isBoundUniversally() {
+	return this.universal;
+    }
+
+    public boolean isTriggered() {
+	return this.triggered;
+    }
+
+    public void setBoundObjectX(final int newBX) {
+	this.boundObjectX = newBX;
+    }
+
+    public void setBoundObjectY(final int newBY) {
+	this.boundObjectY = newBY;
+    }
+
+    public void setTriggered(final boolean isTriggered) {
+	this.triggered = isTriggered;
+    }
+
+    public final void setWaitingOnTunnel(final boolean value) {
+	this.waitingOnTunnel = value;
+    }
+
+    public final boolean waitingOnTunnel() {
+	return this.waitingOnTunnel;
     }
 }
