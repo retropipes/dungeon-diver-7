@@ -34,6 +34,7 @@ public final class GameObject {
     private transient int layer;
     private transient int blockHeight;
     private transient int damageDealt;
+    private transient int initialTimerValue;
     private transient int timerValue;
     private transient int frameNumber;
     private transient int maxFrameNumber;
@@ -94,9 +95,9 @@ public final class GameObject {
 	return new GameObject(ObjectImageId.values()[nid]);
     }
 
-    public final void activateTimer(final int ticks) {
+    public final void activateTimer() {
 	this.timerActive = true;
-	this.timerValue = ticks;
+	this.timerValue = this.initialTimerValue;
     }
 
     public final boolean canMove() {
@@ -392,14 +393,14 @@ public final class GameObject {
 	    this.layer = GameObjectDataLoader.layer(this.id);
 	    this.blockHeight = GameObjectDataLoader.height(this.id);
 	    this.damageDealt = GameObjectDataLoader.damage(this.id);
-	    this.timerValue = GameObjectDataLoader.initialTimer(this.id);
+	    this.initialTimerValue = GameObjectDataLoader.initialTimer(this.id);
 	    this.maxFrameNumber = GameObjectDataLoader.maxFrame(this.id);
-	    // this.bound = ...
-	    // this.deferSetProperties = ...
-	    // this.killsOnMove = ...
-	    // this.solvesOnMove = ...
-	    // this.isPassThrough = ...
-	    // this.material = ...
+	    this.bound = GameObjectDataLoader.bound(this.id);
+	    this.deferSetProperties = GameObjectDataLoader.deferSetProperties(this.id);
+	    this.killsOnMove = GameObjectDataLoader.killsOnMove(this.id);
+	    this.solvesOnMove = GameObjectDataLoader.solvesOnMove(this.id);
+	    this.isPassThrough = GameObjectDataLoader.isPassThrough(this.id);
+	    this.material = GameObjectDataLoader.material(this.id);
 	    this.lazyLoaded = true;
 	}
     }

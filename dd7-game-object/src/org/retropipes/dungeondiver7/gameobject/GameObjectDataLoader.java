@@ -8,6 +8,16 @@ import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Colors;
 
 final class GameObjectDataLoader {
+    static ObjectImageId bound(final ObjectImageId index) {
+	var maxOid = ObjectImageId.values().length;
+	var oid = (int) ResourceBundle.getBundle("asset.data.gameobject.bound")
+		.getObject(Integer.toString(index.ordinal()));
+	if (oid < 0 || oid > maxOid) {
+	    return null;
+	}
+	return ObjectImageId.values()[oid];
+    }
+
     static Colors color(final ObjectImageId index) {
 	var maxCid = Colors.values().length;
 	var cid = (int) ResourceBundle.getBundle("asset.data.gameobject.color")
@@ -20,6 +30,11 @@ final class GameObjectDataLoader {
 
     static int damage(final ObjectImageId index) {
 	return (int) ResourceBundle.getBundle("asset.data.gameobject.damaging")
+		.getObject(Integer.toString(index.ordinal()));
+    }
+
+    static boolean deferSetProperties(final ObjectImageId index) {
+	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.defer_set")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
@@ -70,10 +85,10 @@ final class GameObjectDataLoader {
 
     static ObjectImageId interactionMorph(final ObjectImageId index) {
 	var maxOid = ObjectImageId.values().length;
-	var oid = (int) ResourceBundle.getBundle("asset.data.gameobject.interact_sound")
+	var oid = (int) ResourceBundle.getBundle("asset.data.gameobject.interact_morph")
 		.getObject(Integer.toString(index.ordinal()));
 	if (oid < 0 || oid > maxOid) {
-	    return index;
+	    return null;
 	}
 	return ObjectImageId.values()[oid];
     }
@@ -88,9 +103,24 @@ final class GameObjectDataLoader {
 		.getObject(Integer.toString(index.ordinal())))];
     }
 
+    static boolean isPassThrough(final ObjectImageId index) {
+	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.pass_through")
+		.getObject(Integer.toString(index.ordinal()));
+    }
+
+    static boolean killsOnMove(final ObjectImageId index) {
+	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.move_kill")
+		.getObject(Integer.toString(index.ordinal()));
+    }
+
     static int layer(final ObjectImageId index) {
 	return (int) ResourceBundle.getBundle("asset.data.gameobject.layer")
 		.getObject(Integer.toString(index.ordinal()));
+    }
+
+    static Material material(final ObjectImageId index) {
+	return Material.values()[((int) ResourceBundle.getBundle("asset.data.gameobject.material")
+		.getObject(Integer.toString(index.ordinal())))];
     }
 
     static int maxFrame(final ObjectImageId index) {
@@ -125,6 +155,11 @@ final class GameObjectDataLoader {
 
     static boolean solid(final ObjectImageId index) {
 	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.solid")
+		.getObject(Integer.toString(index.ordinal()));
+    }
+
+    static boolean solvesOnMove(final ObjectImageId index) {
+	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.move_solve")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
