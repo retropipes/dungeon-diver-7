@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
 import org.retropipes.diane.direction.Direction;
+import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.diane.direction.DirectionStrings;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
@@ -513,7 +514,7 @@ public final class GameObject {
     }
 
     public final void toggleDirection() {
-	this.direction = GameObjectDirectionsHelper.nextDirOrtho(this.direction);
+	this.direction = DirectionResolver.rotateRight90(this.direction);
     }
 
     public final void toggleFrameNumber() {
