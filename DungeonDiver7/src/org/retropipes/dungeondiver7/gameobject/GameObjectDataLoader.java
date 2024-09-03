@@ -10,7 +10,7 @@ import org.retropipes.dungeondiver7.locale.Colors;
 final class GameObjectDataLoader {
     static ObjectImageId bound(final ObjectImageId index) {
 	var maxOid = ObjectImageId.values().length;
-	var oid = (int) ResourceBundle.getBundle("asset.data.gameobject.bound")
+	var oid = (int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.bound")
 		.getObject(Integer.toString(index.ordinal()));
 	if (oid < 0 || oid > maxOid) {
 	    return null;
@@ -19,13 +19,13 @@ final class GameObjectDataLoader {
     }
 
     static boolean boundUniversal(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.bound_universal")
+	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.bound_universal")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static Colors color(final ObjectImageId index) {
 	var maxCid = Colors.values().length;
-	var cid = (int) ResourceBundle.getBundle("asset.data.gameobject.color")
+	var cid = (int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.color")
 		.getObject(Integer.toString(index.ordinal()));
 	if (cid < 0 || cid > maxCid) {
 	    return Colors._NONE;
@@ -34,18 +34,18 @@ final class GameObjectDataLoader {
     }
 
     static int damage(final ObjectImageId index) {
-	return (int) ResourceBundle.getBundle("asset.data.gameobject.damaging")
+	return (int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.damaging")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static boolean deferSetProperties(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.defer_set")
+	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.defer_set")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static Direction direction(final ObjectImageId index) {
 	var maxDid = Direction.values().length;
-	var did = (int) ResourceBundle.getBundle("asset.data.gameobject.direction")
+	var did = (int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.direction")
 		.getObject(Integer.toString(index.ordinal()));
 	if (did < 0 || did > maxDid) {
 	    return Direction.NONE;
@@ -54,43 +54,43 @@ final class GameObjectDataLoader {
     }
 
     static boolean isField(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.field")
+	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.field")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static boolean friction(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.friction")
+	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.friction")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static int height(final ObjectImageId index) {
-	return (int) ResourceBundle.getBundle("asset.data.gameobject.height")
+	return (int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.height")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static int initialTimer(final ObjectImageId index) {
-	return (int) ResourceBundle.getBundle("asset.data.gameobject.initial_timer")
+	return (int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.initial_timer")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static boolean isInteractive(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.interact")
+	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.interact")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static boolean isMoving(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.moving")
+	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.moving")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static boolean isPlayer(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.player")
+	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.player")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static ObjectImageId interactionMorph(final ObjectImageId index) {
 	var maxOid = ObjectImageId.values().length;
-	var oid = (int) ResourceBundle.getBundle("asset.data.gameobject.interact_morph")
+	var oid = (int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.interact_morph")
 		.getObject(Integer.toString(index.ordinal()));
 	if (oid < 0 || oid > maxOid) {
 	    return null;
@@ -99,53 +99,53 @@ final class GameObjectDataLoader {
     }
 
     static int interactionMessageIndex(final ObjectImageId index) {
-	return (int) ResourceBundle.getBundle("asset.data.gameobject.interact_message")
+	return (int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.interact_message")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static Sounds interactionSound(final ObjectImageId index) {
-	return Sounds.values()[((int) ResourceBundle.getBundle("asset.data.gameobject.interact_sound")
+	return Sounds.values()[((int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.interact_sound")
 		.getObject(Integer.toString(index.ordinal())))];
     }
 
     static boolean isPassThrough(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.pass_through")
+	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.pass_through")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static boolean killsOnMove(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.move_kill")
+	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.move_kill")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static int layer(final ObjectImageId index) {
-	return (int) ResourceBundle.getBundle("asset.data.gameobject.layer")
+	return (int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.layer")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static Material material(final ObjectImageId index) {
-	return Material.values()[((int) ResourceBundle.getBundle("asset.data.gameobject.material")
+	return Material.values()[((int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.material")
 		.getObject(Integer.toString(index.ordinal())))];
     }
 
     static int maxFrame(final ObjectImageId index) {
-	return (int) ResourceBundle.getBundle("asset.data.gameobject.max_frame")
+	return (int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.max_frame")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static boolean pullable(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.pullable")
+	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.pullable")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static boolean pushable(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.pushable")
+	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.pushable")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static ShopType shopType(final ObjectImageId index) {
 	var maxSid = ShopType.values().length;
-	var sid = (int) ResourceBundle.getBundle("asset.data.gameobject.shop")
+	var sid = (int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.shop")
 		.getObject(Integer.toString(index.ordinal()));
 	if (sid < 0 || sid > maxSid) {
 	    return null;
@@ -154,17 +154,17 @@ final class GameObjectDataLoader {
     }
 
     static boolean sightBlocking(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.sightblocking")
+	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.sightblocking")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static boolean solid(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.solid")
+	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.solid")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
     static boolean solvesOnMove(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("asset.data.gameobject.move_solve")
+	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.gameobject.data.move_solve")
 		.getObject(Integer.toString(index.ordinal()));
     }
 

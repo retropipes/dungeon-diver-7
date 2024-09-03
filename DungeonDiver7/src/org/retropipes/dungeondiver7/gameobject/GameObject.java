@@ -8,6 +8,7 @@ import org.retropipes.diane.direction.DirectionStrings;
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.objectmodel.ObjectModel;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
@@ -19,6 +20,8 @@ public final class GameObject {
     private static final int PLASTIC_MINIMUM_REACTION_FORCE = 0;
     private static final int DEFAULT_MINIMUM_REACTION_FORCE = 1;
     private static final int METAL_MINIMUM_REACTION_FORCE = 2;
+    private final static boolean[] tunnelsFull = new boolean[Strings.COLOR_COUNT];
+    private final static int SCAN_RADIUS = 24;
     private final ObjectModel model;
     private final ObjectImageId id;
     private transient boolean solid;
@@ -89,6 +92,32 @@ public final class GameObject {
 	    return METAL_MINIMUM_REACTION_FORCE;
 	}
 	return DEFAULT_MINIMUM_REACTION_FORCE;
+    }
+
+    public static void checkTunnels(final int tx, final int ty, final Dungeon dungeon) {
+	for (var x = 0; x < Strings.COLOR_COUNT; x++) {
+	    GameObject.checkTunnelsOfColor(tx, ty, dungeon, Colors.values()[x]);
+	}
+    }
+
+    protected static void checkTunnelsOfColor(final int tx, final int ty, final Dungeon dungeon, final Colors color) {
+	final var pgrmdest = dungeon.circularScanTunnel(0, 0, 0,
+		GameObject.SCAN_RADIUS, tx, ty, GameObject.getTunnelOfColor(color), false);
+	if (pgrmdest != null) {
+	    GameObject.tunnelsFull[color.ordinal()] = false;
+	} else {
+	    GameObject.tunnelsFull[color.ordinal()] = true;
+	}
+    }
+
+    protected static GameObject getTunnelOfColor(final Colors color) {
+	var tunnel = new GameObject(ObjectImageId.TUNNEL);
+	tunnel.color = color;
+	return tunnel;
+    }
+
+    public static boolean tunnelsFull(final Colors color) {
+	return GameObject.tunnelsFull[color.ordinal()];
     }
 
     public static GameObject read(final DataIOReader reader) throws IOException {
