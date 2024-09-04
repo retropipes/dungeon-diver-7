@@ -41,6 +41,7 @@ import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.locale.EditorLayout;
 import org.retropipes.dungeondiver7.locale.EditorString;
+import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Menu;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.TimeTravel;
@@ -89,10 +90,10 @@ public class DungeonEditor implements MenuSection {
 	this.shandler = new DungeonEditorStartEventHandler(this);
 	this.engine = new EditorUndoRedoEngine();
 	final var objectList = DungeonDiver7.getStuffBag().getObjects();
-	this.names = objectList.getAllNamesOnLayer(DungeonConstants.LAYER_LOWER_GROUND);
-	this.objects = objectList.getAllObjectsOnLayer(DungeonConstants.LAYER_LOWER_GROUND);
-	this.editorAppearances = objectList.getAllEditorAppearancesOnLayer(DungeonConstants.LAYER_LOWER_GROUND);
-	this.objectsEnabled = objectList.getObjectEnabledStatuses(DungeonConstants.LAYER_LOWER_GROUND);
+	this.names = objectList.getAllNamesOnLayer(Layer.GROUND.ordinal());
+	this.objects = objectList.getAllObjectsOnLayer(Layer.GROUND.ordinal());
+	this.editorAppearances = objectList.getAllEditorAppearancesOnLayer(Layer.GROUND.ordinal());
+	this.objectsEnabled = objectList.getObjectEnabledStatuses(Layer.GROUND.ordinal());
 	this.dungeonChanged = true;
 	this.eme = new ExternalMusicEditor();
 	this.activePlayer = 0;
@@ -162,21 +163,14 @@ public class DungeonEditor implements MenuSection {
 	    }
 	    if (index != -1) {
 		// Update selected button
-		switch (index) {
-		case DungeonConstants.LAYER_LOWER_GROUND:
+		if (index == Layer.GROUND.ordinal()) {
 		    this.lowerGround.setSelected(true);
-		    break;
-		case DungeonConstants.LAYER_UPPER_GROUND:
+		} else if (index == Layer.OBJECT.ordinal()) {
 		    this.upperGround.setSelected(true);
-		    break;
-		case DungeonConstants.LAYER_LOWER_OBJECTS:
+		} else if (index == Layer.STATUS.ordinal()) {
 		    this.lowerObjects.setSelected(true);
-		    break;
-		case DungeonConstants.LAYER_UPPER_OBJECTS:
+		} else if (index == Layer.MARKER.ordinal()) {
 		    this.upperObjects.setSelected(true);
-		    break;
-		default:
-		    break;
 		}
 		this.changeLayerImpl(index);
 	    }
@@ -848,21 +842,14 @@ public class DungeonEditor implements MenuSection {
 	final var w = this.elMgr.getEditorLocationW();
 	final var u = this.elMgr.getEditorLocationU();
 	final var e = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getActiveEra();
-	switch (w) {
-	case DungeonConstants.LAYER_LOWER_GROUND:
+	if (w == Layer.GROUND.ordinal()) {
 	    this.redrawEditorBottomGround();
-	    break;
-	case DungeonConstants.LAYER_UPPER_GROUND:
+	} else if (w == Layer.OBJECT.ordinal()) {
 	    this.redrawEditorGround();
-	    break;
-	case DungeonConstants.LAYER_LOWER_OBJECTS:
+	} else if (w == Layer.STATUS.ordinal()) {
 	    this.redrawEditorGroundBottomObjects();
-	    break;
-	case DungeonConstants.LAYER_UPPER_OBJECTS:
+	} else if (w == Layer.MARKER.ordinal()) {
 	    this.redrawEditorGroundObjects();
-	    break;
-	default:
-	    break;
 	}
 	this.mainWindow.checkAndSetTitle(LocaleUtils.subst(Strings.editor(EditorString.EDITOR_TITLE),
 		Integer.toString(z + 1), Integer.toString(u + 1), Strings.timeTravel(e)));
@@ -883,7 +870,7 @@ public class DungeonEditor implements MenuSection {
 		xFix = x - EditorViewingWindowManager.getViewingWindowLocationX();
 		yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
 		final var lgobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			DungeonConstants.LAYER_LOWER_GROUND);
+			Layer.GROUND.ordinal());
 		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
 		final var img = lgimg;
 		drawGrid.setImageCell(img, xFix, yFix);
@@ -904,9 +891,9 @@ public class DungeonEditor implements MenuSection {
 		xFix = x - EditorViewingWindowManager.getViewingWindowLocationX();
 		yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
 		final var lgobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			DungeonConstants.LAYER_LOWER_GROUND);
+			Layer.GROUND.ordinal());
 		final var ugobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			DungeonConstants.LAYER_UPPER_GROUND);
+			Layer.OBJECT.ordinal());
 		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
 		final var ugimg = ObjectImageLoader.load(ugobj.getCacheName(), ugobj.getIdValue());
 		final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName());
@@ -929,11 +916,11 @@ public class DungeonEditor implements MenuSection {
 		xFix = x - EditorViewingWindowManager.getViewingWindowLocationX();
 		yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
 		final var lgobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			DungeonConstants.LAYER_LOWER_GROUND);
+			Layer.GROUND.ordinal());
 		final var ugobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			DungeonConstants.LAYER_UPPER_GROUND);
+			Layer.OBJECT.ordinal());
 		final var loobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			DungeonConstants.LAYER_LOWER_OBJECTS);
+			Layer.STATUS.ordinal());
 		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
 		final var ugimg = ObjectImageLoader.load(ugobj.getCacheName(), ugobj.getIdValue());
 		final var loimg = ObjectImageLoader.load(loobj.getCacheName(), loobj.getIdValue());
@@ -958,13 +945,13 @@ public class DungeonEditor implements MenuSection {
 		xFix = x - EditorViewingWindowManager.getViewingWindowLocationX();
 		yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
 		final var lgobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			DungeonConstants.LAYER_LOWER_GROUND);
+			Layer.GROUND.ordinal());
 		final var ugobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			DungeonConstants.LAYER_UPPER_GROUND);
+			Layer.OBJECT.ordinal());
 		final var loobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			DungeonConstants.LAYER_LOWER_OBJECTS);
+			Layer.STATUS.ordinal());
 		final var uoobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			DungeonConstants.LAYER_UPPER_OBJECTS);
+			Layer.MARKER.ordinal());
 		final var lvobj = app.getDungeonManager().getDungeon().getVirtualCell(y, x,
 			this.elMgr.getEditorLocationZ(), DungeonConstants.LAYER_VIRTUAL);
 		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());

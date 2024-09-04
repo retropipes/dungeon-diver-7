@@ -6,10 +6,6 @@
 package org.retropipes.dungeondiver7.utility;
 
 public class DungeonConstants {
-    public static final int LAYER_LOWER_GROUND = 0;
-    public static final int LAYER_UPPER_GROUND = 1;
-    public static final int LAYER_LOWER_OBJECTS = 2;
-    public static final int LAYER_UPPER_OBJECTS = 3;
     public static final int LAYER_VIRTUAL = 0;
     public static final int LAYER_VIRTUAL_CHARACTER = 1;
     public static final int NUM_VIRTUAL_LAYERS = 2;
