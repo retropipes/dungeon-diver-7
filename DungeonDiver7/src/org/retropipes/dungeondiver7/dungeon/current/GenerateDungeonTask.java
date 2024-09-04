@@ -13,9 +13,9 @@ import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.locale.DialogString;
+import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.manager.dungeon.DungeonManager;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 public class GenerateDungeonTask extends Thread {
     // Fields
@@ -56,7 +56,7 @@ public class GenerateDungeonTask extends Thread {
 		do {
 		    startR = rR.generate();
 		    startC = rC.generate();
-		} while (gameDungeon.getCell(startR, startC, 0, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid());
+		} while (gameDungeon.getCell(startR, startC, 0, Layer.STATUS.ordinal()).isSolid());
 		gameDungeon.setStartRow(startR, 0);
 		gameDungeon.setStartColumn(startC, 0);
 		app.getDungeonManager().setLoaded(true);
@@ -70,7 +70,7 @@ public class GenerateDungeonTask extends Thread {
 		do {
 		    startR = rR.generate();
 		    startC = rC.generate();
-		} while (gameDungeon.getCell(startR, startC, 0, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid());
+		} while (gameDungeon.getCell(startR, startC, 0, Layer.STATUS.ordinal()).isSolid());
 		gameDungeon.setPlayerLocationX(startR, 0);
 		gameDungeon.setPlayerLocationY(startC, 0);
 		PartyManager.getParty().offsetZone(1);

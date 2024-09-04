@@ -28,8 +28,8 @@ import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
+import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Strings;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 class MapTimeBattleGUI {
     private static final int MAX_TEXT = 1000;
@@ -99,8 +99,8 @@ class MapTimeBattleGUI {
 		    xFix = x - xView;
 		    yFix = y - yView;
 		    try {
-			final var obj1 = battleMap.getCell(y, x, 0, DungeonConstants.LAYER_GROUND);
-			final var obj2 = battleMap.getCell(y, x, 0, DungeonConstants.LAYER_OBJECT);
+			final var obj1 = battleMap.getCell(y, x, 0, Layer.GROUND.ordinal());
+			final var obj2 = battleMap.getCell(y, x, 0, Layer.OBJECT.ordinal());
 			final var icon1 = obj1.getImage();
 			final var icon2 = obj2.getImage();
 			final var cacheName = Strings.compositeCacheName(obj1.getCacheName(), obj2.getCacheName());
@@ -129,8 +129,8 @@ class MapTimeBattleGUI {
 		final var yView = this.vwMgr.getViewingWindowLocationY();
 		xFix = y - xView;
 		yFix = x - yView;
-		final var obj1 = battleMap.getCell(y, x, 0, DungeonConstants.LAYER_GROUND);
-		final var obj2 = battleMap.getCell(y, x, 0, DungeonConstants.LAYER_OBJECT);
+		final var obj1 = battleMap.getCell(y, x, 0, Layer.GROUND.ordinal());
+		final var obj2 = battleMap.getCell(y, x, 0, Layer.OBJECT.ordinal());
 		final var icon1 = obj1.getImage();
 		final var icon2 = obj2.getImage();
 		final var icon3 = obj3.getImage();

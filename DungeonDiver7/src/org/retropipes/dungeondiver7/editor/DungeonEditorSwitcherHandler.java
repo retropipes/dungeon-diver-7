@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.locale.EditorString;
+import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Strings;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 class DungeonEditorSwitcherHandler implements ActionListener {
     private final DungeonEditor editor;
@@ -21,13 +21,13 @@ class DungeonEditorSwitcherHandler implements ActionListener {
 	    final var cmd = e.getActionCommand();
 	    final var ae = editor;
 	    if (cmd.equals(Strings.editor(EditorString.LOWER_GROUND_LAYER))) {
-		ae.changeLayerImpl(DungeonConstants.LAYER_LOWER_GROUND);
+		ae.changeLayerImpl(Layer.GROUND.ordinal());
 	    } else if (cmd.equals(Strings.editor(EditorString.UPPER_GROUND_LAYER))) {
-		ae.changeLayerImpl(DungeonConstants.LAYER_UPPER_GROUND);
+		ae.changeLayerImpl(Layer.OBJECT.ordinal());
 	    } else if (cmd.equals(Strings.editor(EditorString.LOWER_OBJECTS_LAYER))) {
-		ae.changeLayerImpl(DungeonConstants.LAYER_LOWER_OBJECTS);
+		ae.changeLayerImpl(Layer.STATUS.ordinal());
 	    } else if (cmd.equals(Strings.editor(EditorString.UPPER_OBJECTS_LAYER))) {
-		ae.changeLayerImpl(DungeonConstants.LAYER_UPPER_OBJECTS);
+		ae.changeLayerImpl(Layer.MARKER.ordinal());
 	    }
 	} catch (final Exception ex) {
 	    DungeonDiver7.logError(ex);

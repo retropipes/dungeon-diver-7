@@ -33,9 +33,9 @@ import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
+import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Music;
 import org.retropipes.dungeondiver7.prefs.Prefs;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 public class MapTimeBattleLogic extends Battle {
     // Fields
@@ -779,7 +779,7 @@ public class MapTimeBattleLogic extends Battle {
 		    active.stripAllEffects();
 		    // Remove character from battle
 		    this.battleMap.setCell(new GameObject(ObjectImageId.EMPTY), this.me.getX(), this.me.getY(), 0,
-			    DungeonConstants.LAYER_OBJECT);
+			    Layer.OBJECT.ordinal());
 		}
 	    }
 	} else if (this.enemy != null && this.enemy.isActive()) {
@@ -818,7 +818,7 @@ public class MapTimeBattleLogic extends Battle {
 		active.stripAllEffects();
 		// Remove character from battle
 		this.battleMap.setCell(new GameObject(ObjectImageId.EMPTY), this.enemy.getX(), this.enemy.getY(), 0,
-			DungeonConstants.LAYER_OBJECT);
+			Layer.OBJECT.ordinal());
 	    }
 	}
     }
@@ -844,30 +844,30 @@ public class MapTimeBattleLogic extends Battle {
 		&& (this.me.isActive() && this.me.getCreature().getX() == -1 && this.me.getCreature().getY() == -1)) {
 	    rx = randX.generate();
 	    ry = randY.generate();
-	    var obj = this.battleMap.getCell(rx, ry, 0, DungeonConstants.LAYER_OBJECT);
+	    var obj = this.battleMap.getCell(rx, ry, 0, Layer.OBJECT.ordinal());
 	    while (obj.isSolid()) {
 		rx = randX.generate();
 		ry = randY.generate();
-		obj = this.battleMap.getCell(rx, ry, 0, DungeonConstants.LAYER_OBJECT);
+		obj = this.battleMap.getCell(rx, ry, 0, Layer.OBJECT.ordinal());
 	    }
 	    this.me.setX(rx);
 	    this.me.setY(ry);
-	    this.battleMap.setCell(this.me.getTile(), rx, ry, 0, DungeonConstants.LAYER_OBJECT);
+	    this.battleMap.setCell(this.me.getTile(), rx, ry, 0, Layer.OBJECT.ordinal());
 	}
 	// Set Enemy Location
 	if ((this.enemy != null) && (this.enemy.isActive() && this.enemy.getCreature().getX() == -1
 		&& this.enemy.getCreature().getY() == -1)) {
 	    rx = randX.generate();
 	    ry = randY.generate();
-	    var obj = this.battleMap.getCell(rx, ry, 0, DungeonConstants.LAYER_OBJECT);
+	    var obj = this.battleMap.getCell(rx, ry, 0, Layer.OBJECT.ordinal());
 	    while (obj.isSolid()) {
 		rx = randX.generate();
 		ry = randY.generate();
-		obj = this.battleMap.getCell(rx, ry, 0, DungeonConstants.LAYER_OBJECT);
+		obj = this.battleMap.getCell(rx, ry, 0, Layer.OBJECT.ordinal());
 	    }
 	    this.enemy.setX(rx);
 	    this.enemy.setY(ry);
-	    this.battleMap.setCell(this.enemy.getTile(), rx, ry, 0, DungeonConstants.LAYER_OBJECT);
+	    this.battleMap.setCell(this.enemy.getTile(), rx, ry, 0, Layer.OBJECT.ordinal());
 	}
     }
 
@@ -974,9 +974,9 @@ public class MapTimeBattleLogic extends Battle {
 	    this.battleGUI.getViewManager().saveViewingWindow();
 	}
 	try {
-	    next = m.getCell(px + x, py + y, 0, DungeonConstants.LAYER_OBJECT);
-	    nextGround = m.getCell(px + x, py + y, 0, DungeonConstants.LAYER_GROUND);
-	    currGround = m.getCell(px, py, 0, DungeonConstants.LAYER_GROUND);
+	    next = m.getCell(px + x, py + y, 0, Layer.OBJECT.ordinal());
+	    nextGround = m.getCell(px + x, py + y, 0, Layer.GROUND.ordinal());
+	    currGround = m.getCell(px, py, 0, Layer.GROUND.ordinal());
 	} catch (final ArrayIndexOutOfBoundsException aioob) {
 	    // Ignore
 	}
@@ -992,42 +992,42 @@ public class MapTimeBattleLogic extends Battle {
 		GameObject obj8 = null;
 		GameObject obj9 = null;
 		try {
-		    obj1 = m.getCell(px - 1, py - 1, 0, DungeonConstants.LAYER_OBJECT);
+		    obj1 = m.getCell(px - 1, py - 1, 0, Layer.OBJECT.ordinal());
 		} catch (final ArrayIndexOutOfBoundsException aioob) {
 		    // Ignore
 		}
 		try {
-		    obj2 = m.getCell(px, py - 1, 0, DungeonConstants.LAYER_OBJECT);
+		    obj2 = m.getCell(px, py - 1, 0, Layer.OBJECT.ordinal());
 		} catch (final ArrayIndexOutOfBoundsException aioob) {
 		    // Ignore
 		}
 		try {
-		    obj3 = m.getCell(px + 1, py - 1, 0, DungeonConstants.LAYER_OBJECT);
+		    obj3 = m.getCell(px + 1, py - 1, 0, Layer.OBJECT.ordinal());
 		} catch (final ArrayIndexOutOfBoundsException aioob) {
 		    // Ignore
 		}
 		try {
-		    obj4 = m.getCell(px - 1, py, 0, DungeonConstants.LAYER_OBJECT);
+		    obj4 = m.getCell(px - 1, py, 0, Layer.OBJECT.ordinal());
 		} catch (final ArrayIndexOutOfBoundsException aioob) {
 		    // Ignore
 		}
 		try {
-		    obj6 = m.getCell(px + 1, py - 1, 0, DungeonConstants.LAYER_OBJECT);
+		    obj6 = m.getCell(px + 1, py - 1, 0, Layer.OBJECT.ordinal());
 		} catch (final ArrayIndexOutOfBoundsException aioob) {
 		    // Ignore
 		}
 		try {
-		    obj7 = m.getCell(px - 1, py + 1, 0, DungeonConstants.LAYER_OBJECT);
+		    obj7 = m.getCell(px - 1, py + 1, 0, Layer.OBJECT.ordinal());
 		} catch (final ArrayIndexOutOfBoundsException aioob) {
 		    // Ignore
 		}
 		try {
-		    obj8 = m.getCell(px, py + 1, 0, DungeonConstants.LAYER_OBJECT);
+		    obj8 = m.getCell(px, py + 1, 0, Layer.OBJECT.ordinal());
 		} catch (final ArrayIndexOutOfBoundsException aioob) {
 		    // Ignore
 		}
 		try {
-		    obj9 = m.getCell(px + 1, py + 1, 0, DungeonConstants.LAYER_OBJECT);
+		    obj9 = m.getCell(px + 1, py + 1, 0, Layer.OBJECT.ordinal());
 		} catch (final ArrayIndexOutOfBoundsException aioob) {
 		    // Ignore
 		}
@@ -1096,7 +1096,7 @@ public class MapTimeBattleLogic extends Battle {
 			}
 		    }
 		}
-		m.setCell(active.getTile().getSavedObject(), px, py, 0, DungeonConstants.LAYER_OBJECT);
+		m.setCell(active.getTile().getSavedObject(), px, py, 0, Layer.OBJECT.ordinal());
 		active.offsetX(x);
 		active.offsetY(y);
 		px += x;
@@ -1105,8 +1105,8 @@ public class MapTimeBattleLogic extends Battle {
 		    this.battleGUI.getViewManager().offsetViewingWindowLocationX(y);
 		    this.battleGUI.getViewManager().offsetViewingWindowLocationY(x);
 		}
-		active.getTile().setSavedObject(m.getCell(px, py, 0, DungeonConstants.LAYER_OBJECT));
-		m.setCell(active.getTile(), px, py, 0, DungeonConstants.LAYER_OBJECT);
+		active.getTile().setSavedObject(m.getCell(px, py, 0, Layer.OBJECT.ordinal()));
+		m.setCell(active.getTile(), px, py, 0, Layer.OBJECT.ordinal());
 		SoundLoader.playSound(stepSound);
 	    } else if (next != null && next.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		// Attack
@@ -1140,7 +1140,7 @@ public class MapTimeBattleLogic extends Battle {
 		    // Set dead character to inactive
 		    bc.deactivate();
 		    // Remove character from battle
-		    m.setCell(new GameObject(ObjectImageId.EMPTY), bc.getX(), bc.getY(), 0, DungeonConstants.LAYER_OBJECT);
+		    m.setCell(new GameObject(ObjectImageId.EMPTY), bc.getX(), bc.getY(), 0, Layer.OBJECT.ordinal());
 		}
 		// Handle self death
 		if (!active.getCreature().isAlive()) {
@@ -1149,7 +1149,7 @@ public class MapTimeBattleLogic extends Battle {
 		    // Set dead character to inactive
 		    active.deactivate();
 		    // Remove character from battle
-		    m.setCell(new GameObject(ObjectImageId.EMPTY), active.getX(), active.getY(), 0, DungeonConstants.LAYER_OBJECT);
+		    m.setCell(new GameObject(ObjectImageId.EMPTY), active.getX(), active.getY(), 0, Layer.OBJECT.ordinal());
 		}
 	    } else {
 		// Move Failed
@@ -1179,7 +1179,7 @@ public class MapTimeBattleLogic extends Battle {
 	    // Set fled character to inactive
 	    active.deactivate();
 	    // Remove character from battle
-	    m.setCell(new GameObject(ObjectImageId.EMPTY), active.getX(), active.getY(), 0, DungeonConstants.LAYER_OBJECT);
+	    m.setCell(new GameObject(ObjectImageId.EMPTY), active.getX(), active.getY(), 0, Layer.OBJECT.ordinal());
 	    // End Turn
 	    this.endTurn();
 	    this.updateStatsAndEffects();

@@ -24,7 +24,6 @@ import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.PrefKey;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 public class Prefs {
     // Fields
@@ -279,7 +278,6 @@ public class Prefs {
 	Prefs.file.setInteger(Strings.prefKey(PrefKey.ACTIVE_LANGUAGE), value);
 	if (oldValue != value) {
 	    Strings.changeLanguage(Locale.getDefault());
-	    DungeonConstants.activeLanguageChanged();
 	    DungeonDiver7.getStuffBag().activeLanguageChanged();
 	    Prefs.activeLanguageChanged();
 	}

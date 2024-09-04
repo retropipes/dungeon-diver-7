@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.game;
 import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.gameobject.GameObject;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
+import org.retropipes.dungeondiver7.locale.Layer;
 
 final class MovingObjectTracker {
     private static boolean checkSolid(final GameObject next) {
@@ -45,10 +45,10 @@ final class MovingObjectTracker {
 	this.movingObj = gmo;
 	this.belowUpper = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
 		this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
-		DungeonConstants.LAYER_UPPER_GROUND);
+		Layer.OBJECT.ordinal());
 	this.belowLower = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
 		this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
-		DungeonConstants.LAYER_LOWER_GROUND);
+		Layer.GROUND.ordinal());
 	this.objectMoving = true;
 	this.objectCheck = true;
 	this.objectNewlyActivated = true;
@@ -68,10 +68,10 @@ final class MovingObjectTracker {
 		    this.objCumY + this.objIncY * this.objMultY, pz, this.movingObj.getLayer());
 	    this.belowUpper = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
 		    this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
-		    DungeonConstants.LAYER_UPPER_GROUND);
+		    Layer.OBJECT.ordinal());
 	    this.belowLower = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
 		    this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
-		    DungeonConstants.LAYER_LOWER_GROUND);
+		    Layer.GROUND.ordinal());
 	    if (MovingObjectTracker.checkSolid(saved)) {
 		this.belowLower.pushOutAction(this.movingObj, this.objCumX, this.objCumY, pz);
 		this.belowUpper.pushOutAction(this.movingObj, this.objCumX, this.objCumY, pz);

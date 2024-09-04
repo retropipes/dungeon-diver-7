@@ -17,11 +17,11 @@ import org.retropipes.dungeondiver7.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
+import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.AlreadyDeadException;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.GameActions;
 
 final class MLOTask extends Thread {
@@ -41,7 +41,7 @@ final class MLOTask extends Thread {
     static boolean checkSolid(final int zx, final int zy) {
 	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
 	final var next = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(zx, zy,
-		gm.getPlayerManager().getPlayerLocationZ(), DungeonConstants.LAYER_LOWER_OBJECTS);
+		gm.getPlayerManager().getPlayerLocationZ(), Layer.STATUS.ordinal());
 	// Check cheats
 	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
 	    return true;
@@ -183,24 +183,24 @@ final class MLOTask extends Thread {
 	final var px = plMgr.getPlayerLocationX();
 	final var py = plMgr.getPlayerLocationY();
 	final var pz = plMgr.getPlayerLocationZ();
-	final var pw = DungeonConstants.LAYER_UPPER_OBJECTS;
+	final var pw = Layer.MARKER.ordinal();
 	final var m = app.getDungeonManager().getDungeon();
 	GameObject lgo = null;
 	GameObject ugo = null;
 	GameObject loo = null;
 	GameObject uoo = null;
 	try {
-	    lgo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_GROUND);
+	    lgo = m.getCell(px + this.sx, py + this.sy, pz, Layer.GROUND.ordinal());
 	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    lgo = new GameObject(ObjectImageId.WALL);
 	}
 	try {
-	    ugo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_UPPER_GROUND);
+	    ugo = m.getCell(px + this.sx, py + this.sy, pz, Layer.OBJECT.ordinal());
 	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    ugo = new GameObject(ObjectImageId.WALL);
 	}
 	try {
-	    loo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    loo = m.getCell(px + this.sx, py + this.sy, pz, Layer.STATUS.ordinal());
 	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    loo = new GameObject(ObjectImageId.WALL);
 	}
@@ -223,12 +223,12 @@ final class MLOTask extends Thread {
 	GameObject lgo = null;
 	GameObject ugo = null;
 	try {
-	    lgo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_GROUND);
+	    lgo = m.getCell(px + this.sx, py + this.sy, pz, Layer.GROUND.ordinal());
 	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    lgo = new GameObject(ObjectImageId.WALL);
 	}
 	try {
-	    ugo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_UPPER_GROUND);
+	    ugo = m.getCell(px + this.sx, py + this.sy, pz, Layer.OBJECT.ordinal());
 	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    ugo = new GameObject(ObjectImageId.WALL);
 	}
@@ -253,10 +253,10 @@ final class MLOTask extends Thread {
 	    final var pz = plMgr.getPlayerLocationZ();
 	    this.loopCheck = true;
 	    var objs = new GameObject[4];
-	    objs[DungeonConstants.LAYER_LOWER_GROUND] = new GameObject(ObjectImageId.WALL);
-	    objs[DungeonConstants.LAYER_UPPER_GROUND] = new GameObject(ObjectImageId.WALL);
-	    objs[DungeonConstants.LAYER_LOWER_OBJECTS] = new GameObject(ObjectImageId.WALL);
-	    objs[DungeonConstants.LAYER_UPPER_OBJECTS] = new GameObject(ObjectImageId.WALL);
+	    objs[Layer.GROUND.ordinal()] = new GameObject(ObjectImageId.WALL);
+	    objs[Layer.OBJECT.ordinal()] = new GameObject(ObjectImageId.WALL);
+	    objs[Layer.STATUS.ordinal()] = new GameObject(ObjectImageId.WALL);
+	    objs[Layer.MARKER.ordinal()] = new GameObject(ObjectImageId.WALL);
 	    do {
 		try {
 		    if (this.move && this.loopCheck) {
@@ -291,7 +291,7 @@ final class MLOTask extends Thread {
 			if (this.mover && !this.canMoveThere()) {
 			    MLOTask.activateAutomaticMovement();
 			}
-			if (objs[DungeonConstants.LAYER_LOWER_OBJECTS].solvesOnMove()) {
+			if (objs[Layer.STATUS.ordinal()].solvesOnMove()) {
 			    this.abort = true;
 			    if (this.move) {
 				DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
@@ -338,7 +338,7 @@ final class MLOTask extends Thread {
 		}
 	    } while (!this.abort && (this.loopCheck || this.areObjectTrackersChecking()));
 	    // Check cheats
-	    if (objs[DungeonConstants.LAYER_LOWER_GROUND].killsOnMove()
+	    if (objs[Layer.GROUND.ordinal()].killsOnMove()
 		    && !gm.getCheatStatus(GameLogic.CHEAT_SWIMMING)) {
 		gm.gameOver();
 	    }
@@ -351,7 +351,7 @@ final class MLOTask extends Thread {
 	var px = plMgr.getPlayerLocationX();
 	var py = plMgr.getPlayerLocationY();
 	final var pz = plMgr.getPlayerLocationZ();
-	final var pw = DungeonConstants.LAYER_UPPER_OBJECTS;
+	final var pw = Layer.MARKER.ordinal();
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();
 	this.proceed = true;
@@ -361,17 +361,17 @@ final class MLOTask extends Thread {
 	GameObject loo = null;
 	GameObject uoo = null;
 	try {
-	    lgo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_GROUND);
+	    lgo = m.getCell(px + this.sx, py + this.sy, pz, Layer.GROUND.ordinal());
 	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    lgo = new GameObject(ObjectImageId.WALL);
 	}
 	try {
-	    ugo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_UPPER_GROUND);
+	    ugo = m.getCell(px + this.sx, py + this.sy, pz, Layer.OBJECT.ordinal());
 	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    ugo = new GameObject(ObjectImageId.WALL);
 	}
 	try {
-	    loo = m.getCell(px + this.sx, py + this.sy, pz, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    loo = m.getCell(px + this.sx, py + this.sy, pz, Layer.STATUS.ordinal());
 	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    loo = new GameObject(ObjectImageId.WALL);
 	}

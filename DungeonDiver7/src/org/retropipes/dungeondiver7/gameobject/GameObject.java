@@ -15,9 +15,9 @@ import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Colors;
+import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.ObjectInteractMessage;
 import org.retropipes.dungeondiver7.locale.Strings;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.RandomGenerationRule;
 
 public final class GameObject implements RandomGenerationRule {
@@ -602,7 +602,7 @@ public final class GameObject implements RandomGenerationRule {
     @Override
     public boolean shouldGenerateObject(final Dungeon dungeon, final int row, final int col, final int level,
 	    final int layer) {
-	if (layer == DungeonConstants.LAYER_LOWER_OBJECTS) {
+	if (layer == Layer.STATUS.ordinal()) {
 	    // Handle object layer
 	    // Limit generation of other objects to 20%, unless required
 	    if (this.isPassThrough() || this.isRequired(dungeon)) {

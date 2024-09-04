@@ -34,9 +34,9 @@ import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
+import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Music;
 import org.retropipes.dungeondiver7.prefs.Prefs;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 public class MapTurnBattleLogic extends Battle {
     private static final int STEAL_ACTION_POINTS = 3;
@@ -697,7 +697,7 @@ public class MapTurnBattleLogic extends Battle {
 	active.stripAllEffects();
 	// Remove character from battle
 	this.bd.getBattleDungeon().setCell(new GameObject(ObjectImageId.EMPTY), activeBC.getX(), activeBC.getY(), 0,
-		DungeonConstants.LAYER_LOWER_OBJECTS);
+		Layer.STATUS.ordinal());
 	if (this.bd.getActiveCharacter().getName().equals(activeBC.getName())) {
 	    // Active character died, end turn
 	    this.endTurn();
@@ -831,16 +831,16 @@ public class MapTurnBattleLogic extends Battle {
 		    && this.bd.getBattlers()[x].getCreature().getY() == -1) {
 		rx = randX.generate();
 		ry = randY.generate();
-		var obj = this.bd.getBattleDungeon().getCell(rx, ry, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		var obj = this.bd.getBattleDungeon().getCell(rx, ry, 0, Layer.STATUS.ordinal());
 		while (obj.isSolid()) {
 		    rx = randX.generate();
 		    ry = randY.generate();
-		    obj = this.bd.getBattleDungeon().getCell(rx, ry, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		    obj = this.bd.getBattleDungeon().getCell(rx, ry, 0, Layer.STATUS.ordinal());
 		}
 		this.bd.getBattlers()[x].setX(rx);
 		this.bd.getBattlers()[x].setY(ry);
 		this.bd.getBattleDungeon().setCell(this.bd.getBattlers()[x].getTile(), rx, ry, 0,
-			DungeonConstants.LAYER_LOWER_OBJECTS);
+			Layer.STATUS.ordinal());
 	    }
 	}
     }
@@ -1004,9 +1004,9 @@ public class MapTurnBattleLogic extends Battle {
 	activeBC.saveLocation();
 	this.battleGUI.getViewManager().saveViewingWindow();
 	try {
-	    next = m.getCell(px + x, py + y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
-	    nextGround = m.getCell(px + x, py + y, 0, DungeonConstants.LAYER_LOWER_GROUND);
-	    currGround = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_GROUND);
+	    next = m.getCell(px + x, py + y, 0, Layer.STATUS.ordinal());
+	    nextGround = m.getCell(px + x, py + y, 0, Layer.GROUND.ordinal());
+	    currGround = m.getCell(px, py, 0, Layer.GROUND.ordinal());
 	} catch (final ArrayIndexOutOfBoundsException aioob) {
 	    // Ignore
 	}
@@ -1028,7 +1028,7 @@ public class MapTurnBattleLogic extends Battle {
 	    // Set fled character to inactive
 	    activeBC.deactivate();
 	    // Remove character from battle
-	    m.setCell(new GameObject(ObjectImageId.EMPTY), activeBC.getX(), activeBC.getY(), 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    m.setCell(new GameObject(ObjectImageId.EMPTY), activeBC.getX(), activeBC.getY(), 0, Layer.STATUS.ordinal());
 	    // End Turn
 	    this.endTurn();
 	    this.updateStatsAndEffects();
@@ -1061,42 +1061,42 @@ public class MapTurnBattleLogic extends Battle {
 	    GameObject obj8 = null;
 	    GameObject obj9 = null;
 	    try {
-		obj1 = m.getCell(px - 1, py - 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		obj1 = m.getCell(px - 1, py - 1, 0, Layer.STATUS.ordinal());
 	    } catch (final ArrayIndexOutOfBoundsException aioob) {
 		// Ignore
 	    }
 	    try {
-		obj2 = m.getCell(px, py - 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		obj2 = m.getCell(px, py - 1, 0, Layer.STATUS.ordinal());
 	    } catch (final ArrayIndexOutOfBoundsException aioob) {
 		// Ignore
 	    }
 	    try {
-		obj3 = m.getCell(px + 1, py - 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		obj3 = m.getCell(px + 1, py - 1, 0, Layer.STATUS.ordinal());
 	    } catch (final ArrayIndexOutOfBoundsException aioob) {
 		// Ignore
 	    }
 	    try {
-		obj4 = m.getCell(px - 1, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		obj4 = m.getCell(px - 1, py, 0, Layer.STATUS.ordinal());
 	    } catch (final ArrayIndexOutOfBoundsException aioob) {
 		// Ignore
 	    }
 	    try {
-		obj6 = m.getCell(px + 1, py - 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		obj6 = m.getCell(px + 1, py - 1, 0, Layer.STATUS.ordinal());
 	    } catch (final ArrayIndexOutOfBoundsException aioob) {
 		// Ignore
 	    }
 	    try {
-		obj7 = m.getCell(px - 1, py + 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		obj7 = m.getCell(px - 1, py + 1, 0, Layer.STATUS.ordinal());
 	    } catch (final ArrayIndexOutOfBoundsException aioob) {
 		// Ignore
 	    }
 	    try {
-		obj8 = m.getCell(px, py + 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		obj8 = m.getCell(px, py + 1, 0, Layer.STATUS.ordinal());
 	    } catch (final ArrayIndexOutOfBoundsException aioob) {
 		// Ignore
 	    }
 	    try {
-		obj9 = m.getCell(px + 1, py + 1, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		obj9 = m.getCell(px + 1, py + 1, 0, Layer.STATUS.ordinal());
 	    } catch (final ArrayIndexOutOfBoundsException aioob) {
 		// Ignore
 	    }
@@ -1165,15 +1165,15 @@ public class MapTurnBattleLogic extends Battle {
 		    }
 		}
 	    }
-	    m.setCell(activeBC.getTile().getSavedObject(), px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    m.setCell(activeBC.getTile().getSavedObject(), px, py, 0, Layer.STATUS.ordinal());
 	    activeBC.offsetX(x);
 	    activeBC.offsetY(y);
 	    px += x;
 	    py += y;
 	    this.battleGUI.getViewManager().offsetViewingWindowLocationX(y);
 	    this.battleGUI.getViewManager().offsetViewingWindowLocationY(x);
-	    activeBC.getTile().setSavedObject(m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS));
-	    m.setCell(activeBC.getTile(), px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    activeBC.getTile().setSavedObject(m.getCell(px, py, 0, Layer.STATUS.ordinal()));
+	    m.setCell(activeBC.getTile(), px, py, 0, Layer.STATUS.ordinal());
 	    this.decrementActiveActionCounterBy(AIContext.getAPCost());
 	    if (activeBC.getTeamID() == Creature.TEAM_PARTY) {
 		SoundLoader.playSound(Sounds.STEP_PARTY);

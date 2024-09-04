@@ -7,9 +7,9 @@ package org.retropipes.dungeondiver7.game;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeonData;
+import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
 class AnimationTask extends Thread {
     // Fields
@@ -29,7 +29,7 @@ class AnimationTask extends Thread {
 		final var pz = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
 		final var maxX = a.getRows();
 		final var maxY = a.getColumns();
-		final var maxW = DungeonConstants.NUM_LAYERS;
+		final var maxW = Layer.values().length;
 		for (var x = 0; x < maxX; x++) {
 		    for (var y = 0; y < maxY; y++) {
 			for (var w = 0; w < maxW; w++) {

@@ -27,6 +27,7 @@ import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.ErrorString;
+import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.FileFormats;
@@ -179,14 +180,14 @@ public final class CurrentDungeonData extends DungeonData {
     // Constructors
     public CurrentDungeonData() {
 	this.data = new DungeonDataStorage(DungeonData.MIN_COLUMNS, DungeonData.MIN_ROWS, DungeonData.MIN_FLOORS,
-		DungeonConstants.NUM_LAYERS);
+		Layer.values().length);
 	this.virtualData = new DungeonDataStorage(DungeonData.MIN_COLUMNS, DungeonData.MIN_ROWS, DungeonData.MIN_FLOORS,
 		DungeonConstants.NUM_VIRTUAL_LAYERS);
 	this.fillVirtual();
 	this.dirtyData = new FlagStorage(DungeonData.MIN_COLUMNS, DungeonData.MIN_ROWS, DungeonData.MIN_FLOORS);
 	this.visionData = new FlagStorage(DungeonData.MIN_COLUMNS, DungeonData.MIN_ROWS, DungeonData.MIN_FLOORS);
 	this.savedState = new DungeonDataStorage(DungeonData.MIN_ROWS, DungeonData.MIN_COLUMNS, DungeonData.MIN_FLOORS,
-		DungeonConstants.NUM_LAYERS);
+		Layer.values().length);
 	this.foundX = -1;
 	this.foundY = -1;
 	this.iue = new ImageUndoEngine();
@@ -208,12 +209,12 @@ public final class CurrentDungeonData extends DungeonData {
     }
 
     public CurrentDungeonData(final int rows, final int cols, final int floors) {
-	this.data = new DungeonDataStorage(cols, rows, floors, DungeonConstants.NUM_LAYERS);
+	this.data = new DungeonDataStorage(cols, rows, floors, Layer.values().length);
 	this.virtualData = new DungeonDataStorage(cols, rows, floors, DungeonConstants.NUM_VIRTUAL_LAYERS);
 	this.fillVirtual();
 	this.dirtyData = new FlagStorage(cols, rows, floors);
 	this.visionData = new FlagStorage(cols, rows, floors);
-	this.savedState = new DungeonDataStorage(cols, rows, floors, DungeonConstants.NUM_LAYERS);
+	this.savedState = new DungeonDataStorage(cols, rows, floors, Layer.values().length);
 	this.foundX = -1;
 	this.foundY = -1;
 	this.iue = new ImageUndoEngine();
@@ -279,7 +280,7 @@ public final class CurrentDungeonData extends DungeonData {
 	// Perform the scan
 	for (u = xFix - r; u <= xFix + r; u++) {
 	    for (v = yFix - r; v <= yFix + r; v++) {
-		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		for (w = 0; w < Layer.values().length; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, v, u, zFix, w);
 			final var savedObj = obj.getSavedObject();
@@ -338,7 +339,7 @@ public final class CurrentDungeonData extends DungeonData {
 	    zFix = this.normalizeFloor(zFix);
 	}
 	int u, v, w;
-	w = DungeonConstants.LAYER_LOWER_OBJECTS;
+	w = Layer.STATUS.ordinal();
 	// Perform the scan
 	for (u = xFix - r; u <= xFix + r; u++) {
 	    for (v = yFix - r; v <= yFix + r; v++) {
@@ -406,8 +407,8 @@ public final class CurrentDungeonData extends DungeonData {
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
-		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			if (w == DungeonConstants.LAYER_LOWER_GROUND) {
+		    for (w = 0; w < Layer.values().length; w++) {
+			if (w == Layer.GROUND.ordinal()) {
 			    this.setCell(dungeon, fill, y, x, z, w);
 			} else {
 			    this.setCell(dungeon, new GameObject(ObjectImageId.EMPTY), y, x, z, w);
@@ -424,11 +425,11 @@ public final class CurrentDungeonData extends DungeonData {
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
-		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		    for (w = 0; w < Layer.values().length; w++) {
 			if (this.getCell(dungeon, y, x, z, w) == null) {
-			    if (w == DungeonConstants.LAYER_LOWER_GROUND) {
+			    if (w == Layer.GROUND.ordinal()) {
 				this.setCell(dungeon, fill1, y, x, z, w);
-			    } else if (w == DungeonConstants.LAYER_LOWER_OBJECTS && was16 && (x >= 16 || y >= 16)) {
+			    } else if (w == Layer.STATUS.ordinal() && was16 && (x >= 16 || y >= 16)) {
 				this.setCell(dungeon, fill2, y, x, z, w);
 			    } else {
 				this.setCell(dungeon, new GameObject(ObjectImageId.EMPTY), y, x, z, w);
@@ -446,9 +447,9 @@ public final class CurrentDungeonData extends DungeonData {
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
-		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		    for (w = 0; w < Layer.values().length; w++) {
 			if (this.savedState.getCell(y, x, z, w) == null) {
-			    if (w == DungeonConstants.LAYER_LOWER_GROUND) {
+			    if (w == Layer.GROUND.ordinal()) {
 				this.savedState.setCell(fill, y, x, z, w);
 			    } else {
 				this.savedState.setCell(new GameObject(ObjectImageId.EMPTY), y, x, z, w);
@@ -479,7 +480,7 @@ public final class CurrentDungeonData extends DungeonData {
 	// Perform the scan
 	for (var x = 0; x < DungeonData.MIN_COLUMNS; x++) {
 	    for (var y = 0; y < DungeonData.MIN_ROWS; y++) {
-		for (var w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		for (var w = 0; w < Layer.values().length; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, x, y, z, w);
 			final var testName = obj.getName();
@@ -652,12 +653,12 @@ public final class CurrentDungeonData extends DungeonData {
 	for (var x = 0; x < DungeonData.MIN_COLUMNS; x++) {
 	    for (var y = 0; y < DungeonData.MIN_ROWS; y++) {
 		for (var z = 0; z < this.getFloors(); z++) {
-		    final var obj = this.getCell(dungeon, y, x, z, DungeonConstants.LAYER_LOWER_GROUND);
+		    final var obj = this.getCell(dungeon, y, x, z, Layer.GROUND.ordinal());
 		    if (!(obj.getId() != ObjectImageId.GRASS)) {
 			DungeonDiver7.getStuffBag().getGameLogic();
 			// Freeze the ground
 			GameLogic.morph(obj.changesToOnExposure(Material.ICE), y, x, z,
-				DungeonConstants.LAYER_LOWER_GROUND);
+				Layer.GROUND.ordinal());
 		    }
 		}
 	    }
@@ -670,20 +671,20 @@ public final class CurrentDungeonData extends DungeonData {
 	int randomRow, randomColumn;
 	randomRow = row.generate();
 	randomColumn = column.generate();
-	var currObj = this.getCell(dungeon, randomRow, randomColumn, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	var currObj = this.getCell(dungeon, randomRow, randomColumn, 0, Layer.STATUS.ordinal());
 	if (!currObj.isSolid()) {
 	    final GameObject m = new GameObject(ObjectImageId._CREATURE);
 	    m.setSavedObject(currObj);
-	    this.setCell(dungeon, m, randomRow, randomColumn, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    this.setCell(dungeon, m, randomRow, randomColumn, 0, Layer.STATUS.ordinal());
 	} else {
 	    while (currObj.isSolid()) {
 		randomRow = row.generate();
 		randomColumn = column.generate();
-		currObj = this.getCell(dungeon, randomRow, randomColumn, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		currObj = this.getCell(dungeon, randomRow, randomColumn, 0, Layer.STATUS.ordinal());
 	    }
 	    final GameObject m = new GameObject(ObjectImageId._CREATURE);
 	    m.setSavedObject(currObj);
-	    this.setCell(dungeon, m, randomRow, randomColumn, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    this.setCell(dungeon, m, randomRow, randomColumn, 0, Layer.STATUS.ordinal());
 	}
     }
 
@@ -834,7 +835,7 @@ public final class CurrentDungeonData extends DungeonData {
 	    }
 	    // Does object block LOS?
 	    try {
-		final var obj = this.getCell(dungeon, fx1, fy1, zp, DungeonConstants.LAYER_LOWER_OBJECTS);
+		final var obj = this.getCell(dungeon, fx1, fy1, zp, Layer.STATUS.ordinal());
 		// This object blocks LOS
 		if (obj.isSightBlocking() && (fx1 != x1 || fy1 != y1)) {
 		    return false;
@@ -879,7 +880,7 @@ public final class CurrentDungeonData extends DungeonData {
 		return false;
 	    }
 	    for (u = yFix - 1; u >= 0; u--) {
-		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		for (w = 0; w < Layer.values().length; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, xFix, u, zFix, w);
 			if (obj.canShoot()) {
@@ -907,7 +908,7 @@ public final class CurrentDungeonData extends DungeonData {
 		return false;
 	    }
 	    for (u = yFix + 1; u < 24; u++) {
-		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		for (w = 0; w < Layer.values().length; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, xFix, u, zFix, w);
 			if (obj.canShoot()) {
@@ -933,7 +934,7 @@ public final class CurrentDungeonData extends DungeonData {
 		return false;
 	    }
 	    for (u = xFix - 1; u >= 0; u--) {
-		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		for (w = 0; w < Layer.values().length; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, u, yFix, zFix, w);
 			if (obj.canShoot()) {
@@ -959,7 +960,7 @@ public final class CurrentDungeonData extends DungeonData {
 		return false;
 	    }
 	    for (u = xFix + 1; u < 24; u++) {
-		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		for (w = 0; w < Layer.values().length; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, u, yFix, zFix, w);
 			if (obj.canShoot()) {
@@ -1002,7 +1003,7 @@ public final class CurrentDungeonData extends DungeonData {
 	int u, w;
 	if (d == Direction.NORTH) {
 	    for (u = yFix - 1; u >= 0; u--) {
-		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		for (w = 0; w < Layer.values().length; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, xFix, u, zFix, w);
 			if (obj.getMaterial() == Material.MAGNETIC) {
@@ -1020,7 +1021,7 @@ public final class CurrentDungeonData extends DungeonData {
 	}
 	if (d == Direction.SOUTH) {
 	    for (u = yFix + 1; u < 24; u++) {
-		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		for (w = 0; w < Layer.values().length; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, xFix, u, zFix, w);
 			if (obj.getMaterial() == Material.MAGNETIC) {
@@ -1036,7 +1037,7 @@ public final class CurrentDungeonData extends DungeonData {
 	    }
 	} else if (d == Direction.WEST) {
 	    for (u = xFix - 1; u >= 0; u--) {
-		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		for (w = 0; w < Layer.values().length; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, u, yFix, zFix, w);
 			if (obj.getMaterial() == Material.MAGNETIC) {
@@ -1052,7 +1053,7 @@ public final class CurrentDungeonData extends DungeonData {
 	    }
 	} else if (d == Direction.EAST) {
 	    for (u = xFix + 1; u < 24; u++) {
-		for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		for (w = 0; w < Layer.values().length; w++) {
 		    try {
 			final var obj = this.getCell(dungeon, u, yFix, zFix, w);
 			if (obj.getMaterial() == Material.MAGNETIC) {
@@ -1092,7 +1093,7 @@ public final class CurrentDungeonData extends DungeonData {
 	    final boolean player) {
 	final var saved = m.getSavedObject();
 	if (!player) {
-	    this.setCell(dungeon, saved, xLoc, yLoc, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+	    this.setCell(dungeon, saved, xLoc, yLoc, 0, Layer.STATUS.ordinal());
 	}
 	this.generateOneMonster(dungeon);
     }
@@ -1110,7 +1111,7 @@ public final class CurrentDungeonData extends DungeonData {
 	    for (x = 0; x < dungeonSizeX; x++) {
 		for (y = 0; y < dungeonSizeY; y++) {
 		    for (z = 0; z < dungeonSizeZ; z++) {
-			for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+			for (w = 0; w < Layer.values().length; w++) {
 			    lt.setCell(dungeon, GameObject.read(reader), y, x, z, w);
 			}
 		    }
@@ -1131,11 +1132,11 @@ public final class CurrentDungeonData extends DungeonData {
 	    saveSizeX = reader.readInt();
 	    saveSizeY = reader.readInt();
 	    saveSizeZ = reader.readInt();
-	    this.savedState = new DungeonDataStorage(saveSizeY, saveSizeX, saveSizeZ, DungeonConstants.NUM_LAYERS);
+	    this.savedState = new DungeonDataStorage(saveSizeY, saveSizeX, saveSizeZ, Layer.values().length);
 	    for (x = 0; x < saveSizeX; x++) {
 		for (y = 0; y < saveSizeY; y++) {
 		    for (z = 0; z < saveSizeZ; z++) {
-			for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+			for (w = 0; w < Layer.values().length; w++) {
 			    this.savedState.setCell(GameObject.read(reader), y, x, z, w);
 			}
 		    }
@@ -1180,13 +1181,13 @@ public final class CurrentDungeonData extends DungeonData {
 	    z = this.normalizeFloor(z);
 	}
 	// Allocate temporary storage array
-	final var tempStorage = new DungeonDataStorage(y, x, z, DungeonConstants.NUM_LAYERS);
+	final var tempStorage = new DungeonDataStorage(y, x, z, Layer.values().length);
 	// Copy existing maze into temporary array
 	int u, v, w, t;
 	for (u = 0; u < y; u++) {
 	    for (v = 0; v < x; v++) {
 		for (w = 0; w < z; w++) {
-		    for (t = 0; t < DungeonConstants.NUM_LAYERS; t++) {
+		    for (t = 0; t < Layer.values().length; t++) {
 			try {
 			    tempStorage.setCell(this.getCell(dungeon, v, u, w, t), u, v, w, t);
 			} catch (final ArrayIndexOutOfBoundsException aioob) {
@@ -1211,13 +1212,13 @@ public final class CurrentDungeonData extends DungeonData {
 	final var x = DungeonData.MIN_ROWS;
 	final var y = DungeonData.MIN_COLUMNS;
 	// Allocate temporary storage array
-	final var tempStorage = new DungeonDataStorage(y, x, z, DungeonConstants.NUM_LAYERS);
+	final var tempStorage = new DungeonDataStorage(y, x, z, Layer.values().length);
 	// Copy existing maze into temporary array
 	int u, v, w, t;
 	for (u = 0; u < y; u++) {
 	    for (v = 0; v < x; v++) {
 		for (w = 0; w < z; w++) {
-		    for (t = 0; t < DungeonConstants.NUM_LAYERS; t++) {
+		    for (t = 0; t < Layer.values().length; t++) {
 			try {
 			    tempStorage.setCell(this.savedState.getCell(v, u, w, t), u, v, w, t);
 			} catch (final ArrayIndexOutOfBoundsException aioob) {
@@ -1239,7 +1240,7 @@ public final class CurrentDungeonData extends DungeonData {
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
-		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		    for (w = 0; w < Layer.values().length; w++) {
 			this.setCell(dungeon, new GameObject(this.savedState.getCell(x, y, z, w)), y, x, z, w);
 		    }
 		}
@@ -1253,7 +1254,7 @@ public final class CurrentDungeonData extends DungeonData {
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
-		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		    for (w = 0; w < Layer.values().length; w++) {
 			this.savedState.setCell(new GameObject(this.savedState.getCell(x, y, z, w)), x, y, z, w);
 		    }
 		}
@@ -1322,8 +1323,8 @@ public final class CurrentDungeonData extends DungeonData {
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
-		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
-			final var mo = this.getCell(dungeon, y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		    for (w = 0; w < Layer.values().length; w++) {
+			final var mo = this.getCell(dungeon, y, x, 0, Layer.STATUS.ordinal());
 			if (mo != null) {
 			    mo.tickTimer();
 			}
@@ -1348,7 +1349,7 @@ public final class CurrentDungeonData extends DungeonData {
 	for (z = Direction.NORTH.ordinal(); z <= Direction.NORTH_WEST.ordinal(); z += 2) {
 	    for (x = 0; x < this.getColumns(); x++) {
 		for (y = 0; y < this.getRows(); y++) {
-		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		    for (w = 0; w < Layer.values().length; w++) {
 			final var mo = this.getCell(dungeon, y, x, floorFix, w);
 			if (mo != null && z == Direction.NORTH.ordinal()) {
 			    // Handle objects waiting for a tunnel to open
@@ -1398,9 +1399,9 @@ public final class CurrentDungeonData extends DungeonData {
 	final var pLocY = dungeon.getPlayerLocationY(pi);
 	try {
 	    final var there = this.getCell(dungeon, xLoc + dirMove[0], yLoc + dirMove[1], 0,
-		    DungeonConstants.LAYER_LOWER_OBJECTS);
+		    Layer.STATUS.ordinal());
 	    final var ground = this.getCell(dungeon, xLoc + dirMove[0], yLoc + dirMove[1], 0,
-		    DungeonConstants.LAYER_LOWER_GROUND);
+		    Layer.GROUND.ordinal());
 	    if (!there.isSolid() && there.getId() != ObjectImageId.TUNNEL) {
 		if (Dungeon.radialScan(xLoc, yLoc, 0, pLocX, pLocY)) {
 		    if (app.getMode() != StuffBag.STATUS_BATTLE) {
@@ -1415,10 +1416,10 @@ public final class CurrentDungeonData extends DungeonData {
 		} else {
 		    // Move the monster
 		    this.setCell(dungeon, monster.getSavedObject(), xLoc, yLoc, 0,
-			    DungeonConstants.LAYER_LOWER_OBJECTS);
+			    Layer.STATUS.ordinal());
 		    monster.setSavedObject(there);
 		    this.setCell(dungeon, monster, xLoc + dirMove[0], yLoc + dirMove[1], 0,
-			    DungeonConstants.LAYER_LOWER_OBJECTS);
+			    Layer.STATUS.ordinal());
 		    // Does the ground have friction?
 		    if (!ground.hasFriction()) {
 			// No - move the monster again
@@ -1494,7 +1495,7 @@ public final class CurrentDungeonData extends DungeonData {
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
-		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		    for (w = 0; w < Layer.values().length; w++) {
 			this.getCell(dungeon, y, x, z, w).write(writer);
 		    }
 		}
@@ -1511,7 +1512,7 @@ public final class CurrentDungeonData extends DungeonData {
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
-		    for (w = 0; w < DungeonConstants.NUM_LAYERS; w++) {
+		    for (w = 0; w < Layer.values().length; w++) {
 			((GameObject) this.savedState.getCell(y, x, z, w)).write(writer);
 		    }
 		}

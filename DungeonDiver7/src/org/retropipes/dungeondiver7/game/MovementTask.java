@@ -12,7 +12,7 @@ import org.retropipes.dungeondiver7.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
+import org.retropipes.dungeondiver7.locale.Layer;
 
 final class MovementTask extends Thread {
     private static void checkGameOver() {
@@ -132,14 +132,14 @@ final class MovementTask extends Thread {
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();
 	try {
-	    m.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS).preMoveAction(true, x, y);
+	    m.getCell(x, y, 0, Layer.STATUS.ordinal()).preMoveAction(true, x, y);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    // Ignore
 	}
 	m.savePlayerLocation();
 	this.vwMgr.saveViewingWindow();
 	try {
-	    if (!m.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS).isSolid()) {
+	    if (!m.getCell(x, y, 0, Layer.STATUS.ordinal()).isSolid()) {
 		m.setPlayerLocationX(x, 0);
 		m.setPlayerLocationY(y, 0);
 		this.vwMgr.setViewingWindowLocationX(
@@ -147,7 +147,7 @@ final class MovementTask extends Thread {
 		this.vwMgr.setViewingWindowLocationY(
 			m.getPlayerLocationX(0) - GameViewingWindowManager.getOffsetFactorY());
 		this.saved = m.getCell(m.getPlayerLocationX(0), m.getPlayerLocationY(0), 0,
-			DungeonConstants.LAYER_LOWER_OBJECTS);
+			Layer.STATUS.ordinal());
 		app.getDungeonManager().setDirty(true);
 		this.saved.postMoveAction(x, y, 0);
 		final var px = m.getPlayerLocationX(0);
@@ -176,17 +176,17 @@ final class MovementTask extends Thread {
 	GameObject nextAbove = new GameObject(ObjectImageId.WALL);
 	do {
 	    try {
-		below = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_GROUND);
+		below = m.getCell(px, py, 0, Layer.GROUND.ordinal());
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
 		below = new GameObject(ObjectImageId.EMPTY);
 	    }
 	    try {
-		nextBelow = m.getCell(px + fX, py + fY, 0, DungeonConstants.LAYER_LOWER_GROUND);
+		nextBelow = m.getCell(px + fX, py + fY, 0, Layer.GROUND.ordinal());
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
 		nextBelow = new GameObject(ObjectImageId.EMPTY);
 	    }
 	    try {
-		nextAbove = m.getCell(px + fX, py + fY, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		nextAbove = m.getCell(px + fX, py + fY, 0, Layer.STATUS.ordinal());
 	    } catch (final ArrayIndexOutOfBoundsException ae) {
 		nextAbove = new GameObject(ObjectImageId.WALL);
 	    }
@@ -214,7 +214,7 @@ final class MovementTask extends Thread {
 			    this.proceed = false;
 			}
 			if (this.proceed) {
-			    this.saved = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+			    this.saved = m.getCell(px, py, 0, Layer.STATUS.ordinal());
 			}
 		    } else {
 			// Move failed - object is solid in that direction

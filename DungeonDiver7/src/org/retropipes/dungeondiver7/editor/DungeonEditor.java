@@ -148,7 +148,7 @@ public class DungeonEditor implements MenuSection {
     }
 
     public void changeLayer() {
-	final var list = DungeonConstants.getLayerList();
+	final var list = Strings.allLayers();
 	final var choice = CommonDialogs.showInputDialog(Strings.editor(EditorString.CHANGE_LAYER_PROMPT),
 		Strings.editor(EditorString.EDITOR), list, list[this.elMgr.getEditorLocationW()]);
 	if (choice != null) {

@@ -11,7 +11,7 @@ import org.retropipes.dungeondiver7.battle.BattleCharacter;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
+import org.retropipes.dungeondiver7.locale.Layer;
 
 public class AIContext {
     private static final int MINIMUM_RADIUS = 1;
@@ -110,7 +110,7 @@ public class AIContext {
     public void updateContext(final Dungeon arena) {
 	for (var x = 0; x < this.creatureLocations.length; x++) {
 	    for (var y = 0; y < this.creatureLocations[x].length; y++) {
-		final var obj = arena.getCell(x, y, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		final var obj = arena.getCell(x, y, 0, Layer.STATUS.ordinal());
 		if (obj.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		    this.creatureLocations[x][y] = obj.getTeamID();
 		} else {

@@ -32,11 +32,11 @@ import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Difficulty;
 import org.retropipes.dungeondiver7.locale.GameString;
+import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Music;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
 import org.retropipes.dungeondiver7.prefs.Prefs;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.RCLGenerator;
 
 class GameGUI {
@@ -251,8 +251,8 @@ class GameGUI {
 		visible = app.getDungeonManager().getDungeon().isSquareVisible(u, v, y, x, 0);
 		try {
 		    if (visible) {
-			final var obj1 = m.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_GROUND);
-			final var obj2 = m.getCell(y, x, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+			final var obj1 = m.getCell(y, x, 0, Layer.GROUND.ordinal());
+			final var obj2 = m.getCell(y, x, 0, Layer.STATUS.ordinal());
 			final var img1 = obj1.getImage();
 			final var img2 = obj2.getImage();
 			if (u == y && v == x) {

@@ -13,9 +13,9 @@ import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.locale.GameString;
+import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.prefs.Prefs;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.PartyInventory;
 
 class GameMovementEventHandler implements KeyListener, MouseListener {
@@ -153,7 +153,7 @@ class GameMovementEventHandler implements KeyListener, MouseListener {
 		final var py = m.getPlayerLocationY(0);
 		GameObject there = new GameObject(ObjectImageId.EMPTY);
 		try {
-		    there = m.getCell(px, py, 0, DungeonConstants.LAYER_LOWER_OBJECTS);
+		    there = m.getCell(px, py, 0, Layer.STATUS.ordinal());
 		} catch (final ArrayIndexOutOfBoundsException ae) {
 		    // Ignore
 		}

@@ -36,13 +36,13 @@ import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.ErrorString;
 import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.GameString;
+import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Menu;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.AlreadyDeadException;
 import org.retropipes.dungeondiver7.utility.CustomDialogs;
-import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.InvalidDungeonException;
 import org.retropipes.dungeondiver7.utility.PartyInventory;
 
@@ -312,7 +312,7 @@ public final class GameLogic implements MenuSection {
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();
 	m.setCell(new GameObject(ObjectImageId.EMPTY), m.getPlayerLocationX(0), m.getPlayerLocationY(0), 0,
-		DungeonConstants.LAYER_LOWER_OBJECTS);
+		Layer.STATUS.ordinal());
     }
 
     @Override
@@ -523,7 +523,7 @@ public final class GameLogic implements MenuSection {
 	final var destX = x / ImageConstants.SIZE;
 	final var destY = y / ImageConstants.SIZE;
 	final var destZ = this.plMgr.getPlayerLocationZ();
-	final var target = m.getCell(destX, destY, destZ, DungeonConstants.LAYER_LOWER_OBJECTS);
+	final var target = m.getCell(destX, destY, destZ, Layer.STATUS.ordinal());
 	final var gameName = target.getIdentityName();
 	final var desc = target.getDescription();
 	CommonDialogs.showTitledDialog(desc, gameName);
