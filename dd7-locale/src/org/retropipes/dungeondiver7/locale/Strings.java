@@ -89,10 +89,26 @@ public final class Strings {
 	return result;
     }
 
+    public static String[] allLayers() {
+	final var result = new String[Layer.values().length];
+	for (var index = 0; index < result.length; index++) {
+	    result[index] = ResourceBundle.getBundle("locale.layer", Strings.ACTIVE).getString(Integer.toString(index));
+	}
+	return result;
+    }
+
     public static String[] allSlots() {
 	final var result = new String[Strings.SLOTS_COUNT];
 	for (var index = 0; index < result.length; index++) {
 	    result[index] = ResourceBundle.getBundle("locale.slot", Strings.ACTIVE).getString(Integer.toString(index));
+	}
+	return result;
+    }
+
+    public static String[] allTimeTravelEras() {
+	final var result = new String[TimeTravel.values().length];
+	for (var index = 0; index < result.length; index++) {
+	    result[index] = ResourceBundle.getBundle("locale.timetravel", Strings.ACTIVE).getString(Integer.toString(index));
 	}
 	return result;
     }
@@ -188,6 +204,10 @@ public final class Strings {
 
     public static String group(final Group item) {
 	return ResourceBundle.getBundle("locale.group", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
+    }
+
+    public static String layer(final Layer item) {
+	return ResourceBundle.getBundle("locale.layer", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
     }
 
     public static String item(final ItemString item) {
