@@ -7,7 +7,7 @@ package org.retropipes.dungeondiver7.battle.map;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.battle.Battle;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 public class MapBattleAITask extends Thread {
     // Fields
@@ -40,7 +40,7 @@ public class MapBattleAITask extends Thread {
 		if (this.b.getLastAIActionResult()) {
 		    // Delay, for animation purposes
 		    try {
-			final var battleSpeed = Prefs.getBattleSpeed();
+			final var battleSpeed = Settings.getBattleSpeed();
 			Thread.sleep(battleSpeed);
 		    } catch (final InterruptedException i) {
 			// Ignore

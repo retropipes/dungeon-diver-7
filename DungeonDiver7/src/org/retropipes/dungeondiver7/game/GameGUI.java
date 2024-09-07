@@ -36,7 +36,7 @@ import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Music;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 import org.retropipes.dungeondiver7.utility.RCLGenerator;
 
 class GameGUI {
@@ -48,19 +48,19 @@ class GameGUI {
 
     static int[] getEnabledDifficulties() {
 	final var temp = new ArrayList<Integer>();
-	if (Prefs.isKidsDifficultyEnabled()) {
+	if (Settings.isKidsDifficultyEnabled()) {
 	    temp.add(Integer.valueOf(Difficulty.KIDS.ordinal()));
 	}
-	if (Prefs.isEasyDifficultyEnabled()) {
+	if (Settings.isEasyDifficultyEnabled()) {
 	    temp.add(Integer.valueOf(Difficulty.EASY.ordinal()));
 	}
-	if (Prefs.isMediumDifficultyEnabled()) {
+	if (Settings.isMediumDifficultyEnabled()) {
 	    temp.add(Integer.valueOf(Difficulty.MEDIUM.ordinal()));
 	}
-	if (Prefs.isHardDifficultyEnabled()) {
+	if (Settings.isHardDifficultyEnabled()) {
 	    temp.add(Integer.valueOf(Difficulty.HARD.ordinal()));
 	}
-	if (Prefs.isDeadlyDifficultyEnabled()) {
+	if (Settings.isDeadlyDifficultyEnabled()) {
 	    temp.add(Integer.valueOf(Difficulty.DEADLY.ordinal()));
 	}
 	final var temp2 = temp.toArray(new Integer[temp.size()]);
@@ -132,29 +132,29 @@ class GameGUI {
     void difficultyDialogOKButtonClicked() {
 	this.hideDifficultyDialog();
 	if (this.difficultyList.isSelectedIndex(Difficulty.KIDS.ordinal())) {
-	    Prefs.setKidsDifficultyEnabled(true);
+	    Settings.setKidsDifficultyEnabled(true);
 	} else {
-	    Prefs.setKidsDifficultyEnabled(false);
+	    Settings.setKidsDifficultyEnabled(false);
 	}
 	if (this.difficultyList.isSelectedIndex(Difficulty.EASY.ordinal())) {
-	    Prefs.setEasyDifficultyEnabled(true);
+	    Settings.setEasyDifficultyEnabled(true);
 	} else {
-	    Prefs.setEasyDifficultyEnabled(false);
+	    Settings.setEasyDifficultyEnabled(false);
 	}
 	if (this.difficultyList.isSelectedIndex(Difficulty.MEDIUM.ordinal())) {
-	    Prefs.setMediumDifficultyEnabled(true);
+	    Settings.setMediumDifficultyEnabled(true);
 	} else {
-	    Prefs.setMediumDifficultyEnabled(false);
+	    Settings.setMediumDifficultyEnabled(false);
 	}
 	if (this.difficultyList.isSelectedIndex(Difficulty.HARD.ordinal())) {
-	    Prefs.setHardDifficultyEnabled(true);
+	    Settings.setHardDifficultyEnabled(true);
 	} else {
-	    Prefs.setHardDifficultyEnabled(false);
+	    Settings.setHardDifficultyEnabled(false);
 	}
 	if (this.difficultyList.isSelectedIndex(Difficulty.DEADLY.ordinal())) {
-	    Prefs.setDeadlyDifficultyEnabled(true);
+	    Settings.setDeadlyDifficultyEnabled(true);
 	} else {
-	    Prefs.setDeadlyDifficultyEnabled(false);
+	    Settings.setDeadlyDifficultyEnabled(false);
 	}
 	this.newGameResult = true;
     }
@@ -344,7 +344,7 @@ class GameGUI {
 	this.borderPane.setLayout(new BorderLayout());
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);
-	this.drawGrid = new DrawGrid(Prefs.getViewingWindowSize());
+	this.drawGrid = new DrawGrid(Settings.getViewingWindowSize());
 	this.outputPane = new GameDraw(this.drawGrid);
 	// Pasted code
 	this.borderPane = this.mainWindow.createContent();

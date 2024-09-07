@@ -1,12 +1,12 @@
 /* RetroRPGCS: An RPG */
 package org.retropipes.dungeondiver7.battle.window.time;
 
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 class WindowTimeBattleSpeed {
     // Method
     static int getSpeed() {
-	return Prefs.getBattleSpeed() / 10;
+	return Settings.getBattleSpeed() / 10;
     }
 
     // Constructor

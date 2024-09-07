@@ -11,8 +11,8 @@ import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.locale.ErrorString;
 import org.retropipes.dungeondiver7.locale.Strings;
-import org.retropipes.dungeondiver7.prefs.Prefs;
-import org.retropipes.dungeondiver7.prefs.PrefsRequest;
+import org.retropipes.dungeondiver7.settings.Settings;
+import org.retropipes.dungeondiver7.settings.SettingsRequest;
 
 public class DungeonDiver7 {
     // Constants
@@ -74,11 +74,11 @@ public class DungeonDiver7 {
 	    CommonDialogs.setDefaultTitle(DungeonDiver7.PROGRAM_NAME);
 	    CommonDialogs.setIcon(LogoLoader.getIconLogo());
 	    // Initialize preferences
-	    Prefs.init();
-	    Prefs.readPrefs();
+	    Settings.init();
+	    Settings.readPrefs();
 	    // Register platform hooks
 	    i.setAboutHandler(DungeonDiver7.stuffBag.getAboutDialog());
-	    i.setPreferencesHandler(new PrefsRequest());
+	    i.setPreferencesHandler(new SettingsRequest());
 	    i.setQuitHandler(DungeonDiver7.stuffBag.getGUIManager());
 	    // Display GUI
 	    DungeonDiver7.stuffBag.getGUIManager().showGUI();

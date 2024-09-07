@@ -6,14 +6,14 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package org.retropipes.dungeondiver7.battle.map;
 
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 public class MapBattleViewingWindowManager {
     private static final int VIEWING_WINDOW_SIZE_MULTIPLIER = 1;
     private static final int VIEWING_WINDOW_SIZE_ADDITION = 0;
 
     public static int getViewingWindowSize() {
-	return Prefs.getViewingWindowSize() * MapBattleViewingWindowManager.VIEWING_WINDOW_SIZE_MULTIPLIER
+	return Settings.getViewingWindowSize() * MapBattleViewingWindowManager.VIEWING_WINDOW_SIZE_MULTIPLIER
 		+ MapBattleViewingWindowManager.VIEWING_WINDOW_SIZE_ADDITION;
     }
 

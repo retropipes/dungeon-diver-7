@@ -6,7 +6,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package org.retropipes.dungeondiver7.game;
 
 import org.retropipes.dungeondiver7.dungeon.base.DungeonBase;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 public final class GameViewingWindowManager {
     private static final int VIEWING_WINDOW_SIZE_X = DungeonBase.getMinColumns();
@@ -42,11 +42,11 @@ public final class GameViewingWindowManager {
     }
 
     public static int getOffsetFactorX() {
-	return Prefs.getViewingWindowSize() / 2;
+	return Settings.getViewingWindowSize() / 2;
     }
 
     public static int getOffsetFactorY() {
-	return Prefs.getViewingWindowSize() / 2;
+	return Settings.getViewingWindowSize() / 2;
     }
 
     // Fields
@@ -61,11 +61,11 @@ public final class GameViewingWindowManager {
     }
 
     public int getLowerRightViewingWindowLocationX() {
-	return this.locX + Prefs.getViewingWindowSize() - 1;
+	return this.locX + Settings.getViewingWindowSize() - 1;
     }
 
     public int getLowerRightViewingWindowLocationY() {
-	return this.locY + Prefs.getViewingWindowSize() - 1;
+	return this.locY + Settings.getViewingWindowSize() - 1;
     }
 
     public int getViewingWindowLocationX() {

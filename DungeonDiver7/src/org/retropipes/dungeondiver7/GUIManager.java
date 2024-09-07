@@ -31,7 +31,7 @@ import org.retropipes.dungeondiver7.locale.Menu;
 import org.retropipes.dungeondiver7.locale.Music;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 import org.retropipes.dungeondiver7.utility.CleanupTask;
 
 public class GUIManager implements MenuSection, QuitHandler {
@@ -142,7 +142,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 		    }
 		} else if (cmd.equals(Strings.menu(Menu.PREFERENCES))) {
 		    // Show preferences dialog
-		    Prefs.showPrefs();
+		    Settings.showPrefs();
 		} else if (cmd.equals(Strings.menu(Menu.PRINT_GAME_WINDOW))) {
 		    GUIPrinter.printScreen();
 		} else if (cmd.equals(Strings.menu(Menu.EXIT))) {
@@ -334,7 +334,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 	    }
 	}
 	if (saved) {
-	    Prefs.writePrefs();
+	    Settings.writePrefs();
 	    // Run cleanup task
 	    CleanupTask.cleanUp();
 	}

@@ -20,7 +20,7 @@ import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 import org.retropipes.dungeondiver7.utility.AlreadyDeadException;
 import org.retropipes.dungeondiver7.utility.GameActions;
 
@@ -323,7 +323,7 @@ final class MLOTask extends Thread {
 		    DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().tickTimers(pz, actionType);
 		    // Delay
 		    try {
-			Thread.sleep(Prefs.getActionSpeed());
+			Thread.sleep(Settings.getActionSpeed());
 		    } catch (final InterruptedException ie) {
 			// Ignore
 		    }

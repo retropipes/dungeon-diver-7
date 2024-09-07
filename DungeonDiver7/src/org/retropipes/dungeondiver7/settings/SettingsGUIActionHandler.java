@@ -1,4 +1,4 @@
-package org.retropipes.dungeondiver7.prefs;
+package org.retropipes.dungeondiver7.settings;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,11 +7,11 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Strings;
 
-class PrefsGUIActionHandler implements ActionListener {
-    private final PrefsGUI pm;
+class SettingsGUIActionHandler implements ActionListener {
+    private final SettingsGUI pm;
 
-    public PrefsGUIActionHandler(final PrefsGUI prefsGUI) {
-        this.pm = prefsGUI;
+    public SettingsGUIActionHandler(final SettingsGUI settingsGUI) {
+        this.pm = settingsGUI;
     }
 
     // Handle buttons

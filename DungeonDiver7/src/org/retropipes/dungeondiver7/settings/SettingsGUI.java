@@ -3,7 +3,7 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package org.retropipes.dungeondiver7.prefs;
+package org.retropipes.dungeondiver7.settings;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -19,16 +19,16 @@ import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.EditorLayout;
-import org.retropipes.dungeondiver7.locale.PrefString;
+import org.retropipes.dungeondiver7.locale.SettingString;
 import org.retropipes.dungeondiver7.locale.Strings;
 
-class PrefsGUI {
+class SettingsGUI {
     private static String[] DIFFICULTY_NAMES = Strings.allDifficulties();
     private static final int GRID_LENGTH = 18;
     // Fields
     private MainWindow mainWindow;
-    private PrefsGUIActionHandler ahandler;
-    private PrefsGUIWindowHandler whandler;
+    private SettingsGUIActionHandler ahandler;
+    private SettingsGUIWindowHandler whandler;
     private MainContent mainPrefPane;
     private JCheckBox sounds;
     private JCheckBox music;
@@ -44,15 +44,15 @@ class PrefsGUI {
     private JComboBox<String> battleStylePicker;
 
     // Constructors
-    PrefsGUI() {
+    SettingsGUI() {
 	this.setUpGUI();
 	this.setDefaultPrefs();
     }
 
     void activeLanguageChanged() {
-	PrefsGUI.DIFFICULTY_NAMES = Strings.allDifficulties();
+	SettingsGUI.DIFFICULTY_NAMES = Strings.allDifficulties();
 	this.setUpGUI();
-	Prefs.writePrefs();
+	Settings.writePrefs();
 	this.loadPrefs();
     }
 
@@ -61,44 +61,44 @@ class PrefsGUI {
 	app.restoreFormerMode();
 	this.mainWindow.removeWindowListener(this.whandler);
 	this.mainWindow.restoreSaved();
-	Prefs.writePrefs();
+	Settings.writePrefs();
     }
 
     private void loadPrefs() {
-	this.enableAnimation.setSelected(Prefs.enableAnimation());
-	this.sounds.setSelected(Prefs.getSoundsEnabled());
-	this.music.setSelected(Prefs.getMusicEnabled());
-	this.checkUpdatesStartup.setSelected(Prefs.shouldCheckUpdatesAtStartup());
-	this.moveOneAtATime.setSelected(Prefs.oneMove());
-	this.actionDelay.setSelectedIndex(Prefs.getActionDelay());
-	this.languageList.setSelectedIndex(Prefs.getLanguageID());
-	this.editorLayoutList.setSelectedIndex(Prefs.getEditorLayout().ordinal());
-	this.editorShowAllObjects.setSelected(Prefs.getEditorShowAllObjects());
-	this.difficultyPicker.setSelectedIndex(Prefs.getGameDifficulty().ordinal());
+	this.enableAnimation.setSelected(Settings.enableAnimation());
+	this.sounds.setSelected(Settings.getSoundsEnabled());
+	this.music.setSelected(Settings.getMusicEnabled());
+	this.checkUpdatesStartup.setSelected(Settings.shouldCheckUpdatesAtStartup());
+	this.moveOneAtATime.setSelected(Settings.oneMove());
+	this.actionDelay.setSelectedIndex(Settings.getActionDelay());
+	this.languageList.setSelectedIndex(Settings.getLanguageID());
+	this.editorLayoutList.setSelectedIndex(Settings.getEditorLayout().ordinal());
+	this.editorShowAllObjects.setSelected(Settings.getEditorShowAllObjects());
+	this.difficultyPicker.setSelectedIndex(Settings.getGameDifficulty().ordinal());
     }
 
     private void setDefaultPrefs() {
-	Prefs.readPrefs();
+	Settings.readPrefs();
 	this.loadPrefs();
     }
 
     void setPrefs() {
-	Prefs.setEnableAnimation(this.enableAnimation.isSelected());
-	Prefs.setSoundsEnabled(this.sounds.isSelected());
-	Prefs.setMusicEnabled(this.music.isSelected());
-	Prefs.setCheckUpdatesAtStartup(this.checkUpdatesStartup.isSelected());
-	Prefs.setOneMove(this.moveOneAtATime.isSelected());
-	Prefs.setActionDelay(this.actionDelay.getSelectedIndex());
-	Prefs.setLanguageID(this.languageList.getSelectedIndex());
-	Prefs.setEditorLayout(EditorLayout.values()[this.editorLayoutList.getSelectedIndex()]);
-	Prefs.setEditorShowAllObjects(this.editorShowAllObjects.isSelected());
-	Prefs.setGameDifficulty(this.difficultyPicker.getSelectedIndex());
+	Settings.setEnableAnimation(this.enableAnimation.isSelected());
+	Settings.setSoundsEnabled(this.sounds.isSelected());
+	Settings.setMusicEnabled(this.music.isSelected());
+	Settings.setCheckUpdatesAtStartup(this.checkUpdatesStartup.isSelected());
+	Settings.setOneMove(this.moveOneAtATime.isSelected());
+	Settings.setActionDelay(this.actionDelay.getSelectedIndex());
+	Settings.setLanguageID(this.languageList.getSelectedIndex());
+	Settings.setEditorLayout(EditorLayout.values()[this.editorLayoutList.getSelectedIndex()]);
+	Settings.setEditorShowAllObjects(this.editorShowAllObjects.isSelected());
+	Settings.setGameDifficulty(this.difficultyPicker.getSelectedIndex());
 	this.hidePrefs();
     }
 
     private void setUpGUI() {
-	this.ahandler = new PrefsGUIActionHandler(this);
-	this.whandler = new PrefsGUIWindowHandler(this);
+	this.ahandler = new SettingsGUIActionHandler(this);
+	this.whandler = new SettingsGUIWindowHandler(this);
 	this.mainWindow = MainWindow.mainWindow();
 	this.mainPrefPane = this.mainWindow.createContent();
 	final var buttonPane = this.mainWindow.createContent();
@@ -108,39 +108,39 @@ class PrefsGUI {
 	this.mainWindow.setDefaultButton(prefsOK);
 	final var prefsCancel = new JButton(Strings.dialog(DialogString.CANCEL_BUTTON));
 	prefsCancel.setDefaultCapable(false);
-	this.sounds = new JCheckBox(Strings.prefs(PrefString.ENABLE_SOUNDS), true);
-	this.music = new JCheckBox(Strings.prefs(PrefString.ENABLE_MUSIC), true);
-	this.checkUpdatesStartup = new JCheckBox(Strings.prefs(PrefString.STARTUP_UPDATES), true);
-	this.moveOneAtATime = new JCheckBox(Strings.prefs(PrefString.ONE_MOVE), true);
-	this.enableAnimation = new JCheckBox(Strings.prefs(PrefString.ENABLE_ANIMATION), true);
-	this.actionDelay = new JComboBox<>(new String[] { Strings.prefs(PrefString.SPEED_1),
-		Strings.prefs(PrefString.SPEED_2), Strings.prefs(PrefString.SPEED_3), Strings.prefs(PrefString.SPEED_4),
-		Strings.prefs(PrefString.SPEED_5) });
+	this.sounds = new JCheckBox(Strings.settings(SettingString.ENABLE_SOUNDS), true);
+	this.music = new JCheckBox(Strings.settings(SettingString.ENABLE_MUSIC), true);
+	this.checkUpdatesStartup = new JCheckBox(Strings.settings(SettingString.STARTUP_UPDATES), true);
+	this.moveOneAtATime = new JCheckBox(Strings.settings(SettingString.ONE_MOVE), true);
+	this.enableAnimation = new JCheckBox(Strings.settings(SettingString.ENABLE_ANIMATION), true);
+	this.actionDelay = new JComboBox<>(new String[] { Strings.settings(SettingString.SPEED_1),
+		Strings.settings(SettingString.SPEED_2), Strings.settings(SettingString.SPEED_3), Strings.settings(SettingString.SPEED_4),
+		Strings.settings(SettingString.SPEED_5) });
 	this.languageList = new JComboBox<>(Strings.allLanguages());
 	this.editorLayoutList = new JComboBox<>(Strings.allEditorLayouts());
-	this.editorShowAllObjects = new JCheckBox(Strings.prefs(PrefString.SHOW_ALL_OBJECTS), true);
-	this.difficultyPicker = new JComboBox<>(PrefsGUI.DIFFICULTY_NAMES);
+	this.editorShowAllObjects = new JCheckBox(Strings.settings(SettingString.SHOW_ALL_OBJECTS), true);
+	this.difficultyPicker = new JComboBox<>(SettingsGUI.DIFFICULTY_NAMES);
 	this.battleMechanicPicker = new JComboBox<>(Strings.allBattleMechanics());
 	this.battleStylePicker = new JComboBox<>(Strings.allBattleStyles());
 	this.mainPrefPane.setLayout(new BorderLayout());
-	settingsPane.setLayout(new GridLayout(PrefsGUI.GRID_LENGTH, 1));
+	settingsPane.setLayout(new GridLayout(SettingsGUI.GRID_LENGTH, 1));
 	settingsPane.add(this.sounds);
 	settingsPane.add(this.music);
 	settingsPane.add(this.enableAnimation);
 	settingsPane.add(this.checkUpdatesStartup);
 	settingsPane.add(this.moveOneAtATime);
-	settingsPane.add(new JLabel(Strings.prefs(PrefString.SPEED_LABEL)));
+	settingsPane.add(new JLabel(Strings.settings(SettingString.SPEED_LABEL)));
 	settingsPane.add(this.actionDelay);
-	settingsPane.add(new JLabel(Strings.prefs(PrefString.ACTIVE_LANGUAGE_LABEL)));
+	settingsPane.add(new JLabel(Strings.settings(SettingString.ACTIVE_LANGUAGE_LABEL)));
 	settingsPane.add(this.languageList);
-	settingsPane.add(new JLabel(Strings.prefs(PrefString.EDITOR_LAYOUT_LABEL)));
+	settingsPane.add(new JLabel(Strings.settings(SettingString.EDITOR_LAYOUT_LABEL)));
 	settingsPane.add(this.editorLayoutList);
 	settingsPane.add(this.editorShowAllObjects);
-	settingsPane.add(new JLabel(Strings.prefs(PrefString.GAME_DIFFICULTY)));
+	settingsPane.add(new JLabel(Strings.settings(SettingString.GAME_DIFFICULTY)));
 	settingsPane.add(this.difficultyPicker);
-	settingsPane.add(new JLabel(Strings.prefs(PrefString.BATTLE_MECHANIC)));
+	settingsPane.add(new JLabel(Strings.settings(SettingString.BATTLE_MECHANIC)));
 	settingsPane.add(this.battleMechanicPicker);
-	settingsPane.add(new JLabel(Strings.prefs(PrefString.BATTLE_STYLE)));
+	settingsPane.add(new JLabel(Strings.settings(SettingString.BATTLE_STYLE)));
 	settingsPane.add(this.battleStylePicker);
 	buttonPane.setLayout(new FlowLayout());
 	buttonPane.add(prefsOK);
@@ -154,7 +154,7 @@ class PrefsGUI {
     public void showPrefs() {
 	final var app = DungeonDiver7.getStuffBag();
 	app.setInPrefs();
-	this.mainWindow.setAndSave(this.mainPrefPane, Strings.prefs(PrefString.TITLE));
+	this.mainWindow.setAndSave(this.mainPrefPane, Strings.settings(SettingString.TITLE));
 	this.mainWindow.addWindowListener(this.whandler);
     }
 }

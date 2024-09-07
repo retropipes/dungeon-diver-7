@@ -26,7 +26,7 @@ import org.retropipes.dungeondiver7.editor.Editor;
 import org.retropipes.dungeondiver7.game.Game;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Strings;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 import org.retropipes.dungeondiver7.shop.Shop;
 import org.retropipes.dungeondiver7.utility.DungeonObjects;
 
@@ -147,8 +147,8 @@ public final class StuffBag {
 	    this.wtbattle = new WindowTurnBattleLogic();
 	}
 	// Select battle type from user settings
-	BattleMechanic bm = Prefs.getBattleMechanic();
-	BattleStyle bs = Prefs.getBattleStyle();
+	BattleMechanic bm = Settings.getBattleMechanic();
+	BattleStyle bs = Settings.getBattleStyle();
 	switch (bm) {
 	case ACTION_BAR:
 	    switch (bs) {

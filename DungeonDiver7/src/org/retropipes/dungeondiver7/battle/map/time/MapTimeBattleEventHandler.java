@@ -11,7 +11,7 @@ import org.retropipes.diane.Diane;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.battle.BattleAction;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 class MapTimeBattleEventHandler extends AbstractAction implements KeyListener {
     private final MapTimeBattleGUI gui;
@@ -113,14 +113,14 @@ class MapTimeBattleEventHandler extends AbstractAction implements KeyListener {
 
     @Override
     public void keyPressed(final KeyEvent e) {
-	if (!Prefs.oneMove()) {
+	if (!Settings.oneMove()) {
 	    this.handleMovement(e);
 	}
     }
 
     @Override
     public void keyReleased(final KeyEvent e) {
-	if (Prefs.oneMove()) {
+	if (Settings.oneMove()) {
 	    this.handleMovement(e);
 	}
     }

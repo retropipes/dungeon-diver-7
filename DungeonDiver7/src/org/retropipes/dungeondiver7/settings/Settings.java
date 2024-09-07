@@ -3,7 +3,7 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package org.retropipes.dungeondiver7.prefs;
+package org.retropipes.dungeondiver7.settings;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -21,14 +21,14 @@ import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.locale.EditorLayout;
 import org.retropipes.dungeondiver7.locale.FileExtension;
-import org.retropipes.dungeondiver7.locale.PrefKey;
+import org.retropipes.dungeondiver7.locale.SettingKey;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
 
-public class Prefs {
+public class Settings {
     // Fields
-    private static PrefsFile file;
-    private static PrefsGUI gui;
+    private static SettingsFile file;
+    private static SettingsGUI gui;
     private final static int FALLBACK_LANGUAGE = 0;
     private final static EditorLayout DEFAULT_EDITOR_LAYOUT = EditorLayout.VERTICAL;
     private static final int VIEWING_WINDOW_SIZE = 11;
@@ -37,33 +37,33 @@ public class Prefs {
     private static final BattleStyle DEFAULT_BATTLE_STYLE = BattleStyle.MAP;
 
     public static void activeLanguageChanged() {
-	Prefs.gui.activeLanguageChanged();
+	Settings.gui.activeLanguageChanged();
     }
 
     public static boolean enableAnimation() {
-	return Prefs.file.getBoolean(Strings.prefKey(PrefKey.ENABLE_ANIMATION), true);
+	return Settings.file.getBoolean(Strings.settingKey(SettingKey.ENABLE_ANIMATION), true);
     }
 
     static int getActionDelay() {
-	return Prefs.file.getInteger(Strings.prefKey(PrefKey.ACTION_DELAY), 2);
+	return Settings.file.getInteger(Strings.settingKey(SettingKey.ACTION_DELAY), 2);
     }
 
     public static int getActionSpeed() {
-	return (Prefs.getActionDelay() + 1) * 5;
+	return (Settings.getActionDelay() + 1) * 5;
     }
 
     public static int getBattleSpeed() {
-	return (Prefs.getActionDelay() + 1) * 200 + 400;
+	return (Settings.getActionDelay() + 1) * 200 + 400;
     }
 
     public static BattleMechanic getBattleMechanic() {
-	return BattleMechanic.values()[Prefs.file.getInteger(Strings.prefKey(PrefKey.BATTLE_MECHANIC),
-		Prefs.DEFAULT_BATTLE_MECHANIC.ordinal())];
+	return BattleMechanic.values()[Settings.file.getInteger(Strings.settingKey(SettingKey.BATTLE_MECHANIC),
+		Settings.DEFAULT_BATTLE_MECHANIC.ordinal())];
     }
 
     public static BattleStyle getBattleStyle() {
-	return BattleStyle.values()[Prefs.file.getInteger(Strings.prefKey(PrefKey.BATTLE_STYLE),
-		Prefs.DEFAULT_BATTLE_STYLE.ordinal())];
+	return BattleStyle.values()[Settings.file.getInteger(Strings.settingKey(SettingKey.BATTLE_STYLE),
+		Settings.DEFAULT_BATTLE_STYLE.ordinal())];
     }
 
     public static GameObject getEditorDefaultFill() {
@@ -71,33 +71,33 @@ public class Prefs {
     }
 
     public static EditorLayout getEditorLayout() {
-	return EditorLayout.values()[Prefs.file.getInteger(Strings.prefKey(PrefKey.EDITOR_LAYOUT),
-		Prefs.DEFAULT_EDITOR_LAYOUT.ordinal())];
+	return EditorLayout.values()[Settings.file.getInteger(Strings.settingKey(SettingKey.EDITOR_LAYOUT),
+		Settings.DEFAULT_EDITOR_LAYOUT.ordinal())];
     }
 
     public static boolean getEditorShowAllObjects() {
-	return Prefs.file.getBoolean(Strings.prefKey(PrefKey.EDITOR_SHOW_ALL_OBJECTS), true);
+	return Settings.file.getBoolean(Strings.settingKey(SettingKey.EDITOR_SHOW_ALL_OBJECTS), true);
     }
 
     public static GameDifficulty getGameDifficulty() {
-	return GameDifficulty.values()[Prefs.file.getInteger(Strings.prefKey(PrefKey.GAME_DIFFICULTY),
-		Prefs.DEFAULT_DIFFICULTY.ordinal())];
+	return GameDifficulty.values()[Settings.file.getInteger(Strings.settingKey(SettingKey.GAME_DIFFICULTY),
+		Settings.DEFAULT_DIFFICULTY.ordinal())];
     }
 
     public static int getLanguageID() {
-	return Prefs.file.getInteger(Strings.prefKey(PrefKey.ACTIVE_LANGUAGE), Prefs.FALLBACK_LANGUAGE);
+	return Settings.file.getInteger(Strings.settingKey(SettingKey.ACTIVE_LANGUAGE), Settings.FALLBACK_LANGUAGE);
     }
 
     public static String getLastDirOpen() {
-	return Prefs.file.getString(Strings.prefKey(PrefKey.LAST_FOLDER_OPEN), Strings.EMPTY);
+	return Settings.file.getString(Strings.settingKey(SettingKey.LAST_FOLDER_OPEN), Strings.EMPTY);
     }
 
     public static String getLastDirSave() {
-	return Prefs.file.getString(Strings.prefKey(PrefKey.LAST_FOLDER_SAVE), Strings.EMPTY);
+	return Settings.file.getString(Strings.settingKey(SettingKey.LAST_FOLDER_SAVE), Strings.EMPTY);
     }
 
     public static boolean getMusicEnabled() {
-	return Prefs.file.getBoolean(Strings.prefKey(PrefKey.ENABLE_MUSIC), true);
+	return Settings.file.getBoolean(Strings.settingKey(SettingKey.ENABLE_MUSIC), true);
     }
 
     private static String getPrefsDirectory() {
@@ -137,10 +137,10 @@ public class Prefs {
 
     private static String getPrefsFile() {
 	final var b = new StringBuilder();
-	b.append(Prefs.getPrefsDirPrefix());
-	b.append(Prefs.getPrefsDirectory());
-	b.append(Prefs.getPrefsFileName());
-	b.append(Prefs.getPrefsFileExtension());
+	b.append(Settings.getPrefsDirPrefix());
+	b.append(Settings.getPrefsDirectory());
+	b.append(Settings.getPrefsFileName());
+	b.append(Settings.getPrefsFileExtension());
 	return b.toString();
     }
 
@@ -153,182 +153,182 @@ public class Prefs {
     }
 
     public static long getReplaySpeed() {
-	return (Prefs.getActionDelay() + 1) * 10;
+	return (Settings.getActionDelay() + 1) * 10;
     }
 
     public static boolean getSoundsEnabled() {
-	return Prefs.file.getBoolean(Strings.prefKey(PrefKey.ENABLE_SOUNDS), true);
+	return Settings.file.getBoolean(Strings.settingKey(SettingKey.ENABLE_SOUNDS), true);
     }
 
     public static int getViewingWindowSize() {
-	return Prefs.VIEWING_WINDOW_SIZE;
+	return Settings.VIEWING_WINDOW_SIZE;
     }
 
     public static void init() {
-	Prefs.file = new PrefsFile();
-	Prefs.gui = new PrefsGUI();
+	Settings.file = new SettingsFile();
+	Settings.gui = new SettingsGUI();
     }
 
     public static boolean isDeadlyDifficultyEnabled() {
-	return Prefs.file.getBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_DEADLY), true);
+	return Settings.file.getBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_DEADLY), true);
     }
 
     public static boolean isEasyDifficultyEnabled() {
-	return Prefs.file.getBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_EASY), true);
+	return Settings.file.getBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_EASY), true);
     }
 
     public static boolean isHardDifficultyEnabled() {
-	return Prefs.file.getBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_HARD), true);
+	return Settings.file.getBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_HARD), true);
     }
 
     public static boolean isKidsDifficultyEnabled() {
-	return Prefs.file.getBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_KIDS), true);
+	return Settings.file.getBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_KIDS), true);
     }
 
     public static boolean isMediumDifficultyEnabled() {
-	return Prefs.file.getBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_MEDIUM), true);
+	return Settings.file.getBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_MEDIUM), true);
     }
 
     public static boolean oneMove() {
-	return Prefs.file.getBoolean(Strings.prefKey(PrefKey.ONE_MOVE), true);
+	return Settings.file.getBoolean(Strings.settingKey(SettingKey.ONE_MOVE), true);
     }
 
     public static void readPrefs() {
-	try (var buf = new BufferedInputStream(new FileInputStream(Prefs.getPrefsFile()))) {
+	try (var buf = new BufferedInputStream(new FileInputStream(Settings.getPrefsFile()))) {
 	    // Read new preferences
-	    Prefs.file.loadStore(buf);
+	    Settings.file.loadStore(buf);
 	} catch (final IOException io) {
 	    // Populate store with defaults
-	    Prefs.file.setString(Strings.prefKey(PrefKey.LAST_FOLDER_OPEN), Strings.EMPTY);
-	    Prefs.file.setString(Strings.prefKey(PrefKey.LAST_FOLDER_SAVE), Strings.EMPTY);
-	    Prefs.file.setBoolean(Strings.prefKey(PrefKey.UPDATES_STARTUP), true);
-	    Prefs.file.setBoolean(Strings.prefKey(PrefKey.ONE_MOVE), true);
-	    Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_SOUNDS), true);
-	    Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_MUSIC), true);
-	    Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_ANIMATION), true);
-	    Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_KIDS), true);
-	    Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_EASY), true);
-	    Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_MEDIUM), true);
-	    Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_HARD), true);
-	    Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_DEADLY), true);
-	    Prefs.file.setInteger(Strings.prefKey(PrefKey.ACTION_DELAY), 2);
-	    Prefs.file.setBoolean(Strings.prefKey(PrefKey.ACCELERATOR_MODEL), false);
-	    Prefs.file.setInteger(Strings.prefKey(PrefKey.ACTIVE_LANGUAGE), Prefs.FALLBACK_LANGUAGE);
-	    Prefs.file.setInteger(Strings.prefKey(PrefKey.EDITOR_LAYOUT), Prefs.DEFAULT_EDITOR_LAYOUT.ordinal());
-	    Prefs.file.setBoolean(Strings.prefKey(PrefKey.EDITOR_SHOW_ALL_OBJECTS), true);
+	    Settings.file.setString(Strings.settingKey(SettingKey.LAST_FOLDER_OPEN), Strings.EMPTY);
+	    Settings.file.setString(Strings.settingKey(SettingKey.LAST_FOLDER_SAVE), Strings.EMPTY);
+	    Settings.file.setBoolean(Strings.settingKey(SettingKey.UPDATES_STARTUP), true);
+	    Settings.file.setBoolean(Strings.settingKey(SettingKey.ONE_MOVE), true);
+	    Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_SOUNDS), true);
+	    Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_MUSIC), true);
+	    Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_ANIMATION), true);
+	    Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_KIDS), true);
+	    Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_EASY), true);
+	    Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_MEDIUM), true);
+	    Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_HARD), true);
+	    Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_DEADLY), true);
+	    Settings.file.setInteger(Strings.settingKey(SettingKey.ACTION_DELAY), 2);
+	    Settings.file.setBoolean(Strings.settingKey(SettingKey.ACCELERATOR_MODEL), false);
+	    Settings.file.setInteger(Strings.settingKey(SettingKey.ACTIVE_LANGUAGE), Settings.FALLBACK_LANGUAGE);
+	    Settings.file.setInteger(Strings.settingKey(SettingKey.EDITOR_LAYOUT), Settings.DEFAULT_EDITOR_LAYOUT.ordinal());
+	    Settings.file.setBoolean(Strings.settingKey(SettingKey.EDITOR_SHOW_ALL_OBJECTS), true);
 	}
     }
 
     static void setActionDelay(final int value) {
-	Prefs.file.setInteger(Strings.prefKey(PrefKey.ACTION_DELAY), value);
+	Settings.file.setInteger(Strings.settingKey(SettingKey.ACTION_DELAY), value);
     }
 
     public static void setBattleMechanic(final BattleMechanic value) {
-	Prefs.file.setInteger(Strings.prefKey(PrefKey.BATTLE_MECHANIC), value.ordinal());
+	Settings.file.setInteger(Strings.settingKey(SettingKey.BATTLE_MECHANIC), value.ordinal());
     }
 
     public static void setBattleStyle(final BattleStyle value) {
-	Prefs.file.setInteger(Strings.prefKey(PrefKey.BATTLE_STYLE), value.ordinal());
+	Settings.file.setInteger(Strings.settingKey(SettingKey.BATTLE_STYLE), value.ordinal());
     }
 
     static void setCheckUpdatesAtStartup(final boolean value) {
-	Prefs.file.setBoolean(Strings.prefKey(PrefKey.UPDATES_STARTUP), value);
+	Settings.file.setBoolean(Strings.settingKey(SettingKey.UPDATES_STARTUP), value);
     }
 
     public static void setClassicAccelerators(final boolean value) {
-	Prefs.file.setBoolean(Strings.prefKey(PrefKey.ACCELERATOR_MODEL), value);
+	Settings.file.setBoolean(Strings.settingKey(SettingKey.ACCELERATOR_MODEL), value);
     }
 
     public static void setDeadlyDifficultyEnabled(final boolean value) {
-	Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_DEADLY), value);
+	Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_DEADLY), value);
     }
 
     public static void setEasyDifficultyEnabled(final boolean value) {
-	Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_EASY), value);
+	Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_EASY), value);
     }
 
     public static void setEditorLayout(final EditorLayout value) {
-	Prefs.file.setInteger(Strings.prefKey(PrefKey.EDITOR_LAYOUT), value.ordinal());
+	Settings.file.setInteger(Strings.settingKey(SettingKey.EDITOR_LAYOUT), value.ordinal());
 	DungeonDiver7.getStuffBag().getEditor().resetBorderPane();
     }
 
     public static void setEditorShowAllObjects(final boolean value) {
-	Prefs.file.setBoolean(Strings.prefKey(PrefKey.EDITOR_SHOW_ALL_OBJECTS), value);
+	Settings.file.setBoolean(Strings.settingKey(SettingKey.EDITOR_SHOW_ALL_OBJECTS), value);
 	DungeonDiver7.getStuffBag().getEditor().resetBorderPane();
     }
 
     static void setEnableAnimation(final boolean value) {
-	Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_ANIMATION), value);
+	Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_ANIMATION), value);
     }
 
     static void setGameDifficulty(final int value) {
-	Prefs.file.setInteger(Strings.prefKey(PrefKey.GAME_DIFFICULTY), value);
+	Settings.file.setInteger(Strings.settingKey(SettingKey.GAME_DIFFICULTY), value);
     }
 
     public static void setHardDifficultyEnabled(final boolean value) {
-	Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_HARD), value);
+	Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_HARD), value);
     }
 
     public static void setKidsDifficultyEnabled(final boolean value) {
-	Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_KIDS), value);
+	Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_KIDS), value);
     }
 
     public static void setLanguageID(final int value) {
-	final var oldValue = Prefs.getLanguageID();
-	Prefs.file.setInteger(Strings.prefKey(PrefKey.ACTIVE_LANGUAGE), value);
+	final var oldValue = Settings.getLanguageID();
+	Settings.file.setInteger(Strings.settingKey(SettingKey.ACTIVE_LANGUAGE), value);
 	if (oldValue != value) {
 	    Strings.changeLanguage(Locale.getDefault());
 	    DungeonDiver7.getStuffBag().activeLanguageChanged();
-	    Prefs.activeLanguageChanged();
+	    Settings.activeLanguageChanged();
 	}
     }
 
     public static void setLastDirOpen(final String value) {
-	Prefs.file.setString(Strings.prefKey(PrefKey.LAST_FOLDER_OPEN), value);
+	Settings.file.setString(Strings.settingKey(SettingKey.LAST_FOLDER_OPEN), value);
     }
 
     public static void setLastDirSave(final String value) {
-	Prefs.file.setString(Strings.prefKey(PrefKey.LAST_FOLDER_SAVE), value);
+	Settings.file.setString(Strings.settingKey(SettingKey.LAST_FOLDER_SAVE), value);
     }
 
     public static void setMediumDifficultyEnabled(final boolean value) {
-	Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_DIFFICULTY_MEDIUM), value);
+	Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_DIFFICULTY_MEDIUM), value);
     }
 
     static void setMusicEnabled(final boolean status) {
-	Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_MUSIC), status);
+	Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_MUSIC), status);
     }
 
     static void setOneMove(final boolean value) {
-	Prefs.file.setBoolean(Strings.prefKey(PrefKey.ONE_MOVE), value);
+	Settings.file.setBoolean(Strings.settingKey(SettingKey.ONE_MOVE), value);
     }
 
     static void setSoundsEnabled(final boolean status) {
-	Prefs.file.setBoolean(Strings.prefKey(PrefKey.ENABLE_SOUNDS), status);
+	Settings.file.setBoolean(Strings.settingKey(SettingKey.ENABLE_SOUNDS), status);
     }
 
     public static boolean shouldCheckUpdatesAtStartup() {
-	return Prefs.file.getBoolean(Strings.prefKey(PrefKey.UPDATES_STARTUP), true);
+	return Settings.file.getBoolean(Strings.settingKey(SettingKey.UPDATES_STARTUP), true);
     }
 
     public static void showPrefs() {
-	Prefs.gui.showPrefs();
+	Settings.gui.showPrefs();
     }
 
     public static boolean useClassicAccelerators() {
-	return Prefs.file.getBoolean(Strings.prefKey(PrefKey.ACCELERATOR_MODEL), false);
+	return Settings.file.getBoolean(Strings.settingKey(SettingKey.ACCELERATOR_MODEL), false);
     }
 
     public static void writePrefs() {
-	try (var buf = new BufferedOutputStream(new FileOutputStream(Prefs.getPrefsFile()))) {
-	    Prefs.file.saveStore(buf);
+	try (var buf = new BufferedOutputStream(new FileOutputStream(Settings.getPrefsFile()))) {
+	    Settings.file.saveStore(buf);
 	} catch (final IOException io) {
 	    // Ignore
 	}
     }
 
     // Private constructor
-    private Prefs() {
+    private Settings() {
 	// Do nothing
     }
 }

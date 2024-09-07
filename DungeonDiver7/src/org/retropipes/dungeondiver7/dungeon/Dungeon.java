@@ -32,7 +32,7 @@ import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 import org.retropipes.dungeondiver7.utility.DirectionRotator;
 import org.retropipes.dungeondiver7.utility.FileFormats;
 
@@ -298,7 +298,7 @@ public class Dungeon extends DungeonBase {
 
     @Override
     public void fillDefault() {
-	final var fill = Prefs.getEditorDefaultFill();
+	final var fill = Settings.getEditorDefaultFill();
 	this.dungeonData.fill(this, fill);
     }
 

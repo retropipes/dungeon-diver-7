@@ -16,7 +16,7 @@ import javax.swing.JMenuItem;
 
 import org.retropipes.dungeondiver7.locale.Menu;
 import org.retropipes.dungeondiver7.locale.Strings;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 public class MenuManager implements MenuSection {
     private class EventHandler implements ActionListener {
@@ -186,10 +186,10 @@ public class MenuManager implements MenuSection {
     void toggleAccelerators() {
 	if (this.accel instanceof ClassicAccelerators) {
 	    this.accel = new ModernAccelerators();
-	    Prefs.setClassicAccelerators(false);
+	    Settings.setClassicAccelerators(false);
 	} else {
 	    this.accel = new ClassicAccelerators();
-	    Prefs.setClassicAccelerators(true);
+	    Settings.setClassicAccelerators(true);
 	}
     }
 

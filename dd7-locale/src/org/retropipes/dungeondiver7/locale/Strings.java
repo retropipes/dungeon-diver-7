@@ -247,12 +247,12 @@ public final class Strings {
 	return ResourceBundle.getBundle("locale.objectname").getString(Integer.toString(index));
     }
 
-    public static String prefKey(final PrefKey item) {
-	return ResourceBundle.getBundle("locale.prefkeys", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
+    public static String settingKey(final SettingKey item) {
+	return ResourceBundle.getBundle("locale.settingkeys", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
     }
 
-    public static String prefs(final PrefString item) {
-	return ResourceBundle.getBundle("locale.prefs", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
+    public static String settings(final SettingString item) {
+	return ResourceBundle.getBundle("locale.settings", Strings.ACTIVE).getString(Integer.toString(item.ordinal()));
     }
 
     public static String slot(final int index) {

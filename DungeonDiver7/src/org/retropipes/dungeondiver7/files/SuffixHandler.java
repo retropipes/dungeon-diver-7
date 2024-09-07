@@ -11,13 +11,13 @@ import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.game.FileHooks;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 public class SuffixHandler implements AbstractSuffixIO {
     @Override
     public void readSuffix(final DataIOReader reader, final int formatVersion) throws IOException {
 	DungeonDiver7.getStuffBag().getGame();
-	FileHooks.loadGameHook(reader, Prefs.getGameDifficulty());
+	FileHooks.loadGameHook(reader, Settings.getGameDifficulty());
     }
 
     @Override

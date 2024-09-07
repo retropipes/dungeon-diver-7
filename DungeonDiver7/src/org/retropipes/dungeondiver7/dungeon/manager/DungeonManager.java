@@ -26,7 +26,7 @@ import org.retropipes.dungeondiver7.locale.EditorString;
 import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 import org.retropipes.dungeondiver7.utility.CleanupTask;
 
 public final class DungeonManager {
@@ -265,7 +265,7 @@ public final class DungeonManager {
     }
 
     public boolean loadDungeon() {
-	return this.loadDungeonImpl(Prefs.getLastDirOpen());
+	return this.loadDungeonImpl(Settings.getLastDirOpen());
     }
 
     public boolean loadDungeonDefault() {
@@ -431,7 +431,7 @@ public final class DungeonManager {
 	var filename = Strings.EMPTY;
 	var fileOnly = Strings.EMPTY;
 	String extension;
-	final var dir = Prefs.getLastDirSave();
+	final var dir = Settings.getLastDirSave();
 	while (!FilenameChecker.isFilenameOK(fileOnly)) {
 	    File file = CommonDialogs.showFileSaveDialog(new File(dir), Strings.dialog(DialogString.LOAD));
 	    if (file == null) {
@@ -444,7 +444,7 @@ public final class DungeonManager {
 		CommonDialogs.showErrorDialog(Strings.dialog(DialogString.ILLEGAL_CHARACTERS),
 			Strings.dialog(DialogString.SAVE));
 	    } else {
-		Prefs.setLastDirSave(dir);
+		Settings.setLastDirSave(dir);
 		if (app.getMode() == StuffBag.STATUS_GAME) {
 		    if (extension != null) {
 			if (!extension.equals(Strings.fileExtension(FileExtension.SUSPEND))) {

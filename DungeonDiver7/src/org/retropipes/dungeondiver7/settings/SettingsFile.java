@@ -3,19 +3,19 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package org.retropipes.dungeondiver7.prefs;
+package org.retropipes.dungeondiver7.settings;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
-class PrefsFile {
+class SettingsFile {
     // Fields
     private final Properties store;
 
     // Constructors
-    PrefsFile() {
+    SettingsFile() {
 	this.store = new Properties();
     }
 

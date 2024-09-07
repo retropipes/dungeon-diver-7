@@ -12,7 +12,7 @@ import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 public class ReplayManager {
     private static String getExtension(final String s) {
@@ -59,7 +59,7 @@ public class ReplayManager {
 
     public static void loadReplay() {
 	String filename, extension;
-	final var lastOpen = Prefs.getLastDirOpen();
+	final var lastOpen = Settings.getLastDirOpen();
 	File file = CommonDialogs.showFileOpenDialog(new File(lastOpen), null, Strings.dialog(DialogString.LOAD));
 	if (file != null) {
 	    filename = file.getAbsolutePath();

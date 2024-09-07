@@ -7,11 +7,11 @@ package org.retropipes.dungeondiver7.battle.damage;
 
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.GameDifficulty;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 public abstract class DamageEngine {
     public static DamageEngine getEnemyInstance() {
-	final var difficulty = Prefs.getGameDifficulty();
+	final var difficulty = Settings.getGameDifficulty();
 	return switch (difficulty) {
 	case GameDifficulty.VERY_EASY -> new VeryHardDamageEngine();
 	case GameDifficulty.EASY -> new HardDamageEngine();
@@ -23,7 +23,7 @@ public abstract class DamageEngine {
     }
 
     public static DamageEngine getPlayerInstance() {
-	final var difficulty = Prefs.getGameDifficulty();
+	final var difficulty = Settings.getGameDifficulty();
 	return switch (difficulty) {
 	case GameDifficulty.VERY_EASY -> new VeryEasyDamageEngine();
 	case GameDifficulty.EASY -> new EasyDamageEngine();

@@ -40,7 +40,7 @@ import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Menu;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 import org.retropipes.dungeondiver7.utility.AlreadyDeadException;
 import org.retropipes.dungeondiver7.utility.CustomDialogs;
 import org.retropipes.dungeondiver7.utility.InvalidDungeonException;
@@ -656,7 +656,7 @@ public final class Game implements MenuSection {
 	if (this.savedGameFlag && PartyManager.getParty() != null) {
 	    return true;
 	}
-	return PartyManager.createParty(Prefs.getGameDifficulty());
+	return PartyManager.createParty(Settings.getGameDifficulty());
     }
 
     public void playDungeon() {
@@ -698,7 +698,7 @@ public final class Game implements MenuSection {
 		m.updateVisibleSquares(px, py, 0);
 		this.showOutput();
 		// Start music
-		if (Prefs.getMusicEnabled()) {
+		if (Settings.getMusicEnabled()) {
 		    ExternalMusicLoader.playExternalMusic(ExternalMusicImporter.getMusicBasePath(),
 			    m.getMusicFilename());
 		}
@@ -708,7 +708,7 @@ public final class Game implements MenuSection {
 		this.redrawDungeon();
 		this.replaying = false;
 		// Start animator, if enabled
-		if (Prefs.enableAnimation()) {
+		if (Settings.enableAnimation()) {
 		    this.animator = new AnimationTask();
 		    this.animator.start();
 		}

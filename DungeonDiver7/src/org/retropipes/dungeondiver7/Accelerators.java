@@ -7,11 +7,11 @@ package org.retropipes.dungeondiver7;
 
 import javax.swing.KeyStroke;
 
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 public abstract class Accelerators {
     public static Accelerators getAcceleratorModel() {
-	if (Prefs.useClassicAccelerators()) {
+	if (Settings.useClassicAccelerators()) {
 	    return new ClassicAccelerators();
 	}
 	return new ModernAccelerators();

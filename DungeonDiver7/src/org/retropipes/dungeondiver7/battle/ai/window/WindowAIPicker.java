@@ -2,12 +2,12 @@
 package org.retropipes.dungeondiver7.battle.ai.window;
 
 import org.retropipes.dungeondiver7.creature.GameDifficulty;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 public final class WindowAIPicker {
     // Methods
     public static WindowAI getNextRoutine() {
-	final var difficulty = Prefs.getGameDifficulty();
+	final var difficulty = Settings.getGameDifficulty();
 	switch (difficulty) {
 	case GameDifficulty.VERY_EASY:
 	    return new VeryEasyWindowAI();

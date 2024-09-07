@@ -22,7 +22,7 @@ import org.retropipes.dungeondiver7.creature.party.PartyMember;
 import org.retropipes.dungeondiver7.creature.spell.SpellCaster;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 public class WindowTurnBattleLogic extends Battle {
     private static final int BASE_RUN_CHANCE = 80;
@@ -273,7 +273,7 @@ public class WindowTurnBattleLogic extends Battle {
 
     @Override
     public void doBattleByProxy() {
-	this.enemy = MonsterFactory.getNewMonsterInstance(Prefs.getGameDifficulty());
+	this.enemy = MonsterFactory.getNewMonsterInstance(Settings.getGameDifficulty());
 	this.enemy.loadCreature();
 	final var playerCharacter = PartyManager.getParty().getLeader();
 	final var m = this.enemy;

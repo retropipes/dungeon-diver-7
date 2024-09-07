@@ -3,7 +3,7 @@ package org.retropipes.dungeondiver7.battle.map;
 
 import org.retropipes.dungeondiver7.battle.BattleCharacter;
 import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 public class MapBattle {
     // Fields
@@ -11,7 +11,7 @@ public class MapBattle {
 
     // Constructors
     public MapBattle(final int rows, final int columns) {
-	this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance(Prefs.getGameDifficulty()), rows,
+	this.monster = new BattleCharacter(MonsterFactory.getNewMonsterInstance(Settings.getGameDifficulty()), rows,
 		columns);
     }
 

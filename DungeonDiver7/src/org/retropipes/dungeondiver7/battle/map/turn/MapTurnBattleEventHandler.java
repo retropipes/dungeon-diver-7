@@ -12,7 +12,7 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.battle.BattleAction;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 class MapTurnBattleEventHandler extends AbstractAction implements KeyListener {
     private final MapTurnBattleGUI gui;
@@ -119,14 +119,14 @@ class MapTurnBattleEventHandler extends AbstractAction implements KeyListener {
 
     @Override
     public void keyPressed(final KeyEvent e) {
-	if (!Prefs.oneMove()) {
+	if (!Settings.oneMove()) {
 	    this.handleMovement(e);
 	}
     }
 
     @Override
     public void keyReleased(final KeyEvent e) {
-	if (Prefs.oneMove()) {
+	if (Settings.oneMove()) {
 	    this.handleMovement(e);
 	}
     }

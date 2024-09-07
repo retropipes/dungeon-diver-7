@@ -35,7 +35,7 @@ import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Music;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 public class MapTimeBattleLogic extends Battle {
     // Fields
@@ -267,7 +267,7 @@ public class MapTimeBattleLogic extends Battle {
 
     @Override
     public void doBattleByProxy() {
-	final var m = MonsterFactory.getNewMonsterInstance(Prefs.getGameDifficulty());
+	final var m = MonsterFactory.getNewMonsterInstance(Settings.getGameDifficulty());
 	final var playerCharacter = PartyManager.getParty().getLeader();
 	playerCharacter.offsetExperience(m.getExperience());
 	playerCharacter.offsetGold(m.getGold());
@@ -754,7 +754,7 @@ public class MapTimeBattleLogic extends Battle {
 		    if (!message.equals(Effect.getNullMessage())) {
 			this.setStatusMessage(message);
 			try {
-			    Thread.sleep(Prefs.getBattleSpeed());
+			    Thread.sleep(Settings.getBattleSpeed());
 			} catch (final InterruptedException ie) {
 			    // Ignore
 			}
@@ -793,7 +793,7 @@ public class MapTimeBattleLogic extends Battle {
 		if (!message.equals(Effect.getNullMessage())) {
 		    this.setStatusMessage(message);
 		    try {
-			Thread.sleep(Prefs.getBattleSpeed());
+			Thread.sleep(Settings.getBattleSpeed());
 		    } catch (final InterruptedException ie) {
 			// Ignore
 		    }

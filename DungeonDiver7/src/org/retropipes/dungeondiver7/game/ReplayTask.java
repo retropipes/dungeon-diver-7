@@ -6,7 +6,7 @@
 package org.retropipes.dungeondiver7.game;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 
 class ReplayTask extends Thread {
     // Constructors
@@ -22,7 +22,7 @@ class ReplayTask extends Thread {
 	    result = gm.replayLastMove();
 	    // Delay, for animation purposes
 	    try {
-		Thread.sleep(Prefs.getReplaySpeed());
+		Thread.sleep(Settings.getReplaySpeed());
 	    } catch (final InterruptedException ie) {
 		// Ignore
 	    }

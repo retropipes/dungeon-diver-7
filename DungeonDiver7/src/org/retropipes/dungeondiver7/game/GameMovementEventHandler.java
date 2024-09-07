@@ -15,7 +15,7 @@ import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.locale.GameString;
 import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Strings;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 import org.retropipes.dungeondiver7.utility.PartyInventory;
 
 class GameMovementEventHandler implements KeyListener, MouseListener {
@@ -250,14 +250,14 @@ class GameMovementEventHandler implements KeyListener, MouseListener {
 
     @Override
     public void keyPressed(final KeyEvent e) {
-	if (this.gameGUI.eventFlag && !Prefs.oneMove()) {
+	if (this.gameGUI.eventFlag && !Settings.oneMove()) {
 	    this.handleKeystrokes(e);
 	}
     }
 
     @Override
     public void keyReleased(final KeyEvent e) {
-	if (this.gameGUI.eventFlag && Prefs.oneMove()) {
+	if (this.gameGUI.eventFlag && Settings.oneMove()) {
 	    this.handleKeystrokes(e);
 	}
     }

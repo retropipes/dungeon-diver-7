@@ -46,7 +46,7 @@ import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Menu;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.TimeTravel;
-import org.retropipes.dungeondiver7.prefs.Prefs;
+import org.retropipes.dungeondiver7.settings.Settings;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.RCLGenerator;
 
@@ -499,11 +499,11 @@ public class Editor implements MenuSection {
     void editObject(final int x, final int y) {
 	final var app = DungeonDiver7.getStuffBag();
 	var currentObjectIndex = 0;
-	if (Prefs.getEditorLayout() == EditorLayout.VERTICAL) {
+	if (Settings.getEditorLayout() == EditorLayout.VERTICAL) {
 	    currentObjectIndex = this.oldPicker.getPicked();
-	} else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
+	} else if (Settings.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
 	    currentObjectIndex = this.newPicker11.getPicked();
-	} else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
+	} else if (Settings.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
 	    currentObjectIndex = this.newPicker12.getPicked();
 	}
 	final var xOffset = this.vertScroll.getValue() - this.vertScroll.getMinimum();
@@ -1007,11 +1007,11 @@ public class Editor implements MenuSection {
 	    this.borderPane.removeAll();
 	    this.borderPane.add(this.outerOutputPane, BorderLayout.CENTER);
 	    this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
-	    if (Prefs.getEditorLayout() == EditorLayout.VERTICAL) {
+	    if (Settings.getEditorLayout() == EditorLayout.VERTICAL) {
 		this.borderPane.add(this.oldPicker.getPicker(), BorderLayout.EAST);
-	    } else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
+	    } else if (Settings.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
 		this.borderPane.add(this.newPicker11.getPicker(), BorderLayout.EAST);
-	    } else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
+	    } else if (Settings.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
 		this.borderPane.add(this.newPicker12.getPicker(), BorderLayout.EAST);
 	    }
 	    this.borderPane.add(this.switcherPane, BorderLayout.SOUTH);
@@ -1166,10 +1166,10 @@ public class Editor implements MenuSection {
 	this.switcherPane = this.mainWindow.createContent();
 	final var switcherHandler = new EditorSwitcherHandler(this);
 	final var switcherGroup = new ButtonGroup();
-	this.lowerGround = new JToggleButton(Strings.editor(EditorString.LOWER_GROUND_LAYER));
-	this.upperGround = new JToggleButton(Strings.editor(EditorString.UPPER_GROUND_LAYER));
-	this.lowerObjects = new JToggleButton(Strings.editor(EditorString.LOWER_OBJECTS_LAYER));
-	this.upperObjects = new JToggleButton(Strings.editor(EditorString.UPPER_OBJECTS_LAYER));
+	this.lowerGround = new JToggleButton(Strings.layer(Layer.GROUND));
+	this.upperGround = new JToggleButton(Strings.layer(Layer.OBJECT));
+	this.lowerObjects = new JToggleButton(Strings.layer(Layer.STATUS));
+	this.upperObjects = new JToggleButton(Strings.layer(Layer.MARKER));
 	this.lowerGround.setSelected(true);
 	this.lowerGround.addActionListener(switcherHandler);
 	this.upperGround.addActionListener(switcherHandler);
@@ -1298,11 +1298,11 @@ public class Editor implements MenuSection {
 	    this.objects = objectList.getAllObjectsOnLayer(this.elMgr.getEditorLocationW());
 	    this.editorAppearances = objectList.getAllEditorAppearancesOnLayer(this.elMgr.getEditorLocationW());
 	    this.objectsEnabled = objectList.getObjectEnabledStatuses(this.elMgr.getEditorLocationW());
-	    if (Prefs.getEditorLayout() == EditorLayout.VERTICAL) {
+	    if (Settings.getEditorLayout() == EditorLayout.VERTICAL) {
 		this.updateOldPicker();
-	    } else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
+	    } else if (Settings.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
 		this.updateNewPicker11();
-	    } else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
+	    } else if (Settings.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
 		this.updateNewPicker12();
 	    }
 	    this.updatePickerLayout();
@@ -1310,11 +1310,11 @@ public class Editor implements MenuSection {
     }
 
     private void updatePickerLayout() {
-	if (Prefs.getEditorLayout() == EditorLayout.VERTICAL) {
+	if (Settings.getEditorLayout() == EditorLayout.VERTICAL) {
 	    this.updateOldPickerLayout();
-	} else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
+	} else if (Settings.getEditorLayout() == EditorLayout.HORIZONTAL_STACKED) {
 	    this.updateNewPicker11Layout();
-	} else if (Prefs.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
+	} else if (Settings.getEditorLayout() == EditorLayout.HORIZONTAL_SIDE_BY_SIDE) {
 	    this.updateNewPicker12Layout();
 	}
     }
