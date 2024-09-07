@@ -26,24 +26,24 @@ import org.retropipes.dungeondiver7.utility.GameActions;
 
 final class MLOTask extends Thread {
     static void activateAutomaticMovement() {
-	DungeonDiver7.getStuffBag().getGameLogic().scheduleAutoMove();
+	DungeonDiver7.getStuffBag().getGame().scheduleAutoMove();
     }
 
     private static boolean checkSolid(final GameObject next) {
-	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGame();
 	// Check cheats
-	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
+	if (gm.getCheatStatus(Game.CHEAT_GHOSTLY)) {
 	    return true;
 	}
 	return !next.isSolid();
     }
 
     static boolean checkSolid(final int zx, final int zy) {
-	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGame();
 	final var next = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(zx, zy,
 		gm.getPlayerManager().getPlayerLocationZ(), Layer.STATUS.ordinal());
 	// Check cheats
-	if (gm.getCheatStatus(GameLogic.CHEAT_GHOSTLY)) {
+	if (gm.getCheatStatus(Game.CHEAT_GHOSTLY)) {
 	    return true;
 	}
 	return !next.isSolid();
@@ -107,14 +107,14 @@ final class MLOTask extends Thread {
     }
 
     void activateMovement(final int zx, final int zy) {
-	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGame();
 	if (zx == 2 || zy == 2 || zx == -2 || zy == -2) {
 	    // Boosting
 	    gm.updateScore(0, 0, 1);
 	    this.sx = zx;
 	    this.sy = zy;
 	    this.magnet = false;
-	    GameLogic.updateUndo(false, false, false, true, false, false, false, false, false, false);
+	    Game.updateUndo(false, false, false, true, false, false, false, false, false, false);
 	} else if (zx == 3 || zy == 3 || zx == -3 || zy == -3) {
 	    // Using a Magnet
 	    gm.updateScore(0, 0, 1);
@@ -143,7 +143,7 @@ final class MLOTask extends Thread {
 	    } else {
 		// Success
 	    }
-	    GameLogic.updateUndo(false, false, false, false, true, false, false, false, false, false);
+	    Game.updateUndo(false, false, false, false, true, false, false, false, false, false);
 	} else {
 	    // Moving normally
 	    SoundLoader.playSound(Sounds.STEP_PARTY);
@@ -151,7 +151,7 @@ final class MLOTask extends Thread {
 	    this.sx = zx;
 	    this.sy = zy;
 	    this.magnet = false;
-	    GameLogic.updateUndo(false, false, false, false, false, false, false, false, false, false);
+	    Game.updateUndo(false, false, false, false, false, false, false, false, false, false);
 	}
 	this.move = true;
 	this.loopCheck = true;
@@ -178,7 +178,7 @@ final class MLOTask extends Thread {
 
     private boolean canMoveThere() {
 	final var app = DungeonDiver7.getStuffBag();
-	final var gm = app.getGameLogic();
+	final var gm = app.getGame();
 	final var plMgr = gm.getPlayerManager();
 	final var px = plMgr.getPlayerLocationX();
 	final var py = plMgr.getPlayerLocationY();
@@ -214,7 +214,7 @@ final class MLOTask extends Thread {
 
     private boolean checkLoopCondition(final boolean zproceed) {
 	final var app = DungeonDiver7.getStuffBag();
-	final var gm = app.getGameLogic();
+	final var gm = app.getGame();
 	final var plMgr = gm.getPlayerManager();
 	final var px = plMgr.getPlayerLocationX();
 	final var py = plMgr.getPlayerLocationY();
@@ -248,7 +248,7 @@ final class MLOTask extends Thread {
 
     private void doMovementLasersObjects() {
 	synchronized (CurrentDungeonData.LOCK_OBJECT) {
-	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	    final var gm = DungeonDiver7.getStuffBag().getGame();
 	    final var plMgr = gm.getPlayerManager();
 	    final var pz = plMgr.getPlayerLocationZ();
 	    this.loopCheck = true;
@@ -339,14 +339,14 @@ final class MLOTask extends Thread {
 	    } while (!this.abort && (this.loopCheck || this.areObjectTrackersChecking()));
 	    // Check cheats
 	    if (objs[Layer.GROUND.ordinal()].killsOnMove()
-		    && !gm.getCheatStatus(GameLogic.CHEAT_SWIMMING)) {
+		    && !gm.getCheatStatus(Game.CHEAT_SWIMMING)) {
 		gm.gameOver();
 	    }
 	}
     }
 
     private GameObject[] doMovementOnce() {
-	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGame();
 	final var plMgr = gm.getPlayerManager();
 	var px = plMgr.getPlayerLocationX();
 	var py = plMgr.getPlayerLocationY();
@@ -497,7 +497,7 @@ final class MLOTask extends Thread {
     @Override
     public void run() {
 	try {
-	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	    final var gm = DungeonDiver7.getStuffBag().getGame();
 	    gm.clearDead();
 	    this.doMovementLasersObjects();
 	    // Check auto-move flag

@@ -256,7 +256,7 @@ public final class DungeonManager {
 	    triedToLoad.delete();
 	}
 	this.setDirty(false);
-	DungeonDiver7.getStuffBag().getGameLogic().stateChanged();
+	DungeonDiver7.getStuffBag().getGame().stateChanged();
 	DungeonDiver7.getStuffBag().getMenus().checkFlags();
     }
 

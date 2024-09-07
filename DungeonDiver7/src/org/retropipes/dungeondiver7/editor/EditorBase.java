@@ -20,7 +20,7 @@ import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.asset.ImageConstants;
 
-public abstract class GenericEditor {
+public abstract class EditorBase {
     // Fields
     private final String source;
     private MainWindow mainWindow;
@@ -31,7 +31,7 @@ public abstract class GenericEditor {
     private boolean objectChanged;
     private boolean readOnly;
 
-    protected GenericEditor(final String newSource) {
+    protected EditorBase(final String newSource) {
 	this.source = newSource;
 	this.objectChanged = true;
     }

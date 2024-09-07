@@ -15,7 +15,7 @@ import org.retropipes.dungeondiver7.locale.Strings;
 
 class ReplayFile {
     private static void decodeData(final byte d) {
-	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGame();
 	switch (d) {
 	case 0x20:
 	    gm.loadReplay(true, 0, 0);
@@ -44,7 +44,7 @@ class ReplayFile {
 	    CommonDialogs.showErrorDialog(Strings.error(ErrorString.REPLAY_LOAD_FAILURE),
 		    Strings.game(GameString.LOAD_PLAYBACK));
 	} else {
-	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	    final var gm = DungeonDiver7.getStuffBag().getGame();
 	    gm.clearReplay();
 	    final var data = ReplayFileLoader.getData();
 	    for (var x = data.length - 1; x >= 0; x--) {

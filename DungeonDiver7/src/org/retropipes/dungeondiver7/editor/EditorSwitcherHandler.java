@@ -8,11 +8,11 @@ import org.retropipes.dungeondiver7.locale.EditorString;
 import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Strings;
 
-class DungeonEditorSwitcherHandler implements ActionListener {
-    private final DungeonEditor editor;
+class EditorSwitcherHandler implements ActionListener {
+    private final Editor editor;
 
-    DungeonEditorSwitcherHandler(DungeonEditor dungeonEditor) {
-	editor = dungeonEditor;
+    EditorSwitcherHandler(Editor theEditor) {
+	editor = theEditor;
     }
 
     @Override

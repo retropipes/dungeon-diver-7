@@ -16,13 +16,13 @@ import org.retropipes.dungeondiver7.prefs.Prefs;
 public class SuffixHandler implements AbstractSuffixIO {
     @Override
     public void readSuffix(final DataIOReader reader, final int formatVersion) throws IOException {
-	DungeonDiver7.getStuffBag().getGameLogic();
+	DungeonDiver7.getStuffBag().getGame();
 	FileHooks.loadGameHook(reader, Prefs.getGameDifficulty());
     }
 
     @Override
     public void writeSuffix(final DataIOWriter writer) throws IOException {
-	DungeonDiver7.getStuffBag().getGameLogic();
+	DungeonDiver7.getStuffBag().getGame();
 	FileHooks.saveGameHook(writer);
     }
 }

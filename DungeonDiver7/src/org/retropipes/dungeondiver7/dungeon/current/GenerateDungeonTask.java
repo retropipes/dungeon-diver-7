@@ -42,7 +42,7 @@ public class GenerateDungeonTask extends Thread {
 	    final var dungeonSize = DungeonDiver7.getDungeonLevelSize(zoneID);
 	    var gameDungeon = app.getDungeonManager().getDungeon();
 	    if (!this.scratch) {
-		app.getGameLogic().disableEvents();
+		app.getGame().disableEvents();
 	    } else {
 		gameDungeon = DungeonManager.createDungeon();
 		app.getDungeonManager().setDungeon(gameDungeon);
@@ -63,7 +63,7 @@ public class GenerateDungeonTask extends Thread {
 		final var playerExists = gameDungeon.doesPlayerExist(0);
 		if (playerExists) {
 		    gameDungeon.setPlayerToStart();
-		    app.getGameLogic().resetViewingWindow();
+		    app.getGame().resetViewingWindow();
 		}
 	    } else {
 		int startR, startC;
@@ -78,12 +78,12 @@ public class GenerateDungeonTask extends Thread {
 	    gameDungeon.save();
 	    // Final cleanup
 	    if (this.scratch) {
-		app.getGameLogic().stateChanged();
-		app.getGameLogic().playDungeon();
+		app.getGame().stateChanged();
+		app.getGame().playDungeon();
 	    } else {
-		app.getGameLogic().resetViewingWindow();
-		app.getGameLogic().enableEvents();
-		app.getGameLogic().redrawDungeon();
+		app.getGame().resetViewingWindow();
+		app.getGame().enableEvents();
+		app.getGame().redrawDungeon();
 	    }
 	} catch (final Throwable t) {
 	    DungeonDiver7.logError(t);

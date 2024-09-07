@@ -7,8 +7,7 @@ import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.dungeondiver7.gameobject.GameObject;
 
-public abstract class DungeonData implements Cloneable {
-    // Constants
+public abstract class DungeonData {
     protected final static int MIN_FLOORS = 1;
     protected final static int MAX_FLOORS = 9;
     protected final static int MIN_COLUMNS = 24;
@@ -26,7 +25,6 @@ public abstract class DungeonData implements Cloneable {
 	return DungeonData.MIN_FLOORS;
     }
 
-    // Static methods
     public static int getMinRows() {
 	return DungeonData.MIN_ROWS;
     }
@@ -51,9 +49,6 @@ public abstract class DungeonData implements Cloneable {
 
     public abstract void clearVirtualGrid(final Dungeon dungeon);
 
-    @Override
-    public abstract DungeonData clone();
-
     public abstract void fill(final Dungeon dungeon, final GameObject fillWith);
 
     public abstract void fillNulls(final Dungeon dungeon, final GameObject fill1, final GameObject fill2,
@@ -77,8 +72,7 @@ public abstract class DungeonData implements Cloneable {
     public abstract void fullScanButtonCleanup(final Dungeon dungeon, final int px, final int py, final int zIn,
 	    final GameObject button);
 
-    public abstract void fullScanFindButtonLostDoor(final Dungeon dungeon, final int zIn,
-	    final GameObject door);
+    public abstract void fullScanFindButtonLostDoor(final Dungeon dungeon, final int zIn, final GameObject door);
 
     public abstract void fullScanFreezeGround(final Dungeon dungeon);
 

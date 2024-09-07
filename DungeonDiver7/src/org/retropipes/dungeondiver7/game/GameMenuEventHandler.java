@@ -31,7 +31,7 @@ class GameMenuEventHandler implements ActionListener {
         try {
     	final var app = DungeonDiver7.getStuffBag();
     	final var cmd = e.getActionCommand();
-    	final var game = app.getGameLogic();
+    	final var game = app.getGame();
     	if (cmd.equals(Strings.menu(Menu.RESET_CURRENT_LEVEL))) {
     	    final var result = CommonDialogs.showConfirmDialog(Strings.menu(Menu.CONFIRM_RESET_CURRENT_LEVEL),
     		    Strings.untranslated(Untranslated.PROGRAM_NAME));
@@ -110,7 +110,7 @@ class GameMenuEventHandler implements ActionListener {
     	    gui.gameEraDistantFuture.setSelected(true);
     	} else if (cmd.equals(Strings.menu(Menu.NEW_GAME))) {
     	    // Start a new game
-    	    final var proceed = app.getGameLogic().newGame();
+    	    final var proceed = app.getGame().newGame();
     	    if (proceed) {
     		new GenerateDungeonTask(true).start();
     	    }

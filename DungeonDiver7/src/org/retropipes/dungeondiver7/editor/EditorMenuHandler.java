@@ -12,11 +12,11 @@ import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.TimeTravel;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 
-class DungeonEditorMenuHandler implements ActionListener {
-    private final DungeonEditor editor;
+class EditorMenuHandler implements ActionListener {
+    private final Editor editor;
 
-    public DungeonEditorMenuHandler(DungeonEditor dungeonEditor) {
-	editor = dungeonEditor;
+    public EditorMenuHandler(Editor theEditor) {
+	editor = theEditor;
     }
 
     // Handle menus
@@ -30,16 +30,16 @@ class DungeonEditorMenuHandler implements ActionListener {
 		if (app.getMode() == StuffBag.STATUS_EDITOR) {
 		    editor.undo();
 		} else if (app.getMode() == StuffBag.STATUS_GAME) {
-		    app.getGameLogic().abortAndWaitForMLOLoop();
-		    app.getGameLogic().undoLastMove();
+		    app.getGame().abortAndWaitForMLOLoop();
+		    app.getGame().undoLastMove();
 		}
 	    } else if (cmd.equals(Strings.menu(Menu.REDO))) {
 		// Redo most recent undone action
 		if (app.getMode() == StuffBag.STATUS_EDITOR) {
 		    editor.redo();
 		} else if (app.getMode() == StuffBag.STATUS_GAME) {
-		    app.getGameLogic().abortAndWaitForMLOLoop();
-		    app.getGameLogic().redoLastMove();
+		    app.getGame().abortAndWaitForMLOLoop();
+		    app.getGame().redoLastMove();
 		}
 	    } else if (cmd.equals(Strings.menu(Menu.CUT_LEVEL))) {
 		// Cut Level

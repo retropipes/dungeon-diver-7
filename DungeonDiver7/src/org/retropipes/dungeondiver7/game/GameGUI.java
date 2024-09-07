@@ -208,7 +208,7 @@ class GameGUI {
 
     void initViewManager() {
 	if (this.vwMgr == null) {
-	    this.vwMgr = DungeonDiver7.getStuffBag().getGameLogic().getViewManager();
+	    this.vwMgr = DungeonDiver7.getStuffBag().getGame().getViewManager();
 	    this.setUpGUI();
 	}
     }

@@ -31,9 +31,9 @@ class GameMovementEventHandler implements KeyListener, MouseListener {
 
     public void handleBoosts(final KeyEvent e) {
 	try {
-	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
-	    if (!gm.getCheatStatus(GameLogic.CHEAT_BOOSTS) && PartyInventory.getBoostsLeft() > 0
-		    || gm.getCheatStatus(GameLogic.CHEAT_BOOSTS)) {
+	    final var gm = DungeonDiver7.getStuffBag().getGame();
+	    if (!gm.getCheatStatus(Game.CHEAT_BOOSTS) && PartyInventory.getBoostsLeft() > 0
+		    || gm.getCheatStatus(Game.CHEAT_BOOSTS)) {
 		PartyInventory.fireBoost();
 		final var keyCode = e.getKeyCode();
 		switch (keyCode) {
@@ -61,15 +61,15 @@ class GameMovementEventHandler implements KeyListener, MouseListener {
     }
 
     private void handleKeystrokes(final KeyEvent e) {
-	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGame();
 	final var currDir = gm.player.getDirection();
 	final var newDir = this.mapKeyToDirection(e);
 	if (currDir != newDir) {
 	    this.handleTurns(newDir);
 	} else if (e.isAltDown() || e.isAltGraphDown() || e.isControlDown()) {
-	    if (gm.otherToolMode == GameLogic.OTHER_TOOL_MODE_BOOSTS) {
+	    if (gm.otherToolMode == Game.OTHER_TOOL_MODE_BOOSTS) {
 		this.handleBoosts(e);
-	    } else if (gm.otherToolMode == GameLogic.OTHER_TOOL_MODE_MAGNETS) {
+	    } else if (gm.otherToolMode == Game.OTHER_TOOL_MODE_MAGNETS) {
 		this.handleMagnets(e);
 	    }
 	} else {
@@ -79,9 +79,9 @@ class GameMovementEventHandler implements KeyListener, MouseListener {
 
     public void handleMagnets(final KeyEvent e) {
 	try {
-	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
-	    if (!gm.getCheatStatus(GameLogic.CHEAT_MAGNETS) && PartyInventory.getMagnetsLeft() > 0
-		    || gm.getCheatStatus(GameLogic.CHEAT_MAGNETS)) {
+	    final var gm = DungeonDiver7.getStuffBag().getGame();
+	    if (!gm.getCheatStatus(Game.CHEAT_MAGNETS) && PartyInventory.getMagnetsLeft() > 0
+		    || gm.getCheatStatus(Game.CHEAT_MAGNETS)) {
 		PartyInventory.fireMagnet();
 		final var keyCode = e.getKeyCode();
 		switch (keyCode) {
@@ -110,7 +110,7 @@ class GameMovementEventHandler implements KeyListener, MouseListener {
 
     public void handleMovement(final KeyEvent e) {
 	try {
-	    final var glm = DungeonDiver7.getStuffBag().getGameLogic();
+	    final var glm = DungeonDiver7.getStuffBag().getGame();
 	    final var keyCode = e.getKeyCode();
 	    switch (keyCode) {
 	    case KeyEvent.VK_LEFT:
@@ -205,7 +205,7 @@ class GameMovementEventHandler implements KeyListener, MouseListener {
 
     public void handleTurns(final Direction dir) {
 	try {
-	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	    final var gm = DungeonDiver7.getStuffBag().getGame();
 	    var fired = false;
 	    switch (dir) {
 	    case WEST:
@@ -279,7 +279,7 @@ class GameMovementEventHandler implements KeyListener, MouseListener {
     }
 
     public Direction mapMouseToDirection(final MouseEvent me) {
-	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGame();
 	final var x = me.getX();
 	final var y = me.getY();
 	final var px = gm.getPlayerManager().getPlayerLocationX();
@@ -292,7 +292,7 @@ class GameMovementEventHandler implements KeyListener, MouseListener {
     @Override
     public void mouseClicked(final MouseEvent e) {
 	try {
-	    final var game = DungeonDiver7.getStuffBag().getGameLogic();
+	    final var game = DungeonDiver7.getStuffBag().getGame();
 	    if (e.isShiftDown()) {
 		final var x = e.getX();
 		final var y = e.getY();

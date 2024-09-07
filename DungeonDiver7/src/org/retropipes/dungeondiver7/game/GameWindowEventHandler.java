@@ -25,13 +25,13 @@ class GameWindowEventHandler extends WindowAdapter {
     		app.getDungeonManager();
     		success = DungeonManager.saveGame();
     		if (success) {
-    		    app.getGameLogic().exitGame();
+    		    app.getGame().exitGame();
     		}
     	    } else if (status == CommonDialogs.NO_OPTION) {
-    		app.getGameLogic().exitGame();
+    		app.getGame().exitGame();
     	    }
     	} else {
-    	    app.getGameLogic().exitGame();
+    	    app.getGame().exitGame();
     	}
         } catch (final Exception ex) {
     	DungeonDiver7.logError(ex);

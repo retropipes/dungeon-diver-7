@@ -16,7 +16,7 @@ class ReplayTask extends Thread {
 
     @Override
     public void run() {
-	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGame();
 	var result = true;
 	while (result) {
 	    result = gm.replayLastMove();

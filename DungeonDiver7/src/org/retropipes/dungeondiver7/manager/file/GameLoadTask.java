@@ -47,7 +47,7 @@ public class GameLoadTask extends Thread {
 	    this.mainWindow.setAndSave(this.loadContent, Strings.dialog(DialogString.LOADING));
 	    final var app = DungeonDiver7.getStuffBag();
 	    int startW;
-	    app.getGameLogic().setSavedGameFlag(false);
+	    app.getGame().setSavedGameFlag(false);
 	    final var tempLock = new File(Dungeon.getDungeonTempFolder() + "lock.tmp");
 	    var gameDungeon = new CurrentDungeon();
 	    // Unlock the file
@@ -71,14 +71,14 @@ public class GameLoadTask extends Thread {
 	    final var playerExists = gameDungeon.doesPlayerExist(0);
 	    if (playerExists) {
 		app.getDungeonManager().getDungeon().setPlayerToStart();
-		app.getGameLogic().resetViewingWindow();
+		app.getGame().resetViewingWindow();
 	    }
 	    gameDungeon.save();
 	    // Final cleanup
-	    app.getGameLogic().stateChanged();
+	    app.getGame().stateChanged();
 	    app.getDungeonManager().setLoaded(true);
 	    CommonDialogs.showDialog(sg + " loaded.");
-	    app.getGameLogic().playDungeon();
+	    app.getGame().playDungeon();
 	    app.getDungeonManager().handleDeferredSuccess(true, false, null);
 	} catch (final VersionException ve) {
 	    CommonDialogs.showDialog(

@@ -46,7 +46,7 @@ import org.retropipes.dungeondiver7.utility.CustomDialogs;
 import org.retropipes.dungeondiver7.utility.InvalidDungeonException;
 import org.retropipes.dungeondiver7.utility.PartyInventory;
 
-public final class GameLogic implements MenuSection {
+public final class Game implements MenuSection {
     static final int OTHER_AMMO_MODE_MISSILES = 0;
     static final int OTHER_AMMO_MODE_STUNNERS = 1;
     static final int OTHER_AMMO_MODE_BLUE_LASERS = 2;
@@ -125,7 +125,7 @@ public final class GameLogic implements MenuSection {
 	final var app = DungeonDiver7.getStuffBag();
 	final var a = app.getDungeonManager().getDungeon();
 	a.updateRedoHistory(new HistoryStatus(las, mis, stu, boo, mag, blu, dis, bom, hbm, ibm));
-	GameLogic.checkMenus();
+	Game.checkMenus();
     }
 
     static void updateUndo(final boolean las, final boolean mis, final boolean stu, final boolean boo,
@@ -134,7 +134,7 @@ public final class GameLogic implements MenuSection {
 	final var app = DungeonDiver7.getStuffBag();
 	final var a = app.getDungeonManager().getDungeon();
 	a.updateUndoHistory(new HistoryStatus(las, mis, stu, boo, mag, blu, dis, bom, hbm, ibm));
-	GameLogic.checkMenus();
+	Game.checkMenus();
     }
 
     // Fields
@@ -173,7 +173,7 @@ public final class GameLogic implements MenuSection {
     int otherRangeMode;
 
     // Constructors
-    public GameLogic() {
+    public Game() {
 	this.vwMgr = new GameViewingWindowManager();
 	this.plMgr = new PlayerLocationManager();
 	this.cMgr = new CheatManager();
@@ -196,9 +196,9 @@ public final class GameLogic implements MenuSection {
 	this.cheatStatus = new boolean[this.cMgr.getCheatCount()];
 	this.autoMove = false;
 	this.dead = false;
-	this.otherAmmoMode = GameLogic.OTHER_AMMO_MODE_MISSILES;
-	this.otherToolMode = GameLogic.OTHER_TOOL_MODE_BOOSTS;
-	this.otherRangeMode = GameLogic.OTHER_RANGE_MODE_BOMBS;
+	this.otherAmmoMode = Game.OTHER_AMMO_MODE_MISSILES;
+	this.otherToolMode = Game.OTHER_TOOL_MODE_BOOSTS;
+	this.otherRangeMode = Game.OTHER_RANGE_MODE_BOMBS;
     }
 
     public void abortAndWaitForMLOLoop() {
@@ -226,12 +226,12 @@ public final class GameLogic implements MenuSection {
 
     public void activeLanguageChanged() {
 	this.gui.activeLanguageChanged();
-	GameLogic.OTHER_AMMO_CHOICES = new String[] { Strings.game(GameString.MISSILES),
+	Game.OTHER_AMMO_CHOICES = new String[] { Strings.game(GameString.MISSILES),
 		Strings.game(GameString.STUNNERS), Strings.game(GameString.BLUE_LASERS),
 		Strings.game(GameString.DISRUPTORS) };
-	GameLogic.OTHER_TOOL_CHOICES = new String[] { Strings.game(GameString.BOOSTS),
+	Game.OTHER_TOOL_CHOICES = new String[] { Strings.game(GameString.BOOSTS),
 		Strings.game(GameString.MAGNETS) };
-	GameLogic.OTHER_RANGE_CHOICES = new String[] { Strings.game(GameString.BOMBS),
+	Game.OTHER_RANGE_CHOICES = new String[] { Strings.game(GameString.BOMBS),
 		Strings.game(GameString.HEAT_BOMBS), Strings.game(GameString.ICE_BOMBS) };
     }
 
@@ -242,52 +242,52 @@ public final class GameLogic implements MenuSection {
 
     public void changeOtherAmmoMode() {
 	final var choice = CommonDialogs.showInputDialog(Strings.game(GameString.WHICH_AMMO),
-		Strings.game(GameString.CHANGE_AMMO), GameLogic.OTHER_AMMO_CHOICES,
-		GameLogic.OTHER_AMMO_CHOICES[this.otherAmmoMode]);
+		Strings.game(GameString.CHANGE_AMMO), Game.OTHER_AMMO_CHOICES,
+		Game.OTHER_AMMO_CHOICES[this.otherAmmoMode]);
 	if (choice != null) {
-	    for (var z = 0; z < GameLogic.OTHER_AMMO_CHOICES.length; z++) {
-		if (choice.equals(GameLogic.OTHER_AMMO_CHOICES[z])) {
+	    for (var z = 0; z < Game.OTHER_AMMO_CHOICES.length; z++) {
+		if (choice.equals(Game.OTHER_AMMO_CHOICES[z])) {
 		    this.otherAmmoMode = z;
 		    break;
 		}
 	    }
 	    this.updateScoreText();
 	    CommonDialogs.showDialog(LocaleUtils.subst(Strings.game(GameString.AMMO_CHANGED),
-		    GameLogic.OTHER_AMMO_CHOICES[this.otherAmmoMode]));
+		    Game.OTHER_AMMO_CHOICES[this.otherAmmoMode]));
 	}
     }
 
     public void changeOtherRangeMode() {
 	final var choice = CommonDialogs.showInputDialog(Strings.game(GameString.WHICH_RANGE),
-		Strings.game(GameString.CHANGE_RANGE), GameLogic.OTHER_RANGE_CHOICES,
-		GameLogic.OTHER_RANGE_CHOICES[this.otherRangeMode]);
+		Strings.game(GameString.CHANGE_RANGE), Game.OTHER_RANGE_CHOICES,
+		Game.OTHER_RANGE_CHOICES[this.otherRangeMode]);
 	if (choice != null) {
-	    for (var z = 0; z < GameLogic.OTHER_RANGE_CHOICES.length; z++) {
-		if (choice.equals(GameLogic.OTHER_RANGE_CHOICES[z])) {
+	    for (var z = 0; z < Game.OTHER_RANGE_CHOICES.length; z++) {
+		if (choice.equals(Game.OTHER_RANGE_CHOICES[z])) {
 		    this.otherRangeMode = z;
 		    break;
 		}
 	    }
 	    this.updateScoreText();
 	    CommonDialogs.showDialog(LocaleUtils.subst(Strings.game(GameString.RANGE_CHANGED),
-		    GameLogic.OTHER_RANGE_CHOICES[this.otherRangeMode]));
+		    Game.OTHER_RANGE_CHOICES[this.otherRangeMode]));
 	}
     }
 
     public void changeOtherToolMode() {
 	final var choice = CommonDialogs.showInputDialog(Strings.game(GameString.WHICH_TOOL),
-		Strings.game(GameString.CHANGE_TOOL), GameLogic.OTHER_TOOL_CHOICES,
-		GameLogic.OTHER_TOOL_CHOICES[this.otherToolMode]);
+		Strings.game(GameString.CHANGE_TOOL), Game.OTHER_TOOL_CHOICES,
+		Game.OTHER_TOOL_CHOICES[this.otherToolMode]);
 	if (choice != null) {
-	    for (var z = 0; z < GameLogic.OTHER_TOOL_CHOICES.length; z++) {
-		if (choice.equals(GameLogic.OTHER_TOOL_CHOICES[z])) {
+	    for (var z = 0; z < Game.OTHER_TOOL_CHOICES.length; z++) {
+		if (choice.equals(Game.OTHER_TOOL_CHOICES[z])) {
 		    this.otherToolMode = z;
 		    break;
 		}
 	    }
 	    this.updateScoreText();
 	    CommonDialogs.showDialog(LocaleUtils.subst(Strings.game(GameString.TOOL_CHANGED),
-		    GameLogic.OTHER_TOOL_CHOICES[this.otherToolMode]));
+		    Game.OTHER_TOOL_CHOICES[this.otherToolMode]));
 	}
     }
 
@@ -429,7 +429,7 @@ public final class GameLogic implements MenuSection {
 
     public void gameOver() {
 	// Check cheats
-	if (this.getCheatStatus(GameLogic.CHEAT_INVINCIBLE)) {
+	if (this.getCheatStatus(Game.CHEAT_INVINCIBLE)) {
 	    return;
 	}
 	// Check dead
@@ -551,7 +551,7 @@ public final class GameLogic implements MenuSection {
 
     void laserDone() {
 	this.shotActive = false;
-	GameLogic.checkMenus();
+	Game.checkMenus();
     }
 
     public void loadGameHookG1(final DataIOReader dungeonFile) throws IOException {
@@ -628,7 +628,7 @@ public final class GameLogic implements MenuSection {
 	    app.getDungeonManager().getDungeon().setDirtyFlags(this.plMgr.getPlayerLocationZ());
 	    m.resetHistoryEngine();
 	    this.gre = new GameReplayEngine();
-	    GameLogic.checkMenus();
+	    Game.checkMenus();
 	    this.processLevelExists();
 	}
     }
@@ -644,7 +644,7 @@ public final class GameLogic implements MenuSection {
 
     void moveLoopDone() {
 	this.moving = false;
-	GameLogic.checkMenus();
+	Game.checkMenus();
     }
 
     public boolean newGame() {
@@ -726,7 +726,7 @@ public final class GameLogic implements MenuSection {
 	final var m = app.getDungeonManager().getDungeon();
 	m.resetHistoryEngine();
 	this.gre = new GameReplayEngine();
-	GameLogic.checkMenus();
+	Game.checkMenus();
 	this.suspendAnimator();
 	m.restore();
 	if (m.doesLevelExistOffset(-1)) {
@@ -831,9 +831,9 @@ public final class GameLogic implements MenuSection {
 		return;
 	    }
 	    this.updatePlayer();
-	    GameLogic.updateUndo(laser, missile, stunner, boost, magnet, blue, disrupt, bomb, heatBomb, iceBomb);
+	    Game.updateUndo(laser, missile, stunner, boost, magnet, blue, disrupt, bomb, heatBomb, iceBomb);
 	}
-	GameLogic.checkMenus();
+	Game.checkMenus();
 	this.updateScoreText();
 	a.setDirtyFlags(this.plMgr.getPlayerLocationZ());
 	this.redrawDungeon();
@@ -957,7 +957,7 @@ public final class GameLogic implements MenuSection {
 	    this.decay();
 	    this.redrawDungeon();
 	}
-	GameLogic.checkMenus();
+	Game.checkMenus();
     }
 
     public void resetPlayerLocation() throws InvalidDungeonException {
@@ -980,7 +980,7 @@ public final class GameLogic implements MenuSection {
     }
 
     public void resetViewingWindowAndPlayerLocation() {
-	GameLogic.resetPlayerLocation(0);
+	Game.resetPlayerLocation(0);
 	this.resetViewingWindow();
     }
 
@@ -1052,7 +1052,7 @@ public final class GameLogic implements MenuSection {
 	}
 	m.resetHistoryEngine();
 	this.gre = new GameReplayEngine();
-	GameLogic.checkMenus();
+	Game.checkMenus();
 	this.suspendAnimator();
 	m.restore();
 	if (m.doesLevelExistOffset(1)) {
@@ -1146,9 +1146,9 @@ public final class GameLogic implements MenuSection {
 		return;
 	    }
 	    this.updatePlayer();
-	    GameLogic.updateRedo(laser, missile, stunner, boost, magnet, blue, disrupt, bomb, heatBomb, iceBomb);
+	    Game.updateRedo(laser, missile, stunner, boost, magnet, blue, disrupt, bomb, heatBomb, iceBomb);
 	}
-	GameLogic.checkMenus();
+	Game.checkMenus();
 	this.updateScoreText();
 	a.setDirtyFlags(this.plMgr.getPlayerLocationZ());
 	this.redrawDungeon();
@@ -1325,8 +1325,8 @@ public final class GameLogic implements MenuSection {
     private void updateScoreText() {
 	// Ammo
 	switch (this.otherAmmoMode) {
-	case GameLogic.OTHER_AMMO_MODE_MISSILES:
-	    if (this.getCheatStatus(GameLogic.CHEAT_MISSILES)) {
+	case Game.OTHER_AMMO_MODE_MISSILES:
+	    if (this.getCheatStatus(Game.CHEAT_MISSILES)) {
 		this.otherAmmoLeft.setText(
 			LocaleUtils.subst(Strings.game(GameString.MISSILES), Strings.game(GameString.INFINITE)));
 	    } else {
@@ -1334,8 +1334,8 @@ public final class GameLogic implements MenuSection {
 			Integer.toString(PartyInventory.getMissilesLeft())));
 	    }
 	    break;
-	case GameLogic.OTHER_AMMO_MODE_STUNNERS:
-	    if (this.getCheatStatus(GameLogic.CHEAT_STUNNERS)) {
+	case Game.OTHER_AMMO_MODE_STUNNERS:
+	    if (this.getCheatStatus(Game.CHEAT_STUNNERS)) {
 		this.otherAmmoLeft.setText(
 			LocaleUtils.subst(Strings.game(GameString.STUNNERS), Strings.game(GameString.INFINITE)));
 	    } else {
@@ -1343,8 +1343,8 @@ public final class GameLogic implements MenuSection {
 			Integer.toString(PartyInventory.getStunnersLeft())));
 	    }
 	    break;
-	case GameLogic.OTHER_AMMO_MODE_BLUE_LASERS:
-	    if (this.getCheatStatus(GameLogic.CHEAT_BLUE_LASERS)) {
+	case Game.OTHER_AMMO_MODE_BLUE_LASERS:
+	    if (this.getCheatStatus(Game.CHEAT_BLUE_LASERS)) {
 		this.otherAmmoLeft.setText(
 			LocaleUtils.subst(Strings.game(GameString.BLUE_LASERS), Strings.game(GameString.INFINITE)));
 	    } else {
@@ -1352,8 +1352,8 @@ public final class GameLogic implements MenuSection {
 			Integer.toString(PartyInventory.getBlueLasersLeft())));
 	    }
 	    break;
-	case GameLogic.OTHER_AMMO_MODE_DISRUPTORS:
-	    if (this.getCheatStatus(GameLogic.CHEAT_DISRUPTORS)) {
+	case Game.OTHER_AMMO_MODE_DISRUPTORS:
+	    if (this.getCheatStatus(Game.CHEAT_DISRUPTORS)) {
 		this.otherAmmoLeft.setText(
 			LocaleUtils.subst(Strings.game(GameString.DISRUPTORS), Strings.game(GameString.INFINITE)));
 	    } else {
@@ -1365,16 +1365,16 @@ public final class GameLogic implements MenuSection {
 	    break;
 	}
 	// Tools
-	if (this.otherToolMode == GameLogic.OTHER_TOOL_MODE_BOOSTS) {
-	    if (this.getCheatStatus(GameLogic.CHEAT_BOOSTS)) {
+	if (this.otherToolMode == Game.OTHER_TOOL_MODE_BOOSTS) {
+	    if (this.getCheatStatus(Game.CHEAT_BOOSTS)) {
 		this.otherToolsLeft
 			.setText(LocaleUtils.subst(Strings.game(GameString.BOOSTS), Strings.game(GameString.INFINITE)));
 	    } else {
 		this.otherToolsLeft.setText(LocaleUtils.subst(Strings.game(GameString.BOOSTS),
 			Integer.toString(PartyInventory.getBoostsLeft())));
 	    }
-	} else if (this.otherToolMode == GameLogic.OTHER_TOOL_MODE_MAGNETS) {
-	    if (this.getCheatStatus(GameLogic.CHEAT_MAGNETS)) {
+	} else if (this.otherToolMode == Game.OTHER_TOOL_MODE_MAGNETS) {
+	    if (this.getCheatStatus(Game.CHEAT_MAGNETS)) {
 		this.otherToolsLeft.setText(
 			LocaleUtils.subst(Strings.game(GameString.MAGNETS), Strings.game(GameString.INFINITE)));
 	    } else {
@@ -1384,8 +1384,8 @@ public final class GameLogic implements MenuSection {
 	}
 	// Ranges
 	switch (this.otherRangeMode) {
-	case GameLogic.OTHER_RANGE_MODE_BOMBS:
-	    if (this.getCheatStatus(GameLogic.CHEAT_BOMBS)) {
+	case Game.OTHER_RANGE_MODE_BOMBS:
+	    if (this.getCheatStatus(Game.CHEAT_BOMBS)) {
 		this.otherRangesLeft
 			.setText(LocaleUtils.subst(Strings.game(GameString.BOMBS), Strings.game(GameString.INFINITE)));
 	    } else {
@@ -1393,8 +1393,8 @@ public final class GameLogic implements MenuSection {
 			Integer.toString(PartyInventory.getBombsLeft())));
 	    }
 	    break;
-	case GameLogic.OTHER_RANGE_MODE_HEAT_BOMBS:
-	    if (this.getCheatStatus(GameLogic.CHEAT_HEAT_BOMBS)) {
+	case Game.OTHER_RANGE_MODE_HEAT_BOMBS:
+	    if (this.getCheatStatus(Game.CHEAT_HEAT_BOMBS)) {
 		this.otherRangesLeft.setText(
 			LocaleUtils.subst(Strings.game(GameString.HEAT_BOMBS), Strings.game(GameString.INFINITE)));
 	    } else {
@@ -1402,8 +1402,8 @@ public final class GameLogic implements MenuSection {
 			Integer.toString(PartyInventory.getHeatBombsLeft())));
 	    }
 	    break;
-	case GameLogic.OTHER_RANGE_MODE_ICE_BOMBS:
-	    if (this.getCheatStatus(GameLogic.CHEAT_ICE_BOMBS)) {
+	case Game.OTHER_RANGE_MODE_ICE_BOMBS:
+	    if (this.getCheatStatus(Game.CHEAT_ICE_BOMBS)) {
 		this.otherRangesLeft.setText(
 			LocaleUtils.subst(Strings.game(GameString.ICE_BOMBS), Strings.game(GameString.INFINITE)));
 	    } else {

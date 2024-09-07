@@ -35,7 +35,7 @@ final class MovingObjectTracker {
     }
 
     void activateObject(final int zx, final int zy, final int pushX, final int pushY, final GameObject gmo) {
-	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGame();
 	final var plMgr = gm.getPlayerManager();
 	final var pz = plMgr.getPlayerLocationZ();
 	this.objIncX = pushX - zx;
@@ -57,7 +57,7 @@ final class MovingObjectTracker {
     private void doObjectOnce() {
 	final var app = DungeonDiver7.getStuffBag();
 	final var m = app.getDungeonManager().getDungeon();
-	final var gm = app.getGameLogic();
+	final var gm = app.getGame();
 	final var pz = gm.getPlayerManager().getPlayerLocationZ();
 	try {
 	    if (gm.isDelayedDecayActive() && gm.isRemoteDecayActive()) {
@@ -173,7 +173,7 @@ final class MovingObjectTracker {
 
     void trackPart2() {
 	try {
-	    final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	    final var gm = DungeonDiver7.getStuffBag().getGame();
 	    final var plMgr = gm.getPlayerManager();
 	    final var pz = plMgr.getPlayerLocationZ();
 	    if (this.objectMoving) {

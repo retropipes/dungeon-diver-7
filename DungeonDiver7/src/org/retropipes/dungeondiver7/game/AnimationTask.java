@@ -26,7 +26,7 @@ class AnimationTask extends Thread {
 	try {
 	    final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
 	    while (!this.stop) {
-		final var pz = DungeonDiver7.getStuffBag().getGameLogic().getPlayerManager().getPlayerLocationZ();
+		final var pz = DungeonDiver7.getStuffBag().getGame().getPlayerManager().getPlayerLocationZ();
 		final var maxX = a.getRows();
 		final var maxY = a.getColumns();
 		final var maxW = Layer.values().length;
@@ -44,7 +44,7 @@ class AnimationTask extends Thread {
 			}
 		    }
 		}
-		DungeonDiver7.getStuffBag().getGameLogic().redrawDungeon();
+		DungeonDiver7.getStuffBag().getGame().redrawDungeon();
 		try {
 		    Thread.sleep(200);
 		} catch (final InterruptedException ie) {

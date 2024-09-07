@@ -20,7 +20,7 @@ import org.retropipes.dungeondiver7.dungeon.Dungeon;
 import org.retropipes.dungeondiver7.dungeon.DungeonData;
 import org.retropipes.dungeondiver7.dungeon.DungeonDataStorage;
 import org.retropipes.dungeondiver7.dungeon.HistoryStatus;
-import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.game.Game;
 import org.retropipes.dungeondiver7.gameobject.GameObject;
 import org.retropipes.dungeondiver7.gameobject.Material;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
@@ -304,7 +304,7 @@ public final class CurrentDungeonData extends DungeonData {
 
     @Override
     public boolean circularScanPlayer(final Dungeon dungeon, final int x, final int y, final int z, final int r) {
-	final var tankLoc = DungeonDiver7.getStuffBag().getGameLogic().getPlayerLocation();
+	final var tankLoc = DungeonDiver7.getStuffBag().getGame().getPlayerLocation();
 	var fX = x;
 	var fY = y;
 	var fZ = z;
@@ -655,9 +655,9 @@ public final class CurrentDungeonData extends DungeonData {
 		for (var z = 0; z < this.getFloors(); z++) {
 		    final var obj = this.getCell(dungeon, y, x, z, Layer.GROUND.ordinal());
 		    if (!(obj.getId() != ObjectImageId.GRASS)) {
-			DungeonDiver7.getStuffBag().getGameLogic();
+			DungeonDiver7.getStuffBag().getGame();
 			// Freeze the ground
-			GameLogic.morph(obj.changesToOnExposure(Material.ICE), y, x, z,
+			Game.morph(obj.changesToOnExposure(Material.ICE), y, x, z,
 				Layer.GROUND.ordinal());
 		    }
 		}
@@ -875,7 +875,7 @@ public final class CurrentDungeonData extends DungeonData {
 	}
 	int u, w;
 	if (d == Direction.NORTH) {
-	    final GameObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
+	    final GameObject tank = DungeonDiver7.getStuffBag().getGame().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    }
@@ -903,7 +903,7 @@ public final class CurrentDungeonData extends DungeonData {
 	    return false;
 	}
 	if (d == Direction.SOUTH) {
-	    final GameObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
+	    final GameObject tank = DungeonDiver7.getStuffBag().getGame().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    }
@@ -929,7 +929,7 @@ public final class CurrentDungeonData extends DungeonData {
 		}
 	    }
 	} else if (d == Direction.WEST) {
-	    final GameObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
+	    final GameObject tank = DungeonDiver7.getStuffBag().getGame().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    }
@@ -955,7 +955,7 @@ public final class CurrentDungeonData extends DungeonData {
 		}
 	    }
 	} else if (d == Direction.EAST) {
-	    final GameObject tank = DungeonDiver7.getStuffBag().getGameLogic().getPlayer();
+	    final GameObject tank = DungeonDiver7.getStuffBag().getGame().getPlayer();
 	    if (tank.getSavedObject().isSolid()) {
 		return false;
 	    }
@@ -1341,7 +1341,7 @@ public final class CurrentDungeonData extends DungeonData {
 	    floorFix = this.normalizeFloor(floorFix);
 	}
 	int x, y, z, w;
-	var game = DungeonDiver7.getStuffBag().getGameLogic();
+	var game = DungeonDiver7.getStuffBag().getGame();
 	var px = game.getPlayerLocation()[0];
 	var py = game.getPlayerLocation()[1];
 	// Tick all DungeonObject timers
@@ -1405,7 +1405,7 @@ public final class CurrentDungeonData extends DungeonData {
 	    if (!there.isSolid() && there.getId() != ObjectImageId.TUNNEL) {
 		if (Dungeon.radialScan(xLoc, yLoc, 0, pLocX, pLocY)) {
 		    if (app.getMode() != StuffBag.STATUS_BATTLE) {
-			app.getGameLogic().stopMovement();
+			app.getGame().stopMovement();
 			if (monster.isFinalBoss()) {
 			    app.getBattle().doFinalBossBattle();
 			} else {

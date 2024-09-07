@@ -28,7 +28,7 @@ import org.retropipes.dungeondiver7.locale.Difficulty;
 import org.retropipes.dungeondiver7.locale.EditorString;
 import org.retropipes.dungeondiver7.locale.Strings;
 
-class LevelPreferencesManager {
+class EditorLevelSettings {
     private class EventHandler implements ActionListener, WindowListener {
 	public EventHandler() {
 	    // Do nothing
@@ -38,7 +38,7 @@ class LevelPreferencesManager {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 	    try {
-		final var lpm = LevelPreferencesManager.this;
+		final var lpm = EditorLevelSettings.this;
 		final var cmd = e.getActionCommand();
 		if (cmd.equals(Strings.dialog(DialogString.OK_BUTTON))) {
 		    lpm.setPrefs();
@@ -63,7 +63,7 @@ class LevelPreferencesManager {
 
 	@Override
 	public void windowClosing(final WindowEvent e) {
-	    final var pm = LevelPreferencesManager.this;
+	    final var pm = EditorLevelSettings.this;
 	    pm.hidePrefs();
 	}
 
@@ -103,7 +103,7 @@ class LevelPreferencesManager {
     private MainContent mainPrefPane;
 
     // Constructors
-    public LevelPreferencesManager() {
+    public EditorLevelSettings() {
 	this.setUpGUI();
     }
 

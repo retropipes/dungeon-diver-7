@@ -5,12 +5,12 @@ import java.awt.event.MouseListener;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
 
-class DungeonEditorStartEventHandler implements MouseListener {
-    private final DungeonEditor editor;
+class EditorStartEventHandler implements MouseListener {
+    private final Editor editor;
 
     // handle scroll bars
-    public DungeonEditorStartEventHandler(DungeonEditor dungeonEditor) {
-	editor = dungeonEditor;
+    public EditorStartEventHandler(Editor theEditor) {
+	editor = theEditor;
     }
 
     @Override

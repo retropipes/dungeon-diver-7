@@ -6,10 +6,6 @@
 package org.retropipes.dungeondiver7.editor;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -18,65 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import org.retropipes.diane.gui.MainContent;
-import org.retropipes.dungeondiver7.DungeonDiver7;
 
-public abstract class GenericObjectEditor extends GenericEditor {
-    private class EventHandler implements ActionListener, FocusListener {
-	public EventHandler() {
-	    // Do nothing
-	}
-
-	@Override
-	public void actionPerformed(final ActionEvent e) {
-	    final var ge = GenericObjectEditor.this;
-	    try {
-		final var cmd = e.getActionCommand().substring(0, ge.actionCmdLen);
-		final var num = Integer.parseInt(e.getActionCommand().substring(ge.actionCmdLen));
-		ge.handleButtonClick(cmd, num);
-		if (ge.autoStore) {
-		    if (ge.guiEntryType(num) == GenericObjectEditor.ENTRY_TYPE_LIST) {
-			final var list = ge.getEntryList(num);
-			ge.autoStoreEntryListValue(list, num);
-		    } else if (ge.guiEntryType(num) == GenericObjectEditor.ENTRY_TYPE_TEXT) {
-			final var entry = ge.getEntryField(num);
-			ge.autoStoreEntryFieldValue(entry, num);
-		    }
-		}
-	    } catch (final NumberFormatException nfe) {
-		// Ignore
-	    } catch (final Exception ex) {
-		DungeonDiver7.logError(ex);
-	    }
-	}
-
-	@Override
-	public void focusGained(final FocusEvent fe) {
-	    // Do nothing
-	}
-
-	@Override
-	public void focusLost(final FocusEvent fe) {
-	    final var ge = GenericObjectEditor.this;
-	    try {
-		final var comp = fe.getComponent();
-		if (comp.getClass().equals(JTextField.class)) {
-		    final var entry = (JTextField) comp;
-		    final var num = Integer.parseInt(entry.getName());
-		    ge.autoStoreEntryFieldValue(entry, num);
-		} else if (comp.getClass().equals(JComboBox.class)) {
-		    @SuppressWarnings("unchecked")
-		    final var list = (JComboBox<String>) comp;
-		    final var num = Integer.parseInt(list.getName());
-		    ge.autoStoreEntryListValue(list, num);
-		}
-	    } catch (final NumberFormatException nfe) {
-		// Ignore
-	    } catch (final Exception ex) {
-		DungeonDiver7.logError(ex);
-	    }
-	}
-    }
-
+public abstract class ObjectEditorBase extends EditorBase {
     public static final boolean ENTRY_TYPE_TEXT = false;
     public static final boolean ENTRY_TYPE_LIST = true;
     // Fields
@@ -88,9 +27,10 @@ public abstract class GenericObjectEditor extends GenericEditor {
     private ArrayList<JComboBox<String>> entryLists;
     private JButton[][] actionButtons;
     boolean autoStore;
-    private EventHandler handler;
+    private ObjectEditorBaseActionHandler ahandler;
+    private ObjectEditorBaseFocusHandler fhandler;
 
-    protected GenericObjectEditor(final String newSource, final int actionCommandLength, final int actionButtonRows,
+    protected ObjectEditorBase(final String newSource, final int actionCommandLength, final int actionButtonRows,
 	    final int actionButtonCols, final boolean autoStoreEnabled) {
 	super(newSource);
 	this.actionCmdLen = actionCommandLength;
@@ -149,7 +89,8 @@ public abstract class GenericObjectEditor extends GenericEditor {
 
     @Override
     protected void setUpGUIHook(final MainContent outputPane) {
-	this.handler = new EventHandler();
+	this.ahandler = new ObjectEditorBaseActionHandler(this);
+	this.fhandler = new ObjectEditorBaseFocusHandler(this);
 	outputPane.setLayout(new GridLayout(this.abCols, this.abRows));
 	this.nameLabels = new JLabel[this.abCols];
 	this.entryFields = new JTextField[this.abCols];
@@ -164,23 +105,23 @@ public abstract class GenericObjectEditor extends GenericEditor {
 	    this.nameLabels[x] = new JLabel();
 	    this.guiNameLabelProperties(this.nameLabels[x], x);
 	    final var entryType = this.guiEntryType(x);
-	    if (entryType == GenericObjectEditor.ENTRY_TYPE_LIST) {
+	    if (entryType == ObjectEditorBase.ENTRY_TYPE_LIST) {
 		this.entryLists.set(x, new JComboBox<>(this.guiEntryListItems(x)));
 		this.guiEntryListProperties(this.entryLists.get(x), x);
 		if (this.isReadOnly()) {
 		    this.entryLists.get(x).setEnabled(false);
 		} else if (this.autoStore) {
 		    this.entryLists.get(x).setName(Integer.toString(x));
-		    this.entryLists.get(x).addFocusListener(this.handler);
+		    this.entryLists.get(x).addFocusListener(this.fhandler);
 		}
-	    } else if (entryType == GenericObjectEditor.ENTRY_TYPE_TEXT) {
+	    } else if (entryType == ObjectEditorBase.ENTRY_TYPE_TEXT) {
 		this.entryFields[x] = new JTextField();
 		this.guiEntryFieldProperties(this.entryFields[x], x);
 		if (this.isReadOnly()) {
 		    this.entryFields[x].setEnabled(false);
 		} else if (this.autoStore) {
 		    this.entryFields[x].setName(Integer.toString(x));
-		    this.entryFields[x].addFocusListener(this.handler);
+		    this.entryFields[x].addFocusListener(this.fhandler);
 		}
 	    }
 	    for (var y = 0; y < this.abRows - 2; y++) {
@@ -188,16 +129,16 @@ public abstract class GenericObjectEditor extends GenericEditor {
 		this.guiActionButtonProperties(this.actionButtons[y][x], x, y);
 		this.actionButtons[y][x].setActionCommand(this.guiActionButtonActionCommand(x, y));
 		// Add action listener for button
-		this.actionButtons[y][x].addActionListener(this.handler);
+		this.actionButtons[y][x].addActionListener(this.ahandler);
 		if (this.isReadOnly()) {
 		    this.actionButtons[y][x].setEnabled(false);
 		}
 	    }
 	    // Add controls
 	    outputPane.add(this.nameLabels[x]);
-	    if (entryType == GenericObjectEditor.ENTRY_TYPE_LIST) {
+	    if (entryType == ObjectEditorBase.ENTRY_TYPE_LIST) {
 		outputPane.add(this.entryLists.get(x));
-	    } else if (entryType == GenericObjectEditor.ENTRY_TYPE_TEXT) {
+	    } else if (entryType == ObjectEditorBase.ENTRY_TYPE_TEXT) {
 		outputPane.add(this.entryFields[x]);
 	    }
 	    for (var y = 0; y < this.abRows - 2; y++) {

@@ -19,14 +19,12 @@ import org.retropipes.dungeondiver7.manager.file.AbstractPrefixIO;
 import org.retropipes.dungeondiver7.manager.file.AbstractSuffixIO;
 
 public abstract class Dungeon {
-    // Constants
     private static final int MIN_LEVELS = 1;
     protected static final int MAX_LEVELS = Integer.MAX_VALUE;
     protected static final int ERA_COUNT = 5;
     private static final int MAX_COLUMNS = 250;
     private static final int MAX_ROWS = 250;
 
-    // Static methods
     public static String getDungeonTempFolder() {
 	return System.getProperty(Strings.untranslated(Untranslated.TEMP_DIR)) + File.separator
 		+ Strings.untranslated(Untranslated.PROGRAM_NAME);
@@ -79,7 +77,7 @@ public abstract class Dungeon {
     /**
      * @throws IOException
      */
-    public Dungeon() throws IOException {
+    protected Dungeon() throws IOException {
 	// Do nothing
     }
 

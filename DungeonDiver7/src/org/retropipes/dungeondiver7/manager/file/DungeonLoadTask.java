@@ -53,9 +53,9 @@ public class DungeonLoadTask extends Thread {
 	this.mainWindow.setAndSave(this.loadContent, Strings.dialog(DialogString.LOADING));
 	final var app = DungeonDiver7.getStuffBag();
 	if (this.isSavedGame) {
-	    app.getGameLogic().setSavedGameFlag(true);
+	    app.getGame().setSavedGameFlag(true);
 	} else {
-	    app.getGameLogic().setSavedGameFlag(false);
+	    app.getGame().setSavedGameFlag(false);
 	}
 	try {
 	    final var dungeonFile = new File(this.filename);
@@ -94,7 +94,7 @@ public class DungeonLoadTask extends Thread {
 	    app.getDungeonManager().setDungeon(gameDungeon);
 	    final var playerExists = gameDungeon.doesPlayerExist(0);
 	    if (playerExists) {
-		app.getGameLogic().getPlayerManager().resetPlayerLocation();
+		app.getGame().getPlayerManager().resetPlayerLocation();
 	    }
 	    if (!this.isSavedGame) {
 		gameDungeon.save();

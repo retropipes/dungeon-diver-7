@@ -20,8 +20,8 @@ import org.retropipes.dungeondiver7.battle.map.time.MapTimeBattleLogic;
 import org.retropipes.dungeondiver7.battle.map.turn.MapTurnBattleLogic;
 import org.retropipes.dungeondiver7.battle.window.time.WindowTimeBattleLogic;
 import org.retropipes.dungeondiver7.battle.window.turn.WindowTurnBattleLogic;
-import org.retropipes.dungeondiver7.editor.DungeonEditor;
-import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.editor.Editor;
+import org.retropipes.dungeondiver7.game.Game;
 import org.retropipes.dungeondiver7.gameobject.ShopType;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Strings;
@@ -75,10 +75,10 @@ public final class StuffBag {
 
     // Fields
     private AboutDialog about;
-    private GameLogic gameLogic;
+    private Game game;
     private DungeonManager dungeonMgr;
     private MenuManager menuMgr;
-    private DungeonEditor editor;
+    private Editor editor;
     private GUIManager guiMgr;
     private int mode, formerMode;
     private final DungeonObjects objects;
@@ -107,11 +107,11 @@ public final class StuffBag {
 	this.getMenus().unregisterAllModeManagers();
 	this.getMenus().registerModeManager(this.getGUIManager());
 	this.getMenus().initMenus();
-	this.getMenus().registerModeManager(this.getGameLogic());
+	this.getMenus().registerModeManager(this.getGame());
 	this.getMenus().registerModeManager(this.getEditor());
 	this.getMenus().registerModeManager(this.getAboutDialog());
 	// Fire hooks
-	this.getGameLogic().activeLanguageChanged();
+	this.getGame().activeLanguageChanged();
 	this.getEditor().activeLanguageChanged();
     }
 
@@ -121,7 +121,7 @@ public final class StuffBag {
 	    this.getGUIManager().hideGUI();
 	    break;
 	case StuffBag.STATUS_GAME:
-	    this.getGameLogic().exitGame();
+	    this.getGame().exitGame();
 	    break;
 	case StuffBag.STATUS_EDITOR:
 	    this.getEditor().exitEditor();
@@ -187,9 +187,9 @@ public final class StuffBag {
 	return this.dungeonMgr;
     }
 
-    public DungeonEditor getEditor() {
+    public Editor getEditor() {
 	if (this.editor == null) {
-	    this.editor = new DungeonEditor();
+	    this.editor = new Editor();
 	}
 	return this.editor;
     }
@@ -198,11 +198,11 @@ public final class StuffBag {
 	return this.formerMode;
     }
 
-    public GameLogic getGameLogic() {
-	if (this.gameLogic == null) {
-	    this.gameLogic = new GameLogic();
+    public Game getGame() {
+	if (this.game == null) {
+	    this.game = new Game();
 	}
-	return this.gameLogic;
+	return this.game;
     }
 
     public GUIManager getGUIManager() {
@@ -233,7 +233,7 @@ public final class StuffBag {
     }
 
     public Shop getShopByType(final ShopType shopType) {
-	this.getGameLogic().stopMovement();
+	this.getGame().stopMovement();
 	return switch (shopType) {
 	case ARMOR -> this.armor;
 	case HEALER -> this.healer;
@@ -267,7 +267,7 @@ public final class StuffBag {
 
     public void setInGame() {
 	this.mode = StuffBag.STATUS_GAME;
-	this.getMenus().modeChanged(this.getGameLogic());
+	this.getMenus().modeChanged(this.getGame());
     }
 
     void setInGUI() {

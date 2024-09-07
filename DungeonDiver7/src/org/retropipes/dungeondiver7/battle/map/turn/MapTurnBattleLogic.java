@@ -117,8 +117,8 @@ public class MapTurnBattleLogic extends Battle {
 	this.hideBattle();
 	DungeonDiver7.getStuffBag().setMode(StuffBag.STATUS_GAME);
 	// Return to whence we came
-	DungeonDiver7.getStuffBag().getGameLogic().showOutput();
-	DungeonDiver7.getStuffBag().getGameLogic().redrawDungeon();
+	DungeonDiver7.getStuffBag().getGame().showOutput();
+	DungeonDiver7.getStuffBag().getGame().redrawDungeon();
     }
 
     @Override
@@ -356,13 +356,13 @@ public class MapTurnBattleLogic extends Battle {
 	// Level Up Check
 	if (playerCharacter.checkLevelUp()) {
 	    playerCharacter.levelUp();
-	    DungeonDiver7.getStuffBag().getGameLogic().keepNextMessage();
+	    DungeonDiver7.getStuffBag().getGame().keepNextMessage();
 	    DungeonDiver7.getStuffBag().showMessage("You reached level " + playerCharacter.getLevel() + ".");
 	}
     }
 
     private void doBattleInternal(final Dungeon bMap) {
-	DungeonDiver7.getStuffBag().getGameLogic().hideOutput();
+	DungeonDiver7.getStuffBag().getGame().hideOutput();
 	DungeonDiver7.getStuffBag().setMode(StuffBag.STATUS_BATTLE);
 	this.bd = new MapBattleDefinitions();
 	this.bd.setBattleDungeon(bMap);

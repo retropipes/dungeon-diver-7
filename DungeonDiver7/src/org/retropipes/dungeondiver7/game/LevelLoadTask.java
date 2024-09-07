@@ -37,12 +37,12 @@ public class LevelLoadTask extends Thread {
 	    this.mainWindow.setAndSave(this.loadContent, Strings.dialog(DialogString.LOADING));
 	    final var app = DungeonDiver7.getStuffBag();
 	    final var gameDungeon = app.getDungeonManager().getDungeon();
-	    app.getGameLogic().disableEvents();
+	    app.getGame().disableEvents();
 	    gameDungeon.switchLevelOffset(this.level);
 	    PartyManager.getParty().offsetZone(this.level);
-	    app.getGameLogic().resetViewingWindow();
-	    app.getGameLogic().enableEvents();
-	    app.getGameLogic().redrawDungeon();
+	    app.getGame().resetViewingWindow();
+	    app.getGame().enableEvents();
+	    app.getGame().redrawDungeon();
 	} catch (final Exception ex) {
 	    DungeonDiver7.logError(ex);
 	} finally {

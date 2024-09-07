@@ -35,7 +35,7 @@ import org.retropipes.dungeondiver7.MenuSection;
 import org.retropipes.dungeondiver7.StuffBag;
 import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.game.GameLogic;
+import org.retropipes.dungeondiver7.game.Game;
 import org.retropipes.dungeondiver7.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
@@ -50,7 +50,7 @@ import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.RCLGenerator;
 
-public class DungeonEditor implements MenuSection {
+public class Editor implements MenuSection {
     private static final int STACK_COUNT = 10;
     // Declarations
     private MainWindow mainWindow;
@@ -60,9 +60,9 @@ public class DungeonEditor implements MenuSection {
     private JLabel messageLabel;
     private GameObject savedGameObject;
     private JScrollBar vertScroll, horzScroll;
-    private final DungeonEditorEventHandler mhandler;
-    private final DungeonEditorStartEventHandler shandler;
-    private final LevelPreferencesManager lPrefs;
+    private final EditorEventHandler mhandler;
+    private final EditorStartEventHandler shandler;
+    private final EditorLevelSettings lPrefs;
     private PicturePicker oldPicker;
     private StackedPicturePicker newPicker11;
     private SXSPicturePicker newPicker12;
@@ -83,11 +83,11 @@ public class DungeonEditor implements MenuSection {
 	    editorSetStartPoint, editorFillLevel, editorResizeLevel, editorSetMusic, editorChangeLayer,
 	    editorGlobalMoveShoot;
 
-    public DungeonEditor() {
+    public Editor() {
 	this.savedGameObject = new GameObject(ObjectImageId.GRASS);
-	this.lPrefs = new LevelPreferencesManager();
-	this.mhandler = new DungeonEditorEventHandler(this);
-	this.shandler = new DungeonEditorStartEventHandler(this);
+	this.lPrefs = new EditorLevelSettings();
+	this.mhandler = new EditorEventHandler(this);
+	this.shandler = new EditorStartEventHandler(this);
 	this.engine = new EditorUndoRedoEngine();
 	final var objectList = DungeonDiver7.getStuffBag().getObjects();
 	this.names = objectList.getAllNamesOnLayer(Layer.GROUND.ordinal());
@@ -276,7 +276,7 @@ public class DungeonEditor implements MenuSection {
 
     @Override
     public JMenu createCommandsMenu() {
-	final var menuHandler = new DungeonEditorMenuHandler(this);
+	final var menuHandler = new EditorMenuHandler(this);
 	final var editorMenu = new JMenu(Strings.menu(Menu.EDITOR));
 	this.editorUndo = new JMenuItem(Strings.menu(Menu.UNDO));
 	this.editorRedo = new JMenuItem(Strings.menu(Menu.REDO));
@@ -477,7 +477,7 @@ public class DungeonEditor implements MenuSection {
 	    app.getGUIManager().hideGUI();
 	    app.setInEditor();
 	    // Reset game state
-	    app.getGameLogic().resetGameState();
+	    app.getGame().resetGameState();
 	    // Create the managers
 	    if (this.dungeonChanged) {
 		this.elMgr = new EditorLocationManager();
@@ -684,7 +684,7 @@ public class DungeonEditor implements MenuSection {
 	// Save the entire level
 	mm.getDungeon().save();
 	// Reset the player location
-	GameLogic.resetPlayerLocation(0);
+	Game.resetPlayerLocation(0);
     }
 
     public void fillLevel() {
@@ -771,7 +771,7 @@ public class DungeonEditor implements MenuSection {
 	    }
 	}
 	if (saved) {
-	    app.getGameLogic().getPlayerManager().resetPlayerLocation();
+	    app.getGame().getPlayerManager().resetPlayerLocation();
 	    Dungeon a = null;
 	    try {
 		a = DungeonManager.createDungeon();
@@ -1164,7 +1164,7 @@ public class DungeonEditor implements MenuSection {
 	this.secondaryPane.addMouseListener(this.mhandler);
 	this.secondaryPane.addMouseMotionListener(this.mhandler);
 	this.switcherPane = this.mainWindow.createContent();
-	final var switcherHandler = new DungeonEditorSwitcherHandler(this);
+	final var switcherHandler = new EditorSwitcherHandler(this);
 	final var switcherGroup = new ButtonGroup();
 	this.lowerGround = new JToggleButton(Strings.editor(EditorString.LOWER_GROUND_LAYER));
 	this.upperGround = new JToggleButton(Strings.editor(EditorString.UPPER_GROUND_LAYER));
@@ -1245,7 +1245,7 @@ public class DungeonEditor implements MenuSection {
 	if (this.newPicker11 != null) {
 	    this.newPicker11.updatePicker(newImages, enabled);
 	} else {
-	    this.newPicker11 = new StackedPicturePicker(newImages, enabled, DungeonEditor.STACK_COUNT,
+	    this.newPicker11 = new StackedPicturePicker(newImages, enabled, Editor.STACK_COUNT,
 		    ImageConstants.SIZE);
 	}
     }
@@ -1263,7 +1263,7 @@ public class DungeonEditor implements MenuSection {
 	if (this.newPicker12 != null) {
 	    this.newPicker12.updatePicker(newImages, enabled);
 	} else {
-	    this.newPicker12 = new SXSPicturePicker(newImages, enabled, DungeonEditor.STACK_COUNT);
+	    this.newPicker12 = new SXSPicturePicker(newImages, enabled, Editor.STACK_COUNT);
 	}
     }
 

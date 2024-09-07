@@ -24,7 +24,7 @@ import org.retropipes.dungeondiver7.locale.EditorString;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.utility.Importer;
 
-public class ExternalMusicEditor extends GenericObjectEditor {
+public class ExternalMusicEditor extends ObjectEditorBase {
     private class EventHandler implements WindowListener {
 	// Handle menus
 	public EventHandler() {
@@ -154,7 +154,7 @@ public class ExternalMusicEditor extends GenericObjectEditor {
 
     @Override
     protected boolean guiEntryType(final int num) {
-	return GenericObjectEditor.ENTRY_TYPE_TEXT;
+	return ObjectEditorBase.ENTRY_TYPE_TEXT;
     }
 
     @Override

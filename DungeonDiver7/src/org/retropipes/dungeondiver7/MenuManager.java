@@ -32,10 +32,10 @@ public class MenuManager implements MenuSection {
 		final var cmd = e.getActionCommand();
 		if (cmd.equals(Strings.menu(Menu.PLAY_DUNGEON))) {
 		    // Play the current dungeon
-		    final var proceed = app.getGameLogic().newGame();
+		    final var proceed = app.getGame().newGame();
 		    if (proceed) {
 			app.exitCurrentMode();
-			app.getGameLogic().playDungeon();
+			app.getGame().playDungeon();
 		    }
 		} else if (cmd.equals(Strings.menu(Menu.EDIT_DUNGEON))) {
 		    // Edit the current dungeon

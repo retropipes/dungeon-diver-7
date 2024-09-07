@@ -146,7 +146,7 @@ public class WindowTimeBattleLogic extends Battle {
     @Override
     public final void battleDone() {
 	this.battleGUI.getOutputFrame().setVisible(false);
-	final var gm = DungeonDiver7.getStuffBag().getGameLogic();
+	final var gm = DungeonDiver7.getStuffBag().getGame();
 	gm.showOutput();
 	gm.redrawDungeon();
     }
@@ -337,7 +337,7 @@ public class WindowTimeBattleLogic extends Battle {
     public void doBattle() {
 	try {
 	    final var app = DungeonDiver7.getStuffBag();
-	    final var gm = app.getGameLogic();
+	    final var gm = app.getGame();
 	    if (app.getMode() != StuffBag.STATUS_BATTLE) {
 		SoundLoader.playSound(Sounds.DRAW_SWORD);
 	    }
@@ -372,7 +372,7 @@ public class WindowTimeBattleLogic extends Battle {
 	// Level Up Check
 	if (playerCharacter.checkLevelUp()) {
 	    playerCharacter.levelUp();
-	    DungeonDiver7.getStuffBag().getGameLogic().keepNextMessage();
+	    DungeonDiver7.getStuffBag().getGame().keepNextMessage();
 	    DungeonDiver7.getStuffBag().showMessage("You reached level " + playerCharacter.getLevel() + ".");
 	}
     }
@@ -381,7 +381,7 @@ public class WindowTimeBattleLogic extends Battle {
     public void doFinalBossBattle() {
 	try {
 	    final var app = DungeonDiver7.getStuffBag();
-	    final var gm = app.getGameLogic();
+	    final var gm = app.getGame();
 	    if (app.getMode() != StuffBag.STATUS_BATTLE) {
 		SoundLoader.playSound(Sounds.DRAW_SWORD);
 	    }

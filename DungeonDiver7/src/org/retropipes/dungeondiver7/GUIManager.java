@@ -118,7 +118,7 @@ public class GUIManager implements MenuSection, QuitHandler {
 			    }
 			}
 			if (saved) {
-			    app.getGameLogic().exitGame();
+			    app.getGame().exitGame();
 			}
 		    }
 		    app.getGUIManager().showGUI();
