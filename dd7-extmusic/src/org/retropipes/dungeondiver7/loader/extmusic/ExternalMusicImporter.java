@@ -11,12 +11,12 @@ import java.io.IOException;
 import org.retropipes.diane.fileio.utility.FileUtilities;
 
 public class ExternalMusicImporter {
-    private static final String MAC_PREFIX = "HOME";
-    private static final String WIN_PREFIX = "APPDATA";
-    private static final String UNIX_PREFIX = "HOME";
-    private static final String MAC_SOUND_DIR = "/Library/Application Support/Putty Software/DungeonDiver7/TempMusic";
-    private static final String WIN_SOUND_DIR = "\\Putty Software\\DungeonDiver7\\TempMusic";
-    private static final String UNIX_SOUND_DIR = "/.puttysoftware/dungeondiver7/tempmusic";
+    private static final String MAC_PREFIX = "HOME"; //$NON-NLS-1$
+    private static final String WIN_PREFIX = "APPDATA"; //$NON-NLS-1$
+    private static final String UNIX_PREFIX = "HOME"; //$NON-NLS-1$
+    private static final String MAC_SOUND_DIR = "/Library/Application Support/Putty Software/DungeonDiver7/TempMusic"; //$NON-NLS-1$
+    private static final String WIN_SOUND_DIR = "\\Putty Software\\DungeonDiver7\\TempMusic"; //$NON-NLS-1$
+    private static final String UNIX_SOUND_DIR = "/.puttysoftware/dungeondiver7/tempmusic"; //$NON-NLS-1$
     private static File destFile;
 
     public static File getDestinationFile() {
@@ -24,12 +24,12 @@ public class ExternalMusicImporter {
     }
 
     private static String getDirPrefix() {
-	final var osName = System.getProperty("os.name");
-	if (osName.indexOf("Mac OS X") != -1) {
+	final var osName = System.getProperty("os.name"); //$NON-NLS-1$
+	if (osName.indexOf("Mac OS X") != -1) { //$NON-NLS-1$
 	    // Mac OS X
 	    return System.getenv(ExternalMusicImporter.MAC_PREFIX);
 	}
-	if (osName.indexOf("Windows") != -1) {
+	if (osName.indexOf("Windows") != -1) { //$NON-NLS-1$
 	    // Windows
 	    return System.getenv(ExternalMusicImporter.WIN_PREFIX);
 	}
@@ -55,12 +55,12 @@ public class ExternalMusicImporter {
     }
 
     private static String getMusicDirectory() {
-	final var osName = System.getProperty("os.name");
-	if (osName.indexOf("Mac OS X") != -1) {
+	final var osName = System.getProperty("os.name"); //$NON-NLS-1$
+	if (osName.indexOf("Mac OS X") != -1) { //$NON-NLS-1$
 	    // Mac OS X
 	    return ExternalMusicImporter.MAC_SOUND_DIR;
 	}
-	if (osName.indexOf("Windows") != -1) {
+	if (osName.indexOf("Windows") != -1) { //$NON-NLS-1$
 	    // Windows
 	    return ExternalMusicImporter.WIN_SOUND_DIR;
 	}

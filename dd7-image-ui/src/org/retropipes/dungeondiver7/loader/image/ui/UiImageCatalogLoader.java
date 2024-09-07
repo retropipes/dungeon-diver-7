@@ -5,10 +5,11 @@ import java.util.ArrayList;
 
 import org.retropipes.diane.Diane;
 import org.retropipes.diane.fileio.utility.ResourceStreamReader;
+import org.retropipes.dungeondiver7.locale.Strings;
 
 class UiImageCatalogLoader {
     private static ArrayList<String> FILENAME_CACHE = null;
-    private static String CATALOG_PATH = "/asset/catalog/image/ui.catalog";
+    private static String CATALOG_PATH = "/asset/catalog/image/ui.catalog"; //$NON-NLS-1$
 
     static String getFilename(final int index) {
 	if (FILENAME_CACHE == null) {
@@ -16,7 +17,7 @@ class UiImageCatalogLoader {
 		    UiImageCatalogLoader.class.getResourceAsStream(CATALOG_PATH))) {
 		// Fetch data
 		final var rawData = new ArrayList<String>();
-		var line = "";
+		var line = Strings.EMPTY;
 		while (line != null) {
 		    line = rsr.readString();
 		    if (line != null) {

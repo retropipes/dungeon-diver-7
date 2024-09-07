@@ -17,7 +17,7 @@ public class JobDescriptionManager {
     public static String getJobDescription(final int j) {
 	final var name = Integer.toString(j);
 	try (final var rsr = new ResourceStreamReader(JobDescriptionManager.class.getResourceAsStream(
-		"/asset/description/job/" + name + Strings.fileExtension(FileExtension.INTERNAL_DATA)))) {
+		"/asset/description/job/" + name + Strings.fileExtension(FileExtension.INTERNAL_DATA)))) { //$NON-NLS-1$
 	    return rsr.readString();
 	} catch (final IOException e) {
 	    Diane.handleError(e);

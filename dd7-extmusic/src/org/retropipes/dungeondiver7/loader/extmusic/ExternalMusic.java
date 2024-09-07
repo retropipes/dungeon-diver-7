@@ -5,6 +5,8 @@
  */
 package org.retropipes.dungeondiver7.loader.extmusic;
 
+import org.retropipes.dungeondiver7.locale.Strings;
+
 public class ExternalMusic {
     // Fields
     private String name;
@@ -12,8 +14,8 @@ public class ExternalMusic {
 
     // Constructor
     public ExternalMusic() {
-	this.name = "";
-	this.path = "";
+	this.name = Strings.EMPTY;
+	this.path = Strings.EMPTY;
     }
 
     public String getName() {

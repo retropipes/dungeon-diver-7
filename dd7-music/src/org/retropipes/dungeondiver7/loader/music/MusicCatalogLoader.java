@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.retropipes.diane.Diane;
 import org.retropipes.diane.fileio.utility.ResourceStreamReader;
 import org.retropipes.dungeondiver7.locale.Music;
+import org.retropipes.dungeondiver7.locale.Strings;
 
 class MusicCatalogLoader {
     private static ArrayList<String> MUSIC_FILENAMES = null;
@@ -13,10 +14,10 @@ class MusicCatalogLoader {
     public static String getMusicFilename(final Music music) {
 	if (MusicCatalogLoader.MUSIC_FILENAMES == null) {
 	    try (final var rsr = new ResourceStreamReader(
-		    MusicCatalogLoader.class.getResourceAsStream("/asset/catalog/music.catalog"))) {
+		    MusicCatalogLoader.class.getResourceAsStream("/asset/catalog/music.catalog"))) { //$NON-NLS-1$
 		// Fetch data
 		final var rawData = new ArrayList<String>();
-		var line = "";
+		var line = Strings.EMPTY;
 		while (line != null) {
 		    line = rsr.readString();
 		    if (line != null) {

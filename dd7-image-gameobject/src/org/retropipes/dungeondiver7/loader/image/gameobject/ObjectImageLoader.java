@@ -18,6 +18,6 @@ public class ObjectImageLoader {
     public static BufferedImageIcon load(final String name, final int baseId) {
 	var filename = Integer.toString(baseId);
 	return DianeImageLoader.load(name, ObjectImageLoader.class
-		.getResource("/asset/image/object/" + filename + Strings.fileExtension(FileExtension.IMAGE)));
+		.getResource("/asset/image/object/" + filename + Strings.fileExtension(FileExtension.IMAGE))); //$NON-NLS-1$
     }
 }
