@@ -14,6 +14,8 @@ import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.creature.effect.Effect;
 import org.retropipes.dungeondiver7.creature.item.ItemInventory;
 import org.retropipes.dungeondiver7.creature.spell.SpellBook;
+import org.retropipes.dungeondiver7.locale.GameString;
+import org.retropipes.dungeondiver7.locale.Strings;
 
 public abstract class Creature {
     private static int ACTION_CAP = 1;
@@ -208,7 +210,7 @@ public abstract class Creature {
 		final var e = this.get(x);
 		if (e != null) {
 		    sb.append(e.getCurrentMessage());
-		    sb.append("\n");
+		    sb.append(Strings.DISPLAY_NEW_LINE);
 		}
 	    } catch (final ArrayIndexOutOfBoundsException aioob) {
 		// Do nothing
@@ -247,12 +249,12 @@ public abstract class Creature {
 
     public final String getCompleteEffectString() {
 	int x;
-	var s = "";
+	var s = Strings.EMPTY;
 	for (x = 0; x < this.effectList.length; x++) {
 	    try {
 		final var e = this.get(x);
 		if (e != null) {
-		    s += e.getEffectString() + "\n";
+		    s += e.getEffectString() + Strings.DISPLAY_NEW_LINE;
 		}
 	    } catch (final ArrayIndexOutOfBoundsException aioob) {
 		// Do nothing
@@ -350,9 +352,9 @@ public abstract class Creature {
 	final var vowel = this.isFirstLetterVowel(enemyName);
 	String fightingWhat = null;
 	if (vowel) {
-	    fightingWhat = "You're fighting an " + enemyName;
+	    fightingWhat = Strings.game(GameString.FIGHTING_WHAT_VOWEL) + enemyName;
 	} else {
-	    fightingWhat = "You're fighting a " + enemyName;
+	    fightingWhat = Strings.game(GameString.FIGHTING_WHAT) + enemyName;
 	}
 	return fightingWhat;
     }
@@ -388,7 +390,7 @@ public abstract class Creature {
     }
 
     public final String getHPString() {
-	return this.getCurrentHP() + "/" + this.getEffectedMaximumHP();
+	return this.getCurrentHP() + Strings.STAT_DELIM + this.getEffectedMaximumHP();
     }
 
     public final BufferedImageIcon getImage() {
@@ -450,7 +452,7 @@ public abstract class Creature {
     }
 
     public final String getMPString() {
-	return this.getCurrentMP() + "/" + this.getEffectedMaximumMP();
+	return this.getCurrentMP() + Strings.STAT_DELIM + this.getEffectedMaximumMP();
     }
 
     public abstract String getName();
@@ -618,8 +620,7 @@ public abstract class Creature {
 
     protected boolean isFirstLetterVowel(final String s) {
 	final var firstLetter = s.substring(0, 1);
-	if (firstLetter.equalsIgnoreCase("A") || firstLetter.equalsIgnoreCase("E") || firstLetter.equalsIgnoreCase("I")
-		|| firstLetter.equalsIgnoreCase("O") || firstLetter.equalsIgnoreCase("U")) {
+	if (Strings.allVowels().contains(firstLetter)) {
 	    return true;
 	}
 	return false;

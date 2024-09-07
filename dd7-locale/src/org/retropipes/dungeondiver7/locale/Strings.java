@@ -16,6 +16,8 @@ public final class Strings {
     private static final String CACHE_DELIM = " & "; //$NON-NLS-1$
     private static final String NAMED_DELIM = "$$"; //$NON-NLS-1$
     public static final String LOADER_DELIM = "-"; //$NON-NLS-1$
+    public static final String DISPLAY_NEW_LINE = "\n"; //$NON-NLS-1$
+    public static final String STAT_DELIM = "/"; //$NON-NLS-1$
     public static final int ARMOR_TYPES_COUNT = 6;
     public static final int BATTLE_MECHANICS_COUNT = 2;
     public static final int BATTLE_STYLES_COUNT = 2;
@@ -109,7 +111,18 @@ public final class Strings {
     public static String[] allTimeTravelEras() {
 	final var result = new String[TimeTravel.values().length];
 	for (var index = 0; index < result.length; index++) {
-	    result[index] = ResourceBundle.getBundle("locale.timetravel", Strings.ACTIVE).getString(Integer.toString(index)); //$NON-NLS-1$
+	    result[index] = ResourceBundle.getBundle("locale.timetravel", Strings.ACTIVE) //$NON-NLS-1$
+		    .getString(Integer.toString(index));
+	}
+	return result;
+    }
+
+    public static ArrayList<String> allVowels() {
+	final var result = new ArrayList<String>();
+	final var file = ResourceBundle.getBundle("locale.vowel", Strings.ACTIVE); //$NON-NLS-1$
+	final var limit = file.keySet().size();
+	for (var index = 0; index < limit; index++) {
+	    result.add(file.getString(Integer.toString(index)));
 	}
 	return result;
     }
@@ -249,7 +262,8 @@ public final class Strings {
     }
 
     public static String settingKey(final SettingKey item) {
-	return ResourceBundle.getBundle("locale.settingkeys", Strings.ACTIVE).getString(Integer.toString(item.ordinal())); //$NON-NLS-1$
+	return ResourceBundle.getBundle("locale.settingkeys", Strings.ACTIVE) //$NON-NLS-1$
+		.getString(Integer.toString(item.ordinal()));
     }
 
     public static String settings(final SettingString item) {
