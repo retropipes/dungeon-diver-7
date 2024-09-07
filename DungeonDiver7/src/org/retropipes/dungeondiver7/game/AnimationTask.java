@@ -6,7 +6,7 @@
 package org.retropipes.dungeondiver7.game;
 
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeonData;
+import org.retropipes.dungeondiver7.dungeon.DungeonData;
 import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
@@ -24,7 +24,7 @@ class AnimationTask extends Thread {
     @Override
     public void run() {
 	try {
-	    final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	    final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase();
 	    while (!this.stop) {
 		final var pz = DungeonDiver7.getStuffBag().getGame().getPlayerManager().getPlayerLocationZ();
 		final var maxX = a.getRows();
@@ -33,7 +33,7 @@ class AnimationTask extends Thread {
 		for (var x = 0; x < maxX; x++) {
 		    for (var y = 0; y < maxY; y++) {
 			for (var w = 0; w < maxW; w++) {
-			    synchronized (CurrentDungeonData.LOCK_OBJECT) {
+			    synchronized (DungeonData.LOCK_OBJECT) {
 				final var oldFN = a.getCell(x, y, pz, w).getFrameNumber();
 				a.getCell(x, y, pz, w).toggleFrameNumber();
 				final var newFN = a.getCell(x, y, pz, w).getFrameNumber();

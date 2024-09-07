@@ -10,7 +10,7 @@ import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.asset.ImageConstants;
-import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.locale.GameString;
 import org.retropipes.dungeondiver7.locale.Layer;
@@ -148,7 +148,7 @@ class GameMovementEventHandler implements KeyListener, MouseListener {
 		break;
 	    case KeyEvent.VK_SPACE:
 		final var app = DungeonDiver7.getStuffBag();
-		final var m = app.getDungeonManager().getDungeon();
+		final var m = app.getDungeonManager().getDungeonBase();
 		final var px = m.getPlayerLocationX(0);
 		final var py = m.getPlayerLocationY(0);
 		GameObject there = new GameObject(ObjectImageId.EMPTY);

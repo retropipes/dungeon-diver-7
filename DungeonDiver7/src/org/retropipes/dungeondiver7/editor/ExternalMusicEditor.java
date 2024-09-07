@@ -196,7 +196,7 @@ public class ExternalMusicEditor extends ObjectEditorBase {
     @Override
     protected void loadObject() {
 	this.cachedExternalMusic = ExternalMusicLoader.getExternalMusic(ExternalMusicImporter.getMusicBasePath(),
-		DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getMusicFilename());
+		DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().getMusicFilename());
     }
 
     @Override
@@ -243,7 +243,7 @@ public class ExternalMusicEditor extends ObjectEditorBase {
     }
 
     public void setMusicFilename(final String fn) {
-	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().setMusicFilename(fn);
+	DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().setMusicFilename(fn);
     }
 
     @Override

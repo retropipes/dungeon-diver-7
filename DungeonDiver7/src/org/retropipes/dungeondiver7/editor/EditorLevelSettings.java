@@ -116,7 +116,7 @@ class EditorLevelSettings {
     }
 
     private void loadPrefs() {
-	final var m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase();
 	this.horizontalWrap.setSelected(m.isHorizontalWraparoundEnabled());
 	this.verticalWrap.setSelected(m.isVerticalWraparoundEnabled());
 	this.thirdWrap.setSelected(m.isThirdDimensionWraparoundEnabled());
@@ -128,7 +128,7 @@ class EditorLevelSettings {
     }
 
     void setPrefs() {
-	final var m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase();
 	if (this.horizontalWrap.isSelected()) {
 	    m.enableHorizontalWraparound();
 	} else {

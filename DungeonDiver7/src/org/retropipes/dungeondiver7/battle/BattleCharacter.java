@@ -11,7 +11,7 @@ import org.retropipes.dungeondiver7.battle.ai.AIContext;
 import org.retropipes.dungeondiver7.battle.ai.CreatureAI;
 import org.retropipes.dungeondiver7.creature.Creature;
 import org.retropipes.dungeondiver7.creature.StatConstants;
-import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 
 public class BattleCharacter {
     // Fields

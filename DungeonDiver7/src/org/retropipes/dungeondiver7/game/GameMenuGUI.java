@@ -19,7 +19,7 @@ import org.retropipes.dungeondiver7.locale.TimeTravel;
 class GameMenuGUI {
     static void checkMenus() {
 	final var edit = DungeonDiver7.getStuffBag().getEditor();
-	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase();
 	if (a.tryUndo()) {
 	    edit.enableUndo();
 	} else {

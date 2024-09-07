@@ -3,7 +3,7 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package org.retropipes.dungeondiver7.manager.file;
+package org.retropipes.dungeondiver7.files;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import org.retropipes.diane.fileio.utility.ZipUtilities;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.Dungeon;
+import org.retropipes.dungeondiver7.dungeon.base.DungeonBase;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
@@ -57,25 +57,25 @@ public class DungeonSaveTask extends Thread {
 	    }
 	}
 	final var dungeonFile = new File(this.filename);
-	final var tempLock = new File(Dungeon.getDungeonTempFolder() + "lock.tmp");
+	final var tempLock = new File(DungeonBase.getDungeonTempFolder() + "lock.tmp");
 	try {
 	    // Set prefix handler
-	    app.getDungeonManager().getDungeon().setPrefixHandler(new DungeonFilePrefixHandler());
+	    app.getDungeonManager().getDungeonBase().setPrefixHandler(new DungeonFilePrefixHandler());
 	    // Set suffix handler
 	    if (this.isSavedGame) {
-		app.getDungeonManager().getDungeon().setSuffixHandler(new DungeonFileSuffixHandler());
+		app.getDungeonManager().getDungeonBase().setSuffixHandler(new DungeonFileSuffixHandler());
 	    } else {
-		app.getDungeonManager().getDungeon().setSuffixHandler(null);
+		app.getDungeonManager().getDungeonBase().setSuffixHandler(null);
 	    }
-	    app.getDungeonManager().getDungeon().writeDungeon();
+	    app.getDungeonManager().getDungeonBase().writeDungeon();
 	    if (this.saveProtected) {
-		ZipUtilities.zipDirectory(new File(app.getDungeonManager().getDungeon().getBasePath()), tempLock);
+		ZipUtilities.zipDirectory(new File(app.getDungeonManager().getDungeonBase().getBasePath()), tempLock);
 		// Protect the dungeon
 		DungeonProtectionWrapper.protect(tempLock, dungeonFile);
 		tempLock.delete();
 		app.getDungeonManager().setDungeonProtected(true);
 	    } else {
-		ZipUtilities.zipDirectory(new File(app.getDungeonManager().getDungeon().getBasePath()), dungeonFile);
+		ZipUtilities.zipDirectory(new File(app.getDungeonManager().getDungeonBase().getBasePath()), dungeonFile);
 		app.getDungeonManager().setDungeonProtected(false);
 	    }
 	} catch (final FileNotFoundException fnfe) {

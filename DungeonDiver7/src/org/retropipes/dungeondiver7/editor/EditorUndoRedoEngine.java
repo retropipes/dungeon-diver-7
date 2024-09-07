@@ -5,7 +5,7 @@
  */
 package org.retropipes.dungeondiver7.editor;
 
-import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 
 class EditorUndoRedoEngine {
     // Inner classes

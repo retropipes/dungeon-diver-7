@@ -7,7 +7,7 @@ package org.retropipes.dungeondiver7.battle.map;
 
 import org.retropipes.dungeondiver7.battle.BattleCharacter;
 import org.retropipes.dungeondiver7.battle.ai.AIContext;
-import org.retropipes.dungeondiver7.dungeon.Dungeon;
+import org.retropipes.dungeondiver7.dungeon.base.DungeonBase;
 
 public class MapBattleDefinitions {
     private static final int MAX_BATTLERS = 100;
@@ -15,7 +15,7 @@ public class MapBattleDefinitions {
     private BattleCharacter activeCharacter;
     private final BattleCharacter[] battlers;
     private final AIContext[] aiContexts;
-    private Dungeon battleMap;
+    private DungeonBase battleMap;
     private int battlerCount;
 
     // Constructors
@@ -89,7 +89,7 @@ public class MapBattleDefinitions {
 	return this.activeCharacter;
     }
 
-    public Dungeon getBattleDungeon() {
+    public DungeonBase getBattleDungeonBase() {
 	return this.battleMap;
     }
 
@@ -127,7 +127,7 @@ public class MapBattleDefinitions {
 	this.activeCharacter = bc;
     }
 
-    public void setBattleDungeon(final Dungeon bMap) {
+    public void setBattleDungeonBase(final DungeonBase bMap) {
 	this.battleMap = bMap;
     }
 }

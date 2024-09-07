@@ -24,8 +24,8 @@ import org.retropipes.dungeondiver7.battle.map.MapBattleDraw;
 import org.retropipes.dungeondiver7.battle.map.MapBattleEffects;
 import org.retropipes.dungeondiver7.battle.map.MapBattleStats;
 import org.retropipes.dungeondiver7.battle.map.MapBattleViewingWindowManager;
-import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.base.DungeonBase;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.locale.Layer;
@@ -85,7 +85,7 @@ class MapTimeBattleGUI {
 	return this.myActionBar.getValue() == this.myActionBar.getMaximum();
     }
 
-    void redrawBattle(final Dungeon battleMap) {
+    void redrawBattle(final DungeonBase battleMap) {
 	// Draw the battle, if it is visible
 	if (this.battleFrame.isVisible()) {
 	    int x, y;
@@ -120,7 +120,7 @@ class MapTimeBattleGUI {
 	}
     }
 
-    void redrawOneBattleSquare(final Dungeon battleMap, final int x, final int y, final GameObject obj3) {
+    void redrawOneBattleSquare(final DungeonBase battleMap, final int x, final int y, final GameObject obj3) {
 	// Draw the battle, if it is visible
 	if (this.battleFrame.isVisible()) {
 	    try {

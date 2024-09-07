@@ -5,7 +5,7 @@
  */
 package org.retropipes.dungeondiver7.utility;
 
-import org.retropipes.dungeondiver7.gameobject.Material;
+import org.retropipes.dungeondiver7.dungeon.gameobject.Material;
 
 public class RangeTypes {
     public static final int BOMB = 0;

@@ -44,20 +44,20 @@ class EditorMenuHandler implements ActionListener {
 	    } else if (cmd.equals(Strings.menu(Menu.CUT_LEVEL))) {
 		// Cut Level
 		final var level = editor.getLocationManager().getEditorLocationU();
-		app.getDungeonManager().getDungeon().cutLevel();
+		app.getDungeonManager().getDungeonBase().cutLevel();
 		editor.fixLimits();
 		editor.updateEditorLevelAbsolute(level);
 	    } else if (cmd.equals(Strings.menu(Menu.COPY_LEVEL))) {
 		// Copy Level
-		app.getDungeonManager().getDungeon().copyLevel();
+		app.getDungeonManager().getDungeonBase().copyLevel();
 	    } else if (cmd.equals(Strings.menu(Menu.PASTE_LEVEL))) {
 		// Paste Level
-		app.getDungeonManager().getDungeon().pasteLevel();
+		app.getDungeonManager().getDungeonBase().pasteLevel();
 		editor.fixLimits();
 		editor.redrawEditor();
 	    } else if (cmd.equals(Strings.menu(Menu.INSERT_LEVEL_FROM_CLIPBOARD))) {
 		// Insert Level From Clipboard
-		app.getDungeonManager().getDungeon().insertLevelFromClipboard();
+		app.getDungeonManager().getDungeonBase().insertLevelFromClipboard();
 		editor.fixLimits();
 	    } else if (cmd.equals(Strings.menu(Menu.CLEAR_HISTORY))) {
 		// Clear undo/redo history, confirm first
@@ -113,7 +113,7 @@ class EditorMenuHandler implements ActionListener {
 		editor.disableGlobalMoveShoot();
 	    } else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_PAST))) {
 		// Time Travel: Distant Past
-		app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_PAST);
+		app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_DISTANT_PAST);
 		editor.editorEraDistantPast.setSelected(true);
 		editor.editorEraPast.setSelected(false);
 		editor.editorEraPresent.setSelected(false);
@@ -121,7 +121,7 @@ class EditorMenuHandler implements ActionListener {
 		editor.editorEraDistantFuture.setSelected(false);
 	    } else if (cmd.equals(Strings.timeTravel(TimeTravel.PAST))) {
 		// Time Travel: Past
-		app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PAST);
+		app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_PAST);
 		editor.editorEraDistantPast.setSelected(false);
 		editor.editorEraPast.setSelected(true);
 		editor.editorEraPresent.setSelected(false);
@@ -129,7 +129,7 @@ class EditorMenuHandler implements ActionListener {
 		editor.editorEraDistantFuture.setSelected(false);
 	    } else if (cmd.equals(Strings.timeTravel(TimeTravel.PRESENT))) {
 		// Time Travel: Present
-		app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PRESENT);
+		app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_PRESENT);
 		editor.editorEraDistantPast.setSelected(false);
 		editor.editorEraPast.setSelected(false);
 		editor.editorEraPresent.setSelected(true);
@@ -137,7 +137,7 @@ class EditorMenuHandler implements ActionListener {
 		editor.editorEraDistantFuture.setSelected(false);
 	    } else if (cmd.equals(Strings.timeTravel(TimeTravel.FUTURE))) {
 		// Time Travel: Future
-		app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_FUTURE);
+		app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_FUTURE);
 		editor.editorEraDistantPast.setSelected(false);
 		editor.editorEraPast.setSelected(false);
 		editor.editorEraPresent.setSelected(false);
@@ -145,7 +145,7 @@ class EditorMenuHandler implements ActionListener {
 		editor.editorEraDistantFuture.setSelected(false);
 	    } else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_FUTURE))) {
 		// Time Travel: Distant Future
-		app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_FUTURE);
+		app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_DISTANT_FUTURE);
 		editor.editorEraDistantPast.setSelected(false);
 		editor.editorEraPast.setSelected(false);
 		editor.editorEraPresent.setSelected(false);

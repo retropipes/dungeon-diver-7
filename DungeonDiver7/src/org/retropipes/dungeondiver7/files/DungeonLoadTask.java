@@ -3,7 +3,7 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package org.retropipes.dungeondiver7.manager.file;
+package org.retropipes.dungeondiver7.files;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,13 +17,13 @@ import org.retropipes.diane.gui.MainContent;
 import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.Dungeon;
+import org.retropipes.dungeondiver7.dungeon.base.DungeonBase;
+import org.retropipes.dungeondiver7.dungeon.manager.DungeonManager;
 import org.retropipes.dungeondiver7.loader.extmusic.ExternalMusicLoader;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.ErrorString;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
-import org.retropipes.dungeondiver7.manager.dungeon.DungeonManager;
 import org.retropipes.dungeondiver7.utility.InvalidDungeonException;
 
 public class DungeonLoadTask extends Thread {
@@ -59,8 +59,8 @@ public class DungeonLoadTask extends Thread {
 	}
 	try {
 	    final var dungeonFile = new File(this.filename);
-	    final var tempLock = new File(Dungeon.getDungeonTempFolder() + "lock.tmp");
-	    var gameDungeon = DungeonManager.createDungeon();
+	    final var tempLock = new File(DungeonBase.getDungeonTempFolder() + "lock.tmp");
+	    var gameDungeon = DungeonManager.createDungeonBase();
 	    if (this.dungeonProtected) {
 		// Attempt to unprotect the file
 		DungeonProtectionWrapper.unprotect(dungeonFile, tempLock);
@@ -87,11 +87,11 @@ public class DungeonLoadTask extends Thread {
 	    } else {
 		gameDungeon.setSuffixHandler(null);
 	    }
-	    gameDungeon = gameDungeon.readDungeon();
+	    gameDungeon = gameDungeon.readDungeonBase();
 	    if (gameDungeon == null) {
 		throw new InvalidDungeonException(Strings.error(ErrorString.UNKNOWN_OBJECT));
 	    }
-	    app.getDungeonManager().setDungeon(gameDungeon);
+	    app.getDungeonManager().setDungeonBase(gameDungeon);
 	    final var playerExists = gameDungeon.doesPlayerExist(0);
 	    if (playerExists) {
 		app.getGame().getPlayerManager().resetPlayerLocation();

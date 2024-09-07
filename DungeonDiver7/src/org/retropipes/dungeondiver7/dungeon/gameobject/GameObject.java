@@ -1,4 +1,4 @@
-package org.retropipes.dungeondiver7.gameobject;
+package org.retropipes.dungeondiver7.dungeon.gameobject;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 import org.retropipes.diane.objectmodel.ObjectModel;
 import org.retropipes.diane.random.RandomRange;
-import org.retropipes.dungeondiver7.dungeon.Dungeon;
+import org.retropipes.dungeondiver7.dungeon.base.DungeonBase;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
@@ -27,14 +27,14 @@ public final class GameObject implements RandomGenerationRule {
     private final static boolean[] tunnelsFull = new boolean[Strings.COLOR_COUNT];
     private final static int SCAN_RADIUS = 24;
 
-    public static void checkTunnels(final int tx, final int ty, final Dungeon dungeon) {
+    public static void checkTunnels(final int tx, final int ty, final DungeonBase dungeonBase) {
 	for (var x = 0; x < Strings.COLOR_COUNT; x++) {
-	    GameObject.checkTunnelsOfColor(tx, ty, dungeon, Colors.values()[x]);
+	    GameObject.checkTunnelsOfColor(tx, ty, dungeonBase, Colors.values()[x]);
 	}
     }
 
-    protected static void checkTunnelsOfColor(final int tx, final int ty, final Dungeon dungeon, final Colors color) {
-	final var pgrmdest = dungeon.circularScanTunnel(0, 0, 0, GameObject.SCAN_RADIUS, tx, ty,
+    protected static void checkTunnelsOfColor(final int tx, final int ty, final DungeonBase dungeonBase, final Colors color) {
+	final var pgrmdest = dungeonBase.circularScanTunnel(0, 0, 0, GameObject.SCAN_RADIUS, tx, ty,
 		GameObject.getTunnelOfColor(color), false);
 	if (pgrmdest != null) {
 	    GameObject.tunnelsFull[color.ordinal()] = false;
@@ -356,12 +356,12 @@ public final class GameObject implements RandomGenerationRule {
     }
 
     @Override
-    public int getMaximumRequiredQuantity(final Dungeon dungeon) {
+    public int getMaximumRequiredQuantity(final DungeonBase dungeonBase) {
 	return RandomGenerationRule.NO_LIMIT;
     }
 
     @Override
-    public int getMinimumRequiredQuantity(final Dungeon dungeon) {
+    public int getMinimumRequiredQuantity(final DungeonBase dungeonBase) {
 	return RandomGenerationRule.NO_LIMIT;
     }
 
@@ -471,7 +471,7 @@ public final class GameObject implements RandomGenerationRule {
     }
 
     @Override
-    public boolean isRequired(final Dungeon dungeon) {
+    public boolean isRequired(final DungeonBase dungeonBase) {
 	return false;
     }
 
@@ -600,12 +600,12 @@ public final class GameObject implements RandomGenerationRule {
     }
 
     @Override
-    public boolean shouldGenerateObject(final Dungeon dungeon, final int row, final int col, final int level,
+    public boolean shouldGenerateObject(final DungeonBase dungeonBase, final int row, final int col, final int level,
 	    final int layer) {
 	if (layer == Layer.STATUS.ordinal()) {
 	    // Handle object layer
 	    // Limit generation of other objects to 20%, unless required
-	    if (this.isPassThrough() || this.isRequired(dungeon)) {
+	    if (this.isPassThrough() || this.isRequired(dungeonBase)) {
 		return true;
 	    }
 	    final var r = new RandomRange(1, 100);

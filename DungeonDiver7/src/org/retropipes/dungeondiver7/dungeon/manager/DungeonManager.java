@@ -3,7 +3,7 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package org.retropipes.dungeondiver7.manager.dungeon;
+package org.retropipes.dungeondiver7.dungeon.manager;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,17 +15,17 @@ import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.StuffBag;
 import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeon;
+import org.retropipes.dungeondiver7.dungeon.base.DungeonBase;
+import org.retropipes.dungeondiver7.files.DungeonLoadTask;
+import org.retropipes.dungeondiver7.files.DungeonSaveTask;
+import org.retropipes.dungeondiver7.files.GameFinder;
+import org.retropipes.dungeondiver7.files.GameLoadTask;
+import org.retropipes.dungeondiver7.files.GameSaveTask;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.EditorString;
 import org.retropipes.dungeondiver7.locale.FileExtension;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.Untranslated;
-import org.retropipes.dungeondiver7.manager.file.DungeonLoadTask;
-import org.retropipes.dungeondiver7.manager.file.DungeonSaveTask;
-import org.retropipes.dungeondiver7.manager.file.GameFinder;
-import org.retropipes.dungeondiver7.manager.file.GameLoadTask;
-import org.retropipes.dungeondiver7.manager.file.GameSaveTask;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.CleanupTask;
 
@@ -37,8 +37,8 @@ public final class DungeonManager {
     private static final String WIN_DIR = "\\Ignition Igloo Games\\Chrystalz\\Games\\";
     private static final String UNIX_DIR = "/.ignitionigloogames/chrystalz/games/";
 
-    public static Dungeon createDungeon() throws IOException {
-	return new CurrentDungeon();
+    public static DungeonBase createDungeonBase() throws IOException {
+	return new Dungeon();
     }
 
     private static String getExtension(final String s) {
@@ -202,7 +202,7 @@ public final class DungeonManager {
     }
 
     // Fields
-    private Dungeon gameDungeon;
+    private DungeonBase gameDungeonBase;
     private boolean loaded, isDirty;
     private String scoresFileName;
     private String lastUsedDungeonFile;
@@ -213,7 +213,7 @@ public final class DungeonManager {
     public DungeonManager() {
 	this.loaded = false;
 	this.isDirty = false;
-	this.gameDungeon = null;
+	this.gameDungeonBase = null;
 	this.lastUsedDungeonFile = Strings.EMPTY;
 	this.lastUsedGameFile = Strings.EMPTY;
 	this.scoresFileName = Strings.EMPTY;
@@ -228,8 +228,8 @@ public final class DungeonManager {
 	return this.isDirty;
     }
 
-    public Dungeon getDungeon() {
-	return this.gameDungeon;
+    public DungeonBase getDungeonBase() {
+	return this.gameDungeonBase;
     }
 
     public String getLastUsedDungeon() {
@@ -493,8 +493,8 @@ public final class DungeonManager {
 	app.getMenus().checkFlags();
     }
 
-    public void setDungeon(final Dungeon newDungeon) {
-	this.gameDungeon = newDungeon;
+    public void setDungeonBase(final DungeonBase newDungeonBase) {
+	this.gameDungeonBase = newDungeonBase;
     }
 
     public void setDungeonProtected(final boolean value) {

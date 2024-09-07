@@ -3,14 +3,14 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package org.retropipes.dungeondiver7.dungeon.current;
+package org.retropipes.dungeondiver7.dungeon;
 
-import org.retropipes.dungeondiver7.dungeon.Dungeon;
+import org.retropipes.dungeondiver7.dungeon.base.DungeonBase;
 
 public final class DungeonGenerator {
     /**
-     * @param dungeon
+     * @param dungeonBase
      */
-    public static void fillRandomly(final Dungeon dungeon) {
+    public static void fillRandomly(final DungeonBase dungeonBase) {
     }
 }

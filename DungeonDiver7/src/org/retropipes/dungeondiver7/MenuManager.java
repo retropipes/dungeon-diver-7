@@ -134,7 +134,7 @@ public class MenuManager implements MenuSection {
     @Override
     public void enableLoadedCommands() {
 	final var app = DungeonDiver7.getStuffBag();
-	if (app.getDungeonManager().getDungeon().doesPlayerExist(0)) {
+	if (app.getDungeonManager().getDungeonBase().doesPlayerExist(0)) {
 	    this.playPlay.setEnabled(true);
 	} else {
 	    this.playPlay.setEnabled(false);

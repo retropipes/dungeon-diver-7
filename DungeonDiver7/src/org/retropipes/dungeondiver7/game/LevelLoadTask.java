@@ -36,7 +36,7 @@ public class LevelLoadTask extends Thread {
 	try {
 	    this.mainWindow.setAndSave(this.loadContent, Strings.dialog(DialogString.LOADING));
 	    final var app = DungeonDiver7.getStuffBag();
-	    final var gameDungeon = app.getDungeonManager().getDungeon();
+	    final var gameDungeon = app.getDungeonManager().getDungeonBase();
 	    app.getGame().disableEvents();
 	    gameDungeon.switchLevelOffset(this.level);
 	    PartyManager.getParty().offsetZone(this.level);

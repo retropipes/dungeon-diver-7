@@ -58,7 +58,7 @@ public final class PlayerLocationManager {
     }
 
     public void resetPlayerLocation() {
-	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase();
 	for (var pi = 0; pi < DungeonConstants.NUM_PLAYERS; pi++) {
 	    final var found = a.findPlayer(pi);
 	    if (found != null) {

@@ -27,8 +27,8 @@ import org.retropipes.dungeondiver7.creature.monster.FinalBossMonster;
 import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.creature.spell.SpellCaster;
-import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.base.DungeonBase;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
@@ -41,7 +41,7 @@ public class MapTimeBattleLogic extends Battle {
     // Fields
     private BattleType battleType;
     private MapBattleDefinitions bd;
-    private Dungeon battleMap;
+    private DungeonBase battleMap;
     private DamageEngine pde;
     private DamageEngine ede;
     private final AutoMapAI auto;
@@ -255,9 +255,9 @@ public class MapTimeBattleLogic extends Battle {
 
     @Override
     public void doBattle() {
-	Dungeon bMap = null;
+	DungeonBase bMap = null;
 	try {
-	    bMap = Dungeon.getTemporaryBattleCopy();
+	    bMap = DungeonBase.getTemporaryBattleCopy();
 	} catch (final IOException e) {
 	    DungeonDiver7.logError(e);
 	}
@@ -279,12 +279,12 @@ public class MapTimeBattleLogic extends Battle {
 	}
     }
 
-    private void doBattleInternal(final Dungeon bMap) {
+    private void doBattleInternal(final DungeonBase bMap) {
 	// Initialize Battle
 	DungeonDiver7.getStuffBag().getGame().hideOutput();
 	DungeonDiver7.getStuffBag().setMode(StuffBag.STATUS_BATTLE);
 	this.bd = new MapBattleDefinitions();
-	this.bd.setBattleDungeon(bMap);
+	this.bd.setBattleDungeonBase(bMap);
 	this.pde = DamageEngine.getPlayerInstance();
 	this.ede = DamageEngine.getEnemyInstance();
 	this.resultDoneAlready = false;
@@ -316,9 +316,9 @@ public class MapTimeBattleLogic extends Battle {
 
     @Override
     public void doFinalBossBattle() {
-	Dungeon bMap = null;
+	DungeonBase bMap = null;
 	try {
-	    bMap = Dungeon.getTemporaryBattleCopy();
+	    bMap = DungeonBase.getTemporaryBattleCopy();
 	} catch (final IOException e) {
 	    DungeonDiver7.logError(e);
 	}

@@ -24,9 +24,9 @@ import org.retropipes.dungeondiver7.StuffBag;
 import org.retropipes.dungeondiver7.asset.ImageConstants;
 import org.retropipes.dungeondiver7.creature.party.Party;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.dungeon.HistoryStatus;
-import org.retropipes.dungeondiver7.dungeon.current.GenerateDungeonTask;
-import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.GenerateDungeonTask;
+import org.retropipes.dungeondiver7.dungeon.base.HistoryStatus;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.extmusic.ExternalMusicImporter;
 import org.retropipes.dungeondiver7.loader.extmusic.ExternalMusicLoader;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
@@ -80,7 +80,7 @@ public final class Game implements MenuSection {
 
     private static void checkMenus() {
 	final var edit = DungeonDiver7.getStuffBag().getEditor();
-	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase();
 	if (a.tryUndo()) {
 	    edit.enableUndo();
 	} else {
@@ -95,13 +95,13 @@ public final class Game implements MenuSection {
 
     public static void morph(final GameObject morphInto) {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	m.setCell(morphInto, m.getPlayerLocationX(0), m.getPlayerLocationY(0), 0, morphInto.getLayer());
     }
 
     public static void morph(final GameObject morphInto, final int x, final int y, final int z, final int w) {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	try {
 	    m.setCell(morphInto, x, y, z, w);
 	    app.getDungeonManager().setDirty(true);
@@ -112,7 +112,7 @@ public final class Game implements MenuSection {
 
     public static void resetPlayerLocation(final int level) {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	if (m != null) {
 	    m.switchLevel(level);
 	    m.setPlayerToStart();
@@ -123,7 +123,7 @@ public final class Game implements MenuSection {
 	    final boolean mag, final boolean blu, final boolean dis, final boolean bom, final boolean hbm,
 	    final boolean ibm) {
 	final var app = DungeonDiver7.getStuffBag();
-	final var a = app.getDungeonManager().getDungeon();
+	final var a = app.getDungeonManager().getDungeonBase();
 	a.updateRedoHistory(new HistoryStatus(las, mis, stu, boo, mag, blu, dis, bom, hbm, ibm));
 	Game.checkMenus();
     }
@@ -132,7 +132,7 @@ public final class Game implements MenuSection {
 	    final boolean mag, final boolean blu, final boolean dis, final boolean bom, final boolean hbm,
 	    final boolean ibm) {
 	final var app = DungeonDiver7.getStuffBag();
-	final var a = app.getDungeonManager().getDungeon();
+	final var a = app.getDungeonManager().getDungeonBase();
 	a.updateUndoHistory(new HistoryStatus(las, mis, stu, boo, mag, blu, dis, bom, hbm, ibm));
 	Game.checkMenus();
     }
@@ -310,7 +310,7 @@ public final class Game implements MenuSection {
 	    this.player.setSavedObject(new GameObject(ObjectImageId.EMPTY));
 	}
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	m.setCell(new GameObject(ObjectImageId.EMPTY), m.getPlayerLocationX(0), m.getPlayerLocationY(0), 0,
 		Layer.STATUS.ordinal());
     }
@@ -409,7 +409,7 @@ public final class Game implements MenuSection {
 	this.mlot = null;
 	this.stateChanged = true;
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	// Restore the dungeon
 	m.restore();
 	m.resetVisibleSquares(0);
@@ -496,7 +496,7 @@ public final class Game implements MenuSection {
 
     public void goToLevelOffset(final int level) {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	final var levelExists = m.doesLevelExistOffset(level);
 	this.stopMovement();
 	if (levelExists) {
@@ -519,7 +519,7 @@ public final class Game implements MenuSection {
 
     void identifyObject(final int x, final int y) {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	final var destX = x / ImageConstants.SIZE;
 	final var destY = y / ImageConstants.SIZE;
 	final var destZ = this.plMgr.getPlayerLocationZ();
@@ -611,7 +611,7 @@ public final class Game implements MenuSection {
 
     public void loadLevel() {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	final var choices = app.getLevelInfoList();
 	final var res = CommonDialogs.showInputDialog(Strings.game(GameString.LOAD_LEVEL_PROMPT),
 		Strings.game(GameString.LOAD_LEVEL), choices, choices[m.getActiveLevel()]);
@@ -625,7 +625,7 @@ public final class Game implements MenuSection {
 	    this.suspendAnimator();
 	    m.restore();
 	    m.switchLevel(number);
-	    app.getDungeonManager().getDungeon().setDirtyFlags(this.plMgr.getPlayerLocationZ());
+	    app.getDungeonManager().getDungeonBase().setDirtyFlags(this.plMgr.getPlayerLocationZ());
 	    m.resetHistoryEngine();
 	    this.gre = new GameReplayEngine();
 	    Game.checkMenus();
@@ -638,7 +638,7 @@ public final class Game implements MenuSection {
     }
 
     void markPlayerAsDirty() {
-	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().markAsDirty(this.plMgr.getPlayerLocationX(),
+	DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().markAsDirty(this.plMgr.getPlayerLocationX(),
 		this.plMgr.getPlayerLocationY(), this.plMgr.getPlayerLocationZ());
     }
 
@@ -661,18 +661,18 @@ public final class Game implements MenuSection {
 
     public void playDungeon() {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	if (app.getDungeonManager().getLoaded()) {
 	    this.gui.initViewManager();
 	    app.getGUIManager().hideGUI();
 	    if (this.stateChanged) {
 		// Initialize only if the maze state has changed
-		app.getDungeonManager().getDungeon().switchLevel(app.getDungeonManager().getDungeon().getStartLevel(0));
+		app.getDungeonManager().getDungeonBase().switchLevel(app.getDungeonManager().getDungeonBase().getStartLevel(0));
 		this.stateChanged = false;
 	    }
 	    app.setInGame();
-	    app.getDungeonManager().getDungeon().switchLevel(0);
-	    final var res = app.getDungeonManager().getDungeon()
+	    app.getDungeonManager().getDungeonBase().switchLevel(0);
+	    final var res = app.getDungeonManager().getDungeonBase()
 		    .switchToNextLevelWithDifficulty(GameGUI.getEnabledDifficulties());
 	    if (res) {
 		try {
@@ -702,7 +702,7 @@ public final class Game implements MenuSection {
 		    ExternalMusicLoader.playExternalMusic(ExternalMusicImporter.getMusicBasePath(),
 			    m.getMusicFilename());
 		}
-		app.getDungeonManager().getDungeon().setDirtyFlags(this.plMgr.getPlayerLocationZ());
+		app.getDungeonManager().getDungeonBase().setDirtyFlags(this.plMgr.getPlayerLocationZ());
 		this.updateScoreText();
 		this.showOutput();
 		this.redrawDungeon();
@@ -723,7 +723,7 @@ public final class Game implements MenuSection {
 
     public void previousLevel() {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	m.resetHistoryEngine();
 	this.gre = new GameReplayEngine();
 	Game.checkMenus();
@@ -766,7 +766,7 @@ public final class Game implements MenuSection {
 
     private boolean readSolution() {
 	try {
-	    final var activeLevel = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getActiveLevel();
+	    final var activeLevel = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().getActiveLevel();
 	    final var levelFile = DungeonDiver7.getStuffBag().getDungeonManager().getLastUsedDungeon();
 	    final var filename = levelFile + Strings.UNDERSCORE + activeLevel
 		    + Strings.fileExtension(FileExtension.SOLUTION);
@@ -780,7 +780,7 @@ public final class Game implements MenuSection {
     }
 
     public void redoLastMove() {
-	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase();
 	if (a.tryRedo()) {
 	    this.moving = false;
 	    this.shotActive = false;
@@ -921,7 +921,7 @@ public final class Game implements MenuSection {
 
     public void resetGameState() {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	app.getDungeonManager().setDirty(false);
 	m.restore();
 	this.setSavedGameFlag(false);
@@ -934,7 +934,7 @@ public final class Game implements MenuSection {
 
     private void resetLevel(final boolean flag) throws InvalidDungeonException {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	if (flag) {
 	    m.resetHistoryEngine();
 	}
@@ -962,7 +962,7 @@ public final class Game implements MenuSection {
 
     public void resetPlayerLocation() throws InvalidDungeonException {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	final var found = m.findPlayer(1);
 	if (found == null) {
 	    throw new InvalidDungeonException(Strings.error(ErrorString.PLAYER_LOCATION));
@@ -972,7 +972,7 @@ public final class Game implements MenuSection {
 
     public void resetViewingWindow() {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	if (m != null && this.vwMgr != null) {
 	    this.vwMgr.setViewingWindowLocationX(m.getPlayerLocationY(0) - GameViewingWindowManager.getOffsetFactorX());
 	    this.vwMgr.setViewingWindowLocationY(m.getPlayerLocationX(0) - GameViewingWindowManager.getOffsetFactorY());
@@ -1041,7 +1041,7 @@ public final class Game implements MenuSection {
 	    SoundLoader.playSound(Sounds.VICTORY);
 	}
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	if (playSound) {
 	    if (this.recording) {
 		this.writeSolution();
@@ -1095,7 +1095,7 @@ public final class Game implements MenuSection {
 
     public void undoLastMove() {
 	final var app = DungeonDiver7.getStuffBag();
-	final var a = app.getDungeonManager().getDungeon();
+	final var a = app.getDungeonManager().getDungeonBase();
 	if (a.tryUndo()) {
 	    this.moving = false;
 	    this.shotActive = false;
@@ -1159,7 +1159,7 @@ public final class Game implements MenuSection {
     }
 
     private void updateInfo() {
-	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase();
 	this.levelInfo.setText(LocaleUtils.subst(Strings.dialog(DialogString.CURRENT_LEVEL_INFO),
 		Integer.toString(a.getActiveLevel() + 1), a.getName().trim(), a.getAuthor().trim(),
 		Strings.difficulty(a.getDifficulty())));
@@ -1167,7 +1167,7 @@ public final class Game implements MenuSection {
 
     void updatePlayer() {
 	final var template = new Party();
-	this.player = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
+	this.player = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().getCell(
 		this.plMgr.getPlayerLocationX(), this.plMgr.getPlayerLocationY(), this.plMgr.getPlayerLocationZ(),
 		template.getLayer());
     }
@@ -1185,7 +1185,7 @@ public final class Game implements MenuSection {
     public void updatePositionAbsoluteNoEvents(final int x, final int y, final int z) {
 	final var template = new Party();
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	this.plMgr.savePlayerLocation();
 	try {
 	    if (!m.getCell(x, y, z, template.getLayer()).isSolid()) {
@@ -1241,7 +1241,7 @@ public final class Game implements MenuSection {
 	    final int z2, final GameObject pushedInto, final GameObject source) {
 	final var template = new Party();
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	var needsFixup1 = false;
 	var needsFixup2 = false;
 	try {
@@ -1437,7 +1437,7 @@ public final class Game implements MenuSection {
 
     private void writeSolution() {
 	try {
-	    final var activeLevel = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getActiveLevel();
+	    final var activeLevel = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().getActiveLevel();
 	    final var levelFile = DungeonDiver7.getStuffBag().getDungeonManager().getLastUsedDungeon();
 	    final var filename = levelFile + Strings.UNDERSCORE + activeLevel
 		    + Strings.fileExtension(FileExtension.SOLUTION);

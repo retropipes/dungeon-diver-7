@@ -1,4 +1,4 @@
-package org.retropipes.dungeondiver7.dungeon;
+package org.retropipes.dungeondiver7.dungeon.base;
 
 public class HistoryStatus {
     private static final int MAX_WHAT = 10;

@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.game;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
@@ -80,7 +80,7 @@ final class MovementTask extends Thread {
     }
 
     void fireStepActions() {
-	final var m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	final var m = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase();
 	final var px = m.getPlayerLocationX(0);
 	final var py = m.getPlayerLocationY(0);
 	m.updateVisibleSquares(px, py, 0);
@@ -130,7 +130,7 @@ final class MovementTask extends Thread {
 
     private void updatePositionAbsolute(final int x, final int y) {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	try {
 	    m.getCell(x, y, 0, Layer.STATUS.ordinal()).preMoveAction(true, x, y);
 	} catch (final ArrayIndexOutOfBoundsException ae) {
@@ -164,7 +164,7 @@ final class MovementTask extends Thread {
 
     private void updatePositionRelative(final int dirX, final int dirY) {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	var px = m.getPlayerLocationX(0);
 	var py = m.getPlayerLocationY(0);
 	final var pz = 0;

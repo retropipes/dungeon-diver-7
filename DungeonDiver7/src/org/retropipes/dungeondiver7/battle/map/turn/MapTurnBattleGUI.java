@@ -26,7 +26,7 @@ import org.retropipes.dungeondiver7.battle.map.MapBattleDraw;
 import org.retropipes.dungeondiver7.battle.map.MapBattleEffects;
 import org.retropipes.dungeondiver7.battle.map.MapBattleStats;
 import org.retropipes.dungeondiver7.battle.map.MapBattleViewingWindowManager;
-import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Strings;
@@ -88,8 +88,8 @@ class MapTurnBattleGUI {
 		    xFix = x - xView;
 		    yFix = y - yView;
 		    try {
-			final var lgobj = bd.getBattleDungeon().getCell(y, x, 0, Layer.GROUND.ordinal());
-			final var ugobj = bd.getBattleDungeon().getCell(y, x, 0, Layer.OBJECT.ordinal());
+			final var lgobj = bd.getBattleDungeonBase().getCell(y, x, 0, Layer.GROUND.ordinal());
+			final var ugobj = bd.getBattleDungeonBase().getCell(y, x, 0, Layer.OBJECT.ordinal());
 			final var lgimg = lgobj.getImage();
 			final var ugimg = ugobj.getImage();
 			final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName());
@@ -114,8 +114,8 @@ class MapTurnBattleGUI {
 		final var yView = this.vwMgr.getViewingWindowLocationY();
 		xFix = y - xView;
 		yFix = x - yView;
-		final var lgobj = bd.getBattleDungeon().getCell(y, x, 0, Layer.GROUND.ordinal());
-		final var ugobj = bd.getBattleDungeon().getCell(y, x, 0, Layer.OBJECT.ordinal());
+		final var lgobj = bd.getBattleDungeonBase().getCell(y, x, 0, Layer.GROUND.ordinal());
+		final var ugobj = bd.getBattleDungeonBase().getCell(y, x, 0, Layer.OBJECT.ordinal());
 		final var lgimg = lgobj.getImage();
 		final var ugimg = ugobj.getImage();
 		final var o3img = obj3.getImage();

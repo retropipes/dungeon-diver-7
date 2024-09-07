@@ -5,12 +5,12 @@
  */
 package org.retropipes.dungeondiver7.editor;
 
-import org.retropipes.dungeondiver7.dungeon.Dungeon;
+import org.retropipes.dungeondiver7.dungeon.base.DungeonBase;
 
 final class EditorViewingWindowManager {
     // Fields
-    private static final int VIEWING_WINDOW_SIZE_X = Dungeon.getMinColumns();
-    private static final int VIEWING_WINDOW_SIZE_Y = Dungeon.getMinRows();
+    private static final int VIEWING_WINDOW_SIZE_X = DungeonBase.getMinColumns();
+    private static final int VIEWING_WINDOW_SIZE_Y = DungeonBase.getMinRows();
     private static final int MIN_VIEWING_WINDOW_X = 0;
     private static final int MIN_VIEWING_WINDOW_Y = 0;
 

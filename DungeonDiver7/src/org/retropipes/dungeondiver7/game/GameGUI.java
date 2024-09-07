@@ -24,8 +24,8 @@ import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.Accelerators;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.base.DungeonBase;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
@@ -236,7 +236,7 @@ class GameGUI {
     public void redrawDungeon() {
 	// Draw the maze
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	int x, y, u, v;
 	int xFix, yFix;
 	boolean visible;
@@ -248,7 +248,7 @@ class GameGUI {
 		    .getLowerRightViewingWindowLocationY(); y++) {
 		xFix = x - this.vwMgr.getViewingWindowLocationX();
 		yFix = y - this.vwMgr.getViewingWindowLocationY();
-		visible = app.getDungeonManager().getDungeon().isSquareVisible(u, v, y, x, 0);
+		visible = app.getDungeonManager().getDungeonBase().isSquareVisible(u, v, y, x, 0);
 		try {
 		    if (visible) {
 			final var obj1 = m.getCell(y, x, 0, Layer.GROUND.ordinal());
@@ -391,7 +391,7 @@ class GameGUI {
 	    MusicLoader.stopMusic();
 	}
 	final var zoneID = PartyManager.getParty().getZone();
-	if (zoneID == Dungeon.getMaxLevels() - 1) {
+	if (zoneID == DungeonBase.getMaxLevels() - 1) {
 	    MusicLoader.playMusic(Music.LAIR);
 	} else {
 	    MusicLoader.playMusic(Music.DUNGEON);

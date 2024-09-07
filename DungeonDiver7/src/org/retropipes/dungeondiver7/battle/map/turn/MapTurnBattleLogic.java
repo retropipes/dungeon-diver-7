@@ -28,8 +28,8 @@ import org.retropipes.dungeondiver7.creature.effect.Effect;
 import org.retropipes.dungeondiver7.creature.monster.MonsterFactory;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
 import org.retropipes.dungeondiver7.creature.spell.SpellCaster;
-import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.base.DungeonBase;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.music.MusicLoader;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
@@ -333,9 +333,9 @@ public class MapTurnBattleLogic extends Battle {
     @Override
     public void doBattle() {
 	// Initialize Battle
-	Dungeon bMap = null;
+	DungeonBase bMap = null;
 	try {
-	    bMap = Dungeon.getTemporaryBattleCopy();
+	    bMap = DungeonBase.getTemporaryBattleCopy();
 	} catch (final IOException e) {
 	    DungeonDiver7.logError(e);
 	}
@@ -361,11 +361,11 @@ public class MapTurnBattleLogic extends Battle {
 	}
     }
 
-    private void doBattleInternal(final Dungeon bMap) {
+    private void doBattleInternal(final DungeonBase bMap) {
 	DungeonDiver7.getStuffBag().getGame().hideOutput();
 	DungeonDiver7.getStuffBag().setMode(StuffBag.STATUS_BATTLE);
 	this.bd = new MapBattleDefinitions();
-	this.bd.setBattleDungeon(bMap);
+	this.bd.setBattleDungeonBase(bMap);
 	this.pde = DamageEngine.getPlayerInstance();
 	this.ede = DamageEngine.getEnemyInstance();
 	this.resultDoneAlready = false;
@@ -399,9 +399,9 @@ public class MapTurnBattleLogic extends Battle {
     @Override
     public void doFinalBossBattle() {
 	// Initialize Battle
-	Dungeon bMap = null;
+	DungeonBase bMap = null;
 	try {
-	    bMap = Dungeon.getTemporaryBattleCopy();
+	    bMap = DungeonBase.getTemporaryBattleCopy();
 	} catch (final IOException e) {
 	    DungeonDiver7.logError(e);
 	}
@@ -696,7 +696,7 @@ public class MapTurnBattleLogic extends Battle {
 	// Remove effects from dead character
 	active.stripAllEffects();
 	// Remove character from battle
-	this.bd.getBattleDungeon().setCell(new GameObject(ObjectImageId.EMPTY), activeBC.getX(), activeBC.getY(), 0,
+	this.bd.getBattleDungeonBase().setCell(new GameObject(ObjectImageId.EMPTY), activeBC.getX(), activeBC.getY(), 0,
 		Layer.STATUS.ordinal());
 	if (this.bd.getActiveCharacter().getName().equals(activeBC.getName())) {
 	    // Active character died, end turn
@@ -821,8 +821,8 @@ public class MapTurnBattleLogic extends Battle {
     }
 
     private void setCharacterLocations() {
-	final var randX = new RandomRange(0, this.bd.getBattleDungeon().getRows() - 1);
-	final var randY = new RandomRange(0, this.bd.getBattleDungeon().getColumns() - 1);
+	final var randX = new RandomRange(0, this.bd.getBattleDungeonBase().getRows() - 1);
+	final var randY = new RandomRange(0, this.bd.getBattleDungeonBase().getColumns() - 1);
 	int rx, ry;
 	// Set Character Locations
 	for (var x = 0; x < this.bd.getBattlers().length; x++) {
@@ -831,15 +831,15 @@ public class MapTurnBattleLogic extends Battle {
 		    && this.bd.getBattlers()[x].getCreature().getY() == -1) {
 		rx = randX.generate();
 		ry = randY.generate();
-		var obj = this.bd.getBattleDungeon().getCell(rx, ry, 0, Layer.STATUS.ordinal());
+		var obj = this.bd.getBattleDungeonBase().getCell(rx, ry, 0, Layer.STATUS.ordinal());
 		while (obj.isSolid()) {
 		    rx = randX.generate();
 		    ry = randY.generate();
-		    obj = this.bd.getBattleDungeon().getCell(rx, ry, 0, Layer.STATUS.ordinal());
+		    obj = this.bd.getBattleDungeonBase().getCell(rx, ry, 0, Layer.STATUS.ordinal());
 		}
 		this.bd.getBattlers()[x].setX(rx);
 		this.bd.getBattlers()[x].setY(ry);
-		this.bd.getBattleDungeon().setCell(this.bd.getBattlers()[x].getTile(), rx, ry, 0,
+		this.bd.getBattleDungeonBase().setCell(this.bd.getBattlers()[x].getTile(), rx, ry, 0,
 			Layer.STATUS.ordinal());
 	    }
 	}
@@ -974,7 +974,7 @@ public class MapTurnBattleLogic extends Battle {
 	for (var x = 0; x < this.bd.getBattlers().length; x++) {
 	    // Update all AI Contexts
 	    if (this.bd.getBattlers()[x] != null && this.bd.getBattlerAIContexts()[x] != null) {
-		this.bd.getBattlerAIContexts()[x].updateContext(this.bd.getBattleDungeon());
+		this.bd.getBattlerAIContexts()[x].updateContext(this.bd.getBattleDungeonBase());
 	    }
 	}
     }
@@ -997,7 +997,7 @@ public class MapTurnBattleLogic extends Battle {
 	this.updateAllAIContexts();
 	var px = activeBC.getX();
 	var py = activeBC.getY();
-	final var m = this.bd.getBattleDungeon();
+	final var m = this.bd.getBattleDungeonBase();
 	GameObject next = null;
 	GameObject nextGround = null;
 	GameObject currGround = null;

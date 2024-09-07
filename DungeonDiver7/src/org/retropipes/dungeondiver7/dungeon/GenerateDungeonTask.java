@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package org.retropipes.dungeondiver7.dungeon.current;
+package org.retropipes.dungeondiver7.dungeon;
 
 import javax.swing.JProgressBar;
 
@@ -12,10 +12,10 @@ import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.random.RandomRange;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
+import org.retropipes.dungeondiver7.dungeon.manager.DungeonManager;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Strings;
-import org.retropipes.dungeondiver7.manager.dungeon.DungeonManager;
 
 public class GenerateDungeonTask extends Thread {
     // Fields
@@ -40,12 +40,12 @@ public class GenerateDungeonTask extends Thread {
 	    final var app = DungeonDiver7.getStuffBag();
 	    final var zoneID = PartyManager.getParty().getZone();
 	    final var dungeonSize = DungeonDiver7.getDungeonLevelSize(zoneID);
-	    var gameDungeon = app.getDungeonManager().getDungeon();
+	    var gameDungeon = app.getDungeonManager().getDungeonBase();
 	    if (!this.scratch) {
 		app.getGame().disableEvents();
 	    } else {
-		gameDungeon = DungeonManager.createDungeon();
-		app.getDungeonManager().setDungeon(gameDungeon);
+		gameDungeon = DungeonManager.createDungeonBase();
+		app.getDungeonManager().setDungeonBase(gameDungeon);
 	    }
 	    gameDungeon.addFixedSizeLevel(dungeonSize, dungeonSize, 1);
 	    DungeonGenerator.fillRandomly(gameDungeon);

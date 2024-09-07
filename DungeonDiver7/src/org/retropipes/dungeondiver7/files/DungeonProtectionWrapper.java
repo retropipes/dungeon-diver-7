@@ -1,4 +1,4 @@
-package org.retropipes.dungeondiver7.manager.file;
+package org.retropipes.dungeondiver7.files;
 
 import java.io.File;
 import java.io.FileInputStream;

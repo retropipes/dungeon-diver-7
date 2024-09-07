@@ -3,10 +3,10 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package org.retropipes.dungeondiver7.dungeon;
+package org.retropipes.dungeondiver7.dungeon.base;
 
 import org.retropipes.diane.storage.ObjectStorage;
-import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 
 public class DungeonDataStorage extends ObjectStorage<GameObject> {
     public DungeonDataStorage(final DungeonDataStorage source) {

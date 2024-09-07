@@ -34,9 +34,10 @@ import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.MenuSection;
 import org.retropipes.dungeondiver7.StuffBag;
 import org.retropipes.dungeondiver7.asset.ImageConstants;
-import org.retropipes.dungeondiver7.dungeon.Dungeon;
+import org.retropipes.dungeondiver7.dungeon.base.DungeonBase;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.manager.DungeonManager;
 import org.retropipes.dungeondiver7.game.Game;
-import org.retropipes.dungeondiver7.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 import org.retropipes.dungeondiver7.locale.EditorLayout;
@@ -45,7 +46,6 @@ import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Menu;
 import org.retropipes.dungeondiver7.locale.Strings;
 import org.retropipes.dungeondiver7.locale.TimeTravel;
-import org.retropipes.dungeondiver7.manager.dungeon.DungeonManager;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.utility.DungeonConstants;
 import org.retropipes.dungeondiver7.utility.RCLGenerator;
@@ -115,14 +115,14 @@ public class Editor implements MenuSection {
 
     private boolean addLevelInternal() {
 	final var app = DungeonDiver7.getStuffBag();
-	final var saveLevel = app.getDungeonManager().getDungeon().getActiveLevel();
-	final var success = app.getDungeonManager().getDungeon().addLevel();
+	final var saveLevel = app.getDungeonManager().getDungeonBase().getActiveLevel();
+	final var success = app.getDungeonManager().getDungeonBase().addLevel();
 	if (success) {
 	    this.fixLimits();
-	    app.getDungeonManager().getDungeon().fillDefault();
+	    app.getDungeonManager().getDungeonBase().fillDefault();
 	    // Save the entire level
-	    app.getDungeonManager().getDungeon().save();
-	    app.getDungeonManager().getDungeon().switchLevel(saveLevel);
+	    app.getDungeonManager().getDungeonBase().save();
+	    app.getDungeonManager().getDungeonBase().switchLevel(saveLevel);
 	    this.checkMenus();
 	}
 	return success;
@@ -186,13 +186,13 @@ public class Editor implements MenuSection {
     private void checkMenus() {
 	final var app = DungeonDiver7.getStuffBag();
 	if (app.getMode() == StuffBag.STATUS_EDITOR) {
-	    final var m = app.getDungeonManager().getDungeon();
-	    if (m.getLevels() == Dungeon.getMinLevels()) {
+	    final var m = app.getDungeonManager().getDungeonBase();
+	    if (m.getLevels() == DungeonBase.getMinLevels()) {
 		this.disableRemoveLevel();
 	    } else {
 		this.enableRemoveLevel();
 	    }
-	    if (m.getLevels() == Dungeon.getMaxLevels()) {
+	    if (m.getLevels() == DungeonBase.getMaxLevels()) {
 		this.disableAddLevel();
 	    } else {
 		this.enableAddLevel();
@@ -245,14 +245,14 @@ public class Editor implements MenuSection {
 		this.enableClearHistory();
 	    }
 	}
-	if (app.getDungeonManager().getDungeon().isPasteBlocked()) {
+	if (app.getDungeonManager().getDungeonBase().isPasteBlocked()) {
 	    this.disablePasteLevel();
 	    this.disableInsertLevelFromClipboard();
 	} else {
 	    this.enablePasteLevel();
 	    this.enableInsertLevelFromClipboard();
 	}
-	if (app.getDungeonManager().getDungeon().isCutBlocked()) {
+	if (app.getDungeonManager().getDungeonBase().isCutBlocked()) {
 	    this.disableCutLevel();
 	} else {
 	    this.enableCutLevel();
@@ -392,7 +392,7 @@ public class Editor implements MenuSection {
     }
 
     void disableGlobalMoveShoot() {
-	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().setMoveShootAllowedGlobally(false);
+	DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().setMoveShootAllowedGlobally(false);
 	this.editorGlobalMoveShoot.setText(Strings.menu(Menu.ENABLE_GLOBAL_MOVE_SHOOT));
     }
 
@@ -481,7 +481,7 @@ public class Editor implements MenuSection {
 	    // Create the managers
 	    if (this.dungeonChanged) {
 		this.elMgr = new EditorLocationManager();
-		this.elMgr.setLimitsFromDungeon(app.getDungeonManager().getDungeon());
+		this.elMgr.setLimitsFromDungeonBase(app.getDungeonManager().getDungeonBase());
 		this.dungeonChanged = false;
 	    }
 	    this.setUpGUI();
@@ -513,7 +513,7 @@ public class Editor implements MenuSection {
 	final var gridY = y / ImageConstants.SIZE + EditorViewingWindowManager.getViewingWindowLocationY() + xOffset
 		- yOffset;
 	try {
-	    this.savedGameObject = app.getDungeonManager().getDungeon().getCell(gridX, gridY,
+	    this.savedGameObject = app.getDungeonManager().getDungeonBase().getCell(gridX, gridY,
 		    this.elMgr.getEditorLocationZ(), this.elMgr.getEditorLocationW());
 	} catch (final ArrayIndexOutOfBoundsException ae) {
 	    return;
@@ -528,13 +528,13 @@ public class Editor implements MenuSection {
 	try {
 	    this.updateUndoHistory(this.savedGameObject, gridX, gridY, this.elMgr.getEditorLocationZ(),
 		    this.elMgr.getEditorLocationW(), this.elMgr.getEditorLocationU());
-	    app.getDungeonManager().getDungeon().setCell(instance, gridX, gridY, this.elMgr.getEditorLocationZ(),
+	    app.getDungeonManager().getDungeonBase().setCell(instance, gridX, gridY, this.elMgr.getEditorLocationZ(),
 		    this.elMgr.getEditorLocationW());
 	    app.getDungeonManager().setDirty(true);
 	    this.checkMenus();
 	    this.redrawEditor();
 	} catch (final ArrayIndexOutOfBoundsException aioob) {
-	    app.getDungeonManager().getDungeon().setCell(this.savedGameObject, gridX, gridY,
+	    app.getDungeonManager().getDungeonBase().setCell(this.savedGameObject, gridX, gridY,
 		    this.elMgr.getEditorLocationZ(), this.elMgr.getEditorLocationW());
 	    this.redrawEditor();
 	}
@@ -549,7 +549,7 @@ public class Editor implements MenuSection {
 	final var gridY = y / ImageConstants.SIZE + EditorViewingWindowManager.getViewingWindowLocationY() + xOffset
 		- yOffset;
 	try {
-	    final var mo = app.getDungeonManager().getDungeon().getCell(gridX, gridY, this.elMgr.getEditorLocationZ(),
+	    final var mo = app.getDungeonManager().getDungeonBase().getCell(gridX, gridY, this.elMgr.getEditorLocationZ(),
 		    this.elMgr.getEditorLocationW());
 	    this.elMgr.setEditorLocationX(gridX);
 	    this.elMgr.setEditorLocationY(gridY);
@@ -560,7 +560,7 @@ public class Editor implements MenuSection {
 		} else {
 		    this.updateUndoHistory(this.savedGameObject, gridX, gridY, this.elMgr.getEditorLocationZ(),
 			    this.elMgr.getEditorLocationW(), this.elMgr.getEditorLocationU());
-		    app.getDungeonManager().getDungeon().setCell(mo2, gridX, gridY, this.elMgr.getEditorLocationZ(),
+		    app.getDungeonManager().getDungeonBase().setCell(mo2, gridX, gridY, this.elMgr.getEditorLocationZ(),
 			    this.elMgr.getEditorLocationW());
 		    this.checkMenus();
 		    app.getDungeonManager().setDirty(true);
@@ -607,7 +607,7 @@ public class Editor implements MenuSection {
     }
 
     void enableGlobalMoveShoot() {
-	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().setMoveShootAllowedGlobally(true);
+	DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().setMoveShootAllowedGlobally(true);
 	this.editorGlobalMoveShoot.setText(Strings.menu(Menu.DISABLE_GLOBAL_MOVE_SHOOT));
     }
 
@@ -682,14 +682,14 @@ public class Editor implements MenuSection {
 	this.hideOutput();
 	final var mm = app.getDungeonManager();
 	// Save the entire level
-	mm.getDungeon().save();
+	mm.getDungeonBase().save();
 	// Reset the player location
 	Game.resetPlayerLocation(0);
     }
 
     public void fillLevel() {
 	if (this.confirmNonUndoable()) {
-	    DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().fillDefault();
+	    DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().fillDefault();
 	    DungeonDiver7.getStuffBag().showMessage(Strings.editor(EditorString.LEVEL_FILLED));
 	    DungeonDiver7.getStuffBag().getDungeonManager().setDirty(true);
 	    this.redrawEditor();
@@ -699,8 +699,8 @@ public class Editor implements MenuSection {
     public void fixLimits() {
 	// Fix limits
 	final var app = DungeonDiver7.getStuffBag();
-	if (app.getDungeonManager().getDungeon() != null && this.elMgr != null) {
-	    this.elMgr.setLimitsFromDungeon(app.getDungeonManager().getDungeon());
+	if (app.getDungeonManager().getDungeonBase() != null && this.elMgr != null) {
+	    this.elMgr.setLimitsFromDungeonBase(app.getDungeonManager().getDungeonBase());
 	}
     }
 
@@ -772,14 +772,14 @@ public class Editor implements MenuSection {
 	}
 	if (saved) {
 	    app.getGame().getPlayerManager().resetPlayerLocation();
-	    Dungeon a = null;
+	    DungeonBase a = null;
 	    try {
-		a = DungeonManager.createDungeon();
+		a = DungeonManager.createDungeonBase();
 	    } catch (final IOException ioe) {
 		success = false;
 	    }
 	    if (success) {
-		app.getDungeonManager().setDungeon(a);
+		app.getDungeonManager().setDungeonBase(a);
 		success = this.addLevelInternal();
 		if (success) {
 		    app.getDungeonManager().clearLastUsedFilenames();
@@ -806,7 +806,7 @@ public class Editor implements MenuSection {
 		+ yOffset;
 	final var gridY = y / ImageConstants.SIZE + EditorViewingWindowManager.getViewingWindowLocationY() + xOffset
 		- yOffset;
-	final var mo = app.getDungeonManager().getDungeon().getCell(gridX, gridY, this.elMgr.getEditorLocationZ(),
+	final var mo = app.getDungeonManager().getDungeonBase().getCell(gridX, gridY, this.elMgr.getEditorLocationZ(),
 		this.elMgr.getEditorLocationW());
 	this.elMgr.setEditorLocationX(gridX);
 	this.elMgr.setEditorLocationY(gridY);
@@ -827,8 +827,8 @@ public class Editor implements MenuSection {
 	this.elMgr.setEditorLocationX(x);
 	this.elMgr.setEditorLocationY(y);
 	if (x != -1 && y != -1 && z != -1 && u != -1) {
-	    final var oldObj = app.getDungeonManager().getDungeon().getCell(x, y, z, w);
-	    app.getDungeonManager().getDungeon().setCell(obj, x, y, z, w);
+	    final var oldObj = app.getDungeonManager().getDungeonBase().getCell(x, y, z, w);
+	    app.getDungeonManager().getDungeonBase().setCell(obj, x, y, z, w);
 	    this.updateUndoHistory(oldObj, x, y, z, w, u);
 	    this.checkMenus();
 	    this.redrawEditor();
@@ -841,7 +841,7 @@ public class Editor implements MenuSection {
 	final var z = this.elMgr.getEditorLocationZ();
 	final var w = this.elMgr.getEditorLocationW();
 	final var u = this.elMgr.getEditorLocationU();
-	final var e = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getActiveEra();
+	final var e = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().getActiveEra();
 	if (w == Layer.GROUND.ordinal()) {
 	    this.redrawEditorBottomGround();
 	} else if (w == Layer.OBJECT.ordinal()) {
@@ -869,7 +869,7 @@ public class Editor implements MenuSection {
 		    .getLowerRightViewingWindowLocationY(); y++) {
 		xFix = x - EditorViewingWindowManager.getViewingWindowLocationX();
 		yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
-		final var lgobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
+		final var lgobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			Layer.GROUND.ordinal());
 		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
 		final var img = lgimg;
@@ -890,9 +890,9 @@ public class Editor implements MenuSection {
 		    .getLowerRightViewingWindowLocationY(); y++) {
 		xFix = x - EditorViewingWindowManager.getViewingWindowLocationX();
 		yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
-		final var lgobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
+		final var lgobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			Layer.GROUND.ordinal());
-		final var ugobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
+		final var ugobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			Layer.OBJECT.ordinal());
 		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
 		final var ugimg = ObjectImageLoader.load(ugobj.getCacheName(), ugobj.getIdValue());
@@ -915,11 +915,11 @@ public class Editor implements MenuSection {
 		    .getLowerRightViewingWindowLocationY(); y++) {
 		xFix = x - EditorViewingWindowManager.getViewingWindowLocationX();
 		yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
-		final var lgobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
+		final var lgobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			Layer.GROUND.ordinal());
-		final var ugobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
+		final var ugobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			Layer.OBJECT.ordinal());
-		final var loobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
+		final var loobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			Layer.STATUS.ordinal());
 		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
 		final var ugimg = ObjectImageLoader.load(ugobj.getCacheName(), ugobj.getIdValue());
@@ -944,15 +944,15 @@ public class Editor implements MenuSection {
 		    .getLowerRightViewingWindowLocationY(); y++) {
 		xFix = x - EditorViewingWindowManager.getViewingWindowLocationX();
 		yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
-		final var lgobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
+		final var lgobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			Layer.GROUND.ordinal());
-		final var ugobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
+		final var ugobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			Layer.OBJECT.ordinal());
-		final var loobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
+		final var loobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			Layer.STATUS.ordinal());
-		final var uoobj = app.getDungeonManager().getDungeon().getCell(y, x, this.elMgr.getEditorLocationZ(),
+		final var uoobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
 			Layer.MARKER.ordinal());
-		final var lvobj = app.getDungeonManager().getDungeon().getVirtualCell(y, x,
+		final var lvobj = app.getDungeonManager().getDungeonBase().getVirtualCell(y, x,
 			this.elMgr.getEditorLocationZ(), DungeonConstants.LAYER_VIRTUAL);
 		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
 		final var ugimg = ObjectImageLoader.load(ugobj.getCacheName(), ugobj.getIdValue());
@@ -981,7 +981,7 @@ public class Editor implements MenuSection {
 	if (input != null) {
 	    for (level = 0; level < choices.length; level++) {
 		if (input.equals(choices[level])) {
-		    success = app.getDungeonManager().getDungeon().removeLevel(level);
+		    success = app.getDungeonManager().getDungeonBase().removeLevel(level);
 		    if (success) {
 			this.fixLimits();
 			if (level == this.elMgr.getEditorLocationU()) {
@@ -1021,13 +1021,13 @@ public class Editor implements MenuSection {
     public boolean resizeLevel() {
 	final var app = DungeonDiver7.getStuffBag();
 	int levelSizeZ;
-	final var maxF = Dungeon.getMaxFloors();
-	final var minF = Dungeon.getMinFloors();
+	final var maxF = DungeonBase.getMaxFloors();
+	final var minF = DungeonBase.getMinFloors();
 	final var msg = Strings.editor(EditorString.RESIZE_LEVEL);
 	var success = true;
 	String input3;
 	input3 = CommonDialogs.showTextInputDialogWithDefault(Strings.editor(EditorString.NUMBER_OF_FLOORS), msg,
-		Integer.toString(app.getDungeonManager().getDungeon().getFloors()));
+		Integer.toString(app.getDungeonManager().getDungeonBase().getFloors()));
 	if (input3 != null) {
 	    try {
 		levelSizeZ = Integer.parseInt(input3);
@@ -1037,10 +1037,10 @@ public class Editor implements MenuSection {
 		if (levelSizeZ > maxF) {
 		    throw new NumberFormatException(Strings.editor(EditorString.FLOORS_TOO_HIGH));
 		}
-		app.getDungeonManager().getDungeon().resize(levelSizeZ, new GameObject(ObjectImageId.GRASS));
+		app.getDungeonManager().getDungeonBase().resize(levelSizeZ, new GameObject(ObjectImageId.GRASS));
 		this.fixLimits();
 		// Save the entire level
-		app.getDungeonManager().getDungeon().save();
+		app.getDungeonManager().getDungeonBase().save();
 		this.checkMenus();
 		// Redraw
 		this.redrawEditor();
@@ -1071,21 +1071,21 @@ public class Editor implements MenuSection {
     public void setPlayerLocation() {
 	final var template = new GameObject(ObjectImageId.PARTY);
 	final var app = DungeonDiver7.getStuffBag();
-	final var oldX = app.getDungeonManager().getDungeon().getStartColumn(this.activePlayer);
-	final var oldY = app.getDungeonManager().getDungeon().getStartRow(this.activePlayer);
-	final var oldZ = app.getDungeonManager().getDungeon().getStartFloor(this.activePlayer);
+	final var oldX = app.getDungeonManager().getDungeonBase().getStartColumn(this.activePlayer);
+	final var oldY = app.getDungeonManager().getDungeonBase().getStartRow(this.activePlayer);
+	final var oldZ = app.getDungeonManager().getDungeonBase().getStartFloor(this.activePlayer);
 	// Erase old player
 	try {
-	    app.getDungeonManager().getDungeon().setCell(new GameObject(ObjectImageId.GRASS), oldX, oldY, oldZ,
+	    app.getDungeonManager().getDungeonBase().setCell(new GameObject(ObjectImageId.GRASS), oldX, oldY, oldZ,
 		    template.getLayer());
 	} catch (final ArrayIndexOutOfBoundsException aioob) {
 	    // Ignore
 	}
 	// Set new player
-	app.getDungeonManager().getDungeon().setStartRow(this.activePlayer, this.elMgr.getEditorLocationY());
-	app.getDungeonManager().getDungeon().setStartColumn(this.activePlayer, this.elMgr.getEditorLocationX());
-	app.getDungeonManager().getDungeon().setStartFloor(this.activePlayer, this.elMgr.getEditorLocationZ());
-	app.getDungeonManager().getDungeon().setCell(template, this.elMgr.getEditorLocationX(),
+	app.getDungeonManager().getDungeonBase().setStartRow(this.activePlayer, this.elMgr.getEditorLocationY());
+	app.getDungeonManager().getDungeonBase().setStartColumn(this.activePlayer, this.elMgr.getEditorLocationX());
+	app.getDungeonManager().getDungeonBase().setStartFloor(this.activePlayer, this.elMgr.getEditorLocationZ());
+	app.getDungeonManager().getDungeonBase().setCell(template, this.elMgr.getEditorLocationX(),
 		this.elMgr.getEditorLocationY(), this.elMgr.getEditorLocationZ(), template.getLayer());
     }
 
@@ -1098,29 +1098,29 @@ public class Editor implements MenuSection {
 		+ yOffset;
 	final var destY = y / ImageConstants.SIZE + EditorViewingWindowManager.getViewingWindowLocationY() + xOffset
 		- yOffset;
-	final var oldX = app.getDungeonManager().getDungeon().getStartColumn(this.activePlayer);
-	final var oldY = app.getDungeonManager().getDungeon().getStartRow(this.activePlayer);
-	final var oldZ = app.getDungeonManager().getDungeon().getStartFloor(this.activePlayer);
+	final var oldX = app.getDungeonManager().getDungeonBase().getStartColumn(this.activePlayer);
+	final var oldY = app.getDungeonManager().getDungeonBase().getStartRow(this.activePlayer);
+	final var oldZ = app.getDungeonManager().getDungeonBase().getStartFloor(this.activePlayer);
 	// Erase old player
 	try {
-	    app.getDungeonManager().getDungeon().setCell(new GameObject(ObjectImageId.GRASS), oldX, oldY, oldZ,
+	    app.getDungeonManager().getDungeonBase().setCell(new GameObject(ObjectImageId.GRASS), oldX, oldY, oldZ,
 		    template.getLayer());
 	} catch (final ArrayIndexOutOfBoundsException aioob) {
 	    // Ignore
 	}
 	// Set new player
 	try {
-	    app.getDungeonManager().getDungeon().setStartRow(this.activePlayer, destY);
-	    app.getDungeonManager().getDungeon().setStartColumn(this.activePlayer, destX);
-	    app.getDungeonManager().getDungeon().setStartFloor(this.activePlayer, this.elMgr.getEditorLocationZ());
-	    app.getDungeonManager().getDungeon().setCell(template, destX, destY, this.elMgr.getEditorLocationZ(),
+	    app.getDungeonManager().getDungeonBase().setStartRow(this.activePlayer, destY);
+	    app.getDungeonManager().getDungeonBase().setStartColumn(this.activePlayer, destX);
+	    app.getDungeonManager().getDungeonBase().setStartFloor(this.activePlayer, this.elMgr.getEditorLocationZ());
+	    app.getDungeonManager().getDungeonBase().setCell(template, destX, destY, this.elMgr.getEditorLocationZ(),
 		    template.getLayer());
 	    DungeonDiver7.getStuffBag().showMessage(Strings.editor(EditorString.START_POINT_SET));
 	} catch (final ArrayIndexOutOfBoundsException aioob) {
 	    try {
-		app.getDungeonManager().getDungeon().setStartRow(this.activePlayer, oldY);
-		app.getDungeonManager().getDungeon().setStartColumn(this.activePlayer, oldX);
-		app.getDungeonManager().getDungeon().setCell(template, oldX, oldY, oldZ, template.getLayer());
+		app.getDungeonManager().getDungeonBase().setStartRow(this.activePlayer, oldY);
+		app.getDungeonManager().getDungeonBase().setStartColumn(this.activePlayer, oldX);
+		app.getDungeonManager().getDungeonBase().setCell(template, oldX, oldY, oldZ, template.getLayer());
 	    } catch (final ArrayIndexOutOfBoundsException aioob2) {
 		// Ignore
 	    }
@@ -1206,8 +1206,8 @@ public class Editor implements MenuSection {
 	this.elMgr.setEditorLocationX(x);
 	this.elMgr.setEditorLocationY(y);
 	if (x != -1 && y != -1 && z != -1 && u != -1) {
-	    final var oldObj = app.getDungeonManager().getDungeon().getCell(x, y, z, w);
-	    app.getDungeonManager().getDungeon().setCell(obj, x, y, z, w);
+	    final var oldObj = app.getDungeonManager().getDungeonBase().getCell(x, y, z, w);
+	    app.getDungeonManager().getDungeonBase().setCell(obj, x, y, z, w);
 	    this.updateRedoHistory(oldObj, x, y, z, w, u);
 	    this.checkMenus();
 	    this.redrawEditor();
@@ -1219,7 +1219,7 @@ public class Editor implements MenuSection {
     public void updateEditorLevelAbsolute(final int w) {
 	this.elMgr.setEditorLocationU(w);
 	// Level Change
-	DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().switchLevel(w);
+	DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().switchLevel(w);
 	this.fixLimits();
 	this.setUpGUI();
 	this.checkMenus();
@@ -1231,7 +1231,7 @@ public class Editor implements MenuSection {
 	this.elMgr.offsetEditorLocationZ(z);
 	if (w != 0) {
 	    // Level Change
-	    DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().switchLevelOffset(w);
+	    DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().switchLevelOffset(w);
 	    this.fixLimits();
 	    this.setUpGUI();
 	}

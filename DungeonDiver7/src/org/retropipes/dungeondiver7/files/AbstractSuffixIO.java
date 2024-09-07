@@ -3,15 +3,15 @@
 
  Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package org.retropipes.dungeondiver7.manager.file;
+package org.retropipes.dungeondiver7.files;
 
 import java.io.IOException;
 
 import org.retropipes.diane.fileio.DataIOReader;
 import org.retropipes.diane.fileio.DataIOWriter;
 
-public interface AbstractPrefixIO {
-    int readPrefix(DataIOReader reader) throws IOException;
+public interface AbstractSuffixIO {
+    void readSuffix(DataIOReader reader, int formatVersion) throws IOException;
 
-    void writePrefix(DataIOWriter writer) throws IOException;
+    void writeSuffix(DataIOWriter writer) throws IOException;
 }

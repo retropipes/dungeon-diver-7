@@ -20,12 +20,12 @@ import org.retropipes.dungeondiver7.battle.map.time.MapTimeBattleLogic;
 import org.retropipes.dungeondiver7.battle.map.turn.MapTurnBattleLogic;
 import org.retropipes.dungeondiver7.battle.window.time.WindowTimeBattleLogic;
 import org.retropipes.dungeondiver7.battle.window.turn.WindowTurnBattleLogic;
+import org.retropipes.dungeondiver7.dungeon.gameobject.ShopType;
+import org.retropipes.dungeondiver7.dungeon.manager.DungeonManager;
 import org.retropipes.dungeondiver7.editor.Editor;
 import org.retropipes.dungeondiver7.game.Game;
-import org.retropipes.dungeondiver7.gameobject.ShopType;
 import org.retropipes.dungeondiver7.locale.DialogString;
 import org.retropipes.dungeondiver7.locale.Strings;
-import org.retropipes.dungeondiver7.manager.dungeon.DungeonManager;
 import org.retropipes.dungeondiver7.prefs.Prefs;
 import org.retropipes.dungeondiver7.shop.Shop;
 import org.retropipes.dungeondiver7.utility.DungeonObjects;
@@ -214,7 +214,7 @@ public final class StuffBag {
     }
 
     public String[] getLevelInfoList() {
-	return this.getDungeonManager().getDungeon().getLevelInfoList();
+	return this.getDungeonManager().getDungeonBase().getLevelInfoList();
     }
 
     public MenuManager getMenus() {
@@ -312,7 +312,7 @@ public final class StuffBag {
 	final var loadContent = mainWindow.createContent();
 	loadContent.add(loadBar);
 	mainWindow.setAndSave(loadContent, Strings.dialog(DialogString.UPDATING_LEVEL_INFO));
-	this.getDungeonManager().getDungeon().generateLevelInfoList();
+	this.getDungeonManager().getDungeonBase().generateLevelInfoList();
 	mainWindow.restoreSaved();
     }
 }

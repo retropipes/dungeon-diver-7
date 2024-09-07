@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
 import org.retropipes.dungeondiver7.creature.characterfile.CharacterRegistration;
-import org.retropipes.dungeondiver7.dungeon.current.GenerateDungeonTask;
+import org.retropipes.dungeondiver7.dungeon.GenerateDungeonTask;
 import org.retropipes.dungeondiver7.game.replay.ReplayManager;
 import org.retropipes.dungeondiver7.locale.Menu;
 import org.retropipes.dungeondiver7.locale.Strings;
@@ -59,7 +59,7 @@ class GameMenuEventHandler implements ActionListener {
     	    game.abortAndWaitForMLOLoop();
     	    game.loadLevel();
     	} else if (cmd.equals(Strings.menu(Menu.SHOW_HINT))) {
-    	    CommonDialogs.showDialog(app.getDungeonManager().getDungeon().getHint().trim());
+    	    CommonDialogs.showDialog(app.getDungeonManager().getDungeonBase().getHint().trim());
     	} else if (cmd.equals(Strings.menu(Menu.CHEATS))) {
     	    game.enterCheatCode();
     	} else if (cmd.equals(Strings.menu(Menu.CHANGE_OTHER_AMMO))) {
@@ -70,7 +70,7 @@ class GameMenuEventHandler implements ActionListener {
     	    game.changeOtherRangeMode();
     	} else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_PAST))) {
     	    // Time Travel: Distant Past
-    	    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_PAST);
+    	    app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_DISTANT_PAST);
     	    gui.gameEraDistantPast.setSelected(true);
     	    gui.gameEraPast.setSelected(false);
     	    gui.gameEraPresent.setSelected(false);
@@ -78,7 +78,7 @@ class GameMenuEventHandler implements ActionListener {
     	    gui.gameEraDistantFuture.setSelected(false);
     	} else if (cmd.equals(Strings.timeTravel(TimeTravel.PAST))) {
     	    // Time Travel: Past
-    	    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PAST);
+    	    app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_PAST);
     	    gui.gameEraDistantPast.setSelected(false);
     	    gui.gameEraPast.setSelected(true);
     	    gui.gameEraPresent.setSelected(false);
@@ -86,7 +86,7 @@ class GameMenuEventHandler implements ActionListener {
     	    gui.gameEraDistantFuture.setSelected(false);
     	} else if (cmd.equals(Strings.timeTravel(TimeTravel.PRESENT))) {
     	    // Time Travel: Present
-    	    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_PRESENT);
+    	    app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_PRESENT);
     	    gui.gameEraDistantPast.setSelected(false);
     	    gui.gameEraPast.setSelected(false);
     	    gui.gameEraPresent.setSelected(true);
@@ -94,7 +94,7 @@ class GameMenuEventHandler implements ActionListener {
     	    gui.gameEraDistantFuture.setSelected(false);
     	} else if (cmd.equals(Strings.timeTravel(TimeTravel.FUTURE))) {
     	    // Time Travel: Future
-    	    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_FUTURE);
+    	    app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_FUTURE);
     	    gui.gameEraDistantPast.setSelected(false);
     	    gui.gameEraPast.setSelected(false);
     	    gui.gameEraPresent.setSelected(false);
@@ -102,7 +102,7 @@ class GameMenuEventHandler implements ActionListener {
     	    gui.gameEraDistantFuture.setSelected(false);
     	} else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_FUTURE))) {
     	    // Time Travel: Distant Future
-    	    app.getDungeonManager().getDungeon().switchEra(DungeonConstants.ERA_DISTANT_FUTURE);
+    	    app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_DISTANT_FUTURE);
     	    gui.gameEraDistantPast.setSelected(false);
     	    gui.gameEraPast.setSelected(false);
     	    gui.gameEraPresent.setSelected(false);

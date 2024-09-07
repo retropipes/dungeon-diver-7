@@ -58,7 +58,7 @@ class ScoreTracker {
 	b.append(ScoreTracker.getScoreDirectory());
 	b.append(filename);
 	b.append(Strings.UNDERSCORE);
-	b.append(DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getActiveLevel() + 1);
+	b.append(DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().getActiveLevel() + 1);
 	b.append(Strings.fileExtension(FileExtension.SCORES));
 	return new File(b.toString());
     }

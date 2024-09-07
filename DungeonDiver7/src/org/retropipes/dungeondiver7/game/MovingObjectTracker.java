@@ -7,7 +7,7 @@ package org.retropipes.dungeondiver7.game;
 
 import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 import org.retropipes.dungeondiver7.locale.Layer;
 
 final class MovingObjectTracker {
@@ -43,10 +43,10 @@ final class MovingObjectTracker {
 	this.objCumX = zx;
 	this.objCumY = zy;
 	this.movingObj = gmo;
-	this.belowUpper = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
+	this.belowUpper = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().getCell(
 		this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
 		Layer.OBJECT.ordinal());
-	this.belowLower = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
+	this.belowLower = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().getCell(
 		this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
 		Layer.GROUND.ordinal());
 	this.objectMoving = true;
@@ -56,7 +56,7 @@ final class MovingObjectTracker {
 
     private void doObjectOnce() {
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	final var gm = app.getGame();
 	final var pz = gm.getPlayerManager().getPlayerLocationZ();
 	try {
@@ -66,10 +66,10 @@ final class MovingObjectTracker {
 	    final var oldSave = this.movingObj.getSavedObject();
 	    final var saved = m.getCell(this.objCumX + this.objIncX * this.objMultX,
 		    this.objCumY + this.objIncY * this.objMultY, pz, this.movingObj.getLayer());
-	    this.belowUpper = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
+	    this.belowUpper = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().getCell(
 		    this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
 		    Layer.OBJECT.ordinal());
-	    this.belowLower = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(
+	    this.belowLower = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().getCell(
 		    this.objCumX + this.objIncX * this.objMultX, this.objCumY + this.objIncY * this.objMultY, pz,
 		    Layer.GROUND.ordinal());
 	    if (MovingObjectTracker.checkSolid(saved)) {

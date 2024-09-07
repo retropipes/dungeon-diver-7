@@ -5,7 +5,7 @@ import java.awt.event.WindowEvent;
 
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.manager.dungeon.DungeonManager;
+import org.retropipes.dungeondiver7.dungeon.manager.DungeonManager;
 
 class GameWindowEventHandler extends WindowAdapter {
     GameWindowEventHandler() {

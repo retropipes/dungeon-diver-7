@@ -11,9 +11,9 @@ import java.util.ConcurrentModificationException;
 import org.retropipes.diane.direction.Direction;
 import org.retropipes.diane.direction.DirectionResolver;
 import org.retropipes.dungeondiver7.DungeonDiver7;
-import org.retropipes.dungeondiver7.dungeon.Dungeon;
-import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeonData;
-import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.DungeonData;
+import org.retropipes.dungeondiver7.dungeon.base.DungeonBase;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
@@ -40,7 +40,7 @@ final class MLOTask extends Thread {
 
     static boolean checkSolid(final int zx, final int zy) {
 	final var gm = DungeonDiver7.getStuffBag().getGame();
-	final var next = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().getCell(zx, zy,
+	final var next = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().getCell(zx, zy,
 		gm.getPlayerManager().getPlayerLocationZ(), Layer.STATUS.ordinal());
 	// Check cheats
 	if (gm.getCheatStatus(Game.CHEAT_GHOSTLY)) {
@@ -118,7 +118,7 @@ final class MLOTask extends Thread {
 	} else if (zx == 3 || zy == 3 || zx == -3 || zy == -3) {
 	    // Using a Magnet
 	    gm.updateScore(0, 0, 1);
-	    final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeon();
+	    final var a = DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase();
 	    final var px = gm.getPlayerManager().getPlayerLocationX();
 	    final var py = gm.getPlayerManager().getPlayerLocationY();
 	    final var pz = gm.getPlayerManager().getPlayerLocationZ();
@@ -184,7 +184,7 @@ final class MLOTask extends Thread {
 	final var py = plMgr.getPlayerLocationY();
 	final var pz = plMgr.getPlayerLocationZ();
 	final var pw = Layer.MARKER.ordinal();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	GameObject lgo = null;
 	GameObject ugo = null;
 	GameObject loo = null;
@@ -219,7 +219,7 @@ final class MLOTask extends Thread {
 	final var px = plMgr.getPlayerLocationX();
 	final var py = plMgr.getPlayerLocationY();
 	final var pz = plMgr.getPlayerLocationZ();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	GameObject lgo = null;
 	GameObject ugo = null;
 	try {
@@ -247,7 +247,7 @@ final class MLOTask extends Thread {
     }
 
     private void doMovementLasersObjects() {
-	synchronized (CurrentDungeonData.LOCK_OBJECT) {
+	synchronized (DungeonData.LOCK_OBJECT) {
 	    final var gm = DungeonDiver7.getStuffBag().getGame();
 	    final var plMgr = gm.getPlayerManager();
 	    final var pz = plMgr.getPlayerLocationZ();
@@ -320,7 +320,7 @@ final class MLOTask extends Thread {
 			this.move = true;
 			this.loopCheck = true;
 		    }
-		    DungeonDiver7.getStuffBag().getDungeonManager().getDungeon().tickTimers(pz, actionType);
+		    DungeonDiver7.getStuffBag().getDungeonManager().getDungeonBase().tickTimers(pz, actionType);
 		    // Delay
 		    try {
 			Thread.sleep(Prefs.getActionSpeed());
@@ -353,7 +353,7 @@ final class MLOTask extends Thread {
 	final var pz = plMgr.getPlayerLocationZ();
 	final var pw = Layer.MARKER.ordinal();
 	final var app = DungeonDiver7.getStuffBag();
-	final var m = app.getDungeonManager().getDungeon();
+	final var m = app.getDungeonManager().getDungeonBase();
 	this.proceed = true;
 	this.mover = false;
 	GameObject lgo = null;
@@ -394,8 +394,8 @@ final class MLOTask extends Thread {
 		    m.setCell(gm.getPlayer().getSavedObject(), px, py, pz, pw);
 		    plMgr.offsetPlayerLocationX(this.sx);
 		    plMgr.offsetPlayerLocationY(this.sy);
-		    px = MLOTask.normalizeColumn(px + this.sx, Dungeon.getMinColumns());
-		    py = MLOTask.normalizeRow(py + this.sy, Dungeon.getMinRows());
+		    px = MLOTask.normalizeColumn(px + this.sx, DungeonBase.getMinColumns());
+		    py = MLOTask.normalizeRow(py + this.sy, DungeonBase.getMinRows());
 		    gm.getPlayer().setSavedObject(m.getCell(px, py, pz, pw));
 		    m.setCell(gm.getPlayer(), px, py, pz, pw);
 		    lgo.postMoveAction(px, py, pz);

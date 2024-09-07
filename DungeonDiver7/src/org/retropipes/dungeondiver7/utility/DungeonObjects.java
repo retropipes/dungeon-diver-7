@@ -8,8 +8,8 @@ package org.retropipes.dungeondiver7.utility;
 import java.util.ArrayList;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
-import org.retropipes.dungeondiver7.dungeon.current.CurrentDungeon;
-import org.retropipes.dungeondiver7.gameobject.GameObject;
+import org.retropipes.dungeondiver7.dungeon.Dungeon;
+import org.retropipes.dungeondiver7.dungeon.gameobject.GameObject;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageId;
 import org.retropipes.dungeondiver7.loader.image.gameobject.ObjectImageLoader;
 
@@ -114,7 +114,7 @@ public class DungeonObjects {
 	return allObjectsOnLayer;
     }
 
-    public final GameObject[] getAllRequired(final CurrentDungeon dungeon, final int layer) {
+    public final GameObject[] getAllRequired(final Dungeon dungeon, final int layer) {
 	final var objects = this.getAllObjects();
 	final var tempAllRequired = new GameObject[objects.length];
 	int x;
@@ -135,7 +135,7 @@ public class DungeonObjects {
 	return allRequired;
     }
 
-    public final GameObject[] getAllWithoutPrerequisiteAndNotRequired(final CurrentDungeon dungeon, final int layer) {
+    public final GameObject[] getAllWithoutPrerequisiteAndNotRequired(final Dungeon dungeon, final int layer) {
 	final var objects = this.getAllObjects();
 	final var tempAllWithoutPrereq = new GameObject[objects.length];
 	int x;

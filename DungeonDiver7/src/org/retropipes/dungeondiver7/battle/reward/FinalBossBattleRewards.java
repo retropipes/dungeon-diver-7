@@ -8,7 +8,7 @@ package org.retropipes.dungeondiver7.battle.reward;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.dungeondiver7.battle.BattleResult;
 import org.retropipes.dungeondiver7.creature.party.PartyManager;
-import org.retropipes.dungeondiver7.dungeon.current.GenerateDungeonTask;
+import org.retropipes.dungeondiver7.dungeon.GenerateDungeonTask;
 import org.retropipes.dungeondiver7.loader.sound.SoundLoader;
 import org.retropipes.dungeondiver7.loader.sound.Sounds;
 
