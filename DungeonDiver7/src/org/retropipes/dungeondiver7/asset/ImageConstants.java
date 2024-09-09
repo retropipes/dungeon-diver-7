@@ -1,7 +1,8 @@
-/*  DungeonDiver7: A Dungeon-Diving RPG
- Copyright (C) 2021-present Eric Ahnell
+/*  Dungeon Diver 7: A Dungeon-Diving RPG
+Copyleft (C) 2024-present RetroPipes
+Licensed under Apache 2.0. See the LICENSE file for details.
 
- Any questions should be directed to the author via email at: products@puttysoftware.com
+All support is handled via the GitHub repository: https://github.com/retropipes/dungeon-diver-7
  */
 package org.retropipes.dungeondiver7.asset;
 
