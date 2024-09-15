@@ -20,15 +20,7 @@ module org.retropipes.dungeondiver7 {
     requires org.retropipes.diane.asset.ogg;
     requires org.retropipes.dungeondiver7.creature;
     requires org.retropipes.dungeondiver7.loader.extmusic;
-    requires org.retropipes.dungeondiver7.loader.image.attribute;
-    requires org.retropipes.dungeondiver7.loader.image.battle;
-    requires org.retropipes.dungeondiver7.loader.image.effect;
-    requires org.retropipes.dungeondiver7.loader.image.gameobject;
-    requires org.retropipes.dungeondiver7.loader.image.halo;
-    requires org.retropipes.dungeondiver7.loader.image.item;
-    requires org.retropipes.dungeondiver7.loader.image.monster;
-    requires org.retropipes.dungeondiver7.loader.image.status;
-    requires org.retropipes.dungeondiver7.loader.image.ui;
+    requires org.retropipes.dungeondiver7.loader.image;
     requires org.retropipes.dungeondiver7.loader.music;
     requires org.retropipes.dungeondiver7.loader.sound;
     requires org.retropipes.dungeondiver7.locale;

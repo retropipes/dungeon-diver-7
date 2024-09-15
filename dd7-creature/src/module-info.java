@@ -13,7 +13,7 @@ module org.retropipes.dungeondiver7.creature {
     requires transitive org.retropipes.diane.polytable;
     requires transitive org.retropipes.diane.random;
     requires transitive org.retropipes.dungeondiver7.creature.job.description;
-    requires transitive org.retropipes.dungeondiver7.loader.image.monster;
+    requires transitive org.retropipes.dungeondiver7.loader.image;
     requires transitive org.retropipes.dungeondiver7.loader.music;
     requires transitive org.retropipes.dungeondiver7.loader.sound;
     requires transitive org.retropipes.dungeondiver7.locale;
