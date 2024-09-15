@@ -7,6 +7,7 @@ All support is handled via the GitHub repository: https://github.com/retropipes/
 package org.retropipes.dungeondiver7;
 
 import org.retropipes.diane.Diane;
+import org.retropipes.diane.gui.MainWindow;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 import org.retropipes.diane.integration.Integration;
 import org.retropipes.dungeondiver7.creature.Creature;
@@ -21,6 +22,7 @@ public class DungeonDiver7 {
     private static String PROGRAM_NAME = "Dungeon Diver 7";
     private static String ERROR_MESSAGE = null;
     private static String ERROR_TITLE = null;
+    private static final int MAIN_WINDOW_SIZE = 512;
     private static final int BATTLE_MAP_SIZE = 10;
     private static final int DUNGEON_BASE_SIZE = 24;
     private static final int DUNGEON_SIZE_INCREMENT = 2;
@@ -62,13 +64,14 @@ public class DungeonDiver7 {
 		Diane.installDefaultErrorHandler(DungeonDiver7.PROGRAM_NAME);
 	    } catch (final RuntimeException re) {
 		// Something has gone horribly wrong
-		CommonDialogs.showErrorDialog("Something has gone horribly wrong trying to load the string data!",
-			"FATAL ERROR");
+		System.err.println("Something has gone horribly wrong trying to load the string data!");
 		System.exit(1);
 	    }
 	    // Integrate with host platform
 	    final var i = Integration.integrate();
 	    i.configureLookAndFeel();
+	    // Create main window
+	    MainWindow.createMainWindow(MAIN_WINDOW_SIZE, MAIN_WINDOW_SIZE);
 	    // Create and initialize application
 	    DungeonDiver7.stuffBag = new StuffBag();
 	    // Set Up Common Dialogs
