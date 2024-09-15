@@ -41,7 +41,7 @@ public class DungeonLoadTask extends Thread {
 	this.filename = file;
 	this.isSavedGame = saved;
 	this.dungeonProtected = protect;
-	this.setName(Strings.untranslated(Untranslated.FILE_LOADER_NEW_NAME));
+	this.setName(Strings.untranslated(Untranslated.FILE_LOADER_NAME));
 	this.mainWindow = MainWindow.mainWindow();
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);

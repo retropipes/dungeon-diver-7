@@ -41,7 +41,7 @@ public class DungeonSaveTask extends Thread {
 	this.filename = file;
 	this.isSavedGame = saved;
 	this.saveProtected = protect;
-	this.setName(Strings.untranslated(Untranslated.FILE_SAVER_NEW_NAME));
+	this.setName(Strings.untranslated(Untranslated.FILE_SAVER_NAME));
     }
 
     @Override

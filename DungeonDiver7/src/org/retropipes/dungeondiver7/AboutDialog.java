@@ -163,15 +163,13 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	this.aboutPane.setLayout(new BorderLayout());
 	logoPane.setLayout(new FlowLayout());
 	logoPane.add(miniLabel);
-	textPane.setLayout(new GridLayout(4, 1));
+	textPane.setLayout(new GridLayout(3, 1));
 	textPane.add(new JLabel(LocaleUtils.subst(Strings.dialog(DialogString.VERSION),
 		Strings.untranslated(Untranslated.PROGRAM_NAME), ver)));
 	textPane.add(new JLabel(LocaleUtils.subst(Strings.dialog(DialogString.AUTHOR),
 		Strings.untranslated(Untranslated.GAME_AUTHOR_NAME))));
 	textPane.add(new JLabel(LocaleUtils.subst(Strings.dialog(DialogString.WEB_SITE),
 		Strings.untranslated(Untranslated.GAME_WEB_URL))));
-	textPane.add(new JLabel(LocaleUtils.subst(Strings.dialog(DialogString.BUG_REPORTS),
-		Strings.untranslated(Untranslated.GAME_EMAIL))));
 	buttonPane.setLayout(new FlowLayout());
 	buttonPane.add(aboutOK);
 	this.aboutPane.add(logoPane, BorderLayout.WEST);
