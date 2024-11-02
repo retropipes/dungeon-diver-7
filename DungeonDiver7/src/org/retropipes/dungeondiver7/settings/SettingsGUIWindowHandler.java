@@ -11,13 +11,13 @@ import java.awt.event.WindowEvent;
 
 class SettingsGUIWindowHandler extends WindowAdapter {
     private final SettingsGUI pm;
-    
+
     public SettingsGUIWindowHandler(final SettingsGUI settingsGUI) {
-        this.pm = settingsGUI;
+	this.pm = settingsGUI;
     }
 
     @Override
     public void windowClosing(final WindowEvent e) {
-        this.pm.hidePrefs();
+	this.pm.hidePrefs();
     }
 }

@@ -215,7 +215,8 @@ public class Settings {
 	    Settings.file.setInteger(Strings.settingKey(SettingKey.ACTION_DELAY), 2);
 	    Settings.file.setBoolean(Strings.settingKey(SettingKey.ACCELERATOR_MODEL), false);
 	    Settings.file.setInteger(Strings.settingKey(SettingKey.ACTIVE_LANGUAGE), Settings.FALLBACK_LANGUAGE);
-	    Settings.file.setInteger(Strings.settingKey(SettingKey.EDITOR_LAYOUT), Settings.DEFAULT_EDITOR_LAYOUT.ordinal());
+	    Settings.file.setInteger(Strings.settingKey(SettingKey.EDITOR_LAYOUT),
+		    Settings.DEFAULT_EDITOR_LAYOUT.ordinal());
 	    Settings.file.setBoolean(Strings.settingKey(SettingKey.EDITOR_SHOW_ALL_OBJECTS), true);
 	}
     }

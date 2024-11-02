@@ -7,5 +7,11 @@ All support is handled via the GitHub repository: https://github.com/retropipes/
 package org.retropipes.dungeondiver7.dungeon.gameobject;
 
 public enum ShopType {
-    ARMOR, BANK, HEALER, ITEMS, SPELLS, SURGE, WEAPONS;
+    ARMOR,
+    BANK,
+    HEALER,
+    ITEMS,
+    SPELLS,
+    SURGE,
+    WEAPONS;
 }

@@ -227,13 +227,11 @@ public final class Game implements MenuSection {
 
     public void activeLanguageChanged() {
 	this.gui.activeLanguageChanged();
-	Game.OTHER_AMMO_CHOICES = new String[] { Strings.game(GameString.MISSILES),
-		Strings.game(GameString.STUNNERS), Strings.game(GameString.BLUE_LASERS),
-		Strings.game(GameString.DISRUPTORS) };
-	Game.OTHER_TOOL_CHOICES = new String[] { Strings.game(GameString.BOOSTS),
-		Strings.game(GameString.MAGNETS) };
-	Game.OTHER_RANGE_CHOICES = new String[] { Strings.game(GameString.BOMBS),
-		Strings.game(GameString.HEAT_BOMBS), Strings.game(GameString.ICE_BOMBS) };
+	Game.OTHER_AMMO_CHOICES = new String[] { Strings.game(GameString.MISSILES), Strings.game(GameString.STUNNERS),
+		Strings.game(GameString.BLUE_LASERS), Strings.game(GameString.DISRUPTORS) };
+	Game.OTHER_TOOL_CHOICES = new String[] { Strings.game(GameString.BOOSTS), Strings.game(GameString.MAGNETS) };
+	Game.OTHER_RANGE_CHOICES = new String[] { Strings.game(GameString.BOMBS), Strings.game(GameString.HEAT_BOMBS),
+		Strings.game(GameString.ICE_BOMBS) };
     }
 
     @Override
@@ -668,7 +666,8 @@ public final class Game implements MenuSection {
 	    app.getGUIManager().hideGUI();
 	    if (this.stateChanged) {
 		// Initialize only if the maze state has changed
-		app.getDungeonManager().getDungeonBase().switchLevel(app.getDungeonManager().getDungeonBase().getStartLevel(0));
+		app.getDungeonManager().getDungeonBase()
+			.switchLevel(app.getDungeonManager().getDungeonBase().getStartLevel(0));
 		this.stateChanged = false;
 	    }
 	    app.setInGame();

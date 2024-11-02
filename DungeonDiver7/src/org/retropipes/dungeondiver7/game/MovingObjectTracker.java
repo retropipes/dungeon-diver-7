@@ -109,8 +109,7 @@ final class MovingObjectTracker {
 		    this.objIncX = unres[0];
 		    this.objIncY = unres[1];
 		    this.objectCheck = true;
-		} else if (this.belowUpper.canMoveMirrors()
-			&& this.movingObj.canMove()) {
+		} else if (this.belowUpper.canMoveMirrors() && this.movingObj.canMove()) {
 		    // Handle mirror on mirror mover
 		    final var dir = this.belowUpper.getDirection();
 		    final var unres = DirectionResolver.unresolve(dir);

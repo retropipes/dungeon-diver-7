@@ -25,7 +25,7 @@ class MapTurnBattleEventHandler extends AbstractAction implements KeyListener {
     private static final long serialVersionUID = 20239525230523524L;
 
     public MapTurnBattleEventHandler(MapTurnBattleGUI mapTurnBattleGUI) {
-	gui = mapTurnBattleGUI;
+	this.gui = mapTurnBattleGUI;
     }
 
     @Override
@@ -65,7 +65,7 @@ class MapTurnBattleEventHandler extends AbstractAction implements KeyListener {
 		return;
 	    }
 	    final var bl = DungeonDiver7.getStuffBag().getBattle();
-	    final var bg = gui;
+	    final var bg = this.gui;
 	    if (bg.eventHandlersOn) {
 		final var keyCode = e.getKeyCode();
 		switch (keyCode) {

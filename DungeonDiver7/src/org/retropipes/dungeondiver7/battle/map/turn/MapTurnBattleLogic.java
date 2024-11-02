@@ -38,6 +38,7 @@ import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Music;
 import org.retropipes.dungeondiver7.settings.Settings;
+import org.retropipes.dungeondiver7.utility.InvalidDungeonException;
 
 public class MapTurnBattleLogic extends Battle {
     private static final int STEAL_ACTION_POINTS = 3;
@@ -340,6 +341,10 @@ public class MapTurnBattleLogic extends Battle {
 	} catch (final IOException e) {
 	    DungeonDiver7.logError(e);
 	}
+	if (bMap == null) {
+	    DungeonDiver7.logError(new InvalidDungeonException());
+	    return; // This code will never execute
+	}
 	this.battleType = BattleType.createBattle(bMap.getRows(), bMap.getColumns());
 	if (MusicLoader.isMusicPlaying()) {
 	    MusicLoader.stopMusic();
@@ -405,6 +410,10 @@ public class MapTurnBattleLogic extends Battle {
 	    bMap = DungeonBase.getTemporaryBattleCopy();
 	} catch (final IOException e) {
 	    DungeonDiver7.logError(e);
+	}
+	if (bMap == null) {
+	    DungeonDiver7.logError(new InvalidDungeonException());
+	    return; // This code will never execute
 	}
 	this.battleType = BattleType.createFinalBossBattle(bMap.getRows(), bMap.getColumns());
 	if (MusicLoader.isMusicPlaying()) {
@@ -1102,66 +1111,66 @@ public class MapTurnBattleLogic extends Battle {
 		// Ignore
 	    }
 	    // Auto-attack check
-	    if (obj1.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj1 != null && obj1.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if ((x != -1 || y != 0) && (x != -1 || y != -1) && (x != 0 || y != -1)) {
 		    final var bc1 = this.bd.getFirstBattlerOnTeam(obj1.getTeamID());
-		    if (bc1 != null && obj1.getTeamID() != activeBC.getTeamID()) {
+		    if (bc1 != null && obj1.getTeamID() != active.getTeamID()) {
 			this.executeAutoAI(bc1);
 		    }
 		}
 	    }
-	    if (obj2.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj2 != null && obj2.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if (y == 1) {
 		    final var bc2 = this.bd.getFirstBattlerOnTeam(obj2.getTeamID());
-		    if (bc2 != null && obj2.getTeamID() != activeBC.getTeamID()) {
+		    if (bc2 != null && obj2.getTeamID() != active.getTeamID()) {
 			this.executeAutoAI(bc2);
 		    }
 		}
 	    }
-	    if (obj3.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj3 != null && obj3.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if ((x != 0 || y != -1) && (x != 1 || y != -1) && (x != 1 || y != 0)) {
 		    final var bc3 = this.bd.getFirstBattlerOnTeam(obj3.getTeamID());
-		    if (bc3 != null && obj3.getTeamID() != activeBC.getTeamID()) {
+		    if (bc3 != null && obj3.getTeamID() != active.getTeamID()) {
 			this.executeAutoAI(bc3);
 		    }
 		}
 	    }
-	    if (obj4.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj4 != null && obj4.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if (x == 1) {
 		    final var bc4 = this.bd.getFirstBattlerOnTeam(obj4.getTeamID());
-		    if (bc4 != null && obj4.getTeamID() != activeBC.getTeamID()) {
+		    if (bc4 != null && obj4.getTeamID() != active.getTeamID()) {
 			this.executeAutoAI(bc4);
 		    }
 		}
 	    }
-	    if (obj6.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj6 != null && obj6.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if (x == -1) {
 		    final var bc6 = this.bd.getFirstBattlerOnTeam(obj6.getTeamID());
-		    if (bc6 != null && obj6.getTeamID() != activeBC.getTeamID()) {
+		    if (bc6 != null && obj6.getTeamID() != active.getTeamID()) {
 			this.executeAutoAI(bc6);
 		    }
 		}
 	    }
-	    if (obj7.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj7 != null && obj7.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if ((x != -1 || y != 0) && (x != -1 || y != 1) && (x != 0 || y != 1)) {
 		    final var bc7 = this.bd.getFirstBattlerOnTeam(obj7.getTeamID());
-		    if (bc7 != null && obj7.getTeamID() != activeBC.getTeamID()) {
+		    if (bc7 != null && obj7.getTeamID() != active.getTeamID()) {
 			this.executeAutoAI(bc7);
 		    }
 		}
 	    }
-	    if (obj8.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj8 != null && obj8.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if (y == -1) {
 		    final var bc8 = this.bd.getFirstBattlerOnTeam(obj8.getTeamID());
-		    if (bc8 != null && obj8.getTeamID() != activeBC.getTeamID()) {
+		    if (bc8 != null && obj8.getTeamID() != active.getTeamID()) {
 			this.executeAutoAI(bc8);
 		    }
 		}
 	    }
-	    if (obj9.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
+	    if (obj9 != null && obj9.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		if ((x != 0 || y != 1) && (x != 1 || y != 1) && (x != 1 || y != 0)) {
 		    final var bc9 = this.bd.getFirstBattlerOnTeam(obj9.getTeamID());
-		    if (bc9 != null && obj9.getTeamID() != activeBC.getTeamID()) {
+		    if (bc9 != null && obj9.getTeamID() != active.getTeamID()) {
 			this.executeAutoAI(bc9);
 		    }
 		}
@@ -1181,7 +1190,7 @@ public class MapTurnBattleLogic extends Battle {
 	    } else {
 		SoundLoader.playSound(Sounds.STEP_ENEMY);
 	    }
-	} else if (next != null && next.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
+	} else if (next.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 	    if ((!useAP || this.getActiveAttackCounter() <= 0) && useAP) {
 		// Deny attack - out of actions
 		if (!this.bd.getActiveCharacter().hasAI()) {

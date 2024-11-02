@@ -76,7 +76,8 @@ public class DungeonSaveTask extends Thread {
 		tempLock.delete();
 		app.getDungeonManager().setDungeonProtected(true);
 	    } else {
-		ZipUtilities.zipDirectory(new File(app.getDungeonManager().getDungeonBase().getBasePath()), dungeonFile);
+		ZipUtilities.zipDirectory(new File(app.getDungeonManager().getDungeonBase().getBasePath()),
+			dungeonFile);
 		app.getDungeonManager().setDungeonProtected(false);
 	    }
 	} catch (final FileNotFoundException fnfe) {

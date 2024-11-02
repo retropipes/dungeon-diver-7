@@ -41,6 +41,7 @@ import org.retropipes.dungeondiver7.loader.sound.Sounds;
 import org.retropipes.dungeondiver7.locale.Layer;
 import org.retropipes.dungeondiver7.locale.Music;
 import org.retropipes.dungeondiver7.settings.Settings;
+import org.retropipes.dungeondiver7.utility.InvalidDungeonException;
 
 public class MapTimeBattleLogic extends Battle {
     // Fields
@@ -74,9 +75,8 @@ public class MapTimeBattleLogic extends Battle {
     private boolean areTeamEnemiesAlive(final int teamID) {
 	if (teamID == Creature.TEAM_PARTY) {
 	    return this.enemy.getCreature().isAlive();
-	} else {
-	    return this.me.getCreature().isAlive();
 	}
+	return this.me.getCreature().isAlive();
     }
 
     private boolean areTeamEnemiesDeadOrGone(final int teamID) {
@@ -92,19 +92,18 @@ public class MapTimeBattleLogic extends Battle {
 		}
 	    }
 	    return deadCount > 0;
-	} else {
-	    var deadCount = 0;
-	    if (this.me != null) {
-		final var res = this.me.getCreature().isAlive() && this.me.isActive();
-		if (res) {
-		    return false;
-		}
-		if (!this.me.getCreature().isAlive()) {
-		    deadCount++;
-		}
-	    }
-	    return deadCount > 0;
 	}
+	var deadCount = 0;
+	if (this.me != null) {
+	    final var res = this.me.getCreature().isAlive() && this.me.isActive();
+	    if (res) {
+		return false;
+	    }
+	    if (!this.me.getCreature().isAlive()) {
+		deadCount++;
+	    }
+	}
+	return deadCount > 0;
     }
 
     private boolean areTeamEnemiesGone(final int teamID) {
@@ -117,16 +116,15 @@ public class MapTimeBattleLogic extends Battle {
 		}
 	    }
 	    return true;
-	} else {
-	    var res = true;
-	    if ((this.me != null) && this.me.getCreature().isAlive()) {
-		res = res && !this.me.isActive();
-		if (!res) {
-		    return false;
-		}
-	    }
-	    return true;
 	}
+	var res = true;
+	if ((this.me != null) && this.me.getCreature().isAlive()) {
+	    res = res && !this.me.isActive();
+	    if (!res) {
+		return false;
+	    }
+	}
+	return true;
     }
 
     @Override
@@ -266,6 +264,10 @@ public class MapTimeBattleLogic extends Battle {
 	} catch (final IOException e) {
 	    DungeonDiver7.logError(e);
 	}
+	if (bMap == null) {
+	    DungeonDiver7.logError(new InvalidDungeonException());
+	    return; // This code will never execute
+	}
 	this.battleType = BattleType.createBattle(bMap.getRows(), bMap.getColumns());
 	this.doBattleInternal(bMap);
     }
@@ -326,6 +328,10 @@ public class MapTimeBattleLogic extends Battle {
 	    bMap = DungeonBase.getTemporaryBattleCopy();
 	} catch (final IOException e) {
 	    DungeonDiver7.logError(e);
+	}
+	if (bMap == null) {
+	    DungeonDiver7.logError(new InvalidDungeonException());
+	    return; // This code will never execute
 	}
 	this.battleType = BattleType.createFinalBossBattle(bMap.getRows(), bMap.getColumns());
 	if (MusicLoader.isMusicPlaying()) {
@@ -459,13 +465,12 @@ public class MapTimeBattleLogic extends Battle {
 	    if (drainAmount == 0) {
 		this.setStatusMessage(this.me.getName() + " tries to drain, but no MP is left to drain!");
 		return false;
-	    } else {
-		activeEnemy.offsetCurrentMP(-drainAmount);
-		this.me.getCreature().offsetCurrentMP(drainAmount);
-		this.setStatusMessage(
-			this.me.getName() + " tries to drain, and successfully drains " + drainAmount + " MP!");
-		return true;
 	    }
+	    activeEnemy.offsetCurrentMP(-drainAmount);
+	    this.me.getCreature().offsetCurrentMP(drainAmount);
+	    this.setStatusMessage(
+		    this.me.getName() + " tries to drain, and successfully drains " + drainAmount + " MP!");
+	    return true;
 	} else {
 	    final var chance = new RandomRange(0, 100);
 	    final var randomChance = chance.generate();
@@ -476,18 +481,16 @@ public class MapTimeBattleLogic extends Battle {
 		if (drainAmount == 0) {
 		    this.setStatusMessage(this.me.getName() + " tries to drain, but no MP is left to drain!");
 		    return false;
-		} else {
-		    activeEnemy.offsetCurrentMP(-drainAmount);
-		    this.me.getCreature().offsetCurrentMP(drainAmount);
-		    this.setStatusMessage(
-			    this.me.getName() + " tries to drain, and successfully drains " + drainAmount + " MP!");
-		    return true;
 		}
-	    } else {
-		// Failed
-		this.setStatusMessage(this.me.getName() + " tries to drain, but fails!");
-		return false;
+		activeEnemy.offsetCurrentMP(-drainAmount);
+		this.me.getCreature().offsetCurrentMP(drainAmount);
+		this.setStatusMessage(
+			this.me.getName() + " tries to drain, and successfully drains " + drainAmount + " MP!");
+		return true;
 	    }
+	    // Failed
+	    this.setStatusMessage(this.me.getName() + " tries to drain, but fails!");
+	    return false;
 	}
     }
 
@@ -522,13 +525,12 @@ public class MapTimeBattleLogic extends Battle {
 	    if (drainAmount == 0) {
 		this.setStatusMessage(this.enemy.getName() + " tries to drain, but no MP is left to drain!");
 		return false;
-	    } else {
-		activeEnemy.offsetCurrentMP(-drainAmount);
-		this.enemy.getCreature().offsetCurrentMP(drainAmount);
-		this.setStatusMessage(
-			this.enemy.getName() + " tries to drain, and successfully drains " + drainAmount + " MP!");
-		return true;
 	    }
+	    activeEnemy.offsetCurrentMP(-drainAmount);
+	    this.enemy.getCreature().offsetCurrentMP(drainAmount);
+	    this.setStatusMessage(
+		    this.enemy.getName() + " tries to drain, and successfully drains " + drainAmount + " MP!");
+	    return true;
 	} else {
 	    final var chance = new RandomRange(0, 100);
 	    final var randomChance = chance.generate();
@@ -539,18 +541,16 @@ public class MapTimeBattleLogic extends Battle {
 		if (drainAmount == 0) {
 		    this.setStatusMessage(this.enemy.getName() + " tries to drain, but no MP is left to drain!");
 		    return false;
-		} else {
-		    activeEnemy.offsetCurrentMP(-drainAmount);
-		    this.enemy.getCreature().offsetCurrentMP(drainAmount);
-		    this.setStatusMessage(
-			    this.enemy.getName() + " tries to drain, and successfully drains " + drainAmount + " MP!");
-		    return true;
 		}
-	    } else {
-		// Failed
-		this.setStatusMessage(this.enemy.getName() + " tries to drain, but fails!");
-		return false;
+		activeEnemy.offsetCurrentMP(-drainAmount);
+		this.enemy.getCreature().offsetCurrentMP(drainAmount);
+		this.setStatusMessage(
+			this.enemy.getName() + " tries to drain, and successfully drains " + drainAmount + " MP!");
+		return true;
 	    }
+	    // Failed
+	    this.setStatusMessage(this.enemy.getName() + " tries to drain, but fails!");
+	    return false;
 	}
     }
 
@@ -580,12 +580,11 @@ public class MapTimeBattleLogic extends Battle {
 	    if (stealAmount == 0) {
 		this.setStatusMessage(this.enemy.getName() + " tries to steal, but no Gold is left to steal!");
 		return false;
-	    } else {
-		this.enemy.getCreature().offsetGold(stealAmount);
-		this.setStatusMessage(
-			this.enemy.getName() + " tries to steal, and successfully steals " + stealAmount + " gold!");
-		return true;
 	    }
+	    this.enemy.getCreature().offsetGold(stealAmount);
+	    this.setStatusMessage(
+		    this.enemy.getName() + " tries to steal, and successfully steals " + stealAmount + " gold!");
+	    return true;
 	} else {
 	    final var chance = new RandomRange(0, 100);
 	    final var randomChance = chance.generate();
@@ -596,17 +595,15 @@ public class MapTimeBattleLogic extends Battle {
 		if (stealAmount == 0) {
 		    this.setStatusMessage(this.enemy.getName() + " tries to steal, but no Gold is left to steal!");
 		    return false;
-		} else {
-		    this.enemy.getCreature().offsetGold(stealAmount);
-		    this.setStatusMessage(this.enemy.getName() + " tries to steal, and successfully steals "
-			    + stealAmount + " gold!");
-		    return true;
 		}
-	    } else {
-		// Failed
-		this.setStatusMessage(this.enemy.getName() + " tries to steal, but fails!");
-		return false;
+		this.enemy.getCreature().offsetGold(stealAmount);
+		this.setStatusMessage(
+			this.enemy.getName() + " tries to steal, and successfully steals " + stealAmount + " gold!");
+		return true;
 	    }
+	    // Failed
+	    this.setStatusMessage(this.enemy.getName() + " tries to steal, but fails!");
+	    return false;
 	}
     }
 
@@ -713,9 +710,8 @@ public class MapTimeBattleLogic extends Battle {
     private boolean isTeamAlive(final int teamID) {
 	if (teamID == Creature.TEAM_PARTY) {
 	    return this.me.getCreature().isAlive();
-	} else {
-	    return this.enemy.getCreature().isAlive();
 	}
+	return this.enemy.getCreature().isAlive();
     }
 
     private boolean isTeamGone(final int teamID) {
@@ -728,16 +724,15 @@ public class MapTimeBattleLogic extends Battle {
 		}
 	    }
 	    return true;
-	} else {
-	    var res = true;
-	    if ((this.enemy != null) && this.enemy.getCreature().isAlive()) {
-		res = res && !this.enemy.isActive();
-		if (!res) {
-		    return false;
-		}
-	    }
-	    return true;
 	}
+	var res = true;
+	if ((this.enemy != null) && this.enemy.getCreature().isAlive()) {
+	    res = res && !this.enemy.isActive();
+	    if (!res) {
+		return false;
+	    }
+	}
+	return true;
     }
 
     @Override
@@ -917,12 +912,11 @@ public class MapTimeBattleLogic extends Battle {
 	    if (stealAmount == 0) {
 		this.setStatusMessage(this.me.getName() + " tries to steal, but no Gold is left to steal!");
 		return false;
-	    } else {
-		this.me.getCreature().offsetGold(stealAmount);
-		this.setStatusMessage(
-			this.me.getName() + " tries to steal, and successfully steals " + stealAmount + " gold!");
-		return true;
 	    }
+	    this.me.getCreature().offsetGold(stealAmount);
+	    this.setStatusMessage(
+		    this.me.getName() + " tries to steal, and successfully steals " + stealAmount + " gold!");
+	    return true;
 	} else {
 	    final var chance = new RandomRange(0, 100);
 	    final var randomChance = chance.generate();
@@ -933,17 +927,15 @@ public class MapTimeBattleLogic extends Battle {
 		if (stealAmount == 0) {
 		    this.setStatusMessage(this.me.getName() + " tries to steal, but no Gold is left to steal!");
 		    return false;
-		} else {
-		    this.me.getCreature().offsetGold(stealAmount);
-		    this.setStatusMessage(
-			    this.me.getName() + " tries to steal, and successfully steals " + stealAmount + " gold!");
-		    return true;
 		}
-	    } else {
-		// Failed
-		this.setStatusMessage(this.me.getName() + " tries to steal, but fails!");
-		return false;
+		this.me.getCreature().offsetGold(stealAmount);
+		this.setStatusMessage(
+			this.me.getName() + " tries to steal, and successfully steals " + stealAmount + " gold!");
+		return true;
 	    }
+	    // Failed
+	    this.setStatusMessage(this.me.getName() + " tries to steal, but fails!");
+	    return false;
 	}
     }
 
@@ -1113,7 +1105,7 @@ public class MapTimeBattleLogic extends Battle {
 		active.getTile().setSavedObject(m.getCell(px, py, 0, Layer.OBJECT.ordinal()));
 		m.setCell(active.getTile(), px, py, 0, Layer.OBJECT.ordinal());
 		SoundLoader.playSound(stepSound);
-	    } else if (next != null && next.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
+	    } else if (next.getIdValue() == ObjectImageId._CREATURE.ordinal()) {
 		// Attack
 		final var bc = this.bd.getFirstBattlerOnTeam(next.getTeamID());
 		if (next.getTeamID() == active.getTeamID()) {
@@ -1154,7 +1146,8 @@ public class MapTimeBattleLogic extends Battle {
 		    // Set dead character to inactive
 		    active.deactivate();
 		    // Remove character from battle
-		    m.setCell(new GameObject(ObjectImageId.EMPTY), active.getX(), active.getY(), 0, Layer.OBJECT.ordinal());
+		    m.setCell(new GameObject(ObjectImageId.EMPTY), active.getX(), active.getY(), 0,
+			    Layer.OBJECT.ordinal());
 		}
 	    } else {
 		// Move Failed

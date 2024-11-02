@@ -22,7 +22,7 @@ class EditorMenuHandler implements ActionListener {
     private final Editor editor;
 
     public EditorMenuHandler(Editor theEditor) {
-	editor = theEditor;
+	this.editor = theEditor;
     }
 
     // Handle menus
@@ -34,7 +34,7 @@ class EditorMenuHandler implements ActionListener {
 	    if (cmd.equals(Strings.menu(Menu.UNDO))) {
 		// Undo most recent action
 		if (app.getMode() == StuffBag.STATUS_EDITOR) {
-		    editor.undo();
+		    this.editor.undo();
 		} else if (app.getMode() == StuffBag.STATUS_GAME) {
 		    app.getGame().abortAndWaitForMLOLoop();
 		    app.getGame().undoLastMove();
@@ -42,121 +42,121 @@ class EditorMenuHandler implements ActionListener {
 	    } else if (cmd.equals(Strings.menu(Menu.REDO))) {
 		// Redo most recent undone action
 		if (app.getMode() == StuffBag.STATUS_EDITOR) {
-		    editor.redo();
+		    this.editor.redo();
 		} else if (app.getMode() == StuffBag.STATUS_GAME) {
 		    app.getGame().abortAndWaitForMLOLoop();
 		    app.getGame().redoLastMove();
 		}
 	    } else if (cmd.equals(Strings.menu(Menu.CUT_LEVEL))) {
 		// Cut Level
-		final var level = editor.getLocationManager().getEditorLocationU();
+		final var level = this.editor.getLocationManager().getEditorLocationU();
 		app.getDungeonManager().getDungeonBase().cutLevel();
-		editor.fixLimits();
-		editor.updateEditorLevelAbsolute(level);
+		this.editor.fixLimits();
+		this.editor.updateEditorLevelAbsolute(level);
 	    } else if (cmd.equals(Strings.menu(Menu.COPY_LEVEL))) {
 		// Copy Level
 		app.getDungeonManager().getDungeonBase().copyLevel();
 	    } else if (cmd.equals(Strings.menu(Menu.PASTE_LEVEL))) {
 		// Paste Level
 		app.getDungeonManager().getDungeonBase().pasteLevel();
-		editor.fixLimits();
-		editor.redrawEditor();
+		this.editor.fixLimits();
+		this.editor.redrawEditor();
 	    } else if (cmd.equals(Strings.menu(Menu.INSERT_LEVEL_FROM_CLIPBOARD))) {
 		// Insert Level From Clipboard
 		app.getDungeonManager().getDungeonBase().insertLevelFromClipboard();
-		editor.fixLimits();
+		this.editor.fixLimits();
 	    } else if (cmd.equals(Strings.menu(Menu.CLEAR_HISTORY))) {
 		// Clear undo/redo history, confirm first
 		final var res = CommonDialogs.showConfirmDialog(Strings.menu(Menu.CONFIRM_CLEAR_HISTORY),
 			Strings.editor(EditorString.EDITOR));
 		if (res == CommonDialogs.YES_OPTION) {
-		    editor.clearHistory();
+		    this.editor.clearHistory();
 		}
 	    } else if (cmd.equals(Strings.menu(Menu.GO_TO_LEVEL))) {
 		// Go To Level
-		editor.goToLevelHandler();
+		this.editor.goToLevelHandler();
 	    } else if (cmd.equals(Strings.menu(Menu.UP_ONE_FLOOR))) {
 		// Go up one floor
-		editor.updateEditorPosition(1, 0);
+		this.editor.updateEditorPosition(1, 0);
 	    } else if (cmd.equals(Strings.menu(Menu.DOWN_ONE_FLOOR))) {
 		// Go down one floor
-		editor.updateEditorPosition(-1, 0);
+		this.editor.updateEditorPosition(-1, 0);
 	    } else if (cmd.equals(Strings.menu(Menu.UP_ONE_LEVEL))) {
 		// Go up one level
-		editor.updateEditorPosition(0, 1);
+		this.editor.updateEditorPosition(0, 1);
 	    } else if (cmd.equals(Strings.menu(Menu.DOWN_ONE_LEVEL))) {
 		// Go down one level
-		editor.updateEditorPosition(0, -1);
+		this.editor.updateEditorPosition(0, -1);
 	    } else if (cmd.equals(Strings.menu(Menu.ADD_A_LEVEL))) {
 		// Add a level
-		editor.addLevel();
+		this.editor.addLevel();
 	    } else if (cmd.equals(Strings.menu(Menu.REMOVE_A_LEVEL))) {
 		// Remove a level
-		editor.removeLevel();
+		this.editor.removeLevel();
 	    } else if (cmd.equals(Strings.menu(Menu.FILL_CURRENT_LEVEL))) {
 		// Fill level
-		editor.fillLevel();
+		this.editor.fillLevel();
 	    } else if (cmd.equals(Strings.menu(Menu.RESIZE_CURRENT_LEVEL))) {
 		// Resize level
-		editor.resizeLevel();
+		this.editor.resizeLevel();
 	    } else if (cmd.equals(Strings.menu(Menu.LEVEL_PREFERENCES))) {
 		// Set Level Preferences
-		editor.setLevelPrefs();
+		this.editor.setLevelPrefs();
 	    } else if (cmd.equals(Strings.menu(Menu.SET_START_POINT))) {
 		// Set Start Point
-		editor.editPlayerLocation();
+		this.editor.editPlayerLocation();
 	    } else if (cmd.equals(Strings.menu(Menu.SET_MUSIC))) {
 		// Set Music
-		editor.defineDungeonMusic();
+		this.editor.defineDungeonMusic();
 	    } else if (cmd.equals(Strings.menu(Menu.CHANGE_LAYER))) {
 		// Change Layer
-		editor.changeLayer();
+		this.editor.changeLayer();
 	    } else if (cmd.equals(Strings.menu(Menu.ENABLE_GLOBAL_MOVE_SHOOT))) {
 		// Enable Global Move-Shoot
-		editor.enableGlobalMoveShoot();
+		this.editor.enableGlobalMoveShoot();
 	    } else if (cmd.equals(Strings.menu(Menu.DISABLE_GLOBAL_MOVE_SHOOT))) {
 		// Disable Global Move-Shoot
-		editor.disableGlobalMoveShoot();
+		this.editor.disableGlobalMoveShoot();
 	    } else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_PAST))) {
 		// Time Travel: Distant Past
 		app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_DISTANT_PAST);
-		editor.editorEraDistantPast.setSelected(true);
-		editor.editorEraPast.setSelected(false);
-		editor.editorEraPresent.setSelected(false);
-		editor.editorEraFuture.setSelected(false);
-		editor.editorEraDistantFuture.setSelected(false);
+		this.editor.editorEraDistantPast.setSelected(true);
+		this.editor.editorEraPast.setSelected(false);
+		this.editor.editorEraPresent.setSelected(false);
+		this.editor.editorEraFuture.setSelected(false);
+		this.editor.editorEraDistantFuture.setSelected(false);
 	    } else if (cmd.equals(Strings.timeTravel(TimeTravel.PAST))) {
 		// Time Travel: Past
 		app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_PAST);
-		editor.editorEraDistantPast.setSelected(false);
-		editor.editorEraPast.setSelected(true);
-		editor.editorEraPresent.setSelected(false);
-		editor.editorEraFuture.setSelected(false);
-		editor.editorEraDistantFuture.setSelected(false);
+		this.editor.editorEraDistantPast.setSelected(false);
+		this.editor.editorEraPast.setSelected(true);
+		this.editor.editorEraPresent.setSelected(false);
+		this.editor.editorEraFuture.setSelected(false);
+		this.editor.editorEraDistantFuture.setSelected(false);
 	    } else if (cmd.equals(Strings.timeTravel(TimeTravel.PRESENT))) {
 		// Time Travel: Present
 		app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_PRESENT);
-		editor.editorEraDistantPast.setSelected(false);
-		editor.editorEraPast.setSelected(false);
-		editor.editorEraPresent.setSelected(true);
-		editor.editorEraFuture.setSelected(false);
-		editor.editorEraDistantFuture.setSelected(false);
+		this.editor.editorEraDistantPast.setSelected(false);
+		this.editor.editorEraPast.setSelected(false);
+		this.editor.editorEraPresent.setSelected(true);
+		this.editor.editorEraFuture.setSelected(false);
+		this.editor.editorEraDistantFuture.setSelected(false);
 	    } else if (cmd.equals(Strings.timeTravel(TimeTravel.FUTURE))) {
 		// Time Travel: Future
 		app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_FUTURE);
-		editor.editorEraDistantPast.setSelected(false);
-		editor.editorEraPast.setSelected(false);
-		editor.editorEraPresent.setSelected(false);
-		editor.editorEraFuture.setSelected(true);
-		editor.editorEraDistantFuture.setSelected(false);
+		this.editor.editorEraDistantPast.setSelected(false);
+		this.editor.editorEraPast.setSelected(false);
+		this.editor.editorEraPresent.setSelected(false);
+		this.editor.editorEraFuture.setSelected(true);
+		this.editor.editorEraDistantFuture.setSelected(false);
 	    } else if (cmd.equals(Strings.timeTravel(TimeTravel.FAR_FUTURE))) {
 		// Time Travel: Distant Future
 		app.getDungeonManager().getDungeonBase().switchEra(DungeonConstants.ERA_DISTANT_FUTURE);
-		editor.editorEraDistantPast.setSelected(false);
-		editor.editorEraPast.setSelected(false);
-		editor.editorEraPresent.setSelected(false);
-		editor.editorEraFuture.setSelected(false);
-		editor.editorEraDistantFuture.setSelected(true);
+		this.editor.editorEraDistantPast.setSelected(false);
+		this.editor.editorEraPast.setSelected(false);
+		this.editor.editorEraPresent.setSelected(false);
+		this.editor.editorEraFuture.setSelected(false);
+		this.editor.editorEraDistantFuture.setSelected(true);
 	    }
 	    app.getMenus().checkFlags();
 	} catch (final Exception ex) {

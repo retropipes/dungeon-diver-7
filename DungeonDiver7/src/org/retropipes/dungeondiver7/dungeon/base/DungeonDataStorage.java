@@ -18,12 +18,4 @@ public class DungeonDataStorage extends ObjectStorage<GameObject> {
     public DungeonDataStorage(final int... shape) {
 	super(shape);
     }
-
-    public GameObject getDungeonDataCell(final int... loc) {
-	return (GameObject) this.getCell(loc);
-    }
-
-    public void setDungeonDataCell(final GameObject obj, final int... loc) {
-	this.setCell(obj, loc);
-    }
 }

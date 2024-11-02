@@ -17,14 +17,14 @@ class EditorSwitcherHandler implements ActionListener {
     private final Editor editor;
 
     EditorSwitcherHandler(Editor theEditor) {
-	editor = theEditor;
+	this.editor = theEditor;
     }
 
     @Override
     public void actionPerformed(final ActionEvent e) {
 	try {
 	    final var cmd = e.getActionCommand();
-	    final var ae = editor;
+	    final var ae = this.editor;
 	    if (cmd.equals(Strings.layer(Layer.GROUND))) {
 		ae.changeLayerImpl(Layer.GROUND.ordinal());
 	    } else if (cmd.equals(Strings.layer(Layer.OBJECT))) {

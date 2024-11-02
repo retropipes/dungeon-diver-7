@@ -25,8 +25,8 @@ final class MovementTask extends Thread {
 	}
     }
 
-    private static boolean checkSolid(final GameObject inside, final GameObject below,
-	    final GameObject nextBelow, final GameObject nextAbove) {
+    private static boolean checkSolid(final GameObject inside, final GameObject below, final GameObject nextBelow,
+	    final GameObject nextAbove) {
 	final var insideSolid = inside.isSolid();
 	final var belowSolid = below.isSolid();
 	final var nextBelowSolid = nextBelow.isSolid();
@@ -37,8 +37,8 @@ final class MovementTask extends Thread {
 	return true;
     }
 
-    private static void fireMoveFailedActions(final int x, final int y, final GameObject inside,
-	    final GameObject below, final GameObject nextBelow, final GameObject nextAbove) {
+    private static void fireMoveFailedActions(final int x, final int y, final GameObject inside, final GameObject below,
+	    final GameObject nextBelow, final GameObject nextAbove) {
 	final var insideSolid = inside.isSolid();
 	final var belowSolid = below.isSolid();
 	final var nextBelowSolid = nextBelow.isSolid();
@@ -74,8 +74,7 @@ final class MovementTask extends Thread {
 	this.saved = new GameObject(ObjectImageId.EMPTY);
     }
 
-    private boolean checkLoopCondition(final GameObject below, final GameObject nextBelow,
-	    final GameObject nextAbove) {
+    private boolean checkLoopCondition(final GameObject below, final GameObject nextBelow, final GameObject nextAbove) {
 	return this.proceed && !nextBelow.hasFriction()
 		&& MovementTask.checkSolid(this.saved, below, nextBelow, nextAbove);
     }
@@ -147,8 +146,7 @@ final class MovementTask extends Thread {
 			m.getPlayerLocationY(0) - GameViewingWindowManager.getOffsetFactorX());
 		this.vwMgr.setViewingWindowLocationY(
 			m.getPlayerLocationX(0) - GameViewingWindowManager.getOffsetFactorY());
-		this.saved = m.getCell(m.getPlayerLocationX(0), m.getPlayerLocationY(0), 0,
-			Layer.STATUS.ordinal());
+		this.saved = m.getCell(m.getPlayerLocationX(0), m.getPlayerLocationY(0), 0, Layer.STATUS.ordinal());
 		app.getDungeonManager().setDirty(true);
 		this.saved.postMoveAction(x, y, 0);
 		final var px = m.getPlayerLocationX(0);

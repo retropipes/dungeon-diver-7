@@ -41,8 +41,7 @@ class EditorUndoRedoEngine {
 	    return temp;
 	}
 
-	public void insertFirst(final GameObject obj, final int x, final int y, final int z, final int w,
-		final int u) {
+	public void insertFirst(final GameObject obj, final int x, final int y, final int z, final int w, final int u) {
 	    final var newLink = new Link(obj, x, y, z, w, u);
 	    newLink.next = this.first;
 	    this.first = newLink;

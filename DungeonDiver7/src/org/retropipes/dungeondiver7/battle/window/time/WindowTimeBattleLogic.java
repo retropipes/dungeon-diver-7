@@ -567,10 +567,9 @@ public class WindowTimeBattleLogic extends Battle {
 	    this.enemy.offsetCurrentMP(-drainAmount);
 	    playerCharacter.offsetCurrentMP(drainAmount);
 	    return true;
-	} else {
-	    // Failed
-	    return false;
 	}
+	// Failed
+	return false;
     }
 
     @Override
@@ -744,11 +743,10 @@ public class WindowTimeBattleLogic extends Battle {
 	    this.stealAmount = stole.generate();
 	    playerCharacter.offsetGold(this.stealAmount);
 	    return true;
-	} else {
-	    // Failed
-	    this.stealAmount = 0;
-	    return false;
 	}
+	// Failed
+	this.stealAmount = 0;
+	return false;
     }
 
     final void stripExtraNewLine() {

@@ -25,7 +25,8 @@ final class GameObjectDataLoader {
     }
 
     static boolean boundUniversal(final ObjectImageId index) {
-	return (boolean) ResourceBundle.getBundle("org.retropipes.dungeondiver7.dungeon.gameobject.data.bound_universal")
+	return (boolean) ResourceBundle
+		.getBundle("org.retropipes.dungeondiver7.dungeon.gameobject.data.bound_universal")
 		.getObject(Integer.toString(index.ordinal()));
     }
 
@@ -110,7 +111,8 @@ final class GameObjectDataLoader {
     }
 
     static Sounds interactionSound(final ObjectImageId index) {
-	return Sounds.values()[((int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.dungeon.gameobject.data.interact_sound")
+	return Sounds.values()[((int) ResourceBundle
+		.getBundle("org.retropipes.dungeondiver7.dungeon.gameobject.data.interact_sound")
 		.getObject(Integer.toString(index.ordinal())))];
     }
 
@@ -130,7 +132,8 @@ final class GameObjectDataLoader {
     }
 
     static Material material(final ObjectImageId index) {
-	return Material.values()[((int) ResourceBundle.getBundle("org.retropipes.dungeondiver7.dungeon.gameobject.data.material")
+	return Material.values()[((int) ResourceBundle
+		.getBundle("org.retropipes.dungeondiver7.dungeon.gameobject.data.material")
 		.getObject(Integer.toString(index.ordinal())))];
     }
 

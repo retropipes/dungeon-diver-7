@@ -35,11 +35,11 @@ public abstract class DungeonDataBase {
 	return DungeonDataBase.MIN_ROWS;
     }
 
-    public abstract int checkForMagnetic(final DungeonBase dungeonBase, final int floor, final int centerX, final int centerY,
-	    final Direction dir);
+    public abstract int checkForMagnetic(final DungeonBase dungeonBase, final int floor, final int centerX,
+	    final int centerY, final Direction dir);
 
-    public abstract int[] circularScan(final DungeonBase dungeonBase, final int xIn, final int yIn, final int zIn, final int r,
-	    final String targetName, boolean moved);
+    public abstract int[] circularScan(final DungeonBase dungeonBase, final int xIn, final int yIn, final int zIn,
+	    final int r, final String targetName, boolean moved);
 
     public abstract boolean circularScanPlayer(final DungeonBase dungeonBase, final int x, final int y, final int z,
 	    final int r);
@@ -78,7 +78,8 @@ public abstract class DungeonDataBase {
     public abstract void fullScanButtonCleanup(final DungeonBase dungeonBase, final int px, final int py, final int zIn,
 	    final GameObject button);
 
-    public abstract void fullScanFindButtonLostDoor(final DungeonBase dungeonBase, final int zIn, final GameObject door);
+    public abstract void fullScanFindButtonLostDoor(final DungeonBase dungeonBase, final int zIn,
+	    final GameObject door);
 
     public abstract void fullScanFreezeGround(final DungeonBase dungeonBase);
 
@@ -91,8 +92,8 @@ public abstract class DungeonDataBase {
 
     public abstract int getRows();
 
-    public abstract GameObject getVirtualCell(final DungeonBase dungeonBase, final int row, final int col, final int floor,
-	    final int layer);
+    public abstract GameObject getVirtualCell(final DungeonBase dungeonBase, final int row, final int col,
+	    final int floor, final int layer);
 
     public abstract HistoryStatus getWhatWas();
 
@@ -186,8 +187,8 @@ public abstract class DungeonDataBase {
 
     public abstract void setDirtyFlags(final int floor);
 
-    public abstract void setVirtualCell(final DungeonBase dungeonBase, final GameObject mo, final int row, final int col,
-	    final int floor, final int layer);
+    public abstract void setVirtualCell(final DungeonBase dungeonBase, final GameObject mo, final int row,
+	    final int col, final int floor, final int layer);
 
     public abstract void tickTimers(final DungeonBase dungeonBase);
 

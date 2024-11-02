@@ -17,25 +17,25 @@ class MapTimeBattleEnemyTask extends TimerTask {
     private final MapTimeBattleLogic logic;
 
     public MapTimeBattleEnemyTask(MapTimeBattleLogic mapTimeBattleLogic) {
-	logic = mapTimeBattleLogic;
+	this.logic = mapTimeBattleLogic;
     }
 
     private void enemyAct() {
-	final var gui = logic.battleGUI;
+	final var gui = this.logic.battleGUI;
 	// Do Enemy Actions
-	logic.executeNextAIAction();
+	this.logic.executeNextAIAction();
 	gui.resetEnemyActionBar();
 	// Maintain Enemy Effects
-	logic.maintainEffects(false);
+	this.logic.maintainEffects(false);
 	// Display Active Effects
-	logic.displayActiveEffects();
+	this.logic.displayActiveEffects();
 	// Display End Stats
-	logic.displayBattleStats();
+	this.logic.displayBattleStats();
 	// Check Result
-	final var bResult = logic.getResult();
+	final var bResult = this.logic.getResult();
 	if (bResult != BattleResult.IN_PROGRESS) {
-	    logic.setResult(bResult);
-	    logic.doResult();
+	    this.logic.setResult(bResult);
+	    this.logic.doResult();
 	}
     }
 
@@ -43,9 +43,8 @@ class MapTimeBattleEnemyTask extends TimerTask {
     public void run() {
 	try {
 	    final var app = DungeonDiver7.getStuffBag();
-	    final var b = logic;
-	    if (app.getMode() == StuffBag.STATUS_BATTLE && b instanceof MapTimeBattleLogic) {
-		final var gui = logic.battleGUI;
+	    if (app.getMode() == StuffBag.STATUS_BATTLE) {
+		final var gui = this.logic.battleGUI;
 		if (!gui.isEnemyActionBarFull()) {
 		    gui.updateEnemyActionBarValue();
 		    if (gui.isEnemyActionBarFull()) {

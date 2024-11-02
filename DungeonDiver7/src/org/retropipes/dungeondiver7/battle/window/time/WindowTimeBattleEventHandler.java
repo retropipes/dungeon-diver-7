@@ -22,7 +22,7 @@ class WindowTimeBattleEventHandler extends AbstractAction {
     private static final long serialVersionUID = 20239525230523523L;
 
     public WindowTimeBattleEventHandler(WindowTimeBattleGUI windowTimeBattleGUI) {
-	gui = windowTimeBattleGUI;
+	this.gui = windowTimeBattleGUI;
 	// Do nothing
     }
 
@@ -31,7 +31,7 @@ class WindowTimeBattleEventHandler extends AbstractAction {
 	try {
 	    var success = true;
 	    final var cmd = e.getActionCommand();
-	    final var wbg = gui;
+	    final var wbg = this.gui;
 	    final var b = DungeonDiver7.getStuffBag().getBattle();
 	    // Clear Message Area
 	    wbg.clearMessageArea();
@@ -54,9 +54,8 @@ class WindowTimeBattleEventHandler extends AbstractAction {
 		    // Get out of here
 		    b.doResult();
 		    return;
-		} else {
-		    success = b.doPlayerActions(BattleAction.ATTACK);
 		}
+		success = b.doPlayerActions(BattleAction.ATTACK);
 	    } else if (cmd.equals("Continue")) {
 		// Battle Done
 		b.battleDone();

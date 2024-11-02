@@ -18,37 +18,37 @@ class ObjectEditorBaseFocusHandler implements FocusListener {
     /**
      * 
      */
-    private final ObjectEditorBase objectEditorBase;
+    private final ObjectEditorBase self;
 
     public ObjectEditorBaseFocusHandler(ObjectEditorBase objectEditorBase) {
-        this.objectEditorBase = objectEditorBase;
-        // Do nothing
+	this.self = objectEditorBase;
+	// Do nothing
     }
 
     @Override
     public void focusGained(final FocusEvent fe) {
-        // Do nothing
+	// Do nothing
     }
 
     @Override
     public void focusLost(final FocusEvent fe) {
-        final var ge = this.objectEditorBase;
-        try {
-    	final var comp = fe.getComponent();
-    	if (comp.getClass().equals(JTextField.class)) {
-    	    final var entry = (JTextField) comp;
-    	    final var num = Integer.parseInt(entry.getName());
-    	    ge.autoStoreEntryFieldValue(entry, num);
-    	} else if (comp.getClass().equals(JComboBox.class)) {
-    	    @SuppressWarnings("unchecked")
-    	    final var list = (JComboBox<String>) comp;
-    	    final var num = Integer.parseInt(list.getName());
-    	    ge.autoStoreEntryListValue(list, num);
-    	}
-        } catch (final NumberFormatException nfe) {
-    	// Ignore
-        } catch (final Exception ex) {
-    	DungeonDiver7.logError(ex);
-        }
+	final var ge = this.self;
+	try {
+	    final var comp = fe.getComponent();
+	    if (comp.getClass().equals(JTextField.class)) {
+		final var entry = (JTextField) comp;
+		final var num = Integer.parseInt(entry.getName());
+		ge.autoStoreEntryFieldValue(entry, num);
+	    } else if (comp.getClass().equals(JComboBox.class)) {
+		@SuppressWarnings("unchecked")
+		final var list = (JComboBox<String>) comp;
+		final var num = Integer.parseInt(list.getName());
+		ge.autoStoreEntryListValue(list, num);
+	    }
+	} catch (final NumberFormatException nfe) {
+	    // Ignore
+	} catch (final Exception ex) {
+	    DungeonDiver7.logError(ex);
+	}
     }
 }

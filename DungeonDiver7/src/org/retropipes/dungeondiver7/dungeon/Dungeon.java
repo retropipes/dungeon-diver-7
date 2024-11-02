@@ -185,50 +185,43 @@ public class Dungeon extends DungeonBase {
 	if (relY != 0) {
 	    moveY = relY / Math.abs(relY);
 	}
-	final var canMove = !this.getCell(locX + moveX, locY + moveY, locZ, Layer.STATUS.ordinal())
-		.isSolid();
+	final var canMove = !this.getCell(locX + moveX, locY + moveY, locZ, Layer.STATUS.ordinal()).isSolid();
 	if (canMove) {
 	    return DirectionResolver.resolve(moveX, moveY);
 	}
 	final var moveX1L = DirectionRotator.rotate45LeftX(moveX, moveY);
 	final var moveY1L = DirectionRotator.rotate45LeftY(moveX, moveY);
-	final var canMove1L = !this.getCell(locX + moveX1L, locY + moveY1L, locZ, Layer.STATUS.ordinal())
-		.isSolid();
+	final var canMove1L = !this.getCell(locX + moveX1L, locY + moveY1L, locZ, Layer.STATUS.ordinal()).isSolid();
 	if (canMove1L) {
 	    return DirectionResolver.resolve(moveX1L, moveY1L);
 	}
 	final var moveX1R = DirectionRotator.rotate45RightX(moveX, moveY);
 	final var moveY1R = DirectionRotator.rotate45RightY(moveX, moveY);
-	final var canMove1R = !this.getCell(locX + moveX1R, locY + moveY1R, locZ, Layer.STATUS.ordinal())
-		.isSolid();
+	final var canMove1R = !this.getCell(locX + moveX1R, locY + moveY1R, locZ, Layer.STATUS.ordinal()).isSolid();
 	if (canMove1R) {
 	    return DirectionResolver.resolve(moveX1R, moveY1R);
 	}
 	final var moveX2L = DirectionRotator.rotate45LeftX(moveX1L, moveY1L);
 	final var moveY2L = DirectionRotator.rotate45LeftY(moveX1L, moveY1L);
-	final var canMove2L = !this.getCell(locX + moveX2L, locY + moveY2L, locZ, Layer.STATUS.ordinal())
-		.isSolid();
+	final var canMove2L = !this.getCell(locX + moveX2L, locY + moveY2L, locZ, Layer.STATUS.ordinal()).isSolid();
 	if (canMove2L) {
 	    return DirectionResolver.resolve(moveX2L, moveY2L);
 	}
 	final var moveX2R = DirectionRotator.rotate45RightX(moveX1R, moveY1R);
 	final var moveY2R = DirectionRotator.rotate45RightY(moveX1R, moveY1R);
-	final var canMove2R = !this.getCell(locX + moveX2R, locY + moveY2R, locZ, Layer.STATUS.ordinal())
-		.isSolid();
+	final var canMove2R = !this.getCell(locX + moveX2R, locY + moveY2R, locZ, Layer.STATUS.ordinal()).isSolid();
 	if (canMove2R) {
 	    return DirectionResolver.resolve(moveX2R, moveY2R);
 	}
 	final var moveX3L = DirectionRotator.rotate45LeftX(moveX2L, moveY2L);
 	final var moveY3L = DirectionRotator.rotate45LeftY(moveX2L, moveY2L);
-	final var canMove3L = !this.getCell(locX + moveX3L, locY + moveY3L, locZ, Layer.STATUS.ordinal())
-		.isSolid();
+	final var canMove3L = !this.getCell(locX + moveX3L, locY + moveY3L, locZ, Layer.STATUS.ordinal()).isSolid();
 	if (canMove3L) {
 	    return DirectionResolver.resolve(moveX3L, moveY3L);
 	}
 	final var moveX3R = DirectionRotator.rotate45RightX(moveX2R, moveY2R);
 	final var moveY3R = DirectionRotator.rotate45RightY(moveX2R, moveY2R);
-	final var canMove3R = !this.getCell(locX + moveX3R, locY + moveY3R, locZ, Layer.STATUS.ordinal())
-		.isSolid();
+	final var canMove3R = !this.getCell(locX + moveX3R, locY + moveY3R, locZ, Layer.STATUS.ordinal()).isSolid();
 	if (canMove3R) {
 	    return DirectionResolver.resolve(moveX3R, moveY3R);
 	}
@@ -960,8 +953,8 @@ public class Dungeon extends DungeonBase {
     }
 
     @Override
-    public void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc,
-	    final GameObject monster, final int pi) {
+    public void updateMonsterPosition(final Direction move, final int xLoc, final int yLoc, final GameObject monster,
+	    final int pi) {
 	this.dungeonData.updateMonsterPosition(this, move, xLoc, yLoc, monster, pi);
     }
 

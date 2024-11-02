@@ -180,15 +180,17 @@ public final class DungeonData extends DungeonDataBase {
 
     // Constructors
     public DungeonData() {
-	this.data = new DungeonDataStorage(DungeonDataBase.MIN_COLUMNS, DungeonDataBase.MIN_ROWS, DungeonDataBase.MIN_FLOORS,
-		Layer.values().length);
-	this.virtualData = new DungeonDataStorage(DungeonDataBase.MIN_COLUMNS, DungeonDataBase.MIN_ROWS, DungeonDataBase.MIN_FLOORS,
-		DungeonConstants.NUM_VIRTUAL_LAYERS);
+	this.data = new DungeonDataStorage(DungeonDataBase.MIN_COLUMNS, DungeonDataBase.MIN_ROWS,
+		DungeonDataBase.MIN_FLOORS, Layer.values().length);
+	this.virtualData = new DungeonDataStorage(DungeonDataBase.MIN_COLUMNS, DungeonDataBase.MIN_ROWS,
+		DungeonDataBase.MIN_FLOORS, DungeonConstants.NUM_VIRTUAL_LAYERS);
 	this.fillVirtual();
-	this.dirtyData = new FlagStorage(DungeonDataBase.MIN_COLUMNS, DungeonDataBase.MIN_ROWS, DungeonDataBase.MIN_FLOORS);
-	this.visionData = new FlagStorage(DungeonDataBase.MIN_COLUMNS, DungeonDataBase.MIN_ROWS, DungeonDataBase.MIN_FLOORS);
-	this.savedState = new DungeonDataStorage(DungeonDataBase.MIN_ROWS, DungeonDataBase.MIN_COLUMNS, DungeonDataBase.MIN_FLOORS,
-		Layer.values().length);
+	this.dirtyData = new FlagStorage(DungeonDataBase.MIN_COLUMNS, DungeonDataBase.MIN_ROWS,
+		DungeonDataBase.MIN_FLOORS);
+	this.visionData = new FlagStorage(DungeonDataBase.MIN_COLUMNS, DungeonDataBase.MIN_ROWS,
+		DungeonDataBase.MIN_FLOORS);
+	this.savedState = new DungeonDataStorage(DungeonDataBase.MIN_ROWS, DungeonDataBase.MIN_COLUMNS,
+		DungeonDataBase.MIN_FLOORS, Layer.values().length);
 	this.foundX = -1;
 	this.foundY = -1;
 	this.iue = new ImageUndoEngine();
@@ -223,7 +225,8 @@ public final class DungeonData extends DungeonDataBase {
 	this.visionModeExploreRadius = 2;
     }
 
-    private boolean areCoordsInBounds(final DungeonBase dungeonBase, final int x1, final int y1, final int x2, final int y2) {
+    private boolean areCoordsInBounds(final DungeonBase dungeonBase, final int x1, final int y1, final int x2,
+	    final int y2) {
 	int fx1, fx2, fy1, fy2;
 	if (dungeonBase.isHorizontalWraparoundEnabled()) {
 	    fx1 = this.normalizeColumn(x1);
@@ -304,7 +307,8 @@ public final class DungeonData extends DungeonDataBase {
     }
 
     @Override
-    public boolean circularScanPlayer(final DungeonBase dungeonBase, final int x, final int y, final int z, final int r) {
+    public boolean circularScanPlayer(final DungeonBase dungeonBase, final int x, final int y, final int z,
+	    final int r) {
 	final var tankLoc = DungeonDiver7.getStuffBag().getGame().getPlayerLocation();
 	var fX = x;
 	var fY = y;
@@ -325,8 +329,8 @@ public final class DungeonData extends DungeonDataBase {
     }
 
     @Override
-    public int[] circularScanTunnel(final DungeonBase dungeonBase, final int xIn, final int yIn, final int zIn, final int r,
-	    final int tx, final int ty, final GameObject target, final boolean moved) {
+    public int[] circularScanTunnel(final DungeonBase dungeonBase, final int xIn, final int yIn, final int zIn,
+	    final int r, final int tx, final int ty, final GameObject target, final boolean moved) {
 	var xFix = xIn;
 	var yFix = yIn;
 	var zFix = zIn;
@@ -421,7 +425,8 @@ public final class DungeonData extends DungeonDataBase {
     }
 
     @Override
-    public void fillNulls(final DungeonBase dungeonBase, final GameObject fill1, final GameObject fill2, final boolean was16) {
+    public void fillNulls(final DungeonBase dungeonBase, final GameObject fill1, final GameObject fill2,
+	    final boolean was16) {
 	int y, x, z, w;
 	for (x = 0; x < this.getColumns(); x++) {
 	    for (y = 0; y < this.getRows(); y++) {
@@ -658,8 +663,7 @@ public final class DungeonData extends DungeonDataBase {
 		    if (!(obj.getId() != ObjectImageId.GRASS)) {
 			DungeonDiver7.getStuffBag().getGame();
 			// Freeze the ground
-			Game.morph(obj.changesToOnExposure(Material.ICE), y, x, z,
-				Layer.GROUND.ordinal());
+			Game.morph(obj.changesToOnExposure(Material.ICE), y, x, z, Layer.GROUND.ordinal());
 		    }
 		}
 	    }
@@ -690,7 +694,8 @@ public final class DungeonData extends DungeonDataBase {
     }
 
     @Override
-    public GameObject getCell(final DungeonBase dungeonBase, final int row, final int col, final int floor, final int layer) {
+    public GameObject getCell(final DungeonBase dungeonBase, final int row, final int col, final int floor,
+	    final int layer) {
 	var fR = row;
 	var fC = col;
 	var fF = floor;
@@ -703,7 +708,7 @@ public final class DungeonData extends DungeonDataBase {
 	if (dungeonBase.isThirdDimensionWraparoundEnabled()) {
 	    fF = this.normalizeFloor(fF);
 	}
-	return this.data.getDungeonDataCell(fC, fR, fF, layer);
+	return this.data.getCell(fC, fR, fF, layer);
     }
 
     @Override
@@ -736,7 +741,7 @@ public final class DungeonData extends DungeonDataBase {
 	if (dungeonBase.isThirdDimensionWraparoundEnabled()) {
 	    fF = this.normalizeFloor(fF);
 	}
-	return this.virtualData.getDungeonDataCell(fC, fR, fF, layer);
+	return this.virtualData.getCell(fC, fR, fF, layer);
     }
 
     @Override
@@ -762,8 +767,8 @@ public final class DungeonData extends DungeonDataBase {
     }
 
     @Override
-    public boolean isSquareVisible(final DungeonBase dungeonBase, final int x1, final int y1, final int x2, final int y2,
-	    final int zp) {
+    public boolean isSquareVisible(final DungeonBase dungeonBase, final int x1, final int y1, final int x2,
+	    final int y2, final int zp) {
 	if (this.visionMode == VisionModes.NONE) {
 	    return true;
 	}
@@ -808,8 +813,8 @@ public final class DungeonData extends DungeonDataBase {
 	}
     }
 
-    private boolean isSquareVisibleLOS(final DungeonBase dungeonBase, final int x1, final int y1, final int x2, final int y2,
-	    final int zp) {
+    private boolean isSquareVisibleLOS(final DungeonBase dungeonBase, final int x1, final int y1, final int x2,
+	    final int y2, final int zp) {
 	int fx1, fx2, fy1, fy2;
 	fx1 = x1;
 	fx2 = x2;
@@ -860,7 +865,8 @@ public final class DungeonData extends DungeonDataBase {
     }
 
     @Override
-    public boolean linearScan(final DungeonBase dungeonBase, final int xIn, final int yIn, final int zIn, final Direction d) {
+    public boolean linearScan(final DungeonBase dungeonBase, final int xIn, final int yIn, final int zIn,
+	    final Direction d) {
 	// Perform the scan
 	var xFix = xIn;
 	var yFix = yIn;
@@ -1271,8 +1277,8 @@ public final class DungeonData extends DungeonDataBase {
     }
 
     @Override
-    public void setCell(final DungeonBase dungeonBase, final GameObject mo, final int row, final int col, final int floor,
-	    final int layer) {
+    public void setCell(final DungeonBase dungeonBase, final GameObject mo, final int row, final int col,
+	    final int floor, final int layer) {
 	var fR = row;
 	var fC = col;
 	var fF = floor;
@@ -1285,7 +1291,7 @@ public final class DungeonData extends DungeonDataBase {
 	if (dungeonBase.isThirdDimensionWraparoundEnabled()) {
 	    fF = this.normalizeFloor(fF);
 	}
-	this.data.setDungeonDataCell(mo, fC, fR, fF, layer);
+	this.data.setCell(mo, fC, fR, fF, layer);
 	this.dirtyData.setCell(true, fC, fR, fF);
     }
 
@@ -1313,7 +1319,7 @@ public final class DungeonData extends DungeonDataBase {
 	if (dungeonBase.isThirdDimensionWraparoundEnabled()) {
 	    fF = this.normalizeFloor(fF);
 	}
-	this.virtualData.setDungeonDataCell(mo, fC, fR, fF, layer);
+	this.virtualData.setCell(mo, fC, fR, fF, layer);
 	this.dirtyData.setCell(true, fC, fR, fF);
     }
 
@@ -1355,15 +1361,13 @@ public final class DungeonData extends DungeonDataBase {
 			if (mo != null && z == Direction.NORTH.ordinal()) {
 			    // Handle objects waiting for a tunnel to open
 			    final var saved = mo.getSavedObject();
-			    if (saved instanceof GameObject) {
-				final var color = saved.getColor();
-				if (mo.waitingOnTunnel() && !GameObject.tunnelsFull(color)) {
-				    mo.setWaitingOnTunnel(false);
-				    saved.pushIntoAction(mo, y, x, floorFix);
-				}
-				if (GameObject.tunnelsFull(color)) {
-				    mo.setWaitingOnTunnel(true);
-				}
+			    final var color = saved.getColor();
+			    if (mo.waitingOnTunnel() && !GameObject.tunnelsFull(color)) {
+				mo.setWaitingOnTunnel(false);
+				saved.pushIntoAction(mo, y, x, floorFix);
+			    }
+			    if (GameObject.tunnelsFull(color)) {
+				mo.setWaitingOnTunnel(true);
 			    }
 			    mo.tickTimer();
 			}
@@ -1392,8 +1396,8 @@ public final class DungeonData extends DungeonDataBase {
     }
 
     @Override
-    public void updateMonsterPosition(final DungeonBase dungeonBase, final Direction move, final int xLoc, final int yLoc,
-	    final GameObject monster, final int pi) {
+    public void updateMonsterPosition(final DungeonBase dungeonBase, final Direction move, final int xLoc,
+	    final int yLoc, final GameObject monster, final int pi) {
 	final var app = DungeonDiver7.getStuffBag();
 	final var dirMove = DirectionResolver.unresolve(move);
 	final var pLocX = dungeonBase.getPlayerLocationX(pi);
@@ -1416,15 +1420,14 @@ public final class DungeonData extends DungeonDataBase {
 		    }
 		} else {
 		    // Move the monster
-		    this.setCell(dungeonBase, monster.getSavedObject(), xLoc, yLoc, 0,
-			    Layer.STATUS.ordinal());
+		    this.setCell(dungeonBase, monster.getSavedObject(), xLoc, yLoc, 0, Layer.STATUS.ordinal());
 		    monster.setSavedObject(there);
-		    this.setCell(dungeonBase, monster, xLoc + dirMove[0], yLoc + dirMove[1], 0,
-			    Layer.STATUS.ordinal());
+		    this.setCell(dungeonBase, monster, xLoc + dirMove[0], yLoc + dirMove[1], 0, Layer.STATUS.ordinal());
 		    // Does the ground have friction?
 		    if (!ground.hasFriction()) {
 			// No - move the monster again
-			this.updateMonsterPosition(dungeonBase, move, xLoc + dirMove[0], yLoc + dirMove[1], monster, pi);
+			this.updateMonsterPosition(dungeonBase, move, xLoc + dirMove[0], yLoc + dirMove[1], monster,
+				pi);
 		    }
 		}
 	    }
@@ -1514,7 +1517,7 @@ public final class DungeonData extends DungeonDataBase {
 	    for (y = 0; y < this.getRows(); y++) {
 		for (z = 0; z < this.getFloors(); z++) {
 		    for (w = 0; w < Layer.values().length; w++) {
-			((GameObject) this.savedState.getCell(y, x, z, w)).write(writer);
+			this.savedState.getCell(y, x, z, w).write(writer);
 		    }
 		}
 	    }

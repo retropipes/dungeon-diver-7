@@ -339,8 +339,7 @@ final class MLOTask extends Thread {
 		}
 	    } while (!this.abort && (this.loopCheck || this.areObjectTrackersChecking()));
 	    // Check cheats
-	    if (objs[Layer.GROUND.ordinal()].killsOnMove()
-		    && !gm.getCheatStatus(Game.CHEAT_SWIMMING)) {
+	    if (objs[Layer.GROUND.ordinal()].killsOnMove() && !gm.getCheatStatus(Game.CHEAT_SWIMMING)) {
 		gm.gameOver();
 	    }
 	}

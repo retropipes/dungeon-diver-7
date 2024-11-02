@@ -16,7 +16,7 @@ class EditorStartEventHandler implements MouseListener {
 
     // handle scroll bars
     public EditorStartEventHandler(Editor theEditor) {
-	editor = theEditor;
+	this.editor = theEditor;
     }
 
     @Override
@@ -24,7 +24,7 @@ class EditorStartEventHandler implements MouseListener {
 	try {
 	    final var x = e.getX();
 	    final var y = e.getY();
-	    editor.setPlayerLocation(x, y);
+	    this.editor.setPlayerLocation(x, y);
 	} catch (final Exception ex) {
 	    DungeonDiver7.logError(ex);
 	}

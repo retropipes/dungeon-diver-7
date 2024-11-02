@@ -26,7 +26,7 @@ public class DungeonObjects {
 	    var obj = new GameObject(vals[x]);
 	    objList.add(obj);
 	}
-	allObjects = objList.toArray(new GameObject[objList.size()]);
+	this.allObjects = objList.toArray(new GameObject[objList.size()]);
     }
 
     public BufferedImageIcon[] getAllEditorAppearances() {

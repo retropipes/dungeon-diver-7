@@ -18,10 +18,9 @@ class CommonWindowAIParts {
 	final var chance = random.generate();
 	if (chance <= effChance) {
 	    return true;
-	} else {
-	    // Not acting
-	    return false;
 	}
+	// Not acting
+	return false;
     }
 
     static int getMaxCastIndex(final Creature c) {

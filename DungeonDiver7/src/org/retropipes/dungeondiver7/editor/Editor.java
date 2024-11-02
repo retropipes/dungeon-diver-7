@@ -550,8 +550,8 @@ public class Editor implements MenuSection {
 	final var gridY = y / ImageConstants.SIZE + EditorViewingWindowManager.getViewingWindowLocationY() + xOffset
 		- yOffset;
 	try {
-	    final var mo = app.getDungeonManager().getDungeonBase().getCell(gridX, gridY, this.elMgr.getEditorLocationZ(),
-		    this.elMgr.getEditorLocationW());
+	    final var mo = app.getDungeonManager().getDungeonBase().getCell(gridX, gridY,
+		    this.elMgr.getEditorLocationZ(), this.elMgr.getEditorLocationW());
 	    this.elMgr.setEditorLocationX(gridX);
 	    this.elMgr.setEditorLocationY(gridY);
 	    if (!mo.defersSetProperties()) {
@@ -870,8 +870,8 @@ public class Editor implements MenuSection {
 		    .getLowerRightViewingWindowLocationY(); y++) {
 		xFix = x - EditorViewingWindowManager.getViewingWindowLocationX();
 		yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
-		final var lgobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			Layer.GROUND.ordinal());
+		final var lgobj = app.getDungeonManager().getDungeonBase().getCell(y, x,
+			this.elMgr.getEditorLocationZ(), Layer.GROUND.ordinal());
 		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
 		final var img = lgimg;
 		drawGrid.setImageCell(img, xFix, yFix);
@@ -891,10 +891,10 @@ public class Editor implements MenuSection {
 		    .getLowerRightViewingWindowLocationY(); y++) {
 		xFix = x - EditorViewingWindowManager.getViewingWindowLocationX();
 		yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
-		final var lgobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			Layer.GROUND.ordinal());
-		final var ugobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			Layer.OBJECT.ordinal());
+		final var lgobj = app.getDungeonManager().getDungeonBase().getCell(y, x,
+			this.elMgr.getEditorLocationZ(), Layer.GROUND.ordinal());
+		final var ugobj = app.getDungeonManager().getDungeonBase().getCell(y, x,
+			this.elMgr.getEditorLocationZ(), Layer.OBJECT.ordinal());
 		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
 		final var ugimg = ObjectImageLoader.load(ugobj.getCacheName(), ugobj.getIdValue());
 		final var cacheName = Strings.compositeCacheName(lgobj.getCacheName(), ugobj.getCacheName());
@@ -916,12 +916,12 @@ public class Editor implements MenuSection {
 		    .getLowerRightViewingWindowLocationY(); y++) {
 		xFix = x - EditorViewingWindowManager.getViewingWindowLocationX();
 		yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
-		final var lgobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			Layer.GROUND.ordinal());
-		final var ugobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			Layer.OBJECT.ordinal());
-		final var loobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			Layer.STATUS.ordinal());
+		final var lgobj = app.getDungeonManager().getDungeonBase().getCell(y, x,
+			this.elMgr.getEditorLocationZ(), Layer.GROUND.ordinal());
+		final var ugobj = app.getDungeonManager().getDungeonBase().getCell(y, x,
+			this.elMgr.getEditorLocationZ(), Layer.OBJECT.ordinal());
+		final var loobj = app.getDungeonManager().getDungeonBase().getCell(y, x,
+			this.elMgr.getEditorLocationZ(), Layer.STATUS.ordinal());
 		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
 		final var ugimg = ObjectImageLoader.load(ugobj.getCacheName(), ugobj.getIdValue());
 		final var loimg = ObjectImageLoader.load(loobj.getCacheName(), loobj.getIdValue());
@@ -945,14 +945,14 @@ public class Editor implements MenuSection {
 		    .getLowerRightViewingWindowLocationY(); y++) {
 		xFix = x - EditorViewingWindowManager.getViewingWindowLocationX();
 		yFix = y - EditorViewingWindowManager.getViewingWindowLocationY();
-		final var lgobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			Layer.GROUND.ordinal());
-		final var ugobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			Layer.OBJECT.ordinal());
-		final var loobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			Layer.STATUS.ordinal());
-		final var uoobj = app.getDungeonManager().getDungeonBase().getCell(y, x, this.elMgr.getEditorLocationZ(),
-			Layer.MARKER.ordinal());
+		final var lgobj = app.getDungeonManager().getDungeonBase().getCell(y, x,
+			this.elMgr.getEditorLocationZ(), Layer.GROUND.ordinal());
+		final var ugobj = app.getDungeonManager().getDungeonBase().getCell(y, x,
+			this.elMgr.getEditorLocationZ(), Layer.OBJECT.ordinal());
+		final var loobj = app.getDungeonManager().getDungeonBase().getCell(y, x,
+			this.elMgr.getEditorLocationZ(), Layer.STATUS.ordinal());
+		final var uoobj = app.getDungeonManager().getDungeonBase().getCell(y, x,
+			this.elMgr.getEditorLocationZ(), Layer.MARKER.ordinal());
 		final var lvobj = app.getDungeonManager().getDungeonBase().getVirtualCell(y, x,
 			this.elMgr.getEditorLocationZ(), DungeonConstants.LAYER_VIRTUAL);
 		final var lgimg = ObjectImageLoader.load(lgobj.getCacheName(), lgobj.getIdValue());
@@ -1246,8 +1246,7 @@ public class Editor implements MenuSection {
 	if (this.newPicker11 != null) {
 	    this.newPicker11.updatePicker(newImages, enabled);
 	} else {
-	    this.newPicker11 = new StackedPicturePicker(newImages, enabled, Editor.STACK_COUNT,
-		    ImageConstants.SIZE);
+	    this.newPicker11 = new StackedPicturePicker(newImages, enabled, Editor.STACK_COUNT, ImageConstants.SIZE);
 	}
     }
 

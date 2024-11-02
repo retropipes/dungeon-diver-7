@@ -18,7 +18,7 @@ class MapTimeBattlePlayerTask extends TimerTask {
     private final MapTimeBattleLogic logic;
 
     public MapTimeBattlePlayerTask(MapTimeBattleLogic mapTimeBattleLogic) {
-	logic = mapTimeBattleLogic;
+	this.logic = mapTimeBattleLogic;
     }
 
     @Override
@@ -27,7 +27,7 @@ class MapTimeBattlePlayerTask extends TimerTask {
 	    final var app = DungeonDiver7.getStuffBag();
 	    final var b = app.getBattle();
 	    if (app.getMode() == StuffBag.STATUS_BATTLE && b instanceof MapTimeBattleLogic) {
-		final var gui = logic.battleGUI;
+		final var gui = this.logic.battleGUI;
 		if (!gui.isPlayerActionBarFull()) {
 		    gui.turnEventHandlersOff();
 		    gui.updatePlayerActionBarValue();

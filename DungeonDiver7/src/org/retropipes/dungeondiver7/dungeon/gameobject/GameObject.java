@@ -39,7 +39,8 @@ public final class GameObject implements RandomGenerationRule {
 	}
     }
 
-    protected static void checkTunnelsOfColor(final int tx, final int ty, final DungeonBase dungeonBase, final Colors color) {
+    protected static void checkTunnelsOfColor(final int tx, final int ty, final DungeonBase dungeonBase,
+	    final Colors color) {
 	final var pgrmdest = dungeonBase.circularScanTunnel(0, 0, 0, GameObject.SCAN_RADIUS, tx, ty,
 		GameObject.getTunnelOfColor(color), false);
 	if (pgrmdest != null) {
@@ -86,7 +87,7 @@ public final class GameObject implements RandomGenerationRule {
     private transient boolean isField;
     private transient boolean isPassThrough;
     private transient boolean isPlayer;
-    private transient int layer;
+    private transient int myLayer;
     private transient int blockHeight;
     private transient int damageDealt;
     private transient int initialTimerValue;
@@ -132,7 +133,7 @@ public final class GameObject implements RandomGenerationRule {
 	this.isField = source.isField;
 	this.isPassThrough = source.isPassThrough;
 	this.isPlayer = source.isPlayer;
-	this.layer = source.layer;
+	this.myLayer = source.myLayer;
 	this.blockHeight = source.blockHeight;
 	this.damageDealt = source.damageDealt;
 	this.initialTimerValue = source.initialTimerValue;
@@ -204,22 +205,29 @@ public final class GameObject implements RandomGenerationRule {
 	return this.isMoving() || this.isPlayer() || this.isPullable() || this.isPushable();
     }
 
+    @SuppressWarnings("static-method")
     public final boolean canMoveBoxes() {
 	return false;
     }
 
+    @SuppressWarnings("static-method")
     public final boolean canMoveMirrors() {
 	return false;
     }
 
+    @SuppressWarnings("static-method")
     public final boolean canMoveParty() {
 	return false;
     }
 
+    @SuppressWarnings("static-method")
     public final boolean canShoot() {
 	return false;
     }
 
+    /**
+     * @param materialID
+     */
     public GameObject changesToOnExposure(final Material materialID) {
 	return this;
     }
@@ -229,6 +237,11 @@ public final class GameObject implements RandomGenerationRule {
 	return this.deferSetProperties;
     }
 
+    /**
+     * @param x
+     * @param y
+     * @param z
+     */
     public final void editorPlaceHook(final int x, final int y, final int z) {
 	// Do nothing
     }
@@ -245,6 +258,11 @@ public final class GameObject implements RandomGenerationRule {
 	return null;
     }
 
+    /**
+     * @param x
+     * @param y
+     * @param z
+     */
     public final void editorRemoveHook(final int x, final int y, final int z) {
 	// Do nothing
     }
@@ -346,7 +364,7 @@ public final class GameObject implements RandomGenerationRule {
 
     public final int getLayer() {
 	this.lazyLoad();
-	return this.layer;
+	return this.myLayer;
     }
 
     private final String getLocalColorPrefix() {
@@ -442,6 +460,7 @@ public final class GameObject implements RandomGenerationRule {
 	return this.isField;
     }
 
+    @SuppressWarnings("static-method")
     public final boolean isFinalBoss() {
 	return false;
     }
@@ -526,7 +545,7 @@ public final class GameObject implements RandomGenerationRule {
 	    this.canMove = GameObjectDataLoader.isMoving(this.id);
 	    this.isField = GameObjectDataLoader.isField(this.id);
 	    this.isPlayer = GameObjectDataLoader.isPlayer(this.id);
-	    this.layer = GameObjectDataLoader.layer(this.id);
+	    this.myLayer = GameObjectDataLoader.layer(this.id);
 	    this.blockHeight = GameObjectDataLoader.height(this.id);
 	    this.damageDealt = GameObjectDataLoader.damage(this.id);
 	    this.initialTimerValue = GameObjectDataLoader.initialTimer(this.id);
@@ -547,28 +566,63 @@ public final class GameObject implements RandomGenerationRule {
 	this.image = imageOverride;
     }
 
+    /**
+     * @param x
+     * @param y
+     * @param z
+     */
     public final void moveFailedAction(final int x, final int y, final int z) {
 	// Do nothing
     }
 
+    /**
+     * @param x
+     * @param y
+     * @param z
+     */
     public final void postMoveAction(final int x, final int y, final int z) {
 	// Do nothing
     }
 
+    /**
+     * @param ie
+     * @param x
+     * @param y
+     */
+    @SuppressWarnings("static-method")
     public final boolean preMoveAction(final boolean ie, final int x, final int y) {
 	// Do nothing
 	return true;
     }
 
+    /**
+     * @param moving
+     * @param x
+     * @param y
+     * @param z
+     */
     public final void pushCollideAction(final GameObject moving, final int x, final int y, final int z) {
 	// Do nothing
     }
 
+    /**
+     * @param moving
+     * @param x
+     * @param y
+     * @param z
+     */
+    @SuppressWarnings("static-method")
     public final boolean pushIntoAction(final GameObject moving, final int x, final int y, final int z) {
 	// Do nothing
 	return false;
     }
 
+    /**
+     * @param moving
+     * @param x
+     * @param y
+     * @param z
+     */
     public final void pushOutAction(final GameObject moving, final int x, final int y, final int z) {
 	// Do nothing
     }

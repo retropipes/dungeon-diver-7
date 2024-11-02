@@ -28,10 +28,10 @@ class GameMovementEventHandler implements KeyListener, MouseListener {
     /**
      * 
      */
-    private final GameGUI gameGUI;
+    private final GameGUI gui;
 
     GameMovementEventHandler(GameGUI gameGUI) {
-	this.gameGUI = gameGUI;
+	this.gui = gameGUI;
 	// Do nothing
     }
 
@@ -256,14 +256,14 @@ class GameMovementEventHandler implements KeyListener, MouseListener {
 
     @Override
     public void keyPressed(final KeyEvent e) {
-	if (this.gameGUI.eventFlag && !Settings.oneMove()) {
+	if (this.gui.eventFlag && !Settings.oneMove()) {
 	    this.handleKeystrokes(e);
 	}
     }
 
     @Override
     public void keyReleased(final KeyEvent e) {
-	if (this.gameGUI.eventFlag && Settings.oneMove()) {
+	if (this.gui.eventFlag && Settings.oneMove()) {
 	    this.handleKeystrokes(e);
 	}
     }

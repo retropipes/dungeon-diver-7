@@ -155,8 +155,10 @@ public final class StuffBag {
 	    switch (bs) {
 	    case MAP:
 		this.battle = this.mabattle;
+		break;
 	    case WINDOW:
 		this.battle = this.wabattle;
+		break;
 	    default:
 		this.battle = this.mtbattle;
 		break;
@@ -166,8 +168,10 @@ public final class StuffBag {
 	    switch (bs) {
 	    case MAP:
 		this.battle = this.mtbattle;
+		break;
 	    case WINDOW:
 		this.battle = this.wtbattle;
+		break;
 	    default:
 		this.battle = this.mtbattle;
 		break;

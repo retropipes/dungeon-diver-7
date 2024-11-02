@@ -274,8 +274,7 @@ public abstract class DungeonBase {
 
     public abstract void setAuthor(String newAuthor);
 
-    public abstract void setCell(final GameObject mo, final int row, final int col, final int floor,
-	    final int layer);
+    public abstract void setCell(final GameObject mo, final int row, final int col, final int floor, final int layer);
 
     public abstract void setData(DungeonDataBase newData, int count);
 

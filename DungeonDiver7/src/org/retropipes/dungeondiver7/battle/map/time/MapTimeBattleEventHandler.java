@@ -24,7 +24,7 @@ class MapTimeBattleEventHandler extends AbstractAction implements KeyListener {
     private static final long serialVersionUID = 20239525230523524L;
 
     public MapTimeBattleEventHandler(MapTimeBattleGUI mapTimeBattleGUI) {
-	gui = mapTimeBattleGUI;
+	this.gui = mapTimeBattleGUI;
     }
 
     @Override
@@ -58,7 +58,7 @@ class MapTimeBattleEventHandler extends AbstractAction implements KeyListener {
 		return;
 	    }
 	    final var bl = DungeonDiver7.getStuffBag().getBattle();
-	    final var bg = gui;
+	    final var bg = this.gui;
 	    if (bg.eventHandlersOn) {
 		final var keyCode = e.getKeyCode();
 		switch (keyCode) {

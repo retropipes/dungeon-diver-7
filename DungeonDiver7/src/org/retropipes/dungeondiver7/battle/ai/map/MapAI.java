@@ -11,15 +11,8 @@ import java.util.Objects;
 import org.retropipes.dungeondiver7.battle.BattleAction;
 import org.retropipes.dungeondiver7.battle.ai.CreatureAI;
 import org.retropipes.dungeondiver7.creature.Creature;
-import org.retropipes.dungeondiver7.creature.spell.Spell;
 
 public abstract class MapAI extends CreatureAI {
-    // Fields
-    protected Spell spell;
-    protected int moveX;
-    protected int moveY;
-    protected boolean lastResult;
-
     // Constructor
     protected MapAI() {
 	this.spell = null;
@@ -48,6 +41,7 @@ public abstract class MapAI extends CreatureAI {
 	return Objects.hash(this.lastResult, this.moveX, this.moveY, this.spell);
     }
 
+    @Override
     public void newRoundHook() {
 	// Do nothing
     }

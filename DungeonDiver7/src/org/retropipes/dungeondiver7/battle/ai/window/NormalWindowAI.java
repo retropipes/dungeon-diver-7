@@ -76,17 +76,14 @@ public class NormalWindowAI extends WindowAI {
 		    this.spell = c.getSpellBook().getSpellByID(randomSpellID);
 		    this.roundsRemaining[randomSpellID] = this.spell.getEffect().getInitialRounds();
 		    return true;
-		} else {
-		    // Spell selected already active
-		    return false;
 		}
-	    } else {
-		// Not enough MP to cast anything
+		// Spell selected already active
 		return false;
 	    }
-	} else {
-	    // Not casting a spell
+	    // Not enough MP to cast anything
 	    return false;
 	}
+	// Not casting a spell
+	return false;
     }
 }

@@ -22,7 +22,7 @@ class EditorEventHandler implements MouseListener, MouseMotionListener, WindowLi
 
     // handle scroll bars
     public EditorEventHandler(Editor theEditor) {
-	editor = theEditor;
+	this.editor = theEditor;
     }
 
     @Override
@@ -31,11 +31,11 @@ class EditorEventHandler implements MouseListener, MouseMotionListener, WindowLi
 	    final var x = e.getX();
 	    final var y = e.getY();
 	    if (e.isAltDown() || e.isAltGraphDown() || e.isControlDown()) {
-		editor.editObjectProperties(x, y);
+		this.editor.editObjectProperties(x, y);
 	    } else if (e.isShiftDown()) {
-		editor.probeObjectProperties(x, y);
+		this.editor.probeObjectProperties(x, y);
 	    } else {
-		editor.editObject(x, y);
+		this.editor.editObject(x, y);
 	    }
 	} catch (final Exception ex) {
 	    DungeonDiver7.logError(ex);
@@ -47,7 +47,7 @@ class EditorEventHandler implements MouseListener, MouseMotionListener, WindowLi
 	try {
 	    final var x = e.getX();
 	    final var y = e.getY();
-	    editor.editObject(x, y);
+	    this.editor.editObject(x, y);
 	} catch (final Exception ex) {
 	    DungeonDiver7.logError(ex);
 	}
@@ -92,7 +92,7 @@ class EditorEventHandler implements MouseListener, MouseMotionListener, WindowLi
 
     @Override
     public void windowClosing(final WindowEvent we) {
-	editor.handleCloseWindow();
+	this.editor.handleCloseWindow();
 	DungeonDiver7.getStuffBag().getGUIManager().showGUI();
     }
 

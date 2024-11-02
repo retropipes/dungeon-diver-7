@@ -15,32 +15,32 @@ import org.retropipes.dungeondiver7.dungeon.manager.DungeonManager;
 
 class GameWindowEventHandler extends WindowAdapter {
     GameWindowEventHandler() {
-        // Do nothing
+	// Do nothing
     }
 
     @Override
     public void windowClosing(final WindowEvent we) {
-        try {
-    	final var app = DungeonDiver7.getStuffBag();
-    	var success = false;
-    	var status = 0;
-    	if (app.getDungeonManager().getDirty()) {
-    	    app.getDungeonManager();
-    	    status = DungeonManager.showSaveDialog();
-    	    if (status == CommonDialogs.YES_OPTION) {
-    		app.getDungeonManager();
-    		success = DungeonManager.saveGame();
-    		if (success) {
-    		    app.getGame().exitGame();
-    		}
-    	    } else if (status == CommonDialogs.NO_OPTION) {
-    		app.getGame().exitGame();
-    	    }
-    	} else {
-    	    app.getGame().exitGame();
-    	}
-        } catch (final Exception ex) {
-    	DungeonDiver7.logError(ex);
-        }
+	try {
+	    final var app = DungeonDiver7.getStuffBag();
+	    var success = false;
+	    var status = 0;
+	    if (app.getDungeonManager().getDirty()) {
+		app.getDungeonManager();
+		status = DungeonManager.showSaveDialog();
+		if (status == CommonDialogs.YES_OPTION) {
+		    app.getDungeonManager();
+		    success = DungeonManager.saveGame();
+		    if (success) {
+			app.getGame().exitGame();
+		    }
+		} else if (status == CommonDialogs.NO_OPTION) {
+		    app.getGame().exitGame();
+		}
+	    } else {
+		app.getGame().exitGame();
+	    }
+	} catch (final Exception ex) {
+	    DungeonDiver7.logError(ex);
+	}
     }
 }

@@ -17,21 +17,21 @@ class SettingsGUIActionHandler implements ActionListener {
     private final SettingsGUI pm;
 
     public SettingsGUIActionHandler(final SettingsGUI settingsGUI) {
-        this.pm = settingsGUI;
+	this.pm = settingsGUI;
     }
 
     // Handle buttons
     @Override
     public void actionPerformed(final ActionEvent e) {
-        try {
-    	final var cmd = e.getActionCommand();
-    	if (cmd.equals(Strings.dialog(DialogString.OK_BUTTON))) {
-    	    pm.setPrefs();
-    	} else if (cmd.equals(Strings.dialog(DialogString.CANCEL_BUTTON))) {
-    	    pm.hidePrefs();
-    	}
-        } catch (final Exception ex) {
-    	DungeonDiver7.logError(ex);
-        }
+	try {
+	    final var cmd = e.getActionCommand();
+	    if (cmd.equals(Strings.dialog(DialogString.OK_BUTTON))) {
+		this.pm.setPrefs();
+	    } else if (cmd.equals(Strings.dialog(DialogString.CANCEL_BUTTON))) {
+		this.pm.hidePrefs();
+	    }
+	} catch (final Exception ex) {
+	    DungeonDiver7.logError(ex);
+	}
     }
 }

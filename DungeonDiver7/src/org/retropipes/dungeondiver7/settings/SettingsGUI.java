@@ -115,8 +115,8 @@ class SettingsGUI {
 	this.moveOneAtATime = new JCheckBox(Strings.settings(SettingString.ONE_MOVE), true);
 	this.enableAnimation = new JCheckBox(Strings.settings(SettingString.ENABLE_ANIMATION), true);
 	this.actionDelay = new JComboBox<>(new String[] { Strings.settings(SettingString.SPEED_1),
-		Strings.settings(SettingString.SPEED_2), Strings.settings(SettingString.SPEED_3), Strings.settings(SettingString.SPEED_4),
-		Strings.settings(SettingString.SPEED_5) });
+		Strings.settings(SettingString.SPEED_2), Strings.settings(SettingString.SPEED_3),
+		Strings.settings(SettingString.SPEED_4), Strings.settings(SettingString.SPEED_5) });
 	this.languageList = new JComboBox<>(Strings.allLanguages());
 	this.editorLayoutList = new JComboBox<>(Strings.allEditorLayouts());
 	this.editorShowAllObjects = new JCheckBox(Strings.settings(SettingString.SHOW_ALL_OBJECTS), true);
