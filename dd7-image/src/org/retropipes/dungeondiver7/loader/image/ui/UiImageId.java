@@ -23,7 +23,9 @@ public enum UiImageId implements DianeImageIndex {
 
     @Override
     public URL getURL() {
-	return this.getClass().getResource(Strings.untranslated(Untranslated.UI_IMAGE_LOAD_PATH) + this.getName()
-		+ Strings.fileExtension(FileExtension.IMAGE));
+	var path = Strings.untranslated(Untranslated.UI_IMAGE_LOAD_PATH);
+	var name = this.getName();
+	var ext = Strings.fileExtension(FileExtension.IMAGE);
+	return this.getClass().getResource(path + name + ext);
     }
 }
