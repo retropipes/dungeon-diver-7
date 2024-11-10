@@ -101,9 +101,9 @@ class SettingsGUI {
 	this.ahandler = new SettingsGUIActionHandler(this);
 	this.whandler = new SettingsGUIWindowHandler(this);
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainPrefPane = this.mainWindow.createContent();
-	final var buttonPane = this.mainWindow.createContent();
-	final var settingsPane = this.mainWindow.createContent();
+	this.mainPrefPane = MainWindow.createContent();
+	final var buttonPane = MainWindow.createContent();
+	final var settingsPane = MainWindow.createContent();
 	final var prefsOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	prefsOK.setDefaultCapable(true);
 	this.mainWindow.setDefaultButton(prefsOK);

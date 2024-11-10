@@ -151,10 +151,10 @@ public class AboutDialog implements AboutHandler, MenuSection {
 	JLabel miniLabel;
 	handler = new EventHandler();
 	this.mainWindow = MainWindow.mainWindow();
-	this.aboutPane = this.mainWindow.createContent();
-	textPane = this.mainWindow.createContent();
-	buttonPane = this.mainWindow.createContent();
-	logoPane = this.mainWindow.createContent();
+	this.aboutPane = MainWindow.createContent();
+	textPane = MainWindow.createContent();
+	buttonPane = MainWindow.createContent();
+	logoPane = MainWindow.createContent();
 	aboutOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	miniLabel = new JLabel(Strings.EMPTY, LogoLoader.getMiniatureLogo(), SwingConstants.LEFT);
 	miniLabel.setLabelFor(null);

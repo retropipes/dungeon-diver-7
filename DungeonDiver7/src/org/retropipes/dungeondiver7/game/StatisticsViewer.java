@@ -33,11 +33,11 @@ public class StatisticsViewer {
     private static void setUpGUI() {
 	if (!StatisticsViewer.inited) {
 	    StatisticsViewer.mainWindow = MainWindow.mainWindow();
-	    StatisticsViewer.statisticsPane = mainWindow.createContent();
+	    StatisticsViewer.statisticsPane = MainWindow.createContent();
 	    StatisticsViewer.statisticsPane.setLayout(new BorderLayout());
-	    StatisticsViewer.contentPane = mainWindow.createContent();
+	    StatisticsViewer.contentPane = MainWindow.createContent();
 	    StatisticsViewer.contentPane.setLayout(new GridLayout(StatConstants.MAX_STATS, 1));
-	    StatisticsViewer.buttonPane = mainWindow.createContent();
+	    StatisticsViewer.buttonPane = MainWindow.createContent();
 	    StatisticsViewer.buttonPane.setLayout(new FlowLayout());
 	    StatisticsViewer.btnOK = new JButton("OK");
 	    StatisticsViewer.btnOK.addActionListener(e -> StatisticsViewer.mainWindow.restoreSaved());

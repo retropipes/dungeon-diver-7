@@ -130,8 +130,8 @@ public abstract class EditorBase {
     protected void setUpGUI() {
 	this.messageLabel = new JLabel(" ");
 	this.mainWindow = MainWindow.mainWindow();
-	this.outputPane = this.mainWindow.createContent();
-	this.borderPane = this.mainWindow.createContent();
+	this.outputPane = MainWindow.createContent();
+	this.borderPane = MainWindow.createContent();
 	this.borderPane.setLayout(new BorderLayout());
 	this.setUpGUIHook(this.outputPane);
 	this.scrollPane = MainContentFactory.mainScrollingContent(this.borderPane);

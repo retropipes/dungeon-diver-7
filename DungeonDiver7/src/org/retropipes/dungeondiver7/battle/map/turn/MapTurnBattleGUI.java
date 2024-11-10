@@ -142,8 +142,8 @@ class MapTurnBattleGUI {
     private void setUpGUI() {
 	this.handler = new MapTurnBattleEventHandler(this);
 	this.mainWindow = MainWindow.mainWindow();
-	this.borderPane = this.mainWindow.createContent();
-	final var buttonPane = this.mainWindow.createContent();
+	this.borderPane = MainWindow.createContent();
+	final var buttonPane = MainWindow.createContent();
 	this.borderPane.setLayout(new BorderLayout());
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);

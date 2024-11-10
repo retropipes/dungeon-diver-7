@@ -38,8 +38,7 @@ public class MapBattleStats {
     }
 
     private void setUpGUI() {
-	MainWindow mainWindow = MainWindow.mainWindow();
-	this.statsPane = mainWindow.createContent();
+	this.statsPane = MainWindow.createContent();
 	this.statsPane.setLayout(new GridLayout(9, 1));
 	this.nameLabel = new JLabel("", null, SwingConstants.LEFT);
 	this.hpLabel = new JLabel("", null, SwingConstants.LEFT);

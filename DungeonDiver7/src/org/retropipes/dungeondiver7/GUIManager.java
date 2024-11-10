@@ -174,7 +174,7 @@ public class GUIManager implements MenuSection, QuitHandler {
     public GUIManager() {
 	this.cHandler = new CloseHandler();
 	this.mainWindow = MainWindow.mainWindow();
-	this.guiPane = this.mainWindow.createContent();
+	this.guiPane = MainWindow.createContent();
 	this.guiPane.setLayout(new GridLayout(1, 1));
 	this.logoLabel = new JLabel(Strings.EMPTY, null, SwingConstants.CENTER);
 	this.logoLabel.setLabelFor(null);

@@ -111,7 +111,7 @@ public class Importer {
 
     private static void init() {
 	Importer.mainWindow = MainWindow.mainWindow();
-	Importer.guiPane = Importer.mainWindow.createContent();
+	Importer.guiPane = MainWindow.createContent();
 	Importer.mainWindow.addWindowListener(new CloseHandler());
 	Importer.guiPane.setLayout(new GridLayout(1, 1));
 	Importer.logoLabel = new JLabel(Strings.dialog(DialogString.IMPORT_INSTRUCTIONS), null, SwingConstants.CENTER);

@@ -1143,8 +1143,8 @@ public class Editor implements MenuSection {
 	this.messageLabel = new JLabel(Strings.SPACE);
 	this.mainWindow = MainWindow.mainWindow();
 	this.outputPane = new EditorDraw();
-	this.secondaryPane = this.mainWindow.createContent();
-	this.borderPane = this.mainWindow.createContent();
+	this.secondaryPane = MainWindow.createContent();
+	this.borderPane = MainWindow.createContent();
 	this.messageLabel.setLabelFor(this.outputPane);
 	this.outerOutputPane = RCLGenerator.generateRowColumnLabels();
 	this.outerOutputPane.add(this.outputPane, BorderLayout.CENTER);
@@ -1164,7 +1164,7 @@ public class Editor implements MenuSection {
 	this.outputPane.add(this.secondaryPane);
 	this.secondaryPane.addMouseListener(this.mhandler);
 	this.secondaryPane.addMouseMotionListener(this.mhandler);
-	this.switcherPane = this.mainWindow.createContent();
+	this.switcherPane = MainWindow.createContent();
 	final var switcherHandler = new EditorSwitcherHandler(this);
 	final var switcherGroup = new ButtonGroup();
 	this.lowerGround = new JToggleButton(Strings.layer(Layer.GROUND));

@@ -126,9 +126,9 @@ public class FinalBossMonster extends Monster {
     }
 
     @Override
-    public int getSpeed(GameDifficulty difficulty) {
+    public int getSpeed(GameDifficulty diff) {
 	final var base = this.getBaseSpeed();
-	switch (difficulty) {
+	switch (diff) {
 	case GameDifficulty.VERY_EASY:
 	    return (int) (base * Creature.SPEED_ADJUST_SLOWEST);
 	case GameDifficulty.EASY:

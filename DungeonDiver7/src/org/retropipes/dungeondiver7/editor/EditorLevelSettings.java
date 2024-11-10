@@ -157,9 +157,9 @@ class EditorLevelSettings {
 	JButton prefsOK, prefsCancel;
 	this.handler = new EventHandler();
 	this.mainWindow = MainWindow.mainWindow();
-	this.mainPrefPane = this.mainWindow.createContent();
-	contentPane = this.mainWindow.createContent();
-	buttonPane = this.mainWindow.createContent();
+	this.mainPrefPane = MainWindow.createContent();
+	contentPane = MainWindow.createContent();
+	buttonPane = MainWindow.createContent();
 	prefsOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	prefsOK.setDefaultCapable(true);
 	this.mainWindow.setDefaultButton(prefsOK);

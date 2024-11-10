@@ -30,7 +30,7 @@ public class GenerateDungeonTask extends Thread {
 	this.mainWindow = MainWindow.mainWindow();
 	final var loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
-	this.loadContent = this.mainWindow.createContent();
+	this.loadContent = MainWindow.createContent();
 	this.loadContent.add(loadBar);
     }
 

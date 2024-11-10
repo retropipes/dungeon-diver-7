@@ -314,7 +314,7 @@ public final class StuffBag {
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
 	loadBar.setPreferredSize(new Dimension(600, 20));
-	final var loadContent = mainWindow.createContent();
+	final var loadContent = MainWindow.createContent();
 	loadContent.add(loadBar);
 	mainWindow.setAndSave(loadContent, Strings.dialog(DialogString.UPDATING_LEVEL_INFO));
 	this.getDungeonManager().getDungeonBase().generateLevelInfoList();

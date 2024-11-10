@@ -27,8 +27,7 @@ public class MapBattleEffects {
 
     public MainContent getEffectsPane() {
 	if (this.effectsPane == null) {
-	    MainWindow mainWindow = MainWindow.mainWindow();
-	    this.effectsPane = mainWindow.createContent();
+	    this.effectsPane = MainWindow.createContent();
 	}
 	return this.effectsPane;
     }

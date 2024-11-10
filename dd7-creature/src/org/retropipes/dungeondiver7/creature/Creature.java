@@ -462,7 +462,7 @@ public abstract class Creature {
 	return this.perfectBonusGold;
     }
 
-    public abstract int getSpeed(GameDifficulty difficulty);
+    public abstract int getSpeed(GameDifficulty diff);
 
     public final SpellBook getSpellBook() {
 	return this.spellsKnown;

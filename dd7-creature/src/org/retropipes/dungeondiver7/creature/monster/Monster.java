@@ -87,9 +87,9 @@ public abstract class Monster extends Creature {
     }
 
     @Override
-    public int getSpeed(GameDifficulty difficulty) {
+    public int getSpeed(GameDifficulty diff) {
 	final var base = this.getBaseSpeed();
-	return switch (difficulty) {
+	return switch (diff) {
 	case GameDifficulty.VERY_EASY -> (int) (base * Creature.SPEED_ADJUST_SLOWEST);
 	case GameDifficulty.EASY -> (int) (base * Creature.SPEED_ADJUST_SLOW);
 	case GameDifficulty.NORMAL -> (int) (base * Creature.SPEED_ADJUST_NORMAL);

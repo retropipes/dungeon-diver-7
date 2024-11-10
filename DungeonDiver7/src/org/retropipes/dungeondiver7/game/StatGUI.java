@@ -38,8 +38,7 @@ class StatGUI {
     }
 
     private void setUpGUI() {
-	MainWindow mainWindow = MainWindow.mainWindow();
-	this.statsPane = mainWindow.createContent();
+	this.statsPane = MainWindow.createContent();
 	this.statsPane.setLayout(new GridLayout(7, 1));
 	this.hpLabel = new JLabel("", null, SwingConstants.LEFT);
 	this.mpLabel = new JLabel("", null, SwingConstants.LEFT);

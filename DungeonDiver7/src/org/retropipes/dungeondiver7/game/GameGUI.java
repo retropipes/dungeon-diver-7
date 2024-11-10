@@ -305,9 +305,9 @@ class GameGUI {
     private void setUpDifficultyDialog() {
 	// Set up Difficulty Dialog
 	this.dhandler = new GameDifficultyEventHandler(this);
-	this.difficultyPane = this.mainWindow.createContent();
-	final var listPane = this.mainWindow.createContent();
-	final var buttonPane = this.mainWindow.createContent();
+	this.difficultyPane = MainWindow.createContent();
+	final var listPane = MainWindow.createContent();
+	final var buttonPane = MainWindow.createContent();
 	this.difficultyList = new JList<>(Strings.allDifficulties());
 	this.difficultyOK = new JButton(Strings.dialog(DialogString.OK_BUTTON));
 	final var cancelButton = new JButton(Strings.dialog(DialogString.CANCEL_BUTTON));
@@ -341,14 +341,14 @@ class GameGUI {
 	this.handler = new GameMovementEventHandler(this);
 	this.whandler = new GameWindowEventHandler();
 	this.mainWindow = MainWindow.mainWindow();
-	this.borderPane = this.mainWindow.createContent();
+	this.borderPane = MainWindow.createContent();
 	this.borderPane.setLayout(new BorderLayout());
 	this.messageLabel = new JLabel(" ");
 	this.messageLabel.setOpaque(true);
 	this.drawGrid = new DrawGrid(Settings.getViewingWindowSize());
 	this.outputPane = new GameDraw(this.drawGrid);
 	// Pasted code
-	this.borderPane = this.mainWindow.createContent();
+	this.borderPane = MainWindow.createContent();
 	this.borderPane.setLayout(new BorderLayout());
 	this.mainWindow = MainWindow.mainWindow();
 	this.outerOutputPane = RCLGenerator.generateRowColumnLabels();
@@ -361,7 +361,7 @@ class GameGUI {
 	this.otherAmmoLeft = new JLabel(LocaleUtils.subst(Strings.game(GameString.MISSILES), Integer.toString(0)));
 	this.otherToolsLeft = new JLabel(LocaleUtils.subst(Strings.game(GameString.BOOSTS), Integer.toString(0)));
 	this.otherRangesLeft = new JLabel(LocaleUtils.subst(Strings.game(GameString.BOMBS), Integer.toString(0)));
-	this.scorePane = this.mainWindow.createContent();
+	this.scorePane = MainWindow.createContent();
 	this.scorePane.setLayout(new FlowLayout());
 	this.scorePane.add(this.scoreMoves);
 	this.scorePane.add(this.scoreShots);
@@ -370,7 +370,7 @@ class GameGUI {
 	this.scorePane.add(this.otherToolsLeft);
 	this.scorePane.add(this.otherRangesLeft);
 	this.levelInfo = new JLabel(Strings.SPACE);
-	this.infoPane = this.mainWindow.createContent();
+	this.infoPane = MainWindow.createContent();
 	this.infoPane.setLayout(new FlowLayout());
 	this.infoPane.add(this.levelInfo);
 	this.scoreMoves.setLabelFor(this.outputPane);

@@ -45,7 +45,7 @@ public class DungeonLoadTask extends Thread {
 	this.mainWindow = MainWindow.mainWindow();
 	loadBar = new JProgressBar();
 	loadBar.setIndeterminate(true);
-	this.loadContent = this.mainWindow.createContent();
+	this.loadContent = MainWindow.createContent();
 	this.loadContent.add(loadBar);
     }
 
